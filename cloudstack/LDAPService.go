@@ -47,7 +47,7 @@ func (p *LdapCreateAccountParams) toURLValues() url.Values {
 		u.Set("accountid", v.(string))
 	}
 	if v, found := p.p["accounttype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("accounttype", vv)
 	}
 	if v, found := p.p["domainid"]; found {

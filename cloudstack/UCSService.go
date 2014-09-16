@@ -139,11 +139,11 @@ func (p *ListUcsManagersParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["zoneid"]; found {
@@ -256,11 +256,11 @@ func (p *ListUcsProfilesParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["ucsmanagerid"]; found {
@@ -346,11 +346,11 @@ func (p *ListUcsBladesParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["ucsmanagerid"]; found {

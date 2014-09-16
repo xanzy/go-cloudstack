@@ -39,21 +39,21 @@ func (p *AddS3Params) toURLValues() url.Values {
 		u.Set("bucket", v.(string))
 	}
 	if v, found := p.p["connectiontimeout"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("connectiontimeout", vv)
 	}
 	if v, found := p.p["endpoint"]; found {
 		u.Set("endpoint", v.(string))
 	}
 	if v, found := p.p["maxerrorretry"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("maxerrorretry", vv)
 	}
 	if v, found := p.p["secretkey"]; found {
 		u.Set("secretkey", v.(string))
 	}
 	if v, found := p.p["sockettimeout"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("sockettimeout", vv)
 	}
 	if v, found := p.p["usehttps"]; found {
@@ -177,11 +177,11 @@ func (p *ListS3sParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u

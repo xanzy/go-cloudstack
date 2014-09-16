@@ -124,18 +124,18 @@ func (p *ListSwiftsParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["id"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("id", vv)
 	}
 	if v, found := p.p["keyword"]; found {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u

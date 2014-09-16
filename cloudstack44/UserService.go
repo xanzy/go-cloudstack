@@ -400,7 +400,7 @@ func (p *ListUsersParams) toURLValues() url.Values {
 		u.Set("account", v.(string))
 	}
 	if v, found := p.p["accounttype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("accounttype", vv)
 	}
 	if v, found := p.p["domainid"]; found {
@@ -421,11 +421,11 @@ func (p *ListUsersParams) toURLValues() url.Values {
 		u.Set("listall", vv)
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["state"]; found {
@@ -940,11 +940,11 @@ func (p *ListLdapUsersParams) toURLValues() url.Values {
 		u.Set("listtype", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u
@@ -1036,7 +1036,7 @@ func (p *ImportLdapUsersParams) toURLValues() url.Values {
 		}
 	}
 	if v, found := p.p["accounttype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("accounttype", vv)
 	}
 	if v, found := p.p["domainid"]; found {
@@ -1049,11 +1049,11 @@ func (p *ImportLdapUsersParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["timezone"]; found {

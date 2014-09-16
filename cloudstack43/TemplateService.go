@@ -34,7 +34,7 @@ func (p *CreateTemplateParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["bits"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("bits", vv)
 	}
 	if v, found := p.p["details"]; found {
@@ -320,7 +320,7 @@ func (p *RegisterTemplateParams) toURLValues() url.Values {
 		u.Set("account", v.(string))
 	}
 	if v, found := p.p["bits"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("bits", vv)
 	}
 	if v, found := p.p["checksum"]; found {
@@ -695,7 +695,7 @@ func (p *UpdateTemplateParams) toURLValues() url.Values {
 		u.Set("passwordenabled", vv)
 	}
 	if v, found := p.p["sortkey"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("sortkey", vv)
 	}
 	return u
@@ -1111,11 +1111,11 @@ func (p *ListTemplatesParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -1882,11 +1882,11 @@ func (p *ListUcsTemplatesParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["ucsmanagerid"]; found {

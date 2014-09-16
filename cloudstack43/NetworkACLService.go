@@ -44,29 +44,29 @@ func (p *CreateNetworkACLParams) toURLValues() url.Values {
 		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["endport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("endport", vv)
 	}
 	if v, found := p.p["icmpcode"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmpcode", vv)
 	}
 	if v, found := p.p["icmptype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmptype", vv)
 	}
 	if v, found := p.p["networkid"]; found {
 		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["number"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("number", vv)
 	}
 	if v, found := p.p["protocol"]; found {
 		u.Set("protocol", v.(string))
 	}
 	if v, found := p.p["startport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("startport", vv)
 	}
 	if v, found := p.p["traffictype"]; found {
@@ -250,29 +250,29 @@ func (p *UpdateNetworkACLItemParams) toURLValues() url.Values {
 		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["endport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("endport", vv)
 	}
 	if v, found := p.p["icmpcode"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmpcode", vv)
 	}
 	if v, found := p.p["icmptype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmptype", vv)
 	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["number"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("number", vv)
 	}
 	if v, found := p.p["protocol"]; found {
 		u.Set("protocol", v.(string))
 	}
 	if v, found := p.p["startport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("startport", vv)
 	}
 	if v, found := p.p["traffictype"]; found {
@@ -541,11 +541,11 @@ func (p *ListNetworkACLsParams) toURLValues() url.Values {
 		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -1055,11 +1055,11 @@ func (p *ListNetworkACLListsParams) toURLValues() url.Values {
 		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {

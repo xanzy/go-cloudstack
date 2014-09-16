@@ -33,11 +33,11 @@ func (p *CreateDiskOfferingParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["bytesreadrate"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("bytesreadrate", vv)
 	}
 	if v, found := p.p["byteswriterate"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("byteswriterate", vv)
 	}
 	if v, found := p.p["customized"]; found {
@@ -49,7 +49,7 @@ func (p *CreateDiskOfferingParams) toURLValues() url.Values {
 		u.Set("customizediops", vv)
 	}
 	if v, found := p.p["disksize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("disksize", vv)
 	}
 	if v, found := p.p["displayoffering"]; found {
@@ -63,23 +63,23 @@ func (p *CreateDiskOfferingParams) toURLValues() url.Values {
 		u.Set("domainid", v.(string))
 	}
 	if v, found := p.p["hypervisorsnapshotreserve"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("hypervisorsnapshotreserve", vv)
 	}
 	if v, found := p.p["iopsreadrate"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("iopsreadrate", vv)
 	}
 	if v, found := p.p["iopswriterate"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("iopswriterate", vv)
 	}
 	if v, found := p.p["maxiops"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("maxiops", vv)
 	}
 	if v, found := p.p["miniops"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("miniops", vv)
 	}
 	if v, found := p.p["name"]; found {
@@ -290,7 +290,7 @@ func (p *UpdateDiskOfferingParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["sortkey"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("sortkey", vv)
 	}
 	return u
@@ -453,11 +453,11 @@ func (p *ListDiskOfferingsParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u

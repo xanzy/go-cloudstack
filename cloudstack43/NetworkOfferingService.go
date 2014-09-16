@@ -67,14 +67,14 @@ func (p *CreateNetworkOfferingParams) toURLValues() url.Values {
 		u.Set("keepaliveenabled", vv)
 	}
 	if v, found := p.p["maxconnections"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("maxconnections", vv)
 	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["networkrate"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("networkrate", vv)
 	}
 	if v, found := p.p["servicecapabilitylist"]; found {
@@ -359,14 +359,14 @@ func (p *UpdateNetworkOfferingParams) toURLValues() url.Values {
 		u.Set("keepaliveenabled", vv)
 	}
 	if v, found := p.p["maxconnections"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("maxconnections", vv)
 	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["sortkey"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("sortkey", vv)
 	}
 	if v, found := p.p["state"]; found {
@@ -595,11 +595,11 @@ func (p *ListNetworkOfferingsParams) toURLValues() url.Values {
 		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["sourcenatsupported"]; found {

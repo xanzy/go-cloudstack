@@ -60,11 +60,11 @@ func (p *ListPortForwardingRulesParams) toURLValues() url.Values {
 		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -275,22 +275,22 @@ func (p *CreatePortForwardingRuleParams) toURLValues() url.Values {
 		u.Set("openfirewall", vv)
 	}
 	if v, found := p.p["privateendport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("privateendport", vv)
 	}
 	if v, found := p.p["privateport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("privateport", vv)
 	}
 	if v, found := p.p["protocol"]; found {
 		u.Set("protocol", v.(string))
 	}
 	if v, found := p.p["publicendport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("publicendport", vv)
 	}
 	if v, found := p.p["publicport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("publicport", vv)
 	}
 	if v, found := p.p["virtualmachineid"]; found {
@@ -706,15 +706,15 @@ func (p *CreateFirewallRuleParams) toURLValues() url.Values {
 		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["endport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("endport", vv)
 	}
 	if v, found := p.p["icmpcode"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmpcode", vv)
 	}
 	if v, found := p.p["icmptype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmptype", vv)
 	}
 	if v, found := p.p["ipaddressid"]; found {
@@ -724,7 +724,7 @@ func (p *CreateFirewallRuleParams) toURLValues() url.Values {
 		u.Set("protocol", v.(string))
 	}
 	if v, found := p.p["startport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("startport", vv)
 	}
 	if v, found := p.p["type"]; found {
@@ -974,11 +974,11 @@ func (p *ListFirewallRulesParams) toURLValues() url.Values {
 		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -1175,15 +1175,15 @@ func (p *CreateEgressFirewallRuleParams) toURLValues() url.Values {
 		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["endport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("endport", vv)
 	}
 	if v, found := p.p["icmpcode"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmpcode", vv)
 	}
 	if v, found := p.p["icmptype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmptype", vv)
 	}
 	if v, found := p.p["networkid"]; found {
@@ -1193,7 +1193,7 @@ func (p *CreateEgressFirewallRuleParams) toURLValues() url.Values {
 		u.Set("protocol", v.(string))
 	}
 	if v, found := p.p["startport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("startport", vv)
 	}
 	if v, found := p.p["type"]; found {
@@ -1449,11 +1449,11 @@ func (p *ListEgressFirewallRulesParams) toURLValues() url.Values {
 		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -1850,7 +1850,7 @@ func (p *ConfigureSrxFirewallParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["fwdevicecapacity"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("fwdevicecapacity", vv)
 	}
 	if v, found := p.p["fwdeviceid"]; found {
@@ -1953,11 +1953,11 @@ func (p *ListSrxFirewallsParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["physicalnetworkid"]; found {
@@ -2266,7 +2266,7 @@ func (p *ConfigurePaloAltoFirewallParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["fwdevicecapacity"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("fwdevicecapacity", vv)
 	}
 	if v, found := p.p["fwdeviceid"]; found {
@@ -2369,11 +2369,11 @@ func (p *ListPaloAltoFirewallsParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["physicalnetworkid"]; found {

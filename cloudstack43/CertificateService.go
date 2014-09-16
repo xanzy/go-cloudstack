@@ -38,7 +38,7 @@ func (p *UploadCustomCertificateParams) toURLValues() url.Values {
 		u.Set("domainsuffix", v.(string))
 	}
 	if v, found := p.p["id"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("id", vv)
 	}
 	if v, found := p.p["name"]; found {

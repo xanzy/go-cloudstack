@@ -42,7 +42,7 @@ func (p *CreatePortableIpRangeParams) toURLValues() url.Values {
 		u.Set("netmask", v.(string))
 	}
 	if v, found := p.p["regionid"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("regionid", vv)
 	}
 	if v, found := p.p["startip"]; found {
@@ -258,15 +258,15 @@ func (p *ListPortableIpRangesParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["regionid"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("regionid", vv)
 	}
 	return u

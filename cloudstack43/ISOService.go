@@ -493,11 +493,11 @@ func (p *ListIsosParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -1058,7 +1058,7 @@ func (p *UpdateIsoParams) toURLValues() url.Values {
 		u.Set("passwordenabled", vv)
 	}
 	if v, found := p.p["sortkey"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("sortkey", vv)
 	}
 	return u

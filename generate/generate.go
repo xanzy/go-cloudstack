@@ -507,7 +507,7 @@ func (s *service) generateConvertCode(name, typ string) {
 	case "string":
 		pn("u.Set(\"%s\", v.(string))", n)
 	case "int":
-		pn("vv := strconv.FormatInt(v.(int64), 10)")
+		pn("vv := strconv.Itoa(v.(int))")
 		pn("u.Set(\"%s\", vv)", n)
 	case "bool":
 		pn("vv := strconv.FormatBool(v.(bool))")
@@ -600,7 +600,7 @@ func (s *service) generateGetIDFunc(a *API) {
 
 			// Generate the function signature
 			pn("// This is a courtesy helper function, which in some cases may not work as expected!")
-			p("func (s *%s) Get%sID(%s string, ", s.name, strings.TrimSuffix(ln, "s"), v)
+			p("func (s *%s) Get%sID(%s string, ", s.name, parseSingular(ln), v)
 			for _, ap := range a.Params {
 				if ap.Required {
 					p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
@@ -709,10 +709,10 @@ func (s *service) generateResponseType(a *API) {
 	if strings.HasPrefix(a.Name, "list") {
 		pn("type %s struct {", tn)
 		pn("	Count int `json:\"count\"`")
-		pn("	%s []*%s `json:\"%s\"`", ln, strings.TrimSuffix(ln, "s"), strings.ToLower(strings.TrimSuffix(ln, "s")))
+		pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), strings.ToLower(parseSingular(ln)))
 		pn("}")
 		pn("")
-		tn = strings.TrimSuffix(ln, "s")
+		tn = parseSingular(ln)
 	}
 
 	pn("type %s struct {", tn)
@@ -723,6 +723,13 @@ func (s *service) generateResponseType(a *API) {
 	pn("}")
 	pn("")
 	return
+}
+
+func parseSingular(n string) string {
+	if strings.HasSuffix(n, "ies") {
+		return strings.TrimSuffix(n, "ies") + "y"
+	}
+	return strings.TrimSuffix(n, "s")
 }
 
 func (s *service) recusiveGenerateResponseType(resp []*APIResponse) (output string) {

@@ -35,7 +35,7 @@ func (p *AddRegionParams) toURLValues() url.Values {
 		u.Set("endpoint", v.(string))
 	}
 	if v, found := p.p["id"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("id", vv)
 	}
 	if v, found := p.p["name"]; found {
@@ -114,7 +114,7 @@ func (p *UpdateRegionParams) toURLValues() url.Values {
 		u.Set("endpoint", v.(string))
 	}
 	if v, found := p.p["id"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("id", vv)
 	}
 	if v, found := p.p["name"]; found {
@@ -188,7 +188,7 @@ func (p *RemoveRegionParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["id"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("id", vv)
 	}
 	return u
@@ -240,7 +240,7 @@ func (p *ListRegionsParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["id"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("id", vv)
 	}
 	if v, found := p.p["keyword"]; found {
@@ -250,11 +250,11 @@ func (p *ListRegionsParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u

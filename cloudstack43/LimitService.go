@@ -38,14 +38,14 @@ func (p *UpdateResourceLimitParams) toURLValues() url.Values {
 		u.Set("domainid", v.(string))
 	}
 	if v, found := p.p["max"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("max", vv)
 	}
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
 	}
 	if v, found := p.p["resourcetype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("resourcetype", vv)
 	}
 	return u
@@ -143,7 +143,7 @@ func (p *UpdateResourceCountParams) toURLValues() url.Values {
 		u.Set("projectid", v.(string))
 	}
 	if v, found := p.p["resourcetype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("resourcetype", vv)
 	}
 	return u
@@ -230,7 +230,7 @@ func (p *ListResourceLimitsParams) toURLValues() url.Values {
 		u.Set("domainid", v.(string))
 	}
 	if v, found := p.p["id"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("id", vv)
 	}
 	if v, found := p.p["isrecursive"]; found {
@@ -245,18 +245,18 @@ func (p *ListResourceLimitsParams) toURLValues() url.Values {
 		u.Set("listall", vv)
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
 	}
 	if v, found := p.p["resourcetype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("resourcetype", vv)
 	}
 	return u

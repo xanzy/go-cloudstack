@@ -47,7 +47,7 @@ func (p *CreateAccountParams) toURLValues() url.Values {
 		u.Set("accountid", v.(string))
 	}
 	if v, found := p.p["accounttype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("accounttype", vv)
 	}
 	if v, found := p.p["domainid"]; found {
@@ -989,7 +989,7 @@ func (p *ListAccountsParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["accounttype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("accounttype", vv)
 	}
 	if v, found := p.p["domainid"]; found {
@@ -1017,11 +1017,11 @@ func (p *ListAccountsParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["state"]; found {
@@ -1590,11 +1590,11 @@ func (p *ListProjectAccountsParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {

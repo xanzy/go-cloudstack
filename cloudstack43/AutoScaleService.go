@@ -144,7 +144,7 @@ func (p *CreateConditionParams) toURLValues() url.Values {
 		u.Set("relationaloperator", v.(string))
 	}
 	if v, found := p.p["threshold"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("threshold", vv)
 	}
 	return u
@@ -265,11 +265,11 @@ func (p *CreateAutoScalePolicyParams) toURLValues() url.Values {
 		u.Set("conditionids", vv)
 	}
 	if v, found := p.p["duration"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("duration", vv)
 	}
 	if v, found := p.p["quiettime"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("quiettime", vv)
 	}
 	return u
@@ -386,7 +386,7 @@ func (p *CreateAutoScaleVmProfileParams) toURLValues() url.Values {
 		}
 	}
 	if v, found := p.p["destroyvmgraceperiod"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("destroyvmgraceperiod", vv)
 	}
 	if v, found := p.p["otherdeployparams"]; found {
@@ -530,18 +530,18 @@ func (p *CreateAutoScaleVmGroupParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["interval"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("interval", vv)
 	}
 	if v, found := p.p["lbruleid"]; found {
 		u.Set("lbruleid", v.(string))
 	}
 	if v, found := p.p["maxmembers"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("maxmembers", vv)
 	}
 	if v, found := p.p["minmembers"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("minmembers", vv)
 	}
 	if v, found := p.p["scaledownpolicyids"]; found {
@@ -1053,11 +1053,11 @@ func (p *ListCountersParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["source"]; found {
@@ -1199,11 +1199,11 @@ func (p *ListConditionsParams) toURLValues() url.Values {
 		u.Set("listall", vv)
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["policyid"]; found {
@@ -1385,11 +1385,11 @@ func (p *ListAutoScalePoliciesParams) toURLValues() url.Values {
 		u.Set("listall", vv)
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["vmgroupid"]; found {
@@ -1495,7 +1495,7 @@ func (s *AutoScaleService) NewListAutoScalePoliciesParams() *ListAutoScalePolici
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *AutoScaleService) GetAutoScalePolicieID(keyword string) (string, error) {
+func (s *AutoScaleService) GetAutoScalePolicyID(keyword string) (string, error) {
 	p := &ListAutoScalePoliciesParams{}
 	p.p = make(map[string]interface{})
 
@@ -1526,11 +1526,11 @@ func (s *AutoScaleService) ListAutoScalePolicies(p *ListAutoScalePoliciesParams)
 }
 
 type ListAutoScalePoliciesResponse struct {
-	Count             int                 `json:"count"`
-	AutoScalePolicies []*AutoScalePolicie `json:"autoscalepolicie"`
+	Count             int                `json:"count"`
+	AutoScalePolicies []*AutoScalePolicy `json:"autoscalepolicy"`
 }
 
-type AutoScalePolicie struct {
+type AutoScalePolicy struct {
 	Conditions []string `json:"conditions,omitempty"`
 	Duration   int      `json:"duration,omitempty"`
 	Project    string   `json:"project,omitempty"`
@@ -1576,11 +1576,11 @@ func (p *ListAutoScaleVmProfilesParams) toURLValues() url.Values {
 		u.Set("otherdeployparams", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -1772,11 +1772,11 @@ func (p *ListAutoScaleVmGroupsParams) toURLValues() url.Values {
 		u.Set("listall", vv)
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["policyid"]; found {
@@ -2139,14 +2139,14 @@ func (p *UpdateAutoScalePolicyParams) toURLValues() url.Values {
 		u.Set("conditionids", vv)
 	}
 	if v, found := p.p["duration"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("duration", vv)
 	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["quiettime"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("quiettime", vv)
 	}
 	return u
@@ -2261,7 +2261,7 @@ func (p *UpdateAutoScaleVmProfileParams) toURLValues() url.Values {
 		}
 	}
 	if v, found := p.p["destroyvmgraceperiod"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("destroyvmgraceperiod", vv)
 	}
 	if v, found := p.p["id"]; found {
@@ -2384,15 +2384,15 @@ func (p *UpdateAutoScaleVmGroupParams) toURLValues() url.Values {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["interval"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("interval", vv)
 	}
 	if v, found := p.p["maxmembers"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("maxmembers", vv)
 	}
 	if v, found := p.p["minmembers"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("minmembers", vv)
 	}
 	if v, found := p.p["scaledownpolicyids"]; found {
