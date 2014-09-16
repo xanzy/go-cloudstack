@@ -202,11 +202,11 @@ func (p *ListSnapshotsParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -511,7 +511,7 @@ func (p *CreateSnapshotPolicyParams) toURLValues() url.Values {
 		u.Set("intervaltype", v.(string))
 	}
 	if v, found := p.p["maxsnaps"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("maxsnaps", vv)
 	}
 	if v, found := p.p["schedule"]; found {
@@ -677,11 +677,11 @@ func (p *ListSnapshotPoliciesParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["volumeid"]; found {
@@ -732,7 +732,7 @@ func (s *SnapshotService) NewListSnapshotPoliciesParams(volumeid string) *ListSn
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *SnapshotService) GetSnapshotPolicieID(keyword string, volumeid string) (string, error) {
+func (s *SnapshotService) GetSnapshotPolicyID(keyword string, volumeid string) (string, error) {
 	p := &ListSnapshotPoliciesParams{}
 	p.p = make(map[string]interface{})
 
@@ -764,11 +764,11 @@ func (s *SnapshotService) ListSnapshotPolicies(p *ListSnapshotPoliciesParams) (*
 }
 
 type ListSnapshotPoliciesResponse struct {
-	Count            int                `json:"count"`
-	SnapshotPolicies []*SnapshotPolicie `json:"snapshotpolicie"`
+	Count            int               `json:"count"`
+	SnapshotPolicies []*SnapshotPolicy `json:"snapshotpolicy"`
 }
 
-type SnapshotPolicie struct {
+type SnapshotPolicy struct {
 	Maxsnaps     int    `json:"maxsnaps,omitempty"`
 	Timezone     string `json:"timezone,omitempty"`
 	Id           string `json:"id,omitempty"`
@@ -904,11 +904,11 @@ func (p *ListVMSnapshotParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {

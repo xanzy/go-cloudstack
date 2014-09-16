@@ -252,11 +252,11 @@ func (p *ListRemoteAccessVpnsParams) toURLValues() url.Values {
 		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -670,11 +670,11 @@ func (p *ListVpnUsersParams) toURLValues() url.Values {
 		u.Set("listall", vv)
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -844,7 +844,7 @@ func (p *CreateVpnCustomerGatewayParams) toURLValues() url.Values {
 		u.Set("dpd", vv)
 	}
 	if v, found := p.p["esplifetime"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("esplifetime", vv)
 	}
 	if v, found := p.p["esppolicy"]; found {
@@ -854,7 +854,7 @@ func (p *CreateVpnCustomerGatewayParams) toURLValues() url.Values {
 		u.Set("gateway", v.(string))
 	}
 	if v, found := p.p["ikelifetime"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("ikelifetime", vv)
 	}
 	if v, found := p.p["ikepolicy"]; found {
@@ -1452,7 +1452,7 @@ func (p *UpdateVpnCustomerGatewayParams) toURLValues() url.Values {
 		u.Set("dpd", vv)
 	}
 	if v, found := p.p["esplifetime"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("esplifetime", vv)
 	}
 	if v, found := p.p["esppolicy"]; found {
@@ -1465,7 +1465,7 @@ func (p *UpdateVpnCustomerGatewayParams) toURLValues() url.Values {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["ikelifetime"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("ikelifetime", vv)
 	}
 	if v, found := p.p["ikepolicy"]; found {
@@ -1786,11 +1786,11 @@ func (p *ListVpnCustomerGatewaysParams) toURLValues() url.Values {
 		u.Set("listall", vv)
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -1965,11 +1965,11 @@ func (p *ListVpnGatewaysParams) toURLValues() url.Values {
 		u.Set("listall", vv)
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -2147,11 +2147,11 @@ func (p *ListVpnConnectionsParams) toURLValues() url.Values {
 		u.Set("listall", vv)
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {

@@ -90,7 +90,7 @@ func (p *UpdateHypervisorCapabilitiesParams) toURLValues() url.Values {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["maxguestslimit"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("maxguestslimit", vv)
 	}
 	if v, found := p.p["securitygroupenabled"]; found {
@@ -176,11 +176,11 @@ func (p *ListHypervisorCapabilitiesParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u
@@ -235,7 +235,7 @@ func (s *HypervisorService) NewListHypervisorCapabilitiesParams() *ListHyperviso
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *HypervisorService) GetHypervisorCapabilitieID(keyword string) (string, error) {
+func (s *HypervisorService) GetHypervisorCapabilityID(keyword string) (string, error) {
 	p := &ListHypervisorCapabilitiesParams{}
 	p.p = make(map[string]interface{})
 
@@ -266,11 +266,11 @@ func (s *HypervisorService) ListHypervisorCapabilities(p *ListHypervisorCapabili
 }
 
 type ListHypervisorCapabilitiesResponse struct {
-	Count                  int                      `json:"count"`
-	HypervisorCapabilities []*HypervisorCapabilitie `json:"hypervisorcapabilitie"`
+	Count                  int                     `json:"count"`
+	HypervisorCapabilities []*HypervisorCapability `json:"hypervisorcapability"`
 }
 
-type HypervisorCapabilitie struct {
+type HypervisorCapability struct {
 	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
 	Id                   string `json:"id,omitempty"`
 	Maxguestslimit       int    `json:"maxguestslimit,omitempty"`

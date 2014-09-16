@@ -43,11 +43,11 @@ func (p *ListAlertsParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["type"]; found {
@@ -343,7 +343,7 @@ func (p *GenerateAlertParams) toURLValues() url.Values {
 		u.Set("podid", v.(string))
 	}
 	if v, found := p.p["type"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("type", vv)
 	}
 	if v, found := p.p["zoneid"]; found {

@@ -157,11 +157,11 @@ func (p *ListConfigurationsParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["storageid"]; found {
@@ -316,11 +316,11 @@ func (s *ConfigurationService) ListCapabilities(p *ListCapabilitiesParams) (*Lis
 }
 
 type ListCapabilitiesResponse struct {
-	Count        int            `json:"count"`
-	Capabilities []*Capabilitie `json:"capabilitie"`
+	Count        int           `json:"count"`
+	Capabilities []*Capability `json:"capability"`
 }
 
-type Capabilitie struct {
+type Capability struct {
 	Cloudstackversion         string `json:"cloudstackversion,omitempty"`
 	Apilimitmax               int    `json:"apilimitmax,omitempty"`
 	SupportELB                string `json:"supportELB,omitempty"`
@@ -347,11 +347,11 @@ func (p *ListDeploymentPlannersParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u
@@ -428,15 +428,15 @@ func (p *ListLdapConfigurationsParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["port"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("port", vv)
 	}
 	return u
@@ -527,7 +527,7 @@ func (p *AddLdapConfigurationParams) toURLValues() url.Values {
 		u.Set("hostname", v.(string))
 	}
 	if v, found := p.p["port"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("port", vv)
 	}
 	return u

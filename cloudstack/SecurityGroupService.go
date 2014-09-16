@@ -273,15 +273,15 @@ func (p *AuthorizeSecurityGroupIngressParams) toURLValues() url.Values {
 		u.Set("domainid", v.(string))
 	}
 	if v, found := p.p["endport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("endport", vv)
 	}
 	if v, found := p.p["icmpcode"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmpcode", vv)
 	}
 	if v, found := p.p["icmptype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmptype", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -297,7 +297,7 @@ func (p *AuthorizeSecurityGroupIngressParams) toURLValues() url.Values {
 		u.Set("securitygroupname", v.(string))
 	}
 	if v, found := p.p["startport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("startport", vv)
 	}
 	if v, found := p.p["usersecuritygrouplist"]; found {
@@ -552,15 +552,15 @@ func (p *AuthorizeSecurityGroupEgressParams) toURLValues() url.Values {
 		u.Set("domainid", v.(string))
 	}
 	if v, found := p.p["endport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("endport", vv)
 	}
 	if v, found := p.p["icmpcode"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmpcode", vv)
 	}
 	if v, found := p.p["icmptype"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("icmptype", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -576,7 +576,7 @@ func (p *AuthorizeSecurityGroupEgressParams) toURLValues() url.Values {
 		u.Set("securitygroupname", v.(string))
 	}
 	if v, found := p.p["startport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("startport", vv)
 	}
 	if v, found := p.p["usersecuritygrouplist"]; found {
@@ -841,11 +841,11 @@ func (p *ListSecurityGroupsParams) toURLValues() url.Values {
 		u.Set("listall", vv)
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {

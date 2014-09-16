@@ -33,7 +33,7 @@ func (p *AttachVolumeParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["deviceid"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("deviceid", vv)
 	}
 	if v, found := p.p["id"]; found {
@@ -394,7 +394,7 @@ func (p *DetachVolumeParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["deviceid"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("deviceid", vv)
 	}
 	if v, found := p.p["id"]; found {
@@ -552,11 +552,11 @@ func (p *CreateVolumeParams) toURLValues() url.Values {
 		u.Set("domainid", v.(string))
 	}
 	if v, found := p.p["maxiops"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("maxiops", vv)
 	}
 	if v, found := p.p["miniops"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("miniops", vv)
 	}
 	if v, found := p.p["name"]; found {
@@ -566,7 +566,7 @@ func (p *CreateVolumeParams) toURLValues() url.Values {
 		u.Set("projectid", v.(string))
 	}
 	if v, found := p.p["size"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("size", vv)
 	}
 	if v, found := p.p["snapshotid"]; found {
@@ -864,11 +864,11 @@ func (p *ListVolumesParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["podid"]; found {
@@ -1422,7 +1422,7 @@ func (p *ResizeVolumeParams) toURLValues() url.Values {
 		u.Set("shrinkok", vv)
 	}
 	if v, found := p.p["size"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("size", vv)
 	}
 	return u

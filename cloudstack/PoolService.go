@@ -49,11 +49,11 @@ func (p *ListStoragePoolsParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["path"]; found {
@@ -238,11 +238,11 @@ func (p *CreateStoragePoolParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["capacitybytes"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("capacitybytes", vv)
 	}
 	if v, found := p.p["capacityiops"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("capacityiops", vv)
 	}
 	if v, found := p.p["clusterid"]; found {
@@ -451,11 +451,11 @@ func (p *UpdateStoragePoolParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["capacitybytes"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("capacitybytes", vv)
 	}
 	if v, found := p.p["capacityiops"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("capacityiops", vv)
 	}
 	if v, found := p.p["id"]; found {
@@ -627,11 +627,11 @@ func (p *FindStoragePoolsForMigrationParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u

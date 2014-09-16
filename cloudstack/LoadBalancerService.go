@@ -60,7 +60,7 @@ func (p *CreateLoadBalancerRuleParams) toURLValues() url.Values {
 		u.Set("openfirewall", vv)
 	}
 	if v, found := p.p["privateport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("privateport", vv)
 	}
 	if v, found := p.p["protocol"]; found {
@@ -70,7 +70,7 @@ func (p *CreateLoadBalancerRuleParams) toURLValues() url.Values {
 		u.Set("publicipid", v.(string))
 	}
 	if v, found := p.p["publicport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("publicport", vv)
 	}
 	if v, found := p.p["zoneid"]; found {
@@ -744,11 +744,11 @@ func (p *ListLoadBalancerRulesParams) toURLValues() url.Values {
 		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -987,11 +987,11 @@ func (p *ListLBStickinessPoliciesParams) toURLValues() url.Values {
 		u.Set("lbruleid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u
@@ -1053,11 +1053,11 @@ func (s *LoadBalancerService) ListLBStickinessPolicies(p *ListLBStickinessPolici
 }
 
 type ListLBStickinessPoliciesResponse struct {
-	Count                int                    `json:"count"`
-	LBStickinessPolicies []*LBStickinessPolicie `json:"lbstickinesspolicie"`
+	Count                int                   `json:"count"`
+	LBStickinessPolicies []*LBStickinessPolicy `json:"lbstickinesspolicy"`
 }
 
-type LBStickinessPolicie struct {
+type LBStickinessPolicy struct {
 	Zoneid           string `json:"zoneid,omitempty"`
 	Account          string `json:"account,omitempty"`
 	Lbruleid         string `json:"lbruleid,omitempty"`
@@ -1092,11 +1092,11 @@ func (p *ListLBHealthCheckPoliciesParams) toURLValues() url.Values {
 		u.Set("lbruleid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u
@@ -1158,11 +1158,11 @@ func (s *LoadBalancerService) ListLBHealthCheckPolicies(p *ListLBHealthCheckPoli
 }
 
 type ListLBHealthCheckPoliciesResponse struct {
-	Count                 int                     `json:"count"`
-	LBHealthCheckPolicies []*LBHealthCheckPolicie `json:"lbhealthcheckpolicie"`
+	Count                 int                    `json:"count"`
+	LBHealthCheckPolicies []*LBHealthCheckPolicy `json:"lbhealthcheckpolicy"`
 }
 
-type LBHealthCheckPolicie struct {
+type LBHealthCheckPolicy struct {
 	Domain            string `json:"domain,omitempty"`
 	Zoneid            string `json:"zoneid,omitempty"`
 	Lbruleid          string `json:"lbruleid,omitempty"`
@@ -1193,11 +1193,11 @@ func (p *CreateLBHealthCheckPolicyParams) toURLValues() url.Values {
 		u.Set("description", v.(string))
 	}
 	if v, found := p.p["healthythreshold"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("healthythreshold", vv)
 	}
 	if v, found := p.p["intervaltime"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("intervaltime", vv)
 	}
 	if v, found := p.p["lbruleid"]; found {
@@ -1207,11 +1207,11 @@ func (p *CreateLBHealthCheckPolicyParams) toURLValues() url.Values {
 		u.Set("pingpath", v.(string))
 	}
 	if v, found := p.p["responsetimeout"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("responsetimeout", vv)
 	}
 	if v, found := p.p["unhealthythreshold"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("unhealthythreshold", vv)
 	}
 	return u
@@ -1425,11 +1425,11 @@ func (p *ListLoadBalancerRuleInstancesParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u
@@ -2430,7 +2430,7 @@ func (p *ConfigureNetscalerLoadBalancerParams) toURLValues() url.Values {
 		u.Set("inline", vv)
 	}
 	if v, found := p.p["lbdevicecapacity"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("lbdevicecapacity", vv)
 	}
 	if v, found := p.p["lbdevicededicated"]; found {
@@ -2564,11 +2564,11 @@ func (p *ListNetscalerLoadBalancersParams) toURLValues() url.Values {
 		u.Set("lbdeviceid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["physicalnetworkid"]; found {
@@ -2696,7 +2696,7 @@ func (p *CreateGlobalLoadBalancerRuleParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["regionid"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("regionid", vv)
 	}
 	return u
@@ -3116,18 +3116,18 @@ func (p *ListGlobalLoadBalancerRulesParams) toURLValues() url.Values {
 		u.Set("listall", vv)
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
 	}
 	if v, found := p.p["regionid"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("regionid", vv)
 	}
 	if v, found := p.p["tags"]; found {
@@ -3521,7 +3521,7 @@ func (p *CreateLoadBalancerParams) toURLValues() url.Values {
 		u.Set("description", v.(string))
 	}
 	if v, found := p.p["instanceport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("instanceport", vv)
 	}
 	if v, found := p.p["name"]; found {
@@ -3540,7 +3540,7 @@ func (p *CreateLoadBalancerParams) toURLValues() url.Values {
 		u.Set("sourceipaddressnetworkid", v.(string))
 	}
 	if v, found := p.p["sourceport"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("sourceport", vv)
 	}
 	return u
@@ -3741,11 +3741,11 @@ func (p *ListLoadBalancersParams) toURLValues() url.Values {
 		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["projectid"]; found {

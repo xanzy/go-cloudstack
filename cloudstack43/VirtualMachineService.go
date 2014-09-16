@@ -116,7 +116,7 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 		u.Set("serviceofferingid", v.(string))
 	}
 	if v, found := p.p["size"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("size", vv)
 	}
 	if v, found := p.p["startvm"]; found {
@@ -1905,11 +1905,11 @@ func (p *ListVirtualMachinesParams) toURLValues() url.Values {
 		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["podid"]; found {

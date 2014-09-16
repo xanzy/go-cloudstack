@@ -33,19 +33,19 @@ func (p *CreateServiceOfferingParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["bytesreadrate"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("bytesreadrate", vv)
 	}
 	if v, found := p.p["byteswriterate"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("byteswriterate", vv)
 	}
 	if v, found := p.p["cpunumber"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("cpunumber", vv)
 	}
 	if v, found := p.p["cpuspeed"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("cpuspeed", vv)
 	}
 	if v, found := p.p["deploymentplanner"]; found {
@@ -61,11 +61,11 @@ func (p *CreateServiceOfferingParams) toURLValues() url.Values {
 		u.Set("hosttags", v.(string))
 	}
 	if v, found := p.p["iopsreadrate"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("iopsreadrate", vv)
 	}
 	if v, found := p.p["iopswriterate"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("iopswriterate", vv)
 	}
 	if v, found := p.p["issystem"]; found {
@@ -81,14 +81,14 @@ func (p *CreateServiceOfferingParams) toURLValues() url.Values {
 		u.Set("limitcpuuse", vv)
 	}
 	if v, found := p.p["memory"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("memory", vv)
 	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["networkrate"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("networkrate", vv)
 	}
 	if v, found := p.p["offerha"]; found {
@@ -406,7 +406,7 @@ func (p *UpdateServiceOfferingParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["sortkey"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("sortkey", vv)
 	}
 	return u
@@ -522,11 +522,11 @@ func (p *ListServiceOfferingsParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	if v, found := p.p["systemvmtype"]; found {

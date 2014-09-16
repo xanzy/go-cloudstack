@@ -45,11 +45,11 @@ func (p *ListOsTypesParams) toURLValues() url.Values {
 		u.Set("oscategoryid", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u
@@ -172,11 +172,11 @@ func (p *ListOsCategoriesParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["page"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
 	}
 	if v, found := p.p["pagesize"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
+		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
 	return u
@@ -231,7 +231,7 @@ func (s *GuestOSService) NewListOsCategoriesParams() *ListOsCategoriesParams {
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *GuestOSService) GetOsCategorieID(name string) (string, error) {
+func (s *GuestOSService) GetOsCategoryID(name string) (string, error) {
 	p := &ListOsCategoriesParams{}
 	p.p = make(map[string]interface{})
 
@@ -262,11 +262,11 @@ func (s *GuestOSService) ListOsCategories(p *ListOsCategoriesParams) (*ListOsCat
 }
 
 type ListOsCategoriesResponse struct {
-	Count        int            `json:"count"`
-	OsCategories []*OsCategorie `json:"oscategorie"`
+	Count        int           `json:"count"`
+	OsCategories []*OsCategory `json:"oscategory"`
 }
 
-type OsCategorie struct {
+type OsCategory struct {
 	Name string `json:"name,omitempty"`
 	Id   string `json:"id,omitempty"`
 }
