@@ -32,7 +32,7 @@ I fully understand I need to document this all a little more/better and there sh
 
 ## Getting Help
 
-Please try to see if [GoDocs](http://godoc.org/github.com/xanzy/go-cloudstack) can provide some answers first!_
+_Please try to see if [GoDocs](http://godoc.org/github.com/xanzy/go-cloudstack) can provide some answers first!_
 
 * If you have an issue: report it on the [issue tracker](https://github.com/xanzy/go-cloudstack/issues)
 
