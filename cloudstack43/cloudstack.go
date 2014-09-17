@@ -48,74 +48,74 @@ type CloudStackClient struct {
 	async   bool         // Wait for async calls to finish
 	timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 60 seconds
 
-	VPN              *VPNService
-	NetworkACL       *NetworkACLService
-	VMGroup          *VMGroupService
-	Alert            *AlertService
-	SystemCapacity   *SystemCapacityService
-	Configuration    *ConfigurationService
 	VLAN             *VLANService
-	DiskOffering     *DiskOfferingService
+	InternalLB       *InternalLBService
 	Resourcetags     *ResourcetagsService
-	Volume           *VolumeService
-	NAT              *NATService
-	Limit            *LimitService
-	LDAP             *LDAPService
-	Login            *LoginService
-	APIDiscovery     *APIDiscoveryService
-	Usage            *UsageService
-	ExternalDevice   *ExternalDeviceService
-	Event            *EventService
-	S3               *S3Service
-	Template         *TemplateService
-	AffinityGroup    *AffinityGroupService
+	Swift            *SwiftService
 	GuestOS          *GuestOSService
-	Certificate      *CertificateService
-	Hypervisor       *HypervisorService
-	Address          *AddressService
+	AutoScale        *AutoScaleService
+	Snapshot         *SnapshotService
+	LDAP             *LDAPService
+	CloudIdentifier  *CloudIdentifierService
+	StratosphereSSP  *StratosphereSSPService
 	Host             *HostService
-	Router           *RouterService
+	NiciraNVP        *NiciraNVPService
+	ExternalDevice   *ExternalDeviceService
+	NetworkDevice    *NetworkDeviceService
 	SecurityGroup    *SecurityGroupService
-	ImageStore       *ImageStoreService
+	Limit            *LimitService
+	Baremetal        *BaremetalService
+	APIDiscovery     *APIDiscoveryService
 	Network          *NetworkService
-	Zone             *ZoneService
+	Usage            *UsageService
+	Hypervisor       *HypervisorService
+	NAT              *NATService
+	ServiceOffering  *ServiceOfferingService
+	Project          *ProjectService
+	Pod              *PodService
 	ExtLoadBalancer  *ExtLoadBalancerService
 	ExtFirewall      *ExtFirewallService
-	VirtualMachine   *VirtualMachineService
 	VPC              *VPCService
-	Pod              *PodService
-	Nic              *NicService
+	Volume           *VolumeService
 	Account          *AccountService
 	Resourcemetadata *ResourcemetadataService
-	Logout           *LogoutService
-	StratosphereSSP  *StratosphereSSPService
-	AutoScale        *AutoScaleService
-	Firewall         *FirewallService
-	InternalLB       *InternalLBService
-	Asyncjob         *AsyncjobService
 	StoragePool      *StoragePoolService
-	NiciraNVP        *NiciraNVPService
+	Address          *AddressService
 	LoadBalancer     *LoadBalancerService
-	Project          *ProjectService
-	Storage          *StorageService
-	Region           *RegionService
-	Baremetal        *BaremetalService
-	Swift            *SwiftService
-	Snapshot         *SnapshotService
-	SystemVM         *SystemVMService
-	Cluster          *ClusterService
-	Domain           *DomainService
-	User             *UserService
-	SSH              *SSHService
-	NetworkDevice    *NetworkDeviceService
-	Pool             *PoolService
-	PortableIP       *PortableIPService
-	ServiceOffering  *ServiceOfferingService
-	BigSwitchVNS     *BigSwitchVNSService
-	CloudIdentifier  *CloudIdentifierService
-	ISO              *ISOService
 	UCS              *UCSService
+	Asyncjob         *AsyncjobService
+	Zone             *ZoneService
+	PortableIP       *PortableIPService
+	NetworkACL       *NetworkACLService
+	Configuration    *ConfigurationService
+	Cluster          *ClusterService
+	Event            *EventService
+	DiskOffering     *DiskOfferingService
+	BigSwitchVNS     *BigSwitchVNSService
+	VPN              *VPNService
+	SystemVM         *SystemVMService
+	Nic              *NicService
+	Logout           *LogoutService
+	Pool             *PoolService
+	Alert            *AlertService
+	SystemCapacity   *SystemCapacityService
+	Storage          *StorageService
+	SSH              *SSHService
+	S3               *S3Service
+	User             *UserService
+	ImageStore       *ImageStoreService
+	AffinityGroup    *AffinityGroupService
+	VMGroup          *VMGroupService
+	Region           *RegionService
 	NetworkOffering  *NetworkOfferingService
+	VirtualMachine   *VirtualMachineService
+	ISO              *ISOService
+	Certificate      *CertificateService
+	Firewall         *FirewallService
+	Login            *LoginService
+	Domain           *DomainService
+	Template         *TemplateService
+	Router           *RouterService
 }
 
 // Creates a new client for communicating with CloudStack
@@ -133,74 +133,74 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 		async:   async,
 		timeout: 60,
 	}
-	cs.VPN = NewVPNService(cs)
-	cs.NetworkACL = NewNetworkACLService(cs)
-	cs.VMGroup = NewVMGroupService(cs)
-	cs.Alert = NewAlertService(cs)
-	cs.SystemCapacity = NewSystemCapacityService(cs)
-	cs.Configuration = NewConfigurationService(cs)
 	cs.VLAN = NewVLANService(cs)
-	cs.DiskOffering = NewDiskOfferingService(cs)
+	cs.InternalLB = NewInternalLBService(cs)
 	cs.Resourcetags = NewResourcetagsService(cs)
-	cs.Volume = NewVolumeService(cs)
-	cs.NAT = NewNATService(cs)
-	cs.Limit = NewLimitService(cs)
-	cs.LDAP = NewLDAPService(cs)
-	cs.Login = NewLoginService(cs)
-	cs.APIDiscovery = NewAPIDiscoveryService(cs)
-	cs.Usage = NewUsageService(cs)
-	cs.ExternalDevice = NewExternalDeviceService(cs)
-	cs.Event = NewEventService(cs)
-	cs.S3 = NewS3Service(cs)
-	cs.Template = NewTemplateService(cs)
-	cs.AffinityGroup = NewAffinityGroupService(cs)
+	cs.Swift = NewSwiftService(cs)
 	cs.GuestOS = NewGuestOSService(cs)
-	cs.Certificate = NewCertificateService(cs)
-	cs.Hypervisor = NewHypervisorService(cs)
-	cs.Address = NewAddressService(cs)
+	cs.AutoScale = NewAutoScaleService(cs)
+	cs.Snapshot = NewSnapshotService(cs)
+	cs.LDAP = NewLDAPService(cs)
+	cs.CloudIdentifier = NewCloudIdentifierService(cs)
+	cs.StratosphereSSP = NewStratosphereSSPService(cs)
 	cs.Host = NewHostService(cs)
-	cs.Router = NewRouterService(cs)
+	cs.NiciraNVP = NewNiciraNVPService(cs)
+	cs.ExternalDevice = NewExternalDeviceService(cs)
+	cs.NetworkDevice = NewNetworkDeviceService(cs)
 	cs.SecurityGroup = NewSecurityGroupService(cs)
-	cs.ImageStore = NewImageStoreService(cs)
+	cs.Limit = NewLimitService(cs)
+	cs.Baremetal = NewBaremetalService(cs)
+	cs.APIDiscovery = NewAPIDiscoveryService(cs)
 	cs.Network = NewNetworkService(cs)
-	cs.Zone = NewZoneService(cs)
+	cs.Usage = NewUsageService(cs)
+	cs.Hypervisor = NewHypervisorService(cs)
+	cs.NAT = NewNATService(cs)
+	cs.ServiceOffering = NewServiceOfferingService(cs)
+	cs.Project = NewProjectService(cs)
+	cs.Pod = NewPodService(cs)
 	cs.ExtLoadBalancer = NewExtLoadBalancerService(cs)
 	cs.ExtFirewall = NewExtFirewallService(cs)
-	cs.VirtualMachine = NewVirtualMachineService(cs)
 	cs.VPC = NewVPCService(cs)
-	cs.Pod = NewPodService(cs)
-	cs.Nic = NewNicService(cs)
+	cs.Volume = NewVolumeService(cs)
 	cs.Account = NewAccountService(cs)
 	cs.Resourcemetadata = NewResourcemetadataService(cs)
-	cs.Logout = NewLogoutService(cs)
-	cs.StratosphereSSP = NewStratosphereSSPService(cs)
-	cs.AutoScale = NewAutoScaleService(cs)
-	cs.Firewall = NewFirewallService(cs)
-	cs.InternalLB = NewInternalLBService(cs)
-	cs.Asyncjob = NewAsyncjobService(cs)
 	cs.StoragePool = NewStoragePoolService(cs)
-	cs.NiciraNVP = NewNiciraNVPService(cs)
+	cs.Address = NewAddressService(cs)
 	cs.LoadBalancer = NewLoadBalancerService(cs)
-	cs.Project = NewProjectService(cs)
-	cs.Storage = NewStorageService(cs)
-	cs.Region = NewRegionService(cs)
-	cs.Baremetal = NewBaremetalService(cs)
-	cs.Swift = NewSwiftService(cs)
-	cs.Snapshot = NewSnapshotService(cs)
-	cs.SystemVM = NewSystemVMService(cs)
-	cs.Cluster = NewClusterService(cs)
-	cs.Domain = NewDomainService(cs)
-	cs.User = NewUserService(cs)
-	cs.SSH = NewSSHService(cs)
-	cs.NetworkDevice = NewNetworkDeviceService(cs)
-	cs.Pool = NewPoolService(cs)
-	cs.PortableIP = NewPortableIPService(cs)
-	cs.ServiceOffering = NewServiceOfferingService(cs)
-	cs.BigSwitchVNS = NewBigSwitchVNSService(cs)
-	cs.CloudIdentifier = NewCloudIdentifierService(cs)
-	cs.ISO = NewISOService(cs)
 	cs.UCS = NewUCSService(cs)
+	cs.Asyncjob = NewAsyncjobService(cs)
+	cs.Zone = NewZoneService(cs)
+	cs.PortableIP = NewPortableIPService(cs)
+	cs.NetworkACL = NewNetworkACLService(cs)
+	cs.Configuration = NewConfigurationService(cs)
+	cs.Cluster = NewClusterService(cs)
+	cs.Event = NewEventService(cs)
+	cs.DiskOffering = NewDiskOfferingService(cs)
+	cs.BigSwitchVNS = NewBigSwitchVNSService(cs)
+	cs.VPN = NewVPNService(cs)
+	cs.SystemVM = NewSystemVMService(cs)
+	cs.Nic = NewNicService(cs)
+	cs.Logout = NewLogoutService(cs)
+	cs.Pool = NewPoolService(cs)
+	cs.Alert = NewAlertService(cs)
+	cs.SystemCapacity = NewSystemCapacityService(cs)
+	cs.Storage = NewStorageService(cs)
+	cs.SSH = NewSSHService(cs)
+	cs.S3 = NewS3Service(cs)
+	cs.User = NewUserService(cs)
+	cs.ImageStore = NewImageStoreService(cs)
+	cs.AffinityGroup = NewAffinityGroupService(cs)
+	cs.VMGroup = NewVMGroupService(cs)
+	cs.Region = NewRegionService(cs)
 	cs.NetworkOffering = NewNetworkOfferingService(cs)
+	cs.VirtualMachine = NewVirtualMachineService(cs)
+	cs.ISO = NewISOService(cs)
+	cs.Certificate = NewCertificateService(cs)
+	cs.Firewall = NewFirewallService(cs)
+	cs.Login = NewLoginService(cs)
+	cs.Domain = NewDomainService(cs)
+	cs.Template = NewTemplateService(cs)
+	cs.Router = NewRouterService(cs)
 	return cs
 }
 
@@ -327,54 +327,6 @@ func getRawValue(b json.RawMessage) (json.RawMessage, error) {
 	return nil, fmt.Errorf("Unable to extract the raw value from:\n\n%s\n\n", string(b))
 }
 
-type VPNService struct {
-	cs *CloudStackClient
-}
-
-func NewVPNService(cs *CloudStackClient) *VPNService {
-	return &VPNService{cs: cs}
-}
-
-type NetworkACLService struct {
-	cs *CloudStackClient
-}
-
-func NewNetworkACLService(cs *CloudStackClient) *NetworkACLService {
-	return &NetworkACLService{cs: cs}
-}
-
-type VMGroupService struct {
-	cs *CloudStackClient
-}
-
-func NewVMGroupService(cs *CloudStackClient) *VMGroupService {
-	return &VMGroupService{cs: cs}
-}
-
-type AlertService struct {
-	cs *CloudStackClient
-}
-
-func NewAlertService(cs *CloudStackClient) *AlertService {
-	return &AlertService{cs: cs}
-}
-
-type SystemCapacityService struct {
-	cs *CloudStackClient
-}
-
-func NewSystemCapacityService(cs *CloudStackClient) *SystemCapacityService {
-	return &SystemCapacityService{cs: cs}
-}
-
-type ConfigurationService struct {
-	cs *CloudStackClient
-}
-
-func NewConfigurationService(cs *CloudStackClient) *ConfigurationService {
-	return &ConfigurationService{cs: cs}
-}
-
 type VLANService struct {
 	cs *CloudStackClient
 }
@@ -383,12 +335,12 @@ func NewVLANService(cs *CloudStackClient) *VLANService {
 	return &VLANService{cs: cs}
 }
 
-type DiskOfferingService struct {
+type InternalLBService struct {
 	cs *CloudStackClient
 }
 
-func NewDiskOfferingService(cs *CloudStackClient) *DiskOfferingService {
-	return &DiskOfferingService{cs: cs}
+func NewInternalLBService(cs *CloudStackClient) *InternalLBService {
+	return &InternalLBService{cs: cs}
 }
 
 type ResourcetagsService struct {
@@ -399,100 +351,12 @@ func NewResourcetagsService(cs *CloudStackClient) *ResourcetagsService {
 	return &ResourcetagsService{cs: cs}
 }
 
-type VolumeService struct {
+type SwiftService struct {
 	cs *CloudStackClient
 }
 
-func NewVolumeService(cs *CloudStackClient) *VolumeService {
-	return &VolumeService{cs: cs}
-}
-
-type NATService struct {
-	cs *CloudStackClient
-}
-
-func NewNATService(cs *CloudStackClient) *NATService {
-	return &NATService{cs: cs}
-}
-
-type LimitService struct {
-	cs *CloudStackClient
-}
-
-func NewLimitService(cs *CloudStackClient) *LimitService {
-	return &LimitService{cs: cs}
-}
-
-type LDAPService struct {
-	cs *CloudStackClient
-}
-
-func NewLDAPService(cs *CloudStackClient) *LDAPService {
-	return &LDAPService{cs: cs}
-}
-
-type LoginService struct {
-	cs *CloudStackClient
-}
-
-func NewLoginService(cs *CloudStackClient) *LoginService {
-	return &LoginService{cs: cs}
-}
-
-type APIDiscoveryService struct {
-	cs *CloudStackClient
-}
-
-func NewAPIDiscoveryService(cs *CloudStackClient) *APIDiscoveryService {
-	return &APIDiscoveryService{cs: cs}
-}
-
-type UsageService struct {
-	cs *CloudStackClient
-}
-
-func NewUsageService(cs *CloudStackClient) *UsageService {
-	return &UsageService{cs: cs}
-}
-
-type ExternalDeviceService struct {
-	cs *CloudStackClient
-}
-
-func NewExternalDeviceService(cs *CloudStackClient) *ExternalDeviceService {
-	return &ExternalDeviceService{cs: cs}
-}
-
-type EventService struct {
-	cs *CloudStackClient
-}
-
-func NewEventService(cs *CloudStackClient) *EventService {
-	return &EventService{cs: cs}
-}
-
-type S3Service struct {
-	cs *CloudStackClient
-}
-
-func NewS3Service(cs *CloudStackClient) *S3Service {
-	return &S3Service{cs: cs}
-}
-
-type TemplateService struct {
-	cs *CloudStackClient
-}
-
-func NewTemplateService(cs *CloudStackClient) *TemplateService {
-	return &TemplateService{cs: cs}
-}
-
-type AffinityGroupService struct {
-	cs *CloudStackClient
-}
-
-func NewAffinityGroupService(cs *CloudStackClient) *AffinityGroupService {
-	return &AffinityGroupService{cs: cs}
+func NewSwiftService(cs *CloudStackClient) *SwiftService {
+	return &SwiftService{cs: cs}
 }
 
 type GuestOSService struct {
@@ -503,28 +367,44 @@ func NewGuestOSService(cs *CloudStackClient) *GuestOSService {
 	return &GuestOSService{cs: cs}
 }
 
-type CertificateService struct {
+type AutoScaleService struct {
 	cs *CloudStackClient
 }
 
-func NewCertificateService(cs *CloudStackClient) *CertificateService {
-	return &CertificateService{cs: cs}
+func NewAutoScaleService(cs *CloudStackClient) *AutoScaleService {
+	return &AutoScaleService{cs: cs}
 }
 
-type HypervisorService struct {
+type SnapshotService struct {
 	cs *CloudStackClient
 }
 
-func NewHypervisorService(cs *CloudStackClient) *HypervisorService {
-	return &HypervisorService{cs: cs}
+func NewSnapshotService(cs *CloudStackClient) *SnapshotService {
+	return &SnapshotService{cs: cs}
 }
 
-type AddressService struct {
+type LDAPService struct {
 	cs *CloudStackClient
 }
 
-func NewAddressService(cs *CloudStackClient) *AddressService {
-	return &AddressService{cs: cs}
+func NewLDAPService(cs *CloudStackClient) *LDAPService {
+	return &LDAPService{cs: cs}
+}
+
+type CloudIdentifierService struct {
+	cs *CloudStackClient
+}
+
+func NewCloudIdentifierService(cs *CloudStackClient) *CloudIdentifierService {
+	return &CloudIdentifierService{cs: cs}
+}
+
+type StratosphereSSPService struct {
+	cs *CloudStackClient
+}
+
+func NewStratosphereSSPService(cs *CloudStackClient) *StratosphereSSPService {
+	return &StratosphereSSPService{cs: cs}
 }
 
 type HostService struct {
@@ -535,12 +415,28 @@ func NewHostService(cs *CloudStackClient) *HostService {
 	return &HostService{cs: cs}
 }
 
-type RouterService struct {
+type NiciraNVPService struct {
 	cs *CloudStackClient
 }
 
-func NewRouterService(cs *CloudStackClient) *RouterService {
-	return &RouterService{cs: cs}
+func NewNiciraNVPService(cs *CloudStackClient) *NiciraNVPService {
+	return &NiciraNVPService{cs: cs}
+}
+
+type ExternalDeviceService struct {
+	cs *CloudStackClient
+}
+
+func NewExternalDeviceService(cs *CloudStackClient) *ExternalDeviceService {
+	return &ExternalDeviceService{cs: cs}
+}
+
+type NetworkDeviceService struct {
+	cs *CloudStackClient
+}
+
+func NewNetworkDeviceService(cs *CloudStackClient) *NetworkDeviceService {
+	return &NetworkDeviceService{cs: cs}
 }
 
 type SecurityGroupService struct {
@@ -551,12 +447,28 @@ func NewSecurityGroupService(cs *CloudStackClient) *SecurityGroupService {
 	return &SecurityGroupService{cs: cs}
 }
 
-type ImageStoreService struct {
+type LimitService struct {
 	cs *CloudStackClient
 }
 
-func NewImageStoreService(cs *CloudStackClient) *ImageStoreService {
-	return &ImageStoreService{cs: cs}
+func NewLimitService(cs *CloudStackClient) *LimitService {
+	return &LimitService{cs: cs}
+}
+
+type BaremetalService struct {
+	cs *CloudStackClient
+}
+
+func NewBaremetalService(cs *CloudStackClient) *BaremetalService {
+	return &BaremetalService{cs: cs}
+}
+
+type APIDiscoveryService struct {
+	cs *CloudStackClient
+}
+
+func NewAPIDiscoveryService(cs *CloudStackClient) *APIDiscoveryService {
+	return &APIDiscoveryService{cs: cs}
 }
 
 type NetworkService struct {
@@ -567,12 +479,52 @@ func NewNetworkService(cs *CloudStackClient) *NetworkService {
 	return &NetworkService{cs: cs}
 }
 
-type ZoneService struct {
+type UsageService struct {
 	cs *CloudStackClient
 }
 
-func NewZoneService(cs *CloudStackClient) *ZoneService {
-	return &ZoneService{cs: cs}
+func NewUsageService(cs *CloudStackClient) *UsageService {
+	return &UsageService{cs: cs}
+}
+
+type HypervisorService struct {
+	cs *CloudStackClient
+}
+
+func NewHypervisorService(cs *CloudStackClient) *HypervisorService {
+	return &HypervisorService{cs: cs}
+}
+
+type NATService struct {
+	cs *CloudStackClient
+}
+
+func NewNATService(cs *CloudStackClient) *NATService {
+	return &NATService{cs: cs}
+}
+
+type ServiceOfferingService struct {
+	cs *CloudStackClient
+}
+
+func NewServiceOfferingService(cs *CloudStackClient) *ServiceOfferingService {
+	return &ServiceOfferingService{cs: cs}
+}
+
+type ProjectService struct {
+	cs *CloudStackClient
+}
+
+func NewProjectService(cs *CloudStackClient) *ProjectService {
+	return &ProjectService{cs: cs}
+}
+
+type PodService struct {
+	cs *CloudStackClient
+}
+
+func NewPodService(cs *CloudStackClient) *PodService {
+	return &PodService{cs: cs}
 }
 
 type ExtLoadBalancerService struct {
@@ -591,14 +543,6 @@ func NewExtFirewallService(cs *CloudStackClient) *ExtFirewallService {
 	return &ExtFirewallService{cs: cs}
 }
 
-type VirtualMachineService struct {
-	cs *CloudStackClient
-}
-
-func NewVirtualMachineService(cs *CloudStackClient) *VirtualMachineService {
-	return &VirtualMachineService{cs: cs}
-}
-
 type VPCService struct {
 	cs *CloudStackClient
 }
@@ -607,20 +551,12 @@ func NewVPCService(cs *CloudStackClient) *VPCService {
 	return &VPCService{cs: cs}
 }
 
-type PodService struct {
+type VolumeService struct {
 	cs *CloudStackClient
 }
 
-func NewPodService(cs *CloudStackClient) *PodService {
-	return &PodService{cs: cs}
-}
-
-type NicService struct {
-	cs *CloudStackClient
-}
-
-func NewNicService(cs *CloudStackClient) *NicService {
-	return &NicService{cs: cs}
+func NewVolumeService(cs *CloudStackClient) *VolumeService {
+	return &VolumeService{cs: cs}
 }
 
 type AccountService struct {
@@ -639,54 +575,6 @@ func NewResourcemetadataService(cs *CloudStackClient) *ResourcemetadataService {
 	return &ResourcemetadataService{cs: cs}
 }
 
-type LogoutService struct {
-	cs *CloudStackClient
-}
-
-func NewLogoutService(cs *CloudStackClient) *LogoutService {
-	return &LogoutService{cs: cs}
-}
-
-type StratosphereSSPService struct {
-	cs *CloudStackClient
-}
-
-func NewStratosphereSSPService(cs *CloudStackClient) *StratosphereSSPService {
-	return &StratosphereSSPService{cs: cs}
-}
-
-type AutoScaleService struct {
-	cs *CloudStackClient
-}
-
-func NewAutoScaleService(cs *CloudStackClient) *AutoScaleService {
-	return &AutoScaleService{cs: cs}
-}
-
-type FirewallService struct {
-	cs *CloudStackClient
-}
-
-func NewFirewallService(cs *CloudStackClient) *FirewallService {
-	return &FirewallService{cs: cs}
-}
-
-type InternalLBService struct {
-	cs *CloudStackClient
-}
-
-func NewInternalLBService(cs *CloudStackClient) *InternalLBService {
-	return &InternalLBService{cs: cs}
-}
-
-type AsyncjobService struct {
-	cs *CloudStackClient
-}
-
-func NewAsyncjobService(cs *CloudStackClient) *AsyncjobService {
-	return &AsyncjobService{cs: cs}
-}
-
 type StoragePoolService struct {
 	cs *CloudStackClient
 }
@@ -695,12 +583,12 @@ func NewStoragePoolService(cs *CloudStackClient) *StoragePoolService {
 	return &StoragePoolService{cs: cs}
 }
 
-type NiciraNVPService struct {
+type AddressService struct {
 	cs *CloudStackClient
 }
 
-func NewNiciraNVPService(cs *CloudStackClient) *NiciraNVPService {
-	return &NiciraNVPService{cs: cs}
+func NewAddressService(cs *CloudStackClient) *AddressService {
+	return &AddressService{cs: cs}
 }
 
 type LoadBalancerService struct {
@@ -711,108 +599,28 @@ func NewLoadBalancerService(cs *CloudStackClient) *LoadBalancerService {
 	return &LoadBalancerService{cs: cs}
 }
 
-type ProjectService struct {
+type UCSService struct {
 	cs *CloudStackClient
 }
 
-func NewProjectService(cs *CloudStackClient) *ProjectService {
-	return &ProjectService{cs: cs}
+func NewUCSService(cs *CloudStackClient) *UCSService {
+	return &UCSService{cs: cs}
 }
 
-type StorageService struct {
+type AsyncjobService struct {
 	cs *CloudStackClient
 }
 
-func NewStorageService(cs *CloudStackClient) *StorageService {
-	return &StorageService{cs: cs}
+func NewAsyncjobService(cs *CloudStackClient) *AsyncjobService {
+	return &AsyncjobService{cs: cs}
 }
 
-type RegionService struct {
+type ZoneService struct {
 	cs *CloudStackClient
 }
 
-func NewRegionService(cs *CloudStackClient) *RegionService {
-	return &RegionService{cs: cs}
-}
-
-type BaremetalService struct {
-	cs *CloudStackClient
-}
-
-func NewBaremetalService(cs *CloudStackClient) *BaremetalService {
-	return &BaremetalService{cs: cs}
-}
-
-type SwiftService struct {
-	cs *CloudStackClient
-}
-
-func NewSwiftService(cs *CloudStackClient) *SwiftService {
-	return &SwiftService{cs: cs}
-}
-
-type SnapshotService struct {
-	cs *CloudStackClient
-}
-
-func NewSnapshotService(cs *CloudStackClient) *SnapshotService {
-	return &SnapshotService{cs: cs}
-}
-
-type SystemVMService struct {
-	cs *CloudStackClient
-}
-
-func NewSystemVMService(cs *CloudStackClient) *SystemVMService {
-	return &SystemVMService{cs: cs}
-}
-
-type ClusterService struct {
-	cs *CloudStackClient
-}
-
-func NewClusterService(cs *CloudStackClient) *ClusterService {
-	return &ClusterService{cs: cs}
-}
-
-type DomainService struct {
-	cs *CloudStackClient
-}
-
-func NewDomainService(cs *CloudStackClient) *DomainService {
-	return &DomainService{cs: cs}
-}
-
-type UserService struct {
-	cs *CloudStackClient
-}
-
-func NewUserService(cs *CloudStackClient) *UserService {
-	return &UserService{cs: cs}
-}
-
-type SSHService struct {
-	cs *CloudStackClient
-}
-
-func NewSSHService(cs *CloudStackClient) *SSHService {
-	return &SSHService{cs: cs}
-}
-
-type NetworkDeviceService struct {
-	cs *CloudStackClient
-}
-
-func NewNetworkDeviceService(cs *CloudStackClient) *NetworkDeviceService {
-	return &NetworkDeviceService{cs: cs}
-}
-
-type PoolService struct {
-	cs *CloudStackClient
-}
-
-func NewPoolService(cs *CloudStackClient) *PoolService {
-	return &PoolService{cs: cs}
+func NewZoneService(cs *CloudStackClient) *ZoneService {
+	return &ZoneService{cs: cs}
 }
 
 type PortableIPService struct {
@@ -823,12 +631,44 @@ func NewPortableIPService(cs *CloudStackClient) *PortableIPService {
 	return &PortableIPService{cs: cs}
 }
 
-type ServiceOfferingService struct {
+type NetworkACLService struct {
 	cs *CloudStackClient
 }
 
-func NewServiceOfferingService(cs *CloudStackClient) *ServiceOfferingService {
-	return &ServiceOfferingService{cs: cs}
+func NewNetworkACLService(cs *CloudStackClient) *NetworkACLService {
+	return &NetworkACLService{cs: cs}
+}
+
+type ConfigurationService struct {
+	cs *CloudStackClient
+}
+
+func NewConfigurationService(cs *CloudStackClient) *ConfigurationService {
+	return &ConfigurationService{cs: cs}
+}
+
+type ClusterService struct {
+	cs *CloudStackClient
+}
+
+func NewClusterService(cs *CloudStackClient) *ClusterService {
+	return &ClusterService{cs: cs}
+}
+
+type EventService struct {
+	cs *CloudStackClient
+}
+
+func NewEventService(cs *CloudStackClient) *EventService {
+	return &EventService{cs: cs}
+}
+
+type DiskOfferingService struct {
+	cs *CloudStackClient
+}
+
+func NewDiskOfferingService(cs *CloudStackClient) *DiskOfferingService {
+	return &DiskOfferingService{cs: cs}
 }
 
 type BigSwitchVNSService struct {
@@ -839,12 +679,140 @@ func NewBigSwitchVNSService(cs *CloudStackClient) *BigSwitchVNSService {
 	return &BigSwitchVNSService{cs: cs}
 }
 
-type CloudIdentifierService struct {
+type VPNService struct {
 	cs *CloudStackClient
 }
 
-func NewCloudIdentifierService(cs *CloudStackClient) *CloudIdentifierService {
-	return &CloudIdentifierService{cs: cs}
+func NewVPNService(cs *CloudStackClient) *VPNService {
+	return &VPNService{cs: cs}
+}
+
+type SystemVMService struct {
+	cs *CloudStackClient
+}
+
+func NewSystemVMService(cs *CloudStackClient) *SystemVMService {
+	return &SystemVMService{cs: cs}
+}
+
+type NicService struct {
+	cs *CloudStackClient
+}
+
+func NewNicService(cs *CloudStackClient) *NicService {
+	return &NicService{cs: cs}
+}
+
+type LogoutService struct {
+	cs *CloudStackClient
+}
+
+func NewLogoutService(cs *CloudStackClient) *LogoutService {
+	return &LogoutService{cs: cs}
+}
+
+type PoolService struct {
+	cs *CloudStackClient
+}
+
+func NewPoolService(cs *CloudStackClient) *PoolService {
+	return &PoolService{cs: cs}
+}
+
+type AlertService struct {
+	cs *CloudStackClient
+}
+
+func NewAlertService(cs *CloudStackClient) *AlertService {
+	return &AlertService{cs: cs}
+}
+
+type SystemCapacityService struct {
+	cs *CloudStackClient
+}
+
+func NewSystemCapacityService(cs *CloudStackClient) *SystemCapacityService {
+	return &SystemCapacityService{cs: cs}
+}
+
+type StorageService struct {
+	cs *CloudStackClient
+}
+
+func NewStorageService(cs *CloudStackClient) *StorageService {
+	return &StorageService{cs: cs}
+}
+
+type SSHService struct {
+	cs *CloudStackClient
+}
+
+func NewSSHService(cs *CloudStackClient) *SSHService {
+	return &SSHService{cs: cs}
+}
+
+type S3Service struct {
+	cs *CloudStackClient
+}
+
+func NewS3Service(cs *CloudStackClient) *S3Service {
+	return &S3Service{cs: cs}
+}
+
+type UserService struct {
+	cs *CloudStackClient
+}
+
+func NewUserService(cs *CloudStackClient) *UserService {
+	return &UserService{cs: cs}
+}
+
+type ImageStoreService struct {
+	cs *CloudStackClient
+}
+
+func NewImageStoreService(cs *CloudStackClient) *ImageStoreService {
+	return &ImageStoreService{cs: cs}
+}
+
+type AffinityGroupService struct {
+	cs *CloudStackClient
+}
+
+func NewAffinityGroupService(cs *CloudStackClient) *AffinityGroupService {
+	return &AffinityGroupService{cs: cs}
+}
+
+type VMGroupService struct {
+	cs *CloudStackClient
+}
+
+func NewVMGroupService(cs *CloudStackClient) *VMGroupService {
+	return &VMGroupService{cs: cs}
+}
+
+type RegionService struct {
+	cs *CloudStackClient
+}
+
+func NewRegionService(cs *CloudStackClient) *RegionService {
+	return &RegionService{cs: cs}
+}
+
+type NetworkOfferingService struct {
+	cs *CloudStackClient
+}
+
+func NewNetworkOfferingService(cs *CloudStackClient) *NetworkOfferingService {
+	return &NetworkOfferingService{cs: cs}
+}
+
+type VirtualMachineService struct {
+	cs *CloudStackClient
+}
+
+func NewVirtualMachineService(cs *CloudStackClient) *VirtualMachineService {
+	return &VirtualMachineService{cs: cs}
 }
 
 type ISOService struct {
@@ -855,18 +823,50 @@ func NewISOService(cs *CloudStackClient) *ISOService {
 	return &ISOService{cs: cs}
 }
 
-type UCSService struct {
+type CertificateService struct {
 	cs *CloudStackClient
 }
 
-func NewUCSService(cs *CloudStackClient) *UCSService {
-	return &UCSService{cs: cs}
+func NewCertificateService(cs *CloudStackClient) *CertificateService {
+	return &CertificateService{cs: cs}
 }
 
-type NetworkOfferingService struct {
+type FirewallService struct {
 	cs *CloudStackClient
 }
 
-func NewNetworkOfferingService(cs *CloudStackClient) *NetworkOfferingService {
-	return &NetworkOfferingService{cs: cs}
+func NewFirewallService(cs *CloudStackClient) *FirewallService {
+	return &FirewallService{cs: cs}
+}
+
+type LoginService struct {
+	cs *CloudStackClient
+}
+
+func NewLoginService(cs *CloudStackClient) *LoginService {
+	return &LoginService{cs: cs}
+}
+
+type DomainService struct {
+	cs *CloudStackClient
+}
+
+func NewDomainService(cs *CloudStackClient) *DomainService {
+	return &DomainService{cs: cs}
+}
+
+type TemplateService struct {
+	cs *CloudStackClient
+}
+
+func NewTemplateService(cs *CloudStackClient) *TemplateService {
+	return &TemplateService{cs: cs}
+}
+
+type RouterService struct {
+	cs *CloudStackClient
+}
+
+func NewRouterService(cs *CloudStackClient) *RouterService {
+	return &RouterService{cs: cs}
 }
