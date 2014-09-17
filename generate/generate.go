@@ -715,6 +715,17 @@ func (s *service) generateResponseType(a *API) {
 		tn = parseSingular(ln)
 	}
 
+	// This code is only needed because of a current bug in the CloudStack API :(
+	// will remove this as soon as it's fixed in there...
+	if tn == "DeleteVolumeResponse" {
+		pn("type %s struct {", tn)
+		pn("  Success     string  `json:\"success,omitempty\"`")
+		pn("  Displaytext string `json:\"displaytext,omitempty\"`")
+		pn("}")
+		pn("")
+		return
+	}
+
 	pn("type %s struct {", tn)
 	if a.Isasync {
 		pn("	JobID string `json:\"jobid,omitempty\"`")
