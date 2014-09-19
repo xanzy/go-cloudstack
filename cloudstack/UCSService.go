@@ -117,10 +117,10 @@ func (s *UCSService) AddUcsManager(p *AddUcsManagerParams) (*AddUcsManagerRespon
 }
 
 type AddUcsManagerResponse struct {
-	Name   string `json:"name,omitempty"`
-	Zoneid string `json:"zoneid,omitempty"`
-	Id     string `json:"id,omitempty"`
 	Url    string `json:"url,omitempty"`
+	Name   string `json:"name,omitempty"`
+	Id     string `json:"id,omitempty"`
+	Zoneid string `json:"zoneid,omitempty"`
 }
 
 type ListUcsManagersParams struct {
@@ -211,10 +211,59 @@ func (s *UCSService) GetUcsManagerID(keyword string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", keyword, l)
 	}
-	return l.UcsManagers[0].Id, nil
+
+	if l.Count == 1 {
+		return l.UcsManagers[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.UcsManagers {
+			if v.Name == keyword {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *UCSService) GetUcsManagerByName(name string) (*UcsManager, int, error) {
+	id, err := s.GetUcsManagerID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetUcsManagerByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *UCSService) GetUcsManagerByID(id string) (*UcsManager, int, error) {
+	p := &ListUcsManagersParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListUcsManagers(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.UcsManagers[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for UcsManager UUID: %s!", id)
 }
 
 // List ucs manager
@@ -400,24 +449,6 @@ func (s *UCSService) NewListUcsBladesParams(ucsmanagerid string) *ListUcsBladesP
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *UCSService) GetUcsBladeID(keyword string, ucsmanagerid string) (string, error) {
-	p := &ListUcsBladesParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-	p.p["ucsmanagerid"] = ucsmanagerid
-
-	l, err := s.ListUcsBlades(p)
-	if err != nil {
-		return "", err
-	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
-	}
-	return l.UcsBlades[0].Id, nil
-}
-
 // List ucs blades
 func (s *UCSService) ListUcsBlades(p *ListUcsBladesParams) (*ListUcsBladesResponse, error) {
 	resp, err := s.cs.newRequest("listUcsBlades", p.toURLValues())
@@ -438,10 +469,10 @@ type ListUcsBladesResponse struct {
 }
 
 type UcsBlade struct {
-	Profiledn    string `json:"profiledn,omitempty"`
-	Id           string `json:"id,omitempty"`
 	Bladedn      string `json:"bladedn,omitempty"`
+	Profiledn    string `json:"profiledn,omitempty"`
 	Hostid       string `json:"hostid,omitempty"`
+	Id           string `json:"id,omitempty"`
 	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
 }
 
@@ -525,20 +556,252 @@ func (s *UCSService) AssociateUcsProfileToBlade(p *AssociateUcsProfileToBladePar
 			return &r, warn
 		}
 
-		var r AssociateUcsProfileToBladeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AssociateUcsProfileToBladeResponse struct {
 	JobID        string `json:"jobid,omitempty"`
+	Bladedn      string `json:"bladedn,omitempty"`
 	Profiledn    string `json:"profiledn,omitempty"`
 	Hostid       string `json:"hostid,omitempty"`
-	Bladedn      string `json:"bladedn,omitempty"`
 	Id           string `json:"id,omitempty"`
 	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
+}
+
+type DeleteUcsManagerParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteUcsManagerParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["ucsmanagerid"]; found {
+		u.Set("ucsmanagerid", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteUcsManagerParams) SetUcsmanagerid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ucsmanagerid"] = v
+	return
+}
+
+// You should always use this function to get a new DeleteUcsManagerParams instance,
+// as then you are sure you have configured all required params
+func (s *UCSService) NewDeleteUcsManagerParams(ucsmanagerid string) *DeleteUcsManagerParams {
+	p := &DeleteUcsManagerParams{}
+	p.p = make(map[string]interface{})
+	p.p["ucsmanagerid"] = ucsmanagerid
+	return p
+}
+
+// Delete a Ucs manager
+func (s *UCSService) DeleteUcsManager(p *DeleteUcsManagerParams) (*DeleteUcsManagerResponse, error) {
+	resp, err := s.cs.newRequest("deleteUcsManager", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteUcsManagerResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type DeleteUcsManagerResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
+}
+
+type DisassociateUcsProfileFromBladeParams struct {
+	p map[string]interface{}
+}
+
+func (p *DisassociateUcsProfileFromBladeParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["bladeid"]; found {
+		u.Set("bladeid", v.(string))
+	}
+	if v, found := p.p["deleteprofile"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("deleteprofile", vv)
+	}
+	return u
+}
+
+func (p *DisassociateUcsProfileFromBladeParams) SetBladeid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["bladeid"] = v
+	return
+}
+
+func (p *DisassociateUcsProfileFromBladeParams) SetDeleteprofile(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["deleteprofile"] = v
+	return
+}
+
+// You should always use this function to get a new DisassociateUcsProfileFromBladeParams instance,
+// as then you are sure you have configured all required params
+func (s *UCSService) NewDisassociateUcsProfileFromBladeParams(bladeid string) *DisassociateUcsProfileFromBladeParams {
+	p := &DisassociateUcsProfileFromBladeParams{}
+	p.p = make(map[string]interface{})
+	p.p["bladeid"] = bladeid
+	return p
+}
+
+// disassociate a profile from a blade
+func (s *UCSService) DisassociateUcsProfileFromBlade(p *DisassociateUcsProfileFromBladeParams) (*DisassociateUcsProfileFromBladeResponse, error) {
+	resp, err := s.cs.newRequest("disassociateUcsProfileFromBlade", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DisassociateUcsProfileFromBladeResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, warn, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			return nil, err
+		}
+		// If 'warn' has a value it means the job is running longer than the configured
+		// timeout, the resonse will contain the jobid of the running async job
+		if warn != nil {
+			return &r, warn
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DisassociateUcsProfileFromBladeResponse struct {
+	JobID        string `json:"jobid,omitempty"`
+	Id           string `json:"id,omitempty"`
+	Hostid       string `json:"hostid,omitempty"`
+	Bladedn      string `json:"bladedn,omitempty"`
+	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
+	Profiledn    string `json:"profiledn,omitempty"`
+}
+
+type RefreshUcsBladesParams struct {
+	p map[string]interface{}
+}
+
+func (p *RefreshUcsBladesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["ucsmanagerid"]; found {
+		u.Set("ucsmanagerid", v.(string))
+	}
+	return u
+}
+
+func (p *RefreshUcsBladesParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *RefreshUcsBladesParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *RefreshUcsBladesParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+func (p *RefreshUcsBladesParams) SetUcsmanagerid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ucsmanagerid"] = v
+	return
+}
+
+// You should always use this function to get a new RefreshUcsBladesParams instance,
+// as then you are sure you have configured all required params
+func (s *UCSService) NewRefreshUcsBladesParams(ucsmanagerid string) *RefreshUcsBladesParams {
+	p := &RefreshUcsBladesParams{}
+	p.p = make(map[string]interface{})
+	p.p["ucsmanagerid"] = ucsmanagerid
+	return p
+}
+
+// refresh ucs blades to sync with UCS manager
+func (s *UCSService) RefreshUcsBlades(p *RefreshUcsBladesParams) (*RefreshUcsBladesResponse, error) {
+	resp, err := s.cs.newRequest("refreshUcsBlades", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r RefreshUcsBladesResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type RefreshUcsBladesResponse struct {
+	Id           string `json:"id,omitempty"`
+	Bladedn      string `json:"bladedn,omitempty"`
+	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
+	Profiledn    string `json:"profiledn,omitempty"`
+	Hostid       string `json:"hostid,omitempty"`
 }

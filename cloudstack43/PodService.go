@@ -140,27 +140,27 @@ func (s *PodService) CreatePod(p *CreatePodParams) (*CreatePodResponse, error) {
 }
 
 type CreatePodResponse struct {
-	Startip  string `json:"startip,omitempty"`
-	Capacity []struct {
-		Type          int    `json:"type,omitempty"`
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
-		Clustername   string `json:"clustername,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
-	} `json:"capacity,omitempty"`
-	Endip           string `json:"endip,omitempty"`
-	Allocationstate string `json:"allocationstate,omitempty"`
 	Gateway         string `json:"gateway,omitempty"`
 	Id              string `json:"id,omitempty"`
-	Name            string `json:"name,omitempty"`
-	Zonename        string `json:"zonename,omitempty"`
-	Netmask         string `json:"netmask,omitempty"`
+	Allocationstate string `json:"allocationstate,omitempty"`
 	Zoneid          string `json:"zoneid,omitempty"`
+	Name            string `json:"name,omitempty"`
+	Endip           string `json:"endip,omitempty"`
+	Netmask         string `json:"netmask,omitempty"`
+	Startip         string `json:"startip,omitempty"`
+	Zonename        string `json:"zonename,omitempty"`
+	Capacity        []struct {
+		Zonename      string `json:"zonename,omitempty"`
+		Clustername   string `json:"clustername,omitempty"`
+		Type          int    `json:"type,omitempty"`
+		Podname       string `json:"podname,omitempty"`
+		Clusterid     string `json:"clusterid,omitempty"`
+		Capacitytotal int    `json:"capacitytotal,omitempty"`
+		Podid         string `json:"podid,omitempty"`
+		Percentused   string `json:"percentused,omitempty"`
+		Capacityused  int    `json:"capacityused,omitempty"`
+		Zoneid        string `json:"zoneid,omitempty"`
+	} `json:"capacity,omitempty"`
 }
 
 type UpdatePodParams struct {
@@ -276,27 +276,27 @@ func (s *PodService) UpdatePod(p *UpdatePodParams) (*UpdatePodResponse, error) {
 }
 
 type UpdatePodResponse struct {
-	Zonename string `json:"zonename,omitempty"`
-	Zoneid   string `json:"zoneid,omitempty"`
 	Name     string `json:"name,omitempty"`
 	Capacity []struct {
-		Podid         string `json:"podid,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
 		Type          int    `json:"type,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
 		Clusterid     string `json:"clusterid,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
+		Podname       string `json:"podname,omitempty"`
+		Percentused   string `json:"percentused,omitempty"`
+		Podid         string `json:"podid,omitempty"`
 		Zonename      string `json:"zonename,omitempty"`
+		Zoneid        string `json:"zoneid,omitempty"`
 		Capacitytotal int    `json:"capacitytotal,omitempty"`
+		Capacityused  int    `json:"capacityused,omitempty"`
 	} `json:"capacity,omitempty"`
-	Gateway         string `json:"gateway,omitempty"`
-	Endip           string `json:"endip,omitempty"`
-	Startip         string `json:"startip,omitempty"`
 	Allocationstate string `json:"allocationstate,omitempty"`
+	Endip           string `json:"endip,omitempty"`
+	Gateway         string `json:"gateway,omitempty"`
+	Zonename        string `json:"zonename,omitempty"`
 	Id              string `json:"id,omitempty"`
+	Startip         string `json:"startip,omitempty"`
 	Netmask         string `json:"netmask,omitempty"`
+	Zoneid          string `json:"zoneid,omitempty"`
 }
 
 type DeletePodParams struct {
@@ -346,8 +346,8 @@ func (s *PodService) DeletePod(p *DeletePodParams) (*DeletePodResponse, error) {
 }
 
 type DeletePodResponse struct {
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type ListPodsParams struct {
@@ -472,10 +472,59 @@ func (s *PodService) GetPodID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.Pods[0].Id, nil
+
+	if l.Count == 1 {
+		return l.Pods[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.Pods {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *PodService) GetPodByName(name string) (*Pod, int, error) {
+	id, err := s.GetPodID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetPodByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *PodService) GetPodByID(id string) (*Pod, int, error) {
+	p := &ListPodsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListPods(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.Pods[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for Pod UUID: %s!", id)
 }
 
 // Lists all Pods.
@@ -498,27 +547,27 @@ type ListPodsResponse struct {
 }
 
 type Pod struct {
-	Netmask  string `json:"netmask,omitempty"`
-	Id       string `json:"id,omitempty"`
-	Startip  string `json:"startip,omitempty"`
-	Zoneid   string `json:"zoneid,omitempty"`
-	Name     string `json:"name,omitempty"`
-	Gateway  string `json:"gateway,omitempty"`
-	Zonename string `json:"zonename,omitempty"`
-	Capacity []struct {
-		Type          int    `json:"type,omitempty"`
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
-		Clustername   string `json:"clustername,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-	} `json:"capacity,omitempty"`
+	Gateway         string `json:"gateway,omitempty"`
+	Zonename        string `json:"zonename,omitempty"`
+	Netmask         string `json:"netmask,omitempty"`
+	Id              string `json:"id,omitempty"`
+	Zoneid          string `json:"zoneid,omitempty"`
+	Name            string `json:"name,omitempty"`
+	Startip         string `json:"startip,omitempty"`
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Endip           string `json:"endip,omitempty"`
+	Capacity        []struct {
+		Capacitytotal int    `json:"capacitytotal,omitempty"`
+		Clusterid     string `json:"clusterid,omitempty"`
+		Type          int    `json:"type,omitempty"`
+		Zonename      string `json:"zonename,omitempty"`
+		Capacityused  int    `json:"capacityused,omitempty"`
+		Podid         string `json:"podid,omitempty"`
+		Percentused   string `json:"percentused,omitempty"`
+		Clustername   string `json:"clustername,omitempty"`
+		Podname       string `json:"podname,omitempty"`
+		Zoneid        string `json:"zoneid,omitempty"`
+	} `json:"capacity,omitempty"`
 }
 
 type DedicatePodParams struct {
@@ -600,23 +649,26 @@ func (s *PodService) DedicatePod(p *DedicatePodParams) (*DedicatePodResponse, er
 			return &r, warn
 		}
 
-		var r DedicatePodResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DedicatePodResponse struct {
 	JobID           string `json:"jobid,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Accountid       string `json:"accountid,omitempty"`
 	Id              string `json:"id,omitempty"`
-	Podname         string `json:"podname,omitempty"`
 	Affinitygroupid string `json:"affinitygroupid,omitempty"`
 	Podid           string `json:"podid,omitempty"`
-	Accountid       string `json:"accountid,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
+	Podname         string `json:"podname,omitempty"`
 }
 
 type ReleaseDedicatedPodParams struct {
@@ -675,11 +727,9 @@ func (s *PodService) ReleaseDedicatedPod(p *ReleaseDedicatedPodParams) (*Release
 			return &r, warn
 		}
 
-		var r ReleaseDedicatedPodResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -789,23 +839,6 @@ func (s *PodService) NewListDedicatedPodsParams() *ListDedicatedPodsParams {
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *PodService) GetDedicatedPodID(keyword string) (string, error) {
-	p := &ListDedicatedPodsParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-
-	l, err := s.ListDedicatedPods(p)
-	if err != nil {
-		return "", err
-	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
-	}
-	return l.DedicatedPods[0].Id, nil
-}
-
 // Lists dedicated pods.
 func (s *PodService) ListDedicatedPods(p *ListDedicatedPodsParams) (*ListDedicatedPodsResponse, error) {
 	resp, err := s.cs.newRequest("listDedicatedPods", p.toURLValues())
@@ -826,10 +859,10 @@ type ListDedicatedPodsResponse struct {
 }
 
 type DedicatedPod struct {
-	Accountid       string `json:"accountid,omitempty"`
-	Podid           string `json:"podid,omitempty"`
 	Podname         string `json:"podname,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
 	Domainid        string `json:"domainid,omitempty"`
+	Podid           string `json:"podid,omitempty"`
+	Affinitygroupid string `json:"affinitygroupid,omitempty"`
 	Id              string `json:"id,omitempty"`
+	Accountid       string `json:"accountid,omitempty"`
 }

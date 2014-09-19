@@ -68,7 +68,7 @@ func (s *CloudIdentifierService) GetCloudIdentifier(p *GetCloudIdentifierParams)
 }
 
 type GetCloudIdentifierResponse struct {
-	Userid          string `json:"userid,omitempty"`
 	Signature       string `json:"signature,omitempty"`
+	Userid          string `json:"userid,omitempty"`
 	Cloudidentifier string `json:"cloudidentifier,omitempty"`
 }

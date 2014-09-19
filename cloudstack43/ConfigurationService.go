@@ -124,12 +124,12 @@ func (s *ConfigurationService) UpdateConfiguration(p *UpdateConfigurationParams)
 }
 
 type UpdateConfigurationResponse struct {
+	Description string `json:"description,omitempty"`
 	Scope       string `json:"scope,omitempty"`
 	Category    string `json:"category,omitempty"`
-	Description string `json:"description,omitempty"`
+	Id          int    `json:"id,omitempty"`
 	Name        string `json:"name,omitempty"`
 	Value       string `json:"value,omitempty"`
-	Id          int    `json:"id,omitempty"`
 }
 
 type ListConfigurationsParams struct {
@@ -273,12 +273,12 @@ type ListConfigurationsResponse struct {
 }
 
 type Configuration struct {
-	Name        string `json:"name,omitempty"`
-	Value       string `json:"value,omitempty"`
 	Description string `json:"description,omitempty"`
 	Id          int    `json:"id,omitempty"`
-	Category    string `json:"category,omitempty"`
+	Value       string `json:"value,omitempty"`
+	Name        string `json:"name,omitempty"`
 	Scope       string `json:"scope,omitempty"`
+	Category    string `json:"category,omitempty"`
 }
 
 type ListCapabilitiesParams struct {
@@ -321,17 +321,17 @@ type ListCapabilitiesResponse struct {
 }
 
 type Capability struct {
-	Cloudstackversion         string `json:"cloudstackversion,omitempty"`
-	Apilimitmax               int    `json:"apilimitmax,omitempty"`
-	SupportELB                string `json:"supportELB,omitempty"`
-	Userpublictemplateenabled bool   `json:"userpublictemplateenabled,omitempty"`
 	Kvmsnapshotenabled        bool   `json:"kvmsnapshotenabled,omitempty"`
-	Securitygroupsenabled     bool   `json:"securitygroupsenabled,omitempty"`
+	Apilimitmax               int    `json:"apilimitmax,omitempty"`
 	Projectinviterequired     bool   `json:"projectinviterequired,omitempty"`
-	Customdiskofferingmaxsize int    `json:"customdiskofferingmaxsize,omitempty"`
-	Allowusercreateprojects   bool   `json:"allowusercreateprojects,omitempty"`
-	Apilimitinterval          int    `json:"apilimitinterval,omitempty"`
+	Userpublictemplateenabled bool   `json:"userpublictemplateenabled,omitempty"`
+	Cloudstackversion         string `json:"cloudstackversion,omitempty"`
+	Securitygroupsenabled     bool   `json:"securitygroupsenabled,omitempty"`
 	Regionsecondaryenabled    bool   `json:"regionsecondaryenabled,omitempty"`
+	Customdiskofferingmaxsize int    `json:"customdiskofferingmaxsize,omitempty"`
+	Apilimitinterval          int    `json:"apilimitinterval,omitempty"`
+	SupportELB                string `json:"supportELB,omitempty"`
+	Allowusercreateprojects   bool   `json:"allowusercreateprojects,omitempty"`
 }
 
 type ListDeploymentPlannersParams struct {

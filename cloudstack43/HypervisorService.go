@@ -147,12 +147,12 @@ func (s *HypervisorService) UpdateHypervisorCapabilities(p *UpdateHypervisorCapa
 }
 
 type UpdateHypervisorCapabilitiesResponse struct {
-	Maxguestslimit       int    `json:"maxguestslimit,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Maxhostspercluster   int    `json:"maxhostspercluster,omitempty"`
-	Maxdatavolumeslimit  int    `json:"maxdatavolumeslimit,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
 	Storagemotionenabled bool   `json:"storagemotionenabled,omitempty"`
+	Maxguestslimit       int    `json:"maxguestslimit,omitempty"`
+	Maxhostspercluster   int    `json:"maxhostspercluster,omitempty"`
+	Hypervisor           string `json:"hypervisor,omitempty"`
+	Id                   string `json:"id,omitempty"`
+	Maxdatavolumeslimit  int    `json:"maxdatavolumeslimit,omitempty"`
 	Securitygroupenabled bool   `json:"securitygroupenabled,omitempty"`
 	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
 }
@@ -235,20 +235,25 @@ func (s *HypervisorService) NewListHypervisorCapabilitiesParams() *ListHyperviso
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *HypervisorService) GetHypervisorCapabilityID(keyword string) (string, error) {
+func (s *HypervisorService) GetHypervisorCapabilityByID(id string) (*HypervisorCapability, int, error) {
 	p := &ListHypervisorCapabilitiesParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListHypervisorCapabilities(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.HypervisorCapabilities[0].Id, nil
+
+	if l.Count == 1 {
+		return l.HypervisorCapabilities[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for HypervisorCapability UUID: %s!", id)
 }
 
 // Lists all hypervisor capabilities.
@@ -271,12 +276,12 @@ type ListHypervisorCapabilitiesResponse struct {
 }
 
 type HypervisorCapability struct {
-	Securitygroupenabled bool   `json:"securitygroupenabled,omitempty"`
-	Maxhostspercluster   int    `json:"maxhostspercluster,omitempty"`
+	Maxguestslimit       int    `json:"maxguestslimit,omitempty"`
+	Storagemotionenabled bool   `json:"storagemotionenabled,omitempty"`
 	Hypervisor           string `json:"hypervisor,omitempty"`
 	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
-	Storagemotionenabled bool   `json:"storagemotionenabled,omitempty"`
+	Maxhostspercluster   int    `json:"maxhostspercluster,omitempty"`
+	Securitygroupenabled bool   `json:"securitygroupenabled,omitempty"`
 	Id                   string `json:"id,omitempty"`
-	Maxguestslimit       int    `json:"maxguestslimit,omitempty"`
 	Maxdatavolumeslimit  int    `json:"maxdatavolumeslimit,omitempty"`
 }

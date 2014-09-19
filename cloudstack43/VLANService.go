@@ -246,28 +246,28 @@ func (s *VLANService) CreateVlanIpRange(p *CreateVlanIpRangeParams) (*CreateVlan
 }
 
 type CreateVlanIpRangeResponse struct {
-	Startipv6         string `json:"startipv6,omitempty"`
-	Ip6cidr           string `json:"ip6cidr,omitempty"`
-	Zoneid            string `json:"zoneid,omitempty"`
-	Netmask           string `json:"netmask,omitempty"`
-	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-	Startip           string `json:"startip,omitempty"`
-	Forvirtualnetwork bool   `json:"forvirtualnetwork,omitempty"`
-	Domain            string `json:"domain,omitempty"`
-	Networkid         string `json:"networkid,omitempty"`
-	Project           string `json:"project,omitempty"`
-	Account           string `json:"account,omitempty"`
-	Description       string `json:"description,omitempty"`
-	Domainid          string `json:"domainid,omitempty"`
 	Podid             string `json:"podid,omitempty"`
-	Projectid         string `json:"projectid,omitempty"`
-	Id                string `json:"id,omitempty"`
+	Project           string `json:"project,omitempty"`
+	Netmask           string `json:"netmask,omitempty"`
+	Startip           string `json:"startip,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+	Startipv6         string `json:"startipv6,omitempty"`
+	Zoneid            string `json:"zoneid,omitempty"`
+	Domainid          string `json:"domainid,omitempty"`
 	Ip6gateway        string `json:"ip6gateway,omitempty"`
-	Endipv6           string `json:"endipv6,omitempty"`
-	Vlan              string `json:"vlan,omitempty"`
-	Endip             string `json:"endip,omitempty"`
-	Gateway           string `json:"gateway,omitempty"`
 	Podname           string `json:"podname,omitempty"`
+	Gateway           string `json:"gateway,omitempty"`
+	Ip6cidr           string `json:"ip6cidr,omitempty"`
+	Vlan              string `json:"vlan,omitempty"`
+	Networkid         string `json:"networkid,omitempty"`
+	Domain            string `json:"domain,omitempty"`
+	Endipv6           string `json:"endipv6,omitempty"`
+	Description       string `json:"description,omitempty"`
+	Forvirtualnetwork bool   `json:"forvirtualnetwork,omitempty"`
+	Account           string `json:"account,omitempty"`
+	Projectid         string `json:"projectid,omitempty"`
+	Endip             string `json:"endip,omitempty"`
+	Id                string `json:"id,omitempty"`
 }
 
 type DeleteVlanIpRangeParams struct {
@@ -318,7 +318,7 @@ func (s *VLANService) DeleteVlanIpRange(p *DeleteVlanIpRangeParams) (*DeleteVlan
 
 type DeleteVlanIpRangeResponse struct {
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type ListVlanIpRangesParams struct {
@@ -488,20 +488,25 @@ func (s *VLANService) NewListVlanIpRangesParams() *ListVlanIpRangesParams {
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *VLANService) GetVlanIpRangeID(keyword string) (string, error) {
+func (s *VLANService) GetVlanIpRangeByID(id string) (*VlanIpRange, int, error) {
 	p := &ListVlanIpRangesParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListVlanIpRanges(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.VlanIpRanges[0].Id, nil
+
+	if l.Count == 1 {
+		return l.VlanIpRanges[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for VlanIpRange UUID: %s!", id)
 }
 
 // Lists all VLAN IP ranges.
@@ -524,28 +529,28 @@ type ListVlanIpRangesResponse struct {
 }
 
 type VlanIpRange struct {
-	Project           string `json:"project,omitempty"`
-	Networkid         string `json:"networkid,omitempty"`
-	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 	Forvirtualnetwork bool   `json:"forvirtualnetwork,omitempty"`
+	Podname           string `json:"podname,omitempty"`
+	Startipv6         string `json:"startipv6,omitempty"`
 	Endip             string `json:"endip,omitempty"`
-	Startip           string `json:"startip,omitempty"`
-	Projectid         string `json:"projectid,omitempty"`
-	Domainid          string `json:"domainid,omitempty"`
-	Id                string `json:"id,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 	Zoneid            string `json:"zoneid,omitempty"`
 	Vlan              string `json:"vlan,omitempty"`
-	Ip6cidr           string `json:"ip6cidr,omitempty"`
-	Gateway           string `json:"gateway,omitempty"`
-	Podname           string `json:"podname,omitempty"`
-	Netmask           string `json:"netmask,omitempty"`
-	Endipv6           string `json:"endipv6,omitempty"`
-	Ip6gateway        string `json:"ip6gateway,omitempty"`
-	Description       string `json:"description,omitempty"`
-	Startipv6         string `json:"startipv6,omitempty"`
-	Domain            string `json:"domain,omitempty"`
+	Startip           string `json:"startip,omitempty"`
+	Project           string `json:"project,omitempty"`
+	Networkid         string `json:"networkid,omitempty"`
 	Podid             string `json:"podid,omitempty"`
+	Netmask           string `json:"netmask,omitempty"`
+	Domain            string `json:"domain,omitempty"`
+	Ip6gateway        string `json:"ip6gateway,omitempty"`
+	Endipv6           string `json:"endipv6,omitempty"`
+	Id                string `json:"id,omitempty"`
 	Account           string `json:"account,omitempty"`
+	Ip6cidr           string `json:"ip6cidr,omitempty"`
+	Projectid         string `json:"projectid,omitempty"`
+	Domainid          string `json:"domainid,omitempty"`
+	Gateway           string `json:"gateway,omitempty"`
+	Description       string `json:"description,omitempty"`
 }
 
 type DedicateGuestVlanRangeParams struct {
@@ -642,15 +647,15 @@ func (s *VLANService) DedicateGuestVlanRange(p *DedicateGuestVlanRangeParams) (*
 }
 
 type DedicateGuestVlanRangeResponse struct {
-	Guestvlanrange    string `json:"guestvlanrange,omitempty"`
-	Zoneid            int    `json:"zoneid,omitempty"`
-	Project           string `json:"project,omitempty"`
-	Domain            string `json:"domain,omitempty"`
-	Domainid          string `json:"domainid,omitempty"`
-	Id                string `json:"id,omitempty"`
-	Account           string `json:"account,omitempty"`
 	Physicalnetworkid int    `json:"physicalnetworkid,omitempty"`
+	Guestvlanrange    string `json:"guestvlanrange,omitempty"`
+	Account           string `json:"account,omitempty"`
+	Domain            string `json:"domain,omitempty"`
 	Projectid         string `json:"projectid,omitempty"`
+	Zoneid            int    `json:"zoneid,omitempty"`
+	Id                string `json:"id,omitempty"`
+	Domainid          string `json:"domainid,omitempty"`
+	Project           string `json:"project,omitempty"`
 }
 
 type ReleaseDedicatedGuestVlanRangeParams struct {
@@ -709,11 +714,9 @@ func (s *VLANService) ReleaseDedicatedGuestVlanRange(p *ReleaseDedicatedGuestVla
 			return &r, warn
 		}
 
-		var r ReleaseDedicatedGuestVlanRangeResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -857,20 +860,25 @@ func (s *VLANService) NewListDedicatedGuestVlanRangesParams() *ListDedicatedGues
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *VLANService) GetDedicatedGuestVlanRangeID(keyword string) (string, error) {
+func (s *VLANService) GetDedicatedGuestVlanRangeByID(id string) (*DedicatedGuestVlanRange, int, error) {
 	p := &ListDedicatedGuestVlanRangesParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListDedicatedGuestVlanRanges(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.DedicatedGuestVlanRanges[0].Id, nil
+
+	if l.Count == 1 {
+		return l.DedicatedGuestVlanRanges[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for DedicatedGuestVlanRange UUID: %s!", id)
 }
 
 // Lists dedicated guest vlan ranges
@@ -893,13 +901,13 @@ type ListDedicatedGuestVlanRangesResponse struct {
 }
 
 type DedicatedGuestVlanRange struct {
+	Zoneid            int    `json:"zoneid,omitempty"`
+	Guestvlanrange    string `json:"guestvlanrange,omitempty"`
+	Id                string `json:"id,omitempty"`
 	Physicalnetworkid int    `json:"physicalnetworkid,omitempty"`
 	Projectid         string `json:"projectid,omitempty"`
-	Id                string `json:"id,omitempty"`
-	Project           string `json:"project,omitempty"`
-	Zoneid            int    `json:"zoneid,omitempty"`
 	Domain            string `json:"domain,omitempty"`
-	Guestvlanrange    string `json:"guestvlanrange,omitempty"`
 	Account           string `json:"account,omitempty"`
 	Domainid          string `json:"domainid,omitempty"`
+	Project           string `json:"project,omitempty"`
 }

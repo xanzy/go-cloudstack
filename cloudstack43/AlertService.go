@@ -123,10 +123,59 @@ func (s *AlertService) GetAlertID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.Alerts[0].Id, nil
+
+	if l.Count == 1 {
+		return l.Alerts[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.Alerts {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *AlertService) GetAlertByName(name string) (*Alert, int, error) {
+	id, err := s.GetAlertID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetAlertByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *AlertService) GetAlertByID(id string) (*Alert, int, error) {
+	p := &ListAlertsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListAlerts(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.Alerts[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for Alert UUID: %s!", id)
 }
 
 // Lists all alerts.
@@ -149,11 +198,11 @@ type ListAlertsResponse struct {
 }
 
 type Alert struct {
-	Name        string `json:"name,omitempty"`
-	Type        int    `json:"type,omitempty"`
-	Description string `json:"description,omitempty"`
 	Id          string `json:"id,omitempty"`
 	Sent        string `json:"sent,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Description string `json:"description,omitempty"`
+	Type        int    `json:"type,omitempty"`
 }
 
 type ArchiveAlertsParams struct {
@@ -236,8 +285,8 @@ func (s *AlertService) ArchiveAlerts(p *ArchiveAlertsParams) (*ArchiveAlertsResp
 }
 
 type ArchiveAlertsResponse struct {
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type DeleteAlertsParams struct {
@@ -321,7 +370,7 @@ func (s *AlertService) DeleteAlerts(p *DeleteAlertsParams) (*DeleteAlertsRespons
 
 type DeleteAlertsResponse struct {
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type GenerateAlertParams struct {
@@ -427,17 +476,15 @@ func (s *AlertService) GenerateAlert(p *GenerateAlertParams) (*GenerateAlertResp
 			return &r, warn
 		}
 
-		var r GenerateAlertResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type GenerateAlertResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }

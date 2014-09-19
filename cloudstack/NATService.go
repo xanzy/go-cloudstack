@@ -105,8 +105,8 @@ func (s *NATService) EnableStaticNat(p *EnableStaticNatParams) (*EnableStaticNat
 }
 
 type EnableStaticNatResponse struct {
+	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 }
 
 type CreateIpForwardingRuleParams struct {
@@ -226,44 +226,47 @@ func (s *NATService) CreateIpForwardingRule(p *CreateIpForwardingRuleParams) (*C
 			return &r, warn
 		}
 
-		var r CreateIpForwardingRuleResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateIpForwardingRuleResponse struct {
-	JobID          string `json:"jobid,omitempty"`
-	Ipaddress      string `json:"ipaddress,omitempty"`
-	Privateendport string `json:"privateendport,omitempty"`
-	Networkid      string `json:"networkid,omitempty"`
-	Cidrlist       string `json:"cidrlist,omitempty"`
-	Tags           []struct {
-		Domain       string `json:"domain,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-	} `json:"tags,omitempty"`
-	Publicendport             string `json:"publicendport,omitempty"`
-	Ipaddressid               string `json:"ipaddressid,omitempty"`
-	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
-	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
+	JobID                     string `json:"jobid,omitempty"`
+	Ipaddress                 string `json:"ipaddress,omitempty"`
 	State                     string `json:"state,omitempty"`
+	Cidrlist                  string `json:"cidrlist,omitempty"`
+	Protocol                  string `json:"protocol,omitempty"`
+	Ipaddressid               string `json:"ipaddressid,omitempty"`
+	Publicendport             string `json:"publicendport,omitempty"`
+	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
+	Id                        string `json:"id,omitempty"`
+	Privateendport            string `json:"privateendport,omitempty"`
 	Privateport               string `json:"privateport,omitempty"`
 	Publicport                string `json:"publicport,omitempty"`
-	Id                        string `json:"id,omitempty"`
-	Protocol                  string `json:"protocol,omitempty"`
-	Vmguestip                 string `json:"vmguestip,omitempty"`
+	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
 	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
+	Tags                      []struct {
+		Project      string `json:"project,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+	Networkid string `json:"networkid,omitempty"`
+	Vmguestip string `json:"vmguestip,omitempty"`
 }
 
 type DeleteIpForwardingRuleParams struct {
@@ -322,19 +325,17 @@ func (s *NATService) DeleteIpForwardingRule(p *DeleteIpForwardingRuleParams) (*D
 			return &r, warn
 		}
 
-		var r DeleteIpForwardingRuleResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteIpForwardingRuleResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type ListIpForwardingRulesParams struct {
@@ -483,20 +484,25 @@ func (s *NATService) NewListIpForwardingRulesParams() *ListIpForwardingRulesPara
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *NATService) GetIpForwardingRuleID(keyword string) (string, error) {
+func (s *NATService) GetIpForwardingRuleByID(id string) (*IpForwardingRule, int, error) {
 	p := &ListIpForwardingRulesParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListIpForwardingRules(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.IpForwardingRules[0].Id, nil
+
+	if l.Count == 1 {
+		return l.IpForwardingRules[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for IpForwardingRule UUID: %s!", id)
 }
 
 // List the ip forwarding rules
@@ -519,33 +525,33 @@ type ListIpForwardingRulesResponse struct {
 }
 
 type IpForwardingRule struct {
-	Id                        string `json:"id,omitempty"`
-	State                     string `json:"state,omitempty"`
+	Networkid                 string `json:"networkid,omitempty"`
+	Privateendport            string `json:"privateendport,omitempty"`
 	Ipaddress                 string `json:"ipaddress,omitempty"`
-	Protocol                  string `json:"protocol,omitempty"`
-	Vmguestip                 string `json:"vmguestip,omitempty"`
-	Cidrlist                  string `json:"cidrlist,omitempty"`
-	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
+	Publicendport             string `json:"publicendport,omitempty"`
 	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
-	Ipaddressid               string `json:"ipaddressid,omitempty"`
+	Protocol                  string `json:"protocol,omitempty"`
 	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
+	Publicport                string `json:"publicport,omitempty"`
 	Tags                      []struct {
-		Project      string `json:"project,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
 		Account      string `json:"account,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
 	} `json:"tags,omitempty"`
-	Publicendport  string `json:"publicendport,omitempty"`
-	Publicport     string `json:"publicport,omitempty"`
-	Privateendport string `json:"privateendport,omitempty"`
-	Networkid      string `json:"networkid,omitempty"`
-	Privateport    string `json:"privateport,omitempty"`
+	Vmguestip        string `json:"vmguestip,omitempty"`
+	Ipaddressid      string `json:"ipaddressid,omitempty"`
+	Virtualmachineid string `json:"virtualmachineid,omitempty"`
+	Privateport      string `json:"privateport,omitempty"`
+	State            string `json:"state,omitempty"`
+	Id               string `json:"id,omitempty"`
+	Cidrlist         string `json:"cidrlist,omitempty"`
 }
 
 type DisableStaticNatParams struct {
@@ -604,17 +610,15 @@ func (s *NATService) DisableStaticNat(p *DisableStaticNatParams) (*DisableStatic
 			return &r, warn
 		}
 
-		var r DisableStaticNatResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DisableStaticNatResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }

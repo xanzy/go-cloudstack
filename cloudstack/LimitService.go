@@ -115,13 +115,13 @@ func (s *LimitService) UpdateResourceLimit(p *UpdateResourceLimitParams) (*Updat
 }
 
 type UpdateResourceLimitResponse struct {
-	Max          int    `json:"max,omitempty"`
-	Account      string `json:"account,omitempty"`
-	Projectid    string `json:"projectid,omitempty"`
-	Resourcetype string `json:"resourcetype,omitempty"`
 	Domain       string `json:"domain,omitempty"`
-	Project      string `json:"project,omitempty"`
+	Projectid    string `json:"projectid,omitempty"`
 	Domainid     string `json:"domainid,omitempty"`
+	Max          int    `json:"max,omitempty"`
+	Resourcetype string `json:"resourcetype,omitempty"`
+	Account      string `json:"account,omitempty"`
+	Project      string `json:"project,omitempty"`
 }
 
 type UpdateResourceCountParams struct {
@@ -205,13 +205,13 @@ func (s *LimitService) UpdateResourceCount(p *UpdateResourceCountParams) (*Updat
 }
 
 type UpdateResourceCountResponse struct {
-	Projectid     string `json:"projectid,omitempty"`
-	Resourcecount int    `json:"resourcecount,omitempty"`
-	Resourcetype  string `json:"resourcetype,omitempty"`
-	Domain        string `json:"domain,omitempty"`
-	Account       string `json:"account,omitempty"`
 	Domainid      string `json:"domainid,omitempty"`
+	Domain        string `json:"domain,omitempty"`
 	Project       string `json:"project,omitempty"`
+	Resourcetype  string `json:"resourcetype,omitempty"`
+	Projectid     string `json:"projectid,omitempty"`
+	Account       string `json:"account,omitempty"`
+	Resourcecount int    `json:"resourcecount,omitempty"`
 }
 
 type ListResourceLimitsParams struct {
@@ -370,13 +370,13 @@ type ListResourceLimitsResponse struct {
 }
 
 type ResourceLimit struct {
-	Domain       string `json:"domain,omitempty"`
-	Max          int    `json:"max,omitempty"`
-	Project      string `json:"project,omitempty"`
-	Resourcetype string `json:"resourcetype,omitempty"`
-	Domainid     string `json:"domainid,omitempty"`
-	Projectid    string `json:"projectid,omitempty"`
 	Account      string `json:"account,omitempty"`
+	Domain       string `json:"domain,omitempty"`
+	Resourcetype string `json:"resourcetype,omitempty"`
+	Max          int    `json:"max,omitempty"`
+	Projectid    string `json:"projectid,omitempty"`
+	Domainid     string `json:"domainid,omitempty"`
+	Project      string `json:"project,omitempty"`
 }
 
 type GetApiLimitParams struct {
@@ -414,10 +414,10 @@ func (s *LimitService) GetApiLimit(p *GetApiLimitParams) (*GetApiLimitResponse, 
 }
 
 type GetApiLimitResponse struct {
-	ApiAllowed  int    `json:"apiAllowed,omitempty"`
-	ApiIssued   int    `json:"apiIssued,omitempty"`
 	ExpireAfter int    `json:"expireAfter,omitempty"`
+	ApiAllowed  int    `json:"apiAllowed,omitempty"`
 	Account     string `json:"account,omitempty"`
+	ApiIssued   int    `json:"apiIssued,omitempty"`
 	Accountid   string `json:"accountid,omitempty"`
 }
 
@@ -467,9 +467,9 @@ func (s *LimitService) ResetApiLimit(p *ResetApiLimitParams) (*ResetApiLimitResp
 }
 
 type ResetApiLimitResponse struct {
-	Accountid   string `json:"accountid,omitempty"`
+	ExpireAfter int    `json:"expireAfter,omitempty"`
 	ApiAllowed  int    `json:"apiAllowed,omitempty"`
 	Account     string `json:"account,omitempty"`
+	Accountid   string `json:"accountid,omitempty"`
 	ApiIssued   int    `json:"apiIssued,omitempty"`
-	ExpireAfter int    `json:"expireAfter,omitempty"`
 }

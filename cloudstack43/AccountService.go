@@ -213,76 +213,76 @@ func (s *AccountService) CreateAccount(p *CreateAccountParams) (*CreateAccountRe
 }
 
 type CreateAccountResponse struct {
-	Isdefault             bool   `json:"isdefault,omitempty"`
-	Snapshotlimit         string `json:"snapshotlimit,omitempty"`
-	Networktotal          int    `json:"networktotal,omitempty"`
-	Vmtotal               int    `json:"vmtotal,omitempty"`
-	Domain                string `json:"domain,omitempty"`
-	Vmavailable           string `json:"vmavailable,omitempty"`
-	Iscleanuprequired     bool   `json:"iscleanuprequired,omitempty"`
-	Vmrunning             int    `json:"vmrunning,omitempty"`
-	Primarystoragelimit   string `json:"primarystoragelimit,omitempty"`
-	Networkdomain         string `json:"networkdomain,omitempty"`
-	Name                  string `json:"name,omitempty"`
-	Templateavailable     string `json:"templateavailable,omitempty"`
-	Sentbytes             int    `json:"sentbytes,omitempty"`
-	Id                    string `json:"id,omitempty"`
-	Secondarystoragetotal int    `json:"secondarystoragetotal,omitempty"`
-	Cputotal              int    `json:"cputotal,omitempty"`
-	Defaultzoneid         string `json:"defaultzoneid,omitempty"`
-	Memoryavailable       string `json:"memoryavailable,omitempty"`
-	Volumelimit           string `json:"volumelimit,omitempty"`
-	Receivedbytes         int    `json:"receivedbytes,omitempty"`
-	Networklimit          string `json:"networklimit,omitempty"`
-	Secondarystoragelimit string `json:"secondarystoragelimit,omitempty"`
-	Snapshotavailable     string `json:"snapshotavailable,omitempty"`
-	User                  []struct {
-		Created             string `json:"created,omitempty"`
-		State               string `json:"state,omitempty"`
-		Id                  string `json:"id,omitempty"`
-		Firstname           string `json:"firstname,omitempty"`
-		Domainid            string `json:"domainid,omitempty"`
-		Timezone            string `json:"timezone,omitempty"`
-		Isdefault           bool   `json:"isdefault,omitempty"`
-		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
-		Domain              string `json:"domain,omitempty"`
-		Apikey              string `json:"apikey,omitempty"`
-		Username            string `json:"username,omitempty"`
-		Accounttype         int    `json:"accounttype,omitempty"`
-		Accountid           string `json:"accountid,omitempty"`
+	Iscleanuprequired   bool              `json:"iscleanuprequired,omitempty"`
+	Id                  string            `json:"id,omitempty"`
+	Snapshotlimit       string            `json:"snapshotlimit,omitempty"`
+	Memorytotal         int               `json:"memorytotal,omitempty"`
+	Primarystoragelimit string            `json:"primarystoragelimit,omitempty"`
+	Volumelimit         string            `json:"volumelimit,omitempty"`
+	Vmlimit             string            `json:"vmlimit,omitempty"`
+	Name                string            `json:"name,omitempty"`
+	Accountdetails      map[string]string `json:"accountdetails,omitempty"`
+	Templatelimit       string            `json:"templatelimit,omitempty"`
+	Memorylimit         string            `json:"memorylimit,omitempty"`
+	Vmtotal             int               `json:"vmtotal,omitempty"`
+	Networklimit        string            `json:"networklimit,omitempty"`
+	User                []struct {
 		Secretkey           string `json:"secretkey,omitempty"`
-		Lastname            string `json:"lastname,omitempty"`
+		Isdefault           bool   `json:"isdefault,omitempty"`
+		Username            string `json:"username,omitempty"`
+		State               string `json:"state,omitempty"`
 		Account             string `json:"account,omitempty"`
 		Email               string `json:"email,omitempty"`
+		Firstname           string `json:"firstname,omitempty"`
+		Accounttype         int    `json:"accounttype,omitempty"`
+		Accountid           string `json:"accountid,omitempty"`
+		Domainid            string `json:"domainid,omitempty"`
+		Id                  string `json:"id,omitempty"`
+		Timezone            string `json:"timezone,omitempty"`
+		Created             string `json:"created,omitempty"`
+		Domain              string `json:"domain,omitempty"`
+		Apikey              string `json:"apikey,omitempty"`
+		Lastname            string `json:"lastname,omitempty"`
+		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 	} `json:"user,omitempty"`
-	Memorylimit               string            `json:"memorylimit,omitempty"`
-	Accounttype               int               `json:"accounttype,omitempty"`
-	Accountdetails            map[string]string `json:"accountdetails,omitempty"`
-	Domainid                  string            `json:"domainid,omitempty"`
-	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
-	State                     string            `json:"state,omitempty"`
-	Projectavailable          string            `json:"projectavailable,omitempty"`
-	Volumeavailable           string            `json:"volumeavailable,omitempty"`
-	Ipavailable               string            `json:"ipavailable,omitempty"`
-	Vmlimit                   string            `json:"vmlimit,omitempty"`
-	Cpuavailable              string            `json:"cpuavailable,omitempty"`
-	Iptotal                   int               `json:"iptotal,omitempty"`
-	Projectlimit              string            `json:"projectlimit,omitempty"`
-	Volumetotal               int               `json:"volumetotal,omitempty"`
-	Templatelimit             string            `json:"templatelimit,omitempty"`
-	Cpulimit                  string            `json:"cpulimit,omitempty"`
-	Primarystoragetotal       int               `json:"primarystoragetotal,omitempty"`
-	Vmstopped                 int               `json:"vmstopped,omitempty"`
-	Memorytotal               int               `json:"memorytotal,omitempty"`
-	Snapshottotal             int               `json:"snapshottotal,omitempty"`
-	Networkavailable          string            `json:"networkavailable,omitempty"`
-	Iplimit                   string            `json:"iplimit,omitempty"`
-	Projecttotal              int               `json:"projecttotal,omitempty"`
-	Vpclimit                  string            `json:"vpclimit,omitempty"`
-	Vpcavailable              string            `json:"vpcavailable,omitempty"`
-	Templatetotal             int               `json:"templatetotal,omitempty"`
-	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
-	Vpctotal                  int               `json:"vpctotal,omitempty"`
+	Vpcavailable              string `json:"vpcavailable,omitempty"`
+	Vmstopped                 int    `json:"vmstopped,omitempty"`
+	Memoryavailable           string `json:"memoryavailable,omitempty"`
+	Projectavailable          string `json:"projectavailable,omitempty"`
+	Vpclimit                  string `json:"vpclimit,omitempty"`
+	Projecttotal              int    `json:"projecttotal,omitempty"`
+	Snapshottotal             int    `json:"snapshottotal,omitempty"`
+	Vpctotal                  int    `json:"vpctotal,omitempty"`
+	Isdefault                 bool   `json:"isdefault,omitempty"`
+	Cpulimit                  string `json:"cpulimit,omitempty"`
+	Vmrunning                 int    `json:"vmrunning,omitempty"`
+	Snapshotavailable         string `json:"snapshotavailable,omitempty"`
+	Primarystoragetotal       int    `json:"primarystoragetotal,omitempty"`
+	Ipavailable               string `json:"ipavailable,omitempty"`
+	Networktotal              int    `json:"networktotal,omitempty"`
+	Networkdomain             string `json:"networkdomain,omitempty"`
+	Secondarystorageavailable string `json:"secondarystorageavailable,omitempty"`
+	Iplimit                   string `json:"iplimit,omitempty"`
+	Projectlimit              string `json:"projectlimit,omitempty"`
+	Volumetotal               int    `json:"volumetotal,omitempty"`
+	Receivedbytes             int    `json:"receivedbytes,omitempty"`
+	Primarystorageavailable   string `json:"primarystorageavailable,omitempty"`
+	Secondarystoragelimit     string `json:"secondarystoragelimit,omitempty"`
+	Cpuavailable              string `json:"cpuavailable,omitempty"`
+	Vmavailable               string `json:"vmavailable,omitempty"`
+	Accounttype               int    `json:"accounttype,omitempty"`
+	Domainid                  string `json:"domainid,omitempty"`
+	Volumeavailable           string `json:"volumeavailable,omitempty"`
+	Templatetotal             int    `json:"templatetotal,omitempty"`
+	Defaultzoneid             string `json:"defaultzoneid,omitempty"`
+	Networkavailable          string `json:"networkavailable,omitempty"`
+	State                     string `json:"state,omitempty"`
+	Templateavailable         string `json:"templateavailable,omitempty"`
+	Cputotal                  int    `json:"cputotal,omitempty"`
+	Domain                    string `json:"domain,omitempty"`
+	Sentbytes                 int    `json:"sentbytes,omitempty"`
+	Iptotal                   int    `json:"iptotal,omitempty"`
+	Secondarystoragetotal     int    `json:"secondarystoragetotal,omitempty"`
 }
 
 type DeleteAccountParams struct {
@@ -341,19 +341,17 @@ func (s *AccountService) DeleteAccount(p *DeleteAccountParams) (*DeleteAccountRe
 			return &r, warn
 		}
 
-		var r DeleteAccountResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteAccountResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type UpdateAccountParams struct {
@@ -463,76 +461,76 @@ func (s *AccountService) UpdateAccount(p *UpdateAccountParams) (*UpdateAccountRe
 }
 
 type UpdateAccountResponse struct {
-	Networkdomain             string            `json:"networkdomain,omitempty"`
-	Networktotal              int               `json:"networktotal,omitempty"`
-	Vpctotal                  int               `json:"vpctotal,omitempty"`
-	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
-	Accountdetails            map[string]string `json:"accountdetails,omitempty"`
-	Templatelimit             string            `json:"templatelimit,omitempty"`
-	Iscleanuprequired         bool              `json:"iscleanuprequired,omitempty"`
-	Vmavailable               string            `json:"vmavailable,omitempty"`
-	Memoryavailable           string            `json:"memoryavailable,omitempty"`
-	Vmstopped                 int               `json:"vmstopped,omitempty"`
-	Name                      string            `json:"name,omitempty"`
-	Networklimit              string            `json:"networklimit,omitempty"`
-	Templatetotal             int               `json:"templatetotal,omitempty"`
-	Primarystoragetotal       int               `json:"primarystoragetotal,omitempty"`
-	Cputotal                  int               `json:"cputotal,omitempty"`
-	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
-	Receivedbytes             int               `json:"receivedbytes,omitempty"`
-	Vmrunning                 int               `json:"vmrunning,omitempty"`
-	Ipavailable               string            `json:"ipavailable,omitempty"`
+	Memorylimit           string `json:"memorylimit,omitempty"`
+	Id                    string `json:"id,omitempty"`
+	Vpctotal              int    `json:"vpctotal,omitempty"`
+	Snapshottotal         int    `json:"snapshottotal,omitempty"`
+	Vmrunning             int    `json:"vmrunning,omitempty"`
+	Secondarystoragelimit string `json:"secondarystoragelimit,omitempty"`
+	User                  []struct {
+		Accountid           string `json:"accountid,omitempty"`
+		Firstname           string `json:"firstname,omitempty"`
+		Timezone            string `json:"timezone,omitempty"`
+		Accounttype         int    `json:"accounttype,omitempty"`
+		Secretkey           string `json:"secretkey,omitempty"`
+		Lastname            string `json:"lastname,omitempty"`
+		Isdefault           bool   `json:"isdefault,omitempty"`
+		Created             string `json:"created,omitempty"`
+		State               string `json:"state,omitempty"`
+		Domainid            string `json:"domainid,omitempty"`
+		Account             string `json:"account,omitempty"`
+		Domain              string `json:"domain,omitempty"`
+		Email               string `json:"email,omitempty"`
+		Apikey              string `json:"apikey,omitempty"`
+		Username            string `json:"username,omitempty"`
+		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
+		Id                  string `json:"id,omitempty"`
+	} `json:"user,omitempty"`
 	Vmlimit                   string            `json:"vmlimit,omitempty"`
-	Memorylimit               string            `json:"memorylimit,omitempty"`
-	Templateavailable         string            `json:"templateavailable,omitempty"`
-	Projectavailable          string            `json:"projectavailable,omitempty"`
-	Accounttype               int               `json:"accounttype,omitempty"`
-	Projectlimit              string            `json:"projectlimit,omitempty"`
-	Domain                    string            `json:"domain,omitempty"`
-	Vmtotal                   int               `json:"vmtotal,omitempty"`
-	Iplimit                   string            `json:"iplimit,omitempty"`
+	Vmavailable               string            `json:"vmavailable,omitempty"`
+	Isdefault                 bool              `json:"isdefault,omitempty"`
+	Networkavailable          string            `json:"networkavailable,omitempty"`
 	Secondarystoragetotal     int               `json:"secondarystoragetotal,omitempty"`
-	Cpuavailable              string            `json:"cpuavailable,omitempty"`
-	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
-	Projecttotal              int               `json:"projecttotal,omitempty"`
-	Id                        string            `json:"id,omitempty"`
+	Vpcavailable              string            `json:"vpcavailable,omitempty"`
 	Snapshotlimit             string            `json:"snapshotlimit,omitempty"`
-	Volumeavailable           string            `json:"volumeavailable,omitempty"`
-	Memorytotal               int               `json:"memorytotal,omitempty"`
-	Primarystoragelimit       string            `json:"primarystoragelimit,omitempty"`
+	Volumetotal               int               `json:"volumetotal,omitempty"`
 	Cpulimit                  string            `json:"cpulimit,omitempty"`
+	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
+	Cputotal                  int               `json:"cputotal,omitempty"`
+	Cpuavailable              string            `json:"cpuavailable,omitempty"`
+	Primarystoragelimit       string            `json:"primarystoragelimit,omitempty"`
+	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
+	Projectavailable          string            `json:"projectavailable,omitempty"`
+	Vmstopped                 int               `json:"vmstopped,omitempty"`
+	Templatetotal             int               `json:"templatetotal,omitempty"`
+	Projectlimit              string            `json:"projectlimit,omitempty"`
+	Domainid                  string            `json:"domainid,omitempty"`
+	Iplimit                   string            `json:"iplimit,omitempty"`
+	Templatelimit             string            `json:"templatelimit,omitempty"`
+	Memoryavailable           string            `json:"memoryavailable,omitempty"`
+	Sentbytes                 int               `json:"sentbytes,omitempty"`
+	Primarystoragetotal       int               `json:"primarystoragetotal,omitempty"`
+	Iptotal                   int               `json:"iptotal,omitempty"`
+	Iscleanuprequired         bool              `json:"iscleanuprequired,omitempty"`
+	Networktotal              int               `json:"networktotal,omitempty"`
+	Accountdetails            map[string]string `json:"accountdetails,omitempty"`
+	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
+	Projecttotal              int               `json:"projecttotal,omitempty"`
+	Networklimit              string            `json:"networklimit,omitempty"`
+	Vpclimit                  string            `json:"vpclimit,omitempty"`
+	Vmtotal                   int               `json:"vmtotal,omitempty"`
+	Templateavailable         string            `json:"templateavailable,omitempty"`
+	Networkdomain             string            `json:"networkdomain,omitempty"`
+	Receivedbytes             int               `json:"receivedbytes,omitempty"`
+	Ipavailable               string            `json:"ipavailable,omitempty"`
+	Memorytotal               int               `json:"memorytotal,omitempty"`
+	Accounttype               int               `json:"accounttype,omitempty"`
+	Domain                    string            `json:"domain,omitempty"`
+	Volumeavailable           string            `json:"volumeavailable,omitempty"`
+	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
+	Name                      string            `json:"name,omitempty"`
 	State                     string            `json:"state,omitempty"`
 	Volumelimit               string            `json:"volumelimit,omitempty"`
-	User                      []struct {
-		Secretkey           string `json:"secretkey,omitempty"`
-		Username            string `json:"username,omitempty"`
-		State               string `json:"state,omitempty"`
-		Accounttype         int    `json:"accounttype,omitempty"`
-		Domain              string `json:"domain,omitempty"`
-		Timezone            string `json:"timezone,omitempty"`
-		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
-		Isdefault           bool   `json:"isdefault,omitempty"`
-		Domainid            string `json:"domainid,omitempty"`
-		Email               string `json:"email,omitempty"`
-		Id                  string `json:"id,omitempty"`
-		Firstname           string `json:"firstname,omitempty"`
-		Lastname            string `json:"lastname,omitempty"`
-		Created             string `json:"created,omitempty"`
-		Accountid           string `json:"accountid,omitempty"`
-		Account             string `json:"account,omitempty"`
-		Apikey              string `json:"apikey,omitempty"`
-	} `json:"user,omitempty"`
-	Defaultzoneid         string `json:"defaultzoneid,omitempty"`
-	Iptotal               int    `json:"iptotal,omitempty"`
-	Secondarystoragelimit string `json:"secondarystoragelimit,omitempty"`
-	Sentbytes             int    `json:"sentbytes,omitempty"`
-	Snapshottotal         int    `json:"snapshottotal,omitempty"`
-	Volumetotal           int    `json:"volumetotal,omitempty"`
-	Isdefault             bool   `json:"isdefault,omitempty"`
-	Vpcavailable          string `json:"vpcavailable,omitempty"`
-	Vpclimit              string `json:"vpclimit,omitempty"`
-	Networkavailable      string `json:"networkavailable,omitempty"`
-	Domainid              string `json:"domainid,omitempty"`
 }
 
 type DisableAccountParams struct {
@@ -625,87 +623,90 @@ func (s *AccountService) DisableAccount(p *DisableAccountParams) (*DisableAccoun
 			return &r, warn
 		}
 
-		var r DisableAccountResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DisableAccountResponse struct {
-	JobID string `json:"jobid,omitempty"`
-	User  []struct {
+	JobID                 string `json:"jobid,omitempty"`
+	Iplimit               string `json:"iplimit,omitempty"`
+	Vmtotal               int    `json:"vmtotal,omitempty"`
+	Volumeavailable       string `json:"volumeavailable,omitempty"`
+	Networkavailable      string `json:"networkavailable,omitempty"`
+	Snapshotlimit         string `json:"snapshotlimit,omitempty"`
+	Secondarystoragetotal int    `json:"secondarystoragetotal,omitempty"`
+	Vpcavailable          string `json:"vpcavailable,omitempty"`
+	Receivedbytes         int    `json:"receivedbytes,omitempty"`
+	Cpuavailable          string `json:"cpuavailable,omitempty"`
+	Name                  string `json:"name,omitempty"`
+	Memoryavailable       string `json:"memoryavailable,omitempty"`
+	Memorytotal           int    `json:"memorytotal,omitempty"`
+	Volumetotal           int    `json:"volumetotal,omitempty"`
+	Domain                string `json:"domain,omitempty"`
+	Projecttotal          int    `json:"projecttotal,omitempty"`
+	Snapshottotal         int    `json:"snapshottotal,omitempty"`
+	Volumelimit           string `json:"volumelimit,omitempty"`
+	Networklimit          string `json:"networklimit,omitempty"`
+	Templatetotal         int    `json:"templatetotal,omitempty"`
+	Iptotal               int    `json:"iptotal,omitempty"`
+	Projectavailable      string `json:"projectavailable,omitempty"`
+	Secondarystoragelimit string `json:"secondarystoragelimit,omitempty"`
+	Iscleanuprequired     bool   `json:"iscleanuprequired,omitempty"`
+	Primarystoragelimit   string `json:"primarystoragelimit,omitempty"`
+	Projectlimit          string `json:"projectlimit,omitempty"`
+	Networktotal          int    `json:"networktotal,omitempty"`
+	Memorylimit           string `json:"memorylimit,omitempty"`
+	State                 string `json:"state,omitempty"`
+	Cputotal              int    `json:"cputotal,omitempty"`
+	User                  []struct {
+		Domainid            string `json:"domainid,omitempty"`
+		Username            string `json:"username,omitempty"`
+		Account             string `json:"account,omitempty"`
+		Id                  string `json:"id,omitempty"`
 		Lastname            string `json:"lastname,omitempty"`
+		Timezone            string `json:"timezone,omitempty"`
+		Created             string `json:"created,omitempty"`
+		Domain              string `json:"domain,omitempty"`
+		State               string `json:"state,omitempty"`
 		Email               string `json:"email,omitempty"`
 		Accounttype         int    `json:"accounttype,omitempty"`
-		Domainid            string `json:"domainid,omitempty"`
-		Account             string `json:"account,omitempty"`
-		Domain              string `json:"domain,omitempty"`
-		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 		Accountid           string `json:"accountid,omitempty"`
 		Apikey              string `json:"apikey,omitempty"`
-		Username            string `json:"username,omitempty"`
-		Id                  string `json:"id,omitempty"`
-		Isdefault           bool   `json:"isdefault,omitempty"`
-		Created             string `json:"created,omitempty"`
-		Firstname           string `json:"firstname,omitempty"`
-		State               string `json:"state,omitempty"`
-		Timezone            string `json:"timezone,omitempty"`
 		Secretkey           string `json:"secretkey,omitempty"`
+		Firstname           string `json:"firstname,omitempty"`
+		Isdefault           bool   `json:"isdefault,omitempty"`
+		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 	} `json:"user,omitempty"`
-	Vmavailable               string            `json:"vmavailable,omitempty"`
-	Domain                    string            `json:"domain,omitempty"`
-	Projectavailable          string            `json:"projectavailable,omitempty"`
-	Iptotal                   int               `json:"iptotal,omitempty"`
-	Memorytotal               int               `json:"memorytotal,omitempty"`
-	State                     string            `json:"state,omitempty"`
-	Iscleanuprequired         bool              `json:"iscleanuprequired,omitempty"`
-	Id                        string            `json:"id,omitempty"`
-	Ipavailable               string            `json:"ipavailable,omitempty"`
-	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
 	Vpctotal                  int               `json:"vpctotal,omitempty"`
 	Accountdetails            map[string]string `json:"accountdetails,omitempty"`
-	Vmlimit                   string            `json:"vmlimit,omitempty"`
-	Name                      string            `json:"name,omitempty"`
-	Iplimit                   string            `json:"iplimit,omitempty"`
-	Vpcavailable              string            `json:"vpcavailable,omitempty"`
-	Networkavailable          string            `json:"networkavailable,omitempty"`
-	Cputotal                  int               `json:"cputotal,omitempty"`
-	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
-	Memorylimit               string            `json:"memorylimit,omitempty"`
-	Networkdomain             string            `json:"networkdomain,omitempty"`
-	Primarystoragelimit       string            `json:"primarystoragelimit,omitempty"`
-	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
-	Networktotal              int               `json:"networktotal,omitempty"`
-	Vmtotal                   int               `json:"vmtotal,omitempty"`
-	Memoryavailable           string            `json:"memoryavailable,omitempty"`
-	Sentbytes                 int               `json:"sentbytes,omitempty"`
-	Volumetotal               int               `json:"volumetotal,omitempty"`
-	Accounttype               int               `json:"accounttype,omitempty"`
-	Volumelimit               string            `json:"volumelimit,omitempty"`
-	Vpclimit                  string            `json:"vpclimit,omitempty"`
-	Networklimit              string            `json:"networklimit,omitempty"`
-	Snapshotlimit             string            `json:"snapshotlimit,omitempty"`
-	Domainid                  string            `json:"domainid,omitempty"`
-	Templatetotal             int               `json:"templatetotal,omitempty"`
-	Snapshottotal             int               `json:"snapshottotal,omitempty"`
-	Isdefault                 bool              `json:"isdefault,omitempty"`
-	Cpulimit                  string            `json:"cpulimit,omitempty"`
-	Cpuavailable              string            `json:"cpuavailable,omitempty"`
-	Vmrunning                 int               `json:"vmrunning,omitempty"`
-	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
-	Projectlimit              string            `json:"projectlimit,omitempty"`
-	Templateavailable         string            `json:"templateavailable,omitempty"`
-	Volumeavailable           string            `json:"volumeavailable,omitempty"`
-	Receivedbytes             int               `json:"receivedbytes,omitempty"`
-	Templatelimit             string            `json:"templatelimit,omitempty"`
-	Projecttotal              int               `json:"projecttotal,omitempty"`
-	Secondarystoragetotal     int               `json:"secondarystoragetotal,omitempty"`
-	Vmstopped                 int               `json:"vmstopped,omitempty"`
-	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
 	Primarystoragetotal       int               `json:"primarystoragetotal,omitempty"`
+	Accounttype               int               `json:"accounttype,omitempty"`
+	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
+	Networkdomain             string            `json:"networkdomain,omitempty"`
+	Domainid                  string            `json:"domainid,omitempty"`
+	Sentbytes                 int               `json:"sentbytes,omitempty"`
+	Templateavailable         string            `json:"templateavailable,omitempty"`
+	Ipavailable               string            `json:"ipavailable,omitempty"`
+	Vmavailable               string            `json:"vmavailable,omitempty"`
+	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
+	Vpclimit                  string            `json:"vpclimit,omitempty"`
+	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
+	Id                        string            `json:"id,omitempty"`
+	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
+	Vmstopped                 int               `json:"vmstopped,omitempty"`
+	Isdefault                 bool              `json:"isdefault,omitempty"`
+	Vmlimit                   string            `json:"vmlimit,omitempty"`
+	Cpulimit                  string            `json:"cpulimit,omitempty"`
+	Templatelimit             string            `json:"templatelimit,omitempty"`
+	Vmrunning                 int               `json:"vmrunning,omitempty"`
 }
 
 type EnableAccountParams struct {
@@ -776,76 +777,76 @@ func (s *AccountService) EnableAccount(p *EnableAccountParams) (*EnableAccountRe
 }
 
 type EnableAccountResponse struct {
-	State                     string `json:"state,omitempty"`
-	Name                      string `json:"name,omitempty"`
-	Volumetotal               int    `json:"volumetotal,omitempty"`
-	Templatelimit             string `json:"templatelimit,omitempty"`
-	Templateavailable         string `json:"templateavailable,omitempty"`
-	Vpctotal                  int    `json:"vpctotal,omitempty"`
-	Vpcavailable              string `json:"vpcavailable,omitempty"`
-	Primarystoragelimit       string `json:"primarystoragelimit,omitempty"`
-	Domainid                  string `json:"domainid,omitempty"`
-	Sentbytes                 int    `json:"sentbytes,omitempty"`
-	Networklimit              string `json:"networklimit,omitempty"`
-	Memorylimit               string `json:"memorylimit,omitempty"`
-	Primarystoragetotal       int    `json:"primarystoragetotal,omitempty"`
-	Primarystorageavailable   string `json:"primarystorageavailable,omitempty"`
-	Networktotal              int    `json:"networktotal,omitempty"`
-	Cpulimit                  string `json:"cpulimit,omitempty"`
-	Defaultzoneid             string `json:"defaultzoneid,omitempty"`
-	Receivedbytes             int    `json:"receivedbytes,omitempty"`
-	Vmstopped                 int    `json:"vmstopped,omitempty"`
-	Projecttotal              int    `json:"projecttotal,omitempty"`
-	Accounttype               int    `json:"accounttype,omitempty"`
-	Networkavailable          string `json:"networkavailable,omitempty"`
-	Cputotal                  int    `json:"cputotal,omitempty"`
-	Snapshotlimit             string `json:"snapshotlimit,omitempty"`
-	Volumeavailable           string `json:"volumeavailable,omitempty"`
-	Vpclimit                  string `json:"vpclimit,omitempty"`
-	Isdefault                 bool   `json:"isdefault,omitempty"`
-	Snapshotavailable         string `json:"snapshotavailable,omitempty"`
-	Cpuavailable              string `json:"cpuavailable,omitempty"`
-	Iscleanuprequired         bool   `json:"iscleanuprequired,omitempty"`
-	Domain                    string `json:"domain,omitempty"`
-	Memoryavailable           string `json:"memoryavailable,omitempty"`
-	Secondarystorageavailable string `json:"secondarystorageavailable,omitempty"`
-	Templatetotal             int    `json:"templatetotal,omitempty"`
-	Vmtotal                   int    `json:"vmtotal,omitempty"`
-	Memorytotal               int    `json:"memorytotal,omitempty"`
-	Id                        string `json:"id,omitempty"`
-	Volumelimit               string `json:"volumelimit,omitempty"`
-	Ipavailable               string `json:"ipavailable,omitempty"`
-	Snapshottotal             int    `json:"snapshottotal,omitempty"`
-	Vmlimit                   string `json:"vmlimit,omitempty"`
-	Vmavailable               string `json:"vmavailable,omitempty"`
-	Iptotal                   int    `json:"iptotal,omitempty"`
-	Secondarystoragelimit     string `json:"secondarystoragelimit,omitempty"`
-	User                      []struct {
-		Isdefault           bool   `json:"isdefault,omitempty"`
-		Lastname            string `json:"lastname,omitempty"`
-		Account             string `json:"account,omitempty"`
-		Domain              string `json:"domain,omitempty"`
-		Username            string `json:"username,omitempty"`
+	Snapshottotal       int    `json:"snapshottotal,omitempty"`
+	Cpulimit            string `json:"cpulimit,omitempty"`
+	Networkavailable    string `json:"networkavailable,omitempty"`
+	Projectavailable    string `json:"projectavailable,omitempty"`
+	Ipavailable         string `json:"ipavailable,omitempty"`
+	Iptotal             int    `json:"iptotal,omitempty"`
+	Primarystoragelimit string `json:"primarystoragelimit,omitempty"`
+	Cpuavailable        string `json:"cpuavailable,omitempty"`
+	Vmlimit             string `json:"vmlimit,omitempty"`
+	User                []struct {
 		Firstname           string `json:"firstname,omitempty"`
+		Domain              string `json:"domain,omitempty"`
+		Isdefault           bool   `json:"isdefault,omitempty"`
+		Email               string `json:"email,omitempty"`
 		Secretkey           string `json:"secretkey,omitempty"`
 		State               string `json:"state,omitempty"`
-		Accounttype         int    `json:"accounttype,omitempty"`
-		Domainid            string `json:"domainid,omitempty"`
-		Timezone            string `json:"timezone,omitempty"`
-		Apikey              string `json:"apikey,omitempty"`
 		Accountid           string `json:"accountid,omitempty"`
-		Created             string `json:"created,omitempty"`
-		Id                  string `json:"id,omitempty"`
-		Email               string `json:"email,omitempty"`
 		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
+		Lastname            string `json:"lastname,omitempty"`
+		Timezone            string `json:"timezone,omitempty"`
+		Accounttype         int    `json:"accounttype,omitempty"`
+		Id                  string `json:"id,omitempty"`
+		Username            string `json:"username,omitempty"`
+		Created             string `json:"created,omitempty"`
+		Apikey              string `json:"apikey,omitempty"`
+		Account             string `json:"account,omitempty"`
+		Domainid            string `json:"domainid,omitempty"`
 	} `json:"user,omitempty"`
-	Networkdomain         string            `json:"networkdomain,omitempty"`
-	Vmrunning             int               `json:"vmrunning,omitempty"`
-	Accountdetails        map[string]string `json:"accountdetails,omitempty"`
-	Secondarystoragetotal int               `json:"secondarystoragetotal,omitempty"`
-	Iplimit               string            `json:"iplimit,omitempty"`
-	Projectavailable      string            `json:"projectavailable,omitempty"`
-	Projectlimit          string            `json:"projectlimit,omitempty"`
+	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
+	Volumelimit               string            `json:"volumelimit,omitempty"`
+	Networklimit              string            `json:"networklimit,omitempty"`
+	Templatelimit             string            `json:"templatelimit,omitempty"`
+	Snapshotlimit             string            `json:"snapshotlimit,omitempty"`
+	Memorytotal               int               `json:"memorytotal,omitempty"`
+	Networkdomain             string            `json:"networkdomain,omitempty"`
+	Secondarystoragetotal     int               `json:"secondarystoragetotal,omitempty"`
+	Projecttotal              int               `json:"projecttotal,omitempty"`
+	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
+	Vmstopped                 int               `json:"vmstopped,omitempty"`
+	Id                        string            `json:"id,omitempty"`
+	Accountdetails            map[string]string `json:"accountdetails,omitempty"`
+	Receivedbytes             int               `json:"receivedbytes,omitempty"`
+	Templatetotal             int               `json:"templatetotal,omitempty"`
+	Iplimit                   string            `json:"iplimit,omitempty"`
+	Vpctotal                  int               `json:"vpctotal,omitempty"`
+	Vpclimit                  string            `json:"vpclimit,omitempty"`
+	Sentbytes                 int               `json:"sentbytes,omitempty"`
+	Memorylimit               string            `json:"memorylimit,omitempty"`
+	Primarystoragetotal       int               `json:"primarystoragetotal,omitempty"`
+	Cputotal                  int               `json:"cputotal,omitempty"`
+	Vmrunning                 int               `json:"vmrunning,omitempty"`
+	Vmavailable               string            `json:"vmavailable,omitempty"`
+	Iscleanuprequired         bool              `json:"iscleanuprequired,omitempty"`
+	Networktotal              int               `json:"networktotal,omitempty"`
+	Volumeavailable           string            `json:"volumeavailable,omitempty"`
+	Templateavailable         string            `json:"templateavailable,omitempty"`
+	Name                      string            `json:"name,omitempty"`
+	Vmtotal                   int               `json:"vmtotal,omitempty"`
+	Accounttype               int               `json:"accounttype,omitempty"`
+	Domain                    string            `json:"domain,omitempty"`
+	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
+	Volumetotal               int               `json:"volumetotal,omitempty"`
+	Memoryavailable           string            `json:"memoryavailable,omitempty"`
+	Projectlimit              string            `json:"projectlimit,omitempty"`
+	State                     string            `json:"state,omitempty"`
+	Isdefault                 bool              `json:"isdefault,omitempty"`
+	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
+	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
+	Vpcavailable              string            `json:"vpcavailable,omitempty"`
+	Domainid                  string            `json:"domainid,omitempty"`
 }
 
 type LockAccountParams struct {
@@ -907,76 +908,76 @@ func (s *AccountService) LockAccount(p *LockAccountParams) (*LockAccountResponse
 }
 
 type LockAccountResponse struct {
-	Volumetotal               int               `json:"volumetotal,omitempty"`
-	Networkdomain             string            `json:"networkdomain,omitempty"`
-	Primarystoragetotal       int               `json:"primarystoragetotal,omitempty"`
-	Ipavailable               string            `json:"ipavailable,omitempty"`
-	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
-	Projectavailable          string            `json:"projectavailable,omitempty"`
-	Vmrunning                 int               `json:"vmrunning,omitempty"`
-	Snapshottotal             int               `json:"snapshottotal,omitempty"`
-	Domain                    string            `json:"domain,omitempty"`
-	Networklimit              string            `json:"networklimit,omitempty"`
-	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
-	Name                      string            `json:"name,omitempty"`
-	Vmlimit                   string            `json:"vmlimit,omitempty"`
-	Secondarystoragetotal     int               `json:"secondarystoragetotal,omitempty"`
-	Memorytotal               int               `json:"memorytotal,omitempty"`
-	Vmtotal                   int               `json:"vmtotal,omitempty"`
-	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
-	Iscleanuprequired         bool              `json:"iscleanuprequired,omitempty"`
-	Isdefault                 bool              `json:"isdefault,omitempty"`
-	Vpcavailable              string            `json:"vpcavailable,omitempty"`
-	Templatelimit             string            `json:"templatelimit,omitempty"`
-	Accountdetails            map[string]string `json:"accountdetails,omitempty"`
-	Templatetotal             int               `json:"templatetotal,omitempty"`
-	Projecttotal              int               `json:"projecttotal,omitempty"`
-	Iplimit                   string            `json:"iplimit,omitempty"`
-	Templateavailable         string            `json:"templateavailable,omitempty"`
-	Networktotal              int               `json:"networktotal,omitempty"`
-	Memorylimit               string            `json:"memorylimit,omitempty"`
-	Domainid                  string            `json:"domainid,omitempty"`
-	Primarystoragelimit       string            `json:"primarystoragelimit,omitempty"`
-	Vpctotal                  int               `json:"vpctotal,omitempty"`
-	Iptotal                   int               `json:"iptotal,omitempty"`
-	Cpulimit                  string            `json:"cpulimit,omitempty"`
-	Cpuavailable              string            `json:"cpuavailable,omitempty"`
-	Volumeavailable           string            `json:"volumeavailable,omitempty"`
-	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
-	Vmstopped                 int               `json:"vmstopped,omitempty"`
-	State                     string            `json:"state,omitempty"`
-	Accounttype               int               `json:"accounttype,omitempty"`
-	Vmavailable               string            `json:"vmavailable,omitempty"`
-	Volumelimit               string            `json:"volumelimit,omitempty"`
-	Projectlimit              string            `json:"projectlimit,omitempty"`
-	Snapshotlimit             string            `json:"snapshotlimit,omitempty"`
-	Networkavailable          string            `json:"networkavailable,omitempty"`
-	Vpclimit                  string            `json:"vpclimit,omitempty"`
-	User                      []struct {
-		Domain              string `json:"domain,omitempty"`
-		State               string `json:"state,omitempty"`
-		Id                  string `json:"id,omitempty"`
-		Username            string `json:"username,omitempty"`
-		Account             string `json:"account,omitempty"`
+	Templatetotal int    `json:"templatetotal,omitempty"`
+	Vmlimit       string `json:"vmlimit,omitempty"`
+	Name          string `json:"name,omitempty"`
+	User          []struct {
 		Domainid            string `json:"domainid,omitempty"`
 		Accountid           string `json:"accountid,omitempty"`
-		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
-		Accounttype         int    `json:"accounttype,omitempty"`
-		Firstname           string `json:"firstname,omitempty"`
-		Lastname            string `json:"lastname,omitempty"`
+		Secretkey           string `json:"secretkey,omitempty"`
+		Domain              string `json:"domain,omitempty"`
+		Created             string `json:"created,omitempty"`
+		Email               string `json:"email,omitempty"`
+		Id                  string `json:"id,omitempty"`
 		Timezone            string `json:"timezone,omitempty"`
 		Isdefault           bool   `json:"isdefault,omitempty"`
+		Accounttype         int    `json:"accounttype,omitempty"`
 		Apikey              string `json:"apikey,omitempty"`
-		Email               string `json:"email,omitempty"`
-		Secretkey           string `json:"secretkey,omitempty"`
-		Created             string `json:"created,omitempty"`
+		Firstname           string `json:"firstname,omitempty"`
+		State               string `json:"state,omitempty"`
+		Account             string `json:"account,omitempty"`
+		Lastname            string `json:"lastname,omitempty"`
+		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
+		Username            string `json:"username,omitempty"`
 	} `json:"user,omitempty"`
-	Sentbytes             int    `json:"sentbytes,omitempty"`
-	Memoryavailable       string `json:"memoryavailable,omitempty"`
-	Receivedbytes         int    `json:"receivedbytes,omitempty"`
-	Cputotal              int    `json:"cputotal,omitempty"`
-	Id                    string `json:"id,omitempty"`
-	Secondarystoragelimit string `json:"secondarystoragelimit,omitempty"`
+	Vpcavailable              string            `json:"vpcavailable,omitempty"`
+	Memorytotal               int               `json:"memorytotal,omitempty"`
+	Id                        string            `json:"id,omitempty"`
+	Sentbytes                 int               `json:"sentbytes,omitempty"`
+	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
+	Networktotal              int               `json:"networktotal,omitempty"`
+	State                     string            `json:"state,omitempty"`
+	Vmrunning                 int               `json:"vmrunning,omitempty"`
+	Cpulimit                  string            `json:"cpulimit,omitempty"`
+	Secondarystoragetotal     int               `json:"secondarystoragetotal,omitempty"`
+	Domainid                  string            `json:"domainid,omitempty"`
+	Projecttotal              int               `json:"projecttotal,omitempty"`
+	Cpuavailable              string            `json:"cpuavailable,omitempty"`
+	Vmavailable               string            `json:"vmavailable,omitempty"`
+	Volumelimit               string            `json:"volumelimit,omitempty"`
+	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
+	Memorylimit               string            `json:"memorylimit,omitempty"`
+	Iscleanuprequired         bool              `json:"iscleanuprequired,omitempty"`
+	Projectavailable          string            `json:"projectavailable,omitempty"`
+	Cputotal                  int               `json:"cputotal,omitempty"`
+	Networkdomain             string            `json:"networkdomain,omitempty"`
+	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
+	Iplimit                   string            `json:"iplimit,omitempty"`
+	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
+	Accountdetails            map[string]string `json:"accountdetails,omitempty"`
+	Primarystoragelimit       string            `json:"primarystoragelimit,omitempty"`
+	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
+	Volumetotal               int               `json:"volumetotal,omitempty"`
+	Templateavailable         string            `json:"templateavailable,omitempty"`
+	Volumeavailable           string            `json:"volumeavailable,omitempty"`
+	Accounttype               int               `json:"accounttype,omitempty"`
+	Networklimit              string            `json:"networklimit,omitempty"`
+	Domain                    string            `json:"domain,omitempty"`
+	Templatelimit             string            `json:"templatelimit,omitempty"`
+	Ipavailable               string            `json:"ipavailable,omitempty"`
+	Isdefault                 bool              `json:"isdefault,omitempty"`
+	Memoryavailable           string            `json:"memoryavailable,omitempty"`
+	Vmstopped                 int               `json:"vmstopped,omitempty"`
+	Projectlimit              string            `json:"projectlimit,omitempty"`
+	Primarystoragetotal       int               `json:"primarystoragetotal,omitempty"`
+	Snapshottotal             int               `json:"snapshottotal,omitempty"`
+	Vmtotal                   int               `json:"vmtotal,omitempty"`
+	Snapshotlimit             string            `json:"snapshotlimit,omitempty"`
+	Receivedbytes             int               `json:"receivedbytes,omitempty"`
+	Vpctotal                  int               `json:"vpctotal,omitempty"`
+	Networkavailable          string            `json:"networkavailable,omitempty"`
+	Vpclimit                  string            `json:"vpclimit,omitempty"`
+	Iptotal                   int               `json:"iptotal,omitempty"`
 }
 
 type ListAccountsParams struct {
@@ -1137,10 +1138,59 @@ func (s *AccountService) GetAccountID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.Accounts[0].Id, nil
+
+	if l.Count == 1 {
+		return l.Accounts[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.Accounts {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *AccountService) GetAccountByName(name string) (*Account, int, error) {
+	id, err := s.GetAccountID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetAccountByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *AccountService) GetAccountByID(id string) (*Account, int, error) {
+	p := &ListAccountsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListAccounts(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.Accounts[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for Account UUID: %s!", id)
 }
 
 // Lists accounts and provides detailed account information for listed accounts
@@ -1163,76 +1213,76 @@ type ListAccountsResponse struct {
 }
 
 type Account struct {
-	Snapshottotal         int    `json:"snapshottotal,omitempty"`
-	Sentbytes             int    `json:"sentbytes,omitempty"`
-	Name                  string `json:"name,omitempty"`
-	Vmtotal               int    `json:"vmtotal,omitempty"`
-	Cpuavailable          string `json:"cpuavailable,omitempty"`
-	Iscleanuprequired     bool   `json:"iscleanuprequired,omitempty"`
-	Vmrunning             int    `json:"vmrunning,omitempty"`
-	Networklimit          string `json:"networklimit,omitempty"`
-	Projecttotal          int    `json:"projecttotal,omitempty"`
-	Memorytotal           int    `json:"memorytotal,omitempty"`
-	Secondarystoragetotal int    `json:"secondarystoragetotal,omitempty"`
-	Templatetotal         int    `json:"templatetotal,omitempty"`
-	Networkavailable      string `json:"networkavailable,omitempty"`
-	Templateavailable     string `json:"templateavailable,omitempty"`
-	Snapshotlimit         string `json:"snapshotlimit,omitempty"`
-	Cpulimit              string `json:"cpulimit,omitempty"`
-	User                  []struct {
-		Apikey              string `json:"apikey,omitempty"`
-		Domainid            string `json:"domainid,omitempty"`
-		Lastname            string `json:"lastname,omitempty"`
-		Account             string `json:"account,omitempty"`
-		State               string `json:"state,omitempty"`
-		Isdefault           bool   `json:"isdefault,omitempty"`
-		Firstname           string `json:"firstname,omitempty"`
-		Accounttype         int    `json:"accounttype,omitempty"`
-		Secretkey           string `json:"secretkey,omitempty"`
-		Id                  string `json:"id,omitempty"`
-		Domain              string `json:"domain,omitempty"`
-		Username            string `json:"username,omitempty"`
+	Cpulimit                string `json:"cpulimit,omitempty"`
+	Vpcavailable            string `json:"vpcavailable,omitempty"`
+	Templateavailable       string `json:"templateavailable,omitempty"`
+	Accounttype             int    `json:"accounttype,omitempty"`
+	Vmavailable             string `json:"vmavailable,omitempty"`
+	Vmstopped               int    `json:"vmstopped,omitempty"`
+	Cputotal                int    `json:"cputotal,omitempty"`
+	Primarystoragetotal     int    `json:"primarystoragetotal,omitempty"`
+	Vpclimit                string `json:"vpclimit,omitempty"`
+	Templatetotal           int    `json:"templatetotal,omitempty"`
+	Receivedbytes           int    `json:"receivedbytes,omitempty"`
+	Networklimit            string `json:"networklimit,omitempty"`
+	Volumelimit             string `json:"volumelimit,omitempty"`
+	Memorytotal             int    `json:"memorytotal,omitempty"`
+	Primarystorageavailable string `json:"primarystorageavailable,omitempty"`
+	Domain                  string `json:"domain,omitempty"`
+	Snapshotlimit           string `json:"snapshotlimit,omitempty"`
+	User                    []struct {
 		Timezone            string `json:"timezone,omitempty"`
+		Username            string `json:"username,omitempty"`
+		Account             string `json:"account,omitempty"`
+		Id                  string `json:"id,omitempty"`
+		Lastname            string `json:"lastname,omitempty"`
+		Isdefault           bool   `json:"isdefault,omitempty"`
+		Apikey              string `json:"apikey,omitempty"`
+		Created             string `json:"created,omitempty"`
 		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
+		Secretkey           string `json:"secretkey,omitempty"`
+		Accounttype         int    `json:"accounttype,omitempty"`
+		State               string `json:"state,omitempty"`
+		Domainid            string `json:"domainid,omitempty"`
 		Email               string `json:"email,omitempty"`
 		Accountid           string `json:"accountid,omitempty"`
-		Created             string `json:"created,omitempty"`
+		Firstname           string `json:"firstname,omitempty"`
+		Domain              string `json:"domain,omitempty"`
 	} `json:"user,omitempty"`
-	Vmlimit                   string            `json:"vmlimit,omitempty"`
-	Volumeavailable           string            `json:"volumeavailable,omitempty"`
 	Vpctotal                  int               `json:"vpctotal,omitempty"`
-	Cputotal                  int               `json:"cputotal,omitempty"`
 	Accountdetails            map[string]string `json:"accountdetails,omitempty"`
-	Networkdomain             string            `json:"networkdomain,omitempty"`
-	Projectlimit              string            `json:"projectlimit,omitempty"`
-	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
+	Iscleanuprequired         bool              `json:"iscleanuprequired,omitempty"`
+	Snapshottotal             int               `json:"snapshottotal,omitempty"`
+	Isdefault                 bool              `json:"isdefault,omitempty"`
+	Vmtotal                   int               `json:"vmtotal,omitempty"`
 	Memoryavailable           string            `json:"memoryavailable,omitempty"`
-	Primarystoragelimit       string            `json:"primarystoragelimit,omitempty"`
+	Secondarystoragetotal     int               `json:"secondarystoragetotal,omitempty"`
 	Iplimit                   string            `json:"iplimit,omitempty"`
-	State                     string            `json:"state,omitempty"`
 	Memorylimit               string            `json:"memorylimit,omitempty"`
-	Vpclimit                  string            `json:"vpclimit,omitempty"`
-	Id                        string            `json:"id,omitempty"`
+	Projectavailable          string            `json:"projectavailable,omitempty"`
+	Vmrunning                 int               `json:"vmrunning,omitempty"`
+	Projecttotal              int               `json:"projecttotal,omitempty"`
+	Iptotal                   int               `json:"iptotal,omitempty"`
+	Networkavailable          string            `json:"networkavailable,omitempty"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
+	Name                      string            `json:"name,omitempty"`
+	Primarystoragelimit       string            `json:"primarystoragelimit,omitempty"`
+	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
+	Networkdomain             string            `json:"networkdomain,omitempty"`
+	Networktotal              int               `json:"networktotal,omitempty"`
 	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
 	Volumetotal               int               `json:"volumetotal,omitempty"`
-	Isdefault                 bool              `json:"isdefault,omitempty"`
-	Templatelimit             string            `json:"templatelimit,omitempty"`
-	Domain                    string            `json:"domain,omitempty"`
-	Receivedbytes             int               `json:"receivedbytes,omitempty"`
-	Vmstopped                 int               `json:"vmstopped,omitempty"`
-	Networktotal              int               `json:"networktotal,omitempty"`
-	Projectavailable          string            `json:"projectavailable,omitempty"`
-	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
+	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
 	Domainid                  string            `json:"domainid,omitempty"`
-	Iptotal                   int               `json:"iptotal,omitempty"`
-	Vpcavailable              string            `json:"vpcavailable,omitempty"`
+	Cpuavailable              string            `json:"cpuavailable,omitempty"`
+	Vmlimit                   string            `json:"vmlimit,omitempty"`
+	State                     string            `json:"state,omitempty"`
+	Templatelimit             string            `json:"templatelimit,omitempty"`
+	Sentbytes                 int               `json:"sentbytes,omitempty"`
+	Id                        string            `json:"id,omitempty"`
 	Ipavailable               string            `json:"ipavailable,omitempty"`
-	Volumelimit               string            `json:"volumelimit,omitempty"`
-	Vmavailable               string            `json:"vmavailable,omitempty"`
-	Accounttype               int               `json:"accounttype,omitempty"`
-	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
-	Primarystoragetotal       int               `json:"primarystoragetotal,omitempty"`
+	Projectlimit              string            `json:"projectlimit,omitempty"`
+	Volumeavailable           string            `json:"volumeavailable,omitempty"`
 }
 
 type MarkDefaultZoneForAccountParams struct {
@@ -1315,87 +1365,90 @@ func (s *AccountService) MarkDefaultZoneForAccount(p *MarkDefaultZoneForAccountP
 			return &r, warn
 		}
 
-		var r MarkDefaultZoneForAccountResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type MarkDefaultZoneForAccountResponse struct {
 	JobID                     string            `json:"jobid,omitempty"`
-	Memorylimit               string            `json:"memorylimit,omitempty"`
-	Cpuavailable              string            `json:"cpuavailable,omitempty"`
 	Projectlimit              string            `json:"projectlimit,omitempty"`
-	Ipavailable               string            `json:"ipavailable,omitempty"`
-	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
-	Projecttotal              int               `json:"projecttotal,omitempty"`
-	Memorytotal               int               `json:"memorytotal,omitempty"`
-	Secondarystoragetotal     int               `json:"secondarystoragetotal,omitempty"`
-	Cpulimit                  string            `json:"cpulimit,omitempty"`
-	Vmrunning                 int               `json:"vmrunning,omitempty"`
-	Vmtotal                   int               `json:"vmtotal,omitempty"`
-	Vpclimit                  string            `json:"vpclimit,omitempty"`
-	Snapshotlimit             string            `json:"snapshotlimit,omitempty"`
-	Primarystoragetotal       int               `json:"primarystoragetotal,omitempty"`
-	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
-	Id                        string            `json:"id,omitempty"`
-	Sentbytes                 int               `json:"sentbytes,omitempty"`
-	Templatelimit             string            `json:"templatelimit,omitempty"`
-	Isdefault                 bool              `json:"isdefault,omitempty"`
-	Accounttype               int               `json:"accounttype,omitempty"`
 	Cputotal                  int               `json:"cputotal,omitempty"`
 	Accountdetails            map[string]string `json:"accountdetails,omitempty"`
-	Templatetotal             int               `json:"templatetotal,omitempty"`
-	Networkdomain             string            `json:"networkdomain,omitempty"`
-	Iptotal                   int               `json:"iptotal,omitempty"`
+	Receivedbytes             int               `json:"receivedbytes,omitempty"`
+	Vmrunning                 int               `json:"vmrunning,omitempty"`
+	Id                        string            `json:"id,omitempty"`
+	Volumetotal               int               `json:"volumetotal,omitempty"`
 	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
+	Isdefault                 bool              `json:"isdefault,omitempty"`
+	Name                      string            `json:"name,omitempty"`
+	Iplimit                   string            `json:"iplimit,omitempty"`
+	Domainid                  string            `json:"domainid,omitempty"`
+	Accounttype               int               `json:"accounttype,omitempty"`
+	Networktotal              int               `json:"networktotal,omitempty"`
+	Vmtotal                   int               `json:"vmtotal,omitempty"`
+	Primarystoragelimit       string            `json:"primarystoragelimit,omitempty"`
+	State                     string            `json:"state,omitempty"`
+	Projecttotal              int               `json:"projecttotal,omitempty"`
+	Domain                    string            `json:"domain,omitempty"`
+	Vmlimit                   string            `json:"vmlimit,omitempty"`
+	Memorytotal               int               `json:"memorytotal,omitempty"`
+	Memoryavailable           string            `json:"memoryavailable,omitempty"`
+	Networkdomain             string            `json:"networkdomain,omitempty"`
+	Snapshotlimit             string            `json:"snapshotlimit,omitempty"`
+	Vmavailable               string            `json:"vmavailable,omitempty"`
+	Volumeavailable           string            `json:"volumeavailable,omitempty"`
 	Iscleanuprequired         bool              `json:"iscleanuprequired,omitempty"`
+	Vmstopped                 int               `json:"vmstopped,omitempty"`
+	Volumelimit               string            `json:"volumelimit,omitempty"`
+	Networkavailable          string            `json:"networkavailable,omitempty"`
+	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
+	Templateavailable         string            `json:"templateavailable,omitempty"`
+	Sentbytes                 int               `json:"sentbytes,omitempty"`
+	Iptotal                   int               `json:"iptotal,omitempty"`
+	Secondarystoragetotal     int               `json:"secondarystoragetotal,omitempty"`
+	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
+	Cpulimit                  string            `json:"cpulimit,omitempty"`
+	Templatelimit             string            `json:"templatelimit,omitempty"`
+	Vpctotal                  int               `json:"vpctotal,omitempty"`
+	Vpcavailable              string            `json:"vpcavailable,omitempty"`
+	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
+	Networklimit              string            `json:"networklimit,omitempty"`
+	Memorylimit               string            `json:"memorylimit,omitempty"`
+	Vpclimit                  string            `json:"vpclimit,omitempty"`
+	Ipavailable               string            `json:"ipavailable,omitempty"`
+	Cpuavailable              string            `json:"cpuavailable,omitempty"`
 	User                      []struct {
-		Accountid           string `json:"accountid,omitempty"`
 		Email               string `json:"email,omitempty"`
-		Domain              string `json:"domain,omitempty"`
 		Firstname           string `json:"firstname,omitempty"`
-		Id                  string `json:"id,omitempty"`
-		Lastname            string `json:"lastname,omitempty"`
-		State               string `json:"state,omitempty"`
-		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
-		Accounttype         int    `json:"accounttype,omitempty"`
 		Isdefault           bool   `json:"isdefault,omitempty"`
-		Username            string `json:"username,omitempty"`
+		Accounttype         int    `json:"accounttype,omitempty"`
+		State               string `json:"state,omitempty"`
+		Domain              string `json:"domain,omitempty"`
 		Timezone            string `json:"timezone,omitempty"`
-		Domainid            string `json:"domainid,omitempty"`
-		Apikey              string `json:"apikey,omitempty"`
+		Username            string `json:"username,omitempty"`
 		Account             string `json:"account,omitempty"`
-		Secretkey           string `json:"secretkey,omitempty"`
+		Apikey              string `json:"apikey,omitempty"`
+		Domainid            string `json:"domainid,omitempty"`
+		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 		Created             string `json:"created,omitempty"`
+		Id                  string `json:"id,omitempty"`
+		Secretkey           string `json:"secretkey,omitempty"`
+		Accountid           string `json:"accountid,omitempty"`
+		Lastname            string `json:"lastname,omitempty"`
 	} `json:"user,omitempty"`
-	Volumelimit           string `json:"volumelimit,omitempty"`
-	Primarystoragelimit   string `json:"primarystoragelimit,omitempty"`
-	Networkavailable      string `json:"networkavailable,omitempty"`
 	Projectavailable      string `json:"projectavailable,omitempty"`
-	Networktotal          int    `json:"networktotal,omitempty"`
-	Volumetotal           int    `json:"volumetotal,omitempty"`
-	Vpcavailable          string `json:"vpcavailable,omitempty"`
-	State                 string `json:"state,omitempty"`
-	Domain                string `json:"domain,omitempty"`
 	Secondarystoragelimit string `json:"secondarystoragelimit,omitempty"`
-	Vmlimit               string `json:"vmlimit,omitempty"`
-	Vpctotal              int    `json:"vpctotal,omitempty"`
-	Templateavailable     string `json:"templateavailable,omitempty"`
+	Primarystoragetotal   int    `json:"primarystoragetotal,omitempty"`
 	Snapshottotal         int    `json:"snapshottotal,omitempty"`
-	Receivedbytes         int    `json:"receivedbytes,omitempty"`
-	Memoryavailable       string `json:"memoryavailable,omitempty"`
-	Iplimit               string `json:"iplimit,omitempty"`
-	Vmstopped             int    `json:"vmstopped,omitempty"`
-	Vmavailable           string `json:"vmavailable,omitempty"`
-	Domainid              string `json:"domainid,omitempty"`
-	Volumeavailable       string `json:"volumeavailable,omitempty"`
-	Name                  string `json:"name,omitempty"`
-	Networklimit          string `json:"networklimit,omitempty"`
-	Snapshotavailable     string `json:"snapshotavailable,omitempty"`
+	Templatetotal         int    `json:"templatetotal,omitempty"`
 }
 
 type AddAccountToProjectParams struct {
@@ -1476,19 +1529,17 @@ func (s *AccountService) AddAccountToProject(p *AddAccountToProjectParams) (*Add
 			return &r, warn
 		}
 
-		var r AddAccountToProjectResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AddAccountToProjectResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type DeleteAccountFromProjectParams struct {
@@ -1559,19 +1610,17 @@ func (s *AccountService) DeleteAccountFromProject(p *DeleteAccountFromProjectPar
 			return &r, warn
 		}
 
-		var r DeleteAccountFromProjectResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteAccountFromProjectResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type ListProjectAccountsParams struct {
@@ -1675,10 +1724,23 @@ func (s *AccountService) GetProjectAccountID(keyword string, projectid string) (
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", keyword, l)
 	}
-	return l.ProjectAccounts[0].Id, nil
+
+	if l.Count == 1 {
+		return l.ProjectAccounts[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.ProjectAccounts {
+			if v.Name == keyword {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
 }
 
 // Lists project's accounts
@@ -1701,58 +1763,58 @@ type ListProjectAccountsResponse struct {
 }
 
 type ProjectAccount struct {
-	Networkavailable          string `json:"networkavailable,omitempty"`
-	Volumeavailable           string `json:"volumeavailable,omitempty"`
-	Vmtotal                   int    `json:"vmtotal,omitempty"`
-	Vmavailable               string `json:"vmavailable,omitempty"`
-	Cputotal                  int    `json:"cputotal,omitempty"`
-	Vpclimit                  string `json:"vpclimit,omitempty"`
-	Volumetotal               int    `json:"volumetotal,omitempty"`
-	Vmlimit                   string `json:"vmlimit,omitempty"`
-	Secondarystoragelimit     string `json:"secondarystoragelimit,omitempty"`
-	Volumelimit               string `json:"volumelimit,omitempty"`
-	State                     string `json:"state,omitempty"`
-	Snapshotlimit             string `json:"snapshotlimit,omitempty"`
-	Domain                    string `json:"domain,omitempty"`
-	Displaytext               string `json:"displaytext,omitempty"`
-	Snapshotavailable         string `json:"snapshotavailable,omitempty"`
-	Id                        string `json:"id,omitempty"`
-	Iptotal                   int    `json:"iptotal,omitempty"`
-	Domainid                  string `json:"domainid,omitempty"`
-	Ipavailable               string `json:"ipavailable,omitempty"`
-	Cpulimit                  string `json:"cpulimit,omitempty"`
-	Vpcavailable              string `json:"vpcavailable,omitempty"`
-	Primarystoragetotal       int    `json:"primarystoragetotal,omitempty"`
-	Secondarystorageavailable string `json:"secondarystorageavailable,omitempty"`
-	Snapshottotal             int    `json:"snapshottotal,omitempty"`
-	Memorylimit               string `json:"memorylimit,omitempty"`
-	Iplimit                   string `json:"iplimit,omitempty"`
-	Templateavailable         string `json:"templateavailable,omitempty"`
-	Name                      string `json:"name,omitempty"`
-	Templatetotal             int    `json:"templatetotal,omitempty"`
-	Primarystorageavailable   string `json:"primarystorageavailable,omitempty"`
-	Networktotal              int    `json:"networktotal,omitempty"`
-	Vmstopped                 int    `json:"vmstopped,omitempty"`
-	Tags                      []struct {
+	Vmtotal               int    `json:"vmtotal,omitempty"`
+	Account               string `json:"account,omitempty"`
+	Vmrunning             int    `json:"vmrunning,omitempty"`
+	Snapshotlimit         string `json:"snapshotlimit,omitempty"`
+	Cpuavailable          string `json:"cpuavailable,omitempty"`
+	Volumetotal           int    `json:"volumetotal,omitempty"`
+	Volumelimit           string `json:"volumelimit,omitempty"`
+	Name                  string `json:"name,omitempty"`
+	Snapshottotal         int    `json:"snapshottotal,omitempty"`
+	Networkavailable      string `json:"networkavailable,omitempty"`
+	Vpctotal              int    `json:"vpctotal,omitempty"`
+	Vmlimit               string `json:"vmlimit,omitempty"`
+	Templatetotal         int    `json:"templatetotal,omitempty"`
+	Iptotal               int    `json:"iptotal,omitempty"`
+	Id                    string `json:"id,omitempty"`
+	Memorylimit           string `json:"memorylimit,omitempty"`
+	Vpcavailable          string `json:"vpcavailable,omitempty"`
+	Primarystoragetotal   int    `json:"primarystoragetotal,omitempty"`
+	Snapshotavailable     string `json:"snapshotavailable,omitempty"`
+	Vmavailable           string `json:"vmavailable,omitempty"`
+	Displaytext           string `json:"displaytext,omitempty"`
+	Networklimit          string `json:"networklimit,omitempty"`
+	Secondarystoragelimit string `json:"secondarystoragelimit,omitempty"`
+	Volumeavailable       string `json:"volumeavailable,omitempty"`
+	Tags                  []struct {
+		Account      string `json:"account,omitempty"`
 		Domain       string `json:"domain,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Project      string `json:"project,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
 		Value        string `json:"value,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Key          string `json:"key,omitempty"`
 		Customer     string `json:"customer,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
 	} `json:"tags,omitempty"`
-	Vpctotal              int    `json:"vpctotal,omitempty"`
-	Memoryavailable       string `json:"memoryavailable,omitempty"`
-	Primarystoragelimit   string `json:"primarystoragelimit,omitempty"`
-	Templatelimit         string `json:"templatelimit,omitempty"`
-	Account               string `json:"account,omitempty"`
-	Memorytotal           int    `json:"memorytotal,omitempty"`
-	Vmrunning             int    `json:"vmrunning,omitempty"`
-	Networklimit          string `json:"networklimit,omitempty"`
-	Cpuavailable          string `json:"cpuavailable,omitempty"`
-	Secondarystoragetotal int    `json:"secondarystoragetotal,omitempty"`
+	Cpulimit                  string `json:"cpulimit,omitempty"`
+	Ipavailable               string `json:"ipavailable,omitempty"`
+	Primarystorageavailable   string `json:"primarystorageavailable,omitempty"`
+	Templateavailable         string `json:"templateavailable,omitempty"`
+	Vpclimit                  string `json:"vpclimit,omitempty"`
+	Iplimit                   string `json:"iplimit,omitempty"`
+	Secondarystoragetotal     int    `json:"secondarystoragetotal,omitempty"`
+	State                     string `json:"state,omitempty"`
+	Domain                    string `json:"domain,omitempty"`
+	Domainid                  string `json:"domainid,omitempty"`
+	Networktotal              int    `json:"networktotal,omitempty"`
+	Templatelimit             string `json:"templatelimit,omitempty"`
+	Cputotal                  int    `json:"cputotal,omitempty"`
+	Memorytotal               int    `json:"memorytotal,omitempty"`
+	Memoryavailable           string `json:"memoryavailable,omitempty"`
+	Vmstopped                 int    `json:"vmstopped,omitempty"`
+	Primarystoragelimit       string `json:"primarystoragelimit,omitempty"`
+	Secondarystorageavailable string `json:"secondarystorageavailable,omitempty"`
 }

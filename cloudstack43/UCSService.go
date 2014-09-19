@@ -117,10 +117,10 @@ func (s *UCSService) AddUcsManager(p *AddUcsManagerParams) (*AddUcsManagerRespon
 }
 
 type AddUcsManagerResponse struct {
-	Name   string `json:"name,omitempty"`
 	Url    string `json:"url,omitempty"`
-	Zoneid string `json:"zoneid,omitempty"`
+	Name   string `json:"name,omitempty"`
 	Id     string `json:"id,omitempty"`
+	Zoneid string `json:"zoneid,omitempty"`
 }
 
 type ListUcsManagersParams struct {
@@ -211,10 +211,59 @@ func (s *UCSService) GetUcsManagerID(keyword string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", keyword, l)
 	}
-	return l.UcsManagers[0].Id, nil
+
+	if l.Count == 1 {
+		return l.UcsManagers[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.UcsManagers {
+			if v.Name == keyword {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *UCSService) GetUcsManagerByName(name string) (*UcsManager, int, error) {
+	id, err := s.GetUcsManagerID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetUcsManagerByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *UCSService) GetUcsManagerByID(id string) (*UcsManager, int, error) {
+	p := &ListUcsManagersParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListUcsManagers(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.UcsManagers[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for UcsManager UUID: %s!", id)
 }
 
 // List ucs manager
@@ -237,10 +286,10 @@ type ListUcsManagersResponse struct {
 }
 
 type UcsManager struct {
-	Zoneid string `json:"zoneid,omitempty"`
+	Name   string `json:"name,omitempty"`
 	Id     string `json:"id,omitempty"`
 	Url    string `json:"url,omitempty"`
-	Name   string `json:"name,omitempty"`
+	Zoneid string `json:"zoneid,omitempty"`
 }
 
 type ListUcsProfilesParams struct {
@@ -400,24 +449,6 @@ func (s *UCSService) NewListUcsBladesParams(ucsmanagerid string) *ListUcsBladesP
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *UCSService) GetUcsBladeID(keyword string, ucsmanagerid string) (string, error) {
-	p := &ListUcsBladesParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-	p.p["ucsmanagerid"] = ucsmanagerid
-
-	l, err := s.ListUcsBlades(p)
-	if err != nil {
-		return "", err
-	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
-	}
-	return l.UcsBlades[0].Id, nil
-}
-
 // List ucs blades
 func (s *UCSService) ListUcsBlades(p *ListUcsBladesParams) (*ListUcsBladesResponse, error) {
 	resp, err := s.cs.newRequest("listUcsBlades", p.toURLValues())
@@ -438,11 +469,11 @@ type ListUcsBladesResponse struct {
 }
 
 type UcsBlade struct {
-	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
-	Id           string `json:"id,omitempty"`
-	Hostid       string `json:"hostid,omitempty"`
-	Profiledn    string `json:"profiledn,omitempty"`
 	Bladedn      string `json:"bladedn,omitempty"`
+	Profiledn    string `json:"profiledn,omitempty"`
+	Hostid       string `json:"hostid,omitempty"`
+	Id           string `json:"id,omitempty"`
+	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
 }
 
 type AssociateUcsProfileToBladeParams struct {
@@ -525,22 +556,25 @@ func (s *UCSService) AssociateUcsProfileToBlade(p *AssociateUcsProfileToBladePar
 			return &r, warn
 		}
 
-		var r AssociateUcsProfileToBladeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AssociateUcsProfileToBladeResponse struct {
 	JobID        string `json:"jobid,omitempty"`
-	Profiledn    string `json:"profiledn,omitempty"`
 	Bladedn      string `json:"bladedn,omitempty"`
+	Profiledn    string `json:"profiledn,omitempty"`
 	Hostid       string `json:"hostid,omitempty"`
-	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
 	Id           string `json:"id,omitempty"`
+	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
 }
 
 type DeleteUcsManagerParams struct {
@@ -590,8 +624,8 @@ func (s *UCSService) DeleteUcsManager(p *DeleteUcsManagerParams) (*DeleteUcsMana
 }
 
 type DeleteUcsManagerResponse struct {
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type DisassociateUcsProfileFromBladeParams struct {
@@ -662,22 +696,25 @@ func (s *UCSService) DisassociateUcsProfileFromBlade(p *DisassociateUcsProfileFr
 			return &r, warn
 		}
 
-		var r DisassociateUcsProfileFromBladeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DisassociateUcsProfileFromBladeResponse struct {
 	JobID        string `json:"jobid,omitempty"`
-	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
-	Bladedn      string `json:"bladedn,omitempty"`
-	Hostid       string `json:"hostid,omitempty"`
-	Profiledn    string `json:"profiledn,omitempty"`
 	Id           string `json:"id,omitempty"`
+	Hostid       string `json:"hostid,omitempty"`
+	Bladedn      string `json:"bladedn,omitempty"`
+	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
+	Profiledn    string `json:"profiledn,omitempty"`
 }
 
 type RefreshUcsBladesParams struct {
@@ -762,9 +799,9 @@ func (s *UCSService) RefreshUcsBlades(p *RefreshUcsBladesParams) (*RefreshUcsBla
 }
 
 type RefreshUcsBladesResponse struct {
-	Profiledn    string `json:"profiledn,omitempty"`
-	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
-	Hostid       string `json:"hostid,omitempty"`
-	Bladedn      string `json:"bladedn,omitempty"`
 	Id           string `json:"id,omitempty"`
+	Bladedn      string `json:"bladedn,omitempty"`
+	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
+	Profiledn    string `json:"profiledn,omitempty"`
+	Hostid       string `json:"hostid,omitempty"`
 }

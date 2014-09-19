@@ -18,7 +18,6 @@ package cloudstack43
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/url"
 	"strconv"
 )
@@ -150,11 +149,14 @@ func (s *BaremetalService) AddBaremetalPxeKickStartServer(p *AddBaremetalPxeKick
 			return &r, warn
 		}
 
-		var r AddBaremetalPxeKickStartServerResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -337,20 +339,23 @@ func (s *BaremetalService) AddBaremetalPxePingServer(p *AddBaremetalPxePingServe
 			return &r, warn
 		}
 
-		var r AddBaremetalPxePingServerResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AddBaremetalPxePingServerResponse struct {
 	JobID               string `json:"jobid,omitempty"`
-	Tftpdir             string `json:"tftpdir,omitempty"`
 	Pingdir             string `json:"pingdir,omitempty"`
 	Pingstorageserverip string `json:"pingstorageserverip,omitempty"`
+	Tftpdir             string `json:"tftpdir,omitempty"`
 }
 
 type AddBaremetalDhcpParams struct {
@@ -457,11 +462,14 @@ func (s *BaremetalService) AddBaremetalDhcp(p *AddBaremetalDhcpParams) (*AddBare
 			return &r, warn
 		}
 
-		var r AddBaremetalDhcpResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -470,9 +478,9 @@ type AddBaremetalDhcpResponse struct {
 	JobID             string `json:"jobid,omitempty"`
 	Url               string `json:"url,omitempty"`
 	Dhcpservertype    string `json:"dhcpservertype,omitempty"`
-	Provider          string `json:"provider,omitempty"`
 	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 	Id                string `json:"id,omitempty"`
+	Provider          string `json:"provider,omitempty"`
 }
 
 type ListBaremetalDhcpParams struct {
@@ -553,23 +561,6 @@ func (s *BaremetalService) NewListBaremetalDhcpParams() *ListBaremetalDhcpParams
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *BaremetalService) GetBaremetalDhcpID(keyword string) (string, error) {
-	p := &ListBaremetalDhcpParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-
-	l, err := s.ListBaremetalDhcp(p)
-	if err != nil {
-		return "", err
-	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
-	}
-	return l.BaremetalDhcp[0].Id, nil
-}
-
 // list baremetal dhcp servers
 func (s *BaremetalService) ListBaremetalDhcp(p *ListBaremetalDhcpParams) (*ListBaremetalDhcpResponse, error) {
 	resp, err := s.cs.newRequest("listBaremetalDhcp", p.toURLValues())
@@ -590,11 +581,11 @@ type ListBaremetalDhcpResponse struct {
 }
 
 type BaremetalDhcp struct {
-	Provider          string `json:"provider,omitempty"`
 	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+	Dhcpservertype    string `json:"dhcpservertype,omitempty"`
 	Id                string `json:"id,omitempty"`
 	Url               string `json:"url,omitempty"`
-	Dhcpservertype    string `json:"dhcpservertype,omitempty"`
+	Provider          string `json:"provider,omitempty"`
 }
 
 type ListBaremetalPxeServersParams struct {
@@ -664,23 +655,6 @@ func (s *BaremetalService) NewListBaremetalPxeServersParams() *ListBaremetalPxeS
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *BaremetalService) GetBaremetalPxeServerID(keyword string) (string, error) {
-	p := &ListBaremetalPxeServersParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-
-	l, err := s.ListBaremetalPxeServers(p)
-	if err != nil {
-		return "", err
-	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
-	}
-	return l.BaremetalPxeServers[0].Id, nil
-}
-
 // list baremetal pxe server
 func (s *BaremetalService) ListBaremetalPxeServers(p *ListBaremetalPxeServersParams) (*ListBaremetalPxeServersResponse, error) {
 	resp, err := s.cs.newRequest("listBaremetalPxeServers", p.toURLValues())
@@ -701,8 +675,8 @@ type ListBaremetalPxeServersResponse struct {
 }
 
 type BaremetalPxeServer struct {
-	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-	Url               string `json:"url,omitempty"`
 	Provider          string `json:"provider,omitempty"`
 	Id                string `json:"id,omitempty"`
+	Url               string `json:"url,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 }

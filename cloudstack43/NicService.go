@@ -18,7 +18,6 @@ package cloudstack43
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/url"
 	"strconv"
 )
@@ -90,22 +89,25 @@ func (s *NicService) AddIpToNic(p *AddIpToNicParams) (*AddIpToNicResponse, error
 			return &r, warn
 		}
 
-		var r AddIpToNicResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AddIpToNicResponse struct {
 	JobID            string `json:"jobid,omitempty"`
-	Id               string `json:"id,omitempty"`
-	Networkid        string `json:"networkid,omitempty"`
-	Virtualmachineid string `json:"virtualmachineid,omitempty"`
 	Nicid            string `json:"nicid,omitempty"`
 	Ipaddress        string `json:"ipaddress,omitempty"`
+	Id               string `json:"id,omitempty"`
+	Virtualmachineid string `json:"virtualmachineid,omitempty"`
+	Networkid        string `json:"networkid,omitempty"`
 }
 
 type RemoveIpFromNicParams struct {
@@ -164,11 +166,9 @@ func (s *NicService) RemoveIpFromNic(p *RemoveIpFromNicParams) (*RemoveIpFromNic
 			return &r, warn
 		}
 
-		var r RemoveIpFromNicResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -257,24 +257,6 @@ func (s *NicService) NewListNicsParams(virtualmachineid string) *ListNicsParams 
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *NicService) GetNicID(keyword string, virtualmachineid string) (string, error) {
-	p := &ListNicsParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-	p.p["virtualmachineid"] = virtualmachineid
-
-	l, err := s.ListNics(p)
-	if err != nil {
-		return "", err
-	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
-	}
-	return l.Nics[0].Id, nil
-}
-
 // list the vm nics  IP to NIC
 func (s *NicService) ListNics(p *ListNicsParams) (*ListNicsResponse, error) {
 	resp, err := s.cs.newRequest("listNics", p.toURLValues())
@@ -295,20 +277,20 @@ type ListNicsResponse struct {
 }
 
 type Nic struct {
-	Ip6gateway   string   `json:"ip6gateway,omitempty"`
-	Gateway      string   `json:"gateway,omitempty"`
-	Netmask      string   `json:"netmask,omitempty"`
-	Id           string   `json:"id,omitempty"`
-	Broadcasturi string   `json:"broadcasturi,omitempty"`
-	Ip6address   string   `json:"ip6address,omitempty"`
-	Networkid    string   `json:"networkid,omitempty"`
-	Type         string   `json:"type,omitempty"`
-	Isolationuri string   `json:"isolationuri,omitempty"`
-	Isdefault    bool     `json:"isdefault,omitempty"`
-	Macaddress   string   `json:"macaddress,omitempty"`
 	Secondaryip  []string `json:"secondaryip,omitempty"`
 	Networkname  string   `json:"networkname,omitempty"`
-	Ipaddress    string   `json:"ipaddress,omitempty"`
-	Traffictype  string   `json:"traffictype,omitempty"`
+	Gateway      string   `json:"gateway,omitempty"`
+	Ip6address   string   `json:"ip6address,omitempty"`
+	Broadcasturi string   `json:"broadcasturi,omitempty"`
+	Type         string   `json:"type,omitempty"`
 	Ip6cidr      string   `json:"ip6cidr,omitempty"`
+	Macaddress   string   `json:"macaddress,omitempty"`
+	Netmask      string   `json:"netmask,omitempty"`
+	Id           string   `json:"id,omitempty"`
+	Networkid    string   `json:"networkid,omitempty"`
+	Traffictype  string   `json:"traffictype,omitempty"`
+	Ipaddress    string   `json:"ipaddress,omitempty"`
+	Ip6gateway   string   `json:"ip6gateway,omitempty"`
+	Isdefault    bool     `json:"isdefault,omitempty"`
+	Isolationuri string   `json:"isolationuri,omitempty"`
 }

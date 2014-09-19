@@ -170,23 +170,6 @@ func (s *NetworkDeviceService) NewListNetworkDeviceParams() *ListNetworkDevicePa
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *NetworkDeviceService) GetNetworkDeviceID(keyword string) (string, error) {
-	p := &ListNetworkDeviceParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-
-	l, err := s.ListNetworkDevice(p)
-	if err != nil {
-		return "", err
-	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
-	}
-	return l.NetworkDevice[0].Id, nil
-}
-
 // List network devices
 func (s *NetworkDeviceService) ListNetworkDevice(p *ListNetworkDeviceParams) (*ListNetworkDeviceResponse, error) {
 	resp, err := s.cs.newRequest("listNetworkDevice", p.toURLValues())
@@ -257,6 +240,6 @@ func (s *NetworkDeviceService) DeleteNetworkDevice(p *DeleteNetworkDeviceParams)
 }
 
 type DeleteNetworkDeviceResponse struct {
+	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 }

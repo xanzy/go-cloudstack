@@ -112,20 +112,25 @@ func (s *GuestOSService) NewListOsTypesParams() *ListOsTypesParams {
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *GuestOSService) GetOsTypeID(keyword string) (string, error) {
+func (s *GuestOSService) GetOsTypeByID(id string) (*OsType, int, error) {
 	p := &ListOsTypesParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListOsTypes(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.OsTypes[0].Id, nil
+
+	if l.Count == 1 {
+		return l.OsTypes[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for OsType UUID: %s!", id)
 }
 
 // Lists all supported OS types for this cloud.
@@ -148,9 +153,9 @@ type ListOsTypesResponse struct {
 }
 
 type OsType struct {
+	Description  string `json:"description,omitempty"`
 	Oscategoryid string `json:"oscategoryid,omitempty"`
 	Id           string `json:"id,omitempty"`
-	Description  string `json:"description,omitempty"`
 }
 
 type ListOsCategoriesParams struct {
@@ -241,10 +246,59 @@ func (s *GuestOSService) GetOsCategoryID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.OsCategories[0].Id, nil
+
+	if l.Count == 1 {
+		return l.OsCategories[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.OsCategories {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *GuestOSService) GetOsCategoryByName(name string) (*OsCategory, int, error) {
+	id, err := s.GetOsCategoryID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetOsCategoryByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *GuestOSService) GetOsCategoryByID(id string) (*OsCategory, int, error) {
+	p := &ListOsCategoriesParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListOsCategories(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.OsCategories[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for OsCategory UUID: %s!", id)
 }
 
 // Lists all supported OS categories for this cloud.

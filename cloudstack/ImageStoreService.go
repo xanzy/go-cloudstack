@@ -119,15 +119,15 @@ func (s *ImageStoreService) AddImageStore(p *AddImageStoreParams) (*AddImageStor
 }
 
 type AddImageStoreResponse struct {
-	Url          string   `json:"url,omitempty"`
-	Zonename     string   `json:"zonename,omitempty"`
-	Id           string   `json:"id,omitempty"`
 	Providername string   `json:"providername,omitempty"`
-	Name         string   `json:"name,omitempty"`
+	Zonename     string   `json:"zonename,omitempty"`
 	Scope        string   `json:"scope,omitempty"`
-	Protocol     string   `json:"protocol,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
+	Id           string   `json:"id,omitempty"`
+	Name         string   `json:"name,omitempty"`
+	Url          string   `json:"url,omitempty"`
 	Details      []string `json:"details,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Protocol     string   `json:"protocol,omitempty"`
 }
 
 type ListImageStoresParams struct {
@@ -251,10 +251,59 @@ func (s *ImageStoreService) GetImageStoreID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.ImageStores[0].Id, nil
+
+	if l.Count == 1 {
+		return l.ImageStores[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.ImageStores {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ImageStoreService) GetImageStoreByName(name string) (*ImageStore, int, error) {
+	id, err := s.GetImageStoreID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetImageStoreByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ImageStoreService) GetImageStoreByID(id string) (*ImageStore, int, error) {
+	p := &ListImageStoresParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListImageStores(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.ImageStores[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for ImageStore UUID: %s!", id)
 }
 
 // Lists image stores.
@@ -277,15 +326,15 @@ type ListImageStoresResponse struct {
 }
 
 type ImageStore struct {
-	Id           string   `json:"id,omitempty"`
-	Zonename     string   `json:"zonename,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
-	Details      []string `json:"details,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Providername string   `json:"providername,omitempty"`
 	Name         string   `json:"name,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
+	Zonename     string   `json:"zonename,omitempty"`
+	Url          string   `json:"url,omitempty"`
 	Protocol     string   `json:"protocol,omitempty"`
+	Id           string   `json:"id,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
+	Details      []string `json:"details,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Providername string   `json:"providername,omitempty"`
 }
 
 type DeleteImageStoreParams struct {
@@ -335,8 +384,8 @@ func (s *ImageStoreService) DeleteImageStore(p *DeleteImageStoreParams) (*Delete
 }
 
 type DeleteImageStoreResponse struct {
+	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 }
 
 type CreateSecondaryStagingStoreParams struct {
@@ -435,15 +484,15 @@ func (s *ImageStoreService) CreateSecondaryStagingStore(p *CreateSecondaryStagin
 }
 
 type CreateSecondaryStagingStoreResponse struct {
-	Details      []string `json:"details,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
-	Protocol     string   `json:"protocol,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Id           string   `json:"id,omitempty"`
 	Zonename     string   `json:"zonename,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
 	Providername string   `json:"providername,omitempty"`
+	Url          string   `json:"url,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Details      []string `json:"details,omitempty"`
 	Name         string   `json:"name,omitempty"`
+	Id           string   `json:"id,omitempty"`
+	Protocol     string   `json:"protocol,omitempty"`
 }
 
 type ListSecondaryStagingStoresParams struct {
@@ -567,10 +616,59 @@ func (s *ImageStoreService) GetSecondaryStagingStoreID(name string) (string, err
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.SecondaryStagingStores[0].Id, nil
+
+	if l.Count == 1 {
+		return l.SecondaryStagingStores[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.SecondaryStagingStores {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ImageStoreService) GetSecondaryStagingStoreByName(name string) (*SecondaryStagingStore, int, error) {
+	id, err := s.GetSecondaryStagingStoreID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetSecondaryStagingStoreByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ImageStoreService) GetSecondaryStagingStoreByID(id string) (*SecondaryStagingStore, int, error) {
+	p := &ListSecondaryStagingStoresParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListSecondaryStagingStores(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.SecondaryStagingStores[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for SecondaryStagingStore UUID: %s!", id)
 }
 
 // Lists secondary staging stores.
@@ -593,15 +691,15 @@ type ListSecondaryStagingStoresResponse struct {
 }
 
 type SecondaryStagingStore struct {
+	Zoneid       string   `json:"zoneid,omitempty"`
 	Scope        string   `json:"scope,omitempty"`
+	Id           string   `json:"id,omitempty"`
+	Details      []string `json:"details,omitempty"`
+	Name         string   `json:"name,omitempty"`
+	Url          string   `json:"url,omitempty"`
 	Providername string   `json:"providername,omitempty"`
 	Protocol     string   `json:"protocol,omitempty"`
-	Name         string   `json:"name,omitempty"`
-	Details      []string `json:"details,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
-	Url          string   `json:"url,omitempty"`
 	Zonename     string   `json:"zonename,omitempty"`
-	Id           string   `json:"id,omitempty"`
 }
 
 type DeleteSecondaryStagingStoreParams struct {
@@ -651,8 +749,8 @@ func (s *ImageStoreService) DeleteSecondaryStagingStore(p *DeleteSecondaryStagin
 }
 
 type DeleteSecondaryStagingStoreResponse struct {
+	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 }
 
 type UpdateCloudToUseObjectStoreParams struct {
@@ -740,13 +838,13 @@ func (s *ImageStoreService) UpdateCloudToUseObjectStore(p *UpdateCloudToUseObjec
 }
 
 type UpdateCloudToUseObjectStoreResponse struct {
-	Protocol     string   `json:"protocol,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Providername string   `json:"providername,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
-	Name         string   `json:"name,omitempty"`
 	Id           string   `json:"id,omitempty"`
 	Zonename     string   `json:"zonename,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
 	Zoneid       string   `json:"zoneid,omitempty"`
+	Providername string   `json:"providername,omitempty"`
+	Url          string   `json:"url,omitempty"`
+	Name         string   `json:"name,omitempty"`
 	Details      []string `json:"details,omitempty"`
+	Protocol     string   `json:"protocol,omitempty"`
 }

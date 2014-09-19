@@ -247,24 +247,24 @@ func (s *DiskOfferingService) CreateDiskOffering(p *CreateDiskOfferingParams) (*
 }
 
 type CreateDiskOfferingResponse struct {
-	Created            string `json:"created,omitempty"`
-	Id                 string `json:"id,omitempty"`
-	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
-	Displaytext        string `json:"displaytext,omitempty"`
-	DiskIopsReadRate   int    `json:"diskIopsReadRate,omitempty"`
-	Domainid           string `json:"domainid,omitempty"`
-	Miniops            int    `json:"miniops,omitempty"`
 	Iscustomizediops   bool   `json:"iscustomizediops,omitempty"`
-	Maxiops            int    `json:"maxiops,omitempty"`
-	Iscustomized       bool   `json:"iscustomized,omitempty"`
-	Tags               string `json:"tags,omitempty"`
-	Disksize           int    `json:"disksize,omitempty"`
-	DiskIopsWriteRate  int    `json:"diskIopsWriteRate,omitempty"`
 	DiskBytesWriteRate int    `json:"diskBytesWriteRate,omitempty"`
-	Displayoffering    bool   `json:"displayoffering,omitempty"`
-	Storagetype        string `json:"storagetype,omitempty"`
+	Tags               string `json:"tags,omitempty"`
+	Maxiops            int    `json:"maxiops,omitempty"`
+	Domainid           string `json:"domainid,omitempty"`
+	DiskIopsReadRate   int    `json:"diskIopsReadRate,omitempty"`
+	Miniops            int    `json:"miniops,omitempty"`
+	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
 	Domain             string `json:"domain,omitempty"`
+	Created            string `json:"created,omitempty"`
+	DiskIopsWriteRate  int    `json:"diskIopsWriteRate,omitempty"`
+	Disksize           int    `json:"disksize,omitempty"`
+	Displayoffering    bool   `json:"displayoffering,omitempty"`
+	Id                 string `json:"id,omitempty"`
 	Name               string `json:"name,omitempty"`
+	Displaytext        string `json:"displaytext,omitempty"`
+	Storagetype        string `json:"storagetype,omitempty"`
+	Iscustomized       bool   `json:"iscustomized,omitempty"`
 }
 
 type UpdateDiskOfferingParams struct {
@@ -360,24 +360,24 @@ func (s *DiskOfferingService) UpdateDiskOffering(p *UpdateDiskOfferingParams) (*
 }
 
 type UpdateDiskOfferingResponse struct {
-	Displaytext        string `json:"displaytext,omitempty"`
-	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
-	Disksize           int    `json:"disksize,omitempty"`
 	Domain             string `json:"domain,omitempty"`
-	Name               string `json:"name,omitempty"`
-	Id                 string `json:"id,omitempty"`
-	Tags               string `json:"tags,omitempty"`
-	Domainid           string `json:"domainid,omitempty"`
-	Miniops            int    `json:"miniops,omitempty"`
-	Storagetype        string `json:"storagetype,omitempty"`
-	Maxiops            int    `json:"maxiops,omitempty"`
+	Disksize           int    `json:"disksize,omitempty"`
 	Displayoffering    bool   `json:"displayoffering,omitempty"`
-	DiskBytesWriteRate int    `json:"diskBytesWriteRate,omitempty"`
-	Created            string `json:"created,omitempty"`
-	DiskIopsWriteRate  int    `json:"diskIopsWriteRate,omitempty"`
-	DiskIopsReadRate   int    `json:"diskIopsReadRate,omitempty"`
-	Iscustomized       bool   `json:"iscustomized,omitempty"`
 	Iscustomizediops   bool   `json:"iscustomizediops,omitempty"`
+	DiskIopsReadRate   int    `json:"diskIopsReadRate,omitempty"`
+	Id                 string `json:"id,omitempty"`
+	DiskBytesWriteRate int    `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsWriteRate  int    `json:"diskIopsWriteRate,omitempty"`
+	Domainid           string `json:"domainid,omitempty"`
+	Created            string `json:"created,omitempty"`
+	Name               string `json:"name,omitempty"`
+	Displaytext        string `json:"displaytext,omitempty"`
+	Storagetype        string `json:"storagetype,omitempty"`
+	Tags               string `json:"tags,omitempty"`
+	Iscustomized       bool   `json:"iscustomized,omitempty"`
+	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
+	Maxiops            int    `json:"maxiops,omitempty"`
+	Miniops            int    `json:"miniops,omitempty"`
 }
 
 type DeleteDiskOfferingParams struct {
@@ -428,7 +428,7 @@ func (s *DiskOfferingService) DeleteDiskOffering(p *DeleteDiskOfferingParams) (*
 
 type DeleteDiskOfferingResponse struct {
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type ListDiskOfferingsParams struct {
@@ -530,10 +530,59 @@ func (s *DiskOfferingService) GetDiskOfferingID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.DiskOfferings[0].Id, nil
+
+	if l.Count == 1 {
+		return l.DiskOfferings[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.DiskOfferings {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *DiskOfferingService) GetDiskOfferingByName(name string) (*DiskOffering, int, error) {
+	id, err := s.GetDiskOfferingID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetDiskOfferingByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *DiskOfferingService) GetDiskOfferingByID(id string) (*DiskOffering, int, error) {
+	p := &ListDiskOfferingsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListDiskOfferings(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.DiskOfferings[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for DiskOffering UUID: %s!", id)
 }
 
 // Lists all available disk offerings.
@@ -556,22 +605,22 @@ type ListDiskOfferingsResponse struct {
 }
 
 type DiskOffering struct {
-	Displayoffering    bool   `json:"displayoffering,omitempty"`
-	Disksize           int    `json:"disksize,omitempty"`
-	Name               string `json:"name,omitempty"`
-	Displaytext        string `json:"displaytext,omitempty"`
-	Iscustomized       bool   `json:"iscustomized,omitempty"`
-	Miniops            int    `json:"miniops,omitempty"`
 	Maxiops            int    `json:"maxiops,omitempty"`
-	DiskIopsWriteRate  int    `json:"diskIopsWriteRate,omitempty"`
-	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
-	Domainid           string `json:"domainid,omitempty"`
-	Iscustomizediops   bool   `json:"iscustomizediops,omitempty"`
-	Id                 string `json:"id,omitempty"`
-	Domain             string `json:"domain,omitempty"`
-	Created            string `json:"created,omitempty"`
-	Tags               string `json:"tags,omitempty"`
+	Displaytext        string `json:"displaytext,omitempty"`
 	DiskIopsReadRate   int    `json:"diskIopsReadRate,omitempty"`
 	DiskBytesWriteRate int    `json:"diskBytesWriteRate,omitempty"`
+	Name               string `json:"name,omitempty"`
+	Disksize           int    `json:"disksize,omitempty"`
+	Tags               string `json:"tags,omitempty"`
+	Displayoffering    bool   `json:"displayoffering,omitempty"`
+	Miniops            int    `json:"miniops,omitempty"`
+	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
+	Iscustomizediops   bool   `json:"iscustomizediops,omitempty"`
+	DiskIopsWriteRate  int    `json:"diskIopsWriteRate,omitempty"`
 	Storagetype        string `json:"storagetype,omitempty"`
+	Created            string `json:"created,omitempty"`
+	Domainid           string `json:"domainid,omitempty"`
+	Iscustomized       bool   `json:"iscustomized,omitempty"`
+	Id                 string `json:"id,omitempty"`
+	Domain             string `json:"domain,omitempty"`
 }

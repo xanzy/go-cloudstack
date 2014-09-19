@@ -103,71 +103,74 @@ func (s *VolumeService) AttachVolume(p *AttachVolumeParams) (*AttachVolumeRespon
 			return &r, warn
 		}
 
-		var r AttachVolumeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AttachVolumeResponse struct {
 	JobID                      string `json:"jobid,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Vmstate                    string `json:"vmstate,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
-	Status                     string `json:"status,omitempty"`
-	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
-	Size                       int    `json:"size,omitempty"`
-	Diskofferingname           string `json:"diskofferingname,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	Created                    string `json:"created,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	Id                         string `json:"id,omitempty"`
-	Name                       string `json:"name,omitempty"`
-	Isextractable              bool   `json:"isextractable,omitempty"`
-	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Storagetype                string `json:"storagetype,omitempty"`
-	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
 	Snapshotid                 string `json:"snapshotid,omitempty"`
-	Project                    string `json:"project,omitempty"`
-	Storageid                  string `json:"storageid,omitempty"`
 	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
-	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
-	Vmname                     string `json:"vmname,omitempty"`
-	Zoneid                     string `json:"zoneid,omitempty"`
-	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
-	Zonename                   string `json:"zonename,omitempty"`
-	Attached                   string `json:"attached,omitempty"`
-	Domainid                   string `json:"domainid,omitempty"`
-	Type                       string `json:"type,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
-	Account                    string `json:"account,omitempty"`
-	Projectid                  string `json:"projectid,omitempty"`
-	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
-	State                      string `json:"state,omitempty"`
-	Storage                    string `json:"storage,omitempty"`
-	Domain                     string `json:"domain,omitempty"`
-	Quiescevm                  bool   `json:"quiescevm,omitempty"`
 	Path                       string `json:"path,omitempty"`
+	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
+	Id                         string `json:"id,omitempty"`
+	Quiescevm                  bool   `json:"quiescevm,omitempty"`
+	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
+	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
+	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
+	Destroyed                  bool   `json:"destroyed,omitempty"`
+	Maxiops                    int    `json:"maxiops,omitempty"`
+	Storagetype                string `json:"storagetype,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
 	Hypervisor                 string `json:"hypervisor,omitempty"`
+	Status                     string `json:"status,omitempty"`
+	Diskofferingname           string `json:"diskofferingname,omitempty"`
+	Domainid                   string `json:"domainid,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
+	Displayvolume              bool   `json:"displayvolume,omitempty"`
+	Project                    string `json:"project,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Attached                   string `json:"attached,omitempty"`
+	Projectid                  string `json:"projectid,omitempty"`
+	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
+	Storageid                  string `json:"storageid,omitempty"`
+	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
+	Isextractable              bool   `json:"isextractable,omitempty"`
+	Account                    string `json:"account,omitempty"`
+	Miniops                    int    `json:"miniops,omitempty"`
+	Size                       int    `json:"size,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
+	Domain                     string `json:"domain,omitempty"`
+	Diskofferingid             string `json:"diskofferingid,omitempty"`
+	Name                       string `json:"name,omitempty"`
+	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
+	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Created                    string `json:"created,omitempty"`
+	State                      string `json:"state,omitempty"`
 	Tags                       []struct {
-		Domainid     string `json:"domainid,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Value        string `json:"value,omitempty"`
 		Customer     string `json:"customer,omitempty"`
 		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Project      string `json:"project,omitempty"`
 		Key          string `json:"key,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
 	} `json:"tags,omitempty"`
-	DiskBytesReadRate int    `json:"diskBytesReadRate,omitempty"`
-	Displayvolume     bool   `json:"displayvolume,omitempty"`
-	Diskofferingid    string `json:"diskofferingid,omitempty"`
+	Storage  string `json:"storage,omitempty"`
+	Deviceid int    `json:"deviceid,omitempty"`
 }
 
 type UploadVolumeParams struct {
@@ -317,71 +320,74 @@ func (s *VolumeService) UploadVolume(p *UploadVolumeParams) (*UploadVolumeRespon
 			return &r, warn
 		}
 
-		var r UploadVolumeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type UploadVolumeResponse struct {
-	JobID             string `json:"jobid,omitempty"`
-	Domain            string `json:"domain,omitempty"`
-	Project           string `json:"project,omitempty"`
-	DiskIopsWriteRate int    `json:"diskIopsWriteRate,omitempty"`
-	Projectid         string `json:"projectid,omitempty"`
-	Path              string `json:"path,omitempty"`
-	Isextractable     bool   `json:"isextractable,omitempty"`
-	Hypervisor        string `json:"hypervisor,omitempty"`
-	Vmname            string `json:"vmname,omitempty"`
-	Deviceid          int    `json:"deviceid,omitempty"`
-	Zoneid            string `json:"zoneid,omitempty"`
-	Virtualmachineid  string `json:"virtualmachineid,omitempty"`
-	Storageid         string `json:"storageid,omitempty"`
-	Size              int    `json:"size,omitempty"`
-	Destroyed         bool   `json:"destroyed,omitempty"`
-	Tags              []struct {
+	JobID                   string `json:"jobid,omitempty"`
+	DiskIopsReadRate        int    `json:"diskIopsReadRate,omitempty"`
+	Serviceofferingname     string `json:"serviceofferingname,omitempty"`
+	Account                 string `json:"account,omitempty"`
+	Attached                string `json:"attached,omitempty"`
+	Displayvolume           bool   `json:"displayvolume,omitempty"`
+	Size                    int    `json:"size,omitempty"`
+	Storagetype             string `json:"storagetype,omitempty"`
+	Domain                  string `json:"domain,omitempty"`
+	Path                    string `json:"path,omitempty"`
+	Diskofferingdisplaytext string `json:"diskofferingdisplaytext,omitempty"`
+	Vmname                  string `json:"vmname,omitempty"`
+	Tags                    []struct {
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
 		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
 		Account      string `json:"account,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
+		Value        string `json:"value,omitempty"`
 		Domain       string `json:"domain,omitempty"`
 		Customer     string `json:"customer,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Value        string `json:"value,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Key          string `json:"key,omitempty"`
 	} `json:"tags,omitempty"`
-	Storagetype                string `json:"storagetype,omitempty"`
-	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Type                       string `json:"type,omitempty"`
-	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
-	Name                       string `json:"name,omitempty"`
-	Vmstate                    string `json:"vmstate,omitempty"`
-	Quiescevm                  bool   `json:"quiescevm,omitempty"`
-	Id                         string `json:"id,omitempty"`
-	Attached                   string `json:"attached,omitempty"`
-	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
-	Snapshotid                 string `json:"snapshotid,omitempty"`
-	Storage                    string `json:"storage,omitempty"`
-	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
-	Status                     string `json:"status,omitempty"`
-	Diskofferingname           string `json:"diskofferingname,omitempty"`
-	Diskofferingid             string `json:"diskofferingid,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	Created                    string `json:"created,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	Account                    string `json:"account,omitempty"`
-	State                      string `json:"state,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	Displayvolume              bool   `json:"displayvolume,omitempty"`
 	Zonename                   string `json:"zonename,omitempty"`
+	Created                    string `json:"created,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
+	Snapshotid                 string `json:"snapshotid,omitempty"`
+	Hypervisor                 string `json:"hypervisor,omitempty"`
+	Storage                    string `json:"storage,omitempty"`
+	Name                       string `json:"name,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	Id                         string `json:"id,omitempty"`
+	State                      string `json:"state,omitempty"`
+	Project                    string `json:"project,omitempty"`
+	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
+	Diskofferingid             string `json:"diskofferingid,omitempty"`
+	Storageid                  string `json:"storageid,omitempty"`
+	Isextractable              bool   `json:"isextractable,omitempty"`
+	Maxiops                    int    `json:"maxiops,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Destroyed                  bool   `json:"destroyed,omitempty"`
+	Status                     string `json:"status,omitempty"`
+	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
 	Domainid                   string `json:"domainid,omitempty"`
+	Quiescevm                  bool   `json:"quiescevm,omitempty"`
+	Deviceid                   int    `json:"deviceid,omitempty"`
+	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	Projectid                  string `json:"projectid,omitempty"`
+	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
+	Diskofferingname           string `json:"diskofferingname,omitempty"`
+	Miniops                    int    `json:"miniops,omitempty"`
+	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
 }
 
 type DetachVolumeParams struct {
@@ -462,71 +468,74 @@ func (s *VolumeService) DetachVolume(p *DetachVolumeParams) (*DetachVolumeRespon
 			return &r, warn
 		}
 
-		var r DetachVolumeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DetachVolumeResponse struct {
 	JobID                      string `json:"jobid,omitempty"`
-	Attached                   string `json:"attached,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
+	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
 	Status                     string `json:"status,omitempty"`
-	Storage                    string `json:"storage,omitempty"`
-	Storageid                  string `json:"storageid,omitempty"`
-	Path                       string `json:"path,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	Hypervisor                 string `json:"hypervisor,omitempty"`
-	Storagetype                string `json:"storagetype,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
-	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
-	Projectid                  string `json:"projectid,omitempty"`
-	Domain                     string `json:"domain,omitempty"`
-	Project                    string `json:"project,omitempty"`
-	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
-	Vmname                     string `json:"vmname,omitempty"`
-	Account                    string `json:"account,omitempty"`
-	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
 	Type                       string `json:"type,omitempty"`
-	Snapshotid                 string `json:"snapshotid,omitempty"`
-	Zoneid                     string `json:"zoneid,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	Displayvolume              bool   `json:"displayvolume,omitempty"`
-	Vmstate                    string `json:"vmstate,omitempty"`
-	Id                         string `json:"id,omitempty"`
+	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
 	Domainid                   string `json:"domainid,omitempty"`
-	Name                       string `json:"name,omitempty"`
-	Created                    string `json:"created,omitempty"`
-	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
-	Quiescevm                  bool   `json:"quiescevm,omitempty"`
 	Zonename                   string `json:"zonename,omitempty"`
+	Account                    string `json:"account,omitempty"`
+	Storageid                  string `json:"storageid,omitempty"`
+	Snapshotid                 string `json:"snapshotid,omitempty"`
+	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
+	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
+	Attached                   string `json:"attached,omitempty"`
+	Id                         string `json:"id,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
 	Tags                       []struct {
-		Value        string `json:"value,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
 		Project      string `json:"project,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
 	} `json:"tags,omitempty"`
-	State               string `json:"state,omitempty"`
-	Isextractable       bool   `json:"isextractable,omitempty"`
-	DiskBytesWriteRate  int    `json:"diskBytesWriteRate,omitempty"`
-	Size                int    `json:"size,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
-	Diskofferingname    string `json:"diskofferingname,omitempty"`
-	Destroyed           bool   `json:"destroyed,omitempty"`
-	DiskIopsWriteRate   int    `json:"diskIopsWriteRate,omitempty"`
-	Diskofferingid      string `json:"diskofferingid,omitempty"`
-	Miniops             int    `json:"miniops,omitempty"`
+	Isextractable           bool   `json:"isextractable,omitempty"`
+	DiskIopsWriteRate       int    `json:"diskIopsWriteRate,omitempty"`
+	Miniops                 int    `json:"miniops,omitempty"`
+	Vmdisplayname           string `json:"vmdisplayname,omitempty"`
+	Serviceofferingid       string `json:"serviceofferingid,omitempty"`
+	Diskofferingname        string `json:"diskofferingname,omitempty"`
+	Zoneid                  string `json:"zoneid,omitempty"`
+	Project                 string `json:"project,omitempty"`
+	Hypervisor              string `json:"hypervisor,omitempty"`
+	Projectid               string `json:"projectid,omitempty"`
+	Size                    int    `json:"size,omitempty"`
+	Path                    string `json:"path,omitempty"`
+	Quiescevm               bool   `json:"quiescevm,omitempty"`
+	Domain                  string `json:"domain,omitempty"`
+	Maxiops                 int    `json:"maxiops,omitempty"`
+	Diskofferingid          string `json:"diskofferingid,omitempty"`
+	Deviceid                int    `json:"deviceid,omitempty"`
+	Displayvolume           bool   `json:"displayvolume,omitempty"`
+	Storage                 string `json:"storage,omitempty"`
+	Virtualmachineid        string `json:"virtualmachineid,omitempty"`
+	Created                 string `json:"created,omitempty"`
+	State                   string `json:"state,omitempty"`
+	Diskofferingdisplaytext string `json:"diskofferingdisplaytext,omitempty"`
+	Storagetype             string `json:"storagetype,omitempty"`
+	Destroyed               bool   `json:"destroyed,omitempty"`
+	DiskBytesReadRate       int    `json:"diskBytesReadRate,omitempty"`
+	Name                    string `json:"name,omitempty"`
 }
 
 type CreateVolumeParams struct {
@@ -710,71 +719,74 @@ func (s *VolumeService) CreateVolume(p *CreateVolumeParams) (*CreateVolumeRespon
 			return &r, warn
 		}
 
-		var r CreateVolumeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateVolumeResponse struct {
-	JobID                   string `json:"jobid,omitempty"`
-	Serviceofferingid       string `json:"serviceofferingid,omitempty"`
-	Displayvolume           bool   `json:"displayvolume,omitempty"`
-	Zonename                string `json:"zonename,omitempty"`
-	Hypervisor              string `json:"hypervisor,omitempty"`
-	Size                    int    `json:"size,omitempty"`
-	Id                      string `json:"id,omitempty"`
-	Name                    string `json:"name,omitempty"`
-	Projectid               string `json:"projectid,omitempty"`
-	Miniops                 int    `json:"miniops,omitempty"`
-	Diskofferingdisplaytext string `json:"diskofferingdisplaytext,omitempty"`
-	Destroyed               bool   `json:"destroyed,omitempty"`
-	Created                 string `json:"created,omitempty"`
-	DiskIopsWriteRate       int    `json:"diskIopsWriteRate,omitempty"`
-	Project                 string `json:"project,omitempty"`
-	Account                 string `json:"account,omitempty"`
-	Type                    string `json:"type,omitempty"`
-	Maxiops                 int    `json:"maxiops,omitempty"`
-	Storagetype             string `json:"storagetype,omitempty"`
-	Vmname                  string `json:"vmname,omitempty"`
-	DiskIopsReadRate        int    `json:"diskIopsReadRate,omitempty"`
-	Status                  string `json:"status,omitempty"`
-	Isextractable           bool   `json:"isextractable,omitempty"`
-	Tags                    []struct {
-		Domain       string `json:"domain,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
+	JobID            string `json:"jobid,omitempty"`
+	Virtualmachineid string `json:"virtualmachineid,omitempty"`
+	Storagetype      string `json:"storagetype,omitempty"`
+	Destroyed        bool   `json:"destroyed,omitempty"`
+	Domainid         string `json:"domainid,omitempty"`
+	Quiescevm        bool   `json:"quiescevm,omitempty"`
+	Isextractable    bool   `json:"isextractable,omitempty"`
+	Vmstate          string `json:"vmstate,omitempty"`
+	Tags             []struct {
 		Project      string `json:"project,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
 		Account      string `json:"account,omitempty"`
 	} `json:"tags,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
+	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
 	Diskofferingname           string `json:"diskofferingname,omitempty"`
-	Zoneid                     string `json:"zoneid,omitempty"`
-	Path                       string `json:"path,omitempty"`
-	Attached                   string `json:"attached,omitempty"`
-	Quiescevm                  bool   `json:"quiescevm,omitempty"`
-	Domain                     string `json:"domain,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Diskofferingid             string `json:"diskofferingid,omitempty"`
-	State                      string `json:"state,omitempty"`
-	Snapshotid                 string `json:"snapshotid,omitempty"`
-	Storage                    string `json:"storage,omitempty"`
-	Domainid                   string `json:"domainid,omitempty"`
-	Storageid                  string `json:"storageid,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
-	Vmstate                    string `json:"vmstate,omitempty"`
-	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
 	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
+	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
+	Size                       int    `json:"size,omitempty"`
+	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
+	Name                       string `json:"name,omitempty"`
+	Created                    string `json:"created,omitempty"`
+	Maxiops                    int    `json:"maxiops,omitempty"`
+	Deviceid                   int    `json:"deviceid,omitempty"`
+	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
+	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
+	Storageid                  string `json:"storageid,omitempty"`
+	Account                    string `json:"account,omitempty"`
+	Project                    string `json:"project,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	State                      string `json:"state,omitempty"`
+	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
+	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
+	Attached                   string `json:"attached,omitempty"`
+	Snapshotid                 string `json:"snapshotid,omitempty"`
+	Path                       string `json:"path,omitempty"`
+	Storage                    string `json:"storage,omitempty"`
+	Miniops                    int    `json:"miniops,omitempty"`
+	Projectid                  string `json:"projectid,omitempty"`
+	Domain                     string `json:"domain,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
+	Id                         string `json:"id,omitempty"`
+	Status                     string `json:"status,omitempty"`
+	Hypervisor                 string `json:"hypervisor,omitempty"`
+	Diskofferingid             string `json:"diskofferingid,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Displayvolume              bool   `json:"displayvolume,omitempty"`
 }
 
 type DeleteVolumeParams struct {
@@ -824,8 +836,8 @@ func (s *VolumeService) DeleteVolume(p *DeleteVolumeParams) (*DeleteVolumeRespon
 }
 
 type DeleteVolumeResponse struct {
-	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type ListVolumesParams struct {
@@ -1055,10 +1067,59 @@ func (s *VolumeService) GetVolumeID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.Volumes[0].Id, nil
+
+	if l.Count == 1 {
+		return l.Volumes[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.Volumes {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VolumeService) GetVolumeByName(name string) (*Volume, int, error) {
+	id, err := s.GetVolumeID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetVolumeByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VolumeService) GetVolumeByID(id string) (*Volume, int, error) {
+	p := &ListVolumesParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListVolumes(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.Volumes[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for Volume UUID: %s!", id)
 }
 
 // Lists all volumes.
@@ -1081,60 +1142,60 @@ type ListVolumesResponse struct {
 }
 
 type Volume struct {
-	Tags []struct {
-		Key          string `json:"key,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
+	DiskBytesReadRate int    `json:"diskBytesReadRate,omitempty"`
+	Size              int    `json:"size,omitempty"`
+	DiskIopsReadRate  int    `json:"diskIopsReadRate,omitempty"`
+	Id                string `json:"id,omitempty"`
+	Name              string `json:"name,omitempty"`
+	Type              string `json:"type,omitempty"`
+	Storageid         string `json:"storageid,omitempty"`
+	Created           string `json:"created,omitempty"`
+	Tags              []struct {
 		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Domain       string `json:"domain,omitempty"`
 		Customer     string `json:"customer,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Key          string `json:"key,omitempty"`
 	} `json:"tags,omitempty"`
-	Vmname                     string `json:"vmname,omitempty"`
-	Vmstate                    string `json:"vmstate,omitempty"`
-	Projectid                  string `json:"projectid,omitempty"`
+	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
 	Attached                   string `json:"attached,omitempty"`
+	Path                       string `json:"path,omitempty"`
+	Storage                    string `json:"storage,omitempty"`
+	Projectid                  string `json:"projectid,omitempty"`
+	Storagetype                string `json:"storagetype,omitempty"`
+	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	Snapshotid                 string `json:"snapshotid,omitempty"`
+	Miniops                    int    `json:"miniops,omitempty"`
+	Domain                     string `json:"domain,omitempty"`
+	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Quiescevm                  bool   `json:"quiescevm,omitempty"`
+	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Destroyed                  bool   `json:"destroyed,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
 	Hypervisor                 string `json:"hypervisor,omitempty"`
 	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
-	Path                       string `json:"path,omitempty"`
-	Zonename                   string `json:"zonename,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
-	Isextractable              bool   `json:"isextractable,omitempty"`
-	Snapshotid                 string `json:"snapshotid,omitempty"`
-	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
-	Id                         string `json:"id,omitempty"`
-	Status                     string `json:"status,omitempty"`
-	Storagetype                string `json:"storagetype,omitempty"`
-	Zoneid                     string `json:"zoneid,omitempty"`
-	Diskofferingid             string `json:"diskofferingid,omitempty"`
+	Displayvolume              bool   `json:"displayvolume,omitempty"`
 	State                      string `json:"state,omitempty"`
-	Account                    string `json:"account,omitempty"`
-	Size                       int    `json:"size,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
+	Maxiops                    int    `json:"maxiops,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
 	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
-	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
-	Domain                     string `json:"domain,omitempty"`
-	Name                       string `json:"name,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	Created                    string `json:"created,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	Storageid                  string `json:"storageid,omitempty"`
+	Diskofferingname           string `json:"diskofferingname,omitempty"`
+	Diskofferingid             string `json:"diskofferingid,omitempty"`
 	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
-	Storage                    string `json:"storage,omitempty"`
+	Account                    string `json:"account,omitempty"`
 	Project                    string `json:"project,omitempty"`
 	Domainid                   string `json:"domainid,omitempty"`
-	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
-	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Diskofferingname           string `json:"diskofferingname,omitempty"`
-	Displayvolume              bool   `json:"displayvolume,omitempty"`
-	Quiescevm                  bool   `json:"quiescevm,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
+	Isextractable              bool   `json:"isextractable,omitempty"`
+	Status                     string `json:"status,omitempty"`
 	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Type                       string `json:"type,omitempty"`
+	Deviceid                   int    `json:"deviceid,omitempty"`
 }
 
 type ExtractVolumeParams struct {
@@ -1228,30 +1289,33 @@ func (s *VolumeService) ExtractVolume(p *ExtractVolumeParams) (*ExtractVolumeRes
 			return &r, warn
 		}
 
-		var r ExtractVolumeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type ExtractVolumeResponse struct {
 	JobID            string `json:"jobid,omitempty"`
+	Url              string `json:"url,omitempty"`
+	ExtractMode      string `json:"extractMode,omitempty"`
 	Id               string `json:"id,omitempty"`
+	Storagetype      string `json:"storagetype,omitempty"`
+	Zonename         string `json:"zonename,omitempty"`
+	Resultstring     string `json:"resultstring,omitempty"`
+	Accountid        string `json:"accountid,omitempty"`
+	ExtractId        string `json:"extractId,omitempty"`
+	Uploadpercentage int    `json:"uploadpercentage,omitempty"`
+	Created          string `json:"created,omitempty"`
 	Name             string `json:"name,omitempty"`
 	Status           string `json:"status,omitempty"`
-	Resultstring     string `json:"resultstring,omitempty"`
-	Uploadpercentage int    `json:"uploadpercentage,omitempty"`
-	Zonename         string `json:"zonename,omitempty"`
-	Created          string `json:"created,omitempty"`
 	State            string `json:"state,omitempty"`
-	Storagetype      string `json:"storagetype,omitempty"`
-	ExtractId        string `json:"extractId,omitempty"`
-	ExtractMode      string `json:"extractMode,omitempty"`
-	Accountid        string `json:"accountid,omitempty"`
-	Url              string `json:"url,omitempty"`
 	Zoneid           string `json:"zoneid,omitempty"`
 }
 
@@ -1335,71 +1399,74 @@ func (s *VolumeService) MigrateVolume(p *MigrateVolumeParams) (*MigrateVolumeRes
 			return &r, warn
 		}
 
-		var r MigrateVolumeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type MigrateVolumeResponse struct {
-	JobID                      string `json:"jobid,omitempty"`
-	Type                       string `json:"type,omitempty"`
-	Attached                   string `json:"attached,omitempty"`
-	Snapshotid                 string `json:"snapshotid,omitempty"`
-	Account                    string `json:"account,omitempty"`
-	Status                     string `json:"status,omitempty"`
-	State                      string `json:"state,omitempty"`
-	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
-	Tags                       []struct {
-		Projectid    string `json:"projectid,omitempty"`
+	JobID             string `json:"jobid,omitempty"`
+	Status            string `json:"status,omitempty"`
+	Vmname            string `json:"vmname,omitempty"`
+	Quiescevm         bool   `json:"quiescevm,omitempty"`
+	Id                string `json:"id,omitempty"`
+	Projectid         string `json:"projectid,omitempty"`
+	Attached          string `json:"attached,omitempty"`
+	Snapshotid        string `json:"snapshotid,omitempty"`
+	Domainid          string `json:"domainid,omitempty"`
+	Storage           string `json:"storage,omitempty"`
+	Account           string `json:"account,omitempty"`
+	Virtualmachineid  string `json:"virtualmachineid,omitempty"`
+	Vmdisplayname     string `json:"vmdisplayname,omitempty"`
+	Serviceofferingid string `json:"serviceofferingid,omitempty"`
+	State             string `json:"state,omitempty"`
+	Zoneid            string `json:"zoneid,omitempty"`
+	Destroyed         bool   `json:"destroyed,omitempty"`
+	Type              string `json:"type,omitempty"`
+	Vmstate           string `json:"vmstate,omitempty"`
+	Tags              []struct {
 		Value        string `json:"value,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Domain       string `json:"domain,omitempty"`
 		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
 		Domainid     string `json:"domainid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
 		Key          string `json:"key,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
 	} `json:"tags,omitempty"`
-	Serviceofferingname     string `json:"serviceofferingname,omitempty"`
-	DiskBytesReadRate       int    `json:"diskBytesReadRate,omitempty"`
-	Virtualmachineid        string `json:"virtualmachineid,omitempty"`
-	Storageid               string `json:"storageid,omitempty"`
-	Maxiops                 int    `json:"maxiops,omitempty"`
-	DiskIopsWriteRate       int    `json:"diskIopsWriteRate,omitempty"`
-	Hypervisor              string `json:"hypervisor,omitempty"`
-	Projectid               string `json:"projectid,omitempty"`
-	Destroyed               bool   `json:"destroyed,omitempty"`
-	Name                    string `json:"name,omitempty"`
-	Domainid                string `json:"domainid,omitempty"`
-	Storage                 string `json:"storage,omitempty"`
-	Isextractable           bool   `json:"isextractable,omitempty"`
-	Diskofferingdisplaytext string `json:"diskofferingdisplaytext,omitempty"`
-	Quiescevm               bool   `json:"quiescevm,omitempty"`
-	Created                 string `json:"created,omitempty"`
-	Serviceofferingid       string `json:"serviceofferingid,omitempty"`
-	Domain                  string `json:"domain,omitempty"`
-	Miniops                 int    `json:"miniops,omitempty"`
-	DiskIopsReadRate        int    `json:"diskIopsReadRate,omitempty"`
-	Diskofferingname        string `json:"diskofferingname,omitempty"`
-	Project                 string `json:"project,omitempty"`
-	Zonename                string `json:"zonename,omitempty"`
-	Vmname                  string `json:"vmname,omitempty"`
-	Path                    string `json:"path,omitempty"`
-	Deviceid                int    `json:"deviceid,omitempty"`
-	Displayvolume           bool   `json:"displayvolume,omitempty"`
-	Diskofferingid          string `json:"diskofferingid,omitempty"`
-	Storagetype             string `json:"storagetype,omitempty"`
-	Zoneid                  string `json:"zoneid,omitempty"`
-	Id                      string `json:"id,omitempty"`
-	DiskBytesWriteRate      int    `json:"diskBytesWriteRate,omitempty"`
-	Size                    int    `json:"size,omitempty"`
-	Vmstate                 string `json:"vmstate,omitempty"`
-	Vmdisplayname           string `json:"vmdisplayname,omitempty"`
+	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
+	Storageid                  string `json:"storageid,omitempty"`
+	Maxiops                    int    `json:"maxiops,omitempty"`
+	Displayvolume              bool   `json:"displayvolume,omitempty"`
+	Project                    string `json:"project,omitempty"`
+	Hypervisor                 string `json:"hypervisor,omitempty"`
+	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
+	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
+	Diskofferingid             string `json:"diskofferingid,omitempty"`
+	Deviceid                   int    `json:"deviceid,omitempty"`
+	Domain                     string `json:"domain,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
+	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
+	Size                       int    `json:"size,omitempty"`
+	Name                       string `json:"name,omitempty"`
+	Path                       string `json:"path,omitempty"`
+	Miniops                    int    `json:"miniops,omitempty"`
+	Isextractable              bool   `json:"isextractable,omitempty"`
+	Created                    string `json:"created,omitempty"`
+	Diskofferingname           string `json:"diskofferingname,omitempty"`
+	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
+	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
+	Storagetype                string `json:"storagetype,omitempty"`
 }
 
 type ResizeVolumeParams struct {
@@ -1492,71 +1559,74 @@ func (s *VolumeService) ResizeVolume(p *ResizeVolumeParams) (*ResizeVolumeRespon
 			return &r, warn
 		}
 
-		var r ResizeVolumeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type ResizeVolumeResponse struct {
 	JobID                      string `json:"jobid,omitempty"`
-	Attached                   string `json:"attached,omitempty"`
-	Zonename                   string `json:"zonename,omitempty"`
-	Snapshotid                 string `json:"snapshotid,omitempty"`
-	Type                       string `json:"type,omitempty"`
-	Name                       string `json:"name,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	Id                         string `json:"id,omitempty"`
-	Diskofferingid             string `json:"diskofferingid,omitempty"`
-	Created                    string `json:"created,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	Displayvolume              bool   `json:"displayvolume,omitempty"`
-	Projectid                  string `json:"projectid,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	Storage                    string `json:"storage,omitempty"`
-	Size                       int    `json:"size,omitempty"`
-	Domain                     string `json:"domain,omitempty"`
-	Diskofferingname           string `json:"diskofferingname,omitempty"`
-	Vmstate                    string `json:"vmstate,omitempty"`
-	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
-	Project                    string `json:"project,omitempty"`
-	Storageid                  string `json:"storageid,omitempty"`
-	State                      string `json:"state,omitempty"`
-	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Status                     string `json:"status,omitempty"`
-	Quiescevm                  bool   `json:"quiescevm,omitempty"`
-	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
-	Zoneid                     string `json:"zoneid,omitempty"`
 	Account                    string `json:"account,omitempty"`
+	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
+	Miniops                    int    `json:"miniops,omitempty"`
+	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
+	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Hypervisor                 string `json:"hypervisor,omitempty"`
+	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	Displayvolume              bool   `json:"displayvolume,omitempty"`
+	Attached                   string `json:"attached,omitempty"`
+	Snapshotid                 string `json:"snapshotid,omitempty"`
+	Size                       int    `json:"size,omitempty"`
+	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Projectid                  string `json:"projectid,omitempty"`
+	Storageid                  string `json:"storageid,omitempty"`
+	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
+	Domainid                   string `json:"domainid,omitempty"`
+	Isextractable              bool   `json:"isextractable,omitempty"`
+	Destroyed                  bool   `json:"destroyed,omitempty"`
+	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
+	Id                         string `json:"id,omitempty"`
+	Created                    string `json:"created,omitempty"`
+	Diskofferingid             string `json:"diskofferingid,omitempty"`
+	Path                       string `json:"path,omitempty"`
+	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
+	Name                       string `json:"name,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Diskofferingname           string `json:"diskofferingname,omitempty"`
+	Status                     string `json:"status,omitempty"`
+	Project                    string `json:"project,omitempty"`
+	Storage                    string `json:"storage,omitempty"`
+	State                      string `json:"state,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
+	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
+	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
+	Maxiops                    int    `json:"maxiops,omitempty"`
+	Quiescevm                  bool   `json:"quiescevm,omitempty"`
+	Type                       string `json:"type,omitempty"`
 	Tags                       []struct {
+		Domainid     string `json:"domainid,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Project      string `json:"project,omitempty"`
 		Resourceid   string `json:"resourceid,omitempty"`
 		Value        string `json:"value,omitempty"`
 		Customer     string `json:"customer,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Project      string `json:"project,omitempty"`
 		Key          string `json:"key,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Account      string `json:"account,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
 	} `json:"tags,omitempty"`
-	Domainid            string `json:"domainid,omitempty"`
-	DiskBytesReadRate   int    `json:"diskBytesReadRate,omitempty"`
-	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
-	Hypervisor          string `json:"hypervisor,omitempty"`
-	Path                string `json:"path,omitempty"`
-	Vmname              string `json:"vmname,omitempty"`
-	Miniops             int    `json:"miniops,omitempty"`
-	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
-	Storagetype         string `json:"storagetype,omitempty"`
-	Isextractable       bool   `json:"isextractable,omitempty"`
-	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
-	DiskIopsWriteRate   int    `json:"diskIopsWriteRate,omitempty"`
+	Storagetype string `json:"storagetype,omitempty"`
+	Deviceid    int    `json:"deviceid,omitempty"`
+	Domain      string `json:"domain,omitempty"`
 }
 
 type UpdateVolumeParams struct {
@@ -1659,69 +1729,72 @@ func (s *VolumeService) UpdateVolume(p *UpdateVolumeParams) (*UpdateVolumeRespon
 			return &r, warn
 		}
 
-		var r UpdateVolumeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type UpdateVolumeResponse struct {
 	JobID                      string `json:"jobid,omitempty"`
-	Domain                     string `json:"domain,omitempty"`
 	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
-	Id                         string `json:"id,omitempty"`
-	Storagetype                string `json:"storagetype,omitempty"`
-	Vmname                     string `json:"vmname,omitempty"`
-	Attached                   string `json:"attached,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
-	Account                    string `json:"account,omitempty"`
-	Diskofferingid             string `json:"diskofferingid,omitempty"`
-	Vmstate                    string `json:"vmstate,omitempty"`
-	Zonename                   string `json:"zonename,omitempty"`
-	Path                       string `json:"path,omitempty"`
-	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
-	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
-	Size                       int    `json:"size,omitempty"`
-	Projectid                  string `json:"projectid,omitempty"`
-	Name                       string `json:"name,omitempty"`
-	Domainid                   string `json:"domainid,omitempty"`
-	Created                    string `json:"created,omitempty"`
-	Displayvolume              bool   `json:"displayvolume,omitempty"`
-	Snapshotid                 string `json:"snapshotid,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
-	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
-	Diskofferingname           string `json:"diskofferingname,omitempty"`
-	Type                       string `json:"type,omitempty"`
-	Hypervisor                 string `json:"hypervisor,omitempty"`
-	Storageid                  string `json:"storageid,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	Storage                    string `json:"storage,omitempty"`
-	Isextractable              bool   `json:"isextractable,omitempty"`
-	Destroyed                  bool   `json:"destroyed,omitempty"`
-	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
-	Quiescevm                  bool   `json:"quiescevm,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	Zoneid                     string `json:"zoneid,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
 	Status                     string `json:"status,omitempty"`
-	Project                    string `json:"project,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	Size                       int    `json:"size,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
+	Id                         string `json:"id,omitempty"`
+	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
+	Projectid                  string `json:"projectid,omitempty"`
+	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
+	Storageid                  string `json:"storageid,omitempty"`
+	Maxiops                    int    `json:"maxiops,omitempty"`
+	Path                       string `json:"path,omitempty"`
 	State                      string `json:"state,omitempty"`
-	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Storagetype                string `json:"storagetype,omitempty"`
+	Displayvolume              bool   `json:"displayvolume,omitempty"`
+	Storage                    string `json:"storage,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
 	Tags                       []struct {
-		Projectid    string `json:"projectid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
 		Customer     string `json:"customer,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Account      string `json:"account,omitempty"`
 		Domainid     string `json:"domainid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Project      string `json:"project,omitempty"`
 	} `json:"tags,omitempty"`
-	DiskBytesReadRate int `json:"diskBytesReadRate,omitempty"`
+	Account                 string `json:"account,omitempty"`
+	Serviceofferingname     string `json:"serviceofferingname,omitempty"`
+	Diskofferingdisplaytext string `json:"diskofferingdisplaytext,omitempty"`
+	Name                    string `json:"name,omitempty"`
+	Miniops                 int    `json:"miniops,omitempty"`
+	Project                 string `json:"project,omitempty"`
+	Domain                  string `json:"domain,omitempty"`
+	DiskBytesWriteRate      int    `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsWriteRate       int    `json:"diskIopsWriteRate,omitempty"`
+	Virtualmachineid        string `json:"virtualmachineid,omitempty"`
+	Destroyed               bool   `json:"destroyed,omitempty"`
+	Domainid                string `json:"domainid,omitempty"`
+	Diskofferingid          string `json:"diskofferingid,omitempty"`
+	Diskofferingname        string `json:"diskofferingname,omitempty"`
+	Created                 string `json:"created,omitempty"`
+	Isextractable           bool   `json:"isextractable,omitempty"`
+	Hypervisor              string `json:"hypervisor,omitempty"`
+	Quiescevm               bool   `json:"quiescevm,omitempty"`
+	Deviceid                int    `json:"deviceid,omitempty"`
+	Vmdisplayname           string `json:"vmdisplayname,omitempty"`
+	Attached                string `json:"attached,omitempty"`
+	Vmstate                 string `json:"vmstate,omitempty"`
+	Snapshotid              string `json:"snapshotid,omitempty"`
+	DiskBytesReadRate       int    `json:"diskBytesReadRate,omitempty"`
 }

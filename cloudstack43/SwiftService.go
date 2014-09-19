@@ -103,15 +103,15 @@ func (s *SwiftService) AddSwift(p *AddSwiftParams) (*AddSwiftResponse, error) {
 }
 
 type AddSwiftResponse struct {
-	Zonename     string   `json:"zonename,omitempty"`
-	Providername string   `json:"providername,omitempty"`
-	Details      []string `json:"details,omitempty"`
-	Name         string   `json:"name,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
-	Protocol     string   `json:"protocol,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
-	Id           string   `json:"id,omitempty"`
 	Url          string   `json:"url,omitempty"`
+	Id           string   `json:"id,omitempty"`
+	Details      []string `json:"details,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
+	Providername string   `json:"providername,omitempty"`
+	Protocol     string   `json:"protocol,omitempty"`
+	Name         string   `json:"name,omitempty"`
+	Zonename     string   `json:"zonename,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
 }
 
 type ListSwiftsParams struct {
@@ -192,10 +192,23 @@ func (s *SwiftService) GetSwiftID(keyword string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", keyword, l)
 	}
-	return l.Swifts[0].Id, nil
+
+	if l.Count == 1 {
+		return l.Swifts[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.Swifts {
+			if v.Name == keyword {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
 }
 
 // List Swift.
@@ -218,13 +231,13 @@ type ListSwiftsResponse struct {
 }
 
 type Swift struct {
+	Name         string   `json:"name,omitempty"`
 	Url          string   `json:"url,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
 	Protocol     string   `json:"protocol,omitempty"`
 	Zonename     string   `json:"zonename,omitempty"`
-	Id           string   `json:"id,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
 	Providername string   `json:"providername,omitempty"`
-	Name         string   `json:"name,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
 	Details      []string `json:"details,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Id           string   `json:"id,omitempty"`
 }

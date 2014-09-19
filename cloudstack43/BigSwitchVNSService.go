@@ -90,22 +90,25 @@ func (s *BigSwitchVNSService) AddBigSwitchVnsDevice(p *AddBigSwitchVnsDevicePara
 			return &r, warn
 		}
 
-		var r AddBigSwitchVnsDeviceResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AddBigSwitchVnsDeviceResponse struct {
 	JobID               string `json:"jobid,omitempty"`
+	Physicalnetworkid   string `json:"physicalnetworkid,omitempty"`
+	Hostname            string `json:"hostname,omitempty"`
 	Provider            string `json:"provider,omitempty"`
 	Bigswitchdevicename string `json:"bigswitchdevicename,omitempty"`
-	Physicalnetworkid   string `json:"physicalnetworkid,omitempty"`
 	Vnsdeviceid         string `json:"vnsdeviceid,omitempty"`
-	Hostname            string `json:"hostname,omitempty"`
 }
 
 type DeleteBigSwitchVnsDeviceParams struct {
@@ -164,19 +167,17 @@ func (s *BigSwitchVNSService) DeleteBigSwitchVnsDevice(p *DeleteBigSwitchVnsDevi
 			return &r, warn
 		}
 
-		var r DeleteBigSwitchVnsDeviceResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteBigSwitchVnsDeviceResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type ListBigSwitchVnsDevicesParams struct {
@@ -276,9 +277,9 @@ type ListBigSwitchVnsDevicesResponse struct {
 }
 
 type BigSwitchVnsDevice struct {
-	Provider            string `json:"provider,omitempty"`
 	Physicalnetworkid   string `json:"physicalnetworkid,omitempty"`
-	Bigswitchdevicename string `json:"bigswitchdevicename,omitempty"`
+	Provider            string `json:"provider,omitempty"`
 	Vnsdeviceid         string `json:"vnsdeviceid,omitempty"`
+	Bigswitchdevicename string `json:"bigswitchdevicename,omitempty"`
 	Hostname            string `json:"hostname,omitempty"`
 }

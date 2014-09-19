@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 
-package cloudstack43
+package cloudstack
 
 import (
 	"encoding/json"
