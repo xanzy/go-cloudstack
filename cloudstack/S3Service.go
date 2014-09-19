@@ -153,15 +153,15 @@ func (s *S3Service) AddS3(p *AddS3Params) (*AddS3Response, error) {
 }
 
 type AddS3Response struct {
-	Details      []string `json:"details,omitempty"`
-	Providername string   `json:"providername,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
-	Protocol     string   `json:"protocol,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Name         string   `json:"name,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
 	Zonename     string   `json:"zonename,omitempty"`
 	Id           string   `json:"id,omitempty"`
+	Url          string   `json:"url,omitempty"`
+	Name         string   `json:"name,omitempty"`
+	Providername string   `json:"providername,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Details      []string `json:"details,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
+	Protocol     string   `json:"protocol,omitempty"`
 }
 
 type ListS3sParams struct {
@@ -230,10 +230,23 @@ func (s *S3Service) GetS3ID(keyword string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", keyword, l)
 	}
-	return l.S3s[0].Id, nil
+
+	if l.Count == 1 {
+		return l.S3s[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.S3s {
+			if v.Name == keyword {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
 }
 
 // Lists S3s
@@ -256,13 +269,13 @@ type ListS3sResponse struct {
 }
 
 type S3 struct {
-	Protocol     string   `json:"protocol,omitempty"`
-	Providername string   `json:"providername,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
 	Details      []string `json:"details,omitempty"`
 	Zonename     string   `json:"zonename,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
 	Name         string   `json:"name,omitempty"`
 	Id           string   `json:"id,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Protocol     string   `json:"protocol,omitempty"`
 	Url          string   `json:"url,omitempty"`
+	Providername string   `json:"providername,omitempty"`
 }

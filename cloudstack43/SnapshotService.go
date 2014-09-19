@@ -125,45 +125,48 @@ func (s *SnapshotService) CreateSnapshot(p *CreateSnapshotParams) (*CreateSnapsh
 			return &r, warn
 		}
 
-		var r CreateSnapshotResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateSnapshotResponse struct {
 	JobID        string `json:"jobid,omitempty"`
-	Snapshottype string `json:"snapshottype,omitempty"`
-	Zoneid       string `json:"zoneid,omitempty"`
-	Account      string `json:"account,omitempty"`
-	Domain       string `json:"domain,omitempty"`
-	State        string `json:"state,omitempty"`
-	Projectid    string `json:"projectid,omitempty"`
-	Id           string `json:"id,omitempty"`
-	Volumeid     string `json:"volumeid,omitempty"`
 	Created      string `json:"created,omitempty"`
-	Name         string `json:"name,omitempty"`
-	Volumename   string `json:"volumename,omitempty"`
+	Volumeid     string `json:"volumeid,omitempty"`
 	Revertable   bool   `json:"revertable,omitempty"`
-	Project      string `json:"project,omitempty"`
-	Volumetype   string `json:"volumetype,omitempty"`
+	Intervaltype string `json:"intervaltype,omitempty"`
+	Account      string `json:"account,omitempty"`
+	Zoneid       string `json:"zoneid,omitempty"`
+	Snapshottype string `json:"snapshottype,omitempty"`
+	Name         string `json:"name,omitempty"`
 	Tags         []struct {
-		Resourcetype string `json:"resourcetype,omitempty"`
+		Project      string `json:"project,omitempty"`
 		Customer     string `json:"customer,omitempty"`
 		Domain       string `json:"domain,omitempty"`
-		Project      string `json:"project,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Value        string `json:"value,omitempty"`
 		Account      string `json:"account,omitempty"`
 		Domainid     string `json:"domainid,omitempty"`
 		Key          string `json:"key,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Intervaltype string `json:"intervaltype,omitempty"`
-	Domainid     string `json:"domainid,omitempty"`
+	State      string `json:"state,omitempty"`
+	Volumetype string `json:"volumetype,omitempty"`
+	Domainid   string `json:"domainid,omitempty"`
+	Domain     string `json:"domain,omitempty"`
+	Projectid  string `json:"projectid,omitempty"`
+	Id         string `json:"id,omitempty"`
+	Project    string `json:"project,omitempty"`
+	Volumename string `json:"volumename,omitempty"`
 }
 
 type ListSnapshotsParams struct {
@@ -371,10 +374,59 @@ func (s *SnapshotService) GetSnapshotID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.Snapshots[0].Id, nil
+
+	if l.Count == 1 {
+		return l.Snapshots[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.Snapshots {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *SnapshotService) GetSnapshotByName(name string) (*Snapshot, int, error) {
+	id, err := s.GetSnapshotID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetSnapshotByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *SnapshotService) GetSnapshotByID(id string) (*Snapshot, int, error) {
+	p := &ListSnapshotsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListSnapshots(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.Snapshots[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for Snapshot UUID: %s!", id)
 }
 
 // Lists all available snapshots for the account.
@@ -397,34 +449,34 @@ type ListSnapshotsResponse struct {
 }
 
 type Snapshot struct {
-	Domainid  string `json:"domainid,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
-	Account   string `json:"account,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Tags      []struct {
-		Resourceid   string `json:"resourceid,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Key          string `json:"key,omitempty"`
+	Tags []struct {
 		Domainid     string `json:"domainid,omitempty"`
 		Resourcetype string `json:"resourcetype,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Domain       string `json:"domain,omitempty"`
 		Project      string `json:"project,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
 		Customer     string `json:"customer,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
 	} `json:"tags,omitempty"`
-	Project      string `json:"project,omitempty"`
-	State        string `json:"state,omitempty"`
-	Intervaltype string `json:"intervaltype,omitempty"`
-	Name         string `json:"name,omitempty"`
-	Volumename   string `json:"volumename,omitempty"`
-	Zoneid       string `json:"zoneid,omitempty"`
+	Domainid     string `json:"domainid,omitempty"`
+	Projectid    string `json:"projectid,omitempty"`
 	Revertable   bool   `json:"revertable,omitempty"`
+	Volumename   string `json:"volumename,omitempty"`
 	Volumeid     string `json:"volumeid,omitempty"`
-	Created      string `json:"created,omitempty"`
 	Volumetype   string `json:"volumetype,omitempty"`
+	Project      string `json:"project,omitempty"`
+	Intervaltype string `json:"intervaltype,omitempty"`
+	State        string `json:"state,omitempty"`
+	Created      string `json:"created,omitempty"`
+	Account      string `json:"account,omitempty"`
 	Snapshottype string `json:"snapshottype,omitempty"`
+	Zoneid       string `json:"zoneid,omitempty"`
+	Name         string `json:"name,omitempty"`
+	Domain       string `json:"domain,omitempty"`
+	Id           string `json:"id,omitempty"`
 }
 
 type DeleteSnapshotParams struct {
@@ -483,19 +535,17 @@ func (s *SnapshotService) DeleteSnapshot(p *DeleteSnapshotParams) (*DeleteSnapsh
 			return &r, warn
 		}
 
-		var r DeleteSnapshotResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteSnapshotResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type CreateSnapshotPolicyParams struct {
@@ -594,12 +644,12 @@ func (s *SnapshotService) CreateSnapshotPolicy(p *CreateSnapshotPolicyParams) (*
 }
 
 type CreateSnapshotPolicyResponse struct {
-	Volumeid     string `json:"volumeid,omitempty"`
 	Schedule     string `json:"schedule,omitempty"`
-	Timezone     string `json:"timezone,omitempty"`
-	Intervaltype int    `json:"intervaltype,omitempty"`
-	Id           string `json:"id,omitempty"`
 	Maxsnaps     int    `json:"maxsnaps,omitempty"`
+	Intervaltype int    `json:"intervaltype,omitempty"`
+	Volumeid     string `json:"volumeid,omitempty"`
+	Timezone     string `json:"timezone,omitempty"`
+	Id           string `json:"id,omitempty"`
 }
 
 type DeleteSnapshotPoliciesParams struct {
@@ -660,7 +710,7 @@ func (s *SnapshotService) DeleteSnapshotPolicies(p *DeleteSnapshotPoliciesParams
 }
 
 type DeleteSnapshotPoliciesResponse struct {
-	Success     bool   `json:"success,omitempty"`
+	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
 }
 
@@ -731,24 +781,6 @@ func (s *SnapshotService) NewListSnapshotPoliciesParams(volumeid string) *ListSn
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *SnapshotService) GetSnapshotPolicyID(keyword string, volumeid string) (string, error) {
-	p := &ListSnapshotPoliciesParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-	p.p["volumeid"] = volumeid
-
-	l, err := s.ListSnapshotPolicies(p)
-	if err != nil {
-		return "", err
-	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
-	}
-	return l.SnapshotPolicies[0].Id, nil
-}
-
 // Lists snapshot policies.
 func (s *SnapshotService) ListSnapshotPolicies(p *ListSnapshotPoliciesParams) (*ListSnapshotPoliciesResponse, error) {
 	resp, err := s.cs.newRequest("listSnapshotPolicies", p.toURLValues())
@@ -769,11 +801,11 @@ type ListSnapshotPoliciesResponse struct {
 }
 
 type SnapshotPolicy struct {
-	Volumeid     string `json:"volumeid,omitempty"`
-	Id           string `json:"id,omitempty"`
 	Schedule     string `json:"schedule,omitempty"`
 	Timezone     string `json:"timezone,omitempty"`
+	Volumeid     string `json:"volumeid,omitempty"`
 	Maxsnaps     int    `json:"maxsnaps,omitempty"`
+	Id           string `json:"id,omitempty"`
 	Intervaltype int    `json:"intervaltype,omitempty"`
 }
 
@@ -833,45 +865,48 @@ func (s *SnapshotService) RevertSnapshot(p *RevertSnapshotParams) (*RevertSnapsh
 			return &r, warn
 		}
 
-		var r RevertSnapshotResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type RevertSnapshotResponse struct {
-	JobID      string `json:"jobid,omitempty"`
-	Project    string `json:"project,omitempty"`
-	Account    string `json:"account,omitempty"`
-	Projectid  string `json:"projectid,omitempty"`
-	Revertable bool   `json:"revertable,omitempty"`
-	Volumetype string `json:"volumetype,omitempty"`
-	State      string `json:"state,omitempty"`
-	Created    string `json:"created,omitempty"`
-	Id         string `json:"id,omitempty"`
-	Domain     string `json:"domain,omitempty"`
-	Volumename string `json:"volumename,omitempty"`
-	Zoneid     string `json:"zoneid,omitempty"`
-	Tags       []struct {
-		Account      string `json:"account,omitempty"`
+	JobID        string `json:"jobid,omitempty"`
+	Volumetype   string `json:"volumetype,omitempty"`
+	Id           string `json:"id,omitempty"`
+	Snapshottype string `json:"snapshottype,omitempty"`
+	Tags         []struct {
+		Domain       string `json:"domain,omitempty"`
 		Value        string `json:"value,omitempty"`
-		Project      string `json:"project,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
 		Customer     string `json:"customer,omitempty"`
+		Project      string `json:"project,omitempty"`
 		Projectid    string `json:"projectid,omitempty"`
+		Account      string `json:"account,omitempty"`
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Resourceid   string `json:"resourceid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
 	} `json:"tags,omitempty"`
-	Domainid     string `json:"domainid,omitempty"`
+	Project      string `json:"project,omitempty"`
+	Revertable   bool   `json:"revertable,omitempty"`
 	Volumeid     string `json:"volumeid,omitempty"`
-	Name         string `json:"name,omitempty"`
+	Account      string `json:"account,omitempty"`
+	Domainid     string `json:"domainid,omitempty"`
 	Intervaltype string `json:"intervaltype,omitempty"`
-	Snapshottype string `json:"snapshottype,omitempty"`
+	Created      string `json:"created,omitempty"`
+	State        string `json:"state,omitempty"`
+	Name         string `json:"name,omitempty"`
+	Domain       string `json:"domain,omitempty"`
+	Volumename   string `json:"volumename,omitempty"`
+	Zoneid       string `json:"zoneid,omitempty"`
+	Projectid    string `json:"projectid,omitempty"`
 }
 
 type ListVMSnapshotParams struct {
@@ -1057,10 +1092,23 @@ func (s *SnapshotService) GetVMSnapshotID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.VMSnapshot[0].Id, nil
+
+	if l.Count == 1 {
+		return l.VMSnapshot[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.VMSnapshot {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
 }
 
 // List virtual machine snapshot by conditions
@@ -1083,23 +1131,23 @@ type ListVMSnapshotResponse struct {
 }
 
 type VMSnapshot struct {
-	Domainid         string `json:"domainid,omitempty"`
-	Virtualmachineid string `json:"virtualmachineid,omitempty"`
+	Zoneid           string `json:"zoneid,omitempty"`
+	Id               string `json:"id,omitempty"`
+	Account          string `json:"account,omitempty"`
+	State            string `json:"state,omitempty"`
 	Displayname      string `json:"displayname,omitempty"`
 	Domain           string `json:"domain,omitempty"`
-	Id               string `json:"id,omitempty"`
-	Zoneid           string `json:"zoneid,omitempty"`
-	Description      string `json:"description,omitempty"`
-	Parent           string `json:"parent,omitempty"`
-	ParentName       string `json:"parentName,omitempty"`
-	Current          bool   `json:"current,omitempty"`
-	State            string `json:"state,omitempty"`
-	Name             string `json:"name,omitempty"`
-	Project          string `json:"project,omitempty"`
-	Account          string `json:"account,omitempty"`
-	Type             string `json:"type,omitempty"`
+	Domainid         string `json:"domainid,omitempty"`
 	Projectid        string `json:"projectid,omitempty"`
+	Parent           string `json:"parent,omitempty"`
+	Current          bool   `json:"current,omitempty"`
+	Project          string `json:"project,omitempty"`
+	Virtualmachineid string `json:"virtualmachineid,omitempty"`
 	Created          string `json:"created,omitempty"`
+	Description      string `json:"description,omitempty"`
+	ParentName       string `json:"parentName,omitempty"`
+	Name             string `json:"name,omitempty"`
+	Type             string `json:"type,omitempty"`
 }
 
 type CreateVMSnapshotParams struct {
@@ -1204,34 +1252,37 @@ func (s *SnapshotService) CreateVMSnapshot(p *CreateVMSnapshotParams) (*CreateVM
 			return &r, warn
 		}
 
-		var r CreateVMSnapshotResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateVMSnapshotResponse struct {
 	JobID            string `json:"jobid,omitempty"`
-	Current          bool   `json:"current,omitempty"`
-	Id               string `json:"id,omitempty"`
-	Virtualmachineid string `json:"virtualmachineid,omitempty"`
-	Zoneid           string `json:"zoneid,omitempty"`
-	Created          string `json:"created,omitempty"`
-	Project          string `json:"project,omitempty"`
 	Description      string `json:"description,omitempty"`
-	Type             string `json:"type,omitempty"`
-	Displayname      string `json:"displayname,omitempty"`
-	State            string `json:"state,omitempty"`
-	Parent           string `json:"parent,omitempty"`
-	Domainid         string `json:"domainid,omitempty"`
-	ParentName       string `json:"parentName,omitempty"`
 	Domain           string `json:"domain,omitempty"`
+	Id               string `json:"id,omitempty"`
+	Created          string `json:"created,omitempty"`
+	Displayname      string `json:"displayname,omitempty"`
 	Name             string `json:"name,omitempty"`
+	State            string `json:"state,omitempty"`
+	Project          string `json:"project,omitempty"`
+	ParentName       string `json:"parentName,omitempty"`
+	Current          bool   `json:"current,omitempty"`
+	Zoneid           string `json:"zoneid,omitempty"`
+	Virtualmachineid string `json:"virtualmachineid,omitempty"`
+	Type             string `json:"type,omitempty"`
 	Projectid        string `json:"projectid,omitempty"`
 	Account          string `json:"account,omitempty"`
+	Parent           string `json:"parent,omitempty"`
+	Domainid         string `json:"domainid,omitempty"`
 }
 
 type DeleteVMSnapshotParams struct {
@@ -1290,19 +1341,17 @@ func (s *SnapshotService) DeleteVMSnapshot(p *DeleteVMSnapshotParams) (*DeleteVM
 			return &r, warn
 		}
 
-		var r DeleteVMSnapshotResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteVMSnapshotResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type RevertToVMSnapshotParams struct {
@@ -1361,149 +1410,152 @@ func (s *SnapshotService) RevertToVMSnapshot(p *RevertToVMSnapshotParams) (*Reve
 			return &r, warn
 		}
 
-		var r RevertToVMSnapshotResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type RevertToVMSnapshotResponse struct {
-	JobID                 string `json:"jobid,omitempty"`
-	Isdynamicallyscalable bool   `json:"isdynamicallyscalable,omitempty"`
-	Cpuspeed              int    `json:"cpuspeed,omitempty"`
-	Securitygroup         []struct {
-		Domain     string `json:"domain,omitempty"`
-		Project    string `json:"project,omitempty"`
-		Egressrule []struct {
-			Account           string `json:"account,omitempty"`
-			Startport         int    `json:"startport,omitempty"`
-			Endport           int    `json:"endport,omitempty"`
-			Securitygroupname string `json:"securitygroupname,omitempty"`
-			Icmpcode          int    `json:"icmpcode,omitempty"`
-			Icmptype          int    `json:"icmptype,omitempty"`
-			Ruleid            string `json:"ruleid,omitempty"`
-			Protocol          string `json:"protocol,omitempty"`
-			Cidr              string `json:"cidr,omitempty"`
-		} `json:"egressrule,omitempty"`
-		Tags []struct {
-			Domainid     string `json:"domainid,omitempty"`
-			Customer     string `json:"customer,omitempty"`
-			Resourceid   string `json:"resourceid,omitempty"`
-			Account      string `json:"account,omitempty"`
-			Resourcetype string `json:"resourcetype,omitempty"`
-			Projectid    string `json:"projectid,omitempty"`
-			Domain       string `json:"domain,omitempty"`
-			Key          string `json:"key,omitempty"`
-			Project      string `json:"project,omitempty"`
-			Value        string `json:"value,omitempty"`
-		} `json:"tags,omitempty"`
-		Name        string `json:"name,omitempty"`
-		Id          string `json:"id,omitempty"`
-		Ingressrule []struct {
-			Cidr              string `json:"cidr,omitempty"`
-			Securitygroupname string `json:"securitygroupname,omitempty"`
-			Icmptype          int    `json:"icmptype,omitempty"`
-			Account           string `json:"account,omitempty"`
-			Protocol          string `json:"protocol,omitempty"`
-			Ruleid            string `json:"ruleid,omitempty"`
-			Endport           int    `json:"endport,omitempty"`
-			Icmpcode          int    `json:"icmpcode,omitempty"`
-			Startport         int    `json:"startport,omitempty"`
-		} `json:"ingressrule,omitempty"`
-		Projectid   string `json:"projectid,omitempty"`
-		Account     string `json:"account,omitempty"`
-		Description string `json:"description,omitempty"`
-		Domainid    string `json:"domainid,omitempty"`
-	} `json:"securitygroup,omitempty"`
-	State               string            `json:"state,omitempty"`
-	Project             string            `json:"project,omitempty"`
-	Domain              string            `json:"domain,omitempty"`
-	Servicestate        string            `json:"servicestate,omitempty"`
-	Domainid            string            `json:"domainid,omitempty"`
-	Serviceofferingid   string            `json:"serviceofferingid,omitempty"`
-	Isoname             string            `json:"isoname,omitempty"`
-	Templatedisplaytext string            `json:"templatedisplaytext,omitempty"`
-	Haenable            bool              `json:"haenable,omitempty"`
-	Hypervisor          string            `json:"hypervisor,omitempty"`
-	Details             map[string]string `json:"details,omitempty"`
-	Isoid               string            `json:"isoid,omitempty"`
-	Cpuused             string            `json:"cpuused,omitempty"`
-	Group               string            `json:"group,omitempty"`
-	Nic                 []struct {
-		Ip6cidr      string   `json:"ip6cidr,omitempty"`
-		Secondaryip  []string `json:"secondaryip,omitempty"`
-		Ip6address   string   `json:"ip6address,omitempty"`
-		Netmask      string   `json:"netmask,omitempty"`
-		Gateway      string   `json:"gateway,omitempty"`
-		Type         string   `json:"type,omitempty"`
-		Networkname  string   `json:"networkname,omitempty"`
-		Traffictype  string   `json:"traffictype,omitempty"`
-		Ipaddress    string   `json:"ipaddress,omitempty"`
-		Id           string   `json:"id,omitempty"`
-		Networkid    string   `json:"networkid,omitempty"`
-		Isolationuri string   `json:"isolationuri,omitempty"`
-		Isdefault    bool     `json:"isdefault,omitempty"`
-		Ip6gateway   string   `json:"ip6gateway,omitempty"`
-		Broadcasturi string   `json:"broadcasturi,omitempty"`
-		Macaddress   string   `json:"macaddress,omitempty"`
-	} `json:"nic,omitempty"`
-	Diskiowrite         int    `json:"diskiowrite,omitempty"`
-	Instancename        string `json:"instancename,omitempty"`
-	Id                  string `json:"id,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
-	Forvirtualnetwork   bool   `json:"forvirtualnetwork,omitempty"`
-	Memory              int    `json:"memory,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Projectid           string `json:"projectid,omitempty"`
-	Tags                []struct {
-		Projectid    string `json:"projectid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
+	JobID        string `json:"jobid,omitempty"`
+	Guestosid    string `json:"guestosid,omitempty"`
+	Instancename string `json:"instancename,omitempty"`
+	Domainid     string `json:"domainid,omitempty"`
+	Templateid   string `json:"templateid,omitempty"`
+	Diskkbswrite int    `json:"diskkbswrite,omitempty"`
+	Tags         []struct {
 		Customer     string `json:"customer,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Domain       string `json:"domain,omitempty"`
+		Account      string `json:"account,omitempty"`
 		Value        string `json:"value,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Domain       string `json:"domain,omitempty"`
 	} `json:"tags,omitempty"`
-	Diskioread      int    `json:"diskioread,omitempty"`
-	Displayname     string `json:"displayname,omitempty"`
-	Created         string `json:"created,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
-	Keypair         string `json:"keypair,omitempty"`
-	Publicipid      string `json:"publicipid,omitempty"`
-	Publicip        string `json:"publicip,omitempty"`
-	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
-	Name            string `json:"name,omitempty"`
-	Passwordenabled bool   `json:"passwordenabled,omitempty"`
-	Templateid      string `json:"templateid,omitempty"`
-	Diskkbswrite    int    `json:"diskkbswrite,omitempty"`
-	Networkkbswrite int    `json:"networkkbswrite,omitempty"`
-	Hostid          string `json:"hostid,omitempty"`
-	Networkkbsread  int    `json:"networkkbsread,omitempty"`
-	Guestosid       string `json:"guestosid,omitempty"`
-	Templatename    string `json:"templatename,omitempty"`
-	Account         string `json:"account,omitempty"`
-	Hostname        string `json:"hostname,omitempty"`
-	Diskkbsread     int    `json:"diskkbsread,omitempty"`
-	Groupid         string `json:"groupid,omitempty"`
-	Isodisplaytext  string `json:"isodisplaytext,omitempty"`
-	Affinitygroup   []struct {
-		Domain            string   `json:"domain,omitempty"`
-		Type              string   `json:"type,omitempty"`
-		Description       string   `json:"description,omitempty"`
-		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
-		Account           string   `json:"account,omitempty"`
-		Id                string   `json:"id,omitempty"`
+	Id                    string            `json:"id,omitempty"`
+	Serviceofferingid     string            `json:"serviceofferingid,omitempty"`
+	Details               map[string]string `json:"details,omitempty"`
+	Diskioread            int               `json:"diskioread,omitempty"`
+	Project               string            `json:"project,omitempty"`
+	Cpunumber             int               `json:"cpunumber,omitempty"`
+	Templatename          string            `json:"templatename,omitempty"`
+	Forvirtualnetwork     bool              `json:"forvirtualnetwork,omitempty"`
+	Zonename              string            `json:"zonename,omitempty"`
+	Keypair               string            `json:"keypair,omitempty"`
+	Cpuspeed              int               `json:"cpuspeed,omitempty"`
+	Account               string            `json:"account,omitempty"`
+	Serviceofferingname   string            `json:"serviceofferingname,omitempty"`
+	Name                  string            `json:"name,omitempty"`
+	Haenable              bool              `json:"haenable,omitempty"`
+	Hostname              string            `json:"hostname,omitempty"`
+	Isdynamicallyscalable bool              `json:"isdynamicallyscalable,omitempty"`
+	Memory                int               `json:"memory,omitempty"`
+	Password              string            `json:"password,omitempty"`
+	Displayname           string            `json:"displayname,omitempty"`
+	Created               string            `json:"created,omitempty"`
+	Displayvm             bool              `json:"displayvm,omitempty"`
+	Projectid             string            `json:"projectid,omitempty"`
+	Isodisplaytext        string            `json:"isodisplaytext,omitempty"`
+	Rootdevicetype        string            `json:"rootdevicetype,omitempty"`
+	Group                 string            `json:"group,omitempty"`
+	Domain                string            `json:"domain,omitempty"`
+	Publicipid            string            `json:"publicipid,omitempty"`
+	Servicestate          string            `json:"servicestate,omitempty"`
+	Isoid                 string            `json:"isoid,omitempty"`
+	Hostid                string            `json:"hostid,omitempty"`
+	Affinitygroup         []struct {
 		Domainid          string   `json:"domainid,omitempty"`
+		Domain            string   `json:"domain,omitempty"`
 		Name              string   `json:"name,omitempty"`
+		Account           string   `json:"account,omitempty"`
+		Description       string   `json:"description,omitempty"`
+		Type              string   `json:"type,omitempty"`
+		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
+		Id                string   `json:"id,omitempty"`
 	} `json:"affinitygroup,omitempty"`
-	Cpunumber int    `json:"cpunumber,omitempty"`
-	Password  string `json:"password,omitempty"`
-	Displayvm bool   `json:"displayvm,omitempty"`
+	Passwordenabled bool `json:"passwordenabled,omitempty"`
+	Rootdeviceid    int  `json:"rootdeviceid,omitempty"`
+	Nic             []struct {
+		Networkname  string   `json:"networkname,omitempty"`
+		Ipaddress    string   `json:"ipaddress,omitempty"`
+		Broadcasturi string   `json:"broadcasturi,omitempty"`
+		Netmask      string   `json:"netmask,omitempty"`
+		Isdefault    bool     `json:"isdefault,omitempty"`
+		Networkid    string   `json:"networkid,omitempty"`
+		Ip6gateway   string   `json:"ip6gateway,omitempty"`
+		Gateway      string   `json:"gateway,omitempty"`
+		Secondaryip  []string `json:"secondaryip,omitempty"`
+		Ip6cidr      string   `json:"ip6cidr,omitempty"`
+		Isolationuri string   `json:"isolationuri,omitempty"`
+		Traffictype  string   `json:"traffictype,omitempty"`
+		Type         string   `json:"type,omitempty"`
+		Macaddress   string   `json:"macaddress,omitempty"`
+		Ip6address   string   `json:"ip6address,omitempty"`
+		Id           string   `json:"id,omitempty"`
+	} `json:"nic,omitempty"`
+	Securitygroup []struct {
+		Account string `json:"account,omitempty"`
+		Project string `json:"project,omitempty"`
+		Tags    []struct {
+			Resourcetype string `json:"resourcetype,omitempty"`
+			Customer     string `json:"customer,omitempty"`
+			Value        string `json:"value,omitempty"`
+			Projectid    string `json:"projectid,omitempty"`
+			Account      string `json:"account,omitempty"`
+			Domain       string `json:"domain,omitempty"`
+			Domainid     string `json:"domainid,omitempty"`
+			Project      string `json:"project,omitempty"`
+			Key          string `json:"key,omitempty"`
+			Resourceid   string `json:"resourceid,omitempty"`
+		} `json:"tags,omitempty"`
+		Domainid   string `json:"domainid,omitempty"`
+		Egressrule []struct {
+			Icmptype          int    `json:"icmptype,omitempty"`
+			Startport         int    `json:"startport,omitempty"`
+			Account           string `json:"account,omitempty"`
+			Ruleid            string `json:"ruleid,omitempty"`
+			Cidr              string `json:"cidr,omitempty"`
+			Endport           int    `json:"endport,omitempty"`
+			Protocol          string `json:"protocol,omitempty"`
+			Securitygroupname string `json:"securitygroupname,omitempty"`
+			Icmpcode          int    `json:"icmpcode,omitempty"`
+		} `json:"egressrule,omitempty"`
+		Id          string `json:"id,omitempty"`
+		Name        string `json:"name,omitempty"`
+		Projectid   string `json:"projectid,omitempty"`
+		Ingressrule []struct {
+			Icmptype          int    `json:"icmptype,omitempty"`
+			Securitygroupname string `json:"securitygroupname,omitempty"`
+			Ruleid            string `json:"ruleid,omitempty"`
+			Endport           int    `json:"endport,omitempty"`
+			Icmpcode          int    `json:"icmpcode,omitempty"`
+			Protocol          string `json:"protocol,omitempty"`
+			Startport         int    `json:"startport,omitempty"`
+			Cidr              string `json:"cidr,omitempty"`
+			Account           string `json:"account,omitempty"`
+		} `json:"ingressrule,omitempty"`
+		Description string `json:"description,omitempty"`
+		Domain      string `json:"domain,omitempty"`
+	} `json:"securitygroup,omitempty"`
+	State               string `json:"state,omitempty"`
+	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
+	Publicip            string `json:"publicip,omitempty"`
+	Isoname             string `json:"isoname,omitempty"`
+	Zoneid              string `json:"zoneid,omitempty"`
+	Networkkbswrite     int    `json:"networkkbswrite,omitempty"`
+	Hypervisor          string `json:"hypervisor,omitempty"`
+	Diskiowrite         int    `json:"diskiowrite,omitempty"`
+	Groupid             string `json:"groupid,omitempty"`
+	Cpuused             string `json:"cpuused,omitempty"`
+	Diskkbsread         int    `json:"diskkbsread,omitempty"`
+	Networkkbsread      int    `json:"networkkbsread,omitempty"`
 }

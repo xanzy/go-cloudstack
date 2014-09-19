@@ -137,24 +137,27 @@ func (s *NiciraNVPService) AddNiciraNvpDevice(p *AddNiciraNvpDeviceParams) (*Add
 			return &r, warn
 		}
 
-		var r AddNiciraNvpDeviceResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AddNiciraNvpDeviceResponse struct {
 	JobID                string `json:"jobid,omitempty"`
-	Hostname             string `json:"hostname,omitempty"`
-	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid,omitempty"`
-	Niciradevicename     string `json:"niciradevicename,omitempty"`
+	Provider             string `json:"provider,omitempty"`
 	Physicalnetworkid    string `json:"physicalnetworkid,omitempty"`
 	Nvpdeviceid          string `json:"nvpdeviceid,omitempty"`
-	Provider             string `json:"provider,omitempty"`
+	Niciradevicename     string `json:"niciradevicename,omitempty"`
 	Transportzoneuuid    string `json:"transportzoneuuid,omitempty"`
+	Hostname             string `json:"hostname,omitempty"`
+	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid,omitempty"`
 }
 
 type DeleteNiciraNvpDeviceParams struct {
@@ -213,19 +216,17 @@ func (s *NiciraNVPService) DeleteNiciraNvpDevice(p *DeleteNiciraNvpDeviceParams)
 			return &r, warn
 		}
 
-		var r DeleteNiciraNvpDeviceResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteNiciraNvpDeviceResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type ListNiciraNvpDevicesParams struct {
@@ -325,11 +326,11 @@ type ListNiciraNvpDevicesResponse struct {
 }
 
 type NiciraNvpDevice struct {
-	Provider             string `json:"provider,omitempty"`
 	Niciradevicename     string `json:"niciradevicename,omitempty"`
 	Hostname             string `json:"hostname,omitempty"`
-	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid,omitempty"`
-	Physicalnetworkid    string `json:"physicalnetworkid,omitempty"`
-	Transportzoneuuid    string `json:"transportzoneuuid,omitempty"`
 	Nvpdeviceid          string `json:"nvpdeviceid,omitempty"`
+	Physicalnetworkid    string `json:"physicalnetworkid,omitempty"`
+	Provider             string `json:"provider,omitempty"`
+	Transportzoneuuid    string `json:"transportzoneuuid,omitempty"`
+	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid,omitempty"`
 }

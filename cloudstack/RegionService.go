@@ -94,11 +94,11 @@ func (s *RegionService) AddRegion(p *AddRegionParams) (*AddRegionResponse, error
 }
 
 type AddRegionResponse struct {
+	Gslbserviceenabled       bool   `json:"gslbserviceenabled,omitempty"`
 	Name                     string `json:"name,omitempty"`
+	Id                       int    `json:"id,omitempty"`
 	Endpoint                 string `json:"endpoint,omitempty"`
 	Portableipserviceenabled bool   `json:"portableipserviceenabled,omitempty"`
-	Gslbserviceenabled       bool   `json:"gslbserviceenabled,omitempty"`
-	Id                       int    `json:"id,omitempty"`
 }
 
 type UpdateRegionParams struct {
@@ -171,11 +171,11 @@ func (s *RegionService) UpdateRegion(p *UpdateRegionParams) (*UpdateRegionRespon
 }
 
 type UpdateRegionResponse struct {
-	Name                     string `json:"name,omitempty"`
-	Gslbserviceenabled       bool   `json:"gslbserviceenabled,omitempty"`
+	Endpoint                 string `json:"endpoint,omitempty"`
 	Portableipserviceenabled bool   `json:"portableipserviceenabled,omitempty"`
 	Id                       int    `json:"id,omitempty"`
-	Endpoint                 string `json:"endpoint,omitempty"`
+	Name                     string `json:"name,omitempty"`
+	Gslbserviceenabled       bool   `json:"gslbserviceenabled,omitempty"`
 }
 
 type RemoveRegionParams struct {
@@ -226,7 +226,7 @@ func (s *RegionService) RemoveRegion(p *RemoveRegionParams) (*RemoveRegionRespon
 }
 
 type RemoveRegionResponse struct {
-	Success     bool   `json:"success,omitempty"`
+	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
 }
 
@@ -328,9 +328,9 @@ type ListRegionsResponse struct {
 }
 
 type Region struct {
-	Portableipserviceenabled bool   `json:"portableipserviceenabled,omitempty"`
-	Id                       int    `json:"id,omitempty"`
 	Gslbserviceenabled       bool   `json:"gslbserviceenabled,omitempty"`
-	Endpoint                 string `json:"endpoint,omitempty"`
 	Name                     string `json:"name,omitempty"`
+	Endpoint                 string `json:"endpoint,omitempty"`
+	Id                       int    `json:"id,omitempty"`
+	Portableipserviceenabled bool   `json:"portableipserviceenabled,omitempty"`
 }

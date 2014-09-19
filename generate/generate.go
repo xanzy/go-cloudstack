@@ -45,9 +45,9 @@ type apiInfo map[string][]string
 
 var mapVersion = map[string]apiInfo{
 	// If new API versions are added, they need to be added here also!
-	"v43":    v43,
-	"v44":    v44,
-	"latest": v44,
+	"v43": v43,
+	//"v44":    v44,
+	"latest": v43,
 }
 
 var pkg string
@@ -296,11 +296,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("")
 	pn("    // Status 1 means the job is finished successfully")
 	pn("    if r.Jobstatus == 1 {")
-	pn("      b, err := getRawValue(r.Jobresult)")
-	pn("      if err != nil {")
-	pn("        return nil, nil, err")
-	pn("      }")
-	pn("      return b, nil, nil")
+	pn("      return r.Jobresult, nil, nil")
 	pn("    }")
 	pn("")
 	pn("    // When the status is 2, the job has failed")
@@ -458,7 +454,7 @@ func (s *service) GenerateCode() ([]byte, error) {
 		s.generateToURLValuesFunc(a)
 		s.generateParamSettersFunc(a)
 		s.generateNewParamTypeFunc(a)
-		s.generateGetIDFunc(a)
+		s.generateHelperFuncs(a)
 		s.generateNewAPICallFunc(a)
 		s.generateResponseType(a)
 	}
@@ -590,13 +586,20 @@ func (s *service) generateNewParamTypeFunc(a *API) {
 	return
 }
 
-func (s *service) generateGetIDFunc(a *API) {
+func (s *service) generateHelperFuncs(a *API) {
 	p, pn := s.p, s.pn
 
 	if strings.HasPrefix(a.Name, "list") {
 		v, found := hasNameOrKeywordParamField(a.Params)
-		if found && hasIDResponseField(a.Response) {
+		if found && hasIDAndNameResponseField(a.Response) {
 			ln := strings.TrimPrefix(a.Name, "list")
+
+			// Check if ID is a required parameters and bail if so
+			for _, ap := range a.Params {
+				if ap.Required && s.parseParamName(ap.Name) == "id" {
+					return
+				}
+			}
 
 			// Generate the function signature
 			pn("// This is a courtesy helper function, which in some cases may not work as expected!")
@@ -623,23 +626,116 @@ func (s *service) generateGetIDFunc(a *API) {
 			pn("	if err != nil {")
 			pn("		return \"\", err")
 			pn("	}")
-			pn("	if l.Count != 1 {")
-			pn("		return \"\", fmt.Errorf(\"%%d matches found for %%s: %%+v\", l.Count, %s, l)", v)
+			pn("")
+			pn("	if l.Count == 0 {")
+			pn("	  return \"\", fmt.Errorf(\"No match found for %%s: %%+v\", %s, l)", v)
 			pn("	}")
-			pn("	return l.%s[0].Id, nil", ln)
+			pn("")
+			pn("	if l.Count == 1 {")
+			pn("	  return l.%s[0].Id, nil", ln)
+			pn("	}")
+			pn("")
+			pn(" 	if l.Count > 1 {")
+			pn("    for _, v := range l.%s {", ln)
+			pn("      if v.Name == %s {", v)
+			pn("        return v.Id, nil")
+			pn("      }")
+			pn("    }")
+			pn("	}")
+			pn("  return \"\", fmt.Errorf(\"Could not find an exact match for %%s: %%+v\", %s, l)", v)
+			pn("}\n")
+			pn("")
+
+			if found := hasIDParamField(a.Params); found {
+				// Generate the function signature
+				pn("// This is a courtesy helper function, which in some cases may not work as expected!")
+				p("func (s *%s) Get%sByName(name string, ", s.name, parseSingular(ln))
+				for _, ap := range a.Params {
+					if ap.Required {
+						p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
+					}
+				}
+				pn(") (*%s, int, error) {", parseSingular(ln))
+
+				// Generate the function body
+				p("  id, err := s.Get%sID(name, ", parseSingular(ln))
+				for _, ap := range a.Params {
+					if ap.Required {
+						p("%s, ", s.parseParamName(ap.Name))
+					}
+				}
+				pn(")")
+				pn("  if err != nil {")
+				pn("    return nil, -1, err")
+				pn("  }")
+				pn("")
+				p("  r, count, err := s.Get%sByID(id, ", parseSingular(ln))
+				for _, ap := range a.Params {
+					if ap.Required {
+						p("%s, ", s.parseParamName(ap.Name))
+					}
+				}
+				pn(")")
+				pn("  if err != nil {")
+				pn("    return nil, count, err")
+				pn("  }")
+				pn("	return r, count, nil")
+				pn("}")
+				pn("")
+			}
+		}
+
+		if found := hasIDParamField(a.Params); found {
+			ln := strings.TrimPrefix(a.Name, "list")
+
+			// Generate the function signature
+			pn("// This is a courtesy helper function, which in some cases may not work as expected!")
+			p("func (s *%s) Get%sByID(id string, ", s.name, parseSingular(ln))
+			for _, ap := range a.Params {
+				if ap.Required && s.parseParamName(ap.Name) != "id" {
+					p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
+				}
+			}
+			pn(") (*%s, int, error) {", parseSingular(ln))
+
+			// Generate the function body
+			pn("	p := &List%sParams{}", ln)
+			pn("	p.p = make(map[string]interface{})")
+			pn("")
+			pn("	p.p[\"id\"] = id")
+			for _, ap := range a.Params {
+				if ap.Required {
+					pn("	p.p[\"%s\"] = %s", s.parseParamName(ap.Name), s.parseParamName(ap.Name))
+				}
+			}
+			pn("")
+			pn("	l, err := s.List%s(p)", ln)
+			pn("	if err != nil {")
+			pn("		return nil, -1, err")
+			pn("	}")
+			pn("")
+			pn("	if l.Count == 0 {")
+			pn("	  return nil, l.Count, fmt.Errorf(\"No match found for %%s: %%+v\", id, l)")
+			pn("	}")
+			pn("")
+			pn("	if l.Count == 1 {")
+			pn("	  return l.%s[0], l.Count, nil", ln)
+			pn("	}")
+			pn("  return nil, l.Count, fmt.Errorf(\"There is more then one result for %s UUID: %%s!\", id)", parseSingular(ln))
 			pn("}\n")
 			pn("")
 		}
 	}
+	return
 }
 
 func hasNameOrKeywordParamField(params APIParams) (v string, found bool) {
 	for _, p := range params {
-		if p.Name == "keyword" && p.Type == "string" {
+		if p.Name == "keyword" && mapType(p.Type) == "string" {
 			v = "keyword"
 			found = true
 		}
-		if p.Name == "name" && p.Type == "string" {
+		if p.Name == "name" && mapType(p.Type) == "string" {
 			return "name", true
 		}
 
@@ -647,13 +743,28 @@ func hasNameOrKeywordParamField(params APIParams) (v string, found bool) {
 	return v, found
 }
 
-func hasIDResponseField(resp []*APIResponse) bool {
-	for _, r := range resp {
-		if r.Name == "id" && r.Type == "string" {
+func hasIDParamField(params APIParams) bool {
+	for _, p := range params {
+		if p.Name == "id" && mapType(p.Type) == "string" {
 			return true
 		}
 	}
 	return false
+}
+
+func hasIDAndNameResponseField(resp []*APIResponse) bool {
+	id := false
+	name := false
+
+	for _, r := range resp {
+		if r.Name == "id" && mapType(r.Type) == "string" {
+			id = true
+		}
+		if r.Name == "name" && mapType(r.Type) == "string" {
+			name = true
+		}
+	}
+	return id && name
 }
 
 func (s *service) generateNewAPICallFunc(a *API) {
@@ -670,6 +781,12 @@ func (s *service) generateNewAPICallFunc(a *API) {
 	pn("		return nil, err")
 	pn("	}")
 	pn("")
+	if n == "CreateNetwork" {
+		pn("	if resp, err = getRawValue(resp); err != nil {")
+		pn("		return nil, err")
+		pn("	}")
+		pn("")
+	}
 	pn("	var r %s", n+"Response")
 	pn("	if err := json.Unmarshal(resp, &r); err != nil {")
 	pn("		return nil, err")
@@ -688,16 +805,36 @@ func (s *service) generateNewAPICallFunc(a *API) {
 		pn("			return &r, warn")
 		pn("		}")
 		pn("")
-		pn("		var r %s", n+"Response")
+		if !isSuccessOnlyResponse(a.Response) {
+			pn("    b, err = getRawValue(b)")
+			pn("    if err != nil {")
+			pn("      return nil, err")
+			pn("    }")
+			pn("")
+		}
 		pn("		if err := json.Unmarshal(b, &r); err != nil {")
 		pn("			return nil, err")
 		pn("		}")
-		pn("		return &r, nil")
 		pn("	}")
 	}
 	pn("	return &r, nil")
 	pn("}")
 	pn("")
+}
+
+func isSuccessOnlyResponse(resp []*APIResponse) bool {
+	success := false
+	displaytext := false
+
+	for _, r := range resp {
+		if r.Name == "displaytext" {
+			displaytext = true
+		}
+		if r.Name == "success" {
+			success = true
+		}
+	}
+	return displaytext && success
 }
 
 func (s *service) generateResponseType(a *API) {
@@ -715,22 +852,11 @@ func (s *service) generateResponseType(a *API) {
 		tn = parseSingular(ln)
 	}
 
-	// This code is only needed because of a current bug in the CloudStack API :(
-	// will remove this as soon as it's fixed in there...
-	if tn == "DeleteVolumeResponse" {
-		pn("type %s struct {", tn)
-		pn("  Success     string  `json:\"success,omitempty\"`")
-		pn("  Displaytext string `json:\"displaytext,omitempty\"`")
-		pn("}")
-		pn("")
-		return
-	}
-
 	pn("type %s struct {", tn)
 	if a.Isasync {
 		pn("	JobID string `json:\"jobid,omitempty\"`")
 	}
-	s.recusiveGenerateResponseType(a.Response)
+	s.recusiveGenerateResponseType(a.Response, a.Isasync)
 	pn("}")
 	pn("")
 	return
@@ -740,10 +866,13 @@ func parseSingular(n string) string {
 	if strings.HasSuffix(n, "ies") {
 		return strings.TrimSuffix(n, "ies") + "y"
 	}
+	if strings.HasSuffix(n, "sses") {
+		return strings.TrimSuffix(n, "es")
+	}
 	return strings.TrimSuffix(n, "s")
 }
 
-func (s *service) recusiveGenerateResponseType(resp []*APIResponse) (output string) {
+func (s *service) recusiveGenerateResponseType(resp []*APIResponse, async bool) (output string) {
 	pn := s.pn
 	found := make(map[string]bool)
 
@@ -753,11 +882,20 @@ func (s *service) recusiveGenerateResponseType(resp []*APIResponse) (output stri
 		}
 		if r.Response != nil {
 			pn("%s []struct {", capitalize(r.Name))
-			s.recusiveGenerateResponseType(r.Response)
+			s.recusiveGenerateResponseType(r.Response, async)
 			pn("} `json:\"%s,omitempty\"`", r.Name)
 		} else {
 			if !found[r.Name] {
-				pn("%s %s `json:\"%s,omitempty\"`", capitalize(r.Name), mapType(r.Type), r.Name)
+				// This code is needed because the response field is different for sync and async calls :(
+				if r.Name == "success" {
+					if async {
+						pn("%s bool `json:\"%s,omitempty\"`", capitalize(r.Name), r.Name)
+					} else {
+						pn("%s string `json:\"%s,omitempty\"`", capitalize(r.Name), r.Name)
+					}
+				} else {
+					pn("%s %s `json:\"%s,omitempty\"`", capitalize(r.Name), mapType(r.Type), r.Name)
+				}
 				found[r.Name] = true
 			}
 		}

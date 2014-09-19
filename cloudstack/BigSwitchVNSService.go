@@ -90,22 +90,25 @@ func (s *BigSwitchVNSService) AddBigSwitchVnsDevice(p *AddBigSwitchVnsDevicePara
 			return &r, warn
 		}
 
-		var r AddBigSwitchVnsDeviceResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AddBigSwitchVnsDeviceResponse struct {
 	JobID               string `json:"jobid,omitempty"`
+	Physicalnetworkid   string `json:"physicalnetworkid,omitempty"`
 	Hostname            string `json:"hostname,omitempty"`
-	Vnsdeviceid         string `json:"vnsdeviceid,omitempty"`
 	Provider            string `json:"provider,omitempty"`
 	Bigswitchdevicename string `json:"bigswitchdevicename,omitempty"`
-	Physicalnetworkid   string `json:"physicalnetworkid,omitempty"`
+	Vnsdeviceid         string `json:"vnsdeviceid,omitempty"`
 }
 
 type DeleteBigSwitchVnsDeviceParams struct {
@@ -164,11 +167,9 @@ func (s *BigSwitchVNSService) DeleteBigSwitchVnsDevice(p *DeleteBigSwitchVnsDevi
 			return &r, warn
 		}
 
-		var r DeleteBigSwitchVnsDeviceResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -276,9 +277,9 @@ type ListBigSwitchVnsDevicesResponse struct {
 }
 
 type BigSwitchVnsDevice struct {
+	Physicalnetworkid   string `json:"physicalnetworkid,omitempty"`
 	Provider            string `json:"provider,omitempty"`
 	Vnsdeviceid         string `json:"vnsdeviceid,omitempty"`
 	Bigswitchdevicename string `json:"bigswitchdevicename,omitempty"`
 	Hostname            string `json:"hostname,omitempty"`
-	Physicalnetworkid   string `json:"physicalnetworkid,omitempty"`
 }

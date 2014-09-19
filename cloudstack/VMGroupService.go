@@ -104,13 +104,13 @@ func (s *VMGroupService) CreateInstanceGroup(p *CreateInstanceGroupParams) (*Cre
 
 type CreateInstanceGroupResponse struct {
 	Projectid string `json:"projectid,omitempty"`
-	Id        string `json:"id,omitempty"`
 	Domain    string `json:"domain,omitempty"`
 	Project   string `json:"project,omitempty"`
-	Name      string `json:"name,omitempty"`
 	Account   string `json:"account,omitempty"`
-	Created   string `json:"created,omitempty"`
+	Id        string `json:"id,omitempty"`
 	Domainid  string `json:"domainid,omitempty"`
+	Created   string `json:"created,omitempty"`
+	Name      string `json:"name,omitempty"`
 }
 
 type DeleteInstanceGroupParams struct {
@@ -160,7 +160,7 @@ func (s *VMGroupService) DeleteInstanceGroup(p *DeleteInstanceGroupParams) (*Del
 }
 
 type DeleteInstanceGroupResponse struct {
-	Success     bool   `json:"success,omitempty"`
+	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
 }
 
@@ -222,14 +222,14 @@ func (s *VMGroupService) UpdateInstanceGroup(p *UpdateInstanceGroupParams) (*Upd
 }
 
 type UpdateInstanceGroupResponse struct {
-	Domain    string `json:"domain,omitempty"`
 	Domainid  string `json:"domainid,omitempty"`
-	Account   string `json:"account,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Id        string `json:"id,omitempty"`
+	Created   string `json:"created,omitempty"`
 	Project   string `json:"project,omitempty"`
 	Projectid string `json:"projectid,omitempty"`
-	Created   string `json:"created,omitempty"`
+	Account   string `json:"account,omitempty"`
+	Domain    string `json:"domain,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Name      string `json:"name,omitempty"`
 }
 
 type ListInstanceGroupsParams struct {
@@ -377,10 +377,59 @@ func (s *VMGroupService) GetInstanceGroupID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.InstanceGroups[0].Id, nil
+
+	if l.Count == 1 {
+		return l.InstanceGroups[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.InstanceGroups {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VMGroupService) GetInstanceGroupByName(name string) (*InstanceGroup, int, error) {
+	id, err := s.GetInstanceGroupID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetInstanceGroupByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VMGroupService) GetInstanceGroupByID(id string) (*InstanceGroup, int, error) {
+	p := &ListInstanceGroupsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListInstanceGroups(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.InstanceGroups[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for InstanceGroup UUID: %s!", id)
 }
 
 // Lists vm groups
@@ -403,12 +452,12 @@ type ListInstanceGroupsResponse struct {
 }
 
 type InstanceGroup struct {
-	Name      string `json:"name,omitempty"`
-	Created   string `json:"created,omitempty"`
-	Id        string `json:"id,omitempty"`
 	Domainid  string `json:"domainid,omitempty"`
 	Projectid string `json:"projectid,omitempty"`
+	Name      string `json:"name,omitempty"`
 	Project   string `json:"project,omitempty"`
-	Domain    string `json:"domain,omitempty"`
 	Account   string `json:"account,omitempty"`
+	Created   string `json:"created,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Domain    string `json:"domain,omitempty"`
 }

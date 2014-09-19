@@ -108,19 +108,17 @@ func (s *ResourcemetadataService) AddResourceDetail(p *AddResourceDetailParams) 
 			return &r, warn
 		}
 
-		var r AddResourceDetailResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AddResourceDetailResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type RemoveResourceDetailParams struct {
@@ -202,19 +200,17 @@ func (s *ResourcemetadataService) RemoveResourceDetail(p *RemoveResourceDetailPa
 			return &r, warn
 		}
 
-		var r RemoveResourceDetailResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type RemoveResourceDetailResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type ListResourceDetailsParams struct {
@@ -396,14 +392,14 @@ type ListResourceDetailsResponse struct {
 }
 
 type ResourceDetail struct {
-	Domainid     string `json:"domainid,omitempty"`
-	Value        string `json:"value,omitempty"`
-	Domain       string `json:"domain,omitempty"`
-	Projectid    string `json:"projectid,omitempty"`
-	Resourceid   string `json:"resourceid,omitempty"`
-	Project      string `json:"project,omitempty"`
-	Account      string `json:"account,omitempty"`
-	Customer     string `json:"customer,omitempty"`
 	Resourcetype string `json:"resourcetype,omitempty"`
+	Account      string `json:"account,omitempty"`
+	Value        string `json:"value,omitempty"`
+	Project      string `json:"project,omitempty"`
+	Domain       string `json:"domain,omitempty"`
 	Key          string `json:"key,omitempty"`
+	Resourceid   string `json:"resourceid,omitempty"`
+	Domainid     string `json:"domainid,omitempty"`
+	Projectid    string `json:"projectid,omitempty"`
+	Customer     string `json:"customer,omitempty"`
 }

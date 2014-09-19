@@ -186,20 +186,25 @@ func (s *FirewallService) NewListPortForwardingRulesParams() *ListPortForwarding
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *FirewallService) GetPortForwardingRuleID(keyword string) (string, error) {
+func (s *FirewallService) GetPortForwardingRuleByID(id string) (*PortForwardingRule, int, error) {
 	p := &ListPortForwardingRulesParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListPortForwardingRules(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.PortForwardingRules[0].Id, nil
+
+	if l.Count == 1 {
+		return l.PortForwardingRules[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for PortForwardingRule UUID: %s!", id)
 }
 
 // Lists all port forwarding rules for an IP address.
@@ -222,32 +227,32 @@ type ListPortForwardingRulesResponse struct {
 }
 
 type PortForwardingRule struct {
-	Ipaddressid string `json:"ipaddressid,omitempty"`
-	Id          string `json:"id,omitempty"`
-	State       string `json:"state,omitempty"`
-	Vmguestip   string `json:"vmguestip,omitempty"`
-	Tags        []struct {
-		Project      string `json:"project,omitempty"`
-		Domain       string `json:"domain,omitempty"`
+	Vmguestip          string `json:"vmguestip,omitempty"`
+	Id                 string `json:"id,omitempty"`
+	Protocol           string `json:"protocol,omitempty"`
+	Virtualmachinename string `json:"virtualmachinename,omitempty"`
+	Networkid          string `json:"networkid,omitempty"`
+	Ipaddress          string `json:"ipaddress,omitempty"`
+	Cidrlist           string `json:"cidrlist,omitempty"`
+	Ipaddressid        string `json:"ipaddressid,omitempty"`
+	Virtualmachineid   string `json:"virtualmachineid,omitempty"`
+	Tags               []struct {
+		Value        string `json:"value,omitempty"`
 		Account      string `json:"account,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
 		Customer     string `json:"customer,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Key          string `json:"key,omitempty"`
 		Projectid    string `json:"projectid,omitempty"`
 		Resourceid   string `json:"resourceid,omitempty"`
-		Value        string `json:"value,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Domain       string `json:"domain,omitempty"`
 	} `json:"tags,omitempty"`
-	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
-	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
-	Networkid                 string `json:"networkid,omitempty"`
-	Publicport                string `json:"publicport,omitempty"`
-	Protocol                  string `json:"protocol,omitempty"`
-	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
 	Privateendport            string `json:"privateendport,omitempty"`
-	Cidrlist                  string `json:"cidrlist,omitempty"`
 	Privateport               string `json:"privateport,omitempty"`
-	Ipaddress                 string `json:"ipaddress,omitempty"`
+	State                     string `json:"state,omitempty"`
+	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
+	Publicport                string `json:"publicport,omitempty"`
 	Publicendport             string `json:"publicendport,omitempty"`
 }
 
@@ -427,44 +432,47 @@ func (s *FirewallService) CreatePortForwardingRule(p *CreatePortForwardingRulePa
 			return &r, warn
 		}
 
-		var r CreatePortForwardingRuleResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreatePortForwardingRuleResponse struct {
-	JobID         string `json:"jobid,omitempty"`
-	Publicendport string `json:"publicendport,omitempty"`
-	Privateport   string `json:"privateport,omitempty"`
-	Tags          []struct {
-		Projectid    string `json:"projectid,omitempty"`
-		Account      string `json:"account,omitempty"`
+	JobID       string `json:"jobid,omitempty"`
+	Ipaddressid string `json:"ipaddressid,omitempty"`
+	Cidrlist    string `json:"cidrlist,omitempty"`
+	Protocol    string `json:"protocol,omitempty"`
+	Ipaddress   string `json:"ipaddress,omitempty"`
+	Id          string `json:"id,omitempty"`
+	Privateport string `json:"privateport,omitempty"`
+	Publicport  string `json:"publicport,omitempty"`
+	Tags        []struct {
 		Domainid     string `json:"domainid,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
 		Key          string `json:"key,omitempty"`
 		Resourcetype string `json:"resourcetype,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Customer     string `json:"customer,omitempty"`
 		Value        string `json:"value,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Domain       string `json:"domain,omitempty"`
 	} `json:"tags,omitempty"`
-	State                     string `json:"state,omitempty"`
-	Id                        string `json:"id,omitempty"`
-	Vmguestip                 string `json:"vmguestip,omitempty"`
-	Protocol                  string `json:"protocol,omitempty"`
-	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
+	Publicendport             string `json:"publicendport,omitempty"`
 	Privateendport            string `json:"privateendport,omitempty"`
-	Publicport                string `json:"publicport,omitempty"`
-	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
-	Cidrlist                  string `json:"cidrlist,omitempty"`
-	Ipaddress                 string `json:"ipaddress,omitempty"`
-	Ipaddressid               string `json:"ipaddressid,omitempty"`
-	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
+	Vmguestip                 string `json:"vmguestip,omitempty"`
+	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
+	State                     string `json:"state,omitempty"`
 	Networkid                 string `json:"networkid,omitempty"`
+	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
+	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
 }
 
 type DeletePortForwardingRuleParams struct {
@@ -523,11 +531,9 @@ func (s *FirewallService) DeletePortForwardingRule(p *DeletePortForwardingRulePa
 			return &r, warn
 		}
 
-		var r DeletePortForwardingRuleResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -652,44 +658,47 @@ func (s *FirewallService) UpdatePortForwardingRule(p *UpdatePortForwardingRulePa
 			return &r, warn
 		}
 
-		var r UpdatePortForwardingRuleResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type UpdatePortForwardingRuleResponse struct {
 	JobID                     string `json:"jobid,omitempty"`
-	Publicendport             string `json:"publicendport,omitempty"`
-	Protocol                  string `json:"protocol,omitempty"`
-	Privateport               string `json:"privateport,omitempty"`
-	Ipaddress                 string `json:"ipaddress,omitempty"`
+	Publicport                string `json:"publicport,omitempty"`
+	Networkid                 string `json:"networkid,omitempty"`
+	Ipaddressid               string `json:"ipaddressid,omitempty"`
+	Id                        string `json:"id,omitempty"`
+	Privateendport            string `json:"privateendport,omitempty"`
+	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
 	Vmguestip                 string `json:"vmguestip,omitempty"`
 	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
-	Networkid                 string `json:"networkid,omitempty"`
-	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
-	Cidrlist                  string `json:"cidrlist,omitempty"`
-	Privateendport            string `json:"privateendport,omitempty"`
-	Publicport                string `json:"publicport,omitempty"`
-	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
-	Ipaddressid               string `json:"ipaddressid,omitempty"`
 	Tags                      []struct {
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
 		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
 		Value        string `json:"value,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Project      string `json:"project,omitempty"`
 		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Project      string `json:"project,omitempty"`
 	} `json:"tags,omitempty"`
-	State string `json:"state,omitempty"`
-	Id    string `json:"id,omitempty"`
+	Virtualmachinename string `json:"virtualmachinename,omitempty"`
+	State              string `json:"state,omitempty"`
+	Protocol           string `json:"protocol,omitempty"`
+	Publicendport      string `json:"publicendport,omitempty"`
+	Ipaddress          string `json:"ipaddress,omitempty"`
+	Privateport        string `json:"privateport,omitempty"`
+	Cidrlist           string `json:"cidrlist,omitempty"`
 }
 
 type CreateFirewallRuleParams struct {
@@ -831,40 +840,43 @@ func (s *FirewallService) CreateFirewallRule(p *CreateFirewallRuleParams) (*Crea
 			return &r, warn
 		}
 
-		var r CreateFirewallRuleResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateFirewallRuleResponse struct {
 	JobID     string `json:"jobid,omitempty"`
-	Icmptype  int    `json:"icmptype,omitempty"`
+	Endport   string `json:"endport,omitempty"`
 	Cidrlist  string `json:"cidrlist,omitempty"`
-	Protocol  string `json:"protocol,omitempty"`
-	State     string `json:"state,omitempty"`
 	Id        string `json:"id,omitempty"`
+	Ipaddress string `json:"ipaddress,omitempty"`
 	Networkid string `json:"networkid,omitempty"`
-	Icmpcode  int    `json:"icmpcode,omitempty"`
 	Tags      []struct {
-		Domain       string `json:"domain,omitempty"`
 		Domainid     string `json:"domainid,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Customer     string `json:"customer,omitempty"`
+		Account      string `json:"account,omitempty"`
 		Projectid    string `json:"projectid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Project      string `json:"project,omitempty"`
 	} `json:"tags,omitempty"`
-	Endport     string `json:"endport,omitempty"`
-	Ipaddressid string `json:"ipaddressid,omitempty"`
 	Startport   string `json:"startport,omitempty"`
-	Ipaddress   string `json:"ipaddress,omitempty"`
+	Icmpcode    int    `json:"icmpcode,omitempty"`
+	Ipaddressid string `json:"ipaddressid,omitempty"`
+	Protocol    string `json:"protocol,omitempty"`
+	Icmptype    int    `json:"icmptype,omitempty"`
+	State       string `json:"state,omitempty"`
 }
 
 type DeleteFirewallRuleParams struct {
@@ -923,11 +935,9 @@ func (s *FirewallService) DeleteFirewallRule(p *DeleteFirewallRuleParams) (*Dele
 			return &r, warn
 		}
 
-		var r DeleteFirewallRuleResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -1100,20 +1110,25 @@ func (s *FirewallService) NewListFirewallRulesParams() *ListFirewallRulesParams 
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *FirewallService) GetFirewallRuleID(keyword string) (string, error) {
+func (s *FirewallService) GetFirewallRuleByID(id string) (*FirewallRule, int, error) {
 	p := &ListFirewallRulesParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListFirewallRules(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.FirewallRules[0].Id, nil
+
+	if l.Count == 1 {
+		return l.FirewallRules[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for FirewallRule UUID: %s!", id)
 }
 
 // Lists all firewall rules for an IP address.
@@ -1136,29 +1151,29 @@ type ListFirewallRulesResponse struct {
 }
 
 type FirewallRule struct {
-	Endport   string `json:"endport,omitempty"`
-	Networkid string `json:"networkid,omitempty"`
-	Startport string `json:"startport,omitempty"`
-	Cidrlist  string `json:"cidrlist,omitempty"`
-	Icmptype  int    `json:"icmptype,omitempty"`
-	Icmpcode  int    `json:"icmpcode,omitempty"`
-	Ipaddress string `json:"ipaddress,omitempty"`
-	Protocol  string `json:"protocol,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Tags      []struct {
+	Icmptype    int    `json:"icmptype,omitempty"`
+	Icmpcode    int    `json:"icmpcode,omitempty"`
+	State       string `json:"state,omitempty"`
+	Ipaddressid string `json:"ipaddressid,omitempty"`
+	Endport     string `json:"endport,omitempty"`
+	Startport   string `json:"startport,omitempty"`
+	Networkid   string `json:"networkid,omitempty"`
+	Protocol    string `json:"protocol,omitempty"`
+	Id          string `json:"id,omitempty"`
+	Ipaddress   string `json:"ipaddress,omitempty"`
+	Tags        []struct {
 		Projectid    string `json:"projectid,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Project      string `json:"project,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
 		Domain       string `json:"domain,omitempty"`
 		Value        string `json:"value,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Key          string `json:"key,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Project      string `json:"project,omitempty"`
 		Customer     string `json:"customer,omitempty"`
+		Key          string `json:"key,omitempty"`
 		Account      string `json:"account,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
 	} `json:"tags,omitempty"`
-	Ipaddressid string `json:"ipaddressid,omitempty"`
-	State       string `json:"state,omitempty"`
+	Cidrlist string `json:"cidrlist,omitempty"`
 }
 
 type CreateEgressFirewallRuleParams struct {
@@ -1300,40 +1315,43 @@ func (s *FirewallService) CreateEgressFirewallRule(p *CreateEgressFirewallRulePa
 			return &r, warn
 		}
 
-		var r CreateEgressFirewallRuleResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateEgressFirewallRuleResponse struct {
-	JobID    string `json:"jobid,omitempty"`
-	Protocol string `json:"protocol,omitempty"`
-	Tags     []struct {
-		Projectid    string `json:"projectid,omitempty"`
+	JobID       string `json:"jobid,omitempty"`
+	Ipaddressid string `json:"ipaddressid,omitempty"`
+	Endport     string `json:"endport,omitempty"`
+	Tags        []struct {
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Domain       string `json:"domain,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Project      string `json:"project,omitempty"`
 		Resourceid   string `json:"resourceid,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
 		Value        string `json:"value,omitempty"`
-		Key          string `json:"key,omitempty"`
 		Customer     string `json:"customer,omitempty"`
+		Account      string `json:"account,omitempty"`
 	} `json:"tags,omitempty"`
-	Icmptype    int    `json:"icmptype,omitempty"`
-	Startport   string `json:"startport,omitempty"`
-	Ipaddressid string `json:"ipaddressid,omitempty"`
-	State       string `json:"state,omitempty"`
-	Networkid   string `json:"networkid,omitempty"`
-	Icmpcode    int    `json:"icmpcode,omitempty"`
-	Id          string `json:"id,omitempty"`
-	Cidrlist    string `json:"cidrlist,omitempty"`
-	Ipaddress   string `json:"ipaddress,omitempty"`
-	Endport     string `json:"endport,omitempty"`
+	Startport string `json:"startport,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Protocol  string `json:"protocol,omitempty"`
+	Networkid string `json:"networkid,omitempty"`
+	Icmpcode  int    `json:"icmpcode,omitempty"`
+	Cidrlist  string `json:"cidrlist,omitempty"`
+	State     string `json:"state,omitempty"`
+	Ipaddress string `json:"ipaddress,omitempty"`
+	Icmptype  int    `json:"icmptype,omitempty"`
 }
 
 type DeleteEgressFirewallRuleParams struct {
@@ -1392,11 +1410,9 @@ func (s *FirewallService) DeleteEgressFirewallRule(p *DeleteEgressFirewallRulePa
 			return &r, warn
 		}
 
-		var r DeleteEgressFirewallRuleResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -1575,20 +1591,25 @@ func (s *FirewallService) NewListEgressFirewallRulesParams() *ListEgressFirewall
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *FirewallService) GetEgressFirewallRuleID(keyword string) (string, error) {
+func (s *FirewallService) GetEgressFirewallRuleByID(id string) (*EgressFirewallRule, int, error) {
 	p := &ListEgressFirewallRulesParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListEgressFirewallRules(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.EgressFirewallRules[0].Id, nil
+
+	if l.Count == 1 {
+		return l.EgressFirewallRules[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for EgressFirewallRule UUID: %s!", id)
 }
 
 // Lists all egress firewall rules for network id.
@@ -1611,29 +1632,29 @@ type ListEgressFirewallRulesResponse struct {
 }
 
 type EgressFirewallRule struct {
-	Cidrlist    string `json:"cidrlist,omitempty"`
-	Ipaddress   string `json:"ipaddress,omitempty"`
-	Startport   string `json:"startport,omitempty"`
-	Ipaddressid string `json:"ipaddressid,omitempty"`
-	State       string `json:"state,omitempty"`
-	Icmptype    int    `json:"icmptype,omitempty"`
-	Protocol    string `json:"protocol,omitempty"`
-	Id          string `json:"id,omitempty"`
-	Icmpcode    int    `json:"icmpcode,omitempty"`
-	Endport     string `json:"endport,omitempty"`
-	Tags        []struct {
-		Domainid     string `json:"domainid,omitempty"`
+	Icmptype int    `json:"icmptype,omitempty"`
+	Endport  string `json:"endport,omitempty"`
+	State    string `json:"state,omitempty"`
+	Icmpcode int    `json:"icmpcode,omitempty"`
+	Protocol string `json:"protocol,omitempty"`
+	Tags     []struct {
+		Value        string `json:"value,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Customer     string `json:"customer,omitempty"`
 		Key          string `json:"key,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Account      string `json:"account,omitempty"`
 		Projectid    string `json:"projectid,omitempty"`
 		Resourcetype string `json:"resourcetype,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Value        string `json:"value,omitempty"`
 		Project      string `json:"project,omitempty"`
 		Resourceid   string `json:"resourceid,omitempty"`
-		Account      string `json:"account,omitempty"`
 	} `json:"tags,omitempty"`
-	Networkid string `json:"networkid,omitempty"`
+	Ipaddressid string `json:"ipaddressid,omitempty"`
+	Ipaddress   string `json:"ipaddress,omitempty"`
+	Startport   string `json:"startport,omitempty"`
+	Id          string `json:"id,omitempty"`
+	Cidrlist    string `json:"cidrlist,omitempty"`
+	Networkid   string `json:"networkid,omitempty"`
 }
 
 type AddSrxFirewallParams struct {
@@ -1740,33 +1761,36 @@ func (s *FirewallService) AddSrxFirewall(p *AddSrxFirewallParams) (*AddSrxFirewa
 			return &r, warn
 		}
 
-		var r AddSrxFirewallResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AddSrxFirewallResponse struct {
 	JobID             string `json:"jobid,omitempty"`
-	Privatezone       string `json:"privatezone,omitempty"`
-	Privateinterface  string `json:"privateinterface,omitempty"`
-	Zoneid            string `json:"zoneid,omitempty"`
-	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
-	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
 	Usageinterface    string `json:"usageinterface,omitempty"`
 	Ipaddress         string `json:"ipaddress,omitempty"`
-	Numretries        string `json:"numretries,omitempty"`
-	Username          string `json:"username,omitempty"`
-	Fwdevicename      string `json:"fwdevicename,omitempty"`
 	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-	Provider          string `json:"provider,omitempty"`
-	Publicinterface   string `json:"publicinterface,omitempty"`
+	Username          string `json:"username,omitempty"`
 	Fwdevicestate     string `json:"fwdevicestate,omitempty"`
+	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
+	Fwdevicename      string `json:"fwdevicename,omitempty"`
+	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
 	Publiczone        string `json:"publiczone,omitempty"`
+	Zoneid            string `json:"zoneid,omitempty"`
+	Privateinterface  string `json:"privateinterface,omitempty"`
+	Privatezone       string `json:"privatezone,omitempty"`
 	Timeout           string `json:"timeout,omitempty"`
+	Numretries        string `json:"numretries,omitempty"`
+	Publicinterface   string `json:"publicinterface,omitempty"`
+	Provider          string `json:"provider,omitempty"`
 }
 
 type DeleteSrxFirewallParams struct {
@@ -1825,19 +1849,17 @@ func (s *FirewallService) DeleteSrxFirewall(p *DeleteSrxFirewallParams) (*Delete
 			return &r, warn
 		}
 
-		var r DeleteSrxFirewallResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteSrxFirewallResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type ConfigureSrxFirewallParams struct {
@@ -1908,33 +1930,36 @@ func (s *FirewallService) ConfigureSrxFirewall(p *ConfigureSrxFirewallParams) (*
 			return &r, warn
 		}
 
-		var r ConfigureSrxFirewallResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type ConfigureSrxFirewallResponse struct {
 	JobID             string `json:"jobid,omitempty"`
+	Fwdevicestate     string `json:"fwdevicestate,omitempty"`
+	Provider          string `json:"provider,omitempty"`
+	Privatezone       string `json:"privatezone,omitempty"`
 	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
 	Username          string `json:"username,omitempty"`
-	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
-	Provider          string `json:"provider,omitempty"`
-	Zoneid            string `json:"zoneid,omitempty"`
-	Usageinterface    string `json:"usageinterface,omitempty"`
-	Publicinterface   string `json:"publicinterface,omitempty"`
-	Ipaddress         string `json:"ipaddress,omitempty"`
-	Privatezone       string `json:"privatezone,omitempty"`
-	Fwdevicename      string `json:"fwdevicename,omitempty"`
 	Numretries        string `json:"numretries,omitempty"`
-	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-	Privateinterface  string `json:"privateinterface,omitempty"`
-	Fwdevicestate     string `json:"fwdevicestate,omitempty"`
-	Publiczone        string `json:"publiczone,omitempty"`
+	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
 	Timeout           string `json:"timeout,omitempty"`
+	Ipaddress         string `json:"ipaddress,omitempty"`
+	Fwdevicename      string `json:"fwdevicename,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+	Zoneid            string `json:"zoneid,omitempty"`
+	Publicinterface   string `json:"publicinterface,omitempty"`
+	Usageinterface    string `json:"usageinterface,omitempty"`
+	Privateinterface  string `json:"privateinterface,omitempty"`
+	Publiczone        string `json:"publiczone,omitempty"`
 }
 
 type ListSrxFirewallsParams struct {
@@ -2034,22 +2059,22 @@ type ListSrxFirewallsResponse struct {
 }
 
 type SrxFirewall struct {
-	Privateinterface  string `json:"privateinterface,omitempty"`
-	Fwdevicename      string `json:"fwdevicename,omitempty"`
 	Fwdevicestate     string `json:"fwdevicestate,omitempty"`
-	Usageinterface    string `json:"usageinterface,omitempty"`
-	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
-	Provider          string `json:"provider,omitempty"`
-	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
-	Privatezone       string `json:"privatezone,omitempty"`
-	Ipaddress         string `json:"ipaddress,omitempty"`
-	Username          string `json:"username,omitempty"`
-	Numretries        string `json:"numretries,omitempty"`
-	Zoneid            string `json:"zoneid,omitempty"`
-	Timeout           string `json:"timeout,omitempty"`
-	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-	Publiczone        string `json:"publiczone,omitempty"`
+	Fwdevicename      string `json:"fwdevicename,omitempty"`
 	Publicinterface   string `json:"publicinterface,omitempty"`
+	Numretries        string `json:"numretries,omitempty"`
+	Provider          string `json:"provider,omitempty"`
+	Ipaddress         string `json:"ipaddress,omitempty"`
+	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
+	Privatezone       string `json:"privatezone,omitempty"`
+	Zoneid            string `json:"zoneid,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+	Privateinterface  string `json:"privateinterface,omitempty"`
+	Publiczone        string `json:"publiczone,omitempty"`
+	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
+	Username          string `json:"username,omitempty"`
+	Usageinterface    string `json:"usageinterface,omitempty"`
+	Timeout           string `json:"timeout,omitempty"`
 }
 
 type AddPaloAltoFirewallParams struct {
@@ -2156,33 +2181,36 @@ func (s *FirewallService) AddPaloAltoFirewall(p *AddPaloAltoFirewallParams) (*Ad
 			return &r, warn
 		}
 
-		var r AddPaloAltoFirewallResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AddPaloAltoFirewallResponse struct {
 	JobID             string `json:"jobid,omitempty"`
-	Fwdevicename      string `json:"fwdevicename,omitempty"`
-	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
-	Zoneid            string `json:"zoneid,omitempty"`
+	Ipaddress         string `json:"ipaddress,omitempty"`
+	Provider          string `json:"provider,omitempty"`
 	Numretries        string `json:"numretries,omitempty"`
 	Fwdevicestate     string `json:"fwdevicestate,omitempty"`
-	Provider          string `json:"provider,omitempty"`
-	Ipaddress         string `json:"ipaddress,omitempty"`
-	Timeout           string `json:"timeout,omitempty"`
-	Username          string `json:"username,omitempty"`
 	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
+	Fwdevicename      string `json:"fwdevicename,omitempty"`
+	Zoneid            string `json:"zoneid,omitempty"`
+	Usageinterface    string `json:"usageinterface,omitempty"`
+	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
+	Publicinterface   string `json:"publicinterface,omitempty"`
+	Timeout           string `json:"timeout,omitempty"`
+	Publiczone        string `json:"publiczone,omitempty"`
+	Username          string `json:"username,omitempty"`
+	Privatezone       string `json:"privatezone,omitempty"`
 	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 	Privateinterface  string `json:"privateinterface,omitempty"`
-	Publicinterface   string `json:"publicinterface,omitempty"`
-	Usageinterface    string `json:"usageinterface,omitempty"`
-	Privatezone       string `json:"privatezone,omitempty"`
-	Publiczone        string `json:"publiczone,omitempty"`
 }
 
 type DeletePaloAltoFirewallParams struct {
@@ -2241,19 +2269,17 @@ func (s *FirewallService) DeletePaloAltoFirewall(p *DeletePaloAltoFirewallParams
 			return &r, warn
 		}
 
-		var r DeletePaloAltoFirewallResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeletePaloAltoFirewallResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type ConfigurePaloAltoFirewallParams struct {
@@ -2324,33 +2350,36 @@ func (s *FirewallService) ConfigurePaloAltoFirewall(p *ConfigurePaloAltoFirewall
 			return &r, warn
 		}
 
-		var r ConfigurePaloAltoFirewallResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type ConfigurePaloAltoFirewallResponse struct {
 	JobID             string `json:"jobid,omitempty"`
-	Fwdevicename      string `json:"fwdevicename,omitempty"`
-	Ipaddress         string `json:"ipaddress,omitempty"`
-	Privateinterface  string `json:"privateinterface,omitempty"`
-	Zoneid            string `json:"zoneid,omitempty"`
-	Numretries        string `json:"numretries,omitempty"`
-	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-	Provider          string `json:"provider,omitempty"`
-	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
-	Usageinterface    string `json:"usageinterface,omitempty"`
-	Privatezone       string `json:"privatezone,omitempty"`
-	Publiczone        string `json:"publiczone,omitempty"`
+	Fwdevicestate     string `json:"fwdevicestate,omitempty"`
 	Username          string `json:"username,omitempty"`
 	Timeout           string `json:"timeout,omitempty"`
-	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
+	Provider          string `json:"provider,omitempty"`
+	Ipaddress         string `json:"ipaddress,omitempty"`
+	Fwdevicename      string `json:"fwdevicename,omitempty"`
+	Privatezone       string `json:"privatezone,omitempty"`
+	Usageinterface    string `json:"usageinterface,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+	Publiczone        string `json:"publiczone,omitempty"`
+	Zoneid            string `json:"zoneid,omitempty"`
+	Privateinterface  string `json:"privateinterface,omitempty"`
+	Numretries        string `json:"numretries,omitempty"`
 	Publicinterface   string `json:"publicinterface,omitempty"`
-	Fwdevicestate     string `json:"fwdevicestate,omitempty"`
+	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
+	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
 }
 
 type ListPaloAltoFirewallsParams struct {
@@ -2450,20 +2479,20 @@ type ListPaloAltoFirewallsResponse struct {
 }
 
 type PaloAltoFirewall struct {
-	Privateinterface  string `json:"privateinterface,omitempty"`
-	Ipaddress         string `json:"ipaddress,omitempty"`
-	Publicinterface   string `json:"publicinterface,omitempty"`
-	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
-	Publiczone        string `json:"publiczone,omitempty"`
-	Timeout           string `json:"timeout,omitempty"`
-	Privatezone       string `json:"privatezone,omitempty"`
-	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
-	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-	Fwdevicename      string `json:"fwdevicename,omitempty"`
-	Fwdevicestate     string `json:"fwdevicestate,omitempty"`
-	Username          string `json:"username,omitempty"`
-	Numretries        string `json:"numretries,omitempty"`
-	Provider          string `json:"provider,omitempty"`
-	Usageinterface    string `json:"usageinterface,omitempty"`
 	Zoneid            string `json:"zoneid,omitempty"`
+	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
+	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
+	Usageinterface    string `json:"usageinterface,omitempty"`
+	Numretries        string `json:"numretries,omitempty"`
+	Ipaddress         string `json:"ipaddress,omitempty"`
+	Publiczone        string `json:"publiczone,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+	Timeout           string `json:"timeout,omitempty"`
+	Fwdevicestate     string `json:"fwdevicestate,omitempty"`
+	Provider          string `json:"provider,omitempty"`
+	Privateinterface  string `json:"privateinterface,omitempty"`
+	Privatezone       string `json:"privatezone,omitempty"`
+	Publicinterface   string `json:"publicinterface,omitempty"`
+	Username          string `json:"username,omitempty"`
+	Fwdevicename      string `json:"fwdevicename,omitempty"`
 }

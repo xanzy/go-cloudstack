@@ -216,20 +216,25 @@ func (s *EventService) NewListEventsParams() *ListEventsParams {
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *EventService) GetEventID(keyword string) (string, error) {
+func (s *EventService) GetEventByID(id string) (*Event, int, error) {
 	p := &ListEventsParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListEvents(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.Events[0].Id, nil
+
+	if l.Count == 1 {
+		return l.Events[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for Event UUID: %s!", id)
 }
 
 // A command to list events.
@@ -252,19 +257,19 @@ type ListEventsResponse struct {
 }
 
 type Event struct {
-	Username    string `json:"username,omitempty"`
-	Description string `json:"description,omitempty"`
+	Domainid    string `json:"domainid,omitempty"`
+	Parentid    string `json:"parentid,omitempty"`
+	State       string `json:"state,omitempty"`
 	Account     string `json:"account,omitempty"`
+	Created     string `json:"created,omitempty"`
+	Project     string `json:"project,omitempty"`
+	Username    string `json:"username,omitempty"`
+	Projectid   string `json:"projectid,omitempty"`
 	Id          string `json:"id,omitempty"`
 	Type        string `json:"type,omitempty"`
-	Created     string `json:"created,omitempty"`
-	Parentid    string `json:"parentid,omitempty"`
-	Project     string `json:"project,omitempty"`
-	Domainid    string `json:"domainid,omitempty"`
+	Description string `json:"description,omitempty"`
 	Domain      string `json:"domain,omitempty"`
-	Projectid   string `json:"projectid,omitempty"`
 	Level       string `json:"level,omitempty"`
-	State       string `json:"state,omitempty"`
 }
 
 type ListEventTypesParams struct {
@@ -391,7 +396,7 @@ func (s *EventService) ArchiveEvents(p *ArchiveEventsParams) (*ArchiveEventsResp
 
 type ArchiveEventsResponse struct {
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type DeleteEventsParams struct {
@@ -475,5 +480,5 @@ func (s *EventService) DeleteEvents(p *DeleteEventsParams) (*DeleteEventsRespons
 
 type DeleteEventsResponse struct {
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+	Success     string `json:"success,omitempty"`
 }

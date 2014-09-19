@@ -124,11 +124,14 @@ func (s *CertificateService) UploadCustomCertificate(p *UploadCustomCertificateP
 			return &r, warn
 		}
 
-		var r UploadCustomCertificateResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }

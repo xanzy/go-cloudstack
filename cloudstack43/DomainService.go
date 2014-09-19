@@ -103,13 +103,13 @@ func (s *DomainService) CreateDomain(p *CreateDomainParams) (*CreateDomainRespon
 }
 
 type CreateDomainResponse struct {
-	Parentdomainid   string `json:"parentdomainid,omitempty"`
-	Level            int    `json:"level,omitempty"`
-	Path             string `json:"path,omitempty"`
 	Haschild         bool   `json:"haschild,omitempty"`
-	Id               string `json:"id,omitempty"`
 	Networkdomain    string `json:"networkdomain,omitempty"`
+	Parentdomainid   string `json:"parentdomainid,omitempty"`
 	Parentdomainname string `json:"parentdomainname,omitempty"`
+	Level            int    `json:"level,omitempty"`
+	Id               string `json:"id,omitempty"`
+	Path             string `json:"path,omitempty"`
 	Name             string `json:"name,omitempty"`
 }
 
@@ -182,14 +182,14 @@ func (s *DomainService) UpdateDomain(p *UpdateDomainParams) (*UpdateDomainRespon
 }
 
 type UpdateDomainResponse struct {
-	Name             string `json:"name,omitempty"`
-	Networkdomain    string `json:"networkdomain,omitempty"`
-	Parentdomainid   string `json:"parentdomainid,omitempty"`
-	Parentdomainname string `json:"parentdomainname,omitempty"`
 	Path             string `json:"path,omitempty"`
-	Id               string `json:"id,omitempty"`
-	Haschild         bool   `json:"haschild,omitempty"`
+	Parentdomainid   string `json:"parentdomainid,omitempty"`
+	Networkdomain    string `json:"networkdomain,omitempty"`
+	Name             string `json:"name,omitempty"`
 	Level            int    `json:"level,omitempty"`
+	Haschild         bool   `json:"haschild,omitempty"`
+	Parentdomainname string `json:"parentdomainname,omitempty"`
+	Id               string `json:"id,omitempty"`
 }
 
 type DeleteDomainParams struct {
@@ -260,11 +260,9 @@ func (s *DomainService) DeleteDomain(p *DeleteDomainParams) (*DeleteDomainRespon
 			return &r, warn
 		}
 
-		var r DeleteDomainResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -387,10 +385,59 @@ func (s *DomainService) GetDomainID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.Domains[0].Id, nil
+
+	if l.Count == 1 {
+		return l.Domains[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.Domains {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *DomainService) GetDomainByName(name string) (*Domain, int, error) {
+	id, err := s.GetDomainID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetDomainByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *DomainService) GetDomainByID(id string) (*Domain, int, error) {
+	p := &ListDomainsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListDomains(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.Domains[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for Domain UUID: %s!", id)
 }
 
 // Lists domains and provides detailed information for listed domains
@@ -413,14 +460,14 @@ type ListDomainsResponse struct {
 }
 
 type Domain struct {
-	Path             string `json:"path,omitempty"`
-	Networkdomain    string `json:"networkdomain,omitempty"`
+	Id               string `json:"id,omitempty"`
+	Parentdomainid   string `json:"parentdomainid,omitempty"`
+	Name             string `json:"name,omitempty"`
 	Parentdomainname string `json:"parentdomainname,omitempty"`
 	Level            int    `json:"level,omitempty"`
-	Id               string `json:"id,omitempty"`
-	Name             string `json:"name,omitempty"`
-	Parentdomainid   string `json:"parentdomainid,omitempty"`
 	Haschild         bool   `json:"haschild,omitempty"`
+	Path             string `json:"path,omitempty"`
+	Networkdomain    string `json:"networkdomain,omitempty"`
 }
 
 type ListDomainChildrenParams struct {
@@ -535,10 +582,59 @@ func (s *DomainService) GetDomainChildrenID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.DomainChildren[0].Id, nil
+
+	if l.Count == 1 {
+		return l.DomainChildren[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.DomainChildren {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *DomainService) GetDomainChildrenByName(name string) (*DomainChildren, int, error) {
+	id, err := s.GetDomainChildrenID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetDomainChildrenByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *DomainService) GetDomainChildrenByID(id string) (*DomainChildren, int, error) {
+	p := &ListDomainChildrenParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListDomainChildren(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.DomainChildren[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for DomainChildren UUID: %s!", id)
 }
 
 // Lists all children domains belonging to a specified domain
@@ -562,11 +658,11 @@ type ListDomainChildrenResponse struct {
 
 type DomainChildren struct {
 	Path             string `json:"path,omitempty"`
+	Haschild         bool   `json:"haschild,omitempty"`
 	Level            int    `json:"level,omitempty"`
 	Id               string `json:"id,omitempty"`
 	Parentdomainname string `json:"parentdomainname,omitempty"`
-	Name             string `json:"name,omitempty"`
 	Networkdomain    string `json:"networkdomain,omitempty"`
+	Name             string `json:"name,omitempty"`
 	Parentdomainid   string `json:"parentdomainid,omitempty"`
-	Haschild         bool   `json:"haschild,omitempty"`
 }

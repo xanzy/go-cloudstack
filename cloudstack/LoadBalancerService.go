@@ -219,47 +219,50 @@ func (s *LoadBalancerService) CreateLoadBalancerRule(p *CreateLoadBalancerRulePa
 			return &r, warn
 		}
 
-		var r CreateLoadBalancerRuleResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateLoadBalancerRuleResponse struct {
-	JobID      string `json:"jobid,omitempty"`
-	Project    string `json:"project,omitempty"`
-	Publicipid string `json:"publicipid,omitempty"`
-	Projectid  string `json:"projectid,omitempty"`
-	State      string `json:"state,omitempty"`
-	Account    string `json:"account,omitempty"`
-	Zoneid     string `json:"zoneid,omitempty"`
-	Id         string `json:"id,omitempty"`
-	Name       string `json:"name,omitempty"`
-	Publicport string `json:"publicport,omitempty"`
-	Networkid  string `json:"networkid,omitempty"`
-	Domain     string `json:"domain,omitempty"`
-	Tags       []struct {
-		Resourceid   string `json:"resourceid,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Key          string `json:"key,omitempty"`
-	} `json:"tags,omitempty"`
-	Privateport string `json:"privateport,omitempty"`
-	Cidrlist    string `json:"cidrlist,omitempty"`
-	Algorithm   string `json:"algorithm,omitempty"`
-	Publicip    string `json:"publicip,omitempty"`
-	Protocol    string `json:"protocol,omitempty"`
-	Domainid    string `json:"domainid,omitempty"`
+	JobID       string `json:"jobid,omitempty"`
+	Zoneid      string `json:"zoneid,omitempty"`
+	Id          string `json:"id,omitempty"`
 	Description string `json:"description,omitempty"`
+	Name        string `json:"name,omitempty"`
+	State       string `json:"state,omitempty"`
+	Cidrlist    string `json:"cidrlist,omitempty"`
+	Privateport string `json:"privateport,omitempty"`
+	Publicip    string `json:"publicip,omitempty"`
+	Account     string `json:"account,omitempty"`
+	Algorithm   string `json:"algorithm,omitempty"`
+	Projectid   string `json:"projectid,omitempty"`
+	Project     string `json:"project,omitempty"`
+	Networkid   string `json:"networkid,omitempty"`
+	Tags        []struct {
+		Account      string `json:"account,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+	} `json:"tags,omitempty"`
+	Publicport string `json:"publicport,omitempty"`
+	Domain     string `json:"domain,omitempty"`
+	Domainid   string `json:"domainid,omitempty"`
+	Publicipid string `json:"publicipid,omitempty"`
+	Protocol   string `json:"protocol,omitempty"`
 }
 
 type DeleteLoadBalancerRuleParams struct {
@@ -318,19 +321,17 @@ func (s *LoadBalancerService) DeleteLoadBalancerRule(p *DeleteLoadBalancerRulePa
 			return &r, warn
 		}
 
-		var r DeleteLoadBalancerRuleResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteLoadBalancerRuleResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type RemoveFromLoadBalancerRuleParams struct {
@@ -402,11 +403,9 @@ func (s *LoadBalancerService) RemoveFromLoadBalancerRule(p *RemoveFromLoadBalanc
 			return &r, warn
 		}
 
-		var r RemoveFromLoadBalancerRuleResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -486,19 +485,17 @@ func (s *LoadBalancerService) AssignToLoadBalancerRule(p *AssignToLoadBalancerRu
 			return &r, warn
 		}
 
-		var r AssignToLoadBalancerRuleResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AssignToLoadBalancerRuleResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type CreateLBStickinessPolicyParams struct {
@@ -608,33 +605,36 @@ func (s *LoadBalancerService) CreateLBStickinessPolicy(p *CreateLBStickinessPoli
 			return &r, warn
 		}
 
-		var r CreateLBStickinessPolicyResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateLBStickinessPolicyResponse struct {
 	JobID            string `json:"jobid,omitempty"`
-	Lbruleid         string `json:"lbruleid,omitempty"`
 	Zoneid           string `json:"zoneid,omitempty"`
-	Domainid         string `json:"domainid,omitempty"`
-	Description      string `json:"description,omitempty"`
-	State            string `json:"state,omitempty"`
-	Account          string `json:"account,omitempty"`
 	Name             string `json:"name,omitempty"`
 	Stickinesspolicy []struct {
-		Methodname  string            `json:"methodname,omitempty"`
-		Description string            `json:"description,omitempty"`
-		State       string            `json:"state,omitempty"`
 		Id          string            `json:"id,omitempty"`
-		Name        string            `json:"name,omitempty"`
+		Description string            `json:"description,omitempty"`
 		Params      map[string]string `json:"params,omitempty"`
+		Name        string            `json:"name,omitempty"`
+		Methodname  string            `json:"methodname,omitempty"`
+		State       string            `json:"state,omitempty"`
 	} `json:"stickinesspolicy,omitempty"`
-	Domain string `json:"domain,omitempty"`
+	Description string `json:"description,omitempty"`
+	State       string `json:"state,omitempty"`
+	Lbruleid    string `json:"lbruleid,omitempty"`
+	Domain      string `json:"domain,omitempty"`
+	Domainid    string `json:"domainid,omitempty"`
+	Account     string `json:"account,omitempty"`
 }
 
 type DeleteLBStickinessPolicyParams struct {
@@ -693,19 +693,17 @@ func (s *LoadBalancerService) DeleteLBStickinessPolicy(p *DeleteLBStickinessPoli
 			return &r, warn
 		}
 
-		var r DeleteLBStickinessPolicyResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteLBStickinessPolicyResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type ListLoadBalancerRulesParams struct {
@@ -913,10 +911,59 @@ func (s *LoadBalancerService) GetLoadBalancerRuleID(name string) (string, error)
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.LoadBalancerRules[0].Id, nil
+
+	if l.Count == 1 {
+		return l.LoadBalancerRules[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.LoadBalancerRules {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLoadBalancerRuleByName(name string) (*LoadBalancerRule, int, error) {
+	id, err := s.GetLoadBalancerRuleID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetLoadBalancerRuleByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLoadBalancerRuleByID(id string) (*LoadBalancerRule, int, error) {
+	p := &ListLoadBalancerRulesParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListLoadBalancerRules(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.LoadBalancerRules[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for LoadBalancerRule UUID: %s!", id)
 }
 
 // Lists load balancer rules.
@@ -939,36 +986,36 @@ type ListLoadBalancerRulesResponse struct {
 }
 
 type LoadBalancerRule struct {
-	Protocol    string `json:"protocol,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Networkid   string `json:"networkid,omitempty"`
-	Domain      string `json:"domain,omitempty"`
-	Zoneid      string `json:"zoneid,omitempty"`
-	Publicip    string `json:"publicip,omitempty"`
-	Publicport  string `json:"publicport,omitempty"`
-	Privateport string `json:"privateport,omitempty"`
-	Tags        []struct {
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-	} `json:"tags,omitempty"`
+	Projectid   string `json:"projectid,omitempty"`
 	Project     string `json:"project,omitempty"`
-	Domainid    string `json:"domainid,omitempty"`
-	Cidrlist    string `json:"cidrlist,omitempty"`
+	Networkid   string `json:"networkid,omitempty"`
 	Account     string `json:"account,omitempty"`
 	Algorithm   string `json:"algorithm,omitempty"`
-	Description string `json:"description,omitempty"`
-	Id          string `json:"id,omitempty"`
+	Publicport  string `json:"publicport,omitempty"`
+	Name        string `json:"name,omitempty"`
 	Publicipid  string `json:"publicipid,omitempty"`
+	Publicip    string `json:"publicip,omitempty"`
+	Description string `json:"description,omitempty"`
+	Protocol    string `json:"protocol,omitempty"`
+	Id          string `json:"id,omitempty"`
+	Cidrlist    string `json:"cidrlist,omitempty"`
+	Tags        []struct {
+		Customer     string `json:"customer,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Account      string `json:"account,omitempty"`
+	} `json:"tags,omitempty"`
+	Domain      string `json:"domain,omitempty"`
+	Domainid    string `json:"domainid,omitempty"`
+	Privateport string `json:"privateport,omitempty"`
+	Zoneid      string `json:"zoneid,omitempty"`
 	State       string `json:"state,omitempty"`
-	Projectid   string `json:"projectid,omitempty"`
 }
 
 type ListLBStickinessPoliciesParams struct {
@@ -1058,22 +1105,22 @@ type ListLBStickinessPoliciesResponse struct {
 }
 
 type LBStickinessPolicy struct {
-	Zoneid           string `json:"zoneid,omitempty"`
-	Account          string `json:"account,omitempty"`
-	Lbruleid         string `json:"lbruleid,omitempty"`
-	Domainid         string `json:"domainid,omitempty"`
+	Name             string `json:"name,omitempty"`
+	State            string `json:"state,omitempty"`
 	Stickinesspolicy []struct {
-		Description string            `json:"description,omitempty"`
-		Id          string            `json:"id,omitempty"`
 		Params      map[string]string `json:"params,omitempty"`
-		State       string            `json:"state,omitempty"`
 		Methodname  string            `json:"methodname,omitempty"`
+		Id          string            `json:"id,omitempty"`
+		State       string            `json:"state,omitempty"`
 		Name        string            `json:"name,omitempty"`
+		Description string            `json:"description,omitempty"`
 	} `json:"stickinesspolicy,omitempty"`
-	State       string `json:"state,omitempty"`
+	Domainid    string `json:"domainid,omitempty"`
+	Zoneid      string `json:"zoneid,omitempty"`
 	Domain      string `json:"domain,omitempty"`
 	Description string `json:"description,omitempty"`
-	Name        string `json:"name,omitempty"`
+	Account     string `json:"account,omitempty"`
+	Lbruleid    string `json:"lbruleid,omitempty"`
 }
 
 type ListLBHealthCheckPoliciesParams struct {
@@ -1163,21 +1210,21 @@ type ListLBHealthCheckPoliciesResponse struct {
 }
 
 type LBHealthCheckPolicy struct {
-	Domain            string `json:"domain,omitempty"`
-	Zoneid            string `json:"zoneid,omitempty"`
-	Lbruleid          string `json:"lbruleid,omitempty"`
+	Domainid          string `json:"domainid,omitempty"`
+	Account           string `json:"account,omitempty"`
 	Healthcheckpolicy []struct {
+		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold,omitempty"`
+		State                   string `json:"state,omitempty"`
+		Id                      string `json:"id,omitempty"`
+		Healthcheckthresshold   int    `json:"healthcheckthresshold,omitempty"`
+		Description             string `json:"description,omitempty"`
+		Healthcheckinterval     int    `json:"healthcheckinterval,omitempty"`
 		Pingpath                string `json:"pingpath,omitempty"`
 		Responsetime            int    `json:"responsetime,omitempty"`
-		Description             string `json:"description,omitempty"`
-		Id                      string `json:"id,omitempty"`
-		State                   string `json:"state,omitempty"`
-		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold,omitempty"`
-		Healthcheckthresshold   int    `json:"healthcheckthresshold,omitempty"`
-		Healthcheckinterval     int    `json:"healthcheckinterval,omitempty"`
 	} `json:"healthcheckpolicy,omitempty"`
-	Account  string `json:"account,omitempty"`
-	Domainid string `json:"domainid,omitempty"`
+	Lbruleid string `json:"lbruleid,omitempty"`
+	Zoneid   string `json:"zoneid,omitempty"`
+	Domain   string `json:"domain,omitempty"`
 }
 
 type CreateLBHealthCheckPolicyParams struct {
@@ -1306,32 +1353,35 @@ func (s *LoadBalancerService) CreateLBHealthCheckPolicy(p *CreateLBHealthCheckPo
 			return &r, warn
 		}
 
-		var r CreateLBHealthCheckPolicyResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateLBHealthCheckPolicyResponse struct {
 	JobID             string `json:"jobid,omitempty"`
-	Domain            string `json:"domain,omitempty"`
+	Lbruleid          string `json:"lbruleid,omitempty"`
 	Healthcheckpolicy []struct {
-		Responsetime            int    `json:"responsetime,omitempty"`
-		Healthcheckthresshold   int    `json:"healthcheckthresshold,omitempty"`
-		Description             string `json:"description,omitempty"`
 		Pingpath                string `json:"pingpath,omitempty"`
-		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold,omitempty"`
-		State                   string `json:"state,omitempty"`
 		Healthcheckinterval     int    `json:"healthcheckinterval,omitempty"`
 		Id                      string `json:"id,omitempty"`
+		Description             string `json:"description,omitempty"`
+		Responsetime            int    `json:"responsetime,omitempty"`
+		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold,omitempty"`
+		State                   string `json:"state,omitempty"`
+		Healthcheckthresshold   int    `json:"healthcheckthresshold,omitempty"`
 	} `json:"healthcheckpolicy,omitempty"`
 	Domainid string `json:"domainid,omitempty"`
-	Lbruleid string `json:"lbruleid,omitempty"`
 	Account  string `json:"account,omitempty"`
 	Zoneid   string `json:"zoneid,omitempty"`
+	Domain   string `json:"domain,omitempty"`
 }
 
 type DeleteLBHealthCheckPolicyParams struct {
@@ -1390,19 +1440,17 @@ func (s *LoadBalancerService) DeleteLBHealthCheckPolicy(p *DeleteLBHealthCheckPo
 			return &r, warn
 		}
 
-		var r DeleteLBHealthCheckPolicyResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteLBHealthCheckPolicyResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type ListLoadBalancerRuleInstancesParams struct {
@@ -1484,24 +1532,6 @@ func (s *LoadBalancerService) NewListLoadBalancerRuleInstancesParams(id string) 
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *LoadBalancerService) GetLoadBalancerRuleInstanceID(keyword string, id string) (string, error) {
-	p := &ListLoadBalancerRuleInstancesParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-	p.p["id"] = id
-
-	l, err := s.ListLoadBalancerRuleInstances(p)
-	if err != nil {
-		return "", err
-	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
-	}
-	return l.LoadBalancerRuleInstances[0].Id, nil
-}
-
 // List all virtual machine instances that are assigned to a load balancer rule.
 func (s *LoadBalancerService) ListLoadBalancerRuleInstances(p *ListLoadBalancerRuleInstancesParams) (*ListLoadBalancerRuleInstancesResponse, error) {
 	resp, err := s.cs.newRequest("listLoadBalancerRuleInstances", p.toURLValues())
@@ -1522,140 +1552,140 @@ type ListLoadBalancerRuleInstancesResponse struct {
 }
 
 type LoadBalancerRuleInstance struct {
-	Memory                int               `json:"memory,omitempty"`
-	Isoname               string            `json:"isoname,omitempty"`
-	Hostid                string            `json:"hostid,omitempty"`
-	Isoid                 string            `json:"isoid,omitempty"`
-	Templateid            string            `json:"templateid,omitempty"`
-	Passwordenabled       bool              `json:"passwordenabled,omitempty"`
-	Domain                string            `json:"domain,omitempty"`
-	Projectid             string            `json:"projectid,omitempty"`
-	Keypair               string            `json:"keypair,omitempty"`
-	Isdynamicallyscalable bool              `json:"isdynamicallyscalable,omitempty"`
-	Servicestate          string            `json:"servicestate,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
-	Password              string            `json:"password,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Rootdeviceid          int               `json:"rootdeviceid,omitempty"`
-	Group                 string            `json:"group,omitempty"`
-	Forvirtualnetwork     bool              `json:"forvirtualnetwork,omitempty"`
-	State                 string            `json:"state,omitempty"`
-	Cpuused               string            `json:"cpuused,omitempty"`
-	Zoneid                string            `json:"zoneid,omitempty"`
-	Groupid               string            `json:"groupid,omitempty"`
-	Name                  string            `json:"name,omitempty"`
-	Publicip              string            `json:"publicip,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
-	Instancename          string            `json:"instancename,omitempty"`
-	Domainid              string            `json:"domainid,omitempty"`
-	Id                    string            `json:"id,omitempty"`
-	Zonename              string            `json:"zonename,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Templatename          string            `json:"templatename,omitempty"`
-	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Details               map[string]string `json:"details,omitempty"`
-	Displayvm             bool              `json:"displayvm,omitempty"`
-	Account               string            `json:"account,omitempty"`
-	Serviceofferingname   string            `json:"serviceofferingname,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Guestosid             string            `json:"guestosid,omitempty"`
-	Rootdevicetype        string            `json:"rootdevicetype,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Nic                   []struct {
-		Networkname  string   `json:"networkname,omitempty"`
-		Type         string   `json:"type,omitempty"`
-		Netmask      string   `json:"netmask,omitempty"`
-		Macaddress   string   `json:"macaddress,omitempty"`
-		Networkid    string   `json:"networkid,omitempty"`
-		Traffictype  string   `json:"traffictype,omitempty"`
-		Isdefault    bool     `json:"isdefault,omitempty"`
-		Id           string   `json:"id,omitempty"`
-		Isolationuri string   `json:"isolationuri,omitempty"`
-		Ip6address   string   `json:"ip6address,omitempty"`
-		Gateway      string   `json:"gateway,omitempty"`
-		Broadcasturi string   `json:"broadcasturi,omitempty"`
-		Ip6gateway   string   `json:"ip6gateway,omitempty"`
-		Secondaryip  []string `json:"secondaryip,omitempty"`
-		Ipaddress    string   `json:"ipaddress,omitempty"`
-		Ip6cidr      string   `json:"ip6cidr,omitempty"`
-	} `json:"nic,omitempty"`
-	Hypervisor          string `json:"hypervisor,omitempty"`
-	Publicipid          string `json:"publicipid,omitempty"`
-	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-	} `json:"tags,omitempty"`
-	Haenable       bool   `json:"haenable,omitempty"`
-	Isodisplaytext string `json:"isodisplaytext,omitempty"`
-	Project        string `json:"project,omitempty"`
-	Affinitygroup  []struct {
+	Affinitygroup []struct {
 		Name              string   `json:"name,omitempty"`
-		Domain            string   `json:"domain,omitempty"`
-		Domainid          string   `json:"domainid,omitempty"`
-		Account           string   `json:"account,omitempty"`
-		Description       string   `json:"description,omitempty"`
 		Id                string   `json:"id,omitempty"`
+		Description       string   `json:"description,omitempty"`
+		Account           string   `json:"account,omitempty"`
+		Domainid          string   `json:"domainid,omitempty"`
+		Domain            string   `json:"domain,omitempty"`
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 		Type              string   `json:"type,omitempty"`
 	} `json:"affinitygroup,omitempty"`
-	Hostname      string `json:"hostname,omitempty"`
-	Securitygroup []struct {
-		Egressrule []struct {
-			Protocol          string `json:"protocol,omitempty"`
-			Cidr              string `json:"cidr,omitempty"`
-			Endport           int    `json:"endport,omitempty"`
-			Icmptype          int    `json:"icmptype,omitempty"`
-			Ruleid            string `json:"ruleid,omitempty"`
-			Securitygroupname string `json:"securitygroupname,omitempty"`
-			Icmpcode          int    `json:"icmpcode,omitempty"`
-			Account           string `json:"account,omitempty"`
-			Startport         int    `json:"startport,omitempty"`
-		} `json:"egressrule,omitempty"`
-		Domainid  string `json:"domainid,omitempty"`
-		Domain    string `json:"domain,omitempty"`
-		Project   string `json:"project,omitempty"`
-		Projectid string `json:"projectid,omitempty"`
-		Name      string `json:"name,omitempty"`
-		Id        string `json:"id,omitempty"`
-		Account   string `json:"account,omitempty"`
-		Tags      []struct {
-			Project      string `json:"project,omitempty"`
+	Diskiowrite     int    `json:"diskiowrite,omitempty"`
+	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
+	Projectid       string `json:"projectid,omitempty"`
+	Isoid           string `json:"isoid,omitempty"`
+	Id              string `json:"id,omitempty"`
+	Diskioread      int    `json:"diskioread,omitempty"`
+	Diskkbsread     int    `json:"diskkbsread,omitempty"`
+	Haenable        bool   `json:"haenable,omitempty"`
+	Keypair         string `json:"keypair,omitempty"`
+	Groupid         string `json:"groupid,omitempty"`
+	Isoname         string `json:"isoname,omitempty"`
+	Passwordenabled bool   `json:"passwordenabled,omitempty"`
+	Hostid          string `json:"hostid,omitempty"`
+	Templatename    string `json:"templatename,omitempty"`
+	Project         string `json:"project,omitempty"`
+	Isodisplaytext  string `json:"isodisplaytext,omitempty"`
+	Displayname     string `json:"displayname,omitempty"`
+	Securitygroup   []struct {
+		Domainid string `json:"domainid,omitempty"`
+		Name     string `json:"name,omitempty"`
+		Id       string `json:"id,omitempty"`
+		Tags     []struct {
+			Value        string `json:"value,omitempty"`
 			Resourcetype string `json:"resourcetype,omitempty"`
+			Key          string `json:"key,omitempty"`
+			Resourceid   string `json:"resourceid,omitempty"`
 			Customer     string `json:"customer,omitempty"`
+			Domainid     string `json:"domainid,omitempty"`
+			Projectid    string `json:"projectid,omitempty"`
+			Project      string `json:"project,omitempty"`
 			Domain       string `json:"domain,omitempty"`
 			Account      string `json:"account,omitempty"`
-			Value        string `json:"value,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
-			Resourceid   string `json:"resourceid,omitempty"`
-			Key          string `json:"key,omitempty"`
-			Projectid    string `json:"projectid,omitempty"`
 		} `json:"tags,omitempty"`
-		Ingressrule []struct {
-			Cidr              string `json:"cidr,omitempty"`
-			Account           string `json:"account,omitempty"`
-			Icmptype          int    `json:"icmptype,omitempty"`
-			Endport           int    `json:"endport,omitempty"`
-			Securitygroupname string `json:"securitygroupname,omitempty"`
-			Icmpcode          int    `json:"icmpcode,omitempty"`
-			Ruleid            string `json:"ruleid,omitempty"`
-			Protocol          string `json:"protocol,omitempty"`
-			Startport         int    `json:"startport,omitempty"`
-		} `json:"ingressrule,omitempty"`
+		Project     string `json:"project,omitempty"`
+		Domain      string `json:"domain,omitempty"`
+		Projectid   string `json:"projectid,omitempty"`
 		Description string `json:"description,omitempty"`
+		Egressrule  []struct {
+			Ruleid            string `json:"ruleid,omitempty"`
+			Account           string `json:"account,omitempty"`
+			Endport           int    `json:"endport,omitempty"`
+			Icmpcode          int    `json:"icmpcode,omitempty"`
+			Protocol          string `json:"protocol,omitempty"`
+			Cidr              string `json:"cidr,omitempty"`
+			Startport         int    `json:"startport,omitempty"`
+			Icmptype          int    `json:"icmptype,omitempty"`
+			Securitygroupname string `json:"securitygroupname,omitempty"`
+		} `json:"egressrule,omitempty"`
+		Ingressrule []struct {
+			Startport         int    `json:"startport,omitempty"`
+			Cidr              string `json:"cidr,omitempty"`
+			Ruleid            string `json:"ruleid,omitempty"`
+			Securitygroupname string `json:"securitygroupname,omitempty"`
+			Protocol          string `json:"protocol,omitempty"`
+			Account           string `json:"account,omitempty"`
+			Endport           int    `json:"endport,omitempty"`
+			Icmpcode          int    `json:"icmpcode,omitempty"`
+			Icmptype          int    `json:"icmptype,omitempty"`
+		} `json:"ingressrule,omitempty"`
+		Account string `json:"account,omitempty"`
 	} `json:"securitygroup,omitempty"`
-	Displayname       string `json:"displayname,omitempty"`
-	Serviceofferingid string `json:"serviceofferingid,omitempty"`
-	Created           string `json:"created,omitempty"`
+	Domainid              string `json:"domainid,omitempty"`
+	Isdynamicallyscalable bool   `json:"isdynamicallyscalable,omitempty"`
+	Tags                  []struct {
+		Domainid     string `json:"domainid,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+	} `json:"tags,omitempty"`
+	Serviceofferingid   string            `json:"serviceofferingid,omitempty"`
+	Servicestate        string            `json:"servicestate,omitempty"`
+	Password            string            `json:"password,omitempty"`
+	Publicipid          string            `json:"publicipid,omitempty"`
+	Cpuused             string            `json:"cpuused,omitempty"`
+	Hostname            string            `json:"hostname,omitempty"`
+	Serviceofferingname string            `json:"serviceofferingname,omitempty"`
+	Cpunumber           int               `json:"cpunumber,omitempty"`
+	Networkkbswrite     int               `json:"networkkbswrite,omitempty"`
+	Zonename            string            `json:"zonename,omitempty"`
+	Details             map[string]string `json:"details,omitempty"`
+	Rootdeviceid        int               `json:"rootdeviceid,omitempty"`
+	Group               string            `json:"group,omitempty"`
+	Diskkbswrite        int               `json:"diskkbswrite,omitempty"`
+	Templateid          string            `json:"templateid,omitempty"`
+	Displayvm           bool              `json:"displayvm,omitempty"`
+	Account             string            `json:"account,omitempty"`
+	Templatedisplaytext string            `json:"templatedisplaytext,omitempty"`
+	Domain              string            `json:"domain,omitempty"`
+	Forvirtualnetwork   bool              `json:"forvirtualnetwork,omitempty"`
+	Name                string            `json:"name,omitempty"`
+	State               string            `json:"state,omitempty"`
+	Nic                 []struct {
+		Netmask      string   `json:"netmask,omitempty"`
+		Ip6cidr      string   `json:"ip6cidr,omitempty"`
+		Macaddress   string   `json:"macaddress,omitempty"`
+		Broadcasturi string   `json:"broadcasturi,omitempty"`
+		Isdefault    bool     `json:"isdefault,omitempty"`
+		Ipaddress    string   `json:"ipaddress,omitempty"`
+		Id           string   `json:"id,omitempty"`
+		Type         string   `json:"type,omitempty"`
+		Networkid    string   `json:"networkid,omitempty"`
+		Networkname  string   `json:"networkname,omitempty"`
+		Ip6gateway   string   `json:"ip6gateway,omitempty"`
+		Gateway      string   `json:"gateway,omitempty"`
+		Isolationuri string   `json:"isolationuri,omitempty"`
+		Traffictype  string   `json:"traffictype,omitempty"`
+		Secondaryip  []string `json:"secondaryip,omitempty"`
+		Ip6address   string   `json:"ip6address,omitempty"`
+	} `json:"nic,omitempty"`
+	Guestosid      string `json:"guestosid,omitempty"`
+	Hypervisor     string `json:"hypervisor,omitempty"`
+	Cpuspeed       int    `json:"cpuspeed,omitempty"`
+	Zoneid         string `json:"zoneid,omitempty"`
+	Memory         int    `json:"memory,omitempty"`
+	Networkkbsread int    `json:"networkkbsread,omitempty"`
+	Instancename   string `json:"instancename,omitempty"`
+	Publicip       string `json:"publicip,omitempty"`
+	Created        string `json:"created,omitempty"`
 }
 
 type UpdateLoadBalancerRuleParams struct {
@@ -1747,45 +1777,48 @@ func (s *LoadBalancerService) UpdateLoadBalancerRule(p *UpdateLoadBalancerRulePa
 			return &r, warn
 		}
 
-		var r UpdateLoadBalancerRuleResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type UpdateLoadBalancerRuleResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Description string `json:"description,omitempty"`
-	State       string `json:"state,omitempty"`
-	Networkid   string `json:"networkid,omitempty"`
-	Account     string `json:"account,omitempty"`
-	Protocol    string `json:"protocol,omitempty"`
-	Id          string `json:"id,omitempty"`
-	Publicip    string `json:"publicip,omitempty"`
-	Project     string `json:"project,omitempty"`
-	Algorithm   string `json:"algorithm,omitempty"`
-	Projectid   string `json:"projectid,omitempty"`
-	Domainid    string `json:"domainid,omitempty"`
-	Domain      string `json:"domain,omitempty"`
-	Tags        []struct {
-		Account      string `json:"account,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Privateport string `json:"privateport,omitempty"`
-	Zoneid      string `json:"zoneid,omitempty"`
-	Publicipid  string `json:"publicipid,omitempty"`
 	Cidrlist    string `json:"cidrlist,omitempty"`
+	Account     string `json:"account,omitempty"`
+	Projectid   string `json:"projectid,omitempty"`
+	Domain      string `json:"domain,omitempty"`
+	Publicip    string `json:"publicip,omitempty"`
+	Algorithm   string `json:"algorithm,omitempty"`
+	State       string `json:"state,omitempty"`
+	Id          string `json:"id,omitempty"`
+	Networkid   string `json:"networkid,omitempty"`
+	Project     string `json:"project,omitempty"`
+	Protocol    string `json:"protocol,omitempty"`
+	Domainid    string `json:"domainid,omitempty"`
+	Tags        []struct {
+		Domain       string `json:"domain,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+	} `json:"tags,omitempty"`
+	Description string `json:"description,omitempty"`
+	Publicipid  string `json:"publicipid,omitempty"`
+	Zoneid      string `json:"zoneid,omitempty"`
 	Name        string `json:"name,omitempty"`
 	Publicport  string `json:"publicport,omitempty"`
 }
@@ -1871,13 +1904,13 @@ func (s *LoadBalancerService) UploadSslCert(p *UploadSslCertParams) (*UploadSslC
 }
 
 type UploadSslCertResponse struct {
-	Privatekey           string   `json:"privatekey,omitempty"`
 	Fingerprint          string   `json:"fingerprint,omitempty"`
 	Certchain            string   `json:"certchain,omitempty"`
 	Account              string   `json:"account,omitempty"`
-	Id                   string   `json:"id,omitempty"`
 	Loadbalancerrulelist []string `json:"loadbalancerrulelist,omitempty"`
+	Id                   string   `json:"id,omitempty"`
 	Certificate          string   `json:"certificate,omitempty"`
+	Privatekey           string   `json:"privatekey,omitempty"`
 }
 
 type DeleteSslCertParams struct {
@@ -1927,8 +1960,8 @@ func (s *LoadBalancerService) DeleteSslCert(p *DeleteSslCertParams) (*DeleteSslC
 }
 
 type DeleteSslCertResponse struct {
+	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 }
 
 type ListSslCertsParams struct {
@@ -2004,13 +2037,13 @@ type ListSslCertsResponse struct {
 }
 
 type SslCert struct {
-	Privatekey           string   `json:"privatekey,omitempty"`
-	Loadbalancerrulelist []string `json:"loadbalancerrulelist,omitempty"`
-	Account              string   `json:"account,omitempty"`
-	Id                   string   `json:"id,omitempty"`
-	Certchain            string   `json:"certchain,omitempty"`
 	Fingerprint          string   `json:"fingerprint,omitempty"`
+	Loadbalancerrulelist []string `json:"loadbalancerrulelist,omitempty"`
+	Certchain            string   `json:"certchain,omitempty"`
+	Privatekey           string   `json:"privatekey,omitempty"`
 	Certificate          string   `json:"certificate,omitempty"`
+	Id                   string   `json:"id,omitempty"`
+	Account              string   `json:"account,omitempty"`
 }
 
 type AssignCertToLoadBalancerParams struct {
@@ -2081,11 +2114,9 @@ func (s *LoadBalancerService) AssignCertToLoadBalancer(p *AssignCertToLoadBalanc
 			return &r, warn
 		}
 
-		var r AssignCertToLoadBalancerResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -2152,11 +2183,9 @@ func (s *LoadBalancerService) RemoveCertFromLoadBalancer(p *RemoveCertFromLoadBa
 			return &r, warn
 		}
 
-		var r RemoveCertFromLoadBalancerResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -2165,6 +2194,408 @@ type RemoveCertFromLoadBalancerResponse struct {
 	JobID       string `json:"jobid,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+}
+
+type AddF5LoadBalancerParams struct {
+	p map[string]interface{}
+}
+
+func (p *AddF5LoadBalancerParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["networkdevicetype"]; found {
+		u.Set("networkdevicetype", v.(string))
+	}
+	if v, found := p.p["password"]; found {
+		u.Set("password", v.(string))
+	}
+	if v, found := p.p["physicalnetworkid"]; found {
+		u.Set("physicalnetworkid", v.(string))
+	}
+	if v, found := p.p["url"]; found {
+		u.Set("url", v.(string))
+	}
+	if v, found := p.p["username"]; found {
+		u.Set("username", v.(string))
+	}
+	return u
+}
+
+func (p *AddF5LoadBalancerParams) SetNetworkdevicetype(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkdevicetype"] = v
+	return
+}
+
+func (p *AddF5LoadBalancerParams) SetPassword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["password"] = v
+	return
+}
+
+func (p *AddF5LoadBalancerParams) SetPhysicalnetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["physicalnetworkid"] = v
+	return
+}
+
+func (p *AddF5LoadBalancerParams) SetUrl(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["url"] = v
+	return
+}
+
+func (p *AddF5LoadBalancerParams) SetUsername(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["username"] = v
+	return
+}
+
+// You should always use this function to get a new AddF5LoadBalancerParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewAddF5LoadBalancerParams(networkdevicetype string, password string, physicalnetworkid string, url string, username string) *AddF5LoadBalancerParams {
+	p := &AddF5LoadBalancerParams{}
+	p.p = make(map[string]interface{})
+	p.p["networkdevicetype"] = networkdevicetype
+	p.p["password"] = password
+	p.p["physicalnetworkid"] = physicalnetworkid
+	p.p["url"] = url
+	p.p["username"] = username
+	return p
+}
+
+// Adds a F5 BigIP load balancer device
+func (s *LoadBalancerService) AddF5LoadBalancer(p *AddF5LoadBalancerParams) (*AddF5LoadBalancerResponse, error) {
+	resp, err := s.cs.newRequest("addF5LoadBalancer", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r AddF5LoadBalancerResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, warn, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			return nil, err
+		}
+		// If 'warn' has a value it means the job is running longer than the configured
+		// timeout, the resonse will contain the jobid of the running async job
+		if warn != nil {
+			return &r, warn
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type AddF5LoadBalancerResponse struct {
+	JobID             string `json:"jobid,omitempty"`
+	Lbdevicecapacity  int    `json:"lbdevicecapacity,omitempty"`
+	Lbdeviceid        string `json:"lbdeviceid,omitempty"`
+	Provider          string `json:"provider,omitempty"`
+	Lbdevicededicated bool   `json:"lbdevicededicated,omitempty"`
+	Lbdevicename      string `json:"lbdevicename,omitempty"`
+	Publicinterface   string `json:"publicinterface,omitempty"`
+	Privateinterface  string `json:"privateinterface,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+	Ipaddress         string `json:"ipaddress,omitempty"`
+	Lbdevicestate     string `json:"lbdevicestate,omitempty"`
+}
+
+type ConfigureF5LoadBalancerParams struct {
+	p map[string]interface{}
+}
+
+func (p *ConfigureF5LoadBalancerParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["lbdevicecapacity"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("lbdevicecapacity", vv)
+	}
+	if v, found := p.p["lbdeviceid"]; found {
+		u.Set("lbdeviceid", v.(string))
+	}
+	return u
+}
+
+func (p *ConfigureF5LoadBalancerParams) SetLbdevicecapacity(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["lbdevicecapacity"] = v
+	return
+}
+
+func (p *ConfigureF5LoadBalancerParams) SetLbdeviceid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["lbdeviceid"] = v
+	return
+}
+
+// You should always use this function to get a new ConfigureF5LoadBalancerParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewConfigureF5LoadBalancerParams(lbdeviceid string) *ConfigureF5LoadBalancerParams {
+	p := &ConfigureF5LoadBalancerParams{}
+	p.p = make(map[string]interface{})
+	p.p["lbdeviceid"] = lbdeviceid
+	return p
+}
+
+// configures a F5 load balancer device
+func (s *LoadBalancerService) ConfigureF5LoadBalancer(p *ConfigureF5LoadBalancerParams) (*ConfigureF5LoadBalancerResponse, error) {
+	resp, err := s.cs.newRequest("configureF5LoadBalancer", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ConfigureF5LoadBalancerResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, warn, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			return nil, err
+		}
+		// If 'warn' has a value it means the job is running longer than the configured
+		// timeout, the resonse will contain the jobid of the running async job
+		if warn != nil {
+			return &r, warn
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type ConfigureF5LoadBalancerResponse struct {
+	JobID             string `json:"jobid,omitempty"`
+	Publicinterface   string `json:"publicinterface,omitempty"`
+	Lbdeviceid        string `json:"lbdeviceid,omitempty"`
+	Privateinterface  string `json:"privateinterface,omitempty"`
+	Lbdevicecapacity  int    `json:"lbdevicecapacity,omitempty"`
+	Lbdevicestate     string `json:"lbdevicestate,omitempty"`
+	Lbdevicename      string `json:"lbdevicename,omitempty"`
+	Lbdevicededicated bool   `json:"lbdevicededicated,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+	Provider          string `json:"provider,omitempty"`
+	Ipaddress         string `json:"ipaddress,omitempty"`
+}
+
+type DeleteF5LoadBalancerParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteF5LoadBalancerParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["lbdeviceid"]; found {
+		u.Set("lbdeviceid", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteF5LoadBalancerParams) SetLbdeviceid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["lbdeviceid"] = v
+	return
+}
+
+// You should always use this function to get a new DeleteF5LoadBalancerParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewDeleteF5LoadBalancerParams(lbdeviceid string) *DeleteF5LoadBalancerParams {
+	p := &DeleteF5LoadBalancerParams{}
+	p.p = make(map[string]interface{})
+	p.p["lbdeviceid"] = lbdeviceid
+	return p
+}
+
+//  delete a F5 load balancer device
+func (s *LoadBalancerService) DeleteF5LoadBalancer(p *DeleteF5LoadBalancerParams) (*DeleteF5LoadBalancerResponse, error) {
+	resp, err := s.cs.newRequest("deleteF5LoadBalancer", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteF5LoadBalancerResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, warn, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			return nil, err
+		}
+		// If 'warn' has a value it means the job is running longer than the configured
+		// timeout, the resonse will contain the jobid of the running async job
+		if warn != nil {
+			return &r, warn
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DeleteF5LoadBalancerResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type ListF5LoadBalancersParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListF5LoadBalancersParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["lbdeviceid"]; found {
+		u.Set("lbdeviceid", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["physicalnetworkid"]; found {
+		u.Set("physicalnetworkid", v.(string))
+	}
+	return u
+}
+
+func (p *ListF5LoadBalancersParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *ListF5LoadBalancersParams) SetLbdeviceid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["lbdeviceid"] = v
+	return
+}
+
+func (p *ListF5LoadBalancersParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *ListF5LoadBalancersParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+func (p *ListF5LoadBalancersParams) SetPhysicalnetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["physicalnetworkid"] = v
+	return
+}
+
+// You should always use this function to get a new ListF5LoadBalancersParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewListF5LoadBalancersParams() *ListF5LoadBalancersParams {
+	p := &ListF5LoadBalancersParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// lists F5 load balancer devices
+func (s *LoadBalancerService) ListF5LoadBalancers(p *ListF5LoadBalancersParams) (*ListF5LoadBalancersResponse, error) {
+	resp, err := s.cs.newRequest("listF5LoadBalancers", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListF5LoadBalancersResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type ListF5LoadBalancersResponse struct {
+	Count           int               `json:"count"`
+	F5LoadBalancers []*F5LoadBalancer `json:"f5loadbalancer"`
+}
+
+type F5LoadBalancer struct {
+	Ipaddress         string `json:"ipaddress,omitempty"`
+	Lbdevicename      string `json:"lbdevicename,omitempty"`
+	Provider          string `json:"provider,omitempty"`
+	Publicinterface   string `json:"publicinterface,omitempty"`
+	Lbdevicecapacity  int    `json:"lbdevicecapacity,omitempty"`
+	Lbdevicestate     string `json:"lbdevicestate,omitempty"`
+	Lbdeviceid        string `json:"lbdeviceid,omitempty"`
+	Lbdevicededicated bool   `json:"lbdevicededicated,omitempty"`
+	Privateinterface  string `json:"privateinterface,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 }
 
 type AddNetscalerLoadBalancerParams struct {
@@ -2317,32 +2748,35 @@ func (s *LoadBalancerService) AddNetscalerLoadBalancer(p *AddNetscalerLoadBalanc
 			return &r, warn
 		}
 
-		var r AddNetscalerLoadBalancerResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AddNetscalerLoadBalancerResponse struct {
 	JobID                   string   `json:"jobid,omitempty"`
-	Lbdevicestate           string   `json:"lbdevicestate,omitempty"`
+	Podids                  []string `json:"podids,omitempty"`
+	Physicalnetworkid       string   `json:"physicalnetworkid,omitempty"`
+	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
 	Lbdevicededicated       bool     `json:"lbdevicededicated,omitempty"`
 	Publicinterface         string   `json:"publicinterface,omitempty"`
+	Provider                string   `json:"provider,omitempty"`
 	Ipaddress               string   `json:"ipaddress,omitempty"`
 	Gslbproviderprivateip   string   `json:"gslbproviderprivateip,omitempty"`
-	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
-	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider,omitempty"`
-	Provider                string   `json:"provider,omitempty"`
-	Physicalnetworkid       string   `json:"physicalnetworkid,omitempty"`
-	Lbdevicecapacity        int      `json:"lbdevicecapacity,omitempty"`
-	Gslbprovider            bool     `json:"gslbprovider,omitempty"`
 	Lbdevicename            string   `json:"lbdevicename,omitempty"`
-	Privateinterface        string   `json:"privateinterface,omitempty"`
+	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider,omitempty"`
+	Gslbprovider            bool     `json:"gslbprovider,omitempty"`
+	Lbdevicecapacity        int      `json:"lbdevicecapacity,omitempty"`
+	Lbdevicestate           string   `json:"lbdevicestate,omitempty"`
 	Gslbproviderpublicip    string   `json:"gslbproviderpublicip,omitempty"`
-	Podids                  []string `json:"podids,omitempty"`
+	Privateinterface        string   `json:"privateinterface,omitempty"`
 }
 
 type DeleteNetscalerLoadBalancerParams struct {
@@ -2401,19 +2835,17 @@ func (s *LoadBalancerService) DeleteNetscalerLoadBalancer(p *DeleteNetscalerLoad
 			return &r, warn
 		}
 
-		var r DeleteNetscalerLoadBalancerResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteNetscalerLoadBalancerResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type ConfigureNetscalerLoadBalancerParams struct {
@@ -2520,32 +2952,35 @@ func (s *LoadBalancerService) ConfigureNetscalerLoadBalancer(p *ConfigureNetscal
 			return &r, warn
 		}
 
-		var r ConfigureNetscalerLoadBalancerResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type ConfigureNetscalerLoadBalancerResponse struct {
 	JobID                   string   `json:"jobid,omitempty"`
-	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
-	Lbdevicecapacity        int      `json:"lbdevicecapacity,omitempty"`
-	Privateinterface        string   `json:"privateinterface,omitempty"`
-	Podids                  []string `json:"podids,omitempty"`
-	Provider                string   `json:"provider,omitempty"`
-	Lbdevicename            string   `json:"lbdevicename,omitempty"`
-	Gslbprovider            bool     `json:"gslbprovider,omitempty"`
-	Gslbproviderpublicip    string   `json:"gslbproviderpublicip,omitempty"`
-	Physicalnetworkid       string   `json:"physicalnetworkid,omitempty"`
+	Lbdevicededicated       bool     `json:"lbdevicededicated,omitempty"`
 	Ipaddress               string   `json:"ipaddress,omitempty"`
 	Publicinterface         string   `json:"publicinterface,omitempty"`
+	Podids                  []string `json:"podids,omitempty"`
+	Privateinterface        string   `json:"privateinterface,omitempty"`
+	Gslbproviderpublicip    string   `json:"gslbproviderpublicip,omitempty"`
+	Gslbprovider            bool     `json:"gslbprovider,omitempty"`
+	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
 	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider,omitempty"`
+	Lbdevicecapacity        int      `json:"lbdevicecapacity,omitempty"`
+	Provider                string   `json:"provider,omitempty"`
+	Lbdevicename            string   `json:"lbdevicename,omitempty"`
 	Lbdevicestate           string   `json:"lbdevicestate,omitempty"`
-	Lbdevicededicated       bool     `json:"lbdevicededicated,omitempty"`
 	Gslbproviderprivateip   string   `json:"gslbproviderprivateip,omitempty"`
+	Physicalnetworkid       string   `json:"physicalnetworkid,omitempty"`
 }
 
 type ListNetscalerLoadBalancersParams struct {
@@ -2645,21 +3080,21 @@ type ListNetscalerLoadBalancersResponse struct {
 }
 
 type NetscalerLoadBalancer struct {
-	Podids                  []string `json:"podids,omitempty"`
-	Privateinterface        string   `json:"privateinterface,omitempty"`
 	Gslbproviderprivateip   string   `json:"gslbproviderprivateip,omitempty"`
-	Provider                string   `json:"provider,omitempty"`
-	Gslbprovider            bool     `json:"gslbprovider,omitempty"`
-	Publicinterface         string   `json:"publicinterface,omitempty"`
-	Physicalnetworkid       string   `json:"physicalnetworkid,omitempty"`
-	Lbdevicestate           string   `json:"lbdevicestate,omitempty"`
 	Gslbproviderpublicip    string   `json:"gslbproviderpublicip,omitempty"`
-	Lbdevicename            string   `json:"lbdevicename,omitempty"`
-	Ipaddress               string   `json:"ipaddress,omitempty"`
+	Privateinterface        string   `json:"privateinterface,omitempty"`
+	Lbdevicestate           string   `json:"lbdevicestate,omitempty"`
+	Provider                string   `json:"provider,omitempty"`
+	Podids                  []string `json:"podids,omitempty"`
+	Gslbprovider            bool     `json:"gslbprovider,omitempty"`
 	Lbdevicecapacity        int      `json:"lbdevicecapacity,omitempty"`
-	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
-	Lbdevicededicated       bool     `json:"lbdevicededicated,omitempty"`
 	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider,omitempty"`
+	Lbdevicename            string   `json:"lbdevicename,omitempty"`
+	Lbdevicededicated       bool     `json:"lbdevicededicated,omitempty"`
+	Ipaddress               string   `json:"ipaddress,omitempty"`
+	Publicinterface         string   `json:"publicinterface,omitempty"`
+	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
+	Physicalnetworkid       string   `json:"physicalnetworkid,omitempty"`
 }
 
 type CreateGlobalLoadBalancerRuleParams struct {
@@ -2810,62 +3245,65 @@ func (s *LoadBalancerService) CreateGlobalLoadBalancerRule(p *CreateGlobalLoadBa
 			return &r, warn
 		}
 
-		var r CreateGlobalLoadBalancerRuleResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateGlobalLoadBalancerRuleResponse struct {
 	JobID            string `json:"jobid,omitempty"`
+	Project          string `json:"project,omitempty"`
+	Domainid         string `json:"domainid,omitempty"`
+	Gslbdomainname   string `json:"gslbdomainname,omitempty"`
+	Regionid         int    `json:"regionid,omitempty"`
+	Gslbservicetype  string `json:"gslbservicetype,omitempty"`
+	Account          string `json:"account,omitempty"`
 	Loadbalancerrule []struct {
-		Privateport string `json:"privateport,omitempty"`
-		Zoneid      string `json:"zoneid,omitempty"`
-		Domainid    string `json:"domainid,omitempty"`
-		Publicip    string `json:"publicip,omitempty"`
 		Algorithm   string `json:"algorithm,omitempty"`
-		Tags        []struct {
-			Resourceid   string `json:"resourceid,omitempty"`
-			Value        string `json:"value,omitempty"`
-			Customer     string `json:"customer,omitempty"`
-			Key          string `json:"key,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
-			Domain       string `json:"domain,omitempty"`
-			Project      string `json:"project,omitempty"`
-			Account      string `json:"account,omitempty"`
-			Projectid    string `json:"projectid,omitempty"`
-			Resourcetype string `json:"resourcetype,omitempty"`
-		} `json:"tags,omitempty"`
-		Domain      string `json:"domain,omitempty"`
+		Domainid    string `json:"domainid,omitempty"`
+		Description string `json:"description,omitempty"`
+		Zoneid      string `json:"zoneid,omitempty"`
 		Cidrlist    string `json:"cidrlist,omitempty"`
-		Projectid   string `json:"projectid,omitempty"`
-		Id          string `json:"id,omitempty"`
+		Protocol    string `json:"protocol,omitempty"`
+		Name        string `json:"name,omitempty"`
 		Publicport  string `json:"publicport,omitempty"`
 		Project     string `json:"project,omitempty"`
-		Protocol    string `json:"protocol,omitempty"`
-		Description string `json:"description,omitempty"`
-		Publicipid  string `json:"publicipid,omitempty"`
-		Name        string `json:"name,omitempty"`
 		Account     string `json:"account,omitempty"`
-		State       string `json:"state,omitempty"`
 		Networkid   string `json:"networkid,omitempty"`
+		Publicip    string `json:"publicip,omitempty"`
+		Privateport string `json:"privateport,omitempty"`
+		Projectid   string `json:"projectid,omitempty"`
+		Domain      string `json:"domain,omitempty"`
+		Publicipid  string `json:"publicipid,omitempty"`
+		Tags        []struct {
+			Projectid    string `json:"projectid,omitempty"`
+			Domain       string `json:"domain,omitempty"`
+			Domainid     string `json:"domainid,omitempty"`
+			Project      string `json:"project,omitempty"`
+			Resourceid   string `json:"resourceid,omitempty"`
+			Value        string `json:"value,omitempty"`
+			Resourcetype string `json:"resourcetype,omitempty"`
+			Key          string `json:"key,omitempty"`
+			Customer     string `json:"customer,omitempty"`
+			Account      string `json:"account,omitempty"`
+		} `json:"tags,omitempty"`
+		State string `json:"state,omitempty"`
+		Id    string `json:"id,omitempty"`
 	} `json:"loadbalancerrule,omitempty"`
+	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname,omitempty"`
 	Projectid                   string `json:"projectid,omitempty"`
-	Domainid                    string `json:"domainid,omitempty"`
-	Project                     string `json:"project,omitempty"`
-	Account                     string `json:"account,omitempty"`
-	Domain                      string `json:"domain,omitempty"`
+	Gslblbmethod                string `json:"gslblbmethod,omitempty"`
 	Name                        string `json:"name,omitempty"`
 	Id                          string `json:"id,omitempty"`
-	Gslblbmethod                string `json:"gslblbmethod,omitempty"`
-	Regionid                    int    `json:"regionid,omitempty"`
+	Domain                      string `json:"domain,omitempty"`
 	Description                 string `json:"description,omitempty"`
-	Gslbdomainname              string `json:"gslbdomainname,omitempty"`
-	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname,omitempty"`
-	Gslbservicetype             string `json:"gslbservicetype,omitempty"`
 }
 
 type DeleteGlobalLoadBalancerRuleParams struct {
@@ -2924,11 +3362,9 @@ func (s *LoadBalancerService) DeleteGlobalLoadBalancerRule(p *DeleteGlobalLoadBa
 			return &r, warn
 		}
 
-		var r DeleteGlobalLoadBalancerRuleResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -3028,62 +3464,65 @@ func (s *LoadBalancerService) UpdateGlobalLoadBalancerRule(p *UpdateGlobalLoadBa
 			return &r, warn
 		}
 
-		var r UpdateGlobalLoadBalancerRuleResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type UpdateGlobalLoadBalancerRuleResponse struct {
-	JobID            string `json:"jobid,omitempty"`
-	Gslbservicetype  string `json:"gslbservicetype,omitempty"`
-	Gslbdomainname   string `json:"gslbdomainname,omitempty"`
-	Regionid         int    `json:"regionid,omitempty"`
-	Domain           string `json:"domain,omitempty"`
-	Domainid         string `json:"domainid,omitempty"`
-	Loadbalancerrule []struct {
-		Publicport  string `json:"publicport,omitempty"`
-		State       string `json:"state,omitempty"`
-		Account     string `json:"account,omitempty"`
-		Privateport string `json:"privateport,omitempty"`
-		Description string `json:"description,omitempty"`
-		Cidrlist    string `json:"cidrlist,omitempty"`
-		Algorithm   string `json:"algorithm,omitempty"`
+	JobID                       string `json:"jobid,omitempty"`
+	Name                        string `json:"name,omitempty"`
+	Description                 string `json:"description,omitempty"`
+	Domain                      string `json:"domain,omitempty"`
+	Domainid                    string `json:"domainid,omitempty"`
+	Gslbdomainname              string `json:"gslbdomainname,omitempty"`
+	Id                          string `json:"id,omitempty"`
+	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname,omitempty"`
+	Regionid                    int    `json:"regionid,omitempty"`
+	Project                     string `json:"project,omitempty"`
+	Loadbalancerrule            []struct {
 		Protocol    string `json:"protocol,omitempty"`
+		Name        string `json:"name,omitempty"`
+		Networkid   string `json:"networkid,omitempty"`
+		Description string `json:"description,omitempty"`
+		Domain      string `json:"domain,omitempty"`
 		Publicipid  string `json:"publicipid,omitempty"`
+		Domainid    string `json:"domainid,omitempty"`
+		Projectid   string `json:"projectid,omitempty"`
 		Tags        []struct {
-			Projectid    string `json:"projectid,omitempty"`
-			Account      string `json:"account,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
-			Resourcetype string `json:"resourcetype,omitempty"`
 			Customer     string `json:"customer,omitempty"`
-			Value        string `json:"value,omitempty"`
-			Key          string `json:"key,omitempty"`
 			Project      string `json:"project,omitempty"`
 			Resourceid   string `json:"resourceid,omitempty"`
+			Resourcetype string `json:"resourcetype,omitempty"`
+			Domainid     string `json:"domainid,omitempty"`
+			Account      string `json:"account,omitempty"`
+			Value        string `json:"value,omitempty"`
+			Projectid    string `json:"projectid,omitempty"`
 			Domain       string `json:"domain,omitempty"`
+			Key          string `json:"key,omitempty"`
 		} `json:"tags,omitempty"`
-		Zoneid    string `json:"zoneid,omitempty"`
-		Domainid  string `json:"domainid,omitempty"`
-		Name      string `json:"name,omitempty"`
-		Projectid string `json:"projectid,omitempty"`
-		Domain    string `json:"domain,omitempty"`
-		Project   string `json:"project,omitempty"`
-		Id        string `json:"id,omitempty"`
-		Publicip  string `json:"publicip,omitempty"`
-		Networkid string `json:"networkid,omitempty"`
+		Account     string `json:"account,omitempty"`
+		Algorithm   string `json:"algorithm,omitempty"`
+		Zoneid      string `json:"zoneid,omitempty"`
+		Publicip    string `json:"publicip,omitempty"`
+		Project     string `json:"project,omitempty"`
+		State       string `json:"state,omitempty"`
+		Privateport string `json:"privateport,omitempty"`
+		Publicport  string `json:"publicport,omitempty"`
+		Id          string `json:"id,omitempty"`
+		Cidrlist    string `json:"cidrlist,omitempty"`
 	} `json:"loadbalancerrule,omitempty"`
-	Description                 string `json:"description,omitempty"`
-	Id                          string `json:"id,omitempty"`
-	Gslblbmethod                string `json:"gslblbmethod,omitempty"`
-	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname,omitempty"`
-	Name                        string `json:"name,omitempty"`
-	Projectid                   string `json:"projectid,omitempty"`
-	Project                     string `json:"project,omitempty"`
-	Account                     string `json:"account,omitempty"`
+	Gslblbmethod    string `json:"gslblbmethod,omitempty"`
+	Account         string `json:"account,omitempty"`
+	Gslbservicetype string `json:"gslbservicetype,omitempty"`
+	Projectid       string `json:"projectid,omitempty"`
 }
 
 type ListGlobalLoadBalancerRulesParams struct {
@@ -3248,10 +3687,59 @@ func (s *LoadBalancerService) GetGlobalLoadBalancerRuleID(keyword string) (strin
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", keyword, l)
 	}
-	return l.GlobalLoadBalancerRules[0].Id, nil
+
+	if l.Count == 1 {
+		return l.GlobalLoadBalancerRules[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.GlobalLoadBalancerRules {
+			if v.Name == keyword {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetGlobalLoadBalancerRuleByName(name string) (*GlobalLoadBalancerRule, int, error) {
+	id, err := s.GetGlobalLoadBalancerRuleID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetGlobalLoadBalancerRuleByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetGlobalLoadBalancerRuleByID(id string) (*GlobalLoadBalancerRule, int, error) {
+	p := &ListGlobalLoadBalancerRulesParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListGlobalLoadBalancerRules(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.GlobalLoadBalancerRules[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for GlobalLoadBalancerRule UUID: %s!", id)
 }
 
 // Lists load balancer rules.
@@ -3274,51 +3762,51 @@ type ListGlobalLoadBalancerRulesResponse struct {
 }
 
 type GlobalLoadBalancerRule struct {
-	Project          string `json:"project,omitempty"`
-	Gslbdomainname   string `json:"gslbdomainname,omitempty"`
-	Name             string `json:"name,omitempty"`
-	Id               string `json:"id,omitempty"`
 	Description      string `json:"description,omitempty"`
-	Projectid        string `json:"projectid,omitempty"`
-	Domainid         string `json:"domainid,omitempty"`
+	Gslbservicetype  string `json:"gslbservicetype,omitempty"`
 	Domain           string `json:"domain,omitempty"`
-	Regionid         int    `json:"regionid,omitempty"`
+	Name             string `json:"name,omitempty"`
+	Projectid        string `json:"projectid,omitempty"`
 	Loadbalancerrule []struct {
-		Account    string `json:"account,omitempty"`
-		Domain     string `json:"domain,omitempty"`
-		Zoneid     string `json:"zoneid,omitempty"`
-		Domainid   string `json:"domainid,omitempty"`
-		Id         string `json:"id,omitempty"`
-		Project    string `json:"project,omitempty"`
-		Protocol   string `json:"protocol,omitempty"`
-		Networkid  string `json:"networkid,omitempty"`
-		Cidrlist   string `json:"cidrlist,omitempty"`
-		Publicip   string `json:"publicip,omitempty"`
-		Publicipid string `json:"publicipid,omitempty"`
-		Tags       []struct {
-			Project      string `json:"project,omitempty"`
-			Customer     string `json:"customer,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
+		Publicip    string `json:"publicip,omitempty"`
+		Domainid    string `json:"domainid,omitempty"`
+		State       string `json:"state,omitempty"`
+		Account     string `json:"account,omitempty"`
+		Protocol    string `json:"protocol,omitempty"`
+		Zoneid      string `json:"zoneid,omitempty"`
+		Id          string `json:"id,omitempty"`
+		Name        string `json:"name,omitempty"`
+		Projectid   string `json:"projectid,omitempty"`
+		Algorithm   string `json:"algorithm,omitempty"`
+		Description string `json:"description,omitempty"`
+		Privateport string `json:"privateport,omitempty"`
+		Cidrlist    string `json:"cidrlist,omitempty"`
+		Publicipid  string `json:"publicipid,omitempty"`
+		Domain      string `json:"domain,omitempty"`
+		Networkid   string `json:"networkid,omitempty"`
+		Tags        []struct {
 			Projectid    string `json:"projectid,omitempty"`
-			Domain       string `json:"domain,omitempty"`
-			Account      string `json:"account,omitempty"`
-			Key          string `json:"key,omitempty"`
+			Resourcetype string `json:"resourcetype,omitempty"`
+			Project      string `json:"project,omitempty"`
 			Value        string `json:"value,omitempty"`
 			Resourceid   string `json:"resourceid,omitempty"`
-			Resourcetype string `json:"resourcetype,omitempty"`
+			Customer     string `json:"customer,omitempty"`
+			Domainid     string `json:"domainid,omitempty"`
+			Domain       string `json:"domain,omitempty"`
+			Key          string `json:"key,omitempty"`
+			Account      string `json:"account,omitempty"`
 		} `json:"tags,omitempty"`
-		Algorithm   string `json:"algorithm,omitempty"`
-		State       string `json:"state,omitempty"`
-		Description string `json:"description,omitempty"`
-		Projectid   string `json:"projectid,omitempty"`
-		Privateport string `json:"privateport,omitempty"`
-		Publicport  string `json:"publicport,omitempty"`
-		Name        string `json:"name,omitempty"`
+		Publicport string `json:"publicport,omitempty"`
+		Project    string `json:"project,omitempty"`
 	} `json:"loadbalancerrule,omitempty"`
-	Gslbservicetype             string `json:"gslbservicetype,omitempty"`
+	Project                     string `json:"project,omitempty"`
+	Gslbdomainname              string `json:"gslbdomainname,omitempty"`
 	Gslblbmethod                string `json:"gslblbmethod,omitempty"`
+	Id                          string `json:"id,omitempty"`
 	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname,omitempty"`
+	Domainid                    string `json:"domainid,omitempty"`
 	Account                     string `json:"account,omitempty"`
+	Regionid                    int    `json:"regionid,omitempty"`
 }
 
 type AssignToGlobalLoadBalancerRuleParams struct {
@@ -3406,19 +3894,17 @@ func (s *LoadBalancerService) AssignToGlobalLoadBalancerRule(p *AssignToGlobalLo
 			return &r, warn
 		}
 
-		var r AssignToGlobalLoadBalancerRuleResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type AssignToGlobalLoadBalancerRuleResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type RemoveFromGlobalLoadBalancerRuleParams struct {
@@ -3490,19 +3976,17 @@ func (s *LoadBalancerService) RemoveFromGlobalLoadBalancerRule(p *RemoveFromGlob
 			return &r, warn
 		}
 
-		var r RemoveFromGlobalLoadBalancerRuleResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type RemoveFromGlobalLoadBalancerRuleResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type CreateLoadBalancerParams struct {
@@ -3657,52 +4141,55 @@ func (s *LoadBalancerService) CreateLoadBalancer(p *CreateLoadBalancerParams) (*
 			return &r, warn
 		}
 
-		var r CreateLoadBalancerResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateLoadBalancerResponse struct {
-	JobID string `json:"jobid,omitempty"`
-	Tags  []struct {
-		Projectid    string `json:"projectid,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-	} `json:"tags,omitempty"`
-	Loadbalancerinstance []struct {
-		Id        string `json:"id,omitempty"`
-		Name      string `json:"name,omitempty"`
-		Ipaddress string `json:"ipaddress,omitempty"`
-		State     string `json:"state,omitempty"`
-	} `json:"loadbalancerinstance,omitempty"`
-	Projectid        string `json:"projectid,omitempty"`
-	Algorithm        string `json:"algorithm,omitempty"`
+	JobID            string `json:"jobid,omitempty"`
 	Loadbalancerrule []struct {
-		State        string `json:"state,omitempty"`
 		Instanceport int    `json:"instanceport,omitempty"`
 		Sourceport   int    `json:"sourceport,omitempty"`
+		State        string `json:"state,omitempty"`
 	} `json:"loadbalancerrule,omitempty"`
-	Name                     string `json:"name,omitempty"`
-	Domainid                 string `json:"domainid,omitempty"`
-	Id                       string `json:"id,omitempty"`
-	Project                  string `json:"project,omitempty"`
+	Projectid                string `json:"projectid,omitempty"`
 	Description              string `json:"description,omitempty"`
-	Networkid                string `json:"networkid,omitempty"`
-	Sourceipaddress          string `json:"sourceipaddress,omitempty"`
+	Domainid                 string `json:"domainid,omitempty"`
 	Sourceipaddressnetworkid string `json:"sourceipaddressnetworkid,omitempty"`
-	Domain                   string `json:"domain,omitempty"`
+	Algorithm                string `json:"algorithm,omitempty"`
+	Id                       string `json:"id,omitempty"`
+	Sourceipaddress          string `json:"sourceipaddress,omitempty"`
 	Account                  string `json:"account,omitempty"`
+	Project                  string `json:"project,omitempty"`
+	Domain                   string `json:"domain,omitempty"`
+	Name                     string `json:"name,omitempty"`
+	Tags                     []struct {
+		Customer     string `json:"customer,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+	} `json:"tags,omitempty"`
+	Networkid            string `json:"networkid,omitempty"`
+	Loadbalancerinstance []struct {
+		State     string `json:"state,omitempty"`
+		Ipaddress string `json:"ipaddress,omitempty"`
+		Id        string `json:"id,omitempty"`
+		Name      string `json:"name,omitempty"`
+	} `json:"loadbalancerinstance,omitempty"`
 }
 
 type ListLoadBalancersParams struct {
@@ -3910,10 +4397,59 @@ func (s *LoadBalancerService) GetLoadBalancerID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.LoadBalancers[0].Id, nil
+
+	if l.Count == 1 {
+		return l.LoadBalancers[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.LoadBalancers {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLoadBalancerByName(name string) (*LoadBalancer, int, error) {
+	id, err := s.GetLoadBalancerID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetLoadBalancerByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLoadBalancerByID(id string) (*LoadBalancer, int, error) {
+	p := &ListLoadBalancersParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListLoadBalancers(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.LoadBalancers[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for LoadBalancer UUID: %s!", id)
 }
 
 // Lists Load Balancers
@@ -3936,41 +4472,41 @@ type ListLoadBalancersResponse struct {
 }
 
 type LoadBalancer struct {
-	Loadbalancerrule []struct {
-		Instanceport int    `json:"instanceport,omitempty"`
-		Sourceport   int    `json:"sourceport,omitempty"`
-		State        string `json:"state,omitempty"`
-	} `json:"loadbalancerrule,omitempty"`
+	Project              string `json:"project,omitempty"`
+	Domain               string `json:"domain,omitempty"`
 	Loadbalancerinstance []struct {
-		Name      string `json:"name,omitempty"`
-		Id        string `json:"id,omitempty"`
 		State     string `json:"state,omitempty"`
 		Ipaddress string `json:"ipaddress,omitempty"`
+		Name      string `json:"name,omitempty"`
+		Id        string `json:"id,omitempty"`
 	} `json:"loadbalancerinstance,omitempty"`
-	Sourceipaddressnetworkid string `json:"sourceipaddressnetworkid,omitempty"`
-	Project                  string `json:"project,omitempty"`
-	Id                       string `json:"id,omitempty"`
-	Domain                   string `json:"domain,omitempty"`
-	Description              string `json:"description,omitempty"`
-	Sourceipaddress          string `json:"sourceipaddress,omitempty"`
-	Account                  string `json:"account,omitempty"`
+	Domainid                 string `json:"domainid,omitempty"`
+	Networkid                string `json:"networkid,omitempty"`
+	Name                     string `json:"name,omitempty"`
 	Projectid                string `json:"projectid,omitempty"`
-	Algorithm                string `json:"algorithm,omitempty"`
-	Tags                     []struct {
-		Value        string `json:"value,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
+	Sourceipaddressnetworkid string `json:"sourceipaddressnetworkid,omitempty"`
+	Loadbalancerrule         []struct {
+		Sourceport   int    `json:"sourceport,omitempty"`
+		Instanceport int    `json:"instanceport,omitempty"`
+		State        string `json:"state,omitempty"`
+	} `json:"loadbalancerrule,omitempty"`
+	Id              string `json:"id,omitempty"`
+	Description     string `json:"description,omitempty"`
+	Sourceipaddress string `json:"sourceipaddress,omitempty"`
+	Tags            []struct {
 		Customer     string `json:"customer,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Project      string `json:"project,omitempty"`
 		Key          string `json:"key,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
 		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Networkid string `json:"networkid,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Name      string `json:"name,omitempty"`
+	Account   string `json:"account,omitempty"`
+	Algorithm string `json:"algorithm,omitempty"`
 }
 
 type DeleteLoadBalancerParams struct {
@@ -4029,11 +4565,9 @@ func (s *LoadBalancerService) DeleteLoadBalancer(p *DeleteLoadBalancerParams) (*
 			return &r, warn
 		}
 
-		var r DeleteLoadBalancerResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }

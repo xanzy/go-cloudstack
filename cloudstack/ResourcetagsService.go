@@ -121,11 +121,9 @@ func (s *ResourcetagsService) CreateTags(p *CreateTagsParams) (*CreateTagsRespon
 			return &r, warn
 		}
 
-		var r CreateTagsResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -221,19 +219,17 @@ func (s *ResourcetagsService) DeleteTags(p *DeleteTagsParams) (*DeleteTagsRespon
 			return &r, warn
 		}
 
-		var r DeleteTagsResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteTagsResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type ListTagsParams struct {
@@ -423,14 +419,14 @@ type ListTagsResponse struct {
 }
 
 type Tag struct {
-	Account      string `json:"account,omitempty"`
+	Customer     string `json:"customer,omitempty"`
 	Value        string `json:"value,omitempty"`
 	Key          string `json:"key,omitempty"`
+	Domain       string `json:"domain,omitempty"`
 	Domainid     string `json:"domainid,omitempty"`
 	Project      string `json:"project,omitempty"`
-	Customer     string `json:"customer,omitempty"`
-	Projectid    string `json:"projectid,omitempty"`
+	Account      string `json:"account,omitempty"`
 	Resourceid   string `json:"resourceid,omitempty"`
-	Domain       string `json:"domain,omitempty"`
+	Projectid    string `json:"projectid,omitempty"`
 	Resourcetype string `json:"resourcetype,omitempty"`
 }

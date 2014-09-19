@@ -184,137 +184,140 @@ func (s *VPCService) CreateVPC(p *CreateVPCParams) (*CreateVPCResponse, error) {
 			return &r, warn
 		}
 
-		var r CreateVPCResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateVPCResponse struct {
-	JobID  string `json:"jobid,omitempty"`
-	Zoneid string `json:"zoneid,omitempty"`
-	Tags   []struct {
-		Resourceid   string `json:"resourceid,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Customer     string `json:"customer,omitempty"`
+	JobID string `json:"jobid,omitempty"`
+	Tags  []struct {
 		Project      string `json:"project,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
 		Value        string `json:"value,omitempty"`
 		Domain       string `json:"domain,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Key          string `json:"key,omitempty"`
 		Domainid     string `json:"domainid,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
 	} `json:"tags,omitempty"`
-	Restartrequired bool   `json:"restartrequired,omitempty"`
-	Id              string `json:"id,omitempty"`
-	Displaytext     string `json:"displaytext,omitempty"`
-	Projectid       string `json:"projectid,omitempty"`
-	Networkdomain   string `json:"networkdomain,omitempty"`
-	Project         string `json:"project,omitempty"`
-	Domain          string `json:"domain,omitempty"`
-	Name            string `json:"name,omitempty"`
-	Vpcofferingid   string `json:"vpcofferingid,omitempty"`
-	State           string `json:"state,omitempty"`
-	Created         string `json:"created,omitempty"`
-	Service         []struct {
-		Name     string `json:"name,omitempty"`
-		Provider []struct {
-			Name                         string   `json:"name,omitempty"`
-			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-			Servicelist                  []string `json:"servicelist,omitempty"`
-			State                        string   `json:"state,omitempty"`
-			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-			Id                           string   `json:"id,omitempty"`
-		} `json:"provider,omitempty"`
-		Capability []struct {
-			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
-			Value                      string `json:"value,omitempty"`
-			Name                       string `json:"name,omitempty"`
-		} `json:"capability,omitempty"`
-	} `json:"service,omitempty"`
 	Network []struct {
-		Reservediprange   string `json:"reservediprange,omitempty"`
-		Networkcidr       string `json:"networkcidr,omitempty"`
-		Id                string `json:"id,omitempty"`
+		Broadcasturi      string `json:"broadcasturi,omitempty"`
 		Vlan              string `json:"vlan,omitempty"`
+		State             string `json:"state,omitempty"`
+		Type              string `json:"type,omitempty"`
 		Zonename          string `json:"zonename,omitempty"`
-		Ispersistent      bool   `json:"ispersistent,omitempty"`
-		Acltype           string `json:"acltype,omitempty"`
+		Project           string `json:"project,omitempty"`
+		Name              string `json:"name,omitempty"`
+		Related           string `json:"related,omitempty"`
+		Isdefault         bool   `json:"isdefault,omitempty"`
+		Gateway           string `json:"gateway,omitempty"`
 		Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-		Ip6gateway        string `json:"ip6gateway,omitempty"`
+		Id                string `json:"id,omitempty"`
+		Networkofferingid string `json:"networkofferingid,omitempty"`
+		Displaynetwork    bool   `json:"displaynetwork,omitempty"`
+		Domainid          string `json:"domainid,omitempty"`
+		Zoneid            string `json:"zoneid,omitempty"`
+		Displaytext       string `json:"displaytext,omitempty"`
 		Tags              []struct {
 			Resourceid   string `json:"resourceid,omitempty"`
-			Resourcetype string `json:"resourcetype,omitempty"`
-			Value        string `json:"value,omitempty"`
 			Domainid     string `json:"domainid,omitempty"`
-			Project      string `json:"project,omitempty"`
-			Domain       string `json:"domain,omitempty"`
-			Account      string `json:"account,omitempty"`
-			Customer     string `json:"customer,omitempty"`
+			Value        string `json:"value,omitempty"`
 			Key          string `json:"key,omitempty"`
+			Account      string `json:"account,omitempty"`
 			Projectid    string `json:"projectid,omitempty"`
+			Customer     string `json:"customer,omitempty"`
+			Project      string `json:"project,omitempty"`
+			Resourcetype string `json:"resourcetype,omitempty"`
+			Domain       string `json:"domain,omitempty"`
 		} `json:"tags,omitempty"`
-		Account                     string `json:"account,omitempty"`
-		Displaynetwork              bool   `json:"displaynetwork,omitempty"`
-		Canusefordeploy             bool   `json:"canusefordeploy,omitempty"`
-		Projectid                   string `json:"projectid,omitempty"`
-		Networkofferingdisplaytext  string `json:"networkofferingdisplaytext,omitempty"`
-		Gateway                     string `json:"gateway,omitempty"`
-		Isdefault                   bool   `json:"isdefault,omitempty"`
-		Ip6cidr                     string `json:"ip6cidr,omitempty"`
-		Restartrequired             bool   `json:"restartrequired,omitempty"`
-		Networkdomain               string `json:"networkdomain,omitempty"`
+		Networkcidr                 string `json:"networkcidr,omitempty"`
+		Ispersistent                bool   `json:"ispersistent,omitempty"`
 		Aclid                       string `json:"aclid,omitempty"`
-		Broadcasturi                string `json:"broadcasturi,omitempty"`
-		Subdomainaccess             bool   `json:"subdomainaccess,omitempty"`
-		Issystem                    bool   `json:"issystem,omitempty"`
-		Displaytext                 string `json:"displaytext,omitempty"`
-		Vpcid                       string `json:"vpcid,omitempty"`
-		Zoneid                      string `json:"zoneid,omitempty"`
-		Networkofferingname         string `json:"networkofferingname,omitempty"`
-		Related                     string `json:"related,omitempty"`
-		State                       string `json:"state,omitempty"`
-		Specifyipranges             bool   `json:"specifyipranges,omitempty"`
-		Networkofferingid           string `json:"networkofferingid,omitempty"`
+		Acltype                     string `json:"acltype,omitempty"`
 		Netmask                     string `json:"netmask,omitempty"`
-		Traffictype                 string `json:"traffictype,omitempty"`
+		Networkofferingname         string `json:"networkofferingname,omitempty"`
 		Networkofferingconservemode bool   `json:"networkofferingconservemode,omitempty"`
-		Name                        string `json:"name,omitempty"`
-		Domainid                    string `json:"domainid,omitempty"`
-		Broadcastdomaintype         string `json:"broadcastdomaintype,omitempty"`
-		Dns2                        string `json:"dns2,omitempty"`
+		Domain                      string `json:"domain,omitempty"`
+		Subdomainaccess             bool   `json:"subdomainaccess,omitempty"`
 		Dns1                        string `json:"dns1,omitempty"`
-		Cidr                        string `json:"cidr,omitempty"`
+		Specifyipranges             bool   `json:"specifyipranges,omitempty"`
+		Networkofferingavailability string `json:"networkofferingavailability,omitempty"`
 		Service                     []struct {
-			Name     string `json:"name,omitempty"`
 			Provider []struct {
+				Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
 				State                        string   `json:"state,omitempty"`
 				Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-				Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
 				Name                         string   `json:"name,omitempty"`
 				Servicelist                  []string `json:"servicelist,omitempty"`
-				Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
 				Id                           string   `json:"id,omitempty"`
+				Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
 			} `json:"provider,omitempty"`
+			Name       string `json:"name,omitempty"`
 			Capability []struct {
 				Name                       string `json:"name,omitempty"`
 				Value                      string `json:"value,omitempty"`
 				Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
 			} `json:"capability,omitempty"`
 		} `json:"service,omitempty"`
-		Domain                      string `json:"domain,omitempty"`
-		Networkofferingavailability string `json:"networkofferingavailability,omitempty"`
-		Type                        string `json:"type,omitempty"`
-		Project                     string `json:"project,omitempty"`
+		Restartrequired            bool   `json:"restartrequired,omitempty"`
+		Projectid                  string `json:"projectid,omitempty"`
+		Networkdomain              string `json:"networkdomain,omitempty"`
+		Reservediprange            string `json:"reservediprange,omitempty"`
+		Dns2                       string `json:"dns2,omitempty"`
+		Broadcastdomaintype        string `json:"broadcastdomaintype,omitempty"`
+		Networkofferingdisplaytext string `json:"networkofferingdisplaytext,omitempty"`
+		Ip6cidr                    string `json:"ip6cidr,omitempty"`
+		Issystem                   bool   `json:"issystem,omitempty"`
+		Account                    string `json:"account,omitempty"`
+		Cidr                       string `json:"cidr,omitempty"`
+		Canusefordeploy            bool   `json:"canusefordeploy,omitempty"`
+		Vpcid                      string `json:"vpcid,omitempty"`
+		Traffictype                string `json:"traffictype,omitempty"`
+		Ip6gateway                 string `json:"ip6gateway,omitempty"`
 	} `json:"network,omitempty"`
-	Zonename string `json:"zonename,omitempty"`
-	Domainid string `json:"domainid,omitempty"`
-	Cidr     string `json:"cidr,omitempty"`
-	Account  string `json:"account,omitempty"`
+	Id              string `json:"id,omitempty"`
+	Name            string `json:"name,omitempty"`
+	Project         string `json:"project,omitempty"`
+	State           string `json:"state,omitempty"`
+	Domain          string `json:"domain,omitempty"`
+	Restartrequired bool   `json:"restartrequired,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Cidr            string `json:"cidr,omitempty"`
+	Projectid       string `json:"projectid,omitempty"`
+	Account         string `json:"account,omitempty"`
+	Vpcofferingid   string `json:"vpcofferingid,omitempty"`
+	Zonename        string `json:"zonename,omitempty"`
+	Created         string `json:"created,omitempty"`
+	Networkdomain   string `json:"networkdomain,omitempty"`
+	Service         []struct {
+		Name     string `json:"name,omitempty"`
+		Provider []struct {
+			Servicelist                  []string `json:"servicelist,omitempty"`
+			Name                         string   `json:"name,omitempty"`
+			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+			State                        string   `json:"state,omitempty"`
+			Id                           string   `json:"id,omitempty"`
+			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+		} `json:"provider,omitempty"`
+		Capability []struct {
+			Name                       string `json:"name,omitempty"`
+			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
+			Value                      string `json:"value,omitempty"`
+		} `json:"capability,omitempty"`
+	} `json:"service,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Zoneid      string `json:"zoneid,omitempty"`
 }
 
 type ListVPCsParams struct {
@@ -557,10 +560,59 @@ func (s *VPCService) GetVPCID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.VPCs[0].Id, nil
+
+	if l.Count == 1 {
+		return l.VPCs[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.VPCs {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPCService) GetVPCByName(name string) (*VPC, int, error) {
+	id, err := s.GetVPCID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetVPCByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPCService) GetVPCByID(id string) (*VPC, int, error) {
+	p := &ListVPCsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListVPCs(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.VPCs[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for VPC UUID: %s!", id)
 }
 
 // Lists VPCs
@@ -583,126 +635,126 @@ type ListVPCsResponse struct {
 }
 
 type VPC struct {
-	Id      string `json:"id,omitempty"`
-	Service []struct {
-		Provider []struct {
-			Name                         string   `json:"name,omitempty"`
-			Id                           string   `json:"id,omitempty"`
-			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-			Servicelist                  []string `json:"servicelist,omitempty"`
-			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-			State                        string   `json:"state,omitempty"`
-			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-		} `json:"provider,omitempty"`
+	Tags []struct {
+		Account      string `json:"account,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+	} `json:"tags,omitempty"`
+	Cidr            string `json:"cidr,omitempty"`
+	Projectid       string `json:"projectid,omitempty"`
+	Restartrequired bool   `json:"restartrequired,omitempty"`
+	Networkdomain   string `json:"networkdomain,omitempty"`
+	State           string `json:"state,omitempty"`
+	Zoneid          string `json:"zoneid,omitempty"`
+	Service         []struct {
 		Capability []struct {
 			Name                       string `json:"name,omitempty"`
 			Value                      string `json:"value,omitempty"`
 			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
 		} `json:"capability,omitempty"`
-		Name string `json:"name,omitempty"`
+		Name     string `json:"name,omitempty"`
+		Provider []struct {
+			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+			Id                           string   `json:"id,omitempty"`
+			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+			Name                         string   `json:"name,omitempty"`
+			Servicelist                  []string `json:"servicelist,omitempty"`
+			State                        string   `json:"state,omitempty"`
+			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+		} `json:"provider,omitempty"`
 	} `json:"service,omitempty"`
-	Domain  string `json:"domain,omitempty"`
-	Cidr    string `json:"cidr,omitempty"`
-	Created string `json:"created,omitempty"`
-	Tags    []struct {
-		Customer     string `json:"customer,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Zoneid        string `json:"zoneid,omitempty"`
-	Name          string `json:"name,omitempty"`
-	Displaytext   string `json:"displaytext,omitempty"`
-	Project       string `json:"project,omitempty"`
-	Projectid     string `json:"projectid,omitempty"`
-	Domainid      string `json:"domainid,omitempty"`
-	Zonename      string `json:"zonename,omitempty"`
-	Networkdomain string `json:"networkdomain,omitempty"`
-	Network       []struct {
-		Domain                      string `json:"domain,omitempty"`
-		State                       string `json:"state,omitempty"`
-		Networkdomain               string `json:"networkdomain,omitempty"`
-		Vlan                        string `json:"vlan,omitempty"`
-		Id                          string `json:"id,omitempty"`
-		Networkofferingavailability string `json:"networkofferingavailability,omitempty"`
-		Displaytext                 string `json:"displaytext,omitempty"`
-		Networkofferingname         string `json:"networkofferingname,omitempty"`
-		Physicalnetworkid           string `json:"physicalnetworkid,omitempty"`
-		Traffictype                 string `json:"traffictype,omitempty"`
-		Tags                        []struct {
-			Value        string `json:"value,omitempty"`
-			Resourceid   string `json:"resourceid,omitempty"`
+	Project string `json:"project,omitempty"`
+	Network []struct {
+		Ip6gateway                 string `json:"ip6gateway,omitempty"`
+		Restartrequired            bool   `json:"restartrequired,omitempty"`
+		Aclid                      string `json:"aclid,omitempty"`
+		Broadcasturi               string `json:"broadcasturi,omitempty"`
+		Ispersistent               bool   `json:"ispersistent,omitempty"`
+		Id                         string `json:"id,omitempty"`
+		Type                       string `json:"type,omitempty"`
+		Domainid                   string `json:"domainid,omitempty"`
+		Networkofferingdisplaytext string `json:"networkofferingdisplaytext,omitempty"`
+		Specifyipranges            bool   `json:"specifyipranges,omitempty"`
+		Networkofferingname        string `json:"networkofferingname,omitempty"`
+		Networkdomain              string `json:"networkdomain,omitempty"`
+		Isdefault                  bool   `json:"isdefault,omitempty"`
+		Tags                       []struct {
 			Projectid    string `json:"projectid,omitempty"`
 			Account      string `json:"account,omitempty"`
+			Domainid     string `json:"domainid,omitempty"`
+			Key          string `json:"key,omitempty"`
+			Project      string `json:"project,omitempty"`
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Customer     string `json:"customer,omitempty"`
-			Project      string `json:"project,omitempty"`
 			Domain       string `json:"domain,omitempty"`
-			Key          string `json:"key,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
+			Value        string `json:"value,omitempty"`
+			Resourceid   string `json:"resourceid,omitempty"`
 		} `json:"tags,omitempty"`
-		Specifyipranges             bool   `json:"specifyipranges,omitempty"`
-		Reservediprange             string `json:"reservediprange,omitempty"`
-		Broadcasturi                string `json:"broadcasturi,omitempty"`
-		Dns1                        string `json:"dns1,omitempty"`
-		Zonename                    string `json:"zonename,omitempty"`
-		Vpcid                       string `json:"vpcid,omitempty"`
-		Related                     string `json:"related,omitempty"`
-		Type                        string `json:"type,omitempty"`
-		Networkofferingconservemode bool   `json:"networkofferingconservemode,omitempty"`
-		Restartrequired             bool   `json:"restartrequired,omitempty"`
-		Networkofferingdisplaytext  string `json:"networkofferingdisplaytext,omitempty"`
 		Canusefordeploy             bool   `json:"canusefordeploy,omitempty"`
-		Networkofferingid           string `json:"networkofferingid,omitempty"`
-		Networkcidr                 string `json:"networkcidr,omitempty"`
-		Broadcastdomaintype         string `json:"broadcastdomaintype,omitempty"`
-		Domainid                    string `json:"domainid,omitempty"`
-		Netmask                     string `json:"netmask,omitempty"`
 		Dns2                        string `json:"dns2,omitempty"`
-		Projectid                   string `json:"projectid,omitempty"`
+		State                       string `json:"state,omitempty"`
 		Cidr                        string `json:"cidr,omitempty"`
-		Ip6cidr                     string `json:"ip6cidr,omitempty"`
+		Displaynetwork              bool   `json:"displaynetwork,omitempty"`
+		Subdomainaccess             bool   `json:"subdomainaccess,omitempty"`
+		Networkcidr                 string `json:"networkcidr,omitempty"`
+		Vlan                        string `json:"vlan,omitempty"`
+		Project                     string `json:"project,omitempty"`
+		Zonename                    string `json:"zonename,omitempty"`
+		Networkofferingconservemode bool   `json:"networkofferingconservemode,omitempty"`
+		Networkofferingid           string `json:"networkofferingid,omitempty"`
+		Traffictype                 string `json:"traffictype,omitempty"`
+		Netmask                     string `json:"netmask,omitempty"`
+		Account                     string `json:"account,omitempty"`
+		Related                     string `json:"related,omitempty"`
+		Domain                      string `json:"domain,omitempty"`
+		Acltype                     string `json:"acltype,omitempty"`
+		Displaytext                 string `json:"displaytext,omitempty"`
+		Dns1                        string `json:"dns1,omitempty"`
+		Gateway                     string `json:"gateway,omitempty"`
+		Zoneid                      string `json:"zoneid,omitempty"`
+		Networkofferingavailability string `json:"networkofferingavailability,omitempty"`
+		Issystem                    bool   `json:"issystem,omitempty"`
+		Projectid                   string `json:"projectid,omitempty"`
 		Name                        string `json:"name,omitempty"`
+		Ip6cidr                     string `json:"ip6cidr,omitempty"`
+		Vpcid                       string `json:"vpcid,omitempty"`
+		Reservediprange             string `json:"reservediprange,omitempty"`
+		Broadcastdomaintype         string `json:"broadcastdomaintype,omitempty"`
+		Physicalnetworkid           string `json:"physicalnetworkid,omitempty"`
 		Service                     []struct {
-			Capability []struct {
-				Value                      string `json:"value,omitempty"`
-				Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
-				Name                       string `json:"name,omitempty"`
-			} `json:"capability,omitempty"`
-			Name     string `json:"name,omitempty"`
 			Provider []struct {
-				Name                         string   `json:"name,omitempty"`
+				Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
 				Servicelist                  []string `json:"servicelist,omitempty"`
+				Id                           string   `json:"id,omitempty"`
+				Name                         string   `json:"name,omitempty"`
+				Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
 				State                        string   `json:"state,omitempty"`
 				Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-				Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-				Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-				Id                           string   `json:"id,omitempty"`
 			} `json:"provider,omitempty"`
+			Capability []struct {
+				Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
+				Value                      string `json:"value,omitempty"`
+				Name                       string `json:"name,omitempty"`
+			} `json:"capability,omitempty"`
+			Name string `json:"name,omitempty"`
 		} `json:"service,omitempty"`
-		Acltype         string `json:"acltype,omitempty"`
-		Aclid           string `json:"aclid,omitempty"`
-		Gateway         string `json:"gateway,omitempty"`
-		Account         string `json:"account,omitempty"`
-		Zoneid          string `json:"zoneid,omitempty"`
-		Issystem        bool   `json:"issystem,omitempty"`
-		Ispersistent    bool   `json:"ispersistent,omitempty"`
-		Isdefault       bool   `json:"isdefault,omitempty"`
-		Project         string `json:"project,omitempty"`
-		Subdomainaccess bool   `json:"subdomainaccess,omitempty"`
-		Ip6gateway      string `json:"ip6gateway,omitempty"`
-		Displaynetwork  bool   `json:"displaynetwork,omitempty"`
 	} `json:"network,omitempty"`
-	Vpcofferingid   string `json:"vpcofferingid,omitempty"`
-	Account         string `json:"account,omitempty"`
-	Restartrequired bool   `json:"restartrequired,omitempty"`
-	State           string `json:"state,omitempty"`
+	Displaytext   string `json:"displaytext,omitempty"`
+	Account       string `json:"account,omitempty"`
+	Created       string `json:"created,omitempty"`
+	Vpcofferingid string `json:"vpcofferingid,omitempty"`
+	Domainid      string `json:"domainid,omitempty"`
+	Zonename      string `json:"zonename,omitempty"`
+	Domain        string `json:"domain,omitempty"`
+	Name          string `json:"name,omitempty"`
+	Id            string `json:"id,omitempty"`
 }
 
 type DeleteVPCParams struct {
@@ -761,11 +813,9 @@ func (s *VPCService) DeleteVPC(p *DeleteVPCParams) (*DeleteVPCResponse, error) {
 			return &r, warn
 		}
 
-		var r DeleteVPCResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -855,137 +905,140 @@ func (s *VPCService) UpdateVPC(p *UpdateVPCParams) (*UpdateVPCResponse, error) {
 			return &r, warn
 		}
 
-		var r UpdateVPCResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type UpdateVPCResponse struct {
-	JobID         string `json:"jobid,omitempty"`
-	Domainid      string `json:"domainid,omitempty"`
-	Zonename      string `json:"zonename,omitempty"`
-	Displaytext   string `json:"displaytext,omitempty"`
-	Networkdomain string `json:"networkdomain,omitempty"`
-	Domain        string `json:"domain,omitempty"`
-	Service       []struct {
-		Name       string `json:"name,omitempty"`
-		Capability []struct {
-			Name                       string `json:"name,omitempty"`
-			Value                      string `json:"value,omitempty"`
-			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
-		} `json:"capability,omitempty"`
-		Provider []struct {
-			Servicelist                  []string `json:"servicelist,omitempty"`
-			Id                           string   `json:"id,omitempty"`
-			Name                         string   `json:"name,omitempty"`
-			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-			State                        string   `json:"state,omitempty"`
-		} `json:"provider,omitempty"`
-	} `json:"service,omitempty"`
-	State         string `json:"state,omitempty"`
-	Vpcofferingid string `json:"vpcofferingid,omitempty"`
-	Projectid     string `json:"projectid,omitempty"`
-	Network       []struct {
-		Account         string `json:"account,omitempty"`
-		Zonename        string `json:"zonename,omitempty"`
-		Ispersistent    bool   `json:"ispersistent,omitempty"`
-		Isdefault       bool   `json:"isdefault,omitempty"`
-		Dns2            string `json:"dns2,omitempty"`
-		Vpcid           string `json:"vpcid,omitempty"`
-		Traffictype     string `json:"traffictype,omitempty"`
-		Related         string `json:"related,omitempty"`
-		Reservediprange string `json:"reservediprange,omitempty"`
-		Ip6gateway      string `json:"ip6gateway,omitempty"`
-		Canusefordeploy bool   `json:"canusefordeploy,omitempty"`
-		Service         []struct {
+	JobID   string `json:"jobid,omitempty"`
+	Network []struct {
+		State                       string `json:"state,omitempty"`
+		Vpcid                       string `json:"vpcid,omitempty"`
+		Networkofferingavailability string `json:"networkofferingavailability,omitempty"`
+		Networkofferingconservemode bool   `json:"networkofferingconservemode,omitempty"`
+		Cidr                        string `json:"cidr,omitempty"`
+		Dns1                        string `json:"dns1,omitempty"`
+		Zonename                    string `json:"zonename,omitempty"`
+		Traffictype                 string `json:"traffictype,omitempty"`
+		Zoneid                      string `json:"zoneid,omitempty"`
+		Issystem                    bool   `json:"issystem,omitempty"`
+		Networkcidr                 string `json:"networkcidr,omitempty"`
+		Broadcastdomaintype         string `json:"broadcastdomaintype,omitempty"`
+		Ispersistent                bool   `json:"ispersistent,omitempty"`
+		Related                     string `json:"related,omitempty"`
+		Projectid                   string `json:"projectid,omitempty"`
+		Restartrequired             bool   `json:"restartrequired,omitempty"`
+		Domainid                    string `json:"domainid,omitempty"`
+		Gateway                     string `json:"gateway,omitempty"`
+		Physicalnetworkid           string `json:"physicalnetworkid,omitempty"`
+		Displaytext                 string `json:"displaytext,omitempty"`
+		Networkofferingname         string `json:"networkofferingname,omitempty"`
+		Service                     []struct {
 			Name       string `json:"name,omitempty"`
 			Capability []struct {
 				Name                       string `json:"name,omitempty"`
-				Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
 				Value                      string `json:"value,omitempty"`
+				Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
 			} `json:"capability,omitempty"`
 			Provider []struct {
-				Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-				Name                         string   `json:"name,omitempty"`
 				Id                           string   `json:"id,omitempty"`
-				Servicelist                  []string `json:"servicelist,omitempty"`
-				State                        string   `json:"state,omitempty"`
+				Name                         string   `json:"name,omitempty"`
 				Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+				State                        string   `json:"state,omitempty"`
+				Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+				Servicelist                  []string `json:"servicelist,omitempty"`
 				Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
 			} `json:"provider,omitempty"`
 		} `json:"service,omitempty"`
-		Domain                      string `json:"domain,omitempty"`
-		Broadcastdomaintype         string `json:"broadcastdomaintype,omitempty"`
-		Networkofferingavailability string `json:"networkofferingavailability,omitempty"`
-		Dns1                        string `json:"dns1,omitempty"`
-		Issystem                    bool   `json:"issystem,omitempty"`
-		Specifyipranges             bool   `json:"specifyipranges,omitempty"`
-		Networkofferingid           string `json:"networkofferingid,omitempty"`
-		Project                     string `json:"project,omitempty"`
-		Domainid                    string `json:"domainid,omitempty"`
-		Acltype                     string `json:"acltype,omitempty"`
-		Displaytext                 string `json:"displaytext,omitempty"`
-		Ip6cidr                     string `json:"ip6cidr,omitempty"`
-		Restartrequired             bool   `json:"restartrequired,omitempty"`
-		Projectid                   string `json:"projectid,omitempty"`
-		Networkdomain               string `json:"networkdomain,omitempty"`
-		Zoneid                      string `json:"zoneid,omitempty"`
-		Networkcidr                 string `json:"networkcidr,omitempty"`
-		Id                          string `json:"id,omitempty"`
-		Subdomainaccess             bool   `json:"subdomainaccess,omitempty"`
-		Displaynetwork              bool   `json:"displaynetwork,omitempty"`
-		Vlan                        string `json:"vlan,omitempty"`
-		Netmask                     string `json:"netmask,omitempty"`
-		Type                        string `json:"type,omitempty"`
-		Name                        string `json:"name,omitempty"`
-		Gateway                     string `json:"gateway,omitempty"`
-		Tags                        []struct {
-			Value        string `json:"value,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
-			Customer     string `json:"customer,omitempty"`
-			Domain       string `json:"domain,omitempty"`
-			Projectid    string `json:"projectid,omitempty"`
-			Key          string `json:"key,omitempty"`
-			Project      string `json:"project,omitempty"`
+		Networkdomain string `json:"networkdomain,omitempty"`
+		Ip6cidr       string `json:"ip6cidr,omitempty"`
+		Project       string `json:"project,omitempty"`
+		Name          string `json:"name,omitempty"`
+		Ip6gateway    string `json:"ip6gateway,omitempty"`
+		Dns2          string `json:"dns2,omitempty"`
+		Tags          []struct {
 			Resourceid   string `json:"resourceid,omitempty"`
+			Domain       string `json:"domain,omitempty"`
+			Project      string `json:"project,omitempty"`
 			Resourcetype string `json:"resourcetype,omitempty"`
+			Value        string `json:"value,omitempty"`
+			Customer     string `json:"customer,omitempty"`
 			Account      string `json:"account,omitempty"`
+			Key          string `json:"key,omitempty"`
+			Domainid     string `json:"domainid,omitempty"`
+			Projectid    string `json:"projectid,omitempty"`
 		} `json:"tags,omitempty"`
-		Networkofferingdisplaytext  string `json:"networkofferingdisplaytext,omitempty"`
-		Networkofferingconservemode bool   `json:"networkofferingconservemode,omitempty"`
-		Cidr                        string `json:"cidr,omitempty"`
-		Networkofferingname         string `json:"networkofferingname,omitempty"`
-		Physicalnetworkid           string `json:"physicalnetworkid,omitempty"`
-		Aclid                       string `json:"aclid,omitempty"`
-		State                       string `json:"state,omitempty"`
-		Broadcasturi                string `json:"broadcasturi,omitempty"`
+		Aclid                      string `json:"aclid,omitempty"`
+		Specifyipranges            bool   `json:"specifyipranges,omitempty"`
+		Isdefault                  bool   `json:"isdefault,omitempty"`
+		Broadcasturi               string `json:"broadcasturi,omitempty"`
+		Vlan                       string `json:"vlan,omitempty"`
+		Reservediprange            string `json:"reservediprange,omitempty"`
+		Networkofferingdisplaytext string `json:"networkofferingdisplaytext,omitempty"`
+		Networkofferingid          string `json:"networkofferingid,omitempty"`
+		Displaynetwork             bool   `json:"displaynetwork,omitempty"`
+		Domain                     string `json:"domain,omitempty"`
+		Type                       string `json:"type,omitempty"`
+		Acltype                    string `json:"acltype,omitempty"`
+		Netmask                    string `json:"netmask,omitempty"`
+		Canusefordeploy            bool   `json:"canusefordeploy,omitempty"`
+		Account                    string `json:"account,omitempty"`
+		Subdomainaccess            bool   `json:"subdomainaccess,omitempty"`
+		Id                         string `json:"id,omitempty"`
 	} `json:"network,omitempty"`
-	Name    string `json:"name,omitempty"`
-	Project string `json:"project,omitempty"`
-	Id      string `json:"id,omitempty"`
-	Created string `json:"created,omitempty"`
-	Tags    []struct {
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
+	Domain        string `json:"domain,omitempty"`
+	Created       string `json:"created,omitempty"`
+	State         string `json:"state,omitempty"`
+	Domainid      string `json:"domainid,omitempty"`
+	Displaytext   string `json:"displaytext,omitempty"`
+	Projectid     string `json:"projectid,omitempty"`
+	Zonename      string `json:"zonename,omitempty"`
+	Project       string `json:"project,omitempty"`
+	Cidr          string `json:"cidr,omitempty"`
+	Vpcofferingid string `json:"vpcofferingid,omitempty"`
+	Zoneid        string `json:"zoneid,omitempty"`
+	Tags          []struct {
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
 		Account      string `json:"account,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Project      string `json:"project,omitempty"`
 		Key          string `json:"key,omitempty"`
 		Customer     string `json:"customer,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
+		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Cidr            string `json:"cidr,omitempty"`
-	Account         string `json:"account,omitempty"`
+	Id              string `json:"id,omitempty"`
+	Networkdomain   string `json:"networkdomain,omitempty"`
 	Restartrequired bool   `json:"restartrequired,omitempty"`
-	Zoneid          string `json:"zoneid,omitempty"`
+	Account         string `json:"account,omitempty"`
+	Name            string `json:"name,omitempty"`
+	Service         []struct {
+		Capability []struct {
+			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
+			Name                       string `json:"name,omitempty"`
+			Value                      string `json:"value,omitempty"`
+		} `json:"capability,omitempty"`
+		Name     string `json:"name,omitempty"`
+		Provider []struct {
+			Name                         string   `json:"name,omitempty"`
+			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+			Id                           string   `json:"id,omitempty"`
+			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+			Servicelist                  []string `json:"servicelist,omitempty"`
+			State                        string   `json:"state,omitempty"`
+		} `json:"provider,omitempty"`
+	} `json:"service,omitempty"`
 }
 
 type RestartVPCParams struct {
@@ -1044,137 +1097,140 @@ func (s *VPCService) RestartVPC(p *RestartVPCParams) (*RestartVPCResponse, error
 			return &r, warn
 		}
 
-		var r RestartVPCResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type RestartVPCResponse struct {
-	JobID         string `json:"jobid,omitempty"`
-	Networkdomain string `json:"networkdomain,omitempty"`
-	Zoneid        string `json:"zoneid,omitempty"`
+	JobID     string `json:"jobid,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
+	Zonename  string `json:"zonename,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
+	Zoneid    string `json:"zoneid,omitempty"`
+	Tags      []struct {
+		Projectid    string `json:"projectid,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+	} `json:"tags,omitempty"`
+	Displaytext   string `json:"displaytext,omitempty"`
+	Vpcofferingid string `json:"vpcofferingid,omitempty"`
+	Domain        string `json:"domain,omitempty"`
 	Service       []struct {
-		Name     string `json:"name,omitempty"`
 		Provider []struct {
 			Id                           string   `json:"id,omitempty"`
-			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
 			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
 			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-			Name                         string   `json:"name,omitempty"`
 			State                        string   `json:"state,omitempty"`
+			Name                         string   `json:"name,omitempty"`
 			Servicelist                  []string `json:"servicelist,omitempty"`
+			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
 		} `json:"provider,omitempty"`
+		Name       string `json:"name,omitempty"`
 		Capability []struct {
-			Value                      string `json:"value,omitempty"`
-			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
 			Name                       string `json:"name,omitempty"`
+			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
+			Value                      string `json:"value,omitempty"`
 		} `json:"capability,omitempty"`
 	} `json:"service,omitempty"`
-	Cidr      string `json:"cidr,omitempty"`
-	Name      string `json:"name,omitempty"`
-	State     string `json:"state,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Tags      []struct {
-		Domainid     string `json:"domainid,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Account      string `json:"account,omitempty"`
-	} `json:"tags,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
+	Networkdomain   string `json:"networkdomain,omitempty"`
+	Id              string `json:"id,omitempty"`
 	Restartrequired bool   `json:"restartrequired,omitempty"`
 	Account         string `json:"account,omitempty"`
-	Created         string `json:"created,omitempty"`
-	Displaytext     string `json:"displaytext,omitempty"`
-	Vpcofferingid   string `json:"vpcofferingid,omitempty"`
-	Zonename        string `json:"zonename,omitempty"`
+	Cidr            string `json:"cidr,omitempty"`
+	Name            string `json:"name,omitempty"`
+	Project         string `json:"project,omitempty"`
 	Network         []struct {
-		Dns2                        string `json:"dns2,omitempty"`
-		Domainid                    string `json:"domainid,omitempty"`
-		Related                     string `json:"related,omitempty"`
+		Domainid          string `json:"domainid,omitempty"`
+		Related           string `json:"related,omitempty"`
+		Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+		Tags              []struct {
+			Account      string `json:"account,omitempty"`
+			Resourcetype string `json:"resourcetype,omitempty"`
+			Domainid     string `json:"domainid,omitempty"`
+			Project      string `json:"project,omitempty"`
+			Domain       string `json:"domain,omitempty"`
+			Value        string `json:"value,omitempty"`
+			Customer     string `json:"customer,omitempty"`
+			Resourceid   string `json:"resourceid,omitempty"`
+			Projectid    string `json:"projectid,omitempty"`
+			Key          string `json:"key,omitempty"`
+		} `json:"tags,omitempty"`
 		Traffictype                 string `json:"traffictype,omitempty"`
 		Networkofferingconservemode bool   `json:"networkofferingconservemode,omitempty"`
-		Issystem                    bool   `json:"issystem,omitempty"`
-		Displaynetwork              bool   `json:"displaynetwork,omitempty"`
-		Networkofferingdisplaytext  string `json:"networkofferingdisplaytext,omitempty"`
-		Aclid                       string `json:"aclid,omitempty"`
-		Reservediprange             string `json:"reservediprange,omitempty"`
-		Zoneid                      string `json:"zoneid,omitempty"`
-		Displaytext                 string `json:"displaytext,omitempty"`
-		Vlan                        string `json:"vlan,omitempty"`
-		Restartrequired             bool   `json:"restartrequired,omitempty"`
 		Ip6cidr                     string `json:"ip6cidr,omitempty"`
-		Isdefault                   bool   `json:"isdefault,omitempty"`
-		Domain                      string `json:"domain,omitempty"`
+		State                       string `json:"state,omitempty"`
+		Project                     string `json:"project,omitempty"`
+		Aclid                       string `json:"aclid,omitempty"`
+		Restartrequired             bool   `json:"restartrequired,omitempty"`
+		Zonename                    string `json:"zonename,omitempty"`
+		Dns2                        string `json:"dns2,omitempty"`
+		Cidr                        string `json:"cidr,omitempty"`
+		Displaynetwork              bool   `json:"displaynetwork,omitempty"`
+		Netmask                     string `json:"netmask,omitempty"`
+		Projectid                   string `json:"projectid,omitempty"`
 		Id                          string `json:"id,omitempty"`
-		Networkdomain               string `json:"networkdomain,omitempty"`
-		Physicalnetworkid           string `json:"physicalnetworkid,omitempty"`
+		Name                        string `json:"name,omitempty"`
+		Specifyipranges             bool   `json:"specifyipranges,omitempty"`
+		Networkofferingid           string `json:"networkofferingid,omitempty"`
+		Broadcasturi                string `json:"broadcasturi,omitempty"`
+		Issystem                    bool   `json:"issystem,omitempty"`
+		Dns1                        string `json:"dns1,omitempty"`
+		Networkcidr                 string `json:"networkcidr,omitempty"`
+		Gateway                     string `json:"gateway,omitempty"`
+		Reservediprange             string `json:"reservediprange,omitempty"`
+		Networkofferingdisplaytext  string `json:"networkofferingdisplaytext,omitempty"`
+		Subdomainaccess             bool   `json:"subdomainaccess,omitempty"`
+		Vpcid                       string `json:"vpcid,omitempty"`
 		Service                     []struct {
 			Provider []struct {
+				Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+				State                        string   `json:"state,omitempty"`
+				Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+				Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+				Name                         string   `json:"name,omitempty"`
 				Id                           string   `json:"id,omitempty"`
 				Servicelist                  []string `json:"servicelist,omitempty"`
-				Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-				Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-				State                        string   `json:"state,omitempty"`
-				Name                         string   `json:"name,omitempty"`
-				Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
 			} `json:"provider,omitempty"`
 			Capability []struct {
-				Value                      string `json:"value,omitempty"`
 				Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
+				Value                      string `json:"value,omitempty"`
 				Name                       string `json:"name,omitempty"`
 			} `json:"capability,omitempty"`
 			Name string `json:"name,omitempty"`
 		} `json:"service,omitempty"`
-		Canusefordeploy     bool   `json:"canusefordeploy,omitempty"`
-		Type                string `json:"type,omitempty"`
-		Broadcasturi        string `json:"broadcasturi,omitempty"`
-		Broadcastdomaintype string `json:"broadcastdomaintype,omitempty"`
-		Networkofferingid   string `json:"networkofferingid,omitempty"`
-		Networkofferingname string `json:"networkofferingname,omitempty"`
-		Projectid           string `json:"projectid,omitempty"`
-		Tags                []struct {
-			Domain       string `json:"domain,omitempty"`
-			Projectid    string `json:"projectid,omitempty"`
-			Customer     string `json:"customer,omitempty"`
-			Project      string `json:"project,omitempty"`
-			Resourceid   string `json:"resourceid,omitempty"`
-			Resourcetype string `json:"resourcetype,omitempty"`
-			Value        string `json:"value,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
-			Account      string `json:"account,omitempty"`
-			Key          string `json:"key,omitempty"`
-		} `json:"tags,omitempty"`
-		Specifyipranges             bool   `json:"specifyipranges,omitempty"`
-		Gateway                     string `json:"gateway,omitempty"`
-		Netmask                     string `json:"netmask,omitempty"`
-		Subdomainaccess             bool   `json:"subdomainaccess,omitempty"`
+		Networkofferingname         string `json:"networkofferingname,omitempty"`
+		Vlan                        string `json:"vlan,omitempty"`
+		Isdefault                   bool   `json:"isdefault,omitempty"`
+		Displaytext                 string `json:"displaytext,omitempty"`
+		Broadcastdomaintype         string `json:"broadcastdomaintype,omitempty"`
 		Acltype                     string `json:"acltype,omitempty"`
-		Ispersistent                bool   `json:"ispersistent,omitempty"`
-		Vpcid                       string `json:"vpcid,omitempty"`
-		Project                     string `json:"project,omitempty"`
-		Name                        string `json:"name,omitempty"`
+		Canusefordeploy             bool   `json:"canusefordeploy,omitempty"`
+		Type                        string `json:"type,omitempty"`
 		Ip6gateway                  string `json:"ip6gateway,omitempty"`
-		Networkofferingavailability string `json:"networkofferingavailability,omitempty"`
+		Networkdomain               string `json:"networkdomain,omitempty"`
 		Account                     string `json:"account,omitempty"`
-		Cidr                        string `json:"cidr,omitempty"`
-		Zonename                    string `json:"zonename,omitempty"`
-		Networkcidr                 string `json:"networkcidr,omitempty"`
-		Dns1                        string `json:"dns1,omitempty"`
-		State                       string `json:"state,omitempty"`
+		Domain                      string `json:"domain,omitempty"`
+		Ispersistent                bool   `json:"ispersistent,omitempty"`
+		Networkofferingavailability string `json:"networkofferingavailability,omitempty"`
+		Zoneid                      string `json:"zoneid,omitempty"`
 	} `json:"network,omitempty"`
+	Created string `json:"created,omitempty"`
+	State   string `json:"state,omitempty"`
 }
 
 type CreateVPCOfferingParams struct {
@@ -1285,40 +1341,43 @@ func (s *VPCService) CreateVPCOffering(p *CreateVPCOfferingParams) (*CreateVPCOf
 			return &r, warn
 		}
 
-		var r CreateVPCOfferingResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateVPCOfferingResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Id          string `json:"id,omitempty"`
 	State       string `json:"state,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 	Service     []struct {
 		Provider []struct {
-			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-			Servicelist                  []string `json:"servicelist,omitempty"`
-			Name                         string   `json:"name,omitempty"`
-			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-			Id                           string   `json:"id,omitempty"`
 			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+			Name                         string   `json:"name,omitempty"`
+			Servicelist                  []string `json:"servicelist,omitempty"`
+			Id                           string   `json:"id,omitempty"`
+			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
 			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
 		Name       string `json:"name,omitempty"`
 		Capability []struct {
 			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
-			Name                       string `json:"name,omitempty"`
 			Value                      string `json:"value,omitempty"`
+			Name                       string `json:"name,omitempty"`
 		} `json:"capability,omitempty"`
 	} `json:"service,omitempty"`
 	Isdefault bool   `json:"isdefault,omitempty"`
 	Created   string `json:"created,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Id        string `json:"id,omitempty"`
 }
 
 type UpdateVPCOfferingParams struct {
@@ -1410,38 +1469,41 @@ func (s *VPCService) UpdateVPCOffering(p *UpdateVPCOfferingParams) (*UpdateVPCOf
 			return &r, warn
 		}
 
-		var r UpdateVPCOfferingResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type UpdateVPCOfferingResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	State       string `json:"state,omitempty"`
 	Isdefault   bool   `json:"isdefault,omitempty"`
+	State       string `json:"state,omitempty"`
+	Name        string `json:"name,omitempty"`
 	Created     string `json:"created,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 	Id          string `json:"id,omitempty"`
 	Service     []struct {
+		Name       string `json:"name,omitempty"`
 		Capability []struct {
-			Name                       string `json:"name,omitempty"`
-			Value                      string `json:"value,omitempty"`
 			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
+			Value                      string `json:"value,omitempty"`
+			Name                       string `json:"name,omitempty"`
 		} `json:"capability,omitempty"`
-		Name     string `json:"name,omitempty"`
 		Provider []struct {
-			Id                           string   `json:"id,omitempty"`
+			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+			State                        string   `json:"state,omitempty"`
 			Name                         string   `json:"name,omitempty"`
 			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+			Id                           string   `json:"id,omitempty"`
 			Servicelist                  []string `json:"servicelist,omitempty"`
-			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
 	} `json:"service,omitempty"`
 }
@@ -1502,19 +1564,17 @@ func (s *VPCService) DeleteVPCOffering(p *DeleteVPCOfferingParams) (*DeleteVPCOf
 			return &r, warn
 		}
 
-		var r DeleteVPCOfferingResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type DeleteVPCOfferingResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type ListVPCOfferingsParams struct {
@@ -1651,10 +1711,59 @@ func (s *VPCService) GetVPCOfferingID(name string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, name, l)
+
+	if l.Count == 0 {
+		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
-	return l.VPCOfferings[0].Id, nil
+
+	if l.Count == 1 {
+		return l.VPCOfferings[0].Id, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.VPCOfferings {
+			if v.Name == name {
+				return v.Id, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPCService) GetVPCOfferingByName(name string) (*VPCOffering, int, error) {
+	id, err := s.GetVPCOfferingID(name)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	r, count, err := s.GetVPCOfferingByID(id)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPCService) GetVPCOfferingByID(id string) (*VPCOffering, int, error) {
+	p := &ListVPCOfferingsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	l, err := s.ListVPCOfferings(p)
+	if err != nil {
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.VPCOfferings[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for VPCOffering UUID: %s!", id)
 }
 
 // Lists VPC offerings
@@ -1677,29 +1786,29 @@ type ListVPCOfferingsResponse struct {
 }
 
 type VPCOffering struct {
-	State     string `json:"state,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Isdefault bool   `json:"isdefault,omitempty"`
-	Service   []struct {
+	Name    string `json:"name,omitempty"`
+	State   string `json:"state,omitempty"`
+	Created string `json:"created,omitempty"`
+	Service []struct {
 		Provider []struct {
-			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-			Servicelist                  []string `json:"servicelist,omitempty"`
-			Id                           string   `json:"id,omitempty"`
-			State                        string   `json:"state,omitempty"`
 			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
 			Name                         string   `json:"name,omitempty"`
+			Servicelist                  []string `json:"servicelist,omitempty"`
+			State                        string   `json:"state,omitempty"`
+			Id                           string   `json:"id,omitempty"`
+			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
 		} `json:"provider,omitempty"`
+		Name       string `json:"name,omitempty"`
 		Capability []struct {
-			Value                      string `json:"value,omitempty"`
 			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
+			Value                      string `json:"value,omitempty"`
 			Name                       string `json:"name,omitempty"`
 		} `json:"capability,omitempty"`
-		Name string `json:"name,omitempty"`
 	} `json:"service,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
+	Isdefault   bool   `json:"isdefault,omitempty"`
 	Id          string `json:"id,omitempty"`
-	Created     string `json:"created,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
 }
 
 type CreatePrivateGatewayParams struct {
@@ -1851,34 +1960,37 @@ func (s *VPCService) CreatePrivateGateway(p *CreatePrivateGatewayParams) (*Creat
 			return &r, warn
 		}
 
-		var r CreatePrivateGatewayResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreatePrivateGatewayResponse struct {
 	JobID              string `json:"jobid,omitempty"`
-	Account            string `json:"account,omitempty"`
-	Project            string `json:"project,omitempty"`
-	State              string `json:"state,omitempty"`
-	Ipaddress          string `json:"ipaddress,omitempty"`
-	Zonename           string `json:"zonename,omitempty"`
-	Domain             string `json:"domain,omitempty"`
-	Sourcenatsupported bool   `json:"sourcenatsupported,omitempty"`
 	Zoneid             string `json:"zoneid,omitempty"`
-	Aclid              string `json:"aclid,omitempty"`
-	Netmask            string `json:"netmask,omitempty"`
+	Project            string `json:"project,omitempty"`
 	Id                 string `json:"id,omitempty"`
-	Vlan               string `json:"vlan,omitempty"`
-	Physicalnetworkid  string `json:"physicalnetworkid,omitempty"`
-	Domainid           string `json:"domainid,omitempty"`
+	Zonename           string `json:"zonename,omitempty"`
+	Aclid              string `json:"aclid,omitempty"`
+	Sourcenatsupported bool   `json:"sourcenatsupported,omitempty"`
 	Projectid          string `json:"projectid,omitempty"`
+	Vlan               string `json:"vlan,omitempty"`
 	Gateway            string `json:"gateway,omitempty"`
 	Vpcid              string `json:"vpcid,omitempty"`
+	Domainid           string `json:"domainid,omitempty"`
+	State              string `json:"state,omitempty"`
+	Domain             string `json:"domain,omitempty"`
+	Ipaddress          string `json:"ipaddress,omitempty"`
+	Account            string `json:"account,omitempty"`
+	Netmask            string `json:"netmask,omitempty"`
+	Physicalnetworkid  string `json:"physicalnetworkid,omitempty"`
 }
 
 type ListPrivateGatewaysParams struct {
@@ -2049,20 +2161,25 @@ func (s *VPCService) NewListPrivateGatewaysParams() *ListPrivateGatewaysParams {
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *VPCService) GetPrivateGatewayID(keyword string) (string, error) {
+func (s *VPCService) GetPrivateGatewayByID(id string) (*PrivateGateway, int, error) {
 	p := &ListPrivateGatewaysParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListPrivateGateways(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.PrivateGateways[0].Id, nil
+
+	if l.Count == 1 {
+		return l.PrivateGateways[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for PrivateGateway UUID: %s!", id)
 }
 
 // List private gateways
@@ -2086,22 +2203,22 @@ type ListPrivateGatewaysResponse struct {
 
 type PrivateGateway struct {
 	Gateway            string `json:"gateway,omitempty"`
-	Vlan               string `json:"vlan,omitempty"`
-	Physicalnetworkid  string `json:"physicalnetworkid,omitempty"`
 	Account            string `json:"account,omitempty"`
-	Vpcid              string `json:"vpcid,omitempty"`
-	Zoneid             string `json:"zoneid,omitempty"`
-	Project            string `json:"project,omitempty"`
-	Domainid           string `json:"domainid,omitempty"`
-	Zonename           string `json:"zonename,omitempty"`
-	Aclid              string `json:"aclid,omitempty"`
-	Netmask            string `json:"netmask,omitempty"`
-	Projectid          string `json:"projectid,omitempty"`
-	Sourcenatsupported bool   `json:"sourcenatsupported,omitempty"`
-	State              string `json:"state,omitempty"`
-	Domain             string `json:"domain,omitempty"`
-	Id                 string `json:"id,omitempty"`
 	Ipaddress          string `json:"ipaddress,omitempty"`
+	Netmask            string `json:"netmask,omitempty"`
+	Domain             string `json:"domain,omitempty"`
+	Zoneid             string `json:"zoneid,omitempty"`
+	Zonename           string `json:"zonename,omitempty"`
+	Project            string `json:"project,omitempty"`
+	State              string `json:"state,omitempty"`
+	Vpcid              string `json:"vpcid,omitempty"`
+	Aclid              string `json:"aclid,omitempty"`
+	Physicalnetworkid  string `json:"physicalnetworkid,omitempty"`
+	Sourcenatsupported bool   `json:"sourcenatsupported,omitempty"`
+	Id                 string `json:"id,omitempty"`
+	Vlan               string `json:"vlan,omitempty"`
+	Domainid           string `json:"domainid,omitempty"`
+	Projectid          string `json:"projectid,omitempty"`
 }
 
 type DeletePrivateGatewayParams struct {
@@ -2160,11 +2277,9 @@ func (s *VPCService) DeletePrivateGateway(p *DeletePrivateGatewayParams) (*Delet
 			return &r, warn
 		}
 
-		var r DeletePrivateGatewayResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -2243,39 +2358,42 @@ func (s *VPCService) CreateStaticRoute(p *CreateStaticRouteParams) (*CreateStati
 			return &r, warn
 		}
 
-		var r CreateStaticRouteResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
 
 type CreateStaticRouteResponse struct {
-	JobID string `json:"jobid,omitempty"`
-	Tags  []struct {
-		Project      string `json:"project,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-	} `json:"tags,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Account   string `json:"account,omitempty"`
-	State     string `json:"state,omitempty"`
+	JobID     string `json:"jobid,omitempty"`
 	Domain    string `json:"domain,omitempty"`
 	Cidr      string `json:"cidr,omitempty"`
 	Gatewayid string `json:"gatewayid,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
 	Vpcid     string `json:"vpcid,omitempty"`
+	Account   string `json:"account,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
 	Id        string `json:"id,omitempty"`
+	Tags      []struct {
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Value        string `json:"value,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Account      string `json:"account,omitempty"`
+	} `json:"tags,omitempty"`
+	Project string `json:"project,omitempty"`
+	State   string `json:"state,omitempty"`
 }
 
 type DeleteStaticRouteParams struct {
@@ -2334,11 +2452,9 @@ func (s *VPCService) DeleteStaticRoute(p *DeleteStaticRouteParams) (*DeleteStati
 			return &r, warn
 		}
 
-		var r DeleteStaticRouteResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -2511,20 +2627,25 @@ func (s *VPCService) NewListStaticRoutesParams() *ListStaticRoutesParams {
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *VPCService) GetStaticRouteID(keyword string) (string, error) {
+func (s *VPCService) GetStaticRouteByID(id string) (*StaticRoute, int, error) {
 	p := &ListStaticRoutesParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListStaticRoutes(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.StaticRoutes[0].Id, nil
+
+	if l.Count == 1 {
+		return l.StaticRoutes[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for StaticRoute UUID: %s!", id)
 }
 
 // Lists all static routes
@@ -2547,26 +2668,26 @@ type ListStaticRoutesResponse struct {
 }
 
 type StaticRoute struct {
-	Projectid string `json:"projectid,omitempty"`
-	Tags      []struct {
-		Domain       string `json:"domain,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Key          string `json:"key,omitempty"`
-	} `json:"tags,omitempty"`
-	Cidr      string `json:"cidr,omitempty"`
-	Gatewayid string `json:"gatewayid,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
 	Domain    string `json:"domain,omitempty"`
 	State     string `json:"state,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
+	Gatewayid string `json:"gatewayid,omitempty"`
 	Id        string `json:"id,omitempty"`
-	Account   string `json:"account,omitempty"`
-	Vpcid     string `json:"vpcid,omitempty"`
 	Project   string `json:"project,omitempty"`
+	Cidr      string `json:"cidr,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
+	Vpcid     string `json:"vpcid,omitempty"`
+	Account   string `json:"account,omitempty"`
+	Tags      []struct {
+		Domain       string `json:"domain,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
 }

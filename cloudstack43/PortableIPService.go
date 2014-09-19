@@ -139,11 +139,14 @@ func (s *PortableIPService) CreatePortableIpRange(p *CreatePortableIpRangeParams
 			return &r, warn
 		}
 
-		var r CreatePortableIpRangeResponse
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -151,24 +154,24 @@ func (s *PortableIPService) CreatePortableIpRange(p *CreatePortableIpRangeParams
 type CreatePortableIpRangeResponse struct {
 	JobID             string `json:"jobid,omitempty"`
 	Startip           string `json:"startip,omitempty"`
-	Regionid          int    `json:"regionid,omitempty"`
+	Netmask           string `json:"netmask,omitempty"`
 	Portableipaddress []struct {
-		Domainid          string `json:"domainid,omitempty"`
-		Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-		Networkid         string `json:"networkid,omitempty"`
-		State             string `json:"state,omitempty"`
-		Zoneid            string `json:"zoneid,omitempty"`
 		Regionid          int    `json:"regionid,omitempty"`
 		Allocated         string `json:"allocated,omitempty"`
-		Accountid         string `json:"accountid,omitempty"`
-		Ipaddress         string `json:"ipaddress,omitempty"`
 		Vpcid             string `json:"vpcid,omitempty"`
+		Domainid          string `json:"domainid,omitempty"`
+		Zoneid            string `json:"zoneid,omitempty"`
+		Ipaddress         string `json:"ipaddress,omitempty"`
+		Networkid         string `json:"networkid,omitempty"`
+		State             string `json:"state,omitempty"`
+		Accountid         string `json:"accountid,omitempty"`
+		Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 	} `json:"portableipaddress,omitempty"`
-	Gateway string `json:"gateway,omitempty"`
-	Netmask string `json:"netmask,omitempty"`
-	Id      string `json:"id,omitempty"`
-	Vlan    string `json:"vlan,omitempty"`
-	Endip   string `json:"endip,omitempty"`
+	Regionid int    `json:"regionid,omitempty"`
+	Endip    string `json:"endip,omitempty"`
+	Id       string `json:"id,omitempty"`
+	Vlan     string `json:"vlan,omitempty"`
+	Gateway  string `json:"gateway,omitempty"`
 }
 
 type DeletePortableIpRangeParams struct {
@@ -227,11 +230,9 @@ func (s *PortableIPService) DeletePortableIpRange(p *DeletePortableIpRangeParams
 			return &r, warn
 		}
 
-		var r DeletePortableIpRangeResponse
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-		return &r, nil
 	}
 	return &r, nil
 }
@@ -321,20 +322,25 @@ func (s *PortableIPService) NewListPortableIpRangesParams() *ListPortableIpRange
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *PortableIPService) GetPortableIpRangeID(keyword string) (string, error) {
+func (s *PortableIPService) GetPortableIpRangeByID(id string) (*PortableIpRange, int, error) {
 	p := &ListPortableIpRangesParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["keyword"] = keyword
+	p.p["id"] = id
 
 	l, err := s.ListPortableIpRanges(p)
 	if err != nil {
-		return "", err
+		return nil, -1, err
 	}
-	if l.Count != 1 {
-		return "", fmt.Errorf("%d matches found for %s: %+v", l.Count, keyword, l)
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
-	return l.PortableIpRanges[0].Id, nil
+
+	if l.Count == 1 {
+		return l.PortableIpRanges[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for PortableIpRange UUID: %s!", id)
 }
 
 // list portable IP ranges
@@ -357,23 +363,23 @@ type ListPortableIpRangesResponse struct {
 }
 
 type PortableIpRange struct {
+	Endip             string `json:"endip,omitempty"`
+	Regionid          int    `json:"regionid,omitempty"`
+	Netmask           string `json:"netmask,omitempty"`
+	Startip           string `json:"startip,omitempty"`
 	Id                string `json:"id,omitempty"`
-	Vlan              string `json:"vlan,omitempty"`
 	Portableipaddress []struct {
-		Domainid          string `json:"domainid,omitempty"`
-		Networkid         string `json:"networkid,omitempty"`
+		Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 		Accountid         string `json:"accountid,omitempty"`
 		Vpcid             string `json:"vpcid,omitempty"`
-		Ipaddress         string `json:"ipaddress,omitempty"`
-		State             string `json:"state,omitempty"`
+		Networkid         string `json:"networkid,omitempty"`
 		Allocated         string `json:"allocated,omitempty"`
 		Zoneid            string `json:"zoneid,omitempty"`
+		Ipaddress         string `json:"ipaddress,omitempty"`
+		Domainid          string `json:"domainid,omitempty"`
 		Regionid          int    `json:"regionid,omitempty"`
-		Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+		State             string `json:"state,omitempty"`
 	} `json:"portableipaddress,omitempty"`
-	Endip    string `json:"endip,omitempty"`
-	Gateway  string `json:"gateway,omitempty"`
-	Netmask  string `json:"netmask,omitempty"`
-	Regionid int    `json:"regionid,omitempty"`
-	Startip  string `json:"startip,omitempty"`
+	Vlan    string `json:"vlan,omitempty"`
+	Gateway string `json:"gateway,omitempty"`
 }
