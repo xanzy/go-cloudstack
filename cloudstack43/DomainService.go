@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type CreateDomainParams struct {
@@ -104,13 +105,13 @@ func (s *DomainService) CreateDomain(p *CreateDomainParams) (*CreateDomainRespon
 
 type CreateDomainResponse struct {
 	Haschild         bool   `json:"haschild,omitempty"`
+	Id               string `json:"id,omitempty"`
+	Level            int    `json:"level,omitempty"`
+	Name             string `json:"name,omitempty"`
 	Networkdomain    string `json:"networkdomain,omitempty"`
 	Parentdomainid   string `json:"parentdomainid,omitempty"`
 	Parentdomainname string `json:"parentdomainname,omitempty"`
-	Level            int    `json:"level,omitempty"`
-	Id               string `json:"id,omitempty"`
 	Path             string `json:"path,omitempty"`
-	Name             string `json:"name,omitempty"`
 }
 
 type UpdateDomainParams struct {
@@ -182,14 +183,14 @@ func (s *DomainService) UpdateDomain(p *UpdateDomainParams) (*UpdateDomainRespon
 }
 
 type UpdateDomainResponse struct {
-	Path             string `json:"path,omitempty"`
-	Parentdomainid   string `json:"parentdomainid,omitempty"`
-	Networkdomain    string `json:"networkdomain,omitempty"`
-	Name             string `json:"name,omitempty"`
-	Level            int    `json:"level,omitempty"`
 	Haschild         bool   `json:"haschild,omitempty"`
-	Parentdomainname string `json:"parentdomainname,omitempty"`
 	Id               string `json:"id,omitempty"`
+	Level            int    `json:"level,omitempty"`
+	Name             string `json:"name,omitempty"`
+	Networkdomain    string `json:"networkdomain,omitempty"`
+	Parentdomainid   string `json:"parentdomainid,omitempty"`
+	Parentdomainname string `json:"parentdomainname,omitempty"`
+	Path             string `json:"path,omitempty"`
 }
 
 type DeleteDomainParams struct {
@@ -269,8 +270,8 @@ func (s *DomainService) DeleteDomain(p *DeleteDomainParams) (*DeleteDomainRespon
 
 type DeleteDomainResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type ListDomainsParams struct {
@@ -430,7 +431,9 @@ func (s *DomainService) GetDomainByID(id string) (*Domain, int, error) {
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -460,14 +463,14 @@ type ListDomainsResponse struct {
 }
 
 type Domain struct {
-	Id               string `json:"id,omitempty"`
-	Parentdomainid   string `json:"parentdomainid,omitempty"`
-	Name             string `json:"name,omitempty"`
-	Parentdomainname string `json:"parentdomainname,omitempty"`
-	Level            int    `json:"level,omitempty"`
 	Haschild         bool   `json:"haschild,omitempty"`
-	Path             string `json:"path,omitempty"`
+	Id               string `json:"id,omitempty"`
+	Level            int    `json:"level,omitempty"`
+	Name             string `json:"name,omitempty"`
 	Networkdomain    string `json:"networkdomain,omitempty"`
+	Parentdomainid   string `json:"parentdomainid,omitempty"`
+	Parentdomainname string `json:"parentdomainname,omitempty"`
+	Path             string `json:"path,omitempty"`
 }
 
 type ListDomainChildrenParams struct {
@@ -627,7 +630,9 @@ func (s *DomainService) GetDomainChildrenByID(id string) (*DomainChildren, int, 
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -657,12 +662,12 @@ type ListDomainChildrenResponse struct {
 }
 
 type DomainChildren struct {
-	Path             string `json:"path,omitempty"`
 	Haschild         bool   `json:"haschild,omitempty"`
-	Level            int    `json:"level,omitempty"`
 	Id               string `json:"id,omitempty"`
-	Parentdomainname string `json:"parentdomainname,omitempty"`
-	Networkdomain    string `json:"networkdomain,omitempty"`
+	Level            int    `json:"level,omitempty"`
 	Name             string `json:"name,omitempty"`
+	Networkdomain    string `json:"networkdomain,omitempty"`
 	Parentdomainid   string `json:"parentdomainid,omitempty"`
+	Parentdomainname string `json:"parentdomainname,omitempty"`
+	Path             string `json:"path,omitempty"`
 }

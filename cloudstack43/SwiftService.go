@@ -103,15 +103,15 @@ func (s *SwiftService) AddSwift(p *AddSwiftParams) (*AddSwiftResponse, error) {
 }
 
 type AddSwiftResponse struct {
-	Url          string   `json:"url,omitempty"`
-	Id           string   `json:"id,omitempty"`
 	Details      []string `json:"details,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
-	Providername string   `json:"providername,omitempty"`
-	Protocol     string   `json:"protocol,omitempty"`
+	Id           string   `json:"id,omitempty"`
 	Name         string   `json:"name,omitempty"`
-	Zonename     string   `json:"zonename,omitempty"`
+	Protocol     string   `json:"protocol,omitempty"`
+	Providername string   `json:"providername,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
+	Url          string   `json:"url,omitempty"`
 	Zoneid       string   `json:"zoneid,omitempty"`
+	Zonename     string   `json:"zonename,omitempty"`
 }
 
 type ListSwiftsParams struct {
@@ -231,13 +231,13 @@ type ListSwiftsResponse struct {
 }
 
 type Swift struct {
-	Name         string   `json:"name,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
-	Protocol     string   `json:"protocol,omitempty"`
-	Zonename     string   `json:"zonename,omitempty"`
-	Providername string   `json:"providername,omitempty"`
 	Details      []string `json:"details,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
 	Id           string   `json:"id,omitempty"`
+	Name         string   `json:"name,omitempty"`
+	Protocol     string   `json:"protocol,omitempty"`
+	Providername string   `json:"providername,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
+	Url          string   `json:"url,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Zonename     string   `json:"zonename,omitempty"`
 }

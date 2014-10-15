@@ -223,7 +223,9 @@ func (s *PoolService) GetStoragePoolByID(id string) (*StoragePool, int, error) {
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -253,27 +255,27 @@ type ListStoragePoolsResponse struct {
 }
 
 type StoragePool struct {
-	Scope                string            `json:"scope,omitempty"`
-	Clustername          string            `json:"clustername,omitempty"`
-	Suitableformigration bool              `json:"suitableformigration,omitempty"`
-	Created              string            `json:"created,omitempty"`
-	State                string            `json:"state,omitempty"`
-	Podid                string            `json:"podid,omitempty"`
-	Type                 string            `json:"type,omitempty"`
-	Ipaddress            string            `json:"ipaddress,omitempty"`
-	Id                   string            `json:"id,omitempty"`
-	Podname              string            `json:"podname,omitempty"`
-	Hypervisor           string            `json:"hypervisor,omitempty"`
-	Disksizeused         int               `json:"disksizeused,omitempty"`
-	Clusterid            string            `json:"clusterid,omitempty"`
 	Capacityiops         int               `json:"capacityiops,omitempty"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
-	Disksizetotal        int               `json:"disksizetotal,omitempty"`
+	Clusterid            string            `json:"clusterid,omitempty"`
+	Clustername          string            `json:"clustername,omitempty"`
+	Created              string            `json:"created,omitempty"`
 	Disksizeallocated    int               `json:"disksizeallocated,omitempty"`
-	Zoneid               string            `json:"zoneid,omitempty"`
-	Path                 string            `json:"path,omitempty"`
-	Tags                 string            `json:"tags,omitempty"`
+	Disksizetotal        int               `json:"disksizetotal,omitempty"`
+	Disksizeused         int               `json:"disksizeused,omitempty"`
+	Hypervisor           string            `json:"hypervisor,omitempty"`
+	Id                   string            `json:"id,omitempty"`
+	Ipaddress            string            `json:"ipaddress,omitempty"`
 	Name                 string            `json:"name,omitempty"`
+	Path                 string            `json:"path,omitempty"`
+	Podid                string            `json:"podid,omitempty"`
+	Podname              string            `json:"podname,omitempty"`
+	Scope                string            `json:"scope,omitempty"`
+	State                string            `json:"state,omitempty"`
+	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
+	Suitableformigration bool              `json:"suitableformigration,omitempty"`
+	Tags                 string            `json:"tags,omitempty"`
+	Type                 string            `json:"type,omitempty"`
+	Zoneid               string            `json:"zoneid,omitempty"`
 	Zonename             string            `json:"zonename,omitempty"`
 }
 
@@ -466,28 +468,28 @@ func (s *PoolService) CreateStoragePool(p *CreateStoragePoolParams) (*CreateStor
 }
 
 type CreateStoragePoolResponse struct {
-	Path                 string            `json:"path,omitempty"`
-	Created              string            `json:"created,omitempty"`
-	Clustername          string            `json:"clustername,omitempty"`
-	Scope                string            `json:"scope,omitempty"`
 	Capacityiops         int               `json:"capacityiops,omitempty"`
-	Disksizeused         int               `json:"disksizeused,omitempty"`
-	Suitableformigration bool              `json:"suitableformigration,omitempty"`
-	Zonename             string            `json:"zonename,omitempty"`
-	Podname              string            `json:"podname,omitempty"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
 	Clusterid            string            `json:"clusterid,omitempty"`
-	Tags                 string            `json:"tags,omitempty"`
+	Clustername          string            `json:"clustername,omitempty"`
+	Created              string            `json:"created,omitempty"`
 	Disksizeallocated    int               `json:"disksizeallocated,omitempty"`
-	Podid                string            `json:"podid,omitempty"`
-	Hypervisor           string            `json:"hypervisor,omitempty"`
-	Zoneid               string            `json:"zoneid,omitempty"`
-	Type                 string            `json:"type,omitempty"`
-	Ipaddress            string            `json:"ipaddress,omitempty"`
 	Disksizetotal        int               `json:"disksizetotal,omitempty"`
+	Disksizeused         int               `json:"disksizeused,omitempty"`
+	Hypervisor           string            `json:"hypervisor,omitempty"`
 	Id                   string            `json:"id,omitempty"`
-	State                string            `json:"state,omitempty"`
+	Ipaddress            string            `json:"ipaddress,omitempty"`
 	Name                 string            `json:"name,omitempty"`
+	Path                 string            `json:"path,omitempty"`
+	Podid                string            `json:"podid,omitempty"`
+	Podname              string            `json:"podname,omitempty"`
+	Scope                string            `json:"scope,omitempty"`
+	State                string            `json:"state,omitempty"`
+	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
+	Suitableformigration bool              `json:"suitableformigration,omitempty"`
+	Tags                 string            `json:"tags,omitempty"`
+	Type                 string            `json:"type,omitempty"`
+	Zoneid               string            `json:"zoneid,omitempty"`
+	Zonename             string            `json:"zonename,omitempty"`
 }
 
 type UpdateStoragePoolParams struct {
@@ -574,27 +576,27 @@ func (s *PoolService) UpdateStoragePool(p *UpdateStoragePoolParams) (*UpdateStor
 
 type UpdateStoragePoolResponse struct {
 	Capacityiops         int               `json:"capacityiops,omitempty"`
-	Zonename             string            `json:"zonename,omitempty"`
-	Suitableformigration bool              `json:"suitableformigration,omitempty"`
-	Id                   string            `json:"id,omitempty"`
 	Clusterid            string            `json:"clusterid,omitempty"`
-	Path                 string            `json:"path,omitempty"`
-	Type                 string            `json:"type,omitempty"`
-	Ipaddress            string            `json:"ipaddress,omitempty"`
-	Hypervisor           string            `json:"hypervisor,omitempty"`
-	Tags                 string            `json:"tags,omitempty"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
-	State                string            `json:"state,omitempty"`
-	Disksizeused         int               `json:"disksizeused,omitempty"`
-	Podid                string            `json:"podid,omitempty"`
-	Name                 string            `json:"name,omitempty"`
-	Zoneid               string            `json:"zoneid,omitempty"`
-	Podname              string            `json:"podname,omitempty"`
-	Disksizetotal        int               `json:"disksizetotal,omitempty"`
-	Disksizeallocated    int               `json:"disksizeallocated,omitempty"`
-	Created              string            `json:"created,omitempty"`
 	Clustername          string            `json:"clustername,omitempty"`
+	Created              string            `json:"created,omitempty"`
+	Disksizeallocated    int               `json:"disksizeallocated,omitempty"`
+	Disksizetotal        int               `json:"disksizetotal,omitempty"`
+	Disksizeused         int               `json:"disksizeused,omitempty"`
+	Hypervisor           string            `json:"hypervisor,omitempty"`
+	Id                   string            `json:"id,omitempty"`
+	Ipaddress            string            `json:"ipaddress,omitempty"`
+	Name                 string            `json:"name,omitempty"`
+	Path                 string            `json:"path,omitempty"`
+	Podid                string            `json:"podid,omitempty"`
+	Podname              string            `json:"podname,omitempty"`
 	Scope                string            `json:"scope,omitempty"`
+	State                string            `json:"state,omitempty"`
+	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
+	Suitableformigration bool              `json:"suitableformigration,omitempty"`
+	Tags                 string            `json:"tags,omitempty"`
+	Type                 string            `json:"type,omitempty"`
+	Zoneid               string            `json:"zoneid,omitempty"`
+	Zonename             string            `json:"zonename,omitempty"`
 }
 
 type DeleteStoragePoolParams struct {
@@ -742,26 +744,26 @@ func (s *PoolService) FindStoragePoolsForMigration(p *FindStoragePoolsForMigrati
 }
 
 type FindStoragePoolsForMigrationResponse struct {
-	Clustername          string            `json:"clustername,omitempty"`
-	Ipaddress            string            `json:"ipaddress,omitempty"`
-	Id                   string            `json:"id,omitempty"`
-	Zoneid               string            `json:"zoneid,omitempty"`
-	Disksizetotal        int               `json:"disksizetotal,omitempty"`
-	Clusterid            string            `json:"clusterid,omitempty"`
 	Capacityiops         int               `json:"capacityiops,omitempty"`
-	Type                 string            `json:"type,omitempty"`
-	Suitableformigration bool              `json:"suitableformigration,omitempty"`
-	Hypervisor           string            `json:"hypervisor,omitempty"`
-	Zonename             string            `json:"zonename,omitempty"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
-	Path                 string            `json:"path,omitempty"`
+	Clusterid            string            `json:"clusterid,omitempty"`
+	Clustername          string            `json:"clustername,omitempty"`
 	Created              string            `json:"created,omitempty"`
-	Tags                 string            `json:"tags,omitempty"`
-	Scope                string            `json:"scope,omitempty"`
-	Podid                string            `json:"podid,omitempty"`
-	Disksizeused         int               `json:"disksizeused,omitempty"`
 	Disksizeallocated    int               `json:"disksizeallocated,omitempty"`
-	Podname              string            `json:"podname,omitempty"`
+	Disksizetotal        int               `json:"disksizetotal,omitempty"`
+	Disksizeused         int               `json:"disksizeused,omitempty"`
+	Hypervisor           string            `json:"hypervisor,omitempty"`
+	Id                   string            `json:"id,omitempty"`
+	Ipaddress            string            `json:"ipaddress,omitempty"`
 	Name                 string            `json:"name,omitempty"`
+	Path                 string            `json:"path,omitempty"`
+	Podid                string            `json:"podid,omitempty"`
+	Podname              string            `json:"podname,omitempty"`
+	Scope                string            `json:"scope,omitempty"`
 	State                string            `json:"state,omitempty"`
+	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
+	Suitableformigration bool              `json:"suitableformigration,omitempty"`
+	Tags                 string            `json:"tags,omitempty"`
+	Type                 string            `json:"type,omitempty"`
+	Zoneid               string            `json:"zoneid,omitempty"`
+	Zonename             string            `json:"zonename,omitempty"`
 }

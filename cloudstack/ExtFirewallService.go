@@ -105,17 +105,17 @@ func (s *ExtFirewallService) AddExternalFirewall(p *AddExternalFirewallParams) (
 }
 
 type AddExternalFirewallResponse struct {
-	Privateinterface string `json:"privateinterface,omitempty"`
-	Zoneid           string `json:"zoneid,omitempty"`
 	Id               string `json:"id,omitempty"`
-	Timeout          string `json:"timeout,omitempty"`
-	Publiczone       string `json:"publiczone,omitempty"`
-	Username         string `json:"username,omitempty"`
-	Numretries       string `json:"numretries,omitempty"`
 	Ipaddress        string `json:"ipaddress,omitempty"`
-	Usageinterface   string `json:"usageinterface,omitempty"`
-	Publicinterface  string `json:"publicinterface,omitempty"`
+	Numretries       string `json:"numretries,omitempty"`
+	Privateinterface string `json:"privateinterface,omitempty"`
 	Privatezone      string `json:"privatezone,omitempty"`
+	Publicinterface  string `json:"publicinterface,omitempty"`
+	Publiczone       string `json:"publiczone,omitempty"`
+	Timeout          string `json:"timeout,omitempty"`
+	Usageinterface   string `json:"usageinterface,omitempty"`
+	Username         string `json:"username,omitempty"`
+	Zoneid           string `json:"zoneid,omitempty"`
 }
 
 type DeleteExternalFirewallParams struct {
@@ -256,15 +256,15 @@ type ListExternalFirewallsResponse struct {
 }
 
 type ExternalFirewall struct {
-	Timeout          string `json:"timeout,omitempty"`
+	Id               string `json:"id,omitempty"`
+	Ipaddress        string `json:"ipaddress,omitempty"`
+	Numretries       string `json:"numretries,omitempty"`
 	Privateinterface string `json:"privateinterface,omitempty"`
 	Privatezone      string `json:"privatezone,omitempty"`
-	Numretries       string `json:"numretries,omitempty"`
-	Ipaddress        string `json:"ipaddress,omitempty"`
-	Publiczone       string `json:"publiczone,omitempty"`
 	Publicinterface  string `json:"publicinterface,omitempty"`
+	Publiczone       string `json:"publiczone,omitempty"`
+	Timeout          string `json:"timeout,omitempty"`
 	Usageinterface   string `json:"usageinterface,omitempty"`
 	Username         string `json:"username,omitempty"`
 	Zoneid           string `json:"zoneid,omitempty"`
-	Id               string `json:"id,omitempty"`
 }

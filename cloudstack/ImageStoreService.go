@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type AddImageStoreParams struct {
@@ -119,15 +120,15 @@ func (s *ImageStoreService) AddImageStore(p *AddImageStoreParams) (*AddImageStor
 }
 
 type AddImageStoreResponse struct {
-	Providername string   `json:"providername,omitempty"`
-	Zonename     string   `json:"zonename,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
+	Details      []string `json:"details,omitempty"`
 	Id           string   `json:"id,omitempty"`
 	Name         string   `json:"name,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Details      []string `json:"details,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
 	Protocol     string   `json:"protocol,omitempty"`
+	Providername string   `json:"providername,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
+	Url          string   `json:"url,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Zonename     string   `json:"zonename,omitempty"`
 }
 
 type ListImageStoresParams struct {
@@ -296,7 +297,9 @@ func (s *ImageStoreService) GetImageStoreByID(id string) (*ImageStore, int, erro
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -326,15 +329,15 @@ type ListImageStoresResponse struct {
 }
 
 type ImageStore struct {
-	Name         string   `json:"name,omitempty"`
-	Zonename     string   `json:"zonename,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Protocol     string   `json:"protocol,omitempty"`
-	Id           string   `json:"id,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
 	Details      []string `json:"details,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
+	Id           string   `json:"id,omitempty"`
+	Name         string   `json:"name,omitempty"`
+	Protocol     string   `json:"protocol,omitempty"`
 	Providername string   `json:"providername,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
+	Url          string   `json:"url,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Zonename     string   `json:"zonename,omitempty"`
 }
 
 type DeleteImageStoreParams struct {
@@ -384,8 +387,8 @@ func (s *ImageStoreService) DeleteImageStore(p *DeleteImageStoreParams) (*Delete
 }
 
 type DeleteImageStoreResponse struct {
-	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type CreateSecondaryStagingStoreParams struct {
@@ -484,15 +487,15 @@ func (s *ImageStoreService) CreateSecondaryStagingStore(p *CreateSecondaryStagin
 }
 
 type CreateSecondaryStagingStoreResponse struct {
-	Zonename     string   `json:"zonename,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
+	Details      []string `json:"details,omitempty"`
+	Id           string   `json:"id,omitempty"`
+	Name         string   `json:"name,omitempty"`
+	Protocol     string   `json:"protocol,omitempty"`
 	Providername string   `json:"providername,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
 	Url          string   `json:"url,omitempty"`
 	Zoneid       string   `json:"zoneid,omitempty"`
-	Details      []string `json:"details,omitempty"`
-	Name         string   `json:"name,omitempty"`
-	Id           string   `json:"id,omitempty"`
-	Protocol     string   `json:"protocol,omitempty"`
+	Zonename     string   `json:"zonename,omitempty"`
 }
 
 type ListSecondaryStagingStoresParams struct {
@@ -661,7 +664,9 @@ func (s *ImageStoreService) GetSecondaryStagingStoreByID(id string) (*SecondaryS
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -691,14 +696,14 @@ type ListSecondaryStagingStoresResponse struct {
 }
 
 type SecondaryStagingStore struct {
-	Zoneid       string   `json:"zoneid,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
-	Id           string   `json:"id,omitempty"`
 	Details      []string `json:"details,omitempty"`
+	Id           string   `json:"id,omitempty"`
 	Name         string   `json:"name,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Providername string   `json:"providername,omitempty"`
 	Protocol     string   `json:"protocol,omitempty"`
+	Providername string   `json:"providername,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
+	Url          string   `json:"url,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
 	Zonename     string   `json:"zonename,omitempty"`
 }
 
@@ -749,8 +754,8 @@ func (s *ImageStoreService) DeleteSecondaryStagingStore(p *DeleteSecondaryStagin
 }
 
 type DeleteSecondaryStagingStoreResponse struct {
-	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type UpdateCloudToUseObjectStoreParams struct {
@@ -838,13 +843,13 @@ func (s *ImageStoreService) UpdateCloudToUseObjectStore(p *UpdateCloudToUseObjec
 }
 
 type UpdateCloudToUseObjectStoreResponse struct {
-	Id           string   `json:"id,omitempty"`
-	Zonename     string   `json:"zonename,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
-	Providername string   `json:"providername,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Name         string   `json:"name,omitempty"`
 	Details      []string `json:"details,omitempty"`
+	Id           string   `json:"id,omitempty"`
+	Name         string   `json:"name,omitempty"`
 	Protocol     string   `json:"protocol,omitempty"`
+	Providername string   `json:"providername,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
+	Url          string   `json:"url,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Zonename     string   `json:"zonename,omitempty"`
 }

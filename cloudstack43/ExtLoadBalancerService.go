@@ -106,13 +106,13 @@ func (s *ExtLoadBalancerService) AddExternalLoadBalancer(p *AddExternalLoadBalan
 }
 
 type AddExternalLoadBalancerResponse struct {
+	Id               string `json:"id,omitempty"`
+	Ipaddress        string `json:"ipaddress,omitempty"`
 	Numretries       string `json:"numretries,omitempty"`
-	Username         string `json:"username,omitempty"`
-	Zoneid           string `json:"zoneid,omitempty"`
 	Privateinterface string `json:"privateinterface,omitempty"`
 	Publicinterface  string `json:"publicinterface,omitempty"`
-	Ipaddress        string `json:"ipaddress,omitempty"`
-	Id               string `json:"id,omitempty"`
+	Username         string `json:"username,omitempty"`
+	Zoneid           string `json:"zoneid,omitempty"`
 }
 
 type DeleteExternalLoadBalancerParams struct {
@@ -282,48 +282,48 @@ type ListExternalLoadBalancersResponse struct {
 }
 
 type ExternalLoadBalancer struct {
-	Disksizetotal           int    `json:"disksizetotal,omitempty"`
-	Networkkbsread          int    `json:"networkkbsread,omitempty"`
-	Memoryused              int    `json:"memoryused,omitempty"`
-	Hypervisorversion       string `json:"hypervisorversion,omitempty"`
-	Suitableformigration    bool   `json:"suitableformigration,omitempty"`
-	Version                 string `json:"version,omitempty"`
+	Averageload             int    `json:"averageload,omitempty"`
+	Capabilities            string `json:"capabilities,omitempty"`
+	Clusterid               string `json:"clusterid,omitempty"`
+	Clustername             string `json:"clustername,omitempty"`
+	Clustertype             string `json:"clustertype,omitempty"`
+	Cpuallocated            string `json:"cpuallocated,omitempty"`
 	Cpunumber               int    `json:"cpunumber,omitempty"`
 	Cpusockets              int    `json:"cpusockets,omitempty"`
-	Id                      string `json:"id,omitempty"`
-	Oscategoryid            string `json:"oscategoryid,omitempty"`
-	Capabilities            string `json:"capabilities,omitempty"`
-	Created                 string `json:"created,omitempty"`
-	Clustername             string `json:"clustername,omitempty"`
-	Type                    string `json:"type,omitempty"`
-	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
-	Averageload             int    `json:"averageload,omitempty"`
-	State                   string `json:"state,omitempty"`
-	Clustertype             string `json:"clustertype,omitempty"`
-	Lastpinged              string `json:"lastpinged,omitempty"`
-	Hosttags                string `json:"hosttags,omitempty"`
-	Events                  string `json:"events,omitempty"`
-	Removed                 string `json:"removed,omitempty"`
-	Resourcestate           string `json:"resourcestate,omitempty"`
-	Cpuused                 string `json:"cpuused,omitempty"`
-	Name                    string `json:"name,omitempty"`
-	Podname                 string `json:"podname,omitempty"`
-	Disconnected            string `json:"disconnected,omitempty"`
 	Cpuspeed                int    `json:"cpuspeed,omitempty"`
-	Zonename                string `json:"zonename,omitempty"`
-	Ipaddress               string `json:"ipaddress,omitempty"`
-	Cpuallocated            string `json:"cpuallocated,omitempty"`
-	Hahost                  bool   `json:"hahost,omitempty"`
+	Cpuused                 string `json:"cpuused,omitempty"`
+	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
+	Created                 string `json:"created,omitempty"`
+	Disconnected            string `json:"disconnected,omitempty"`
 	Disksizeallocated       int    `json:"disksizeallocated,omitempty"`
-	Clusterid               string `json:"clusterid,omitempty"`
-	Oscategoryname          string `json:"oscategoryname,omitempty"`
+	Disksizetotal           int    `json:"disksizetotal,omitempty"`
+	Events                  string `json:"events,omitempty"`
+	Hahost                  bool   `json:"hahost,omitempty"`
+	Hasenoughcapacity       bool   `json:"hasenoughcapacity,omitempty"`
+	Hosttags                string `json:"hosttags,omitempty"`
 	Hypervisor              string `json:"hypervisor,omitempty"`
-	Networkkbswrite         int    `json:"networkkbswrite,omitempty"`
+	Hypervisorversion       string `json:"hypervisorversion,omitempty"`
+	Id                      string `json:"id,omitempty"`
+	Ipaddress               string `json:"ipaddress,omitempty"`
+	Islocalstorageactive    bool   `json:"islocalstorageactive,omitempty"`
+	Lastpinged              string `json:"lastpinged,omitempty"`
+	Managementserverid      int    `json:"managementserverid,omitempty"`
 	Memoryallocated         int    `json:"memoryallocated,omitempty"`
 	Memorytotal             int    `json:"memorytotal,omitempty"`
-	Islocalstorageactive    bool   `json:"islocalstorageactive,omitempty"`
-	Hasenoughcapacity       bool   `json:"hasenoughcapacity,omitempty"`
+	Memoryused              int    `json:"memoryused,omitempty"`
+	Name                    string `json:"name,omitempty"`
+	Networkkbsread          int    `json:"networkkbsread,omitempty"`
+	Networkkbswrite         int    `json:"networkkbswrite,omitempty"`
+	Oscategoryid            string `json:"oscategoryid,omitempty"`
+	Oscategoryname          string `json:"oscategoryname,omitempty"`
 	Podid                   string `json:"podid,omitempty"`
+	Podname                 string `json:"podname,omitempty"`
+	Removed                 string `json:"removed,omitempty"`
+	Resourcestate           string `json:"resourcestate,omitempty"`
+	State                   string `json:"state,omitempty"`
+	Suitableformigration    bool   `json:"suitableformigration,omitempty"`
+	Type                    string `json:"type,omitempty"`
+	Version                 string `json:"version,omitempty"`
 	Zoneid                  string `json:"zoneid,omitempty"`
-	Managementserverid      int    `json:"managementserverid,omitempty"`
+	Zonename                string `json:"zonename,omitempty"`
 }

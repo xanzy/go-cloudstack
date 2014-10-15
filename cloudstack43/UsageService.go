@@ -171,13 +171,13 @@ func (s *UsageService) AddTrafficType(p *AddTrafficTypeParams) (*AddTrafficTypeR
 
 type AddTrafficTypeResponse struct {
 	JobID              string `json:"jobid,omitempty"`
-	Physicalnetworkid  string `json:"physicalnetworkid,omitempty"`
 	Hypervnetworklabel string `json:"hypervnetworklabel,omitempty"`
 	Id                 string `json:"id,omitempty"`
-	Vmwarenetworklabel string `json:"vmwarenetworklabel,omitempty"`
 	Kvmnetworklabel    string `json:"kvmnetworklabel,omitempty"`
-	Xennetworklabel    string `json:"xennetworklabel,omitempty"`
+	Physicalnetworkid  string `json:"physicalnetworkid,omitempty"`
 	Traffictype        string `json:"traffictype,omitempty"`
+	Vmwarenetworklabel string `json:"vmwarenetworklabel,omitempty"`
+	Xennetworklabel    string `json:"xennetworklabel,omitempty"`
 }
 
 type DeleteTrafficTypeParams struct {
@@ -367,13 +367,13 @@ type ListTrafficTypesResponse struct {
 }
 
 type TrafficType struct {
-	Name                         string   `json:"name,omitempty"`
-	Id                           string   `json:"id,omitempty"`
-	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-	State                        string   `json:"state,omitempty"`
 	Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+	Id                           string   `json:"id,omitempty"`
+	Name                         string   `json:"name,omitempty"`
 	Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
 	Servicelist                  []string `json:"servicelist,omitempty"`
+	State                        string   `json:"state,omitempty"`
 }
 
 type UpdateTrafficTypeParams struct {
@@ -490,12 +490,12 @@ func (s *UsageService) UpdateTrafficType(p *UpdateTrafficTypeParams) (*UpdateTra
 
 type UpdateTrafficTypeResponse struct {
 	JobID              string `json:"jobid,omitempty"`
+	Hypervnetworklabel string `json:"hypervnetworklabel,omitempty"`
+	Id                 string `json:"id,omitempty"`
 	Kvmnetworklabel    string `json:"kvmnetworklabel,omitempty"`
-	Vmwarenetworklabel string `json:"vmwarenetworklabel,omitempty"`
 	Physicalnetworkid  string `json:"physicalnetworkid,omitempty"`
 	Traffictype        string `json:"traffictype,omitempty"`
-	Id                 string `json:"id,omitempty"`
-	Hypervnetworklabel string `json:"hypervnetworklabel,omitempty"`
+	Vmwarenetworklabel string `json:"vmwarenetworklabel,omitempty"`
 	Xennetworklabel    string `json:"xennetworklabel,omitempty"`
 }
 
@@ -818,31 +818,31 @@ type ListUsageRecordsResponse struct {
 }
 
 type UsageRecord struct {
-	Networkid        string `json:"networkid,omitempty"`
-	Description      string `json:"description,omitempty"`
-	Offeringid       string `json:"offeringid,omitempty"`
-	Name             string `json:"name,omitempty"`
-	Isdefault        bool   `json:"isdefault,omitempty"`
-	Type             string `json:"type,omitempty"`
-	Virtualsize      int    `json:"virtualsize,omitempty"`
-	Domainid         string `json:"domainid,omitempty"`
 	Account          string `json:"account,omitempty"`
-	Rawusage         string `json:"rawusage,omitempty"`
-	Project          string `json:"project,omitempty"`
-	Usagetype        int    `json:"usagetype,omitempty"`
-	Enddate          string `json:"enddate,omitempty"`
-	Zoneid           string `json:"zoneid,omitempty"`
-	Virtualmachineid string `json:"virtualmachineid,omitempty"`
-	Projectid        string `json:"projectid,omitempty"`
-	Startdate        string `json:"startdate,omitempty"`
-	Domain           string `json:"domain,omitempty"`
 	Accountid        string `json:"accountid,omitempty"`
-	Size             int    `json:"size,omitempty"`
+	Description      string `json:"description,omitempty"`
+	Domain           string `json:"domain,omitempty"`
+	Domainid         string `json:"domainid,omitempty"`
+	Enddate          string `json:"enddate,omitempty"`
+	Isdefault        bool   `json:"isdefault,omitempty"`
 	Issourcenat      bool   `json:"issourcenat,omitempty"`
-	Templateid       string `json:"templateid,omitempty"`
-	Usage            string `json:"usage,omitempty"`
 	Issystem         bool   `json:"issystem,omitempty"`
+	Name             string `json:"name,omitempty"`
+	Networkid        string `json:"networkid,omitempty"`
+	Offeringid       string `json:"offeringid,omitempty"`
+	Project          string `json:"project,omitempty"`
+	Projectid        string `json:"projectid,omitempty"`
+	Rawusage         string `json:"rawusage,omitempty"`
+	Size             int    `json:"size,omitempty"`
+	Startdate        string `json:"startdate,omitempty"`
+	Templateid       string `json:"templateid,omitempty"`
+	Type             string `json:"type,omitempty"`
+	Usage            string `json:"usage,omitempty"`
 	Usageid          string `json:"usageid,omitempty"`
+	Usagetype        int    `json:"usagetype,omitempty"`
+	Virtualmachineid string `json:"virtualmachineid,omitempty"`
+	Virtualsize      int    `json:"virtualsize,omitempty"`
+	Zoneid           string `json:"zoneid,omitempty"`
 }
 
 type ListUsageTypesParams struct {
@@ -970,11 +970,11 @@ func (s *UsageService) AddTrafficMonitor(p *AddTrafficMonitorParams) (*AddTraffi
 }
 
 type AddTrafficMonitorResponse struct {
-	Timeout    string `json:"timeout,omitempty"`
-	Zoneid     string `json:"zoneid,omitempty"`
 	Id         string `json:"id,omitempty"`
 	Ipaddress  string `json:"ipaddress,omitempty"`
 	Numretries string `json:"numretries,omitempty"`
+	Timeout    string `json:"timeout,omitempty"`
+	Zoneid     string `json:"zoneid,omitempty"`
 }
 
 type DeleteTrafficMonitorParams struct {
@@ -1115,9 +1115,9 @@ type ListTrafficMonitorsResponse struct {
 }
 
 type TrafficMonitor struct {
-	Zoneid     string `json:"zoneid,omitempty"`
-	Numretries string `json:"numretries,omitempty"`
-	Ipaddress  string `json:"ipaddress,omitempty"`
-	Timeout    string `json:"timeout,omitempty"`
 	Id         string `json:"id,omitempty"`
+	Ipaddress  string `json:"ipaddress,omitempty"`
+	Numretries string `json:"numretries,omitempty"`
+	Timeout    string `json:"timeout,omitempty"`
+	Zoneid     string `json:"zoneid,omitempty"`
 }

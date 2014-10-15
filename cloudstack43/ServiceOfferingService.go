@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type CreateServiceOfferingParams struct {
@@ -308,32 +309,32 @@ func (s *ServiceOfferingService) CreateServiceOffering(p *CreateServiceOfferingP
 }
 
 type CreateServiceOfferingResponse struct {
-	Issystem               bool              `json:"issystem,omitempty"`
-	Limitcpuuse            bool              `json:"limitcpuuse,omitempty"`
-	Memory                 int               `json:"memory,omitempty"`
+	Cpunumber              int               `json:"cpunumber,omitempty"`
+	Cpuspeed               int               `json:"cpuspeed,omitempty"`
+	Created                string            `json:"created,omitempty"`
+	Defaultuse             bool              `json:"defaultuse,omitempty"`
+	Deploymentplanner      string            `json:"deploymentplanner,omitempty"`
+	DiskBytesReadRate      int               `json:"diskBytesReadRate,omitempty"`
 	DiskBytesWriteRate     int               `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate       int               `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate      int               `json:"diskIopsWriteRate,omitempty"`
+	Displaytext            string            `json:"displaytext,omitempty"`
 	Domain                 string            `json:"domain,omitempty"`
 	Domainid               string            `json:"domainid,omitempty"`
+	Hosttags               string            `json:"hosttags,omitempty"`
+	Id                     string            `json:"id,omitempty"`
+	Iscustomized           bool              `json:"iscustomized,omitempty"`
+	Issystem               bool              `json:"issystem,omitempty"`
 	Isvolatile             bool              `json:"isvolatile,omitempty"`
-	Systemvmtype           string            `json:"systemvmtype,omitempty"`
-	Tags                   string            `json:"tags,omitempty"`
-	Cpuspeed               int               `json:"cpuspeed,omitempty"`
-	Cpunumber              int               `json:"cpunumber,omitempty"`
+	Limitcpuuse            bool              `json:"limitcpuuse,omitempty"`
+	Memory                 int               `json:"memory,omitempty"`
+	Name                   string            `json:"name,omitempty"`
+	Networkrate            int               `json:"networkrate,omitempty"`
 	Offerha                bool              `json:"offerha,omitempty"`
 	Serviceofferingdetails map[string]string `json:"serviceofferingdetails,omitempty"`
-	DiskBytesReadRate      int               `json:"diskBytesReadRate,omitempty"`
 	Storagetype            string            `json:"storagetype,omitempty"`
-	DiskIopsWriteRate      int               `json:"diskIopsWriteRate,omitempty"`
-	Name                   string            `json:"name,omitempty"`
-	DiskIopsReadRate       int               `json:"diskIopsReadRate,omitempty"`
-	Defaultuse             bool              `json:"defaultuse,omitempty"`
-	Id                     string            `json:"id,omitempty"`
-	Hosttags               string            `json:"hosttags,omitempty"`
-	Networkrate            int               `json:"networkrate,omitempty"`
-	Iscustomized           bool              `json:"iscustomized,omitempty"`
-	Deploymentplanner      string            `json:"deploymentplanner,omitempty"`
-	Displaytext            string            `json:"displaytext,omitempty"`
-	Created                string            `json:"created,omitempty"`
+	Systemvmtype           string            `json:"systemvmtype,omitempty"`
+	Tags                   string            `json:"tags,omitempty"`
 }
 
 type DeleteServiceOfferingParams struct {
@@ -468,32 +469,32 @@ func (s *ServiceOfferingService) UpdateServiceOffering(p *UpdateServiceOfferingP
 }
 
 type UpdateServiceOfferingResponse struct {
-	Networkrate            int               `json:"networkrate,omitempty"`
-	Systemvmtype           string            `json:"systemvmtype,omitempty"`
-	DiskBytesReadRate      int               `json:"diskBytesReadRate,omitempty"`
-	DiskIopsWriteRate      int               `json:"diskIopsWriteRate,omitempty"`
-	Isvolatile             bool              `json:"isvolatile,omitempty"`
-	Issystem               bool              `json:"issystem,omitempty"`
 	Cpunumber              int               `json:"cpunumber,omitempty"`
-	Domain                 string            `json:"domain,omitempty"`
-	Created                string            `json:"created,omitempty"`
 	Cpuspeed               int               `json:"cpuspeed,omitempty"`
-	Serviceofferingdetails map[string]string `json:"serviceofferingdetails,omitempty"`
-	Limitcpuuse            bool              `json:"limitcpuuse,omitempty"`
-	Iscustomized           bool              `json:"iscustomized,omitempty"`
-	Domainid               string            `json:"domainid,omitempty"`
+	Created                string            `json:"created,omitempty"`
 	Defaultuse             bool              `json:"defaultuse,omitempty"`
-	Offerha                bool              `json:"offerha,omitempty"`
-	DiskIopsReadRate       int               `json:"diskIopsReadRate,omitempty"`
-	Hosttags               string            `json:"hosttags,omitempty"`
-	Name                   string            `json:"name,omitempty"`
-	Memory                 int               `json:"memory,omitempty"`
-	Displaytext            string            `json:"displaytext,omitempty"`
 	Deploymentplanner      string            `json:"deploymentplanner,omitempty"`
+	DiskBytesReadRate      int               `json:"diskBytesReadRate,omitempty"`
 	DiskBytesWriteRate     int               `json:"diskBytesWriteRate,omitempty"`
-	Tags                   string            `json:"tags,omitempty"`
+	DiskIopsReadRate       int               `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate      int               `json:"diskIopsWriteRate,omitempty"`
+	Displaytext            string            `json:"displaytext,omitempty"`
+	Domain                 string            `json:"domain,omitempty"`
+	Domainid               string            `json:"domainid,omitempty"`
+	Hosttags               string            `json:"hosttags,omitempty"`
 	Id                     string            `json:"id,omitempty"`
+	Iscustomized           bool              `json:"iscustomized,omitempty"`
+	Issystem               bool              `json:"issystem,omitempty"`
+	Isvolatile             bool              `json:"isvolatile,omitempty"`
+	Limitcpuuse            bool              `json:"limitcpuuse,omitempty"`
+	Memory                 int               `json:"memory,omitempty"`
+	Name                   string            `json:"name,omitempty"`
+	Networkrate            int               `json:"networkrate,omitempty"`
+	Offerha                bool              `json:"offerha,omitempty"`
+	Serviceofferingdetails map[string]string `json:"serviceofferingdetails,omitempty"`
 	Storagetype            string            `json:"storagetype,omitempty"`
+	Systemvmtype           string            `json:"systemvmtype,omitempty"`
+	Tags                   string            `json:"tags,omitempty"`
 }
 
 type ListServiceOfferingsParams struct {
@@ -674,7 +675,9 @@ func (s *ServiceOfferingService) GetServiceOfferingByID(id string) (*ServiceOffe
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -704,30 +707,30 @@ type ListServiceOfferingsResponse struct {
 }
 
 type ServiceOffering struct {
-	Networkrate            int               `json:"networkrate,omitempty"`
-	Issystem               bool              `json:"issystem,omitempty"`
-	Iscustomized           bool              `json:"iscustomized,omitempty"`
-	Offerha                bool              `json:"offerha,omitempty"`
-	DiskIopsReadRate       int               `json:"diskIopsReadRate,omitempty"`
-	Created                string            `json:"created,omitempty"`
-	Limitcpuuse            bool              `json:"limitcpuuse,omitempty"`
-	Domainid               string            `json:"domainid,omitempty"`
-	Displaytext            string            `json:"displaytext,omitempty"`
-	DiskBytesReadRate      int               `json:"diskBytesReadRate,omitempty"`
+	Cpunumber              int               `json:"cpunumber,omitempty"`
 	Cpuspeed               int               `json:"cpuspeed,omitempty"`
-	Name                   string            `json:"name,omitempty"`
+	Created                string            `json:"created,omitempty"`
+	Defaultuse             bool              `json:"defaultuse,omitempty"`
+	Deploymentplanner      string            `json:"deploymentplanner,omitempty"`
+	DiskBytesReadRate      int               `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate     int               `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate       int               `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate      int               `json:"diskIopsWriteRate,omitempty"`
+	Displaytext            string            `json:"displaytext,omitempty"`
+	Domain                 string            `json:"domain,omitempty"`
+	Domainid               string            `json:"domainid,omitempty"`
 	Hosttags               string            `json:"hosttags,omitempty"`
+	Id                     string            `json:"id,omitempty"`
+	Iscustomized           bool              `json:"iscustomized,omitempty"`
+	Issystem               bool              `json:"issystem,omitempty"`
 	Isvolatile             bool              `json:"isvolatile,omitempty"`
+	Limitcpuuse            bool              `json:"limitcpuuse,omitempty"`
+	Memory                 int               `json:"memory,omitempty"`
+	Name                   string            `json:"name,omitempty"`
+	Networkrate            int               `json:"networkrate,omitempty"`
+	Offerha                bool              `json:"offerha,omitempty"`
+	Serviceofferingdetails map[string]string `json:"serviceofferingdetails,omitempty"`
 	Storagetype            string            `json:"storagetype,omitempty"`
 	Systemvmtype           string            `json:"systemvmtype,omitempty"`
-	Domain                 string            `json:"domain,omitempty"`
-	Deploymentplanner      string            `json:"deploymentplanner,omitempty"`
-	Memory                 int               `json:"memory,omitempty"`
-	DiskBytesWriteRate     int               `json:"diskBytesWriteRate,omitempty"`
 	Tags                   string            `json:"tags,omitempty"`
-	DiskIopsWriteRate      int               `json:"diskIopsWriteRate,omitempty"`
-	Cpunumber              int               `json:"cpunumber,omitempty"`
-	Id                     string            `json:"id,omitempty"`
-	Defaultuse             bool              `json:"defaultuse,omitempty"`
-	Serviceofferingdetails map[string]string `json:"serviceofferingdetails,omitempty"`
 }

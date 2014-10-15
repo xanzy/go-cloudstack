@@ -104,10 +104,10 @@ func (s *BigSwitchVNSService) AddBigSwitchVnsDevice(p *AddBigSwitchVnsDevicePara
 
 type AddBigSwitchVnsDeviceResponse struct {
 	JobID               string `json:"jobid,omitempty"`
-	Physicalnetworkid   string `json:"physicalnetworkid,omitempty"`
-	Hostname            string `json:"hostname,omitempty"`
-	Provider            string `json:"provider,omitempty"`
 	Bigswitchdevicename string `json:"bigswitchdevicename,omitempty"`
+	Hostname            string `json:"hostname,omitempty"`
+	Physicalnetworkid   string `json:"physicalnetworkid,omitempty"`
+	Provider            string `json:"provider,omitempty"`
 	Vnsdeviceid         string `json:"vnsdeviceid,omitempty"`
 }
 
@@ -277,9 +277,9 @@ type ListBigSwitchVnsDevicesResponse struct {
 }
 
 type BigSwitchVnsDevice struct {
+	Bigswitchdevicename string `json:"bigswitchdevicename,omitempty"`
+	Hostname            string `json:"hostname,omitempty"`
 	Physicalnetworkid   string `json:"physicalnetworkid,omitempty"`
 	Provider            string `json:"provider,omitempty"`
 	Vnsdeviceid         string `json:"vnsdeviceid,omitempty"`
-	Bigswitchdevicename string `json:"bigswitchdevicename,omitempty"`
-	Hostname            string `json:"hostname,omitempty"`
 }

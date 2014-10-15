@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type CreateDiskOfferingParams struct {
@@ -247,24 +248,24 @@ func (s *DiskOfferingService) CreateDiskOffering(p *CreateDiskOfferingParams) (*
 }
 
 type CreateDiskOfferingResponse struct {
-	Iscustomizediops   bool   `json:"iscustomizediops,omitempty"`
-	DiskBytesWriteRate int    `json:"diskBytesWriteRate,omitempty"`
-	Tags               string `json:"tags,omitempty"`
-	Maxiops            int    `json:"maxiops,omitempty"`
-	Domainid           string `json:"domainid,omitempty"`
-	DiskIopsReadRate   int    `json:"diskIopsReadRate,omitempty"`
-	Miniops            int    `json:"miniops,omitempty"`
-	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
-	Domain             string `json:"domain,omitempty"`
 	Created            string `json:"created,omitempty"`
+	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate int    `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate   int    `json:"diskIopsReadRate,omitempty"`
 	DiskIopsWriteRate  int    `json:"diskIopsWriteRate,omitempty"`
 	Disksize           int    `json:"disksize,omitempty"`
 	Displayoffering    bool   `json:"displayoffering,omitempty"`
-	Id                 string `json:"id,omitempty"`
-	Name               string `json:"name,omitempty"`
 	Displaytext        string `json:"displaytext,omitempty"`
-	Storagetype        string `json:"storagetype,omitempty"`
+	Domain             string `json:"domain,omitempty"`
+	Domainid           string `json:"domainid,omitempty"`
+	Id                 string `json:"id,omitempty"`
 	Iscustomized       bool   `json:"iscustomized,omitempty"`
+	Iscustomizediops   bool   `json:"iscustomizediops,omitempty"`
+	Maxiops            int    `json:"maxiops,omitempty"`
+	Miniops            int    `json:"miniops,omitempty"`
+	Name               string `json:"name,omitempty"`
+	Storagetype        string `json:"storagetype,omitempty"`
+	Tags               string `json:"tags,omitempty"`
 }
 
 type UpdateDiskOfferingParams struct {
@@ -360,24 +361,24 @@ func (s *DiskOfferingService) UpdateDiskOffering(p *UpdateDiskOfferingParams) (*
 }
 
 type UpdateDiskOfferingResponse struct {
-	Domain             string `json:"domain,omitempty"`
+	Created            string `json:"created,omitempty"`
+	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate int    `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate   int    `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate  int    `json:"diskIopsWriteRate,omitempty"`
 	Disksize           int    `json:"disksize,omitempty"`
 	Displayoffering    bool   `json:"displayoffering,omitempty"`
-	Iscustomizediops   bool   `json:"iscustomizediops,omitempty"`
-	DiskIopsReadRate   int    `json:"diskIopsReadRate,omitempty"`
-	Id                 string `json:"id,omitempty"`
-	DiskBytesWriteRate int    `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsWriteRate  int    `json:"diskIopsWriteRate,omitempty"`
-	Domainid           string `json:"domainid,omitempty"`
-	Created            string `json:"created,omitempty"`
-	Name               string `json:"name,omitempty"`
 	Displaytext        string `json:"displaytext,omitempty"`
-	Storagetype        string `json:"storagetype,omitempty"`
-	Tags               string `json:"tags,omitempty"`
+	Domain             string `json:"domain,omitempty"`
+	Domainid           string `json:"domainid,omitempty"`
+	Id                 string `json:"id,omitempty"`
 	Iscustomized       bool   `json:"iscustomized,omitempty"`
-	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
+	Iscustomizediops   bool   `json:"iscustomizediops,omitempty"`
 	Maxiops            int    `json:"maxiops,omitempty"`
 	Miniops            int    `json:"miniops,omitempty"`
+	Name               string `json:"name,omitempty"`
+	Storagetype        string `json:"storagetype,omitempty"`
+	Tags               string `json:"tags,omitempty"`
 }
 
 type DeleteDiskOfferingParams struct {
@@ -575,7 +576,9 @@ func (s *DiskOfferingService) GetDiskOfferingByID(id string) (*DiskOffering, int
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -605,22 +608,22 @@ type ListDiskOfferingsResponse struct {
 }
 
 type DiskOffering struct {
-	Maxiops            int    `json:"maxiops,omitempty"`
-	Displaytext        string `json:"displaytext,omitempty"`
-	DiskIopsReadRate   int    `json:"diskIopsReadRate,omitempty"`
-	DiskBytesWriteRate int    `json:"diskBytesWriteRate,omitempty"`
-	Name               string `json:"name,omitempty"`
-	Disksize           int    `json:"disksize,omitempty"`
-	Tags               string `json:"tags,omitempty"`
-	Displayoffering    bool   `json:"displayoffering,omitempty"`
-	Miniops            int    `json:"miniops,omitempty"`
-	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
-	Iscustomizediops   bool   `json:"iscustomizediops,omitempty"`
-	DiskIopsWriteRate  int    `json:"diskIopsWriteRate,omitempty"`
-	Storagetype        string `json:"storagetype,omitempty"`
 	Created            string `json:"created,omitempty"`
-	Domainid           string `json:"domainid,omitempty"`
-	Iscustomized       bool   `json:"iscustomized,omitempty"`
-	Id                 string `json:"id,omitempty"`
+	DiskBytesReadRate  int    `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate int    `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate   int    `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate  int    `json:"diskIopsWriteRate,omitempty"`
+	Disksize           int    `json:"disksize,omitempty"`
+	Displayoffering    bool   `json:"displayoffering,omitempty"`
+	Displaytext        string `json:"displaytext,omitempty"`
 	Domain             string `json:"domain,omitempty"`
+	Domainid           string `json:"domainid,omitempty"`
+	Id                 string `json:"id,omitempty"`
+	Iscustomized       bool   `json:"iscustomized,omitempty"`
+	Iscustomizediops   bool   `json:"iscustomizediops,omitempty"`
+	Maxiops            int    `json:"maxiops,omitempty"`
+	Miniops            int    `json:"miniops,omitempty"`
+	Name               string `json:"name,omitempty"`
+	Storagetype        string `json:"storagetype,omitempty"`
+	Tags               string `json:"tags,omitempty"`
 }

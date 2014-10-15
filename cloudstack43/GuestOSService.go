@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type ListOsTypesParams struct {
@@ -123,7 +124,9 @@ func (s *GuestOSService) GetOsTypeByID(id string) (*OsType, int, error) {
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -154,8 +157,8 @@ type ListOsTypesResponse struct {
 
 type OsType struct {
 	Description  string `json:"description,omitempty"`
-	Oscategoryid string `json:"oscategoryid,omitempty"`
 	Id           string `json:"id,omitempty"`
+	Oscategoryid string `json:"oscategoryid,omitempty"`
 }
 
 type ListOsCategoriesParams struct {
@@ -291,7 +294,9 @@ func (s *GuestOSService) GetOsCategoryByID(id string) (*OsCategory, int, error) 
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -321,6 +326,6 @@ type ListOsCategoriesResponse struct {
 }
 
 type OsCategory struct {
-	Name string `json:"name,omitempty"`
 	Id   string `json:"id,omitempty"`
+	Name string `json:"name,omitempty"`
 }

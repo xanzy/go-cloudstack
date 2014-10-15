@@ -227,7 +227,9 @@ func (s *EventService) GetEventByID(id string) (*Event, int, error) {
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -257,19 +259,19 @@ type ListEventsResponse struct {
 }
 
 type Event struct {
-	Domainid    string `json:"domainid,omitempty"`
-	Parentid    string `json:"parentid,omitempty"`
-	State       string `json:"state,omitempty"`
 	Account     string `json:"account,omitempty"`
 	Created     string `json:"created,omitempty"`
-	Project     string `json:"project,omitempty"`
-	Username    string `json:"username,omitempty"`
-	Projectid   string `json:"projectid,omitempty"`
-	Id          string `json:"id,omitempty"`
-	Type        string `json:"type,omitempty"`
 	Description string `json:"description,omitempty"`
 	Domain      string `json:"domain,omitempty"`
+	Domainid    string `json:"domainid,omitempty"`
+	Id          string `json:"id,omitempty"`
 	Level       string `json:"level,omitempty"`
+	Parentid    string `json:"parentid,omitempty"`
+	Project     string `json:"project,omitempty"`
+	Projectid   string `json:"projectid,omitempty"`
+	State       string `json:"state,omitempty"`
+	Type        string `json:"type,omitempty"`
+	Username    string `json:"username,omitempty"`
 }
 
 type ListEventTypesParams struct {

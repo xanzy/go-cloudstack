@@ -73,24 +73,24 @@ type ListApisResponse struct {
 
 type Api struct {
 	Description string `json:"description,omitempty"`
+	Isasync     bool   `json:"isasync,omitempty"`
 	Name        string `json:"name,omitempty"`
-	Response    []struct {
-		Response    []string `json:"response,omitempty"`
-		Type        string   `json:"type,omitempty"`
-		Name        string   `json:"name,omitempty"`
-		Description string   `json:"description,omitempty"`
-	} `json:"response,omitempty"`
-	Isasync bool   `json:"isasync,omitempty"`
-	Type    string `json:"type,omitempty"`
-	Since   string `json:"since,omitempty"`
-	Params  []struct {
+	Params      []struct {
+		Description string `json:"description,omitempty"`
+		Length      int    `json:"length,omitempty"`
+		Name        string `json:"name,omitempty"`
 		Related     string `json:"related,omitempty"`
 		Required    bool   `json:"required,omitempty"`
-		Length      int    `json:"length,omitempty"`
 		Since       string `json:"since,omitempty"`
 		Type        string `json:"type,omitempty"`
-		Name        string `json:"name,omitempty"`
-		Description string `json:"description,omitempty"`
 	} `json:"params,omitempty"`
-	Related string `json:"related,omitempty"`
+	Related  string `json:"related,omitempty"`
+	Response []struct {
+		Description string   `json:"description,omitempty"`
+		Name        string   `json:"name,omitempty"`
+		Response    []string `json:"response,omitempty"`
+		Type        string   `json:"type,omitempty"`
+	} `json:"response,omitempty"`
+	Since string `json:"since,omitempty"`
+	Type  string `json:"type,omitempty"`
 }

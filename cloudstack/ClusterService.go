@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type AddClusterParams struct {
@@ -239,30 +240,30 @@ func (s *ClusterService) AddCluster(p *AddClusterParams) (*AddClusterResponse, e
 }
 
 type AddClusterResponse struct {
-	Allocationstate       string `json:"allocationstate,omitempty"`
-	Zonename              string `json:"zonename,omitempty"`
-	Podname               string `json:"podname,omitempty"`
-	Name                  string `json:"name,omitempty"`
-	Memoryovercommitratio string `json:"memoryovercommitratio,omitempty"`
-	Capacity              []struct {
+	Allocationstate string `json:"allocationstate,omitempty"`
+	Capacity        []struct {
 		Capacitytotal int    `json:"capacitytotal,omitempty"`
+		Capacityused  int    `json:"capacityused,omitempty"`
+		Clusterid     string `json:"clusterid,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
 		Percentused   string `json:"percentused,omitempty"`
-		Type          int    `json:"type,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
 		Podid         string `json:"podid,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
 		Podname       string `json:"podname,omitempty"`
+		Type          int    `json:"type,omitempty"`
 		Zoneid        string `json:"zoneid,omitempty"`
+		Zonename      string `json:"zonename,omitempty"`
 	} `json:"capacity,omitempty"`
-	Podid              string `json:"podid,omitempty"`
-	Zoneid             string `json:"zoneid,omitempty"`
-	Managedstate       string `json:"managedstate,omitempty"`
-	Hypervisortype     string `json:"hypervisortype,omitempty"`
-	Cpuovercommitratio string `json:"cpuovercommitratio,omitempty"`
-	Clustertype        string `json:"clustertype,omitempty"`
-	Id                 string `json:"id,omitempty"`
+	Clustertype           string `json:"clustertype,omitempty"`
+	Cpuovercommitratio    string `json:"cpuovercommitratio,omitempty"`
+	Hypervisortype        string `json:"hypervisortype,omitempty"`
+	Id                    string `json:"id,omitempty"`
+	Managedstate          string `json:"managedstate,omitempty"`
+	Memoryovercommitratio string `json:"memoryovercommitratio,omitempty"`
+	Name                  string `json:"name,omitempty"`
+	Podid                 string `json:"podid,omitempty"`
+	Podname               string `json:"podname,omitempty"`
+	Zoneid                string `json:"zoneid,omitempty"`
+	Zonename              string `json:"zonename,omitempty"`
 }
 
 type DeleteClusterParams struct {
@@ -312,8 +313,8 @@ func (s *ClusterService) DeleteCluster(p *DeleteClusterParams) (*DeleteClusterRe
 }
 
 type DeleteClusterResponse struct {
-	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type UpdateClusterParams struct {
@@ -418,30 +419,30 @@ func (s *ClusterService) UpdateCluster(p *UpdateClusterParams) (*UpdateClusterRe
 }
 
 type UpdateClusterResponse struct {
-	Managedstate          string `json:"managedstate,omitempty"`
-	Id                    string `json:"id,omitempty"`
-	Zonename              string `json:"zonename,omitempty"`
-	Hypervisortype        string `json:"hypervisortype,omitempty"`
-	Name                  string `json:"name,omitempty"`
-	Memoryovercommitratio string `json:"memoryovercommitratio,omitempty"`
-	Podname               string `json:"podname,omitempty"`
-	Clustertype           string `json:"clustertype,omitempty"`
-	Allocationstate       string `json:"allocationstate,omitempty"`
-	Podid                 string `json:"podid,omitempty"`
-	Capacity              []struct {
+	Allocationstate string `json:"allocationstate,omitempty"`
+	Capacity        []struct {
 		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
-		Type          int    `json:"type,omitempty"`
 		Capacityused  int    `json:"capacityused,omitempty"`
 		Clusterid     string `json:"clusterid,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Podname       string `json:"podname,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
 		Percentused   string `json:"percentused,omitempty"`
+		Podid         string `json:"podid,omitempty"`
+		Podname       string `json:"podname,omitempty"`
+		Type          int    `json:"type,omitempty"`
+		Zoneid        string `json:"zoneid,omitempty"`
+		Zonename      string `json:"zonename,omitempty"`
 	} `json:"capacity,omitempty"`
-	Cpuovercommitratio string `json:"cpuovercommitratio,omitempty"`
-	Zoneid             string `json:"zoneid,omitempty"`
+	Clustertype           string `json:"clustertype,omitempty"`
+	Cpuovercommitratio    string `json:"cpuovercommitratio,omitempty"`
+	Hypervisortype        string `json:"hypervisortype,omitempty"`
+	Id                    string `json:"id,omitempty"`
+	Managedstate          string `json:"managedstate,omitempty"`
+	Memoryovercommitratio string `json:"memoryovercommitratio,omitempty"`
+	Name                  string `json:"name,omitempty"`
+	Podid                 string `json:"podid,omitempty"`
+	Podname               string `json:"podname,omitempty"`
+	Zoneid                string `json:"zoneid,omitempty"`
+	Zonename              string `json:"zonename,omitempty"`
 }
 
 type ListClustersParams struct {
@@ -655,7 +656,9 @@ func (s *ClusterService) GetClusterByID(id string) (*Cluster, int, error) {
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -685,30 +688,30 @@ type ListClustersResponse struct {
 }
 
 type Cluster struct {
-	Allocationstate       string `json:"allocationstate,omitempty"`
-	Zoneid                string `json:"zoneid,omitempty"`
-	Cpuovercommitratio    string `json:"cpuovercommitratio,omitempty"`
+	Allocationstate string `json:"allocationstate,omitempty"`
+	Capacity        []struct {
+		Capacitytotal int    `json:"capacitytotal,omitempty"`
+		Capacityused  int    `json:"capacityused,omitempty"`
+		Clusterid     string `json:"clusterid,omitempty"`
+		Clustername   string `json:"clustername,omitempty"`
+		Percentused   string `json:"percentused,omitempty"`
+		Podid         string `json:"podid,omitempty"`
+		Podname       string `json:"podname,omitempty"`
+		Type          int    `json:"type,omitempty"`
+		Zoneid        string `json:"zoneid,omitempty"`
+		Zonename      string `json:"zonename,omitempty"`
+	} `json:"capacity,omitempty"`
 	Clustertype           string `json:"clustertype,omitempty"`
+	Cpuovercommitratio    string `json:"cpuovercommitratio,omitempty"`
+	Hypervisortype        string `json:"hypervisortype,omitempty"`
+	Id                    string `json:"id,omitempty"`
 	Managedstate          string `json:"managedstate,omitempty"`
 	Memoryovercommitratio string `json:"memoryovercommitratio,omitempty"`
-	Podname               string `json:"podname,omitempty"`
+	Name                  string `json:"name,omitempty"`
 	Podid                 string `json:"podid,omitempty"`
+	Podname               string `json:"podname,omitempty"`
+	Zoneid                string `json:"zoneid,omitempty"`
 	Zonename              string `json:"zonename,omitempty"`
-	Capacity              []struct {
-		Type          int    `json:"type,omitempty"`
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
-		Clustername   string `json:"clustername,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-	} `json:"capacity,omitempty"`
-	Name           string `json:"name,omitempty"`
-	Id             string `json:"id,omitempty"`
-	Hypervisortype string `json:"hypervisortype,omitempty"`
 }
 
 type DedicateClusterParams struct {
@@ -804,12 +807,12 @@ func (s *ClusterService) DedicateCluster(p *DedicateClusterParams) (*DedicateClu
 
 type DedicateClusterResponse struct {
 	JobID           string `json:"jobid,omitempty"`
-	Id              string `json:"id,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Clustername     string `json:"clustername,omitempty"`
-	Clusterid       string `json:"clusterid,omitempty"`
 	Accountid       string `json:"accountid,omitempty"`
+	Affinitygroupid string `json:"affinitygroupid,omitempty"`
+	Clusterid       string `json:"clusterid,omitempty"`
+	Clustername     string `json:"clustername,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Id              string `json:"id,omitempty"`
 }
 
 type ReleaseDedicatedClusterParams struct {
@@ -877,8 +880,8 @@ func (s *ClusterService) ReleaseDedicatedCluster(p *ReleaseDedicatedClusterParam
 
 type ReleaseDedicatedClusterResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type ListDedicatedClustersParams struct {
@@ -1000,10 +1003,10 @@ type ListDedicatedClustersResponse struct {
 }
 
 type DedicatedCluster struct {
+	Accountid       string `json:"accountid,omitempty"`
+	Affinitygroupid string `json:"affinitygroupid,omitempty"`
 	Clusterid       string `json:"clusterid,omitempty"`
 	Clustername     string `json:"clustername,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
 	Domainid        string `json:"domainid,omitempty"`
 	Id              string `json:"id,omitempty"`
-	Accountid       string `json:"accountid,omitempty"`
 }
