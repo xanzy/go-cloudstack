@@ -153,15 +153,15 @@ func (s *S3Service) AddS3(p *AddS3Params) (*AddS3Response, error) {
 }
 
 type AddS3Response struct {
-	Zonename     string   `json:"zonename,omitempty"`
-	Id           string   `json:"id,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Name         string   `json:"name,omitempty"`
-	Providername string   `json:"providername,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
 	Details      []string `json:"details,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
+	Id           string   `json:"id,omitempty"`
+	Name         string   `json:"name,omitempty"`
 	Protocol     string   `json:"protocol,omitempty"`
+	Providername string   `json:"providername,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
+	Url          string   `json:"url,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Zonename     string   `json:"zonename,omitempty"`
 }
 
 type ListS3sParams struct {
@@ -269,13 +269,13 @@ type ListS3sResponse struct {
 }
 
 type S3 struct {
-	Scope        string   `json:"scope,omitempty"`
 	Details      []string `json:"details,omitempty"`
-	Zonename     string   `json:"zonename,omitempty"`
-	Name         string   `json:"name,omitempty"`
 	Id           string   `json:"id,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
+	Name         string   `json:"name,omitempty"`
 	Protocol     string   `json:"protocol,omitempty"`
-	Url          string   `json:"url,omitempty"`
 	Providername string   `json:"providername,omitempty"`
+	Scope        string   `json:"scope,omitempty"`
+	Url          string   `json:"url,omitempty"`
+	Zoneid       string   `json:"zoneid,omitempty"`
+	Zonename     string   `json:"zonename,omitempty"`
 }

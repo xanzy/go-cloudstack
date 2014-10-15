@@ -209,31 +209,31 @@ func (s *NetworkACLService) CreateNetworkACL(p *CreateNetworkACLParams) (*Create
 }
 
 type CreateNetworkACLResponse struct {
-	JobID string `json:"jobid,omitempty"`
-	Tags  []struct {
+	JobID     string `json:"jobid,omitempty"`
+	Aclid     string `json:"aclid,omitempty"`
+	Action    string `json:"action,omitempty"`
+	Cidrlist  string `json:"cidrlist,omitempty"`
+	Endport   string `json:"endport,omitempty"`
+	Icmpcode  int    `json:"icmpcode,omitempty"`
+	Icmptype  int    `json:"icmptype,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Number    int    `json:"number,omitempty"`
+	Protocol  string `json:"protocol,omitempty"`
+	Startport string `json:"startport,omitempty"`
+	State     string `json:"state,omitempty"`
+	Tags      []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
 		Projectid    string `json:"projectid,omitempty"`
 		Resourceid   string `json:"resourceid,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Account      string `json:"account,omitempty"`
 		Resourcetype string `json:"resourcetype,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Domain       string `json:"domain,omitempty"`
+		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Icmptype    int    `json:"icmptype,omitempty"`
-	Icmpcode    int    `json:"icmpcode,omitempty"`
 	Traffictype string `json:"traffictype,omitempty"`
-	Protocol    string `json:"protocol,omitempty"`
-	Startport   string `json:"startport,omitempty"`
-	State       string `json:"state,omitempty"`
-	Number      int    `json:"number,omitempty"`
-	Action      string `json:"action,omitempty"`
-	Endport     string `json:"endport,omitempty"`
-	Cidrlist    string `json:"cidrlist,omitempty"`
-	Aclid       string `json:"aclid,omitempty"`
-	Id          string `json:"id,omitempty"`
 }
 
 type UpdateNetworkACLItemParams struct {
@@ -411,30 +411,30 @@ func (s *NetworkACLService) UpdateNetworkACLItem(p *UpdateNetworkACLItemParams) 
 
 type UpdateNetworkACLItemResponse struct {
 	JobID     string `json:"jobid,omitempty"`
-	Protocol  string `json:"protocol,omitempty"`
+	Aclid     string `json:"aclid,omitempty"`
 	Action    string `json:"action,omitempty"`
+	Cidrlist  string `json:"cidrlist,omitempty"`
+	Endport   string `json:"endport,omitempty"`
 	Icmpcode  int    `json:"icmpcode,omitempty"`
+	Icmptype  int    `json:"icmptype,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Number    int    `json:"number,omitempty"`
+	Protocol  string `json:"protocol,omitempty"`
 	Startport string `json:"startport,omitempty"`
 	State     string `json:"state,omitempty"`
-	Cidrlist  string `json:"cidrlist,omitempty"`
 	Tags      []struct {
-		Resourceid   string `json:"resourceid,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Key          string `json:"key,omitempty"`
 		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
 		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
 		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Endport     string `json:"endport,omitempty"`
-	Number      int    `json:"number,omitempty"`
-	Id          string `json:"id,omitempty"`
 	Traffictype string `json:"traffictype,omitempty"`
-	Aclid       string `json:"aclid,omitempty"`
-	Icmptype    int    `json:"icmptype,omitempty"`
 }
 
 type DeleteNetworkACLParams struct {
@@ -712,7 +712,9 @@ func (s *NetworkACLService) GetNetworkACLByID(id string) (*NetworkACL, int, erro
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -742,29 +744,29 @@ type ListNetworkACLsResponse struct {
 }
 
 type NetworkACL struct {
-	Cidrlist  string `json:"cidrlist,omitempty"`
-	Icmpcode  int    `json:"icmpcode,omitempty"`
 	Aclid     string `json:"aclid,omitempty"`
-	Icmptype  int    `json:"icmptype,omitempty"`
-	Startport string `json:"startport,omitempty"`
 	Action    string `json:"action,omitempty"`
+	Cidrlist  string `json:"cidrlist,omitempty"`
+	Endport   string `json:"endport,omitempty"`
+	Icmpcode  int    `json:"icmpcode,omitempty"`
+	Icmptype  int    `json:"icmptype,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Number    int    `json:"number,omitempty"`
 	Protocol  string `json:"protocol,omitempty"`
+	Startport string `json:"startport,omitempty"`
+	State     string `json:"state,omitempty"`
 	Tags      []struct {
 		Account      string `json:"account,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
 		Customer     string `json:"customer,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
 		Domain       string `json:"domain,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Value        string `json:"value,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
 		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Number      int    `json:"number,omitempty"`
-	Endport     string `json:"endport,omitempty"`
-	State       string `json:"state,omitempty"`
-	Id          string `json:"id,omitempty"`
 	Traffictype string `json:"traffictype,omitempty"`
 }
 
@@ -862,9 +864,9 @@ func (s *NetworkACLService) CreateNetworkACLList(p *CreateNetworkACLListParams) 
 type CreateNetworkACLListResponse struct {
 	JobID       string `json:"jobid,omitempty"`
 	Description string `json:"description,omitempty"`
+	Id          string `json:"id,omitempty"`
 	Name        string `json:"name,omitempty"`
 	Vpcid       string `json:"vpcid,omitempty"`
-	Id          string `json:"id,omitempty"`
 }
 
 type DeleteNetworkACLListParams struct {
@@ -1239,7 +1241,9 @@ func (s *NetworkACLService) GetNetworkACLListByID(id string) (*NetworkACLList, i
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -1269,8 +1273,8 @@ type ListNetworkACLListsResponse struct {
 }
 
 type NetworkACLList struct {
-	Name        string `json:"name,omitempty"`
 	Description string `json:"description,omitempty"`
-	Vpcid       string `json:"vpcid,omitempty"`
 	Id          string `json:"id,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Vpcid       string `json:"vpcid,omitempty"`
 }

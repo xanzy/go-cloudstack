@@ -476,11 +476,11 @@ func (s *BaremetalService) AddBaremetalDhcp(p *AddBaremetalDhcpParams) (*AddBare
 
 type AddBaremetalDhcpResponse struct {
 	JobID             string `json:"jobid,omitempty"`
-	Url               string `json:"url,omitempty"`
 	Dhcpservertype    string `json:"dhcpservertype,omitempty"`
-	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 	Id                string `json:"id,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 	Provider          string `json:"provider,omitempty"`
+	Url               string `json:"url,omitempty"`
 }
 
 type ListBaremetalDhcpParams struct {
@@ -581,11 +581,11 @@ type ListBaremetalDhcpResponse struct {
 }
 
 type BaremetalDhcp struct {
-	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 	Dhcpservertype    string `json:"dhcpservertype,omitempty"`
 	Id                string `json:"id,omitempty"`
-	Url               string `json:"url,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 	Provider          string `json:"provider,omitempty"`
+	Url               string `json:"url,omitempty"`
 }
 
 type ListBaremetalPxeServersParams struct {
@@ -675,8 +675,8 @@ type ListBaremetalPxeServersResponse struct {
 }
 
 type BaremetalPxeServer struct {
-	Provider          string `json:"provider,omitempty"`
 	Id                string `json:"id,omitempty"`
-	Url               string `json:"url,omitempty"`
 	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+	Provider          string `json:"provider,omitempty"`
+	Url               string `json:"url,omitempty"`
 }

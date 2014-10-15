@@ -53,7 +53,7 @@ var mapVersion = map[string]apiInfo{
 var pkg string
 
 type allServices struct {
-	services []*service
+	services services
 }
 
 type apiInfoNotFoundError struct {
@@ -89,8 +89,24 @@ type service struct {
 	pn func(format string, args ...interface{}) // print with indent and newline
 }
 
+type services []*service
+
+// Add functions for the Sort interface
+func (s services) Len() int {
+	return len(s)
+}
+
+func (s services) Less(i, j int) bool {
+	return s[i].name < s[j].name
+}
+
+func (s services) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+
 type APIParams []*APIParam
 
+// Add functions for the Sort interface
 func (s APIParams) Len() int {
 	return len(s)
 }
@@ -104,11 +120,11 @@ func (s APIParams) Swap(i, j int) {
 }
 
 type API struct {
-	Name        string         `json:"name"`
-	Description string         `json:"description"`
-	Isasync     bool           `json:"isasync"`
-	Params      APIParams      `json:"params"`
-	Response    []*APIResponse `json:"response"`
+	Name        string       `json:"name"`
+	Description string       `json:"description"`
+	Isasync     bool         `json:"isasync"`
+	Params      APIParams    `json:"params"`
+	Response    APIResponses `json:"response"`
 }
 
 type APIParam struct {
@@ -120,10 +136,25 @@ type APIParam struct {
 }
 
 type APIResponse struct {
-	Name        string         `json:"name"`
-	Description string         `json:"description"`
-	Type        string         `json:"type"`
-	Response    []*APIResponse `json:"response,omitempty"`
+	Name        string       `json:"name"`
+	Description string       `json:"description"`
+	Type        string       `json:"type"`
+	Response    APIResponses `json:"response,omitempty"`
+}
+
+type APIResponses []*APIResponse
+
+// Add functions for the Sort interface
+func (s APIResponses) Len() int {
+	return len(s)
+}
+
+func (s APIResponses) Less(i, j int) bool {
+	return s[i].Name < s[j].Name
+}
+
+func (s APIResponses) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
 }
 
 func main() {
@@ -714,7 +745,9 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("		return nil, -1, err")
 			pn("	}")
 			pn("")
-			pn("	if l.Count == 0 {")
+			pn("	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(")
+			pn("		\"Invalid parameter id value=%%s due to incorrect long value format, \"+")
+			pn("			\"or entity does not exist\", id)) {")
 			pn("	  return nil, l.Count, fmt.Errorf(\"No match found for %%s: %%+v\", id, l)")
 			pn("	}")
 			pn("")
@@ -752,7 +785,7 @@ func hasIDParamField(params APIParams) bool {
 	return false
 }
 
-func hasIDAndNameResponseField(resp []*APIResponse) bool {
+func hasIDAndNameResponseField(resp APIResponses) bool {
 	id := false
 	name := false
 
@@ -822,7 +855,7 @@ func (s *service) generateNewAPICallFunc(a *API) {
 	pn("")
 }
 
-func isSuccessOnlyResponse(resp []*APIResponse) bool {
+func isSuccessOnlyResponse(resp APIResponses) bool {
 	success := false
 	displaytext := false
 
@@ -856,6 +889,7 @@ func (s *service) generateResponseType(a *API) {
 	if a.Isasync {
 		pn("	JobID string `json:\"jobid,omitempty\"`")
 	}
+	sort.Sort(a.Response)
 	s.recusiveGenerateResponseType(a.Response, a.Isasync)
 	pn("}")
 	pn("")
@@ -872,7 +906,7 @@ func parseSingular(n string) string {
 	return strings.TrimSuffix(n, "s")
 }
 
-func (s *service) recusiveGenerateResponseType(resp []*APIResponse, async bool) (output string) {
+func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (output string) {
 	pn := s.pn
 	found := make(map[string]bool)
 
@@ -882,6 +916,7 @@ func (s *service) recusiveGenerateResponseType(resp []*APIResponse, async bool) 
 		}
 		if r.Response != nil {
 			pn("%s []struct {", capitalize(r.Name))
+			sort.Sort(r.Response)
 			s.recusiveGenerateResponseType(r.Response, async)
 			pn("} `json:\"%s,omitempty\"`", r.Name)
 		} else {
@@ -928,6 +963,7 @@ func getAllServices() (*allServices, []error, error) {
 		}
 		as.services = append(as.services, s)
 	}
+	sort.Sort(as.services)
 	return as, errors, nil
 }
 

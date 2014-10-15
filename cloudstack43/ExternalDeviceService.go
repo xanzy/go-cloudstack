@@ -161,17 +161,17 @@ func (s *ExternalDeviceService) EnableCiscoNexusVSM(p *EnableCiscoNexusVSMParams
 
 type EnableCiscoNexusVSMResponse struct {
 	JobID            string `json:"jobid,omitempty"`
-	Vsmctrlvlanid    int    `json:"vsmctrlvlanid,omitempty"`
+	Ipaddress        string `json:"ipaddress,omitempty"`
+	Vsmconfigmode    string `json:"vsmconfigmode,omitempty"`
 	Vsmconfigstate   string `json:"vsmconfigstate,omitempty"`
+	Vsmctrlvlanid    int    `json:"vsmctrlvlanid,omitempty"`
+	Vsmdeviceid      string `json:"vsmdeviceid,omitempty"`
+	Vsmdevicename    string `json:"vsmdevicename,omitempty"`
+	Vsmdevicestate   string `json:"vsmdevicestate,omitempty"`
+	Vsmdomainid      string `json:"vsmdomainid,omitempty"`
+	Vsmmgmtvlanid    string `json:"vsmmgmtvlanid,omitempty"`
 	Vsmpktvlanid     int    `json:"vsmpktvlanid,omitempty"`
 	Vsmstoragevlanid int    `json:"vsmstoragevlanid,omitempty"`
-	Vsmdevicestate   string `json:"vsmdevicestate,omitempty"`
-	Vsmconfigmode    string `json:"vsmconfigmode,omitempty"`
-	Vsmmgmtvlanid    string `json:"vsmmgmtvlanid,omitempty"`
-	Vsmdevicename    string `json:"vsmdevicename,omitempty"`
-	Vsmdomainid      string `json:"vsmdomainid,omitempty"`
-	Ipaddress        string `json:"ipaddress,omitempty"`
-	Vsmdeviceid      string `json:"vsmdeviceid,omitempty"`
 }
 
 type DisableCiscoNexusVSMParams struct {
@@ -244,17 +244,17 @@ func (s *ExternalDeviceService) DisableCiscoNexusVSM(p *DisableCiscoNexusVSMPara
 
 type DisableCiscoNexusVSMResponse struct {
 	JobID            string `json:"jobid,omitempty"`
-	Vsmdevicestate   string `json:"vsmdevicestate,omitempty"`
-	Vsmdomainid      string `json:"vsmdomainid,omitempty"`
-	Vsmconfigmode    string `json:"vsmconfigmode,omitempty"`
-	Vsmmgmtvlanid    string `json:"vsmmgmtvlanid,omitempty"`
-	Vsmdevicename    string `json:"vsmdevicename,omitempty"`
 	Ipaddress        string `json:"ipaddress,omitempty"`
-	Vsmstoragevlanid int    `json:"vsmstoragevlanid,omitempty"`
+	Vsmconfigmode    string `json:"vsmconfigmode,omitempty"`
+	Vsmconfigstate   string `json:"vsmconfigstate,omitempty"`
 	Vsmctrlvlanid    int    `json:"vsmctrlvlanid,omitempty"`
 	Vsmdeviceid      string `json:"vsmdeviceid,omitempty"`
-	Vsmconfigstate   string `json:"vsmconfigstate,omitempty"`
+	Vsmdevicename    string `json:"vsmdevicename,omitempty"`
+	Vsmdevicestate   string `json:"vsmdevicestate,omitempty"`
+	Vsmdomainid      string `json:"vsmdomainid,omitempty"`
+	Vsmmgmtvlanid    string `json:"vsmmgmtvlanid,omitempty"`
 	Vsmpktvlanid     int    `json:"vsmpktvlanid,omitempty"`
+	Vsmstoragevlanid int    `json:"vsmstoragevlanid,omitempty"`
 }
 
 type ListCiscoNexusVSMsParams struct {
@@ -354,17 +354,17 @@ type ListCiscoNexusVSMsResponse struct {
 }
 
 type CiscoNexusVSM struct {
-	Vsmstoragevlanid int    `json:"vsmstoragevlanid,omitempty"`
 	Ipaddress        string `json:"ipaddress,omitempty"`
-	Vsmdevicestate   string `json:"vsmdevicestate,omitempty"`
-	Vsmpktvlanid     int    `json:"vsmpktvlanid,omitempty"`
 	Vsmconfigmode    string `json:"vsmconfigmode,omitempty"`
+	Vsmconfigstate   string `json:"vsmconfigstate,omitempty"`
+	Vsmctrlvlanid    int    `json:"vsmctrlvlanid,omitempty"`
+	Vsmdeviceid      string `json:"vsmdeviceid,omitempty"`
 	Vsmdevicename    string `json:"vsmdevicename,omitempty"`
+	Vsmdevicestate   string `json:"vsmdevicestate,omitempty"`
 	Vsmdomainid      string `json:"vsmdomainid,omitempty"`
 	Vsmmgmtvlanid    string `json:"vsmmgmtvlanid,omitempty"`
-	Vsmconfigstate   string `json:"vsmconfigstate,omitempty"`
-	Vsmdeviceid      string `json:"vsmdeviceid,omitempty"`
-	Vsmctrlvlanid    int    `json:"vsmctrlvlanid,omitempty"`
+	Vsmpktvlanid     int    `json:"vsmpktvlanid,omitempty"`
+	Vsmstoragevlanid int    `json:"vsmstoragevlanid,omitempty"`
 }
 
 type AddCiscoVnmcResourceParams struct {
@@ -499,8 +499,8 @@ func (s *ExternalDeviceService) DeleteCiscoVnmcResource(p *DeleteCiscoVnmcResour
 }
 
 type DeleteCiscoVnmcResourceResponse struct {
-	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type ListCiscoVnmcResourcesParams struct {
@@ -734,8 +734,8 @@ func (s *ExternalDeviceService) DeleteCiscoAsa1000vResource(p *DeleteCiscoAsa100
 }
 
 type DeleteCiscoAsa1000vResourceResponse struct {
-	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type ListCiscoAsa1000vResourcesParams struct {

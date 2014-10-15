@@ -168,7 +168,9 @@ func (s *AlertService) GetAlertByID(id string) (*Alert, int, error) {
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -198,10 +200,10 @@ type ListAlertsResponse struct {
 }
 
 type Alert struct {
-	Id          string `json:"id,omitempty"`
-	Sent        string `json:"sent,omitempty"`
-	Name        string `json:"name,omitempty"`
 	Description string `json:"description,omitempty"`
+	Id          string `json:"id,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Sent        string `json:"sent,omitempty"`
 	Type        int    `json:"type,omitempty"`
 }
 

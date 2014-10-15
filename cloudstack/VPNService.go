@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type CreateRemoteAccessVpnParams struct {
@@ -138,17 +139,17 @@ func (s *VPNService) CreateRemoteAccessVpn(p *CreateRemoteAccessVpnParams) (*Cre
 
 type CreateRemoteAccessVpnResponse struct {
 	JobID        string `json:"jobid,omitempty"`
-	Projectid    string `json:"projectid,omitempty"`
 	Account      string `json:"account,omitempty"`
-	Domainid     string `json:"domainid,omitempty"`
-	Iprange      string `json:"iprange,omitempty"`
-	Publicipid   string `json:"publicipid,omitempty"`
-	Presharedkey string `json:"presharedkey,omitempty"`
-	Publicip     string `json:"publicip,omitempty"`
-	Id           string `json:"id,omitempty"`
-	State        string `json:"state,omitempty"`
 	Domain       string `json:"domain,omitempty"`
+	Domainid     string `json:"domainid,omitempty"`
+	Id           string `json:"id,omitempty"`
+	Iprange      string `json:"iprange,omitempty"`
+	Presharedkey string `json:"presharedkey,omitempty"`
 	Project      string `json:"project,omitempty"`
+	Projectid    string `json:"projectid,omitempty"`
+	Publicip     string `json:"publicip,omitempty"`
+	Publicipid   string `json:"publicipid,omitempty"`
+	State        string `json:"state,omitempty"`
 }
 
 type DeleteRemoteAccessVpnParams struct {
@@ -377,7 +378,9 @@ func (s *VPNService) GetRemoteAccessVpnByID(id string) (*RemoteAccessVpn, int, e
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -407,17 +410,17 @@ type ListRemoteAccessVpnsResponse struct {
 }
 
 type RemoteAccessVpn struct {
-	Publicipid   string `json:"publicipid,omitempty"`
-	Project      string `json:"project,omitempty"`
-	State        string `json:"state,omitempty"`
-	Id           string `json:"id,omitempty"`
+	Account      string `json:"account,omitempty"`
 	Domain       string `json:"domain,omitempty"`
 	Domainid     string `json:"domainid,omitempty"`
+	Id           string `json:"id,omitempty"`
 	Iprange      string `json:"iprange,omitempty"`
-	Publicip     string `json:"publicip,omitempty"`
 	Presharedkey string `json:"presharedkey,omitempty"`
+	Project      string `json:"project,omitempty"`
 	Projectid    string `json:"projectid,omitempty"`
-	Account      string `json:"account,omitempty"`
+	Publicip     string `json:"publicip,omitempty"`
+	Publicipid   string `json:"publicipid,omitempty"`
+	State        string `json:"state,omitempty"`
 }
 
 type AddVpnUserParams struct {
@@ -535,14 +538,14 @@ func (s *VPNService) AddVpnUser(p *AddVpnUserParams) (*AddVpnUserResponse, error
 
 type AddVpnUserResponse struct {
 	JobID     string `json:"jobid,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Username  string `json:"username,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	State     string `json:"state,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
 	Account   string `json:"account,omitempty"`
+	Domain    string `json:"domain,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
+	State     string `json:"state,omitempty"`
+	Username  string `json:"username,omitempty"`
 }
 
 type RemoveVpnUserParams struct {
@@ -793,7 +796,9 @@ func (s *VPNService) GetVpnUserByID(id string) (*VpnUser, int, error) {
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -823,14 +828,14 @@ type ListVpnUsersResponse struct {
 }
 
 type VpnUser struct {
-	Projectid string `json:"projectid,omitempty"`
+	Account   string `json:"account,omitempty"`
 	Domain    string `json:"domain,omitempty"`
 	Domainid  string `json:"domainid,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Username  string `json:"username,omitempty"`
 	Id        string `json:"id,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
 	State     string `json:"state,omitempty"`
-	Account   string `json:"account,omitempty"`
+	Username  string `json:"username,omitempty"`
 }
 
 type CreateVpnCustomerGatewayParams struct {
@@ -1021,22 +1026,22 @@ func (s *VPNService) CreateVpnCustomerGateway(p *CreateVpnCustomerGatewayParams)
 type CreateVpnCustomerGatewayResponse struct {
 	JobID       string `json:"jobid,omitempty"`
 	Account     string `json:"account,omitempty"`
-	Project     string `json:"project,omitempty"`
-	Projectid   string `json:"projectid,omitempty"`
-	Ikelifetime int    `json:"ikelifetime,omitempty"`
-	Gateway     string `json:"gateway,omitempty"`
-	Name        string `json:"name,omitempty"`
 	Cidrlist    string `json:"cidrlist,omitempty"`
-	Ipaddress   string `json:"ipaddress,omitempty"`
-	Removed     string `json:"removed,omitempty"`
-	Ikepolicy   string `json:"ikepolicy,omitempty"`
 	Domain      string `json:"domain,omitempty"`
 	Domainid    string `json:"domainid,omitempty"`
-	Esplifetime int    `json:"esplifetime,omitempty"`
 	Dpd         bool   `json:"dpd,omitempty"`
-	Ipsecpsk    string `json:"ipsecpsk,omitempty"`
+	Esplifetime int    `json:"esplifetime,omitempty"`
 	Esppolicy   string `json:"esppolicy,omitempty"`
+	Gateway     string `json:"gateway,omitempty"`
 	Id          string `json:"id,omitempty"`
+	Ikelifetime int    `json:"ikelifetime,omitempty"`
+	Ikepolicy   string `json:"ikepolicy,omitempty"`
+	Ipaddress   string `json:"ipaddress,omitempty"`
+	Ipsecpsk    string `json:"ipsecpsk,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Project     string `json:"project,omitempty"`
+	Projectid   string `json:"projectid,omitempty"`
+	Removed     string `json:"removed,omitempty"`
 }
 
 type CreateVpnGatewayParams struct {
@@ -1109,15 +1114,15 @@ func (s *VPNService) CreateVpnGateway(p *CreateVpnGatewayParams) (*CreateVpnGate
 
 type CreateVpnGatewayResponse struct {
 	JobID     string `json:"jobid,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Publicip  string `json:"publicip,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
-	Vpcid     string `json:"vpcid,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Removed   string `json:"removed,omitempty"`
 	Account   string `json:"account,omitempty"`
+	Domain    string `json:"domain,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
+	Publicip  string `json:"publicip,omitempty"`
+	Removed   string `json:"removed,omitempty"`
+	Vpcid     string `json:"vpcid,omitempty"`
 }
 
 type CreateVpnConnectionParams struct {
@@ -1214,26 +1219,26 @@ func (s *VPNService) CreateVpnConnection(p *CreateVpnConnectionParams) (*CreateV
 
 type CreateVpnConnectionResponse struct {
 	JobID                string `json:"jobid,omitempty"`
-	Dpd                  bool   `json:"dpd,omitempty"`
-	Removed              string `json:"removed,omitempty"`
-	Esplifetime          int    `json:"esplifetime,omitempty"`
-	S2scustomergatewayid string `json:"s2scustomergatewayid,omitempty"`
-	Project              string `json:"project,omitempty"`
+	Account              string `json:"account,omitempty"`
+	Cidrlist             string `json:"cidrlist,omitempty"`
 	Created              string `json:"created,omitempty"`
-	Projectid            string `json:"projectid,omitempty"`
-	Esppolicy            string `json:"esppolicy,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Ikelifetime          int    `json:"ikelifetime,omitempty"`
-	S2svpngatewayid      string `json:"s2svpngatewayid,omitempty"`
-	Gateway              string `json:"gateway,omitempty"`
-	Ipsecpsk             string `json:"ipsecpsk,omitempty"`
 	Domain               string `json:"domain,omitempty"`
 	Domainid             string `json:"domainid,omitempty"`
-	Account              string `json:"account,omitempty"`
-	Publicip             string `json:"publicip,omitempty"`
-	Passive              bool   `json:"passive,omitempty"`
-	Cidrlist             string `json:"cidrlist,omitempty"`
+	Dpd                  bool   `json:"dpd,omitempty"`
+	Esplifetime          int    `json:"esplifetime,omitempty"`
+	Esppolicy            string `json:"esppolicy,omitempty"`
+	Gateway              string `json:"gateway,omitempty"`
+	Id                   string `json:"id,omitempty"`
+	Ikelifetime          int    `json:"ikelifetime,omitempty"`
 	Ikepolicy            string `json:"ikepolicy,omitempty"`
+	Ipsecpsk             string `json:"ipsecpsk,omitempty"`
+	Passive              bool   `json:"passive,omitempty"`
+	Project              string `json:"project,omitempty"`
+	Projectid            string `json:"projectid,omitempty"`
+	Publicip             string `json:"publicip,omitempty"`
+	Removed              string `json:"removed,omitempty"`
+	S2scustomergatewayid string `json:"s2scustomergatewayid,omitempty"`
+	S2svpngatewayid      string `json:"s2svpngatewayid,omitempty"`
 	State                string `json:"state,omitempty"`
 }
 
@@ -1440,8 +1445,8 @@ func (s *VPNService) DeleteVpnConnection(p *DeleteVpnConnectionParams) (*DeleteV
 
 type DeleteVpnConnectionResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type UpdateVpnCustomerGatewayParams struct {
@@ -1643,23 +1648,23 @@ func (s *VPNService) UpdateVpnCustomerGateway(p *UpdateVpnCustomerGatewayParams)
 
 type UpdateVpnCustomerGatewayResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Dpd         bool   `json:"dpd,omitempty"`
-	Domainid    string `json:"domainid,omitempty"`
-	Ipaddress   string `json:"ipaddress,omitempty"`
-	Ikelifetime int    `json:"ikelifetime,omitempty"`
-	Esppolicy   string `json:"esppolicy,omitempty"`
-	Project     string `json:"project,omitempty"`
-	Ikepolicy   string `json:"ikepolicy,omitempty"`
-	Cidrlist    string `json:"cidrlist,omitempty"`
-	Ipsecpsk    string `json:"ipsecpsk,omitempty"`
 	Account     string `json:"account,omitempty"`
+	Cidrlist    string `json:"cidrlist,omitempty"`
+	Domain      string `json:"domain,omitempty"`
+	Domainid    string `json:"domainid,omitempty"`
+	Dpd         bool   `json:"dpd,omitempty"`
 	Esplifetime int    `json:"esplifetime,omitempty"`
+	Esppolicy   string `json:"esppolicy,omitempty"`
+	Gateway     string `json:"gateway,omitempty"`
+	Id          string `json:"id,omitempty"`
+	Ikelifetime int    `json:"ikelifetime,omitempty"`
+	Ikepolicy   string `json:"ikepolicy,omitempty"`
+	Ipaddress   string `json:"ipaddress,omitempty"`
+	Ipsecpsk    string `json:"ipsecpsk,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Project     string `json:"project,omitempty"`
 	Projectid   string `json:"projectid,omitempty"`
 	Removed     string `json:"removed,omitempty"`
-	Id          string `json:"id,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Domain      string `json:"domain,omitempty"`
-	Gateway     string `json:"gateway,omitempty"`
 }
 
 type ResetVpnConnectionParams struct {
@@ -1754,27 +1759,27 @@ func (s *VPNService) ResetVpnConnection(p *ResetVpnConnectionParams) (*ResetVpnC
 
 type ResetVpnConnectionResponse struct {
 	JobID                string `json:"jobid,omitempty"`
-	State                string `json:"state,omitempty"`
-	Project              string `json:"project,omitempty"`
+	Account              string `json:"account,omitempty"`
+	Cidrlist             string `json:"cidrlist,omitempty"`
 	Created              string `json:"created,omitempty"`
 	Domain               string `json:"domain,omitempty"`
-	Account              string `json:"account,omitempty"`
+	Domainid             string `json:"domainid,omitempty"`
+	Dpd                  bool   `json:"dpd,omitempty"`
+	Esplifetime          int    `json:"esplifetime,omitempty"`
+	Esppolicy            string `json:"esppolicy,omitempty"`
+	Gateway              string `json:"gateway,omitempty"`
 	Id                   string `json:"id,omitempty"`
 	Ikelifetime          int    `json:"ikelifetime,omitempty"`
-	Passive              bool   `json:"passive,omitempty"`
-	Esppolicy            string `json:"esppolicy,omitempty"`
-	Dpd                  bool   `json:"dpd,omitempty"`
-	Ipsecpsk             string `json:"ipsecpsk,omitempty"`
-	Publicip             string `json:"publicip,omitempty"`
-	Cidrlist             string `json:"cidrlist,omitempty"`
-	S2scustomergatewayid string `json:"s2scustomergatewayid,omitempty"`
 	Ikepolicy            string `json:"ikepolicy,omitempty"`
-	Gateway              string `json:"gateway,omitempty"`
-	Domainid             string `json:"domainid,omitempty"`
+	Ipsecpsk             string `json:"ipsecpsk,omitempty"`
+	Passive              bool   `json:"passive,omitempty"`
+	Project              string `json:"project,omitempty"`
 	Projectid            string `json:"projectid,omitempty"`
-	S2svpngatewayid      string `json:"s2svpngatewayid,omitempty"`
-	Esplifetime          int    `json:"esplifetime,omitempty"`
+	Publicip             string `json:"publicip,omitempty"`
 	Removed              string `json:"removed,omitempty"`
+	S2scustomergatewayid string `json:"s2scustomergatewayid,omitempty"`
+	S2svpngatewayid      string `json:"s2svpngatewayid,omitempty"`
+	State                string `json:"state,omitempty"`
 }
 
 type ListVpnCustomerGatewaysParams struct {
@@ -1956,7 +1961,9 @@ func (s *VPNService) GetVpnCustomerGatewayByID(id string) (*VpnCustomerGateway, 
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -1986,23 +1993,23 @@ type ListVpnCustomerGatewaysResponse struct {
 }
 
 type VpnCustomerGateway struct {
-	Ipsecpsk    string `json:"ipsecpsk,omitempty"`
-	Gateway     string `json:"gateway,omitempty"`
-	Ikepolicy   string `json:"ikepolicy,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Esppolicy   string `json:"esppolicy,omitempty"`
-	Esplifetime int    `json:"esplifetime,omitempty"`
-	Domainid    string `json:"domainid,omitempty"`
 	Account     string `json:"account,omitempty"`
-	Projectid   string `json:"projectid,omitempty"`
-	Dpd         bool   `json:"dpd,omitempty"`
-	Id          string `json:"id,omitempty"`
-	Project     string `json:"project,omitempty"`
-	Removed     string `json:"removed,omitempty"`
 	Cidrlist    string `json:"cidrlist,omitempty"`
 	Domain      string `json:"domain,omitempty"`
-	Ipaddress   string `json:"ipaddress,omitempty"`
+	Domainid    string `json:"domainid,omitempty"`
+	Dpd         bool   `json:"dpd,omitempty"`
+	Esplifetime int    `json:"esplifetime,omitempty"`
+	Esppolicy   string `json:"esppolicy,omitempty"`
+	Gateway     string `json:"gateway,omitempty"`
+	Id          string `json:"id,omitempty"`
 	Ikelifetime int    `json:"ikelifetime,omitempty"`
+	Ikepolicy   string `json:"ikepolicy,omitempty"`
+	Ipaddress   string `json:"ipaddress,omitempty"`
+	Ipsecpsk    string `json:"ipsecpsk,omitempty"`
+	Name        string `json:"name,omitempty"`
+	Project     string `json:"project,omitempty"`
+	Projectid   string `json:"projectid,omitempty"`
+	Removed     string `json:"removed,omitempty"`
 }
 
 type ListVpnGatewaysParams struct {
@@ -2151,7 +2158,9 @@ func (s *VPNService) GetVpnGatewayByID(id string) (*VpnGateway, int, error) {
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -2181,15 +2190,15 @@ type ListVpnGatewaysResponse struct {
 }
 
 type VpnGateway struct {
-	Vpcid     string `json:"vpcid,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Removed   string `json:"removed,omitempty"`
 	Account   string `json:"account,omitempty"`
-	Publicip  string `json:"publicip,omitempty"`
+	Domain    string `json:"domain,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
 	Id        string `json:"id,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
+	Publicip  string `json:"publicip,omitempty"`
+	Removed   string `json:"removed,omitempty"`
+	Vpcid     string `json:"vpcid,omitempty"`
 }
 
 type ListVpnConnectionsParams struct {
@@ -2338,7 +2347,9 @@ func (s *VPNService) GetVpnConnectionByID(id string) (*VpnConnection, int, error
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -2368,25 +2379,25 @@ type ListVpnConnectionsResponse struct {
 }
 
 type VpnConnection struct {
-	S2scustomergatewayid string `json:"s2scustomergatewayid,omitempty"`
-	Domainid             string `json:"domainid,omitempty"`
-	Esplifetime          int    `json:"esplifetime,omitempty"`
-	Ipsecpsk             string `json:"ipsecpsk,omitempty"`
-	Publicip             string `json:"publicip,omitempty"`
-	Created              string `json:"created,omitempty"`
-	Project              string `json:"project,omitempty"`
-	Gateway              string `json:"gateway,omitempty"`
-	Ikepolicy            string `json:"ikepolicy,omitempty"`
-	S2svpngatewayid      string `json:"s2svpngatewayid,omitempty"`
-	Removed              string `json:"removed,omitempty"`
-	Domain               string `json:"domain,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	State                string `json:"state,omitempty"`
-	Dpd                  bool   `json:"dpd,omitempty"`
-	Passive              bool   `json:"passive,omitempty"`
 	Account              string `json:"account,omitempty"`
 	Cidrlist             string `json:"cidrlist,omitempty"`
-	Ikelifetime          int    `json:"ikelifetime,omitempty"`
+	Created              string `json:"created,omitempty"`
+	Domain               string `json:"domain,omitempty"`
+	Domainid             string `json:"domainid,omitempty"`
+	Dpd                  bool   `json:"dpd,omitempty"`
+	Esplifetime          int    `json:"esplifetime,omitempty"`
 	Esppolicy            string `json:"esppolicy,omitempty"`
+	Gateway              string `json:"gateway,omitempty"`
+	Id                   string `json:"id,omitempty"`
+	Ikelifetime          int    `json:"ikelifetime,omitempty"`
+	Ikepolicy            string `json:"ikepolicy,omitempty"`
+	Ipsecpsk             string `json:"ipsecpsk,omitempty"`
+	Passive              bool   `json:"passive,omitempty"`
+	Project              string `json:"project,omitempty"`
 	Projectid            string `json:"projectid,omitempty"`
+	Publicip             string `json:"publicip,omitempty"`
+	Removed              string `json:"removed,omitempty"`
+	S2scustomergatewayid string `json:"s2scustomergatewayid,omitempty"`
+	S2svpngatewayid      string `json:"s2svpngatewayid,omitempty"`
+	State                string `json:"state,omitempty"`
 }

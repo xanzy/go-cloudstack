@@ -165,14 +165,14 @@ type ListCapacityResponse struct {
 }
 
 type Capacity struct {
-	Zonename      string `json:"zonename,omitempty"`
+	Capacitytotal int    `json:"capacitytotal,omitempty"`
+	Capacityused  int    `json:"capacityused,omitempty"`
+	Clusterid     string `json:"clusterid,omitempty"`
+	Clustername   string `json:"clustername,omitempty"`
+	Percentused   string `json:"percentused,omitempty"`
+	Podid         string `json:"podid,omitempty"`
+	Podname       string `json:"podname,omitempty"`
 	Type          int    `json:"type,omitempty"`
 	Zoneid        string `json:"zoneid,omitempty"`
-	Clustername   string `json:"clustername,omitempty"`
-	Capacitytotal int    `json:"capacitytotal,omitempty"`
-	Percentused   string `json:"percentused,omitempty"`
-	Capacityused  int    `json:"capacityused,omitempty"`
-	Podname       string `json:"podname,omitempty"`
-	Clusterid     string `json:"clusterid,omitempty"`
-	Podid         string `json:"podid,omitempty"`
+	Zonename      string `json:"zonename,omitempty"`
 }

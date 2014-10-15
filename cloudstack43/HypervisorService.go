@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type ListHypervisorsParams struct {
@@ -147,14 +148,14 @@ func (s *HypervisorService) UpdateHypervisorCapabilities(p *UpdateHypervisorCapa
 }
 
 type UpdateHypervisorCapabilitiesResponse struct {
-	Storagemotionenabled bool   `json:"storagemotionenabled,omitempty"`
-	Maxguestslimit       int    `json:"maxguestslimit,omitempty"`
-	Maxhostspercluster   int    `json:"maxhostspercluster,omitempty"`
 	Hypervisor           string `json:"hypervisor,omitempty"`
+	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
 	Id                   string `json:"id,omitempty"`
 	Maxdatavolumeslimit  int    `json:"maxdatavolumeslimit,omitempty"`
+	Maxguestslimit       int    `json:"maxguestslimit,omitempty"`
+	Maxhostspercluster   int    `json:"maxhostspercluster,omitempty"`
 	Securitygroupenabled bool   `json:"securitygroupenabled,omitempty"`
-	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
+	Storagemotionenabled bool   `json:"storagemotionenabled,omitempty"`
 }
 
 type ListHypervisorCapabilitiesParams struct {
@@ -246,7 +247,9 @@ func (s *HypervisorService) GetHypervisorCapabilityByID(id string) (*HypervisorC
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -276,12 +279,12 @@ type ListHypervisorCapabilitiesResponse struct {
 }
 
 type HypervisorCapability struct {
-	Maxguestslimit       int    `json:"maxguestslimit,omitempty"`
-	Storagemotionenabled bool   `json:"storagemotionenabled,omitempty"`
 	Hypervisor           string `json:"hypervisor,omitempty"`
 	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
-	Maxhostspercluster   int    `json:"maxhostspercluster,omitempty"`
-	Securitygroupenabled bool   `json:"securitygroupenabled,omitempty"`
 	Id                   string `json:"id,omitempty"`
 	Maxdatavolumeslimit  int    `json:"maxdatavolumeslimit,omitempty"`
+	Maxguestslimit       int    `json:"maxguestslimit,omitempty"`
+	Maxhostspercluster   int    `json:"maxhostspercluster,omitempty"`
+	Securitygroupenabled bool   `json:"securitygroupenabled,omitempty"`
+	Storagemotionenabled bool   `json:"storagemotionenabled,omitempty"`
 }

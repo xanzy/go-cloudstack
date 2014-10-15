@@ -115,48 +115,48 @@ func (s *SecurityGroupService) CreateSecurityGroup(p *CreateSecurityGroupParams)
 }
 
 type CreateSecurityGroupResponse struct {
-	Name        string `json:"name,omitempty"`
-	Domain      string `json:"domain,omitempty"`
-	Project     string `json:"project,omitempty"`
 	Account     string `json:"account,omitempty"`
 	Description string `json:"description,omitempty"`
+	Domain      string `json:"domain,omitempty"`
+	Domainid    string `json:"domainid,omitempty"`
+	Egressrule  []struct {
+		Account           string `json:"account,omitempty"`
+		Cidr              string `json:"cidr,omitempty"`
+		Endport           int    `json:"endport,omitempty"`
+		Icmpcode          int    `json:"icmpcode,omitempty"`
+		Icmptype          int    `json:"icmptype,omitempty"`
+		Protocol          string `json:"protocol,omitempty"`
+		Ruleid            string `json:"ruleid,omitempty"`
+		Securitygroupname string `json:"securitygroupname,omitempty"`
+		Startport         int    `json:"startport,omitempty"`
+	} `json:"egressrule,omitempty"`
 	Id          string `json:"id,omitempty"`
-	Tags        []struct {
-		Domain       string `json:"domain,omitempty"`
-		Key          string `json:"key,omitempty"`
+	Ingressrule []struct {
+		Account           string `json:"account,omitempty"`
+		Cidr              string `json:"cidr,omitempty"`
+		Endport           int    `json:"endport,omitempty"`
+		Icmpcode          int    `json:"icmpcode,omitempty"`
+		Icmptype          int    `json:"icmptype,omitempty"`
+		Protocol          string `json:"protocol,omitempty"`
+		Ruleid            string `json:"ruleid,omitempty"`
+		Securitygroupname string `json:"securitygroupname,omitempty"`
+		Startport         int    `json:"startport,omitempty"`
+	} `json:"ingressrule,omitempty"`
+	Name      string `json:"name,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
+	Tags      []struct {
 		Account      string `json:"account,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
 		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
 		Project      string `json:"project,omitempty"`
 		Projectid    string `json:"projectid,omitempty"`
-		Customer     string `json:"customer,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Ingressrule []struct {
-		Protocol          string `json:"protocol,omitempty"`
-		Securitygroupname string `json:"securitygroupname,omitempty"`
-		Startport         int    `json:"startport,omitempty"`
-		Ruleid            string `json:"ruleid,omitempty"`
-		Cidr              string `json:"cidr,omitempty"`
-		Account           string `json:"account,omitempty"`
-		Icmpcode          int    `json:"icmpcode,omitempty"`
-		Icmptype          int    `json:"icmptype,omitempty"`
-		Endport           int    `json:"endport,omitempty"`
-	} `json:"ingressrule,omitempty"`
-	Domainid   string `json:"domainid,omitempty"`
-	Projectid  string `json:"projectid,omitempty"`
-	Egressrule []struct {
-		Account           string `json:"account,omitempty"`
-		Icmptype          int    `json:"icmptype,omitempty"`
-		Cidr              string `json:"cidr,omitempty"`
-		Endport           int    `json:"endport,omitempty"`
-		Protocol          string `json:"protocol,omitempty"`
-		Startport         int    `json:"startport,omitempty"`
-		Ruleid            string `json:"ruleid,omitempty"`
-		Securitygroupname string `json:"securitygroupname,omitempty"`
-		Icmpcode          int    `json:"icmpcode,omitempty"`
-	} `json:"egressrule,omitempty"`
 }
 
 type DeleteSecurityGroupParams struct {
@@ -453,15 +453,15 @@ func (s *SecurityGroupService) AuthorizeSecurityGroupIngress(p *AuthorizeSecurit
 
 type AuthorizeSecurityGroupIngressResponse struct {
 	JobID             string `json:"jobid,omitempty"`
+	Account           string `json:"account,omitempty"`
 	Cidr              string `json:"cidr,omitempty"`
-	Startport         int    `json:"startport,omitempty"`
 	Endport           int    `json:"endport,omitempty"`
 	Icmpcode          int    `json:"icmpcode,omitempty"`
-	Securitygroupname string `json:"securitygroupname,omitempty"`
-	Ruleid            string `json:"ruleid,omitempty"`
-	Account           string `json:"account,omitempty"`
 	Icmptype          int    `json:"icmptype,omitempty"`
 	Protocol          string `json:"protocol,omitempty"`
+	Ruleid            string `json:"ruleid,omitempty"`
+	Securitygroupname string `json:"securitygroupname,omitempty"`
+	Startport         int    `json:"startport,omitempty"`
 }
 
 type RevokeSecurityGroupIngressParams struct {
@@ -733,15 +733,15 @@ func (s *SecurityGroupService) AuthorizeSecurityGroupEgress(p *AuthorizeSecurity
 
 type AuthorizeSecurityGroupEgressResponse struct {
 	JobID             string `json:"jobid,omitempty"`
+	Account           string `json:"account,omitempty"`
+	Cidr              string `json:"cidr,omitempty"`
 	Endport           int    `json:"endport,omitempty"`
 	Icmpcode          int    `json:"icmpcode,omitempty"`
 	Icmptype          int    `json:"icmptype,omitempty"`
 	Protocol          string `json:"protocol,omitempty"`
-	Startport         int    `json:"startport,omitempty"`
-	Account           string `json:"account,omitempty"`
-	Cidr              string `json:"cidr,omitempty"`
-	Securitygroupname string `json:"securitygroupname,omitempty"`
 	Ruleid            string `json:"ruleid,omitempty"`
+	Securitygroupname string `json:"securitygroupname,omitempty"`
+	Startport         int    `json:"startport,omitempty"`
 }
 
 type RevokeSecurityGroupEgressParams struct {
@@ -809,8 +809,8 @@ func (s *SecurityGroupService) RevokeSecurityGroupEgress(p *RevokeSecurityGroupE
 
 type RevokeSecurityGroupEgressResponse struct {
 	JobID       string `json:"jobid,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type ListSecurityGroupsParams struct {
@@ -1030,7 +1030,9 @@ func (s *SecurityGroupService) GetSecurityGroupByID(id string) (*SecurityGroup, 
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -1060,46 +1062,46 @@ type ListSecurityGroupsResponse struct {
 }
 
 type SecurityGroup struct {
-	Id   string `json:"id,omitempty"`
-	Tags []struct {
-		Projectid    string `json:"projectid,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-	} `json:"tags,omitempty"`
-	Name        string `json:"name,omitempty"`
+	Account     string `json:"account,omitempty"`
+	Description string `json:"description,omitempty"`
 	Domain      string `json:"domain,omitempty"`
 	Domainid    string `json:"domainid,omitempty"`
-	Account     string `json:"account,omitempty"`
-	Ingressrule []struct {
-		Endport           int    `json:"endport,omitempty"`
-		Icmptype          int    `json:"icmptype,omitempty"`
-		Ruleid            string `json:"ruleid,omitempty"`
-		Protocol          string `json:"protocol,omitempty"`
-		Cidr              string `json:"cidr,omitempty"`
+	Egressrule  []struct {
 		Account           string `json:"account,omitempty"`
-		Securitygroupname string `json:"securitygroupname,omitempty"`
-		Startport         int    `json:"startport,omitempty"`
-		Icmpcode          int    `json:"icmpcode,omitempty"`
-	} `json:"ingressrule,omitempty"`
-	Project    string `json:"project,omitempty"`
-	Egressrule []struct {
-		Startport         int    `json:"startport,omitempty"`
-		Icmpcode          int    `json:"icmpcode,omitempty"`
-		Icmptype          int    `json:"icmptype,omitempty"`
-		Account           string `json:"account,omitempty"`
-		Protocol          string `json:"protocol,omitempty"`
 		Cidr              string `json:"cidr,omitempty"`
 		Endport           int    `json:"endport,omitempty"`
+		Icmpcode          int    `json:"icmpcode,omitempty"`
+		Icmptype          int    `json:"icmptype,omitempty"`
+		Protocol          string `json:"protocol,omitempty"`
 		Ruleid            string `json:"ruleid,omitempty"`
 		Securitygroupname string `json:"securitygroupname,omitempty"`
+		Startport         int    `json:"startport,omitempty"`
 	} `json:"egressrule,omitempty"`
-	Projectid   string `json:"projectid,omitempty"`
-	Description string `json:"description,omitempty"`
+	Id          string `json:"id,omitempty"`
+	Ingressrule []struct {
+		Account           string `json:"account,omitempty"`
+		Cidr              string `json:"cidr,omitempty"`
+		Endport           int    `json:"endport,omitempty"`
+		Icmpcode          int    `json:"icmpcode,omitempty"`
+		Icmptype          int    `json:"icmptype,omitempty"`
+		Protocol          string `json:"protocol,omitempty"`
+		Ruleid            string `json:"ruleid,omitempty"`
+		Securitygroupname string `json:"securitygroupname,omitempty"`
+		Startport         int    `json:"startport,omitempty"`
+	} `json:"ingressrule,omitempty"`
+	Name      string `json:"name,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
+	Tags      []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
 }

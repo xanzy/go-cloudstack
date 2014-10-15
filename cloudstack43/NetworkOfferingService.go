@@ -297,42 +297,42 @@ func (s *NetworkOfferingService) CreateNetworkOffering(p *CreateNetworkOfferingP
 }
 
 type CreateNetworkOfferingResponse struct {
-	Specifyvlan         bool              `json:"specifyvlan,omitempty"`
-	Details             map[string]string `json:"details,omitempty"`
+	Availability        string            `json:"availability,omitempty"`
+	Conservemode        bool              `json:"conservemode,omitempty"`
 	Created             string            `json:"created,omitempty"`
+	Details             map[string]string `json:"details,omitempty"`
+	Displaytext         string            `json:"displaytext,omitempty"`
+	Egressdefaultpolicy bool              `json:"egressdefaultpolicy,omitempty"`
+	Forvpc              bool              `json:"forvpc,omitempty"`
+	Guestiptype         string            `json:"guestiptype,omitempty"`
+	Id                  string            `json:"id,omitempty"`
+	Isdefault           bool              `json:"isdefault,omitempty"`
+	Ispersistent        bool              `json:"ispersistent,omitempty"`
 	Maxconnections      int               `json:"maxconnections,omitempty"`
 	Name                string            `json:"name,omitempty"`
-	Egressdefaultpolicy bool              `json:"egressdefaultpolicy,omitempty"`
-	Specifyipranges     bool              `json:"specifyipranges,omitempty"`
 	Networkrate         int               `json:"networkrate,omitempty"`
-	Forvpc              bool              `json:"forvpc,omitempty"`
-	Tags                string            `json:"tags,omitempty"`
-	Guestiptype         string            `json:"guestiptype,omitempty"`
-	State               string            `json:"state,omitempty"`
-	Isdefault           bool              `json:"isdefault,omitempty"`
-	Availability        string            `json:"availability,omitempty"`
-	Ispersistent        bool              `json:"ispersistent,omitempty"`
-	Displaytext         string            `json:"displaytext,omitempty"`
 	Service             []struct {
+		Capability []struct {
+			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
+			Name                       string `json:"name,omitempty"`
+			Value                      string `json:"value,omitempty"`
+		} `json:"capability,omitempty"`
+		Name     string `json:"name,omitempty"`
 		Provider []struct {
-			Id                           string   `json:"id,omitempty"`
+			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
 			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+			Id                           string   `json:"id,omitempty"`
 			Name                         string   `json:"name,omitempty"`
-			State                        string   `json:"state,omitempty"`
 			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
 			Servicelist                  []string `json:"servicelist,omitempty"`
-			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
-		Capability []struct {
-			Value                      string `json:"value,omitempty"`
-			Name                       string `json:"name,omitempty"`
-			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
-		} `json:"capability,omitempty"`
-		Name string `json:"name,omitempty"`
 	} `json:"service,omitempty"`
-	Id                string `json:"id,omitempty"`
-	Conservemode      bool   `json:"conservemode,omitempty"`
 	Serviceofferingid string `json:"serviceofferingid,omitempty"`
+	Specifyipranges   bool   `json:"specifyipranges,omitempty"`
+	Specifyvlan       bool   `json:"specifyvlan,omitempty"`
+	State             string `json:"state,omitempty"`
+	Tags              string `json:"tags,omitempty"`
 	Traffictype       string `json:"traffictype,omitempty"`
 }
 
@@ -462,43 +462,43 @@ func (s *NetworkOfferingService) UpdateNetworkOffering(p *UpdateNetworkOfferingP
 }
 
 type UpdateNetworkOfferingResponse struct {
-	Details             map[string]string `json:"details,omitempty"`
-	Guestiptype         string            `json:"guestiptype,omitempty"`
-	Name                string            `json:"name,omitempty"`
-	Specifyipranges     bool              `json:"specifyipranges,omitempty"`
-	Displaytext         string            `json:"displaytext,omitempty"`
-	Traffictype         string            `json:"traffictype,omitempty"`
-	State               string            `json:"state,omitempty"`
-	Egressdefaultpolicy bool              `json:"egressdefaultpolicy,omitempty"`
-	Ispersistent        bool              `json:"ispersistent,omitempty"`
-	Specifyvlan         bool              `json:"specifyvlan,omitempty"`
-	Isdefault           bool              `json:"isdefault,omitempty"`
-	Maxconnections      int               `json:"maxconnections,omitempty"`
-	Serviceofferingid   string            `json:"serviceofferingid,omitempty"`
 	Availability        string            `json:"availability,omitempty"`
-	Created             string            `json:"created,omitempty"`
-	Networkrate         int               `json:"networkrate,omitempty"`
-	Tags                string            `json:"tags,omitempty"`
 	Conservemode        bool              `json:"conservemode,omitempty"`
+	Created             string            `json:"created,omitempty"`
+	Details             map[string]string `json:"details,omitempty"`
+	Displaytext         string            `json:"displaytext,omitempty"`
+	Egressdefaultpolicy bool              `json:"egressdefaultpolicy,omitempty"`
 	Forvpc              bool              `json:"forvpc,omitempty"`
+	Guestiptype         string            `json:"guestiptype,omitempty"`
+	Id                  string            `json:"id,omitempty"`
+	Isdefault           bool              `json:"isdefault,omitempty"`
+	Ispersistent        bool              `json:"ispersistent,omitempty"`
+	Maxconnections      int               `json:"maxconnections,omitempty"`
+	Name                string            `json:"name,omitempty"`
+	Networkrate         int               `json:"networkrate,omitempty"`
 	Service             []struct {
 		Capability []struct {
 			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
-			Value                      string `json:"value,omitempty"`
 			Name                       string `json:"name,omitempty"`
+			Value                      string `json:"value,omitempty"`
 		} `json:"capability,omitempty"`
+		Name     string `json:"name,omitempty"`
 		Provider []struct {
-			Id                           string   `json:"id,omitempty"`
-			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
 			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-			State                        string   `json:"state,omitempty"`
+			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+			Id                           string   `json:"id,omitempty"`
 			Name                         string   `json:"name,omitempty"`
+			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
 			Servicelist                  []string `json:"servicelist,omitempty"`
+			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
-		Name string `json:"name,omitempty"`
 	} `json:"service,omitempty"`
-	Id string `json:"id,omitempty"`
+	Serviceofferingid string `json:"serviceofferingid,omitempty"`
+	Specifyipranges   bool   `json:"specifyipranges,omitempty"`
+	Specifyvlan       bool   `json:"specifyvlan,omitempty"`
+	State             string `json:"state,omitempty"`
+	Tags              string `json:"tags,omitempty"`
+	Traffictype       string `json:"traffictype,omitempty"`
 }
 
 type DeleteNetworkOfferingParams struct {
@@ -857,7 +857,9 @@ func (s *NetworkOfferingService) GetNetworkOfferingByID(id string) (*NetworkOffe
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -887,41 +889,41 @@ type ListNetworkOfferingsResponse struct {
 }
 
 type NetworkOffering struct {
-	State               string `json:"state,omitempty"`
-	Availability        string `json:"availability,omitempty"`
-	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
-	Created             string `json:"created,omitempty"`
-	Isdefault           bool   `json:"isdefault,omitempty"`
-	Egressdefaultpolicy bool   `json:"egressdefaultpolicy,omitempty"`
+	Availability        string            `json:"availability,omitempty"`
+	Conservemode        bool              `json:"conservemode,omitempty"`
+	Created             string            `json:"created,omitempty"`
+	Details             map[string]string `json:"details,omitempty"`
+	Displaytext         string            `json:"displaytext,omitempty"`
+	Egressdefaultpolicy bool              `json:"egressdefaultpolicy,omitempty"`
+	Forvpc              bool              `json:"forvpc,omitempty"`
+	Guestiptype         string            `json:"guestiptype,omitempty"`
+	Id                  string            `json:"id,omitempty"`
+	Isdefault           bool              `json:"isdefault,omitempty"`
+	Ispersistent        bool              `json:"ispersistent,omitempty"`
+	Maxconnections      int               `json:"maxconnections,omitempty"`
+	Name                string            `json:"name,omitempty"`
+	Networkrate         int               `json:"networkrate,omitempty"`
 	Service             []struct {
 		Capability []struct {
 			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
-			Value                      string `json:"value,omitempty"`
 			Name                       string `json:"name,omitempty"`
+			Value                      string `json:"value,omitempty"`
 		} `json:"capability,omitempty"`
+		Name     string `json:"name,omitempty"`
 		Provider []struct {
-			Name                         string   `json:"name,omitempty"`
-			State                        string   `json:"state,omitempty"`
-			Servicelist                  []string `json:"servicelist,omitempty"`
-			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
 			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-			Id                           string   `json:"id,omitempty"`
 			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+			Id                           string   `json:"id,omitempty"`
+			Name                         string   `json:"name,omitempty"`
+			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+			Servicelist                  []string `json:"servicelist,omitempty"`
+			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
-		Name string `json:"name,omitempty"`
 	} `json:"service,omitempty"`
-	Displaytext     string            `json:"displaytext,omitempty"`
-	Traffictype     string            `json:"traffictype,omitempty"`
-	Conservemode    bool              `json:"conservemode,omitempty"`
-	Name            string            `json:"name,omitempty"`
-	Tags            string            `json:"tags,omitempty"`
-	Details         map[string]string `json:"details,omitempty"`
-	Forvpc          bool              `json:"forvpc,omitempty"`
-	Networkrate     int               `json:"networkrate,omitempty"`
-	Maxconnections  int               `json:"maxconnections,omitempty"`
-	Specifyipranges bool              `json:"specifyipranges,omitempty"`
-	Id              string            `json:"id,omitempty"`
-	Ispersistent    bool              `json:"ispersistent,omitempty"`
-	Guestiptype     string            `json:"guestiptype,omitempty"`
-	Specifyvlan     bool              `json:"specifyvlan,omitempty"`
+	Serviceofferingid string `json:"serviceofferingid,omitempty"`
+	Specifyipranges   bool   `json:"specifyipranges,omitempty"`
+	Specifyvlan       bool   `json:"specifyvlan,omitempty"`
+	State             string `json:"state,omitempty"`
+	Tags              string `json:"tags,omitempty"`
+	Traffictype       string `json:"traffictype,omitempty"`
 }

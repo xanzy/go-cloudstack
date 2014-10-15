@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type CreateInstanceGroupParams struct {
@@ -103,14 +104,14 @@ func (s *VMGroupService) CreateInstanceGroup(p *CreateInstanceGroupParams) (*Cre
 }
 
 type CreateInstanceGroupResponse struct {
-	Projectid string `json:"projectid,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Project   string `json:"project,omitempty"`
 	Account   string `json:"account,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
 	Created   string `json:"created,omitempty"`
+	Domain    string `json:"domain,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
+	Id        string `json:"id,omitempty"`
 	Name      string `json:"name,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
 }
 
 type DeleteInstanceGroupParams struct {
@@ -160,8 +161,8 @@ func (s *VMGroupService) DeleteInstanceGroup(p *DeleteInstanceGroupParams) (*Del
 }
 
 type DeleteInstanceGroupResponse struct {
-	Success     string `json:"success,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type UpdateInstanceGroupParams struct {
@@ -222,14 +223,14 @@ func (s *VMGroupService) UpdateInstanceGroup(p *UpdateInstanceGroupParams) (*Upd
 }
 
 type UpdateInstanceGroupResponse struct {
-	Domainid  string `json:"domainid,omitempty"`
-	Created   string `json:"created,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
 	Account   string `json:"account,omitempty"`
+	Created   string `json:"created,omitempty"`
 	Domain    string `json:"domain,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
 	Id        string `json:"id,omitempty"`
 	Name      string `json:"name,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
 }
 
 type ListInstanceGroupsParams struct {
@@ -422,7 +423,9 @@ func (s *VMGroupService) GetInstanceGroupByID(id string) (*InstanceGroup, int, e
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -452,12 +455,12 @@ type ListInstanceGroupsResponse struct {
 }
 
 type InstanceGroup struct {
-	Domainid  string `json:"domainid,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Project   string `json:"project,omitempty"`
 	Account   string `json:"account,omitempty"`
 	Created   string `json:"created,omitempty"`
-	Id        string `json:"id,omitempty"`
 	Domain    string `json:"domain,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Name      string `json:"name,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
 }

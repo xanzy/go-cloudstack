@@ -124,11 +124,11 @@ func (s *ConfigurationService) UpdateConfiguration(p *UpdateConfigurationParams)
 }
 
 type UpdateConfigurationResponse struct {
-	Description string `json:"description,omitempty"`
-	Scope       string `json:"scope,omitempty"`
 	Category    string `json:"category,omitempty"`
+	Description string `json:"description,omitempty"`
 	Id          int    `json:"id,omitempty"`
 	Name        string `json:"name,omitempty"`
+	Scope       string `json:"scope,omitempty"`
 	Value       string `json:"value,omitempty"`
 }
 
@@ -273,12 +273,12 @@ type ListConfigurationsResponse struct {
 }
 
 type Configuration struct {
+	Category    string `json:"category,omitempty"`
 	Description string `json:"description,omitempty"`
 	Id          int    `json:"id,omitempty"`
-	Value       string `json:"value,omitempty"`
 	Name        string `json:"name,omitempty"`
 	Scope       string `json:"scope,omitempty"`
-	Category    string `json:"category,omitempty"`
+	Value       string `json:"value,omitempty"`
 }
 
 type ListCapabilitiesParams struct {
@@ -321,17 +321,17 @@ type ListCapabilitiesResponse struct {
 }
 
 type Capability struct {
-	Kvmsnapshotenabled        bool   `json:"kvmsnapshotenabled,omitempty"`
-	Apilimitmax               int    `json:"apilimitmax,omitempty"`
-	Projectinviterequired     bool   `json:"projectinviterequired,omitempty"`
-	Userpublictemplateenabled bool   `json:"userpublictemplateenabled,omitempty"`
-	Cloudstackversion         string `json:"cloudstackversion,omitempty"`
-	Securitygroupsenabled     bool   `json:"securitygroupsenabled,omitempty"`
-	Regionsecondaryenabled    bool   `json:"regionsecondaryenabled,omitempty"`
-	Customdiskofferingmaxsize int    `json:"customdiskofferingmaxsize,omitempty"`
-	Apilimitinterval          int    `json:"apilimitinterval,omitempty"`
-	SupportELB                string `json:"supportELB,omitempty"`
 	Allowusercreateprojects   bool   `json:"allowusercreateprojects,omitempty"`
+	Apilimitinterval          int    `json:"apilimitinterval,omitempty"`
+	Apilimitmax               int    `json:"apilimitmax,omitempty"`
+	Cloudstackversion         string `json:"cloudstackversion,omitempty"`
+	Customdiskofferingmaxsize int    `json:"customdiskofferingmaxsize,omitempty"`
+	Kvmsnapshotenabled        bool   `json:"kvmsnapshotenabled,omitempty"`
+	Projectinviterequired     bool   `json:"projectinviterequired,omitempty"`
+	Regionsecondaryenabled    bool   `json:"regionsecondaryenabled,omitempty"`
+	Securitygroupsenabled     bool   `json:"securitygroupsenabled,omitempty"`
+	SupportELB                string `json:"supportELB,omitempty"`
+	Userpublictemplateenabled bool   `json:"userpublictemplateenabled,omitempty"`
 }
 
 type ListDeploymentPlannersParams struct {
@@ -574,8 +574,8 @@ func (s *ConfigurationService) AddLdapConfiguration(p *AddLdapConfigurationParam
 }
 
 type AddLdapConfigurationResponse struct {
-	Port     int    `json:"port,omitempty"`
 	Hostname string `json:"hostname,omitempty"`
+	Port     int    `json:"port,omitempty"`
 }
 
 type DeleteLdapConfigurationParams struct {
@@ -625,6 +625,6 @@ func (s *ConfigurationService) DeleteLdapConfiguration(p *DeleteLdapConfiguratio
 }
 
 type DeleteLdapConfigurationResponse struct {
-	Port     int    `json:"port,omitempty"`
 	Hostname string `json:"hostname,omitempty"`
+	Port     int    `json:"port,omitempty"`
 }

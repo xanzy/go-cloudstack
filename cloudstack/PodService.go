@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type CreatePodParams struct {
@@ -140,27 +141,27 @@ func (s *PodService) CreatePod(p *CreatePodParams) (*CreatePodResponse, error) {
 }
 
 type CreatePodResponse struct {
-	Gateway         string `json:"gateway,omitempty"`
-	Id              string `json:"id,omitempty"`
 	Allocationstate string `json:"allocationstate,omitempty"`
-	Zoneid          string `json:"zoneid,omitempty"`
-	Name            string `json:"name,omitempty"`
-	Endip           string `json:"endip,omitempty"`
-	Netmask         string `json:"netmask,omitempty"`
-	Startip         string `json:"startip,omitempty"`
-	Zonename        string `json:"zonename,omitempty"`
 	Capacity        []struct {
-		Zonename      string `json:"zonename,omitempty"`
-		Clustername   string `json:"clustername,omitempty"`
-		Type          int    `json:"type,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
 		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
 		Capacityused  int    `json:"capacityused,omitempty"`
+		Clusterid     string `json:"clusterid,omitempty"`
+		Clustername   string `json:"clustername,omitempty"`
+		Percentused   string `json:"percentused,omitempty"`
+		Podid         string `json:"podid,omitempty"`
+		Podname       string `json:"podname,omitempty"`
+		Type          int    `json:"type,omitempty"`
 		Zoneid        string `json:"zoneid,omitempty"`
+		Zonename      string `json:"zonename,omitempty"`
 	} `json:"capacity,omitempty"`
+	Endip    string `json:"endip,omitempty"`
+	Gateway  string `json:"gateway,omitempty"`
+	Id       string `json:"id,omitempty"`
+	Name     string `json:"name,omitempty"`
+	Netmask  string `json:"netmask,omitempty"`
+	Startip  string `json:"startip,omitempty"`
+	Zoneid   string `json:"zoneid,omitempty"`
+	Zonename string `json:"zonename,omitempty"`
 }
 
 type UpdatePodParams struct {
@@ -276,27 +277,27 @@ func (s *PodService) UpdatePod(p *UpdatePodParams) (*UpdatePodResponse, error) {
 }
 
 type UpdatePodResponse struct {
-	Name     string `json:"name,omitempty"`
-	Capacity []struct {
-		Type          int    `json:"type,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
-		Clustername   string `json:"clustername,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
+	Allocationstate string `json:"allocationstate,omitempty"`
+	Capacity        []struct {
 		Capacitytotal int    `json:"capacitytotal,omitempty"`
 		Capacityused  int    `json:"capacityused,omitempty"`
+		Clusterid     string `json:"clusterid,omitempty"`
+		Clustername   string `json:"clustername,omitempty"`
+		Percentused   string `json:"percentused,omitempty"`
+		Podid         string `json:"podid,omitempty"`
+		Podname       string `json:"podname,omitempty"`
+		Type          int    `json:"type,omitempty"`
+		Zoneid        string `json:"zoneid,omitempty"`
+		Zonename      string `json:"zonename,omitempty"`
 	} `json:"capacity,omitempty"`
-	Allocationstate string `json:"allocationstate,omitempty"`
-	Endip           string `json:"endip,omitempty"`
-	Gateway         string `json:"gateway,omitempty"`
-	Zonename        string `json:"zonename,omitempty"`
-	Id              string `json:"id,omitempty"`
-	Startip         string `json:"startip,omitempty"`
-	Netmask         string `json:"netmask,omitempty"`
-	Zoneid          string `json:"zoneid,omitempty"`
+	Endip    string `json:"endip,omitempty"`
+	Gateway  string `json:"gateway,omitempty"`
+	Id       string `json:"id,omitempty"`
+	Name     string `json:"name,omitempty"`
+	Netmask  string `json:"netmask,omitempty"`
+	Startip  string `json:"startip,omitempty"`
+	Zoneid   string `json:"zoneid,omitempty"`
+	Zonename string `json:"zonename,omitempty"`
 }
 
 type DeletePodParams struct {
@@ -517,7 +518,9 @@ func (s *PodService) GetPodByID(id string) (*Pod, int, error) {
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -547,27 +550,27 @@ type ListPodsResponse struct {
 }
 
 type Pod struct {
-	Gateway         string `json:"gateway,omitempty"`
-	Zonename        string `json:"zonename,omitempty"`
-	Netmask         string `json:"netmask,omitempty"`
-	Id              string `json:"id,omitempty"`
-	Zoneid          string `json:"zoneid,omitempty"`
-	Name            string `json:"name,omitempty"`
-	Startip         string `json:"startip,omitempty"`
 	Allocationstate string `json:"allocationstate,omitempty"`
-	Endip           string `json:"endip,omitempty"`
 	Capacity        []struct {
 		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
-		Type          int    `json:"type,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
 		Capacityused  int    `json:"capacityused,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
+		Clusterid     string `json:"clusterid,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
+		Percentused   string `json:"percentused,omitempty"`
+		Podid         string `json:"podid,omitempty"`
 		Podname       string `json:"podname,omitempty"`
+		Type          int    `json:"type,omitempty"`
 		Zoneid        string `json:"zoneid,omitempty"`
+		Zonename      string `json:"zonename,omitempty"`
 	} `json:"capacity,omitempty"`
+	Endip    string `json:"endip,omitempty"`
+	Gateway  string `json:"gateway,omitempty"`
+	Id       string `json:"id,omitempty"`
+	Name     string `json:"name,omitempty"`
+	Netmask  string `json:"netmask,omitempty"`
+	Startip  string `json:"startip,omitempty"`
+	Zoneid   string `json:"zoneid,omitempty"`
+	Zonename string `json:"zonename,omitempty"`
 }
 
 type DedicatePodParams struct {
@@ -663,10 +666,10 @@ func (s *PodService) DedicatePod(p *DedicatePodParams) (*DedicatePodResponse, er
 
 type DedicatePodResponse struct {
 	JobID           string `json:"jobid,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
 	Accountid       string `json:"accountid,omitempty"`
-	Id              string `json:"id,omitempty"`
 	Affinitygroupid string `json:"affinitygroupid,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Id              string `json:"id,omitempty"`
 	Podid           string `json:"podid,omitempty"`
 	Podname         string `json:"podname,omitempty"`
 }
@@ -859,10 +862,10 @@ type ListDedicatedPodsResponse struct {
 }
 
 type DedicatedPod struct {
-	Podname         string `json:"podname,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Podid           string `json:"podid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Id              string `json:"id,omitempty"`
 	Accountid       string `json:"accountid,omitempty"`
+	Affinitygroupid string `json:"affinitygroupid,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Id              string `json:"id,omitempty"`
+	Podid           string `json:"podid,omitempty"`
+	Podname         string `json:"podname,omitempty"`
 }

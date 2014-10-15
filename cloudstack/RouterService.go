@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type StartRouterParams struct {
@@ -93,66 +94,66 @@ func (s *RouterService) StartRouter(p *StartRouterParams) (*StartRouterResponse,
 
 type StartRouterResponse struct {
 	JobID               string `json:"jobid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Vpcid               string `json:"vpcid,omitempty"`
+	Account             string `json:"account,omitempty"`
 	Created             string `json:"created,omitempty"`
-	Publicnetmask       string `json:"publicnetmask,omitempty"`
+	Dns1                string `json:"dns1,omitempty"`
 	Dns2                string `json:"dns2,omitempty"`
-	Project             string `json:"project,omitempty"`
-	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
+	Domain              string `json:"domain,omitempty"`
 	Domainid            string `json:"domainid,omitempty"`
-	Podid               string `json:"podid,omitempty"`
+	Gateway             string `json:"gateway,omitempty"`
+	Guestipaddress      string `json:"guestipaddress,omitempty"`
 	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
-	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
-	State               string `json:"state,omitempty"`
-	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
+	Guestnetmask        string `json:"guestnetmask,omitempty"`
+	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
+	Hostid              string `json:"hostid,omitempty"`
+	Hostname            string `json:"hostname,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Ip6dns1             string `json:"ip6dns1,omitempty"`
+	Ip6dns2             string `json:"ip6dns2,omitempty"`
 	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
+	Linklocalip         string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
+	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
+	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
+	Name                string `json:"name,omitempty"`
+	Networkdomain       string `json:"networkdomain,omitempty"`
 	Nic                 []struct {
-		Secondaryip  []string `json:"secondaryip,omitempty"`
-		Networkname  string   `json:"networkname,omitempty"`
-		Type         string   `json:"type,omitempty"`
-		Traffictype  string   `json:"traffictype,omitempty"`
-		Gateway      string   `json:"gateway,omitempty"`
-		Isdefault    bool     `json:"isdefault,omitempty"`
-		Id           string   `json:"id,omitempty"`
-		Isolationuri string   `json:"isolationuri,omitempty"`
-		Networkid    string   `json:"networkid,omitempty"`
-		Ip6address   string   `json:"ip6address,omitempty"`
-		Ipaddress    string   `json:"ipaddress,omitempty"`
-		Netmask      string   `json:"netmask,omitempty"`
 		Broadcasturi string   `json:"broadcasturi,omitempty"`
+		Gateway      string   `json:"gateway,omitempty"`
+		Id           string   `json:"id,omitempty"`
+		Ip6address   string   `json:"ip6address,omitempty"`
 		Ip6cidr      string   `json:"ip6cidr,omitempty"`
-		Macaddress   string   `json:"macaddress,omitempty"`
 		Ip6gateway   string   `json:"ip6gateway,omitempty"`
+		Ipaddress    string   `json:"ipaddress,omitempty"`
+		Isdefault    bool     `json:"isdefault,omitempty"`
+		Isolationuri string   `json:"isolationuri,omitempty"`
+		Macaddress   string   `json:"macaddress,omitempty"`
+		Netmask      string   `json:"netmask,omitempty"`
+		Networkid    string   `json:"networkid,omitempty"`
+		Networkname  string   `json:"networkname,omitempty"`
+		Secondaryip  []string `json:"secondaryip,omitempty"`
+		Traffictype  string   `json:"traffictype,omitempty"`
+		Type         string   `json:"type,omitempty"`
 	} `json:"nic,omitempty"`
-	Guestipaddress    string `json:"guestipaddress,omitempty"`
-	Hostid            string `json:"hostid,omitempty"`
-	Dns1              string `json:"dns1,omitempty"`
-	Guestnetmask      string `json:"guestnetmask,omitempty"`
-	Linklocalip       string `json:"linklocalip,omitempty"`
-	Zoneid            string `json:"zoneid,omitempty"`
-	Publicnetworkid   string `json:"publicnetworkid,omitempty"`
-	Name              string `json:"name,omitempty"`
-	Publicip          string `json:"publicip,omitempty"`
-	Guestnetworkid    string `json:"guestnetworkid,omitempty"`
-	Domain            string `json:"domain,omitempty"`
-	Ip6dns2           string `json:"ip6dns2,omitempty"`
-	Requiresupgrade   bool   `json:"requiresupgrade,omitempty"`
-	Role              string `json:"role,omitempty"`
-	Projectid         string `json:"projectid,omitempty"`
-	Hostname          string `json:"hostname,omitempty"`
-	Scriptsversion    string `json:"scriptsversion,omitempty"`
-	Redundantstate    string `json:"redundantstate,omitempty"`
-	Serviceofferingid string `json:"serviceofferingid,omitempty"`
-	Networkdomain     string `json:"networkdomain,omitempty"`
-	Id                string `json:"id,omitempty"`
-	Ip6dns1           string `json:"ip6dns1,omitempty"`
-	Version           string `json:"version,omitempty"`
-	Gateway           string `json:"gateway,omitempty"`
-	Publicmacaddress  string `json:"publicmacaddress,omitempty"`
-	Account           string `json:"account,omitempty"`
+	Podid               string `json:"podid,omitempty"`
+	Project             string `json:"project,omitempty"`
+	Projectid           string `json:"projectid,omitempty"`
+	Publicip            string `json:"publicip,omitempty"`
+	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
+	Publicnetmask       string `json:"publicnetmask,omitempty"`
+	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
+	Redundantstate      string `json:"redundantstate,omitempty"`
+	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
+	Role                string `json:"role,omitempty"`
+	Scriptsversion      string `json:"scriptsversion,omitempty"`
+	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname string `json:"serviceofferingname,omitempty"`
+	State               string `json:"state,omitempty"`
+	Templateid          string `json:"templateid,omitempty"`
+	Version             string `json:"version,omitempty"`
+	Vpcid               string `json:"vpcid,omitempty"`
+	Zoneid              string `json:"zoneid,omitempty"`
+	Zonename            string `json:"zonename,omitempty"`
 }
 
 type RebootRouterParams struct {
@@ -224,67 +225,67 @@ func (s *RouterService) RebootRouter(p *RebootRouterParams) (*RebootRouterRespon
 }
 
 type RebootRouterResponse struct {
-	JobID              string `json:"jobid,omitempty"`
-	Networkdomain      string `json:"networkdomain,omitempty"`
-	Linklocalnetworkid string `json:"linklocalnetworkid,omitempty"`
-	Podid              string `json:"podid,omitempty"`
-	Guestnetmask       string `json:"guestnetmask,omitempty"`
-	Name               string `json:"name,omitempty"`
-	Ip6dns2            string `json:"ip6dns2,omitempty"`
-	Nic                []struct {
-		Ip6gateway   string   `json:"ip6gateway,omitempty"`
-		Netmask      string   `json:"netmask,omitempty"`
-		Gateway      string   `json:"gateway,omitempty"`
-		Secondaryip  []string `json:"secondaryip,omitempty"`
-		Ip6address   string   `json:"ip6address,omitempty"`
-		Networkid    string   `json:"networkid,omitempty"`
-		Id           string   `json:"id,omitempty"`
-		Isolationuri string   `json:"isolationuri,omitempty"`
-		Macaddress   string   `json:"macaddress,omitempty"`
-		Type         string   `json:"type,omitempty"`
-		Networkname  string   `json:"networkname,omitempty"`
-		Isdefault    bool     `json:"isdefault,omitempty"`
-		Traffictype  string   `json:"traffictype,omitempty"`
-		Ipaddress    string   `json:"ipaddress,omitempty"`
-		Broadcasturi string   `json:"broadcasturi,omitempty"`
-		Ip6cidr      string   `json:"ip6cidr,omitempty"`
-	} `json:"nic,omitempty"`
-	Hostname            string `json:"hostname,omitempty"`
-	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
-	Id                  string `json:"id,omitempty"`
-	Hostid              string `json:"hostid,omitempty"`
-	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Gateway             string `json:"gateway,omitempty"`
-	Publicip            string `json:"publicip,omitempty"`
-	Guestipaddress      string `json:"guestipaddress,omitempty"`
-	Publicnetmask       string `json:"publicnetmask,omitempty"`
-	Vpcid               string `json:"vpcid,omitempty"`
-	Linklocalip         string `json:"linklocalip,omitempty"`
-	Dns2                string `json:"dns2,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
-	Domainid            string `json:"domainid,omitempty"`
-	Project             string `json:"project,omitempty"`
-	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
-	Scriptsversion      string `json:"scriptsversion,omitempty"`
+	JobID               string `json:"jobid,omitempty"`
 	Account             string `json:"account,omitempty"`
 	Created             string `json:"created,omitempty"`
-	Projectid           string `json:"projectid,omitempty"`
-	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
-	Ip6dns1             string `json:"ip6dns1,omitempty"`
-	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
 	Dns1                string `json:"dns1,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
-	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
-	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
-	Role                string `json:"role,omitempty"`
-	Version             string `json:"version,omitempty"`
-	State               string `json:"state,omitempty"`
-	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
+	Dns2                string `json:"dns2,omitempty"`
 	Domain              string `json:"domain,omitempty"`
+	Domainid            string `json:"domainid,omitempty"`
+	Gateway             string `json:"gateway,omitempty"`
+	Guestipaddress      string `json:"guestipaddress,omitempty"`
+	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
+	Guestnetmask        string `json:"guestnetmask,omitempty"`
+	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
+	Hostid              string `json:"hostid,omitempty"`
+	Hostname            string `json:"hostname,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Ip6dns1             string `json:"ip6dns1,omitempty"`
+	Ip6dns2             string `json:"ip6dns2,omitempty"`
+	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
+	Linklocalip         string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
+	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
+	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
+	Name                string `json:"name,omitempty"`
+	Networkdomain       string `json:"networkdomain,omitempty"`
+	Nic                 []struct {
+		Broadcasturi string   `json:"broadcasturi,omitempty"`
+		Gateway      string   `json:"gateway,omitempty"`
+		Id           string   `json:"id,omitempty"`
+		Ip6address   string   `json:"ip6address,omitempty"`
+		Ip6cidr      string   `json:"ip6cidr,omitempty"`
+		Ip6gateway   string   `json:"ip6gateway,omitempty"`
+		Ipaddress    string   `json:"ipaddress,omitempty"`
+		Isdefault    bool     `json:"isdefault,omitempty"`
+		Isolationuri string   `json:"isolationuri,omitempty"`
+		Macaddress   string   `json:"macaddress,omitempty"`
+		Netmask      string   `json:"netmask,omitempty"`
+		Networkid    string   `json:"networkid,omitempty"`
+		Networkname  string   `json:"networkname,omitempty"`
+		Secondaryip  []string `json:"secondaryip,omitempty"`
+		Traffictype  string   `json:"traffictype,omitempty"`
+		Type         string   `json:"type,omitempty"`
+	} `json:"nic,omitempty"`
+	Podid               string `json:"podid,omitempty"`
+	Project             string `json:"project,omitempty"`
+	Projectid           string `json:"projectid,omitempty"`
+	Publicip            string `json:"publicip,omitempty"`
+	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
+	Publicnetmask       string `json:"publicnetmask,omitempty"`
+	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
 	Redundantstate      string `json:"redundantstate,omitempty"`
+	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
+	Role                string `json:"role,omitempty"`
+	Scriptsversion      string `json:"scriptsversion,omitempty"`
+	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname string `json:"serviceofferingname,omitempty"`
+	State               string `json:"state,omitempty"`
+	Templateid          string `json:"templateid,omitempty"`
+	Version             string `json:"version,omitempty"`
+	Vpcid               string `json:"vpcid,omitempty"`
+	Zoneid              string `json:"zoneid,omitempty"`
+	Zonename            string `json:"zonename,omitempty"`
 }
 
 type StopRouterParams struct {
@@ -368,67 +369,67 @@ func (s *RouterService) StopRouter(p *StopRouterParams) (*StopRouterResponse, er
 }
 
 type StopRouterResponse struct {
-	JobID              string `json:"jobid,omitempty"`
-	Publicmacaddress   string `json:"publicmacaddress,omitempty"`
-	Redundantstate     string `json:"redundantstate,omitempty"`
-	State              string `json:"state,omitempty"`
-	Zonename           string `json:"zonename,omitempty"`
-	Publicip           string `json:"publicip,omitempty"`
-	Linklocalnetworkid string `json:"linklocalnetworkid,omitempty"`
-	Zoneid             string `json:"zoneid,omitempty"`
-	Account            string `json:"account,omitempty"`
-	Created            string `json:"created,omitempty"`
-	Publicnetworkid    string `json:"publicnetworkid,omitempty"`
-	Vpcid              string `json:"vpcid,omitempty"`
-	Isredundantrouter  bool   `json:"isredundantrouter,omitempty"`
-	Dns2               string `json:"dns2,omitempty"`
-	Guestmacaddress    string `json:"guestmacaddress,omitempty"`
-	Dns1               string `json:"dns1,omitempty"`
-	Gateway            string `json:"gateway,omitempty"`
-	Projectid          string `json:"projectid,omitempty"`
-	Id                 string `json:"id,omitempty"`
-	Role               string `json:"role,omitempty"`
-	Guestipaddress     string `json:"guestipaddress,omitempty"`
-	Guestnetworkid     string `json:"guestnetworkid,omitempty"`
-	Requiresupgrade    bool   `json:"requiresupgrade,omitempty"`
-	Nic                []struct {
-		Broadcasturi string   `json:"broadcasturi,omitempty"`
-		Id           string   `json:"id,omitempty"`
-		Ipaddress    string   `json:"ipaddress,omitempty"`
-		Isolationuri string   `json:"isolationuri,omitempty"`
-		Type         string   `json:"type,omitempty"`
-		Networkid    string   `json:"networkid,omitempty"`
-		Macaddress   string   `json:"macaddress,omitempty"`
-		Ip6gateway   string   `json:"ip6gateway,omitempty"`
-		Secondaryip  []string `json:"secondaryip,omitempty"`
-		Netmask      string   `json:"netmask,omitempty"`
-		Isdefault    bool     `json:"isdefault,omitempty"`
-		Ip6cidr      string   `json:"ip6cidr,omitempty"`
-		Networkname  string   `json:"networkname,omitempty"`
-		Gateway      string   `json:"gateway,omitempty"`
-		Traffictype  string   `json:"traffictype,omitempty"`
-		Ip6address   string   `json:"ip6address,omitempty"`
-	} `json:"nic,omitempty"`
-	Publicnetmask       string `json:"publicnetmask,omitempty"`
-	Scriptsversion      string `json:"scriptsversion,omitempty"`
-	Domainid            string `json:"domainid,omitempty"`
-	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
-	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
-	Podid               string `json:"podid,omitempty"`
-	Networkdomain       string `json:"networkdomain,omitempty"`
-	Ip6dns2             string `json:"ip6dns2,omitempty"`
-	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
-	Name                string `json:"name,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Guestnetmask        string `json:"guestnetmask,omitempty"`
-	Ip6dns1             string `json:"ip6dns1,omitempty"`
-	Linklocalip         string `json:"linklocalip,omitempty"`
+	JobID               string `json:"jobid,omitempty"`
+	Account             string `json:"account,omitempty"`
+	Created             string `json:"created,omitempty"`
+	Dns1                string `json:"dns1,omitempty"`
+	Dns2                string `json:"dns2,omitempty"`
 	Domain              string `json:"domain,omitempty"`
+	Domainid            string `json:"domainid,omitempty"`
+	Gateway             string `json:"gateway,omitempty"`
+	Guestipaddress      string `json:"guestipaddress,omitempty"`
+	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
+	Guestnetmask        string `json:"guestnetmask,omitempty"`
+	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
 	Hostid              string `json:"hostid,omitempty"`
-	Project             string `json:"project,omitempty"`
-	Version             string `json:"version,omitempty"`
 	Hostname            string `json:"hostname,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Ip6dns1             string `json:"ip6dns1,omitempty"`
+	Ip6dns2             string `json:"ip6dns2,omitempty"`
+	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
+	Linklocalip         string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
+	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
+	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
+	Name                string `json:"name,omitempty"`
+	Networkdomain       string `json:"networkdomain,omitempty"`
+	Nic                 []struct {
+		Broadcasturi string   `json:"broadcasturi,omitempty"`
+		Gateway      string   `json:"gateway,omitempty"`
+		Id           string   `json:"id,omitempty"`
+		Ip6address   string   `json:"ip6address,omitempty"`
+		Ip6cidr      string   `json:"ip6cidr,omitempty"`
+		Ip6gateway   string   `json:"ip6gateway,omitempty"`
+		Ipaddress    string   `json:"ipaddress,omitempty"`
+		Isdefault    bool     `json:"isdefault,omitempty"`
+		Isolationuri string   `json:"isolationuri,omitempty"`
+		Macaddress   string   `json:"macaddress,omitempty"`
+		Netmask      string   `json:"netmask,omitempty"`
+		Networkid    string   `json:"networkid,omitempty"`
+		Networkname  string   `json:"networkname,omitempty"`
+		Secondaryip  []string `json:"secondaryip,omitempty"`
+		Traffictype  string   `json:"traffictype,omitempty"`
+		Type         string   `json:"type,omitempty"`
+	} `json:"nic,omitempty"`
+	Podid               string `json:"podid,omitempty"`
+	Project             string `json:"project,omitempty"`
+	Projectid           string `json:"projectid,omitempty"`
+	Publicip            string `json:"publicip,omitempty"`
+	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
+	Publicnetmask       string `json:"publicnetmask,omitempty"`
+	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
+	Redundantstate      string `json:"redundantstate,omitempty"`
+	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
+	Role                string `json:"role,omitempty"`
+	Scriptsversion      string `json:"scriptsversion,omitempty"`
+	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname string `json:"serviceofferingname,omitempty"`
+	State               string `json:"state,omitempty"`
+	Templateid          string `json:"templateid,omitempty"`
+	Version             string `json:"version,omitempty"`
+	Vpcid               string `json:"vpcid,omitempty"`
+	Zoneid              string `json:"zoneid,omitempty"`
+	Zonename            string `json:"zonename,omitempty"`
 }
 
 type DestroyRouterParams struct {
@@ -501,66 +502,66 @@ func (s *RouterService) DestroyRouter(p *DestroyRouterParams) (*DestroyRouterRes
 
 type DestroyRouterResponse struct {
 	JobID               string `json:"jobid,omitempty"`
-	Hostid              string `json:"hostid,omitempty"`
-	Podid               string `json:"podid,omitempty"`
-	Publicnetmask       string `json:"publicnetmask,omitempty"`
-	State               string `json:"state,omitempty"`
-	Hostname            string `json:"hostname,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
-	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
+	Account             string `json:"account,omitempty"`
+	Created             string `json:"created,omitempty"`
+	Dns1                string `json:"dns1,omitempty"`
+	Dns2                string `json:"dns2,omitempty"`
+	Domain              string `json:"domain,omitempty"`
+	Domainid            string `json:"domainid,omitempty"`
 	Gateway             string `json:"gateway,omitempty"`
-	Linklocalip         string `json:"linklocalip,omitempty"`
-	Version             string `json:"version,omitempty"`
-	Role                string `json:"role,omitempty"`
-	Id                  string `json:"id,omitempty"`
-	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
-	Publicip            string `json:"publicip,omitempty"`
-	Networkdomain       string `json:"networkdomain,omitempty"`
-	Project             string `json:"project,omitempty"`
-	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
-	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
-	Name                string `json:"name,omitempty"`
-	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
-	Projectid           string `json:"projectid,omitempty"`
 	Guestipaddress      string `json:"guestipaddress,omitempty"`
+	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
+	Guestnetmask        string `json:"guestnetmask,omitempty"`
 	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
+	Hostid              string `json:"hostid,omitempty"`
+	Hostname            string `json:"hostname,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Ip6dns1             string `json:"ip6dns1,omitempty"`
+	Ip6dns2             string `json:"ip6dns2,omitempty"`
+	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
+	Linklocalip         string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
+	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
+	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
+	Name                string `json:"name,omitempty"`
+	Networkdomain       string `json:"networkdomain,omitempty"`
 	Nic                 []struct {
-		Isdefault    bool     `json:"isdefault,omitempty"`
-		Secondaryip  []string `json:"secondaryip,omitempty"`
-		Macaddress   string   `json:"macaddress,omitempty"`
-		Networkid    string   `json:"networkid,omitempty"`
-		Isolationuri string   `json:"isolationuri,omitempty"`
-		Ip6address   string   `json:"ip6address,omitempty"`
-		Ip6gateway   string   `json:"ip6gateway,omitempty"`
-		Netmask      string   `json:"netmask,omitempty"`
-		Ipaddress    string   `json:"ipaddress,omitempty"`
-		Ip6cidr      string   `json:"ip6cidr,omitempty"`
-		Traffictype  string   `json:"traffictype,omitempty"`
-		Networkname  string   `json:"networkname,omitempty"`
 		Broadcasturi string   `json:"broadcasturi,omitempty"`
-		Type         string   `json:"type,omitempty"`
-		Id           string   `json:"id,omitempty"`
 		Gateway      string   `json:"gateway,omitempty"`
+		Id           string   `json:"id,omitempty"`
+		Ip6address   string   `json:"ip6address,omitempty"`
+		Ip6cidr      string   `json:"ip6cidr,omitempty"`
+		Ip6gateway   string   `json:"ip6gateway,omitempty"`
+		Ipaddress    string   `json:"ipaddress,omitempty"`
+		Isdefault    bool     `json:"isdefault,omitempty"`
+		Isolationuri string   `json:"isolationuri,omitempty"`
+		Macaddress   string   `json:"macaddress,omitempty"`
+		Netmask      string   `json:"netmask,omitempty"`
+		Networkid    string   `json:"networkid,omitempty"`
+		Networkname  string   `json:"networkname,omitempty"`
+		Secondaryip  []string `json:"secondaryip,omitempty"`
+		Traffictype  string   `json:"traffictype,omitempty"`
+		Type         string   `json:"type,omitempty"`
 	} `json:"nic,omitempty"`
-	Redundantstate     string `json:"redundantstate,omitempty"`
-	Linklocalnetworkid string `json:"linklocalnetworkid,omitempty"`
-	Domain             string `json:"domain,omitempty"`
-	Ip6dns1            string `json:"ip6dns1,omitempty"`
-	Guestnetmask       string `json:"guestnetmask,omitempty"`
-	Templateid         string `json:"templateid,omitempty"`
-	Dns2               string `json:"dns2,omitempty"`
-	Domainid           string `json:"domainid,omitempty"`
-	Created            string `json:"created,omitempty"`
-	Isredundantrouter  bool   `json:"isredundantrouter,omitempty"`
-	Ip6dns2            string `json:"ip6dns2,omitempty"`
-	Account            string `json:"account,omitempty"`
-	Dns1               string `json:"dns1,omitempty"`
-	Publicnetworkid    string `json:"publicnetworkid,omitempty"`
-	Zoneid             string `json:"zoneid,omitempty"`
-	Vpcid              string `json:"vpcid,omitempty"`
-	Publicmacaddress   string `json:"publicmacaddress,omitempty"`
-	Scriptsversion     string `json:"scriptsversion,omitempty"`
+	Podid               string `json:"podid,omitempty"`
+	Project             string `json:"project,omitempty"`
+	Projectid           string `json:"projectid,omitempty"`
+	Publicip            string `json:"publicip,omitempty"`
+	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
+	Publicnetmask       string `json:"publicnetmask,omitempty"`
+	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
+	Redundantstate      string `json:"redundantstate,omitempty"`
+	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
+	Role                string `json:"role,omitempty"`
+	Scriptsversion      string `json:"scriptsversion,omitempty"`
+	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname string `json:"serviceofferingname,omitempty"`
+	State               string `json:"state,omitempty"`
+	Templateid          string `json:"templateid,omitempty"`
+	Version             string `json:"version,omitempty"`
+	Vpcid               string `json:"vpcid,omitempty"`
+	Zoneid              string `json:"zoneid,omitempty"`
+	Zonename            string `json:"zonename,omitempty"`
 }
 
 type ChangeServiceForRouterParams struct {
@@ -622,66 +623,66 @@ func (s *RouterService) ChangeServiceForRouter(p *ChangeServiceForRouterParams) 
 }
 
 type ChangeServiceForRouterResponse struct {
-	Publicip            string `json:"publicip,omitempty"`
-	State               string `json:"state,omitempty"`
-	Version             string `json:"version,omitempty"`
-	Role                string `json:"role,omitempty"`
 	Account             string `json:"account,omitempty"`
-	Name                string `json:"name,omitempty"`
-	Linklocalip         string `json:"linklocalip,omitempty"`
-	Ip6dns2             string `json:"ip6dns2,omitempty"`
-	Guestnetmask        string `json:"guestnetmask,omitempty"`
-	Hostid              string `json:"hostid,omitempty"`
-	Guestipaddress      string `json:"guestipaddress,omitempty"`
-	Dns2                string `json:"dns2,omitempty"`
-	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
-	Gateway             string `json:"gateway,omitempty"`
-	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
-	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Created             string `json:"created,omitempty"`
-	Networkdomain       string `json:"networkdomain,omitempty"`
-	Podid               string `json:"podid,omitempty"`
-	Publicnetmask       string `json:"publicnetmask,omitempty"`
-	Ip6dns1             string `json:"ip6dns1,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
-	Redundantstate      string `json:"redundantstate,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Id                  string `json:"id,omitempty"`
-	Hostname            string `json:"hostname,omitempty"`
-	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
 	Dns1                string `json:"dns1,omitempty"`
+	Dns2                string `json:"dns2,omitempty"`
+	Domain              string `json:"domain,omitempty"`
+	Domainid            string `json:"domainid,omitempty"`
+	Gateway             string `json:"gateway,omitempty"`
+	Guestipaddress      string `json:"guestipaddress,omitempty"`
+	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
+	Guestnetmask        string `json:"guestnetmask,omitempty"`
+	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
+	Hostid              string `json:"hostid,omitempty"`
+	Hostname            string `json:"hostname,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Ip6dns1             string `json:"ip6dns1,omitempty"`
+	Ip6dns2             string `json:"ip6dns2,omitempty"`
+	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
+	Linklocalip         string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
 	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
-	Vpcid               string `json:"vpcid,omitempty"`
-	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
-	Scriptsversion      string `json:"scriptsversion,omitempty"`
+	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
+	Name                string `json:"name,omitempty"`
+	Networkdomain       string `json:"networkdomain,omitempty"`
+	Nic                 []struct {
+		Broadcasturi string   `json:"broadcasturi,omitempty"`
+		Gateway      string   `json:"gateway,omitempty"`
+		Id           string   `json:"id,omitempty"`
+		Ip6address   string   `json:"ip6address,omitempty"`
+		Ip6cidr      string   `json:"ip6cidr,omitempty"`
+		Ip6gateway   string   `json:"ip6gateway,omitempty"`
+		Ipaddress    string   `json:"ipaddress,omitempty"`
+		Isdefault    bool     `json:"isdefault,omitempty"`
+		Isolationuri string   `json:"isolationuri,omitempty"`
+		Macaddress   string   `json:"macaddress,omitempty"`
+		Netmask      string   `json:"netmask,omitempty"`
+		Networkid    string   `json:"networkid,omitempty"`
+		Networkname  string   `json:"networkname,omitempty"`
+		Secondaryip  []string `json:"secondaryip,omitempty"`
+		Traffictype  string   `json:"traffictype,omitempty"`
+		Type         string   `json:"type,omitempty"`
+	} `json:"nic,omitempty"`
+	Podid               string `json:"podid,omitempty"`
 	Project             string `json:"project,omitempty"`
 	Projectid           string `json:"projectid,omitempty"`
-	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
-	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
+	Publicip            string `json:"publicip,omitempty"`
+	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
+	Publicnetmask       string `json:"publicnetmask,omitempty"`
+	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
+	Redundantstate      string `json:"redundantstate,omitempty"`
+	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
+	Role                string `json:"role,omitempty"`
+	Scriptsversion      string `json:"scriptsversion,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
-	Domain              string `json:"domain,omitempty"`
-	Nic                 []struct {
-		Secondaryip  []string `json:"secondaryip,omitempty"`
-		Networkname  string   `json:"networkname,omitempty"`
-		Macaddress   string   `json:"macaddress,omitempty"`
-		Ip6gateway   string   `json:"ip6gateway,omitempty"`
-		Isolationuri string   `json:"isolationuri,omitempty"`
-		Traffictype  string   `json:"traffictype,omitempty"`
-		Networkid    string   `json:"networkid,omitempty"`
-		Id           string   `json:"id,omitempty"`
-		Ip6cidr      string   `json:"ip6cidr,omitempty"`
-		Gateway      string   `json:"gateway,omitempty"`
-		Isdefault    bool     `json:"isdefault,omitempty"`
-		Netmask      string   `json:"netmask,omitempty"`
-		Ipaddress    string   `json:"ipaddress,omitempty"`
-		Type         string   `json:"type,omitempty"`
-		Broadcasturi string   `json:"broadcasturi,omitempty"`
-		Ip6address   string   `json:"ip6address,omitempty"`
-	} `json:"nic,omitempty"`
-	Domainid string `json:"domainid,omitempty"`
+	Serviceofferingname string `json:"serviceofferingname,omitempty"`
+	State               string `json:"state,omitempty"`
+	Templateid          string `json:"templateid,omitempty"`
+	Version             string `json:"version,omitempty"`
+	Vpcid               string `json:"vpcid,omitempty"`
+	Zoneid              string `json:"zoneid,omitempty"`
+	Zonename            string `json:"zonename,omitempty"`
 }
 
 type ListRoutersParams struct {
@@ -974,7 +975,9 @@ func (s *RouterService) GetRouterByID(id string) (*Router, int, error) {
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -1004,66 +1007,66 @@ type ListRoutersResponse struct {
 }
 
 type Router struct {
-	Scriptsversion      string `json:"scriptsversion,omitempty"`
-	Domain              string `json:"domain,omitempty"`
-	Dns2                string `json:"dns2,omitempty"`
-	Redundantstate      string `json:"redundantstate,omitempty"`
-	Hostname            string `json:"hostname,omitempty"`
-	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
-	State               string `json:"state,omitempty"`
-	Podid               string `json:"podid,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
-	Name                string `json:"name,omitempty"`
-	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
-	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
 	Account             string `json:"account,omitempty"`
-	Guestnetmask        string `json:"guestnetmask,omitempty"`
-	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
-	Ip6dns1             string `json:"ip6dns1,omitempty"`
-	Networkdomain       string `json:"networkdomain,omitempty"`
-	Gateway             string `json:"gateway,omitempty"`
-	Domainid            string `json:"domainid,omitempty"`
-	Dns1                string `json:"dns1,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
-	Vpcid               string `json:"vpcid,omitempty"`
-	Id                  string `json:"id,omitempty"`
-	Projectid           string `json:"projectid,omitempty"`
-	Publicip            string `json:"publicip,omitempty"`
-	Publicnetmask       string `json:"publicnetmask,omitempty"`
 	Created             string `json:"created,omitempty"`
+	Dns1                string `json:"dns1,omitempty"`
+	Dns2                string `json:"dns2,omitempty"`
+	Domain              string `json:"domain,omitempty"`
+	Domainid            string `json:"domainid,omitempty"`
+	Gateway             string `json:"gateway,omitempty"`
+	Guestipaddress      string `json:"guestipaddress,omitempty"`
+	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
+	Guestnetmask        string `json:"guestnetmask,omitempty"`
+	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
+	Hostid              string `json:"hostid,omitempty"`
+	Hostname            string `json:"hostname,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Ip6dns1             string `json:"ip6dns1,omitempty"`
+	Ip6dns2             string `json:"ip6dns2,omitempty"`
+	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
+	Linklocalip         string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
 	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
-	Version             string `json:"version,omitempty"`
+	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
+	Name                string `json:"name,omitempty"`
+	Networkdomain       string `json:"networkdomain,omitempty"`
 	Nic                 []struct {
-		Gateway      string   `json:"gateway,omitempty"`
-		Networkid    string   `json:"networkid,omitempty"`
-		Id           string   `json:"id,omitempty"`
 		Broadcasturi string   `json:"broadcasturi,omitempty"`
-		Ip6cidr      string   `json:"ip6cidr,omitempty"`
-		Isolationuri string   `json:"isolationuri,omitempty"`
-		Isdefault    bool     `json:"isdefault,omitempty"`
+		Gateway      string   `json:"gateway,omitempty"`
+		Id           string   `json:"id,omitempty"`
 		Ip6address   string   `json:"ip6address,omitempty"`
+		Ip6cidr      string   `json:"ip6cidr,omitempty"`
 		Ip6gateway   string   `json:"ip6gateway,omitempty"`
+		Ipaddress    string   `json:"ipaddress,omitempty"`
+		Isdefault    bool     `json:"isdefault,omitempty"`
+		Isolationuri string   `json:"isolationuri,omitempty"`
 		Macaddress   string   `json:"macaddress,omitempty"`
+		Netmask      string   `json:"netmask,omitempty"`
+		Networkid    string   `json:"networkid,omitempty"`
+		Networkname  string   `json:"networkname,omitempty"`
+		Secondaryip  []string `json:"secondaryip,omitempty"`
 		Traffictype  string   `json:"traffictype,omitempty"`
 		Type         string   `json:"type,omitempty"`
-		Secondaryip  []string `json:"secondaryip,omitempty"`
-		Ipaddress    string   `json:"ipaddress,omitempty"`
-		Networkname  string   `json:"networkname,omitempty"`
-		Netmask      string   `json:"netmask,omitempty"`
 	} `json:"nic,omitempty"`
-	Project            string `json:"project,omitempty"`
-	Publicnetworkid    string `json:"publicnetworkid,omitempty"`
-	Hostid             string `json:"hostid,omitempty"`
-	Linklocalnetworkid string `json:"linklocalnetworkid,omitempty"`
-	Linklocalip        string `json:"linklocalip,omitempty"`
-	Ip6dns2            string `json:"ip6dns2,omitempty"`
-	Templateid         string `json:"templateid,omitempty"`
-	Zoneid             string `json:"zoneid,omitempty"`
-	Role               string `json:"role,omitempty"`
-	Guestipaddress     string `json:"guestipaddress,omitempty"`
-	Requiresupgrade    bool   `json:"requiresupgrade,omitempty"`
-	Serviceofferingid  string `json:"serviceofferingid,omitempty"`
-	Guestnetworkid     string `json:"guestnetworkid,omitempty"`
+	Podid               string `json:"podid,omitempty"`
+	Project             string `json:"project,omitempty"`
+	Projectid           string `json:"projectid,omitempty"`
+	Publicip            string `json:"publicip,omitempty"`
+	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
+	Publicnetmask       string `json:"publicnetmask,omitempty"`
+	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
+	Redundantstate      string `json:"redundantstate,omitempty"`
+	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
+	Role                string `json:"role,omitempty"`
+	Scriptsversion      string `json:"scriptsversion,omitempty"`
+	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname string `json:"serviceofferingname,omitempty"`
+	State               string `json:"state,omitempty"`
+	Templateid          string `json:"templateid,omitempty"`
+	Version             string `json:"version,omitempty"`
+	Vpcid               string `json:"vpcid,omitempty"`
+	Zoneid              string `json:"zoneid,omitempty"`
+	Zonename            string `json:"zonename,omitempty"`
 }
 
 type ListVirtualRouterElementsParams struct {
@@ -1167,7 +1170,9 @@ func (s *RouterService) GetVirtualRouterElementByID(id string) (*VirtualRouterEl
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -1197,14 +1202,14 @@ type ListVirtualRouterElementsResponse struct {
 }
 
 type VirtualRouterElement struct {
-	Project   string `json:"project,omitempty"`
 	Account   string `json:"account,omitempty"`
 	Domain    string `json:"domain,omitempty"`
-	Nspid     string `json:"nspid,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
 	Enabled   bool   `json:"enabled,omitempty"`
 	Id        string `json:"id,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
+	Nspid     string `json:"nspid,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
 }
 
 type ConfigureVirtualRouterElementParams struct {
@@ -1290,14 +1295,14 @@ func (s *RouterService) ConfigureVirtualRouterElement(p *ConfigureVirtualRouterE
 
 type ConfigureVirtualRouterElementResponse struct {
 	JobID     string `json:"jobid,omitempty"`
-	Nspid     string `json:"nspid,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
 	Account   string `json:"account,omitempty"`
+	Domain    string `json:"domain,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
+	Enabled   bool   `json:"enabled,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Nspid     string `json:"nspid,omitempty"`
 	Project   string `json:"project,omitempty"`
 	Projectid string `json:"projectid,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Enabled   bool   `json:"enabled,omitempty"`
 }
 
 type CreateVirtualRouterElementParams struct {
@@ -1381,12 +1386,12 @@ func (s *RouterService) CreateVirtualRouterElement(p *CreateVirtualRouterElement
 
 type CreateVirtualRouterElementResponse struct {
 	JobID     string `json:"jobid,omitempty"`
-	Enabled   bool   `json:"enabled,omitempty"`
 	Account   string `json:"account,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
-	Nspid     string `json:"nspid,omitempty"`
-	Id        string `json:"id,omitempty"`
 	Domain    string `json:"domain,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
+	Enabled   bool   `json:"enabled,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Nspid     string `json:"nspid,omitempty"`
 	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
 }

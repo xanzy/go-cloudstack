@@ -103,11 +103,11 @@ func (s *NicService) AddIpToNic(p *AddIpToNicParams) (*AddIpToNicResponse, error
 
 type AddIpToNicResponse struct {
 	JobID            string `json:"jobid,omitempty"`
-	Nicid            string `json:"nicid,omitempty"`
-	Ipaddress        string `json:"ipaddress,omitempty"`
 	Id               string `json:"id,omitempty"`
-	Virtualmachineid string `json:"virtualmachineid,omitempty"`
+	Ipaddress        string `json:"ipaddress,omitempty"`
 	Networkid        string `json:"networkid,omitempty"`
+	Nicid            string `json:"nicid,omitempty"`
+	Virtualmachineid string `json:"virtualmachineid,omitempty"`
 }
 
 type RemoveIpFromNicParams struct {
@@ -277,20 +277,20 @@ type ListNicsResponse struct {
 }
 
 type Nic struct {
-	Secondaryip  []string `json:"secondaryip,omitempty"`
-	Networkname  string   `json:"networkname,omitempty"`
-	Gateway      string   `json:"gateway,omitempty"`
-	Ip6address   string   `json:"ip6address,omitempty"`
 	Broadcasturi string   `json:"broadcasturi,omitempty"`
-	Type         string   `json:"type,omitempty"`
-	Ip6cidr      string   `json:"ip6cidr,omitempty"`
-	Macaddress   string   `json:"macaddress,omitempty"`
-	Netmask      string   `json:"netmask,omitempty"`
+	Gateway      string   `json:"gateway,omitempty"`
 	Id           string   `json:"id,omitempty"`
-	Networkid    string   `json:"networkid,omitempty"`
-	Traffictype  string   `json:"traffictype,omitempty"`
-	Ipaddress    string   `json:"ipaddress,omitempty"`
+	Ip6address   string   `json:"ip6address,omitempty"`
+	Ip6cidr      string   `json:"ip6cidr,omitempty"`
 	Ip6gateway   string   `json:"ip6gateway,omitempty"`
+	Ipaddress    string   `json:"ipaddress,omitempty"`
 	Isdefault    bool     `json:"isdefault,omitempty"`
 	Isolationuri string   `json:"isolationuri,omitempty"`
+	Macaddress   string   `json:"macaddress,omitempty"`
+	Netmask      string   `json:"netmask,omitempty"`
+	Networkid    string   `json:"networkid,omitempty"`
+	Networkname  string   `json:"networkname,omitempty"`
+	Secondaryip  []string `json:"secondaryip,omitempty"`
+	Traffictype  string   `json:"traffictype,omitempty"`
+	Type         string   `json:"type,omitempty"`
 }

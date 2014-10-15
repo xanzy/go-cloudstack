@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type AssociateIpAddressParams struct {
@@ -170,47 +171,47 @@ func (s *AddressService) AssociateIpAddress(p *AssociateIpAddressParams) (*Assoc
 }
 
 type AssociateIpAddressResponse struct {
-	JobID                     string `json:"jobid,omitempty"`
-	Account                   string `json:"account,omitempty"`
-	Isstaticnat               bool   `json:"isstaticnat,omitempty"`
-	Allocated                 string `json:"allocated,omitempty"`
-	Domain                    string `json:"domain,omitempty"`
-	Zoneid                    string `json:"zoneid,omitempty"`
-	Associatednetworkid       string `json:"associatednetworkid,omitempty"`
-	Vpcid                     string `json:"vpcid,omitempty"`
-	Vlanname                  string `json:"vlanname,omitempty"`
-	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
-	Vlanid                    string `json:"vlanid,omitempty"`
-	Associatednetworkname     string `json:"associatednetworkname,omitempty"`
-	Domainid                  string `json:"domainid,omitempty"`
-	Zonename                  string `json:"zonename,omitempty"`
-	Projectid                 string `json:"projectid,omitempty"`
-	Id                        string `json:"id,omitempty"`
-	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
-	Purpose                   string `json:"purpose,omitempty"`
-	Networkid                 string `json:"networkid,omitempty"`
-	Issourcenat               bool   `json:"issourcenat,omitempty"`
-	Isportable                bool   `json:"isportable,omitempty"`
-	Ipaddress                 string `json:"ipaddress,omitempty"`
-	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
-	Physicalnetworkid         string `json:"physicalnetworkid,omitempty"`
-	Vmipaddress               string `json:"vmipaddress,omitempty"`
-	State                     string `json:"state,omitempty"`
-	Project                   string `json:"project,omitempty"`
-	Issystem                  bool   `json:"issystem,omitempty"`
-	Tags                      []struct {
+	JobID                 string `json:"jobid,omitempty"`
+	Account               string `json:"account,omitempty"`
+	Allocated             string `json:"allocated,omitempty"`
+	Associatednetworkid   string `json:"associatednetworkid,omitempty"`
+	Associatednetworkname string `json:"associatednetworkname,omitempty"`
+	Domain                string `json:"domain,omitempty"`
+	Domainid              string `json:"domainid,omitempty"`
+	Forvirtualnetwork     bool   `json:"forvirtualnetwork,omitempty"`
+	Id                    string `json:"id,omitempty"`
+	Ipaddress             string `json:"ipaddress,omitempty"`
+	Isportable            bool   `json:"isportable,omitempty"`
+	Issourcenat           bool   `json:"issourcenat,omitempty"`
+	Isstaticnat           bool   `json:"isstaticnat,omitempty"`
+	Issystem              bool   `json:"issystem,omitempty"`
+	Networkid             string `json:"networkid,omitempty"`
+	Physicalnetworkid     string `json:"physicalnetworkid,omitempty"`
+	Project               string `json:"project,omitempty"`
+	Projectid             string `json:"projectid,omitempty"`
+	Purpose               string `json:"purpose,omitempty"`
+	State                 string `json:"state,omitempty"`
+	Tags                  []struct {
 		Account      string `json:"account,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Key          string `json:"key,omitempty"`
 		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
 		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
 		Project      string `json:"project,omitempty"`
 		Projectid    string `json:"projectid,omitempty"`
-		Domain       string `json:"domain,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Forvirtualnetwork bool `json:"forvirtualnetwork,omitempty"`
+	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
+	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
+	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
+	Vlanid                    string `json:"vlanid,omitempty"`
+	Vlanname                  string `json:"vlanname,omitempty"`
+	Vmipaddress               string `json:"vmipaddress,omitempty"`
+	Vpcid                     string `json:"vpcid,omitempty"`
+	Zoneid                    string `json:"zoneid,omitempty"`
+	Zonename                  string `json:"zonename,omitempty"`
 }
 
 type DisassociateIpAddressParams struct {
@@ -559,7 +560,9 @@ func (s *AddressService) GetPublicIpAddressByID(id string) (*PublicIpAddress, in
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -589,44 +592,44 @@ type ListPublicIpAddressesResponse struct {
 }
 
 type PublicIpAddress struct {
-	Isportable                bool   `json:"isportable,omitempty"`
-	Account                   string `json:"account,omitempty"`
-	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
-	State                     string `json:"state,omitempty"`
-	Networkid                 string `json:"networkid,omitempty"`
-	Physicalnetworkid         string `json:"physicalnetworkid,omitempty"`
-	Zonename                  string `json:"zonename,omitempty"`
-	Vmipaddress               string `json:"vmipaddress,omitempty"`
-	Vpcid                     string `json:"vpcid,omitempty"`
-	Vlanid                    string `json:"vlanid,omitempty"`
-	Allocated                 string `json:"allocated,omitempty"`
-	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
-	Id                        string `json:"id,omitempty"`
-	Projectid                 string `json:"projectid,omitempty"`
-	Ipaddress                 string `json:"ipaddress,omitempty"`
-	Issourcenat               bool   `json:"issourcenat,omitempty"`
-	Project                   string `json:"project,omitempty"`
-	Vlanname                  string `json:"vlanname,omitempty"`
-	Issystem                  bool   `json:"issystem,omitempty"`
-	Associatednetworkname     string `json:"associatednetworkname,omitempty"`
-	Isstaticnat               bool   `json:"isstaticnat,omitempty"`
-	Domainid                  string `json:"domainid,omitempty"`
-	Associatednetworkid       string `json:"associatednetworkid,omitempty"`
-	Domain                    string `json:"domain,omitempty"`
-	Purpose                   string `json:"purpose,omitempty"`
-	Forvirtualnetwork         bool   `json:"forvirtualnetwork,omitempty"`
-	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
-	Tags                      []struct {
-		Projectid    string `json:"projectid,omitempty"`
+	Account               string `json:"account,omitempty"`
+	Allocated             string `json:"allocated,omitempty"`
+	Associatednetworkid   string `json:"associatednetworkid,omitempty"`
+	Associatednetworkname string `json:"associatednetworkname,omitempty"`
+	Domain                string `json:"domain,omitempty"`
+	Domainid              string `json:"domainid,omitempty"`
+	Forvirtualnetwork     bool   `json:"forvirtualnetwork,omitempty"`
+	Id                    string `json:"id,omitempty"`
+	Ipaddress             string `json:"ipaddress,omitempty"`
+	Isportable            bool   `json:"isportable,omitempty"`
+	Issourcenat           bool   `json:"issourcenat,omitempty"`
+	Isstaticnat           bool   `json:"isstaticnat,omitempty"`
+	Issystem              bool   `json:"issystem,omitempty"`
+	Networkid             string `json:"networkid,omitempty"`
+	Physicalnetworkid     string `json:"physicalnetworkid,omitempty"`
+	Project               string `json:"project,omitempty"`
+	Projectid             string `json:"projectid,omitempty"`
+	Purpose               string `json:"purpose,omitempty"`
+	State                 string `json:"state,omitempty"`
+	Tags                  []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
 		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Account      string `json:"account,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Domain       string `json:"domain,omitempty"`
 	} `json:"tags,omitempty"`
-	Zoneid string `json:"zoneid,omitempty"`
+	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
+	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
+	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
+	Vlanid                    string `json:"vlanid,omitempty"`
+	Vlanname                  string `json:"vlanname,omitempty"`
+	Vmipaddress               string `json:"vmipaddress,omitempty"`
+	Vpcid                     string `json:"vpcid,omitempty"`
+	Zoneid                    string `json:"zoneid,omitempty"`
+	Zonename                  string `json:"zonename,omitempty"`
 }

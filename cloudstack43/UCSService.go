@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type AddUcsManagerParams struct {
@@ -117,9 +118,9 @@ func (s *UCSService) AddUcsManager(p *AddUcsManagerParams) (*AddUcsManagerRespon
 }
 
 type AddUcsManagerResponse struct {
-	Url    string `json:"url,omitempty"`
-	Name   string `json:"name,omitempty"`
 	Id     string `json:"id,omitempty"`
+	Name   string `json:"name,omitempty"`
+	Url    string `json:"url,omitempty"`
 	Zoneid string `json:"zoneid,omitempty"`
 }
 
@@ -256,7 +257,9 @@ func (s *UCSService) GetUcsManagerByID(id string) (*UcsManager, int, error) {
 		return nil, -1, err
 	}
 
-	if l.Count == 0 {
+	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
+		"Invalid parameter id value=%s due to incorrect long value format, "+
+			"or entity does not exist", id)) {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -286,8 +289,8 @@ type ListUcsManagersResponse struct {
 }
 
 type UcsManager struct {
-	Name   string `json:"name,omitempty"`
 	Id     string `json:"id,omitempty"`
+	Name   string `json:"name,omitempty"`
 	Url    string `json:"url,omitempty"`
 	Zoneid string `json:"zoneid,omitempty"`
 }
@@ -470,9 +473,9 @@ type ListUcsBladesResponse struct {
 
 type UcsBlade struct {
 	Bladedn      string `json:"bladedn,omitempty"`
-	Profiledn    string `json:"profiledn,omitempty"`
 	Hostid       string `json:"hostid,omitempty"`
 	Id           string `json:"id,omitempty"`
+	Profiledn    string `json:"profiledn,omitempty"`
 	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
 }
 
@@ -571,9 +574,9 @@ func (s *UCSService) AssociateUcsProfileToBlade(p *AssociateUcsProfileToBladePar
 type AssociateUcsProfileToBladeResponse struct {
 	JobID        string `json:"jobid,omitempty"`
 	Bladedn      string `json:"bladedn,omitempty"`
-	Profiledn    string `json:"profiledn,omitempty"`
 	Hostid       string `json:"hostid,omitempty"`
 	Id           string `json:"id,omitempty"`
+	Profiledn    string `json:"profiledn,omitempty"`
 	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
 }
 
@@ -710,11 +713,11 @@ func (s *UCSService) DisassociateUcsProfileFromBlade(p *DisassociateUcsProfileFr
 
 type DisassociateUcsProfileFromBladeResponse struct {
 	JobID        string `json:"jobid,omitempty"`
-	Id           string `json:"id,omitempty"`
-	Hostid       string `json:"hostid,omitempty"`
 	Bladedn      string `json:"bladedn,omitempty"`
-	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
+	Hostid       string `json:"hostid,omitempty"`
+	Id           string `json:"id,omitempty"`
 	Profiledn    string `json:"profiledn,omitempty"`
+	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
 }
 
 type RefreshUcsBladesParams struct {
@@ -799,9 +802,9 @@ func (s *UCSService) RefreshUcsBlades(p *RefreshUcsBladesParams) (*RefreshUcsBla
 }
 
 type RefreshUcsBladesResponse struct {
-	Id           string `json:"id,omitempty"`
 	Bladedn      string `json:"bladedn,omitempty"`
-	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
-	Profiledn    string `json:"profiledn,omitempty"`
 	Hostid       string `json:"hostid,omitempty"`
+	Id           string `json:"id,omitempty"`
+	Profiledn    string `json:"profiledn,omitempty"`
+	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
 }

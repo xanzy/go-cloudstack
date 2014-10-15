@@ -151,13 +151,13 @@ func (s *NiciraNVPService) AddNiciraNvpDevice(p *AddNiciraNvpDeviceParams) (*Add
 
 type AddNiciraNvpDeviceResponse struct {
 	JobID                string `json:"jobid,omitempty"`
-	Provider             string `json:"provider,omitempty"`
-	Physicalnetworkid    string `json:"physicalnetworkid,omitempty"`
-	Nvpdeviceid          string `json:"nvpdeviceid,omitempty"`
-	Niciradevicename     string `json:"niciradevicename,omitempty"`
-	Transportzoneuuid    string `json:"transportzoneuuid,omitempty"`
 	Hostname             string `json:"hostname,omitempty"`
 	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid,omitempty"`
+	Niciradevicename     string `json:"niciradevicename,omitempty"`
+	Nvpdeviceid          string `json:"nvpdeviceid,omitempty"`
+	Physicalnetworkid    string `json:"physicalnetworkid,omitempty"`
+	Provider             string `json:"provider,omitempty"`
+	Transportzoneuuid    string `json:"transportzoneuuid,omitempty"`
 }
 
 type DeleteNiciraNvpDeviceParams struct {
@@ -326,11 +326,11 @@ type ListNiciraNvpDevicesResponse struct {
 }
 
 type NiciraNvpDevice struct {
-	Niciradevicename     string `json:"niciradevicename,omitempty"`
 	Hostname             string `json:"hostname,omitempty"`
+	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid,omitempty"`
+	Niciradevicename     string `json:"niciradevicename,omitempty"`
 	Nvpdeviceid          string `json:"nvpdeviceid,omitempty"`
 	Physicalnetworkid    string `json:"physicalnetworkid,omitempty"`
 	Provider             string `json:"provider,omitempty"`
 	Transportzoneuuid    string `json:"transportzoneuuid,omitempty"`
-	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid,omitempty"`
 }
