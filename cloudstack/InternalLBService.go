@@ -285,12 +285,15 @@ func (s *InternalLBService) GetInternalLoadBalancerElementByID(id string) (*Inte
 
 	l, err := s.ListInternalLoadBalancerElements(p)
 	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
 		return nil, -1, err
 	}
 
-	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
-		"Invalid parameter id value=%s due to incorrect long value format, "+
-			"or entity does not exist", id)) {
+	if l.Count == 0 {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
@@ -866,12 +869,15 @@ func (s *InternalLBService) GetInternalLoadBalancerVMByID(id string) (*InternalL
 
 	l, err := s.ListInternalLoadBalancerVMs(p)
 	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
 		return nil, -1, err
 	}
 
-	if l.Count == 0 || strings.Contains(err.Error(), fmt.Sprintf(
-		"Invalid parameter id value=%s due to incorrect long value format, "+
-			"or entity does not exist", id)) {
+	if l.Count == 0 {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
 	}
 
