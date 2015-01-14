@@ -14,8 +14,4 @@
 // limitations under the License.
 //
 
-package main
-
-var v44 = apiInfo{
-// Need to fix this ones I have a proper 4.4.x CloudStack API running...
-}
+package cloudstack44

@@ -45,9 +45,9 @@ type apiInfo map[string][]string
 
 var mapVersion = map[string]apiInfo{
 	// If new API versions are added, they need to be added here also!
-	"v43": v43,
-	//"v44":    v44,
-	"latest": v43,
+	"v43":    v43,
+	"v44":    v44,
+	"latest": v44,
 }
 
 var pkg string
@@ -882,7 +882,12 @@ func (s *service) generateResponseType(a *API) {
 	if strings.HasPrefix(a.Name, "list") {
 		pn("type %s struct {", tn)
 		pn("	Count int `json:\"count\"`")
-		pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), strings.ToLower(parseSingular(ln)))
+		// This nasty check is needed as the EgressFirewallRule response behaves inconsistent
+		if parseSingular(ln) == "EgressFirewallRule" {
+			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "firewallrule")
+		} else {
+			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), strings.ToLower(parseSingular(ln)))
+		}
 		pn("}")
 		pn("")
 		tn = parseSingular(ln)

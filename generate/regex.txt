@@ -34,8 +34,9 @@ Search: '</div>\n.*\n'
 Replace: ''
 
 Search: '^([\S]+)$'
-Replace: '},\n"$12Service": {'
+Replace: '},\n"$1Service": {'
 
+# Watch out with this one, should do this one manually
 Search: '^([\S]+)\ ([\S]+)$'
 Replace: '},\n"$1$2Service": {'
 
