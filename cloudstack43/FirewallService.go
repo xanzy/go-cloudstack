@@ -1643,7 +1643,7 @@ func (s *FirewallService) ListEgressFirewallRules(p *ListEgressFirewallRulesPara
 
 type ListEgressFirewallRulesResponse struct {
 	Count               int                   `json:"count"`
-	EgressFirewallRules []*EgressFirewallRule `json:"egressfirewallrule"`
+	EgressFirewallRules []*EgressFirewallRule `json:"firewallrule"`
 }
 
 type EgressFirewallRule struct {
