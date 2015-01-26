@@ -273,12 +273,25 @@ func (cs *CloudStackClient) newRequest(api string, params url.Values) (json.RawM
 	mac := hmac.New(sha1.New, []byte(cs.secret))
 	mac.Write([]byte(s3))
 	signature := base64.StdEncoding.EncodeToString(mac.Sum(nil))
-	signature = url.QueryEscape(signature)
 
-	// Create the final URL before we issue the request
-	url := cs.baseURL + "?" + s + "&signature=" + signature
+	var err error
+	var resp *http.Response
+	if api == "deployVirtualMachine" {
+		// The deployVirtualMachine API should be called using a POST call
+		// so we don't have to worry about the userdata size
 
-	resp, err := cs.client.Get(url)
+		// Add the unescaped signature to the POST params
+		params.Set("signature", signature)
+
+		// Make a POST call
+		resp, err = cs.client.PostForm(cs.baseURL, params)
+	} else {
+		// Create the final URL before we issue the request
+		url := cs.baseURL + "?" + s + "&signature=" + url.QueryEscape(signature)
+
+		// Make a GET call
+		resp, err = cs.client.Get(url)
+	}
 	if err != nil {
 		return nil, err
 	}
