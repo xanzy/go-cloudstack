@@ -653,6 +653,10 @@ func (s *service) generateHelperFuncs(a *API) {
 					p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
 				}
 			}
+			// Add an addition (needed) parameter for the GetTemplateId helper function
+			if parseSingular(ln) == "Template" {
+				p("zoneid string, ")
+			}
 			pn(") (string, error) {")
 
 			// Generate the function body
@@ -664,6 +668,10 @@ func (s *service) generateHelperFuncs(a *API) {
 				if ap.Required {
 					pn("	p.p[\"%s\"] = %s", s.parseParamName(ap.Name), s.parseParamName(ap.Name))
 				}
+			}
+			// Assign the additional parameter for the GetTemplateId helper function
+			if parseSingular(ln) == "Template" {
+				pn("	p.p[\"zoneid\"] = zoneid")
 			}
 			pn("")
 			pn("	l, err := s.List%s(p)", ln)
@@ -699,6 +707,10 @@ func (s *service) generateHelperFuncs(a *API) {
 						p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
 					}
 				}
+				// Add an addition (needed) parameter for the GetTemplateId helper function
+				if parseSingular(ln) == "Template" {
+					p("zoneid string, ")
+				}
 				pn(") (*%s, int, error) {", parseSingular(ln))
 
 				// Generate the function body
@@ -707,6 +719,10 @@ func (s *service) generateHelperFuncs(a *API) {
 					if ap.Required {
 						p("%s, ", s.parseParamName(ap.Name))
 					}
+				}
+				// Assign the additional parameter for the GetTemplateId helper function
+				if parseSingular(ln) == "Template" {
+					p("zoneid")
 				}
 				pn(")")
 				pn("  if err != nil {")

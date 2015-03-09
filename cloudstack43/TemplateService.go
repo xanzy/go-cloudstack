@@ -1276,12 +1276,13 @@ func (s *TemplateService) NewListTemplatesParams(templatefilter string) *ListTem
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *TemplateService) GetTemplateID(name string, templatefilter string) (string, error) {
+func (s *TemplateService) GetTemplateID(name string, templatefilter string, zoneid string) (string, error) {
 	p := &ListTemplatesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
 	p.p["templatefilter"] = templatefilter
+	p.p["zoneid"] = zoneid
 
 	l, err := s.ListTemplates(p)
 	if err != nil {
@@ -1307,8 +1308,8 @@ func (s *TemplateService) GetTemplateID(name string, templatefilter string) (str
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *TemplateService) GetTemplateByName(name string, templatefilter string) (*Template, int, error) {
-	id, err := s.GetTemplateID(name, templatefilter)
+func (s *TemplateService) GetTemplateByName(name string, templatefilter string, zoneid string) (*Template, int, error) {
+	id, err := s.GetTemplateID(name, templatefilter, zoneid)
 	if err != nil {
 		return nil, -1, err
 	}
