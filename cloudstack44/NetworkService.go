@@ -258,9 +258,6 @@ func (p *CreateNetworkParams) toURLValues() url.Values {
 	if v, found := p.p["vlan"]; found {
 		u.Set("vlan", v.(string))
 	}
-	if v, found := p.p["vlan"]; found {
-		u.Set("vlan", v.(string))
-	}
 	if v, found := p.p["vpcid"]; found {
 		u.Set("vpcid", v.(string))
 	}
