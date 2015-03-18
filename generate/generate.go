@@ -981,7 +981,7 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (o
 						pn("%s string `json:\"%s,omitempty\"`", capitalize(r.Name), r.Name)
 					}
 				} else {
-					pn("%s %s `json:\"%s,omitempty\"`", capitalize(r.Name), mapType(r.Type), r.Name)
+					pn("%s %s `json:\"%s,omitempty\"`", capitalize(r.Name), mapResponseType(r.Type), r.Name)
 				}
 				found[r.Name] = true
 			}
@@ -1075,6 +1075,23 @@ func mapType(t string) string {
 	default:
 		return "string"
 	}
+}
+
+func mapResponseType(t string) string {
+        switch t {
+        case "boolean":
+                return "bool"
+        case "short", "int", "integer", "long":
+                return "int64"
+        case "list", "set":
+                return "[]string"
+        case "map":
+                return "map[string]string"
+        case "responseobject":
+                return "json.RawMessage"
+        default:
+                return "string"
+        }
 }
 
 func capitalize(s string) string {
