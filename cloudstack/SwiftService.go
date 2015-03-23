@@ -124,7 +124,7 @@ func (p *ListSwiftsParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["id"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("id", vv)
 	}
 	if v, found := p.p["keyword"]; found {
@@ -141,7 +141,7 @@ func (p *ListSwiftsParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *ListSwiftsParams) SetId(v int) {
+func (p *ListSwiftsParams) SetId(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}

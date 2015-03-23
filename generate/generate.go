@@ -549,6 +549,9 @@ func (s *service) generateConvertCode(name, typ string) {
 	case "int":
 		pn("vv := strconv.Itoa(v.(int))")
 		pn("u.Set(\"%s\", vv)", n)
+	case "int64":
+		pn("vv := strconv.FormatInt(v.(int64), 10)")
+		pn("u.Set(\"%s\", vv)", n)
 	case "bool":
 		pn("vv := strconv.FormatBool(v.(bool))")
 		pn("u.Set(\"%s\", vv)", n)
@@ -905,16 +908,21 @@ func isSuccessOnlyResponse(resp APIResponses) bool {
 func (s *service) generateResponseType(a *API) {
 	pn := s.pn
 	tn := capitalize(a.Name + "Response")
-	ln := strings.TrimPrefix(a.Name, "list")
+	ln := capitalize(strings.TrimPrefix(a.Name, "list"))
 
-	// If this is a 'list' response, we need an seperate list struct
-	if strings.HasPrefix(a.Name, "list") {
+	// If this is a 'list' response, we need an seperate list struct. There seem to be other
+	// types of responses that also need a seperate list struct, so checking on exact matches
+	// for those once.
+	if strings.HasPrefix(a.Name, "list") || a.Name == "registerTemplate" {
 		pn("type %s struct {", tn)
 		pn("	Count int `json:\"count\"`")
-		// This nasty check is needed as the EgressFirewallRule response behaves inconsistent
-		if parseSingular(ln) == "EgressFirewallRule" {
+		// This nasty check is for some specific response that do not behave consistent
+		switch a.Name {
+		case "listEgressFirewallRules":
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "firewallrule")
-		} else {
+		case "registerTemplate":
+			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "template")
+		default:
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), strings.ToLower(parseSingular(ln)))
 		}
 		pn("}")
@@ -1049,8 +1057,10 @@ func mapType(t string) string {
 	switch t {
 	case "boolean":
 		return "bool"
-	case "short", "int", "integer", "long":
+	case "short", "int", "integer":
 		return "int"
+	case "long":
+		return "int64"
 	case "list", "set":
 		return "[]string"
 	case "map":

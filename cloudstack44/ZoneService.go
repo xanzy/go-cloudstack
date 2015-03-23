@@ -221,8 +221,8 @@ func (s *ZoneService) CreateZone(p *CreateZoneParams) (*CreateZoneResponse, erro
 type CreateZoneResponse struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
+		Capacitytotal int64  `json:"capacitytotal,omitempty"`
+		Capacityused  int64  `json:"capacityused,omitempty"`
 		Clusterid     string `json:"clusterid,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
 		Percentused   string `json:"percentused,omitempty"`
@@ -489,8 +489,8 @@ func (s *ZoneService) UpdateZone(p *UpdateZoneParams) (*UpdateZoneResponse, erro
 type UpdateZoneResponse struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
+		Capacitytotal int64  `json:"capacitytotal,omitempty"`
+		Capacityused  int64  `json:"capacityused,omitempty"`
 		Clusterid     string `json:"clusterid,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
 		Percentused   string `json:"percentused,omitempty"`
@@ -818,8 +818,8 @@ type ListZonesResponse struct {
 type Zone struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
+		Capacitytotal int64  `json:"capacitytotal,omitempty"`
+		Capacityused  int64  `json:"capacityused,omitempty"`
 		Clusterid     string `json:"clusterid,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
 		Percentused   string `json:"percentused,omitempty"`

@@ -122,10 +122,10 @@ type AttachIsoResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -149,8 +149,8 @@ type AttachIsoResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -171,14 +171,14 @@ type AttachIsoResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -358,10 +358,10 @@ type DetachIsoResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -385,8 +385,8 @@ type DetachIsoResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -407,14 +407,14 @@ type DetachIsoResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -857,7 +857,7 @@ type Iso struct {
 	Project               string            `json:"project,omitempty"`
 	Projectid             string            `json:"projectid,omitempty"`
 	Removed               string            `json:"removed,omitempty"`
-	Size                  int               `json:"size,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
@@ -1115,7 +1115,7 @@ type RegisterIsoResponse struct {
 	Project               string            `json:"project,omitempty"`
 	Projectid             string            `json:"projectid,omitempty"`
 	Removed               string            `json:"removed,omitempty"`
-	Size                  int               `json:"size,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
@@ -1331,7 +1331,7 @@ type UpdateIsoResponse struct {
 	Project               string            `json:"project,omitempty"`
 	Projectid             string            `json:"projectid,omitempty"`
 	Removed               string            `json:"removed,omitempty"`
-	Size                  int               `json:"size,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
@@ -1553,7 +1553,7 @@ type CopyIsoResponse struct {
 	Project               string            `json:"project,omitempty"`
 	Projectid             string            `json:"projectid,omitempty"`
 	Removed               string            `json:"removed,omitempty"`
-	Size                  int               `json:"size,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`

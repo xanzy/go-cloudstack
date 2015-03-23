@@ -242,8 +242,8 @@ func (s *ClusterService) AddCluster(p *AddClusterParams) (*AddClusterResponse, e
 type AddClusterResponse struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
+		Capacitytotal int64  `json:"capacitytotal,omitempty"`
+		Capacityused  int64  `json:"capacityused,omitempty"`
 		Clusterid     string `json:"clusterid,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
 		Percentused   string `json:"percentused,omitempty"`
@@ -421,8 +421,8 @@ func (s *ClusterService) UpdateCluster(p *UpdateClusterParams) (*UpdateClusterRe
 type UpdateClusterResponse struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
+		Capacitytotal int64  `json:"capacitytotal,omitempty"`
+		Capacityused  int64  `json:"capacityused,omitempty"`
 		Clusterid     string `json:"clusterid,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
 		Percentused   string `json:"percentused,omitempty"`
@@ -693,8 +693,8 @@ type ListClustersResponse struct {
 type Cluster struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
+		Capacitytotal int64  `json:"capacitytotal,omitempty"`
+		Capacityused  int64  `json:"capacityused,omitempty"`
 		Clusterid     string `json:"clusterid,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
 		Percentused   string `json:"percentused,omitempty"`

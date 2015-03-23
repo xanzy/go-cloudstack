@@ -288,7 +288,7 @@ type CreateTemplateResponse struct {
 	Project               string            `json:"project,omitempty"`
 	Projectid             string            `json:"projectid,omitempty"`
 	Removed               string            `json:"removed,omitempty"`
-	Size                  int               `json:"size,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
@@ -608,6 +608,11 @@ func (s *TemplateService) RegisterTemplate(p *RegisterTemplateParams) (*Register
 }
 
 type RegisterTemplateResponse struct {
+	Count            int                 `json:"count"`
+	RegisterTemplate []*RegisterTemplate `json:"template"`
+}
+
+type RegisterTemplate struct {
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
@@ -635,7 +640,7 @@ type RegisterTemplateResponse struct {
 	Project               string            `json:"project,omitempty"`
 	Projectid             string            `json:"projectid,omitempty"`
 	Removed               string            `json:"removed,omitempty"`
-	Size                  int               `json:"size,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
@@ -851,7 +856,7 @@ type UpdateTemplateResponse struct {
 	Project               string            `json:"project,omitempty"`
 	Projectid             string            `json:"projectid,omitempty"`
 	Removed               string            `json:"removed,omitempty"`
-	Size                  int               `json:"size,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
@@ -993,7 +998,7 @@ type CopyTemplateResponse struct {
 	Project               string            `json:"project,omitempty"`
 	Projectid             string            `json:"projectid,omitempty"`
 	Removed               string            `json:"removed,omitempty"`
-	Size                  int               `json:"size,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
@@ -1412,7 +1417,7 @@ type Template struct {
 	Project               string            `json:"project,omitempty"`
 	Projectid             string            `json:"projectid,omitempty"`
 	Removed               string            `json:"removed,omitempty"`
-	Size                  int               `json:"size,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
@@ -1849,7 +1854,7 @@ type PrepareTemplateResponse struct {
 	Project               string            `json:"project,omitempty"`
 	Projectid             string            `json:"projectid,omitempty"`
 	Removed               string            `json:"removed,omitempty"`
-	Size                  int               `json:"size,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
