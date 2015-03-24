@@ -417,8 +417,12 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("  if err := json.Unmarshal(b, &m); err != nil {")
 	pn("    return nil, err")
 	pn("  }")
-	pn("  for _, v := range m {")
-	pn("    return v, nil")
+	pn("  for k, v := range m {")
+	pn("    if k == \"count\" {")
+	pn("		continue")
+	pn("	} else {")
+	pn("		return v, nil")
+	pn("	}")
 	pn("  }")
 	pn("  return nil, fmt.Errorf(\"Unable to extract the raw value from:\\n\\n%%s\\n\\n\", string(b))")
 	pn("}")
@@ -846,12 +850,20 @@ func (s *service) generateNewAPICallFunc(a *API) {
 	pn("		return nil, err")
 	pn("	}")
 	pn("")
-	if n == "CreateNetwork" {
+	if n == "CreateNetwork" || n == "RegisterTemplate" {
 		pn("	if resp, err = getRawValue(resp); err != nil {")
 		pn("		return nil, err")
 		pn("	}")
 		pn("")
 	}
+	if n == "RegisterTemplate" {
+		pn("	var l []json.RawMessage")
+		pn("	if err:= json.Unmarshal(resp, &l); err != nil {")
+		pn("		return nil, err")
+		pn("	}")
+		pn("	resp = l[0]")
+		pn("")
+	}	
 	pn("	var r %s", n+"Response")
 	pn("	if err := json.Unmarshal(resp, &r); err != nil {")
 	pn("		return nil, err")
@@ -966,7 +978,7 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (o
 						pn("%s string `json:\"%s,omitempty\"`", capitalize(r.Name), r.Name)
 					}
 				} else {
-					pn("%s %s `json:\"%s,omitempty\"`", capitalize(r.Name), mapType(r.Type), r.Name)
+					pn("%s %s `json:\"%s,omitempty\"`", capitalize(r.Name), mapResponseType(r.Type), r.Name)
 				}
 				found[r.Name] = true
 			}
@@ -1060,6 +1072,23 @@ func mapType(t string) string {
 	default:
 		return "string"
 	}
+}
+
+func mapResponseType(t string) string {
+        switch t {
+        case "boolean":
+                return "bool"
+        case "short", "int", "integer", "long":
+                return "int64"
+        case "list", "set":
+                return "[]string"
+        case "map":
+                return "map[string]string"
+        case "responseobject":
+                return "json.RawMessage"
+        default:
+                return "string"
+        }
 }
 
 func capitalize(s string) string {
