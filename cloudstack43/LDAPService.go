@@ -169,42 +169,42 @@ type LdapCreateAccountResponse struct {
 	Accounttype               int               `json:"accounttype,omitempty"`
 	Cpuavailable              string            `json:"cpuavailable,omitempty"`
 	Cpulimit                  string            `json:"cpulimit,omitempty"`
-	Cputotal                  int               `json:"cputotal,omitempty"`
+	Cputotal                  int64             `json:"cputotal,omitempty"`
 	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
 	Domain                    string            `json:"domain,omitempty"`
 	Domainid                  string            `json:"domainid,omitempty"`
 	Id                        string            `json:"id,omitempty"`
 	Ipavailable               string            `json:"ipavailable,omitempty"`
 	Iplimit                   string            `json:"iplimit,omitempty"`
-	Iptotal                   int               `json:"iptotal,omitempty"`
+	Iptotal                   int64             `json:"iptotal,omitempty"`
 	Iscleanuprequired         bool              `json:"iscleanuprequired,omitempty"`
 	Isdefault                 bool              `json:"isdefault,omitempty"`
 	Memoryavailable           string            `json:"memoryavailable,omitempty"`
 	Memorylimit               string            `json:"memorylimit,omitempty"`
-	Memorytotal               int               `json:"memorytotal,omitempty"`
+	Memorytotal               int64             `json:"memorytotal,omitempty"`
 	Name                      string            `json:"name,omitempty"`
 	Networkavailable          string            `json:"networkavailable,omitempty"`
 	Networkdomain             string            `json:"networkdomain,omitempty"`
 	Networklimit              string            `json:"networklimit,omitempty"`
-	Networktotal              int               `json:"networktotal,omitempty"`
+	Networktotal              int64             `json:"networktotal,omitempty"`
 	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
 	Primarystoragelimit       string            `json:"primarystoragelimit,omitempty"`
-	Primarystoragetotal       int               `json:"primarystoragetotal,omitempty"`
+	Primarystoragetotal       int64             `json:"primarystoragetotal,omitempty"`
 	Projectavailable          string            `json:"projectavailable,omitempty"`
 	Projectlimit              string            `json:"projectlimit,omitempty"`
-	Projecttotal              int               `json:"projecttotal,omitempty"`
-	Receivedbytes             int               `json:"receivedbytes,omitempty"`
+	Projecttotal              int64             `json:"projecttotal,omitempty"`
+	Receivedbytes             int64             `json:"receivedbytes,omitempty"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
-	Secondarystoragetotal     int               `json:"secondarystoragetotal,omitempty"`
-	Sentbytes                 int               `json:"sentbytes,omitempty"`
+	Secondarystoragetotal     int64             `json:"secondarystoragetotal,omitempty"`
+	Sentbytes                 int64             `json:"sentbytes,omitempty"`
 	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
 	Snapshotlimit             string            `json:"snapshotlimit,omitempty"`
-	Snapshottotal             int               `json:"snapshottotal,omitempty"`
+	Snapshottotal             int64             `json:"snapshottotal,omitempty"`
 	State                     string            `json:"state,omitempty"`
 	Templateavailable         string            `json:"templateavailable,omitempty"`
 	Templatelimit             string            `json:"templatelimit,omitempty"`
-	Templatetotal             int               `json:"templatetotal,omitempty"`
+	Templatetotal             int64             `json:"templatetotal,omitempty"`
 	User                      []struct {
 		Account             string `json:"account,omitempty"`
 		Accountid           string `json:"accountid,omitempty"`
@@ -228,11 +228,11 @@ type LdapCreateAccountResponse struct {
 	Vmlimit         string `json:"vmlimit,omitempty"`
 	Vmrunning       int    `json:"vmrunning,omitempty"`
 	Vmstopped       int    `json:"vmstopped,omitempty"`
-	Vmtotal         int    `json:"vmtotal,omitempty"`
+	Vmtotal         int64  `json:"vmtotal,omitempty"`
 	Volumeavailable string `json:"volumeavailable,omitempty"`
 	Volumelimit     string `json:"volumelimit,omitempty"`
-	Volumetotal     int    `json:"volumetotal,omitempty"`
+	Volumetotal     int64  `json:"volumetotal,omitempty"`
 	Vpcavailable    string `json:"vpcavailable,omitempty"`
 	Vpclimit        string `json:"vpclimit,omitempty"`
-	Vpctotal        int    `json:"vpctotal,omitempty"`
+	Vpctotal        int64  `json:"vpctotal,omitempty"`
 }

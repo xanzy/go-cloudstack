@@ -34,7 +34,7 @@ func (p *AttachVolumeParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["deviceid"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("deviceid", vv)
 	}
 	if v, found := p.p["id"]; found {
@@ -46,7 +46,7 @@ func (p *AttachVolumeParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *AttachVolumeParams) SetDeviceid(v int) {
+func (p *AttachVolumeParams) SetDeviceid(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -122,11 +122,11 @@ type AttachVolumeResponse struct {
 	Attached                   string `json:"attached,omitempty"`
 	Created                    string `json:"created,omitempty"`
 	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Deviceid                   int64  `json:"deviceid,omitempty"`
+	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
 	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
 	Diskofferingid             string `json:"diskofferingid,omitempty"`
 	Diskofferingname           string `json:"diskofferingname,omitempty"`
@@ -136,17 +136,18 @@ type AttachVolumeResponse struct {
 	Hypervisor                 string `json:"hypervisor,omitempty"`
 	Id                         string `json:"id,omitempty"`
 	Isextractable              bool   `json:"isextractable,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
+	Maxiops                    int64  `json:"maxiops,omitempty"`
+	Miniops                    int64  `json:"miniops,omitempty"`
 	Name                       string `json:"name,omitempty"`
 	Path                       string `json:"path,omitempty"`
+	Pcidevicepath              string `json:"pcidevicepath,omitempty"`
 	Project                    string `json:"project,omitempty"`
 	Projectid                  string `json:"projectid,omitempty"`
 	Quiescevm                  bool   `json:"quiescevm,omitempty"`
 	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
 	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Size                       int    `json:"size,omitempty"`
+	Size                       int64  `json:"size,omitempty"`
 	Snapshotid                 string `json:"snapshotid,omitempty"`
 	State                      string `json:"state,omitempty"`
 	Status                     string `json:"status,omitempty"`
@@ -339,11 +340,11 @@ type UploadVolumeResponse struct {
 	Attached                   string `json:"attached,omitempty"`
 	Created                    string `json:"created,omitempty"`
 	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Deviceid                   int64  `json:"deviceid,omitempty"`
+	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
 	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
 	Diskofferingid             string `json:"diskofferingid,omitempty"`
 	Diskofferingname           string `json:"diskofferingname,omitempty"`
@@ -353,17 +354,18 @@ type UploadVolumeResponse struct {
 	Hypervisor                 string `json:"hypervisor,omitempty"`
 	Id                         string `json:"id,omitempty"`
 	Isextractable              bool   `json:"isextractable,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
+	Maxiops                    int64  `json:"maxiops,omitempty"`
+	Miniops                    int64  `json:"miniops,omitempty"`
 	Name                       string `json:"name,omitempty"`
 	Path                       string `json:"path,omitempty"`
+	Pcidevicepath              string `json:"pcidevicepath,omitempty"`
 	Project                    string `json:"project,omitempty"`
 	Projectid                  string `json:"projectid,omitempty"`
 	Quiescevm                  bool   `json:"quiescevm,omitempty"`
 	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
 	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Size                       int    `json:"size,omitempty"`
+	Size                       int64  `json:"size,omitempty"`
 	Snapshotid                 string `json:"snapshotid,omitempty"`
 	State                      string `json:"state,omitempty"`
 	Status                     string `json:"status,omitempty"`
@@ -401,7 +403,7 @@ func (p *DetachVolumeParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["deviceid"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("deviceid", vv)
 	}
 	if v, found := p.p["id"]; found {
@@ -413,7 +415,7 @@ func (p *DetachVolumeParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *DetachVolumeParams) SetDeviceid(v int) {
+func (p *DetachVolumeParams) SetDeviceid(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -487,11 +489,11 @@ type DetachVolumeResponse struct {
 	Attached                   string `json:"attached,omitempty"`
 	Created                    string `json:"created,omitempty"`
 	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Deviceid                   int64  `json:"deviceid,omitempty"`
+	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
 	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
 	Diskofferingid             string `json:"diskofferingid,omitempty"`
 	Diskofferingname           string `json:"diskofferingname,omitempty"`
@@ -501,17 +503,18 @@ type DetachVolumeResponse struct {
 	Hypervisor                 string `json:"hypervisor,omitempty"`
 	Id                         string `json:"id,omitempty"`
 	Isextractable              bool   `json:"isextractable,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
+	Maxiops                    int64  `json:"maxiops,omitempty"`
+	Miniops                    int64  `json:"miniops,omitempty"`
 	Name                       string `json:"name,omitempty"`
 	Path                       string `json:"path,omitempty"`
+	Pcidevicepath              string `json:"pcidevicepath,omitempty"`
 	Project                    string `json:"project,omitempty"`
 	Projectid                  string `json:"projectid,omitempty"`
 	Quiescevm                  bool   `json:"quiescevm,omitempty"`
 	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
 	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Size                       int    `json:"size,omitempty"`
+	Size                       int64  `json:"size,omitempty"`
 	Snapshotid                 string `json:"snapshotid,omitempty"`
 	State                      string `json:"state,omitempty"`
 	Status                     string `json:"status,omitempty"`
@@ -562,11 +565,11 @@ func (p *CreateVolumeParams) toURLValues() url.Values {
 		u.Set("domainid", v.(string))
 	}
 	if v, found := p.p["maxiops"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("maxiops", vv)
 	}
 	if v, found := p.p["miniops"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("miniops", vv)
 	}
 	if v, found := p.p["name"]; found {
@@ -576,7 +579,7 @@ func (p *CreateVolumeParams) toURLValues() url.Values {
 		u.Set("projectid", v.(string))
 	}
 	if v, found := p.p["size"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("size", vv)
 	}
 	if v, found := p.p["snapshotid"]; found {
@@ -623,7 +626,7 @@ func (p *CreateVolumeParams) SetDomainid(v string) {
 	return
 }
 
-func (p *CreateVolumeParams) SetMaxiops(v int) {
+func (p *CreateVolumeParams) SetMaxiops(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -631,7 +634,7 @@ func (p *CreateVolumeParams) SetMaxiops(v int) {
 	return
 }
 
-func (p *CreateVolumeParams) SetMiniops(v int) {
+func (p *CreateVolumeParams) SetMiniops(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -655,7 +658,7 @@ func (p *CreateVolumeParams) SetProjectid(v string) {
 	return
 }
 
-func (p *CreateVolumeParams) SetSize(v int) {
+func (p *CreateVolumeParams) SetSize(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -738,11 +741,11 @@ type CreateVolumeResponse struct {
 	Attached                   string `json:"attached,omitempty"`
 	Created                    string `json:"created,omitempty"`
 	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Deviceid                   int64  `json:"deviceid,omitempty"`
+	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
 	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
 	Diskofferingid             string `json:"diskofferingid,omitempty"`
 	Diskofferingname           string `json:"diskofferingname,omitempty"`
@@ -752,17 +755,18 @@ type CreateVolumeResponse struct {
 	Hypervisor                 string `json:"hypervisor,omitempty"`
 	Id                         string `json:"id,omitempty"`
 	Isextractable              bool   `json:"isextractable,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
+	Maxiops                    int64  `json:"maxiops,omitempty"`
+	Miniops                    int64  `json:"miniops,omitempty"`
 	Name                       string `json:"name,omitempty"`
 	Path                       string `json:"path,omitempty"`
+	Pcidevicepath              string `json:"pcidevicepath,omitempty"`
 	Project                    string `json:"project,omitempty"`
 	Projectid                  string `json:"projectid,omitempty"`
 	Quiescevm                  bool   `json:"quiescevm,omitempty"`
 	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
 	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Size                       int    `json:"size,omitempty"`
+	Size                       int64  `json:"size,omitempty"`
 	Snapshotid                 string `json:"snapshotid,omitempty"`
 	State                      string `json:"state,omitempty"`
 	Status                     string `json:"status,omitempty"`
@@ -1152,11 +1156,11 @@ type Volume struct {
 	Attached                   string `json:"attached,omitempty"`
 	Created                    string `json:"created,omitempty"`
 	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Deviceid                   int64  `json:"deviceid,omitempty"`
+	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
 	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
 	Diskofferingid             string `json:"diskofferingid,omitempty"`
 	Diskofferingname           string `json:"diskofferingname,omitempty"`
@@ -1166,17 +1170,18 @@ type Volume struct {
 	Hypervisor                 string `json:"hypervisor,omitempty"`
 	Id                         string `json:"id,omitempty"`
 	Isextractable              bool   `json:"isextractable,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
+	Maxiops                    int64  `json:"maxiops,omitempty"`
+	Miniops                    int64  `json:"miniops,omitempty"`
 	Name                       string `json:"name,omitempty"`
 	Path                       string `json:"path,omitempty"`
+	Pcidevicepath              string `json:"pcidevicepath,omitempty"`
 	Project                    string `json:"project,omitempty"`
 	Projectid                  string `json:"projectid,omitempty"`
 	Quiescevm                  bool   `json:"quiescevm,omitempty"`
 	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
 	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Size                       int    `json:"size,omitempty"`
+	Size                       int64  `json:"size,omitempty"`
 	Snapshotid                 string `json:"snapshotid,omitempty"`
 	State                      string `json:"state,omitempty"`
 	Status                     string `json:"status,omitempty"`
@@ -1423,11 +1428,11 @@ type MigrateVolumeResponse struct {
 	Attached                   string `json:"attached,omitempty"`
 	Created                    string `json:"created,omitempty"`
 	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Deviceid                   int64  `json:"deviceid,omitempty"`
+	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
 	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
 	Diskofferingid             string `json:"diskofferingid,omitempty"`
 	Diskofferingname           string `json:"diskofferingname,omitempty"`
@@ -1437,17 +1442,18 @@ type MigrateVolumeResponse struct {
 	Hypervisor                 string `json:"hypervisor,omitempty"`
 	Id                         string `json:"id,omitempty"`
 	Isextractable              bool   `json:"isextractable,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
+	Maxiops                    int64  `json:"maxiops,omitempty"`
+	Miniops                    int64  `json:"miniops,omitempty"`
 	Name                       string `json:"name,omitempty"`
 	Path                       string `json:"path,omitempty"`
+	Pcidevicepath              string `json:"pcidevicepath,omitempty"`
 	Project                    string `json:"project,omitempty"`
 	Projectid                  string `json:"projectid,omitempty"`
 	Quiescevm                  bool   `json:"quiescevm,omitempty"`
 	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
 	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Size                       int    `json:"size,omitempty"`
+	Size                       int64  `json:"size,omitempty"`
 	Snapshotid                 string `json:"snapshotid,omitempty"`
 	State                      string `json:"state,omitempty"`
 	Status                     string `json:"status,omitempty"`
@@ -1495,7 +1501,7 @@ func (p *ResizeVolumeParams) toURLValues() url.Values {
 		u.Set("shrinkok", vv)
 	}
 	if v, found := p.p["size"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("size", vv)
 	}
 	return u
@@ -1525,7 +1531,7 @@ func (p *ResizeVolumeParams) SetShrinkok(v bool) {
 	return
 }
 
-func (p *ResizeVolumeParams) SetSize(v int) {
+func (p *ResizeVolumeParams) SetSize(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -1583,11 +1589,11 @@ type ResizeVolumeResponse struct {
 	Attached                   string `json:"attached,omitempty"`
 	Created                    string `json:"created,omitempty"`
 	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Deviceid                   int64  `json:"deviceid,omitempty"`
+	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
 	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
 	Diskofferingid             string `json:"diskofferingid,omitempty"`
 	Diskofferingname           string `json:"diskofferingname,omitempty"`
@@ -1597,17 +1603,18 @@ type ResizeVolumeResponse struct {
 	Hypervisor                 string `json:"hypervisor,omitempty"`
 	Id                         string `json:"id,omitempty"`
 	Isextractable              bool   `json:"isextractable,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
+	Maxiops                    int64  `json:"maxiops,omitempty"`
+	Miniops                    int64  `json:"miniops,omitempty"`
 	Name                       string `json:"name,omitempty"`
 	Path                       string `json:"path,omitempty"`
+	Pcidevicepath              string `json:"pcidevicepath,omitempty"`
 	Project                    string `json:"project,omitempty"`
 	Projectid                  string `json:"projectid,omitempty"`
 	Quiescevm                  bool   `json:"quiescevm,omitempty"`
 	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
 	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Size                       int    `json:"size,omitempty"`
+	Size                       int64  `json:"size,omitempty"`
 	Snapshotid                 string `json:"snapshotid,omitempty"`
 	State                      string `json:"state,omitempty"`
 	Status                     string `json:"status,omitempty"`
@@ -1753,11 +1760,11 @@ type UpdateVolumeResponse struct {
 	Attached                   string `json:"attached,omitempty"`
 	Created                    string `json:"created,omitempty"`
 	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Deviceid                   int    `json:"deviceid,omitempty"`
-	DiskBytesReadRate          int    `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate         int    `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate           int    `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate          int    `json:"diskIopsWriteRate,omitempty"`
+	Deviceid                   int64  `json:"deviceid,omitempty"`
+	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
 	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
 	Diskofferingid             string `json:"diskofferingid,omitempty"`
 	Diskofferingname           string `json:"diskofferingname,omitempty"`
@@ -1767,17 +1774,18 @@ type UpdateVolumeResponse struct {
 	Hypervisor                 string `json:"hypervisor,omitempty"`
 	Id                         string `json:"id,omitempty"`
 	Isextractable              bool   `json:"isextractable,omitempty"`
-	Maxiops                    int    `json:"maxiops,omitempty"`
-	Miniops                    int    `json:"miniops,omitempty"`
+	Maxiops                    int64  `json:"maxiops,omitempty"`
+	Miniops                    int64  `json:"miniops,omitempty"`
 	Name                       string `json:"name,omitempty"`
 	Path                       string `json:"path,omitempty"`
+	Pcidevicepath              string `json:"pcidevicepath,omitempty"`
 	Project                    string `json:"project,omitempty"`
 	Projectid                  string `json:"projectid,omitempty"`
 	Quiescevm                  bool   `json:"quiescevm,omitempty"`
 	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
 	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Size                       int    `json:"size,omitempty"`
+	Size                       int64  `json:"size,omitempty"`
 	Snapshotid                 string `json:"snapshotid,omitempty"`
 	State                      string `json:"state,omitempty"`
 	Status                     string `json:"status,omitempty"`

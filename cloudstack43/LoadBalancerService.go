@@ -1573,10 +1573,10 @@ type LoadBalancerRuleInstance struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
 	Displayvm             bool              `json:"displayvm,omitempty"`
 	Domain                string            `json:"domain,omitempty"`
@@ -1598,8 +1598,8 @@ type LoadBalancerRuleInstance struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string   `json:"broadcasturi,omitempty"`
 		Gateway      string   `json:"gateway,omitempty"`
@@ -1624,7 +1624,7 @@ type LoadBalancerRuleInstance struct {
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -2320,7 +2320,7 @@ func (s *LoadBalancerService) AddF5LoadBalancer(p *AddF5LoadBalancerParams) (*Ad
 type AddF5LoadBalancerResponse struct {
 	JobID             string `json:"jobid,omitempty"`
 	Ipaddress         string `json:"ipaddress,omitempty"`
-	Lbdevicecapacity  int    `json:"lbdevicecapacity,omitempty"`
+	Lbdevicecapacity  int64  `json:"lbdevicecapacity,omitempty"`
 	Lbdevicededicated bool   `json:"lbdevicededicated,omitempty"`
 	Lbdeviceid        string `json:"lbdeviceid,omitempty"`
 	Lbdevicename      string `json:"lbdevicename,omitempty"`
@@ -2341,7 +2341,7 @@ func (p *ConfigureF5LoadBalancerParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["lbdevicecapacity"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("lbdevicecapacity", vv)
 	}
 	if v, found := p.p["lbdeviceid"]; found {
@@ -2350,7 +2350,7 @@ func (p *ConfigureF5LoadBalancerParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *ConfigureF5LoadBalancerParams) SetLbdevicecapacity(v int) {
+func (p *ConfigureF5LoadBalancerParams) SetLbdevicecapacity(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -2414,7 +2414,7 @@ func (s *LoadBalancerService) ConfigureF5LoadBalancer(p *ConfigureF5LoadBalancer
 type ConfigureF5LoadBalancerResponse struct {
 	JobID             string `json:"jobid,omitempty"`
 	Ipaddress         string `json:"ipaddress,omitempty"`
-	Lbdevicecapacity  int    `json:"lbdevicecapacity,omitempty"`
+	Lbdevicecapacity  int64  `json:"lbdevicecapacity,omitempty"`
 	Lbdevicededicated bool   `json:"lbdevicededicated,omitempty"`
 	Lbdeviceid        string `json:"lbdeviceid,omitempty"`
 	Lbdevicename      string `json:"lbdevicename,omitempty"`
@@ -2592,7 +2592,7 @@ type ListF5LoadBalancersResponse struct {
 
 type F5LoadBalancer struct {
 	Ipaddress         string `json:"ipaddress,omitempty"`
-	Lbdevicecapacity  int    `json:"lbdevicecapacity,omitempty"`
+	Lbdevicecapacity  int64  `json:"lbdevicecapacity,omitempty"`
 	Lbdevicededicated bool   `json:"lbdevicededicated,omitempty"`
 	Lbdeviceid        string `json:"lbdeviceid,omitempty"`
 	Lbdevicename      string `json:"lbdevicename,omitempty"`
@@ -2772,7 +2772,7 @@ type AddNetscalerLoadBalancerResponse struct {
 	Gslbproviderpublicip    string   `json:"gslbproviderpublicip,omitempty"`
 	Ipaddress               string   `json:"ipaddress,omitempty"`
 	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider,omitempty"`
-	Lbdevicecapacity        int      `json:"lbdevicecapacity,omitempty"`
+	Lbdevicecapacity        int64    `json:"lbdevicecapacity,omitempty"`
 	Lbdevicededicated       bool     `json:"lbdevicededicated,omitempty"`
 	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
 	Lbdevicename            string   `json:"lbdevicename,omitempty"`
@@ -2867,7 +2867,7 @@ func (p *ConfigureNetscalerLoadBalancerParams) toURLValues() url.Values {
 		u.Set("inline", vv)
 	}
 	if v, found := p.p["lbdevicecapacity"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("lbdevicecapacity", vv)
 	}
 	if v, found := p.p["lbdevicededicated"]; found {
@@ -2892,7 +2892,7 @@ func (p *ConfigureNetscalerLoadBalancerParams) SetInline(v bool) {
 	return
 }
 
-func (p *ConfigureNetscalerLoadBalancerParams) SetLbdevicecapacity(v int) {
+func (p *ConfigureNetscalerLoadBalancerParams) SetLbdevicecapacity(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -2976,7 +2976,7 @@ type ConfigureNetscalerLoadBalancerResponse struct {
 	Gslbproviderpublicip    string   `json:"gslbproviderpublicip,omitempty"`
 	Ipaddress               string   `json:"ipaddress,omitempty"`
 	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider,omitempty"`
-	Lbdevicecapacity        int      `json:"lbdevicecapacity,omitempty"`
+	Lbdevicecapacity        int64    `json:"lbdevicecapacity,omitempty"`
 	Lbdevicededicated       bool     `json:"lbdevicededicated,omitempty"`
 	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
 	Lbdevicename            string   `json:"lbdevicename,omitempty"`
@@ -3090,7 +3090,7 @@ type NetscalerLoadBalancer struct {
 	Gslbproviderpublicip    string   `json:"gslbproviderpublicip,omitempty"`
 	Ipaddress               string   `json:"ipaddress,omitempty"`
 	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider,omitempty"`
-	Lbdevicecapacity        int      `json:"lbdevicecapacity,omitempty"`
+	Lbdevicecapacity        int64    `json:"lbdevicecapacity,omitempty"`
 	Lbdevicededicated       bool     `json:"lbdevicededicated,omitempty"`
 	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
 	Lbdevicename            string   `json:"lbdevicename,omitempty"`

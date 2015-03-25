@@ -147,7 +147,7 @@ func (p *CreateConditionParams) toURLValues() url.Values {
 		u.Set("relationaloperator", v.(string))
 	}
 	if v, found := p.p["threshold"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("threshold", vv)
 	}
 	return u
@@ -185,7 +185,7 @@ func (p *CreateConditionParams) SetRelationaloperator(v string) {
 	return
 }
 
-func (p *CreateConditionParams) SetThreshold(v int) {
+func (p *CreateConditionParams) SetThreshold(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -195,7 +195,7 @@ func (p *CreateConditionParams) SetThreshold(v int) {
 
 // You should always use this function to get a new CreateConditionParams instance,
 // as then you are sure you have configured all required params
-func (s *AutoScaleService) NewCreateConditionParams(counterid string, relationaloperator string, threshold int) *CreateConditionParams {
+func (s *AutoScaleService) NewCreateConditionParams(counterid string, relationaloperator string, threshold int64) *CreateConditionParams {
 	p := &CreateConditionParams{}
 	p.p = make(map[string]interface{})
 	p.p["counterid"] = counterid
@@ -250,7 +250,7 @@ type CreateConditionResponse struct {
 	Project            string   `json:"project,omitempty"`
 	Projectid          string   `json:"projectid,omitempty"`
 	Relationaloperator string   `json:"relationaloperator,omitempty"`
-	Threshold          int      `json:"threshold,omitempty"`
+	Threshold          int64    `json:"threshold,omitempty"`
 	Zoneid             string   `json:"zoneid,omitempty"`
 }
 
@@ -1414,7 +1414,7 @@ type Condition struct {
 	Project            string   `json:"project,omitempty"`
 	Projectid          string   `json:"projectid,omitempty"`
 	Relationaloperator string   `json:"relationaloperator,omitempty"`
-	Threshold          int      `json:"threshold,omitempty"`
+	Threshold          int64    `json:"threshold,omitempty"`
 	Zoneid             string   `json:"zoneid,omitempty"`
 }
 

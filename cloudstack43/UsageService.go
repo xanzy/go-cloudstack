@@ -702,7 +702,7 @@ func (p *ListUsageRecordsParams) toURLValues() url.Values {
 		u.Set("startdate", v.(string))
 	}
 	if v, found := p.p["type"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("type", vv)
 	}
 	return u
@@ -780,7 +780,7 @@ func (p *ListUsageRecordsParams) SetStartdate(v string) {
 	return
 }
 
-func (p *ListUsageRecordsParams) SetType(v int) {
+func (p *ListUsageRecordsParams) SetType(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -833,7 +833,7 @@ type UsageRecord struct {
 	Project          string `json:"project,omitempty"`
 	Projectid        string `json:"projectid,omitempty"`
 	Rawusage         string `json:"rawusage,omitempty"`
-	Size             int    `json:"size,omitempty"`
+	Size             int64  `json:"size,omitempty"`
 	Startdate        string `json:"startdate,omitempty"`
 	Templateid       string `json:"templateid,omitempty"`
 	Type             string `json:"type,omitempty"`
@@ -841,7 +841,7 @@ type UsageRecord struct {
 	Usageid          string `json:"usageid,omitempty"`
 	Usagetype        int    `json:"usagetype,omitempty"`
 	Virtualmachineid string `json:"virtualmachineid,omitempty"`
-	Virtualsize      int    `json:"virtualsize,omitempty"`
+	Virtualsize      int64  `json:"virtualsize,omitempty"`
 	Zoneid           string `json:"zoneid,omitempty"`
 }
 

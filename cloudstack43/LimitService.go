@@ -38,7 +38,7 @@ func (p *UpdateResourceLimitParams) toURLValues() url.Values {
 		u.Set("domainid", v.(string))
 	}
 	if v, found := p.p["max"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("max", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -67,7 +67,7 @@ func (p *UpdateResourceLimitParams) SetDomainid(v string) {
 	return
 }
 
-func (p *UpdateResourceLimitParams) SetMax(v int) {
+func (p *UpdateResourceLimitParams) SetMax(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -118,7 +118,7 @@ type UpdateResourceLimitResponse struct {
 	Account      string `json:"account,omitempty"`
 	Domain       string `json:"domain,omitempty"`
 	Domainid     string `json:"domainid,omitempty"`
-	Max          int    `json:"max,omitempty"`
+	Max          int64  `json:"max,omitempty"`
 	Project      string `json:"project,omitempty"`
 	Projectid    string `json:"projectid,omitempty"`
 	Resourcetype string `json:"resourcetype,omitempty"`
@@ -210,7 +210,7 @@ type UpdateResourceCountResponse struct {
 	Domainid      string `json:"domainid,omitempty"`
 	Project       string `json:"project,omitempty"`
 	Projectid     string `json:"projectid,omitempty"`
-	Resourcecount int    `json:"resourcecount,omitempty"`
+	Resourcecount int64  `json:"resourcecount,omitempty"`
 	Resourcetype  string `json:"resourcetype,omitempty"`
 }
 
@@ -230,7 +230,7 @@ func (p *ListResourceLimitsParams) toURLValues() url.Values {
 		u.Set("domainid", v.(string))
 	}
 	if v, found := p.p["id"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("id", vv)
 	}
 	if v, found := p.p["isrecursive"]; found {
@@ -278,7 +278,7 @@ func (p *ListResourceLimitsParams) SetDomainid(v string) {
 	return
 }
 
-func (p *ListResourceLimitsParams) SetId(v int) {
+func (p *ListResourceLimitsParams) SetId(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -373,7 +373,7 @@ type ResourceLimit struct {
 	Account      string `json:"account,omitempty"`
 	Domain       string `json:"domain,omitempty"`
 	Domainid     string `json:"domainid,omitempty"`
-	Max          int    `json:"max,omitempty"`
+	Max          int64  `json:"max,omitempty"`
 	Project      string `json:"project,omitempty"`
 	Projectid    string `json:"projectid,omitempty"`
 	Resourcetype string `json:"resourcetype,omitempty"`
@@ -418,7 +418,7 @@ type GetApiLimitResponse struct {
 	Accountid   string `json:"accountid,omitempty"`
 	ApiAllowed  int    `json:"apiAllowed,omitempty"`
 	ApiIssued   int    `json:"apiIssued,omitempty"`
-	ExpireAfter int    `json:"expireAfter,omitempty"`
+	ExpireAfter int64  `json:"expireAfter,omitempty"`
 }
 
 type ResetApiLimitParams struct {
@@ -471,5 +471,5 @@ type ResetApiLimitResponse struct {
 	Accountid   string `json:"accountid,omitempty"`
 	ApiAllowed  int    `json:"apiAllowed,omitempty"`
 	ApiIssued   int    `json:"apiIssued,omitempty"`
-	ExpireAfter int    `json:"expireAfter,omitempty"`
+	ExpireAfter int64  `json:"expireAfter,omitempty"`
 }

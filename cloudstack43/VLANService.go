@@ -658,10 +658,10 @@ type DedicateGuestVlanRangeResponse struct {
 	Domainid          string `json:"domainid,omitempty"`
 	Guestvlanrange    string `json:"guestvlanrange,omitempty"`
 	Id                string `json:"id,omitempty"`
-	Physicalnetworkid int    `json:"physicalnetworkid,omitempty"`
+	Physicalnetworkid int64  `json:"physicalnetworkid,omitempty"`
 	Project           string `json:"project,omitempty"`
 	Projectid         string `json:"projectid,omitempty"`
-	Zoneid            int    `json:"zoneid,omitempty"`
+	Zoneid            int64  `json:"zoneid,omitempty"`
 }
 
 type ReleaseDedicatedGuestVlanRangeParams struct {
@@ -917,8 +917,8 @@ type DedicatedGuestVlanRange struct {
 	Domainid          string `json:"domainid,omitempty"`
 	Guestvlanrange    string `json:"guestvlanrange,omitempty"`
 	Id                string `json:"id,omitempty"`
-	Physicalnetworkid int    `json:"physicalnetworkid,omitempty"`
+	Physicalnetworkid int64  `json:"physicalnetworkid,omitempty"`
 	Project           string `json:"project,omitempty"`
 	Projectid         string `json:"projectid,omitempty"`
-	Zoneid            int    `json:"zoneid,omitempty"`
+	Zoneid            int64  `json:"zoneid,omitempty"`
 }
