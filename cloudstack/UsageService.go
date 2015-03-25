@@ -702,7 +702,7 @@ func (p *ListUsageRecordsParams) toURLValues() url.Values {
 		u.Set("startdate", v.(string))
 	}
 	if v, found := p.p["type"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("type", vv)
 	}
 	return u
@@ -780,7 +780,7 @@ func (p *ListUsageRecordsParams) SetStartdate(v string) {
 	return
 }
 
-func (p *ListUsageRecordsParams) SetType(v int) {
+func (p *ListUsageRecordsParams) SetType(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -820,8 +820,8 @@ type ListUsageRecordsResponse struct {
 type UsageRecord struct {
 	Account          string `json:"account,omitempty"`
 	Accountid        string `json:"accountid,omitempty"`
-	Cpunumber        int    `json:"cpunumber,omitempty"`
-	Cpuspeed         int    `json:"cpuspeed,omitempty"`
+	Cpunumber        int64  `json:"cpunumber,omitempty"`
+	Cpuspeed         int64  `json:"cpuspeed,omitempty"`
 	Description      string `json:"description,omitempty"`
 	Domain           string `json:"domain,omitempty"`
 	Domainid         string `json:"domainid,omitempty"`
@@ -829,14 +829,14 @@ type UsageRecord struct {
 	Isdefault        bool   `json:"isdefault,omitempty"`
 	Issourcenat      bool   `json:"issourcenat,omitempty"`
 	Issystem         bool   `json:"issystem,omitempty"`
-	Memory           int    `json:"memory,omitempty"`
+	Memory           int64  `json:"memory,omitempty"`
 	Name             string `json:"name,omitempty"`
 	Networkid        string `json:"networkid,omitempty"`
 	Offeringid       string `json:"offeringid,omitempty"`
 	Project          string `json:"project,omitempty"`
 	Projectid        string `json:"projectid,omitempty"`
 	Rawusage         string `json:"rawusage,omitempty"`
-	Size             int    `json:"size,omitempty"`
+	Size             int64  `json:"size,omitempty"`
 	Startdate        string `json:"startdate,omitempty"`
 	Templateid       string `json:"templateid,omitempty"`
 	Type             string `json:"type,omitempty"`
@@ -844,7 +844,7 @@ type UsageRecord struct {
 	Usageid          string `json:"usageid,omitempty"`
 	Usagetype        int    `json:"usagetype,omitempty"`
 	Virtualmachineid string `json:"virtualmachineid,omitempty"`
-	Virtualsize      int    `json:"virtualsize,omitempty"`
+	Virtualsize      int64  `json:"virtualsize,omitempty"`
 	Zoneid           string `json:"zoneid,omitempty"`
 }
 

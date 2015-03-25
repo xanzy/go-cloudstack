@@ -258,13 +258,13 @@ type ListStoragePoolsResponse struct {
 }
 
 type StoragePool struct {
-	Capacityiops         int               `json:"capacityiops,omitempty"`
+	Capacityiops         int64             `json:"capacityiops,omitempty"`
 	Clusterid            string            `json:"clusterid,omitempty"`
 	Clustername          string            `json:"clustername,omitempty"`
 	Created              string            `json:"created,omitempty"`
-	Disksizeallocated    int               `json:"disksizeallocated,omitempty"`
-	Disksizetotal        int               `json:"disksizetotal,omitempty"`
-	Disksizeused         int               `json:"disksizeused,omitempty"`
+	Disksizeallocated    int64             `json:"disksizeallocated,omitempty"`
+	Disksizetotal        int64             `json:"disksizetotal,omitempty"`
+	Disksizeused         int64             `json:"disksizeused,omitempty"`
 	Hypervisor           string            `json:"hypervisor,omitempty"`
 	Id                   string            `json:"id,omitempty"`
 	Ipaddress            string            `json:"ipaddress,omitempty"`
@@ -292,11 +292,11 @@ func (p *CreateStoragePoolParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["capacitybytes"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("capacitybytes", vv)
 	}
 	if v, found := p.p["capacityiops"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("capacityiops", vv)
 	}
 	if v, found := p.p["clusterid"]; found {
@@ -341,7 +341,7 @@ func (p *CreateStoragePoolParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *CreateStoragePoolParams) SetCapacitybytes(v int) {
+func (p *CreateStoragePoolParams) SetCapacitybytes(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -349,7 +349,7 @@ func (p *CreateStoragePoolParams) SetCapacitybytes(v int) {
 	return
 }
 
-func (p *CreateStoragePoolParams) SetCapacityiops(v int) {
+func (p *CreateStoragePoolParams) SetCapacityiops(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -471,13 +471,13 @@ func (s *PoolService) CreateStoragePool(p *CreateStoragePoolParams) (*CreateStor
 }
 
 type CreateStoragePoolResponse struct {
-	Capacityiops         int               `json:"capacityiops,omitempty"`
+	Capacityiops         int64             `json:"capacityiops,omitempty"`
 	Clusterid            string            `json:"clusterid,omitempty"`
 	Clustername          string            `json:"clustername,omitempty"`
 	Created              string            `json:"created,omitempty"`
-	Disksizeallocated    int               `json:"disksizeallocated,omitempty"`
-	Disksizetotal        int               `json:"disksizetotal,omitempty"`
-	Disksizeused         int               `json:"disksizeused,omitempty"`
+	Disksizeallocated    int64             `json:"disksizeallocated,omitempty"`
+	Disksizetotal        int64             `json:"disksizetotal,omitempty"`
+	Disksizeused         int64             `json:"disksizeused,omitempty"`
 	Hypervisor           string            `json:"hypervisor,omitempty"`
 	Id                   string            `json:"id,omitempty"`
 	Ipaddress            string            `json:"ipaddress,omitempty"`
@@ -505,11 +505,11 @@ func (p *UpdateStoragePoolParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["capacitybytes"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("capacitybytes", vv)
 	}
 	if v, found := p.p["capacityiops"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("capacityiops", vv)
 	}
 	if v, found := p.p["id"]; found {
@@ -522,7 +522,7 @@ func (p *UpdateStoragePoolParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *UpdateStoragePoolParams) SetCapacitybytes(v int) {
+func (p *UpdateStoragePoolParams) SetCapacitybytes(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -530,7 +530,7 @@ func (p *UpdateStoragePoolParams) SetCapacitybytes(v int) {
 	return
 }
 
-func (p *UpdateStoragePoolParams) SetCapacityiops(v int) {
+func (p *UpdateStoragePoolParams) SetCapacityiops(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -578,13 +578,13 @@ func (s *PoolService) UpdateStoragePool(p *UpdateStoragePoolParams) (*UpdateStor
 }
 
 type UpdateStoragePoolResponse struct {
-	Capacityiops         int               `json:"capacityiops,omitempty"`
+	Capacityiops         int64             `json:"capacityiops,omitempty"`
 	Clusterid            string            `json:"clusterid,omitempty"`
 	Clustername          string            `json:"clustername,omitempty"`
 	Created              string            `json:"created,omitempty"`
-	Disksizeallocated    int               `json:"disksizeallocated,omitempty"`
-	Disksizetotal        int               `json:"disksizetotal,omitempty"`
-	Disksizeused         int               `json:"disksizeused,omitempty"`
+	Disksizeallocated    int64             `json:"disksizeallocated,omitempty"`
+	Disksizetotal        int64             `json:"disksizetotal,omitempty"`
+	Disksizeused         int64             `json:"disksizeused,omitempty"`
 	Hypervisor           string            `json:"hypervisor,omitempty"`
 	Id                   string            `json:"id,omitempty"`
 	Ipaddress            string            `json:"ipaddress,omitempty"`
@@ -747,13 +747,13 @@ func (s *PoolService) FindStoragePoolsForMigration(p *FindStoragePoolsForMigrati
 }
 
 type FindStoragePoolsForMigrationResponse struct {
-	Capacityiops         int               `json:"capacityiops,omitempty"`
+	Capacityiops         int64             `json:"capacityiops,omitempty"`
 	Clusterid            string            `json:"clusterid,omitempty"`
 	Clustername          string            `json:"clustername,omitempty"`
 	Created              string            `json:"created,omitempty"`
-	Disksizeallocated    int               `json:"disksizeallocated,omitempty"`
-	Disksizetotal        int               `json:"disksizetotal,omitempty"`
-	Disksizeused         int               `json:"disksizeused,omitempty"`
+	Disksizeallocated    int64             `json:"disksizeallocated,omitempty"`
+	Disksizetotal        int64             `json:"disksizetotal,omitempty"`
+	Disksizeused         int64             `json:"disksizeused,omitempty"`
 	Hypervisor           string            `json:"hypervisor,omitempty"`
 	Id                   string            `json:"id,omitempty"`
 	Ipaddress            string            `json:"ipaddress,omitempty"`

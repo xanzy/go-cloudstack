@@ -111,7 +111,7 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 		u.Set("projectid", v.(string))
 	}
 	if v, found := p.p["rootdisksize"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("rootdisksize", vv)
 	}
 	if v, found := p.p["securitygroupids"]; found {
@@ -126,7 +126,7 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 		u.Set("serviceofferingid", v.(string))
 	}
 	if v, found := p.p["size"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("size", vv)
 	}
 	if v, found := p.p["startvm"]; found {
@@ -313,7 +313,7 @@ func (p *DeployVirtualMachineParams) SetProjectid(v string) {
 	return
 }
 
-func (p *DeployVirtualMachineParams) SetRootdisksize(v int) {
+func (p *DeployVirtualMachineParams) SetRootdisksize(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -345,7 +345,7 @@ func (p *DeployVirtualMachineParams) SetServiceofferingid(v string) {
 	return
 }
 
-func (p *DeployVirtualMachineParams) SetSize(v int) {
+func (p *DeployVirtualMachineParams) SetSize(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -450,10 +450,10 @@ type DeployVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -477,8 +477,8 @@ type DeployVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -499,14 +499,14 @@ type DeployVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -698,10 +698,10 @@ type DestroyVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -725,8 +725,8 @@ type DestroyVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -747,14 +747,14 @@ type DestroyVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -934,10 +934,10 @@ type RebootVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -961,8 +961,8 @@ type RebootVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -983,14 +983,14 @@ type RebootVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -1192,10 +1192,10 @@ type StartVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -1219,8 +1219,8 @@ type StartVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -1241,14 +1241,14 @@ type StartVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -1440,10 +1440,10 @@ type StopVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -1467,8 +1467,8 @@ type StopVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -1489,14 +1489,14 @@ type StopVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -1676,10 +1676,10 @@ type ResetPasswordForVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -1703,8 +1703,8 @@ type ResetPasswordForVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -1725,14 +1725,14 @@ type ResetPasswordForVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -2007,10 +2007,10 @@ type UpdateVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -2034,8 +2034,8 @@ type UpdateVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -2056,14 +2056,14 @@ type UpdateVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -2605,10 +2605,10 @@ type VirtualMachine struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -2632,8 +2632,8 @@ type VirtualMachine struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -2654,14 +2654,14 @@ type VirtualMachine struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -2902,10 +2902,10 @@ type RestoreVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -2929,8 +2929,8 @@ type RestoreVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -2951,14 +2951,14 @@ type RestoreVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -3143,10 +3143,10 @@ type ChangeServiceForVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -3170,8 +3170,8 @@ type ChangeServiceForVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -3192,14 +3192,14 @@ type ChangeServiceForVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -3501,10 +3501,10 @@ type AssignVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -3528,8 +3528,8 @@ type AssignVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -3550,14 +3550,14 @@ type AssignVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -3759,10 +3759,10 @@ type MigrateVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -3786,8 +3786,8 @@ type MigrateVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -3808,14 +3808,14 @@ type MigrateVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -4023,10 +4023,10 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -4050,8 +4050,8 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -4072,14 +4072,14 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -4236,10 +4236,10 @@ type RecoverVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -4263,8 +4263,8 @@ type RecoverVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -4285,14 +4285,14 @@ type RecoverVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -4621,10 +4621,10 @@ type AddNicToVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -4648,8 +4648,8 @@ type AddNicToVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -4670,14 +4670,14 @@ type AddNicToVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -4869,10 +4869,10 @@ type RemoveNicFromVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -4896,8 +4896,8 @@ type RemoveNicFromVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -4918,14 +4918,14 @@ type RemoveNicFromVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`
@@ -5117,10 +5117,10 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
-	Diskioread            int               `json:"diskioread,omitempty"`
-	Diskiowrite           int               `json:"diskiowrite,omitempty"`
-	Diskkbsread           int               `json:"diskkbsread,omitempty"`
-	Diskkbswrite          int               `json:"diskkbswrite,omitempty"`
+	Diskioread            int64             `json:"diskioread,omitempty"`
+	Diskiowrite           int64             `json:"diskiowrite,omitempty"`
+	Diskkbsread           int64             `json:"diskkbsread,omitempty"`
+	Diskkbswrite          int64             `json:"diskkbswrite,omitempty"`
 	Diskofferingid        string            `json:"diskofferingid,omitempty"`
 	Diskofferingname      string            `json:"diskofferingname,omitempty"`
 	Displayname           string            `json:"displayname,omitempty"`
@@ -5144,8 +5144,8 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
-	Networkkbsread        int               `json:"networkkbsread,omitempty"`
-	Networkkbswrite       int               `json:"networkkbswrite,omitempty"`
+	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
+	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi     string   `json:"broadcasturi,omitempty"`
 		Deviceid         string   `json:"deviceid,omitempty"`
@@ -5166,14 +5166,14 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 		Type             string   `json:"type,omitempty"`
 		Virtualmachineid string   `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int    `json:"ostypeid,omitempty"`
+	Ostypeid        int64  `json:"ostypeid,omitempty"`
 	Password        string `json:"password,omitempty"`
 	Passwordenabled bool   `json:"passwordenabled,omitempty"`
 	Project         string `json:"project,omitempty"`
 	Projectid       string `json:"projectid,omitempty"`
 	Publicip        string `json:"publicip,omitempty"`
 	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int    `json:"rootdeviceid,omitempty"`
+	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
 	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
 	Securitygroup   []struct {
 		Account     string `json:"account,omitempty"`

@@ -91,7 +91,7 @@ func (p *UpdateHypervisorCapabilitiesParams) toURLValues() url.Values {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["maxguestslimit"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("maxguestslimit", vv)
 	}
 	if v, found := p.p["securitygroupenabled"]; found {
@@ -109,7 +109,7 @@ func (p *UpdateHypervisorCapabilitiesParams) SetId(v string) {
 	return
 }
 
-func (p *UpdateHypervisorCapabilitiesParams) SetMaxguestslimit(v int) {
+func (p *UpdateHypervisorCapabilitiesParams) SetMaxguestslimit(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -152,7 +152,7 @@ type UpdateHypervisorCapabilitiesResponse struct {
 	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
 	Id                   string `json:"id,omitempty"`
 	Maxdatavolumeslimit  int    `json:"maxdatavolumeslimit,omitempty"`
-	Maxguestslimit       int    `json:"maxguestslimit,omitempty"`
+	Maxguestslimit       int64  `json:"maxguestslimit,omitempty"`
 	Maxhostspercluster   int    `json:"maxhostspercluster,omitempty"`
 	Securitygroupenabled bool   `json:"securitygroupenabled,omitempty"`
 	Storagemotionenabled bool   `json:"storagemotionenabled,omitempty"`
@@ -286,7 +286,7 @@ type HypervisorCapability struct {
 	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
 	Id                   string `json:"id,omitempty"`
 	Maxdatavolumeslimit  int    `json:"maxdatavolumeslimit,omitempty"`
-	Maxguestslimit       int    `json:"maxguestslimit,omitempty"`
+	Maxguestslimit       int64  `json:"maxguestslimit,omitempty"`
 	Maxhostspercluster   int    `json:"maxhostspercluster,omitempty"`
 	Securitygroupenabled bool   `json:"securitygroupenabled,omitempty"`
 	Storagemotionenabled bool   `json:"storagemotionenabled,omitempty"`

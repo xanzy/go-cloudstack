@@ -143,8 +143,8 @@ func (s *PodService) CreatePod(p *CreatePodParams) (*CreatePodResponse, error) {
 type CreatePodResponse struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
+		Capacitytotal int64  `json:"capacitytotal,omitempty"`
+		Capacityused  int64  `json:"capacityused,omitempty"`
 		Clusterid     string `json:"clusterid,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
 		Percentused   string `json:"percentused,omitempty"`
@@ -279,8 +279,8 @@ func (s *PodService) UpdatePod(p *UpdatePodParams) (*UpdatePodResponse, error) {
 type UpdatePodResponse struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
+		Capacitytotal int64  `json:"capacitytotal,omitempty"`
+		Capacityused  int64  `json:"capacityused,omitempty"`
 		Clusterid     string `json:"clusterid,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
 		Percentused   string `json:"percentused,omitempty"`
@@ -555,8 +555,8 @@ type ListPodsResponse struct {
 type Pod struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int    `json:"capacitytotal,omitempty"`
-		Capacityused  int    `json:"capacityused,omitempty"`
+		Capacitytotal int64  `json:"capacitytotal,omitempty"`
+		Capacityused  int64  `json:"capacityused,omitempty"`
 		Clusterid     string `json:"clusterid,omitempty"`
 		Clustername   string `json:"clustername,omitempty"`
 		Percentused   string `json:"percentused,omitempty"`

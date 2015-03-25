@@ -34,11 +34,11 @@ func (p *CreateServiceOfferingParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["bytesreadrate"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("bytesreadrate", vv)
 	}
 	if v, found := p.p["byteswriterate"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("byteswriterate", vv)
 	}
 	if v, found := p.p["cpunumber"]; found {
@@ -70,11 +70,11 @@ func (p *CreateServiceOfferingParams) toURLValues() url.Values {
 		u.Set("hypervisorsnapshotreserve", vv)
 	}
 	if v, found := p.p["iopsreadrate"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("iopsreadrate", vv)
 	}
 	if v, found := p.p["iopswriterate"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("iopswriterate", vv)
 	}
 	if v, found := p.p["issystem"]; found {
@@ -90,7 +90,7 @@ func (p *CreateServiceOfferingParams) toURLValues() url.Values {
 		u.Set("limitcpuuse", vv)
 	}
 	if v, found := p.p["maxiops"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("maxiops", vv)
 	}
 	if v, found := p.p["memory"]; found {
@@ -98,7 +98,7 @@ func (p *CreateServiceOfferingParams) toURLValues() url.Values {
 		u.Set("memory", vv)
 	}
 	if v, found := p.p["miniops"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("miniops", vv)
 	}
 	if v, found := p.p["name"]; found {
@@ -132,7 +132,7 @@ func (p *CreateServiceOfferingParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *CreateServiceOfferingParams) SetBytesreadrate(v int) {
+func (p *CreateServiceOfferingParams) SetBytesreadrate(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -140,7 +140,7 @@ func (p *CreateServiceOfferingParams) SetBytesreadrate(v int) {
 	return
 }
 
-func (p *CreateServiceOfferingParams) SetByteswriterate(v int) {
+func (p *CreateServiceOfferingParams) SetByteswriterate(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -212,7 +212,7 @@ func (p *CreateServiceOfferingParams) SetHypervisorsnapshotreserve(v int) {
 	return
 }
 
-func (p *CreateServiceOfferingParams) SetIopsreadrate(v int) {
+func (p *CreateServiceOfferingParams) SetIopsreadrate(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -220,7 +220,7 @@ func (p *CreateServiceOfferingParams) SetIopsreadrate(v int) {
 	return
 }
 
-func (p *CreateServiceOfferingParams) SetIopswriterate(v int) {
+func (p *CreateServiceOfferingParams) SetIopswriterate(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -252,7 +252,7 @@ func (p *CreateServiceOfferingParams) SetLimitcpuuse(v bool) {
 	return
 }
 
-func (p *CreateServiceOfferingParams) SetMaxiops(v int) {
+func (p *CreateServiceOfferingParams) SetMaxiops(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -268,7 +268,7 @@ func (p *CreateServiceOfferingParams) SetMemory(v int) {
 	return
 }
 
-func (p *CreateServiceOfferingParams) SetMiniops(v int) {
+func (p *CreateServiceOfferingParams) SetMiniops(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -362,10 +362,10 @@ type CreateServiceOfferingResponse struct {
 	Created                   string            `json:"created,omitempty"`
 	Defaultuse                bool              `json:"defaultuse,omitempty"`
 	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`
-	DiskBytesReadRate         int               `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate        int               `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate          int               `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate         int               `json:"diskIopsWriteRate,omitempty"`
+	DiskBytesReadRate         int64             `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate        int64             `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate          int64             `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate         int64             `json:"diskIopsWriteRate,omitempty"`
 	Displaytext               string            `json:"displaytext,omitempty"`
 	Domain                    string            `json:"domain,omitempty"`
 	Domainid                  string            `json:"domainid,omitempty"`
@@ -377,9 +377,9 @@ type CreateServiceOfferingResponse struct {
 	Issystem                  bool              `json:"issystem,omitempty"`
 	Isvolatile                bool              `json:"isvolatile,omitempty"`
 	Limitcpuuse               bool              `json:"limitcpuuse,omitempty"`
-	Maxiops                   int               `json:"maxiops,omitempty"`
+	Maxiops                   int64             `json:"maxiops,omitempty"`
 	Memory                    int               `json:"memory,omitempty"`
-	Miniops                   int               `json:"miniops,omitempty"`
+	Miniops                   int64             `json:"miniops,omitempty"`
 	Name                      string            `json:"name,omitempty"`
 	Networkrate               int               `json:"networkrate,omitempty"`
 	Offerha                   bool              `json:"offerha,omitempty"`
@@ -526,10 +526,10 @@ type UpdateServiceOfferingResponse struct {
 	Created                   string            `json:"created,omitempty"`
 	Defaultuse                bool              `json:"defaultuse,omitempty"`
 	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`
-	DiskBytesReadRate         int               `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate        int               `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate          int               `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate         int               `json:"diskIopsWriteRate,omitempty"`
+	DiskBytesReadRate         int64             `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate        int64             `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate          int64             `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate         int64             `json:"diskIopsWriteRate,omitempty"`
 	Displaytext               string            `json:"displaytext,omitempty"`
 	Domain                    string            `json:"domain,omitempty"`
 	Domainid                  string            `json:"domainid,omitempty"`
@@ -541,9 +541,9 @@ type UpdateServiceOfferingResponse struct {
 	Issystem                  bool              `json:"issystem,omitempty"`
 	Isvolatile                bool              `json:"isvolatile,omitempty"`
 	Limitcpuuse               bool              `json:"limitcpuuse,omitempty"`
-	Maxiops                   int               `json:"maxiops,omitempty"`
+	Maxiops                   int64             `json:"maxiops,omitempty"`
 	Memory                    int               `json:"memory,omitempty"`
-	Miniops                   int               `json:"miniops,omitempty"`
+	Miniops                   int64             `json:"miniops,omitempty"`
 	Name                      string            `json:"name,omitempty"`
 	Networkrate               int               `json:"networkrate,omitempty"`
 	Offerha                   bool              `json:"offerha,omitempty"`
@@ -771,10 +771,10 @@ type ServiceOffering struct {
 	Created                   string            `json:"created,omitempty"`
 	Defaultuse                bool              `json:"defaultuse,omitempty"`
 	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`
-	DiskBytesReadRate         int               `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate        int               `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate          int               `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate         int               `json:"diskIopsWriteRate,omitempty"`
+	DiskBytesReadRate         int64             `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate        int64             `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate          int64             `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate         int64             `json:"diskIopsWriteRate,omitempty"`
 	Displaytext               string            `json:"displaytext,omitempty"`
 	Domain                    string            `json:"domain,omitempty"`
 	Domainid                  string            `json:"domainid,omitempty"`
@@ -786,9 +786,9 @@ type ServiceOffering struct {
 	Issystem                  bool              `json:"issystem,omitempty"`
 	Isvolatile                bool              `json:"isvolatile,omitempty"`
 	Limitcpuuse               bool              `json:"limitcpuuse,omitempty"`
-	Maxiops                   int               `json:"maxiops,omitempty"`
+	Maxiops                   int64             `json:"maxiops,omitempty"`
 	Memory                    int               `json:"memory,omitempty"`
-	Miniops                   int               `json:"miniops,omitempty"`
+	Miniops                   int64             `json:"miniops,omitempty"`
 	Name                      string            `json:"name,omitempty"`
 	Networkrate               int               `json:"networkrate,omitempty"`
 	Offerha                   bool              `json:"offerha,omitempty"`

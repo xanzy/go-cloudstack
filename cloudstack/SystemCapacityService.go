@@ -165,8 +165,8 @@ type ListCapacityResponse struct {
 }
 
 type Capacity struct {
-	Capacitytotal int    `json:"capacitytotal,omitempty"`
-	Capacityused  int    `json:"capacityused,omitempty"`
+	Capacitytotal int64  `json:"capacitytotal,omitempty"`
+	Capacityused  int64  `json:"capacityused,omitempty"`
 	Clusterid     string `json:"clusterid,omitempty"`
 	Clustername   string `json:"clustername,omitempty"`
 	Percentused   string `json:"percentused,omitempty"`

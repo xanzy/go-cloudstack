@@ -2757,7 +2757,7 @@ type AddNetscalerLoadBalancerResponse struct {
 	Gslbproviderpublicip    string   `json:"gslbproviderpublicip,omitempty"`
 	Ipaddress               string   `json:"ipaddress,omitempty"`
 	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider,omitempty"`
-	Lbdevicecapacity        int      `json:"lbdevicecapacity,omitempty"`
+	Lbdevicecapacity        int64    `json:"lbdevicecapacity,omitempty"`
 	Lbdevicededicated       bool     `json:"lbdevicededicated,omitempty"`
 	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
 	Lbdevicename            string   `json:"lbdevicename,omitempty"`
@@ -2852,7 +2852,7 @@ func (p *ConfigureNetscalerLoadBalancerParams) toURLValues() url.Values {
 		u.Set("inline", vv)
 	}
 	if v, found := p.p["lbdevicecapacity"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("lbdevicecapacity", vv)
 	}
 	if v, found := p.p["lbdevicededicated"]; found {
@@ -2877,7 +2877,7 @@ func (p *ConfigureNetscalerLoadBalancerParams) SetInline(v bool) {
 	return
 }
 
-func (p *ConfigureNetscalerLoadBalancerParams) SetLbdevicecapacity(v int) {
+func (p *ConfigureNetscalerLoadBalancerParams) SetLbdevicecapacity(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -2961,7 +2961,7 @@ type ConfigureNetscalerLoadBalancerResponse struct {
 	Gslbproviderpublicip    string   `json:"gslbproviderpublicip,omitempty"`
 	Ipaddress               string   `json:"ipaddress,omitempty"`
 	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider,omitempty"`
-	Lbdevicecapacity        int      `json:"lbdevicecapacity,omitempty"`
+	Lbdevicecapacity        int64    `json:"lbdevicecapacity,omitempty"`
 	Lbdevicededicated       bool     `json:"lbdevicededicated,omitempty"`
 	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
 	Lbdevicename            string   `json:"lbdevicename,omitempty"`
@@ -3075,7 +3075,7 @@ type NetscalerLoadBalancer struct {
 	Gslbproviderpublicip    string   `json:"gslbproviderpublicip,omitempty"`
 	Ipaddress               string   `json:"ipaddress,omitempty"`
 	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider,omitempty"`
-	Lbdevicecapacity        int      `json:"lbdevicecapacity,omitempty"`
+	Lbdevicecapacity        int64    `json:"lbdevicecapacity,omitempty"`
 	Lbdevicededicated       bool     `json:"lbdevicededicated,omitempty"`
 	Lbdeviceid              string   `json:"lbdeviceid,omitempty"`
 	Lbdevicename            string   `json:"lbdevicename,omitempty"`

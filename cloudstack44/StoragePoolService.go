@@ -183,13 +183,13 @@ func (s *StoragePoolService) EnableStorageMaintenance(p *EnableStorageMaintenanc
 
 type EnableStorageMaintenanceResponse struct {
 	JobID                string            `json:"jobid,omitempty"`
-	Capacityiops         int               `json:"capacityiops,omitempty"`
+	Capacityiops         int64             `json:"capacityiops,omitempty"`
 	Clusterid            string            `json:"clusterid,omitempty"`
 	Clustername          string            `json:"clustername,omitempty"`
 	Created              string            `json:"created,omitempty"`
-	Disksizeallocated    int               `json:"disksizeallocated,omitempty"`
-	Disksizetotal        int               `json:"disksizetotal,omitempty"`
-	Disksizeused         int               `json:"disksizeused,omitempty"`
+	Disksizeallocated    int64             `json:"disksizeallocated,omitempty"`
+	Disksizetotal        int64             `json:"disksizetotal,omitempty"`
+	Disksizeused         int64             `json:"disksizeused,omitempty"`
 	Hypervisor           string            `json:"hypervisor,omitempty"`
 	Id                   string            `json:"id,omitempty"`
 	Ipaddress            string            `json:"ipaddress,omitempty"`
@@ -278,13 +278,13 @@ func (s *StoragePoolService) CancelStorageMaintenance(p *CancelStorageMaintenanc
 
 type CancelStorageMaintenanceResponse struct {
 	JobID                string            `json:"jobid,omitempty"`
-	Capacityiops         int               `json:"capacityiops,omitempty"`
+	Capacityiops         int64             `json:"capacityiops,omitempty"`
 	Clusterid            string            `json:"clusterid,omitempty"`
 	Clustername          string            `json:"clustername,omitempty"`
 	Created              string            `json:"created,omitempty"`
-	Disksizeallocated    int               `json:"disksizeallocated,omitempty"`
-	Disksizetotal        int               `json:"disksizetotal,omitempty"`
-	Disksizeused         int               `json:"disksizeused,omitempty"`
+	Disksizeallocated    int64             `json:"disksizeallocated,omitempty"`
+	Disksizetotal        int64             `json:"disksizetotal,omitempty"`
+	Disksizeused         int64             `json:"disksizeused,omitempty"`
 	Hypervisor           string            `json:"hypervisor,omitempty"`
 	Id                   string            `json:"id,omitempty"`
 	Ipaddress            string            `json:"ipaddress,omitempty"`

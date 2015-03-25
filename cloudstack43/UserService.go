@@ -401,7 +401,7 @@ func (p *ListUsersParams) toURLValues() url.Values {
 		u.Set("account", v.(string))
 	}
 	if v, found := p.p["accounttype"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("accounttype", vv)
 	}
 	if v, found := p.p["domainid"]; found {
@@ -446,7 +446,7 @@ func (p *ListUsersParams) SetAccount(v string) {
 	return
 }
 
-func (p *ListUsersParams) SetAccounttype(v int) {
+func (p *ListUsersParams) SetAccounttype(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -1041,6 +1041,9 @@ func (p *ImportLdapUsersParams) toURLValues() url.Values {
 	if p.p == nil {
 		return u
 	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
 	if v, found := p.p["accountdetails"]; found {
 		i := 0
 		for k, vv := range v.(map[string]string) {
@@ -1074,6 +1077,14 @@ func (p *ImportLdapUsersParams) toURLValues() url.Values {
 		u.Set("timezone", v.(string))
 	}
 	return u
+}
+
+func (p *ImportLdapUsersParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+	return
 }
 
 func (p *ImportLdapUsersParams) SetAccountdetails(v map[string]string) {

@@ -496,7 +496,7 @@ func (p *ListBaremetalDhcpParams) toURLValues() url.Values {
 		u.Set("dhcpservertype", v.(string))
 	}
 	if v, found := p.p["id"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("id", vv)
 	}
 	if v, found := p.p["keyword"]; found {
@@ -521,7 +521,7 @@ func (p *ListBaremetalDhcpParams) SetDhcpservertype(v string) {
 	return
 }
 
-func (p *ListBaremetalDhcpParams) SetId(v int) {
+func (p *ListBaremetalDhcpParams) SetId(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -598,7 +598,7 @@ func (p *ListBaremetalPxeServersParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["id"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("id", vv)
 	}
 	if v, found := p.p["keyword"]; found {
@@ -615,7 +615,7 @@ func (p *ListBaremetalPxeServersParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *ListBaremetalPxeServersParams) SetId(v int) {
+func (p *ListBaremetalPxeServersParams) SetId(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}

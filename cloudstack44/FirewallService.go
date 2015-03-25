@@ -2138,7 +2138,7 @@ func (s *FirewallService) AddPaloAltoFirewall(p *AddPaloAltoFirewallParams) (*Ad
 
 type AddPaloAltoFirewallResponse struct {
 	JobID             string `json:"jobid,omitempty"`
-	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
+	Fwdevicecapacity  int64  `json:"fwdevicecapacity,omitempty"`
 	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
 	Fwdevicename      string `json:"fwdevicename,omitempty"`
 	Fwdevicestate     string `json:"fwdevicestate,omitempty"`
@@ -2235,7 +2235,7 @@ func (p *ConfigurePaloAltoFirewallParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["fwdevicecapacity"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("fwdevicecapacity", vv)
 	}
 	if v, found := p.p["fwdeviceid"]; found {
@@ -2244,7 +2244,7 @@ func (p *ConfigurePaloAltoFirewallParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *ConfigurePaloAltoFirewallParams) SetFwdevicecapacity(v int) {
+func (p *ConfigurePaloAltoFirewallParams) SetFwdevicecapacity(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -2307,7 +2307,7 @@ func (s *FirewallService) ConfigurePaloAltoFirewall(p *ConfigurePaloAltoFirewall
 
 type ConfigurePaloAltoFirewallResponse struct {
 	JobID             string `json:"jobid,omitempty"`
-	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
+	Fwdevicecapacity  int64  `json:"fwdevicecapacity,omitempty"`
 	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
 	Fwdevicename      string `json:"fwdevicename,omitempty"`
 	Fwdevicestate     string `json:"fwdevicestate,omitempty"`
@@ -2422,7 +2422,7 @@ type ListPaloAltoFirewallsResponse struct {
 }
 
 type PaloAltoFirewall struct {
-	Fwdevicecapacity  int    `json:"fwdevicecapacity,omitempty"`
+	Fwdevicecapacity  int64  `json:"fwdevicecapacity,omitempty"`
 	Fwdeviceid        string `json:"fwdeviceid,omitempty"`
 	Fwdevicename      string `json:"fwdevicename,omitempty"`
 	Fwdevicestate     string `json:"fwdevicestate,omitempty"`

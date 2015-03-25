@@ -126,7 +126,7 @@ func (s *ConfigurationService) UpdateConfiguration(p *UpdateConfigurationParams)
 type UpdateConfigurationResponse struct {
 	Category    string `json:"category,omitempty"`
 	Description string `json:"description,omitempty"`
-	Id          int    `json:"id,omitempty"`
+	Id          int64  `json:"id,omitempty"`
 	Name        string `json:"name,omitempty"`
 	Scope       string `json:"scope,omitempty"`
 	Value       string `json:"value,omitempty"`
@@ -275,7 +275,7 @@ type ListConfigurationsResponse struct {
 type Configuration struct {
 	Category    string `json:"category,omitempty"`
 	Description string `json:"description,omitempty"`
-	Id          int    `json:"id,omitempty"`
+	Id          int64  `json:"id,omitempty"`
 	Name        string `json:"name,omitempty"`
 	Scope       string `json:"scope,omitempty"`
 	Value       string `json:"value,omitempty"`
@@ -325,8 +325,8 @@ type Capability struct {
 	Apilimitinterval          int    `json:"apilimitinterval,omitempty"`
 	Apilimitmax               int    `json:"apilimitmax,omitempty"`
 	Cloudstackversion         string `json:"cloudstackversion,omitempty"`
-	Customdiskofferingmaxsize int    `json:"customdiskofferingmaxsize,omitempty"`
-	Customdiskofferingminsize int    `json:"customdiskofferingminsize,omitempty"`
+	Customdiskofferingmaxsize int64  `json:"customdiskofferingmaxsize,omitempty"`
+	Customdiskofferingminsize int64  `json:"customdiskofferingminsize,omitempty"`
 	Kvmsnapshotenabled        bool   `json:"kvmsnapshotenabled,omitempty"`
 	Projectinviterequired     bool   `json:"projectinviterequired,omitempty"`
 	Regionsecondaryenabled    bool   `json:"regionsecondaryenabled,omitempty"`

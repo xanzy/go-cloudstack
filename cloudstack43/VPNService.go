@@ -867,7 +867,7 @@ func (p *CreateVpnCustomerGatewayParams) toURLValues() url.Values {
 		u.Set("dpd", vv)
 	}
 	if v, found := p.p["esplifetime"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("esplifetime", vv)
 	}
 	if v, found := p.p["esppolicy"]; found {
@@ -877,7 +877,7 @@ func (p *CreateVpnCustomerGatewayParams) toURLValues() url.Values {
 		u.Set("gateway", v.(string))
 	}
 	if v, found := p.p["ikelifetime"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("ikelifetime", vv)
 	}
 	if v, found := p.p["ikepolicy"]; found {
@@ -924,7 +924,7 @@ func (p *CreateVpnCustomerGatewayParams) SetDpd(v bool) {
 	return
 }
 
-func (p *CreateVpnCustomerGatewayParams) SetEsplifetime(v int) {
+func (p *CreateVpnCustomerGatewayParams) SetEsplifetime(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -948,7 +948,7 @@ func (p *CreateVpnCustomerGatewayParams) SetGateway(v string) {
 	return
 }
 
-func (p *CreateVpnCustomerGatewayParams) SetIkelifetime(v int) {
+func (p *CreateVpnCustomerGatewayParams) SetIkelifetime(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -1036,11 +1036,11 @@ type CreateVpnCustomerGatewayResponse struct {
 	Domain      string `json:"domain,omitempty"`
 	Domainid    string `json:"domainid,omitempty"`
 	Dpd         bool   `json:"dpd,omitempty"`
-	Esplifetime int    `json:"esplifetime,omitempty"`
+	Esplifetime int64  `json:"esplifetime,omitempty"`
 	Esppolicy   string `json:"esppolicy,omitempty"`
 	Gateway     string `json:"gateway,omitempty"`
 	Id          string `json:"id,omitempty"`
-	Ikelifetime int    `json:"ikelifetime,omitempty"`
+	Ikelifetime int64  `json:"ikelifetime,omitempty"`
 	Ikepolicy   string `json:"ikepolicy,omitempty"`
 	Ipaddress   string `json:"ipaddress,omitempty"`
 	Ipsecpsk    string `json:"ipsecpsk,omitempty"`
@@ -1231,11 +1231,11 @@ type CreateVpnConnectionResponse struct {
 	Domain               string `json:"domain,omitempty"`
 	Domainid             string `json:"domainid,omitempty"`
 	Dpd                  bool   `json:"dpd,omitempty"`
-	Esplifetime          int    `json:"esplifetime,omitempty"`
+	Esplifetime          int64  `json:"esplifetime,omitempty"`
 	Esppolicy            string `json:"esppolicy,omitempty"`
 	Gateway              string `json:"gateway,omitempty"`
 	Id                   string `json:"id,omitempty"`
-	Ikelifetime          int    `json:"ikelifetime,omitempty"`
+	Ikelifetime          int64  `json:"ikelifetime,omitempty"`
 	Ikepolicy            string `json:"ikepolicy,omitempty"`
 	Ipsecpsk             string `json:"ipsecpsk,omitempty"`
 	Passive              bool   `json:"passive,omitempty"`
@@ -1478,7 +1478,7 @@ func (p *UpdateVpnCustomerGatewayParams) toURLValues() url.Values {
 		u.Set("dpd", vv)
 	}
 	if v, found := p.p["esplifetime"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("esplifetime", vv)
 	}
 	if v, found := p.p["esppolicy"]; found {
@@ -1491,7 +1491,7 @@ func (p *UpdateVpnCustomerGatewayParams) toURLValues() url.Values {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["ikelifetime"]; found {
-		vv := strconv.Itoa(v.(int))
+		vv := strconv.FormatInt(v.(int64), 10)
 		u.Set("ikelifetime", vv)
 	}
 	if v, found := p.p["ikepolicy"]; found {
@@ -1538,7 +1538,7 @@ func (p *UpdateVpnCustomerGatewayParams) SetDpd(v bool) {
 	return
 }
 
-func (p *UpdateVpnCustomerGatewayParams) SetEsplifetime(v int) {
+func (p *UpdateVpnCustomerGatewayParams) SetEsplifetime(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -1570,7 +1570,7 @@ func (p *UpdateVpnCustomerGatewayParams) SetId(v string) {
 	return
 }
 
-func (p *UpdateVpnCustomerGatewayParams) SetIkelifetime(v int) {
+func (p *UpdateVpnCustomerGatewayParams) SetIkelifetime(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -1659,11 +1659,11 @@ type UpdateVpnCustomerGatewayResponse struct {
 	Domain      string `json:"domain,omitempty"`
 	Domainid    string `json:"domainid,omitempty"`
 	Dpd         bool   `json:"dpd,omitempty"`
-	Esplifetime int    `json:"esplifetime,omitempty"`
+	Esplifetime int64  `json:"esplifetime,omitempty"`
 	Esppolicy   string `json:"esppolicy,omitempty"`
 	Gateway     string `json:"gateway,omitempty"`
 	Id          string `json:"id,omitempty"`
-	Ikelifetime int    `json:"ikelifetime,omitempty"`
+	Ikelifetime int64  `json:"ikelifetime,omitempty"`
 	Ikepolicy   string `json:"ikepolicy,omitempty"`
 	Ipaddress   string `json:"ipaddress,omitempty"`
 	Ipsecpsk    string `json:"ipsecpsk,omitempty"`
@@ -1771,11 +1771,11 @@ type ResetVpnConnectionResponse struct {
 	Domain               string `json:"domain,omitempty"`
 	Domainid             string `json:"domainid,omitempty"`
 	Dpd                  bool   `json:"dpd,omitempty"`
-	Esplifetime          int    `json:"esplifetime,omitempty"`
+	Esplifetime          int64  `json:"esplifetime,omitempty"`
 	Esppolicy            string `json:"esppolicy,omitempty"`
 	Gateway              string `json:"gateway,omitempty"`
 	Id                   string `json:"id,omitempty"`
-	Ikelifetime          int    `json:"ikelifetime,omitempty"`
+	Ikelifetime          int64  `json:"ikelifetime,omitempty"`
 	Ikepolicy            string `json:"ikepolicy,omitempty"`
 	Ipsecpsk             string `json:"ipsecpsk,omitempty"`
 	Passive              bool   `json:"passive,omitempty"`
@@ -2007,11 +2007,11 @@ type VpnCustomerGateway struct {
 	Domain      string `json:"domain,omitempty"`
 	Domainid    string `json:"domainid,omitempty"`
 	Dpd         bool   `json:"dpd,omitempty"`
-	Esplifetime int    `json:"esplifetime,omitempty"`
+	Esplifetime int64  `json:"esplifetime,omitempty"`
 	Esppolicy   string `json:"esppolicy,omitempty"`
 	Gateway     string `json:"gateway,omitempty"`
 	Id          string `json:"id,omitempty"`
-	Ikelifetime int    `json:"ikelifetime,omitempty"`
+	Ikelifetime int64  `json:"ikelifetime,omitempty"`
 	Ikepolicy   string `json:"ikepolicy,omitempty"`
 	Ipaddress   string `json:"ipaddress,omitempty"`
 	Ipsecpsk    string `json:"ipsecpsk,omitempty"`
@@ -2400,11 +2400,11 @@ type VpnConnection struct {
 	Domain               string `json:"domain,omitempty"`
 	Domainid             string `json:"domainid,omitempty"`
 	Dpd                  bool   `json:"dpd,omitempty"`
-	Esplifetime          int    `json:"esplifetime,omitempty"`
+	Esplifetime          int64  `json:"esplifetime,omitempty"`
 	Esppolicy            string `json:"esppolicy,omitempty"`
 	Gateway              string `json:"gateway,omitempty"`
 	Id                   string `json:"id,omitempty"`
-	Ikelifetime          int    `json:"ikelifetime,omitempty"`
+	Ikelifetime          int64  `json:"ikelifetime,omitempty"`
 	Ikepolicy            string `json:"ikepolicy,omitempty"`
 	Ipsecpsk             string `json:"ipsecpsk,omitempty"`
 	Passive              bool   `json:"passive,omitempty"`

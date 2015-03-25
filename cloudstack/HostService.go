@@ -176,7 +176,7 @@ func (s *HostService) AddHost(p *AddHostParams) (*AddHostResponse, error) {
 }
 
 type AddHostResponse struct {
-	Averageload             int    `json:"averageload,omitempty"`
+	Averageload             int64  `json:"averageload,omitempty"`
 	Capabilities            string `json:"capabilities,omitempty"`
 	Clusterid               string `json:"clusterid,omitempty"`
 	Clustername             string `json:"clustername,omitempty"`
@@ -184,25 +184,25 @@ type AddHostResponse struct {
 	Cpuallocated            string `json:"cpuallocated,omitempty"`
 	Cpunumber               int    `json:"cpunumber,omitempty"`
 	Cpusockets              int    `json:"cpusockets,omitempty"`
-	Cpuspeed                int    `json:"cpuspeed,omitempty"`
+	Cpuspeed                int64  `json:"cpuspeed,omitempty"`
 	Cpuused                 string `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string `json:"created,omitempty"`
 	Disconnected            string `json:"disconnected,omitempty"`
-	Disksizeallocated       int    `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int    `json:"disksizetotal,omitempty"`
+	Disksizeallocated       int64  `json:"disksizeallocated,omitempty"`
+	Disksizetotal           int64  `json:"disksizetotal,omitempty"`
 	Events                  string `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
 		Vgpu         []struct {
-			Maxcapacity       int    `json:"maxcapacity,omitempty"`
-			Maxheads          int    `json:"maxheads,omitempty"`
-			Maxresolutionx    int    `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int    `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int    `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int    `json:"remainingcapacity,omitempty"`
+			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
+			Maxheads          int64  `json:"maxheads,omitempty"`
+			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
+			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
+			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
 			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int    `json:"videoram,omitempty"`
+			Videoram          int64  `json:"videoram,omitempty"`
 		} `json:"vgpu,omitempty"`
 	} `json:"gpugroup,omitempty"`
 	Hahost               bool   `json:"hahost,omitempty"`
@@ -214,13 +214,13 @@ type AddHostResponse struct {
 	Ipaddress            string `json:"ipaddress,omitempty"`
 	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
 	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int    `json:"managementserverid,omitempty"`
-	Memoryallocated      int    `json:"memoryallocated,omitempty"`
-	Memorytotal          int    `json:"memorytotal,omitempty"`
-	Memoryused           int    `json:"memoryused,omitempty"`
+	Managementserverid   int64  `json:"managementserverid,omitempty"`
+	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
+	Memorytotal          int64  `json:"memorytotal,omitempty"`
+	Memoryused           int64  `json:"memoryused,omitempty"`
 	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int    `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int    `json:"networkkbswrite,omitempty"`
+	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
+	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
 	Podid                string `json:"podid,omitempty"`
@@ -305,7 +305,7 @@ func (s *HostService) ReconnectHost(p *ReconnectHostParams) (*ReconnectHostRespo
 
 type ReconnectHostResponse struct {
 	JobID                   string `json:"jobid,omitempty"`
-	Averageload             int    `json:"averageload,omitempty"`
+	Averageload             int64  `json:"averageload,omitempty"`
 	Capabilities            string `json:"capabilities,omitempty"`
 	Clusterid               string `json:"clusterid,omitempty"`
 	Clustername             string `json:"clustername,omitempty"`
@@ -313,25 +313,25 @@ type ReconnectHostResponse struct {
 	Cpuallocated            string `json:"cpuallocated,omitempty"`
 	Cpunumber               int    `json:"cpunumber,omitempty"`
 	Cpusockets              int    `json:"cpusockets,omitempty"`
-	Cpuspeed                int    `json:"cpuspeed,omitempty"`
+	Cpuspeed                int64  `json:"cpuspeed,omitempty"`
 	Cpuused                 string `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string `json:"created,omitempty"`
 	Disconnected            string `json:"disconnected,omitempty"`
-	Disksizeallocated       int    `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int    `json:"disksizetotal,omitempty"`
+	Disksizeallocated       int64  `json:"disksizeallocated,omitempty"`
+	Disksizetotal           int64  `json:"disksizetotal,omitempty"`
 	Events                  string `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
 		Vgpu         []struct {
-			Maxcapacity       int    `json:"maxcapacity,omitempty"`
-			Maxheads          int    `json:"maxheads,omitempty"`
-			Maxresolutionx    int    `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int    `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int    `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int    `json:"remainingcapacity,omitempty"`
+			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
+			Maxheads          int64  `json:"maxheads,omitempty"`
+			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
+			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
+			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
 			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int    `json:"videoram,omitempty"`
+			Videoram          int64  `json:"videoram,omitempty"`
 		} `json:"vgpu,omitempty"`
 	} `json:"gpugroup,omitempty"`
 	Hahost               bool   `json:"hahost,omitempty"`
@@ -343,13 +343,13 @@ type ReconnectHostResponse struct {
 	Ipaddress            string `json:"ipaddress,omitempty"`
 	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
 	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int    `json:"managementserverid,omitempty"`
-	Memoryallocated      int    `json:"memoryallocated,omitempty"`
-	Memorytotal          int    `json:"memorytotal,omitempty"`
-	Memoryused           int    `json:"memoryused,omitempty"`
+	Managementserverid   int64  `json:"managementserverid,omitempty"`
+	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
+	Memorytotal          int64  `json:"memorytotal,omitempty"`
+	Memoryused           int64  `json:"memoryused,omitempty"`
 	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int    `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int    `json:"networkkbswrite,omitempty"`
+	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
+	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
 	Podid                string `json:"podid,omitempty"`
@@ -456,7 +456,7 @@ func (s *HostService) UpdateHost(p *UpdateHostParams) (*UpdateHostResponse, erro
 }
 
 type UpdateHostResponse struct {
-	Averageload             int    `json:"averageload,omitempty"`
+	Averageload             int64  `json:"averageload,omitempty"`
 	Capabilities            string `json:"capabilities,omitempty"`
 	Clusterid               string `json:"clusterid,omitempty"`
 	Clustername             string `json:"clustername,omitempty"`
@@ -464,25 +464,25 @@ type UpdateHostResponse struct {
 	Cpuallocated            string `json:"cpuallocated,omitempty"`
 	Cpunumber               int    `json:"cpunumber,omitempty"`
 	Cpusockets              int    `json:"cpusockets,omitempty"`
-	Cpuspeed                int    `json:"cpuspeed,omitempty"`
+	Cpuspeed                int64  `json:"cpuspeed,omitempty"`
 	Cpuused                 string `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string `json:"created,omitempty"`
 	Disconnected            string `json:"disconnected,omitempty"`
-	Disksizeallocated       int    `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int    `json:"disksizetotal,omitempty"`
+	Disksizeallocated       int64  `json:"disksizeallocated,omitempty"`
+	Disksizetotal           int64  `json:"disksizetotal,omitempty"`
 	Events                  string `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
 		Vgpu         []struct {
-			Maxcapacity       int    `json:"maxcapacity,omitempty"`
-			Maxheads          int    `json:"maxheads,omitempty"`
-			Maxresolutionx    int    `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int    `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int    `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int    `json:"remainingcapacity,omitempty"`
+			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
+			Maxheads          int64  `json:"maxheads,omitempty"`
+			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
+			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
+			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
 			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int    `json:"videoram,omitempty"`
+			Videoram          int64  `json:"videoram,omitempty"`
 		} `json:"vgpu,omitempty"`
 	} `json:"gpugroup,omitempty"`
 	Hahost               bool   `json:"hahost,omitempty"`
@@ -494,13 +494,13 @@ type UpdateHostResponse struct {
 	Ipaddress            string `json:"ipaddress,omitempty"`
 	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
 	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int    `json:"managementserverid,omitempty"`
-	Memoryallocated      int    `json:"memoryallocated,omitempty"`
-	Memorytotal          int    `json:"memorytotal,omitempty"`
-	Memoryused           int    `json:"memoryused,omitempty"`
+	Managementserverid   int64  `json:"managementserverid,omitempty"`
+	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
+	Memorytotal          int64  `json:"memorytotal,omitempty"`
+	Memoryused           int64  `json:"memoryused,omitempty"`
 	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int    `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int    `json:"networkkbswrite,omitempty"`
+	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
+	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
 	Podid                string `json:"podid,omitempty"`
@@ -660,7 +660,7 @@ func (s *HostService) PrepareHostForMaintenance(p *PrepareHostForMaintenancePara
 
 type PrepareHostForMaintenanceResponse struct {
 	JobID                   string `json:"jobid,omitempty"`
-	Averageload             int    `json:"averageload,omitempty"`
+	Averageload             int64  `json:"averageload,omitempty"`
 	Capabilities            string `json:"capabilities,omitempty"`
 	Clusterid               string `json:"clusterid,omitempty"`
 	Clustername             string `json:"clustername,omitempty"`
@@ -668,25 +668,25 @@ type PrepareHostForMaintenanceResponse struct {
 	Cpuallocated            string `json:"cpuallocated,omitempty"`
 	Cpunumber               int    `json:"cpunumber,omitempty"`
 	Cpusockets              int    `json:"cpusockets,omitempty"`
-	Cpuspeed                int    `json:"cpuspeed,omitempty"`
+	Cpuspeed                int64  `json:"cpuspeed,omitempty"`
 	Cpuused                 string `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string `json:"created,omitempty"`
 	Disconnected            string `json:"disconnected,omitempty"`
-	Disksizeallocated       int    `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int    `json:"disksizetotal,omitempty"`
+	Disksizeallocated       int64  `json:"disksizeallocated,omitempty"`
+	Disksizetotal           int64  `json:"disksizetotal,omitempty"`
 	Events                  string `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
 		Vgpu         []struct {
-			Maxcapacity       int    `json:"maxcapacity,omitempty"`
-			Maxheads          int    `json:"maxheads,omitempty"`
-			Maxresolutionx    int    `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int    `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int    `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int    `json:"remainingcapacity,omitempty"`
+			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
+			Maxheads          int64  `json:"maxheads,omitempty"`
+			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
+			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
+			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
 			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int    `json:"videoram,omitempty"`
+			Videoram          int64  `json:"videoram,omitempty"`
 		} `json:"vgpu,omitempty"`
 	} `json:"gpugroup,omitempty"`
 	Hahost               bool   `json:"hahost,omitempty"`
@@ -698,13 +698,13 @@ type PrepareHostForMaintenanceResponse struct {
 	Ipaddress            string `json:"ipaddress,omitempty"`
 	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
 	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int    `json:"managementserverid,omitempty"`
-	Memoryallocated      int    `json:"memoryallocated,omitempty"`
-	Memorytotal          int    `json:"memorytotal,omitempty"`
-	Memoryused           int    `json:"memoryused,omitempty"`
+	Managementserverid   int64  `json:"managementserverid,omitempty"`
+	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
+	Memorytotal          int64  `json:"memorytotal,omitempty"`
+	Memoryused           int64  `json:"memoryused,omitempty"`
 	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int    `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int    `json:"networkkbswrite,omitempty"`
+	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
+	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
 	Podid                string `json:"podid,omitempty"`
@@ -789,7 +789,7 @@ func (s *HostService) CancelHostMaintenance(p *CancelHostMaintenanceParams) (*Ca
 
 type CancelHostMaintenanceResponse struct {
 	JobID                   string `json:"jobid,omitempty"`
-	Averageload             int    `json:"averageload,omitempty"`
+	Averageload             int64  `json:"averageload,omitempty"`
 	Capabilities            string `json:"capabilities,omitempty"`
 	Clusterid               string `json:"clusterid,omitempty"`
 	Clustername             string `json:"clustername,omitempty"`
@@ -797,25 +797,25 @@ type CancelHostMaintenanceResponse struct {
 	Cpuallocated            string `json:"cpuallocated,omitempty"`
 	Cpunumber               int    `json:"cpunumber,omitempty"`
 	Cpusockets              int    `json:"cpusockets,omitempty"`
-	Cpuspeed                int    `json:"cpuspeed,omitempty"`
+	Cpuspeed                int64  `json:"cpuspeed,omitempty"`
 	Cpuused                 string `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string `json:"created,omitempty"`
 	Disconnected            string `json:"disconnected,omitempty"`
-	Disksizeallocated       int    `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int    `json:"disksizetotal,omitempty"`
+	Disksizeallocated       int64  `json:"disksizeallocated,omitempty"`
+	Disksizetotal           int64  `json:"disksizetotal,omitempty"`
 	Events                  string `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
 		Vgpu         []struct {
-			Maxcapacity       int    `json:"maxcapacity,omitempty"`
-			Maxheads          int    `json:"maxheads,omitempty"`
-			Maxresolutionx    int    `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int    `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int    `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int    `json:"remainingcapacity,omitempty"`
+			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
+			Maxheads          int64  `json:"maxheads,omitempty"`
+			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
+			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
+			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
 			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int    `json:"videoram,omitempty"`
+			Videoram          int64  `json:"videoram,omitempty"`
 		} `json:"vgpu,omitempty"`
 	} `json:"gpugroup,omitempty"`
 	Hahost               bool   `json:"hahost,omitempty"`
@@ -827,13 +827,13 @@ type CancelHostMaintenanceResponse struct {
 	Ipaddress            string `json:"ipaddress,omitempty"`
 	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
 	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int    `json:"managementserverid,omitempty"`
-	Memoryallocated      int    `json:"memoryallocated,omitempty"`
-	Memorytotal          int    `json:"memorytotal,omitempty"`
-	Memoryused           int    `json:"memoryused,omitempty"`
+	Managementserverid   int64  `json:"managementserverid,omitempty"`
+	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
+	Memorytotal          int64  `json:"memorytotal,omitempty"`
+	Memoryused           int64  `json:"memoryused,omitempty"`
 	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int    `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int    `json:"networkkbswrite,omitempty"`
+	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
+	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
 	Podid                string `json:"podid,omitempty"`
@@ -1128,7 +1128,7 @@ type ListHostsResponse struct {
 }
 
 type Host struct {
-	Averageload             int    `json:"averageload,omitempty"`
+	Averageload             int64  `json:"averageload,omitempty"`
 	Capabilities            string `json:"capabilities,omitempty"`
 	Clusterid               string `json:"clusterid,omitempty"`
 	Clustername             string `json:"clustername,omitempty"`
@@ -1136,25 +1136,25 @@ type Host struct {
 	Cpuallocated            string `json:"cpuallocated,omitempty"`
 	Cpunumber               int    `json:"cpunumber,omitempty"`
 	Cpusockets              int    `json:"cpusockets,omitempty"`
-	Cpuspeed                int    `json:"cpuspeed,omitempty"`
+	Cpuspeed                int64  `json:"cpuspeed,omitempty"`
 	Cpuused                 string `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string `json:"created,omitempty"`
 	Disconnected            string `json:"disconnected,omitempty"`
-	Disksizeallocated       int    `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int    `json:"disksizetotal,omitempty"`
+	Disksizeallocated       int64  `json:"disksizeallocated,omitempty"`
+	Disksizetotal           int64  `json:"disksizetotal,omitempty"`
 	Events                  string `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
 		Vgpu         []struct {
-			Maxcapacity       int    `json:"maxcapacity,omitempty"`
-			Maxheads          int    `json:"maxheads,omitempty"`
-			Maxresolutionx    int    `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int    `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int    `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int    `json:"remainingcapacity,omitempty"`
+			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
+			Maxheads          int64  `json:"maxheads,omitempty"`
+			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
+			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
+			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
 			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int    `json:"videoram,omitempty"`
+			Videoram          int64  `json:"videoram,omitempty"`
 		} `json:"vgpu,omitempty"`
 	} `json:"gpugroup,omitempty"`
 	Hahost               bool   `json:"hahost,omitempty"`
@@ -1166,13 +1166,13 @@ type Host struct {
 	Ipaddress            string `json:"ipaddress,omitempty"`
 	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
 	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int    `json:"managementserverid,omitempty"`
-	Memoryallocated      int    `json:"memoryallocated,omitempty"`
-	Memorytotal          int    `json:"memorytotal,omitempty"`
-	Memoryused           int    `json:"memoryused,omitempty"`
+	Managementserverid   int64  `json:"managementserverid,omitempty"`
+	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
+	Memorytotal          int64  `json:"memorytotal,omitempty"`
+	Memoryused           int64  `json:"memoryused,omitempty"`
 	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int    `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int    `json:"networkkbswrite,omitempty"`
+	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
+	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
 	Podid                string `json:"podid,omitempty"`
@@ -1269,20 +1269,20 @@ func (s *HostService) FindHostsForMigration(p *FindHostsForMigrationParams) (*Fi
 }
 
 type FindHostsForMigrationResponse struct {
-	Averageload             int    `json:"averageload,omitempty"`
+	Averageload             int64  `json:"averageload,omitempty"`
 	Capabilities            string `json:"capabilities,omitempty"`
 	Clusterid               string `json:"clusterid,omitempty"`
 	Clustername             string `json:"clustername,omitempty"`
 	Clustertype             string `json:"clustertype,omitempty"`
 	Cpuallocated            string `json:"cpuallocated,omitempty"`
 	Cpunumber               int    `json:"cpunumber,omitempty"`
-	Cpuspeed                int    `json:"cpuspeed,omitempty"`
+	Cpuspeed                int64  `json:"cpuspeed,omitempty"`
 	Cpuused                 string `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string `json:"created,omitempty"`
 	Disconnected            string `json:"disconnected,omitempty"`
-	Disksizeallocated       int    `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int    `json:"disksizetotal,omitempty"`
+	Disksizeallocated       int64  `json:"disksizeallocated,omitempty"`
+	Disksizetotal           int64  `json:"disksizetotal,omitempty"`
 	Events                  string `json:"events,omitempty"`
 	Hahost                  bool   `json:"hahost,omitempty"`
 	Hasenoughcapacity       bool   `json:"hasenoughcapacity,omitempty"`
@@ -1293,13 +1293,13 @@ type FindHostsForMigrationResponse struct {
 	Ipaddress               string `json:"ipaddress,omitempty"`
 	Islocalstorageactive    bool   `json:"islocalstorageactive,omitempty"`
 	Lastpinged              string `json:"lastpinged,omitempty"`
-	Managementserverid      int    `json:"managementserverid,omitempty"`
-	Memoryallocated         int    `json:"memoryallocated,omitempty"`
-	Memorytotal             int    `json:"memorytotal,omitempty"`
-	Memoryused              int    `json:"memoryused,omitempty"`
+	Managementserverid      int64  `json:"managementserverid,omitempty"`
+	Memoryallocated         int64  `json:"memoryallocated,omitempty"`
+	Memorytotal             int64  `json:"memorytotal,omitempty"`
+	Memoryused              int64  `json:"memoryused,omitempty"`
 	Name                    string `json:"name,omitempty"`
-	Networkkbsread          int    `json:"networkkbsread,omitempty"`
-	Networkkbswrite         int    `json:"networkkbswrite,omitempty"`
+	Networkkbsread          int64  `json:"networkkbsread,omitempty"`
+	Networkkbswrite         int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid            string `json:"oscategoryid,omitempty"`
 	Oscategoryname          string `json:"oscategoryname,omitempty"`
 	Podid                   string `json:"podid,omitempty"`
@@ -1701,7 +1701,7 @@ func (s *HostService) AddBaremetalHost(p *AddBaremetalHostParams) (*AddBaremetal
 }
 
 type AddBaremetalHostResponse struct {
-	Averageload             int    `json:"averageload,omitempty"`
+	Averageload             int64  `json:"averageload,omitempty"`
 	Capabilities            string `json:"capabilities,omitempty"`
 	Clusterid               string `json:"clusterid,omitempty"`
 	Clustername             string `json:"clustername,omitempty"`
@@ -1709,25 +1709,25 @@ type AddBaremetalHostResponse struct {
 	Cpuallocated            string `json:"cpuallocated,omitempty"`
 	Cpunumber               int    `json:"cpunumber,omitempty"`
 	Cpusockets              int    `json:"cpusockets,omitempty"`
-	Cpuspeed                int    `json:"cpuspeed,omitempty"`
+	Cpuspeed                int64  `json:"cpuspeed,omitempty"`
 	Cpuused                 string `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string `json:"created,omitempty"`
 	Disconnected            string `json:"disconnected,omitempty"`
-	Disksizeallocated       int    `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int    `json:"disksizetotal,omitempty"`
+	Disksizeallocated       int64  `json:"disksizeallocated,omitempty"`
+	Disksizetotal           int64  `json:"disksizetotal,omitempty"`
 	Events                  string `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
 		Vgpu         []struct {
-			Maxcapacity       int    `json:"maxcapacity,omitempty"`
-			Maxheads          int    `json:"maxheads,omitempty"`
-			Maxresolutionx    int    `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int    `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int    `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int    `json:"remainingcapacity,omitempty"`
+			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
+			Maxheads          int64  `json:"maxheads,omitempty"`
+			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
+			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
+			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
 			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int    `json:"videoram,omitempty"`
+			Videoram          int64  `json:"videoram,omitempty"`
 		} `json:"vgpu,omitempty"`
 	} `json:"gpugroup,omitempty"`
 	Hahost               bool   `json:"hahost,omitempty"`
@@ -1739,13 +1739,13 @@ type AddBaremetalHostResponse struct {
 	Ipaddress            string `json:"ipaddress,omitempty"`
 	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
 	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int    `json:"managementserverid,omitempty"`
-	Memoryallocated      int    `json:"memoryallocated,omitempty"`
-	Memorytotal          int    `json:"memorytotal,omitempty"`
-	Memoryused           int    `json:"memoryused,omitempty"`
+	Managementserverid   int64  `json:"managementserverid,omitempty"`
+	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
+	Memorytotal          int64  `json:"memorytotal,omitempty"`
+	Memoryused           int64  `json:"memoryused,omitempty"`
 	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int    `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int    `json:"networkkbswrite,omitempty"`
+	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
+	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
 	Podid                string `json:"podid,omitempty"`

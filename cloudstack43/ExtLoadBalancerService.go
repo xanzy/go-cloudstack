@@ -282,7 +282,7 @@ type ListExternalLoadBalancersResponse struct {
 }
 
 type ExternalLoadBalancer struct {
-	Averageload             int    `json:"averageload,omitempty"`
+	Averageload             int64  `json:"averageload,omitempty"`
 	Capabilities            string `json:"capabilities,omitempty"`
 	Clusterid               string `json:"clusterid,omitempty"`
 	Clustername             string `json:"clustername,omitempty"`
@@ -290,13 +290,13 @@ type ExternalLoadBalancer struct {
 	Cpuallocated            string `json:"cpuallocated,omitempty"`
 	Cpunumber               int    `json:"cpunumber,omitempty"`
 	Cpusockets              int    `json:"cpusockets,omitempty"`
-	Cpuspeed                int    `json:"cpuspeed,omitempty"`
+	Cpuspeed                int64  `json:"cpuspeed,omitempty"`
 	Cpuused                 string `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string `json:"created,omitempty"`
 	Disconnected            string `json:"disconnected,omitempty"`
-	Disksizeallocated       int    `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int    `json:"disksizetotal,omitempty"`
+	Disksizeallocated       int64  `json:"disksizeallocated,omitempty"`
+	Disksizetotal           int64  `json:"disksizetotal,omitempty"`
 	Events                  string `json:"events,omitempty"`
 	Hahost                  bool   `json:"hahost,omitempty"`
 	Hasenoughcapacity       bool   `json:"hasenoughcapacity,omitempty"`
@@ -307,13 +307,13 @@ type ExternalLoadBalancer struct {
 	Ipaddress               string `json:"ipaddress,omitempty"`
 	Islocalstorageactive    bool   `json:"islocalstorageactive,omitempty"`
 	Lastpinged              string `json:"lastpinged,omitempty"`
-	Managementserverid      int    `json:"managementserverid,omitempty"`
-	Memoryallocated         int    `json:"memoryallocated,omitempty"`
-	Memorytotal             int    `json:"memorytotal,omitempty"`
-	Memoryused              int    `json:"memoryused,omitempty"`
+	Managementserverid      int64  `json:"managementserverid,omitempty"`
+	Memoryallocated         int64  `json:"memoryallocated,omitempty"`
+	Memorytotal             int64  `json:"memorytotal,omitempty"`
+	Memoryused              int64  `json:"memoryused,omitempty"`
 	Name                    string `json:"name,omitempty"`
-	Networkkbsread          int    `json:"networkkbsread,omitempty"`
-	Networkkbswrite         int    `json:"networkkbswrite,omitempty"`
+	Networkkbsread          int64  `json:"networkkbsread,omitempty"`
+	Networkkbswrite         int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid            string `json:"oscategoryid,omitempty"`
 	Oscategoryname          string `json:"oscategoryname,omitempty"`
 	Podid                   string `json:"podid,omitempty"`
