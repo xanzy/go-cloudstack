@@ -297,7 +297,7 @@ func (p *UpdateZoneParams) toURLValues() url.Values {
 		u.Set("dns2", v.(string))
 	}
 	if v, found := p.p["dnssearchorder"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("dnssearchorder", vv)
 	}
 	if v, found := p.p["domain"]; found {

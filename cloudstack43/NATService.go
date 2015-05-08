@@ -119,7 +119,7 @@ func (p *CreateIpForwardingRuleParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["cidrlist"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["endport"]; found {

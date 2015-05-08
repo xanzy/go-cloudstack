@@ -556,7 +556,7 @@ func (s *service) generateConvertCode(name, typ string) {
 		pn("vv := strconv.FormatBool(v.(bool))")
 		pn("u.Set(\"%s\", vv)", n)
 	case "[]string":
-		pn("vv := strings.Join(v.([]string), \", \")")
+		pn("vv := strings.Join(v.([]string), \",\")")
 		pn("u.Set(\"%s\", vv)", n)
 	case "map[string]string":
 		pn("i := 0")
