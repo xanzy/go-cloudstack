@@ -387,6 +387,10 @@ func (s *SSHService) RegisterSSHKeyPair(p *RegisterSSHKeyPairParams) (*RegisterS
 		return nil, err
 	}
 
+	if resp, err = getRawValue(resp); err != nil {
+		return nil, err
+	}
+
 	var r RegisterSSHKeyPairResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -468,6 +472,10 @@ func (s *SSHService) NewCreateSSHKeyPairParams(name string) *CreateSSHKeyPairPar
 func (s *SSHService) CreateSSHKeyPair(p *CreateSSHKeyPairParams) (*CreateSSHKeyPairResponse, error) {
 	resp, err := s.cs.newRequest("createSSHKeyPair", p.toURLValues())
 	if err != nil {
+		return nil, err
+	}
+
+	if resp, err = getRawValue(resp); err != nil {
 		return nil, err
 	}
 
