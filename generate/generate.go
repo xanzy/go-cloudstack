@@ -782,20 +782,23 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("		return nil, -1, err")
 			pn("	}")
 			pn("")
-			pn("    if l.Count == 0 {")
-			pn("		// look	inside projects ")
-			pn("		p.p[\"projectid\"] = \"-1\"")
-			pn("		l, err := s.List%s(p)", ln)
-			pn("		if err != nil {")
-			pn("			if strings.Contains(err.Error(), fmt.Sprintf(")
-			pn("				\"Invalid parameter id value=%%s due to incorrect long value format, \"+")
-			pn("				\"or entity does not exist\", id)) {")
-			pn("				return nil, 0, fmt.Errorf(\"No match found for %%s: %%+v\", id, l)")
-			pn("			}")
-			pn("			return nil, -1, err")
-			pn("		}")
-			pn("	}")
-			pn("")
+			if hasProjectParam := hasProjectidParamField(a.Params); hasProjectParam {
+
+				pn("    if l.Count == 0 {")
+				pn("		// look	inside projects ")
+				pn("		p.p[\"projectid\"] = \"-1\"")
+				pn("		l, err = s.List%s(p)", ln)
+				pn("		if err != nil {")
+				pn("			if strings.Contains(err.Error(), fmt.Sprintf(")
+				pn("				\"Invalid parameter id value=%%s due to incorrect long value format, \"+")
+				pn("				\"or entity does not exist\", id)) {")
+				pn("				return nil, 0, fmt.Errorf(\"No match found for %%s: %%+v\", id, l)")
+				pn("			}")
+				pn("			return nil, -1, err")
+				pn("		}")
+				pn("	}")
+				pn("")
+			}
 			pn("	if l.Count == 0 {")
 			pn("	  return nil, l.Count, fmt.Errorf(\"No match found for %%s: %%+v\", id, l)")
 			pn("	}")
@@ -828,6 +831,15 @@ func hasNameOrKeywordParamField(params APIParams) (v string, found bool) {
 func hasIDParamField(params APIParams) bool {
 	for _, p := range params {
 		if p.Name == "id" && mapType(p.Type) == "string" {
+			return true
+		}
+	}
+	return false
+}
+
+func hasProjectidParamField(params APIParams) bool {
+	for _, p := range params {
+		if p.Name == "projectid" && mapType(p.Type) == "string" {
 			return true
 		}
 	}
