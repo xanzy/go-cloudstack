@@ -701,7 +701,7 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("}\n")
 			pn("")
 
-			if found := hasIDParamField(a.Params); found {
+			if hasIDParamField(a.Params) {
 				// Generate the function signature
 				pn("// This is a courtesy helper function, which in some cases may not work as expected!")
 				p("func (s *%s) Get%sByName(name string, ", s.name, parseSingular(ln))
@@ -748,7 +748,7 @@ func (s *service) generateHelperFuncs(a *API) {
 			}
 		}
 
-		if found := hasIDParamField(a.Params); found {
+		if hasIDParamField(a.Params) {
 			ln := strings.TrimPrefix(a.Name, "list")
 
 			// Generate the function signature
@@ -782,11 +782,14 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("		return nil, -1, err")
 			pn("	}")
 			pn("")
-			if hasProjectParam := hasProjectidParamField(a.Params); hasProjectParam {
 
-				pn("    if l.Count == 0 {")
-				pn("		// look	inside projects ")
+			// If we have a function that also has a projectid parameter, add some logic
+			// that will also search in all existing projects if no match was found
+			if hasProjectIDParamField(a.Params) {
+				pn("	if l.Count == 0 {")
+				pn("		// If no matches, search all projects")
 				pn("		p.p[\"projectid\"] = \"-1\"")
+				pn("")
 				pn("		l, err = s.List%s(p)", ln)
 				pn("		if err != nil {")
 				pn("			if strings.Contains(err.Error(), fmt.Sprintf(")
@@ -799,6 +802,7 @@ func (s *service) generateHelperFuncs(a *API) {
 				pn("	}")
 				pn("")
 			}
+
 			pn("	if l.Count == 0 {")
 			pn("	  return nil, l.Count, fmt.Errorf(\"No match found for %%s: %%+v\", id, l)")
 			pn("	}")
@@ -837,7 +841,7 @@ func hasIDParamField(params APIParams) bool {
 	return false
 }
 
-func hasProjectidParamField(params APIParams) bool {
+func hasProjectIDParamField(params APIParams) bool {
 	for _, p := range params {
 		if p.Name == "projectid" && mapType(p.Type) == "string" {
 			return true
