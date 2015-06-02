@@ -369,7 +369,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("")
 	pn("	var err error")
 	pn("	var resp *http.Response")
-	pn("	if api == \"deployVirtualMachine\" {")
+	pn("	if api == \"deployVirtualMachine\" || api == \"updateVirtualMachine\" {")
 	pn("		// The deployVirtualMachine API should be called using a POST call")
 	pn("  	// so we don't have to worry about the userdata size")
 	pn("")

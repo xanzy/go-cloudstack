@@ -282,7 +282,7 @@ func (cs *CloudStackClient) newRequest(api string, params url.Values) (json.RawM
 
 	var err error
 	var resp *http.Response
-	if api == "deployVirtualMachine" {
+	if api == "deployVirtualMachine" || api == "updateVirtualMachine" {
 		// The deployVirtualMachine API should be called using a POST call
 		// so we don't have to worry about the userdata size
 
