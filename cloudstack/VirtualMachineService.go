@@ -37,11 +37,11 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 		u.Set("account", v.(string))
 	}
 	if v, found := p.p["affinitygroupids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("affinitygroupids", vv)
 	}
 	if v, found := p.p["affinitygroupnames"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("affinitygroupnames", vv)
 	}
 	if v, found := p.p["customid"]; found {
@@ -104,7 +104,7 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["networkids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("networkids", vv)
 	}
 	if v, found := p.p["projectid"]; found {
@@ -115,11 +115,11 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 		u.Set("rootdisksize", vv)
 	}
 	if v, found := p.p["securitygroupids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("securitygroupids", vv)
 	}
 	if v, found := p.p["securitygroupnames"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("securitygroupnames", vv)
 	}
 	if v, found := p.p["serviceofferingid"]; found {
@@ -2173,7 +2173,7 @@ func (p *ListVirtualMachinesParams) toURLValues() url.Values {
 		u.Set("affinitygroupid", v.(string))
 	}
 	if v, found := p.p["details"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("details", vv)
 	}
 	if v, found := p.p["displayvm"]; found {
@@ -2200,7 +2200,7 @@ func (p *ListVirtualMachinesParams) toURLValues() url.Values {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["ids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("ids", vv)
 	}
 	if v, found := p.p["isoid"]; found {
@@ -3421,11 +3421,11 @@ func (p *AssignVirtualMachineParams) toURLValues() url.Values {
 		u.Set("domainid", v.(string))
 	}
 	if v, found := p.p["networkids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("networkids", vv)
 	}
 	if v, found := p.p["securitygroupids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("securitygroupids", vv)
 	}
 	if v, found := p.p["virtualmachineid"]; found {

@@ -40,7 +40,7 @@ func (p *CreateLoadBalancerRuleParams) toURLValues() url.Values {
 		u.Set("algorithm", v.(string))
 	}
 	if v, found := p.p["cidrlist"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["description"]; found {
@@ -360,7 +360,7 @@ func (p *RemoveFromLoadBalancerRuleParams) toURLValues() url.Values {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["virtualmachineids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("virtualmachineids", vv)
 	}
 	if v, found := p.p["vmidipmap"]; found {
@@ -457,7 +457,7 @@ func (p *AssignToLoadBalancerRuleParams) toURLValues() url.Values {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["virtualmachineids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("virtualmachineids", vv)
 	}
 	if v, found := p.p["vmidipmap"]; found {
@@ -2878,7 +2878,7 @@ func (p *ConfigureNetscalerLoadBalancerParams) toURLValues() url.Values {
 		u.Set("lbdeviceid", v.(string))
 	}
 	if v, found := p.p["podids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("podids", vv)
 	}
 	return u
@@ -3858,7 +3858,7 @@ func (p *AssignToGlobalLoadBalancerRuleParams) toURLValues() url.Values {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["loadbalancerrulelist"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("loadbalancerrulelist", vv)
 	}
 	return u
@@ -3948,7 +3948,7 @@ func (p *RemoveFromGlobalLoadBalancerRuleParams) toURLValues() url.Values {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["loadbalancerrulelist"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("loadbalancerrulelist", vv)
 	}
 	return u

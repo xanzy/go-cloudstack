@@ -506,11 +506,11 @@ func (p *UpdateVMAffinityGroupParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["affinitygroupids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("affinitygroupids", vv)
 	}
 	if v, found := p.p["affinitygroupnames"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("affinitygroupnames", vv)
 	}
 	if v, found := p.p["id"]; found {

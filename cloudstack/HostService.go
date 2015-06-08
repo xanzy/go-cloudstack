@@ -43,7 +43,7 @@ func (p *AddHostParams) toURLValues() url.Values {
 		u.Set("clustername", v.(string))
 	}
 	if v, found := p.p["hosttags"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("hosttags", vv)
 	}
 	if v, found := p.p["hypervisor"]; found {
@@ -377,7 +377,7 @@ func (p *UpdateHostParams) toURLValues() url.Values {
 		u.Set("allocationstate", v.(string))
 	}
 	if v, found := p.p["hosttags"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("hosttags", vv)
 	}
 	if v, found := p.p["id"]; found {
@@ -861,7 +861,7 @@ func (p *ListHostsParams) toURLValues() url.Values {
 		u.Set("clusterid", v.(string))
 	}
 	if v, found := p.p["details"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("details", vv)
 	}
 	if v, found := p.p["hahost"]; found {
@@ -1557,7 +1557,7 @@ func (p *AddBaremetalHostParams) toURLValues() url.Values {
 		u.Set("clustername", v.(string))
 	}
 	if v, found := p.p["hosttags"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("hosttags", vv)
 	}
 	if v, found := p.p["hypervisor"]; found {

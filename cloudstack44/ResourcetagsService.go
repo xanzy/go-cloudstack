@@ -37,7 +37,7 @@ func (p *CreateTagsParams) toURLValues() url.Values {
 		u.Set("customer", v.(string))
 	}
 	if v, found := p.p["resourceids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("resourceids", vv)
 	}
 	if v, found := p.p["resourcetype"]; found {
@@ -144,7 +144,7 @@ func (p *DeleteTagsParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["resourceids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("resourceids", vv)
 	}
 	if v, found := p.p["resourcetype"]; found {
