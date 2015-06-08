@@ -266,7 +266,7 @@ func (p *AuthorizeSecurityGroupIngressParams) toURLValues() url.Values {
 		u.Set("account", v.(string))
 	}
 	if v, found := p.p["cidrlist"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["domainid"]; found {
@@ -546,7 +546,7 @@ func (p *AuthorizeSecurityGroupEgressParams) toURLValues() url.Values {
 		u.Set("account", v.(string))
 	}
 	if v, found := p.p["cidrlist"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["domainid"]; found {

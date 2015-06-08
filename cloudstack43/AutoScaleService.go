@@ -267,7 +267,7 @@ func (p *CreateAutoScalePolicyParams) toURLValues() url.Values {
 		u.Set("action", v.(string))
 	}
 	if v, found := p.p["conditionids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("conditionids", vv)
 	}
 	if v, found := p.p["duration"]; found {
@@ -557,11 +557,11 @@ func (p *CreateAutoScaleVmGroupParams) toURLValues() url.Values {
 		u.Set("minmembers", vv)
 	}
 	if v, found := p.p["scaledownpolicyids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("scaledownpolicyids", vv)
 	}
 	if v, found := p.p["scaleuppolicyids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("scaleuppolicyids", vv)
 	}
 	if v, found := p.p["vmprofileid"]; found {
@@ -2270,7 +2270,7 @@ func (p *UpdateAutoScalePolicyParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["conditionids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("conditionids", vv)
 	}
 	if v, found := p.p["duration"]; found {
@@ -2537,11 +2537,11 @@ func (p *UpdateAutoScaleVmGroupParams) toURLValues() url.Values {
 		u.Set("minmembers", vv)
 	}
 	if v, found := p.p["scaledownpolicyids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("scaledownpolicyids", vv)
 	}
 	if v, found := p.p["scaleuppolicyids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("scaleuppolicyids", vv)
 	}
 	return u

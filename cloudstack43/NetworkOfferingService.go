@@ -105,7 +105,7 @@ func (p *CreateNetworkOfferingParams) toURLValues() url.Values {
 		u.Set("specifyvlan", vv)
 	}
 	if v, found := p.p["supportedservices"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("supportedservices", vv)
 	}
 	if v, found := p.p["tags"]; found {
@@ -618,7 +618,7 @@ func (p *ListNetworkOfferingsParams) toURLValues() url.Values {
 		u.Set("state", v.(string))
 	}
 	if v, found := p.p["supportedservices"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("supportedservices", vv)
 	}
 	if v, found := p.p["tags"]; found {
