@@ -799,7 +799,7 @@ func (p *DeleteSnapshotPoliciesParams) toURLValues() url.Values {
 		u.Set("id", v.(string))
 	}
 	if v, found := p.p["ids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("ids", vv)
 	}
 	return u

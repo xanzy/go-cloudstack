@@ -944,14 +944,8 @@ func (p *ListVolumesParams) toURLValues() url.Values {
 	if v, found := p.p["podid"]; found {
 		u.Set("podid", v.(string))
 	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["storageid"]; found {
-		u.Set("storageid", v.(string))
 	}
 	if v, found := p.p["storageid"]; found {
 		u.Set("storageid", v.(string))

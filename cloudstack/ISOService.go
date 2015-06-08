@@ -1600,7 +1600,7 @@ func (p *UpdateIsoPermissionsParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["accounts"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("accounts", vv)
 	}
 	if v, found := p.p["id"]; found {
@@ -1622,7 +1622,7 @@ func (p *UpdateIsoPermissionsParams) toURLValues() url.Values {
 		u.Set("op", v.(string))
 	}
 	if v, found := p.p["projectids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("projectids", vv)
 	}
 	return u

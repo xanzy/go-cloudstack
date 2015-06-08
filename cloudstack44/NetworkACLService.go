@@ -40,7 +40,7 @@ func (p *CreateNetworkACLParams) toURLValues() url.Values {
 		u.Set("action", v.(string))
 	}
 	if v, found := p.p["cidrlist"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["endport"]; found {
@@ -262,7 +262,7 @@ func (p *UpdateNetworkACLItemParams) toURLValues() url.Values {
 		u.Set("action", v.(string))
 	}
 	if v, found := p.p["cidrlist"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["customid"]; found {

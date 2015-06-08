@@ -223,7 +223,7 @@ func (p *ArchiveAlertsParams) toURLValues() url.Values {
 		u.Set("enddate", v.(string))
 	}
 	if v, found := p.p["ids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("ids", vv)
 	}
 	if v, found := p.p["startdate"]; found {
@@ -307,7 +307,7 @@ func (p *DeleteAlertsParams) toURLValues() url.Values {
 		u.Set("enddate", v.(string))
 	}
 	if v, found := p.p["ids"]; found {
-		vv := strings.Join(v.([]string), ", ")
+		vv := strings.Join(v.([]string), ",")
 		u.Set("ids", vv)
 	}
 	if v, found := p.p["startdate"]; found {
