@@ -682,6 +682,7 @@ func (s *service) generateHelperFuncs(a *API) {
 					p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
 				}
 			}
+
 			// Add an addition (needed) parameter for the GetTemplateId helper function
 			if parseSingular(ln) == "Template" {
 				p("zoneid string, ")
@@ -698,6 +699,7 @@ func (s *service) generateHelperFuncs(a *API) {
 					pn("	p.p[\"%s\"] = %s", s.parseParamName(ap.Name), s.parseParamName(ap.Name))
 				}
 			}
+
 			// Assign the additional parameter for the GetTemplateId helper function
 			if parseSingular(ln) == "Template" {
 				pn("	p.p[\"zoneid\"] = zoneid")
@@ -708,6 +710,21 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("		return \"\", err")
 			pn("	}")
 			pn("")
+
+			// If we have a function that also has a projectid parameter, add some logic
+			// that will also search in all existing projects if no match was found
+			if hasProjectIDParamField(a.Params) {
+				pn("	if l.Count == 0 {")
+				pn("		// If no matches, search all projects")
+				pn("		p.p[\"projectid\"] = \"-1\"")
+				pn("")
+				pn("		l, err = s.List%s(p)", ln)
+				pn("		if err != nil {")
+				pn("			return \"\", err")
+				pn("		}")
+				pn("	}")
+				pn("")
+			}
 			pn("	if l.Count == 0 {")
 			pn("	  return \"\", fmt.Errorf(\"No match found for %%s: %%+v\", %s, l)", v)
 			pn("	}")
@@ -736,6 +753,7 @@ func (s *service) generateHelperFuncs(a *API) {
 						p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
 					}
 				}
+
 				// Add an addition (needed) parameter for the GetTemplateId helper function
 				if parseSingular(ln) == "Template" {
 					p("zoneid string, ")
@@ -749,6 +767,7 @@ func (s *service) generateHelperFuncs(a *API) {
 						p("%s, ", s.parseParamName(ap.Name))
 					}
 				}
+
 				// Assign the additional parameter for the GetTemplateId helper function
 				if parseSingular(ln) == "Template" {
 					p("zoneid")
@@ -828,7 +847,6 @@ func (s *service) generateHelperFuncs(a *API) {
 				pn("	}")
 				pn("")
 			}
-
 			pn("	if l.Count == 0 {")
 			pn("	  return nil, l.Count, fmt.Errorf(\"No match found for %%s: %%+v\", id, l)")
 			pn("	}")
@@ -972,6 +990,7 @@ func (s *service) generateResponseType(a *API) {
 	if strings.HasPrefix(a.Name, "list") || a.Name == "registerTemplate" {
 		pn("type %s struct {", tn)
 		pn("	Count int `json:\"count\"`")
+
 		// This nasty check is for some specific response that do not behave consistent
 		switch a.Name {
 		case "listEgressFirewallRules":

@@ -1093,6 +1093,16 @@ func (s *LoadBalancerService) GetLoadBalancerRuleID(name string) (string, error)
 	}
 
 	if l.Count == 0 {
+		// If no matches, search all projects
+		p.p["projectid"] = "-1"
+
+		l, err = s.ListLoadBalancerRules(p)
+		if err != nil {
+			return "", err
+		}
+	}
+
+	if l.Count == 0 {
 		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
 
@@ -3696,6 +3706,16 @@ func (s *LoadBalancerService) GetGlobalLoadBalancerRuleID(keyword string) (strin
 	}
 
 	if l.Count == 0 {
+		// If no matches, search all projects
+		p.p["projectid"] = "-1"
+
+		l, err = s.ListGlobalLoadBalancerRules(p)
+		if err != nil {
+			return "", err
+		}
+	}
+
+	if l.Count == 0 {
 		return "", fmt.Errorf("No match found for %s: %+v", keyword, l)
 	}
 
@@ -4449,6 +4469,16 @@ func (s *LoadBalancerService) GetLoadBalancerID(name string) (string, error) {
 	l, err := s.ListLoadBalancers(p)
 	if err != nil {
 		return "", err
+	}
+
+	if l.Count == 0 {
+		// If no matches, search all projects
+		p.p["projectid"] = "-1"
+
+		l, err = s.ListLoadBalancers(p)
+		if err != nil {
+			return "", err
+		}
 	}
 
 	if l.Count == 0 {

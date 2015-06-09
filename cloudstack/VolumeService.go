@@ -944,8 +944,14 @@ func (p *ListVolumesParams) toURLValues() url.Values {
 	if v, found := p.p["podid"]; found {
 		u.Set("podid", v.(string))
 	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["storageid"]; found {
+		u.Set("storageid", v.(string))
 	}
 	if v, found := p.p["storageid"]; found {
 		u.Set("storageid", v.(string))
@@ -1140,6 +1146,16 @@ func (s *VolumeService) GetVolumeID(name string) (string, error) {
 	l, err := s.ListVolumes(p)
 	if err != nil {
 		return "", err
+	}
+
+	if l.Count == 0 {
+		// If no matches, search all projects
+		p.p["projectid"] = "-1"
+
+		l, err = s.ListVolumes(p)
+		if err != nil {
+			return "", err
+		}
 	}
 
 	if l.Count == 0 {

@@ -258,6 +258,9 @@ func (p *CreateNetworkParams) toURLValues() url.Values {
 	if v, found := p.p["vlan"]; found {
 		u.Set("vlan", v.(string))
 	}
+	if v, found := p.p["vlan"]; found {
+		u.Set("vlan", v.(string))
+	}
 	if v, found := p.p["vpcid"]; found {
 		u.Set("vpcid", v.(string))
 	}
@@ -947,6 +950,16 @@ func (s *NetworkService) GetNetworkID(keyword string) (string, error) {
 	l, err := s.ListNetworks(p)
 	if err != nil {
 		return "", err
+	}
+
+	if l.Count == 0 {
+		// If no matches, search all projects
+		p.p["projectid"] = "-1"
+
+		l, err = s.ListNetworks(p)
+		if err != nil {
+			return "", err
+		}
 	}
 
 	if l.Count == 0 {
