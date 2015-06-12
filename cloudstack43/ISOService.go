@@ -692,6 +692,16 @@ func (s *ISOService) GetIsoID(name string) (string, error) {
 	}
 
 	if l.Count == 0 {
+		// If no matches, search all projects
+		p.p["projectid"] = "-1"
+
+		l, err = s.ListIsos(p)
+		if err != nil {
+			return "", err
+		}
+	}
+
+	if l.Count == 0 {
 		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
 
