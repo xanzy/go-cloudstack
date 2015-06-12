@@ -376,6 +376,16 @@ func (s *SnapshotService) GetSnapshotID(name string) (string, error) {
 	}
 
 	if l.Count == 0 {
+		// If no matches, search all projects
+		p.p["projectid"] = "-1"
+
+		l, err = s.ListSnapshots(p)
+		if err != nil {
+			return "", err
+		}
+	}
+
+	if l.Count == 0 {
 		return "", fmt.Errorf("No match found for %s: %+v", name, l)
 	}
 
@@ -1111,6 +1121,16 @@ func (s *SnapshotService) GetVMSnapshotID(name string) (string, error) {
 	l, err := s.ListVMSnapshot(p)
 	if err != nil {
 		return "", err
+	}
+
+	if l.Count == 0 {
+		// If no matches, search all projects
+		p.p["projectid"] = "-1"
+
+		l, err = s.ListVMSnapshot(p)
+		if err != nil {
+			return "", err
+		}
 	}
 
 	if l.Count == 0 {
