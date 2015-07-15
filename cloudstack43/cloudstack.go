@@ -43,13 +43,14 @@ func (e *CSError) Error() error {
 }
 
 type CloudStackClient struct {
-	client      *http.Client // The http client for communicating
-	baseURL     string       // The base URL of the API
-	apiKey      string       // Api key
-	secret      string       // Secret key
-	httpgetonly bool         // If `true` only use HTTP GET calls
-	async       bool         // Wait for async calls to finish
-	timeout     int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 60 seconds
+	HTTPGETOnly bool // If `true` only use HTTP GET calls
+
+	client  *http.Client // The http client for communicating
+	baseURL string       // The base URL of the API
+	apiKey  string       // Api key
+	secret  string       // Secret key
+	async   bool         // Wait for async calls to finish
+	timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 60 seconds
 
 	APIDiscovery     *APIDiscoveryService
 	Account          *AccountService
@@ -224,12 +225,6 @@ func NewAsyncClient(apiurl string, apikey string, secret string, verifyssl bool)
 	return cs
 }
 
-// Some cloud providers offer customized (proxied) access to the CloudStack API allowing only HTTP GET calls. So
-// by calling this method with `true`, the CloudStack client will only make GET calls.
-func (cs *CloudStackClient) HTTPGETOnly(httpGETOnly bool) {
-	cs.httpgetonly = httpGETOnly
-}
-
 // When using the async client an api call will wait for the async call to finish before returning. The default is to poll for 60
 // seconds, to check if the async job is finished.
 func (cs *CloudStackClient) AsyncTimeout(timeoutInSeconds int64) {
@@ -291,7 +286,7 @@ func (cs *CloudStackClient) newRequest(api string, params url.Values) (json.RawM
 
 	var err error
 	var resp *http.Response
-	if !cs.httpgetonly && (api == "deployVirtualMachine" || api == "updateVirtualMachine") {
+	if !cs.HTTPGETOnly && (api == "deployVirtualMachine" || api == "updateVirtualMachine") {
 		// The deployVirtualMachine API should be called using a POST call
 		// so we don't have to worry about the userdata size
 
