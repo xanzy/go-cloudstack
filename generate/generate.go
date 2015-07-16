@@ -1036,6 +1036,13 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (o
 		if r.Name == "" {
 			continue
 		}
+		if r.Name == "secondaryip" {
+			pn("%s []struct {", capitalize(r.Name))
+			pn("Id string `json:\"id,omitempty\"`")
+			pn("Ipaddress string `json:\"ipaddress,omitempty\"`")
+			pn("} `json:\"%s,omitempty\"`", r.Name)
+			continue
+		}
 		if r.Response != nil {
 			pn("%s []struct {", capitalize(r.Name))
 			sort.Sort(r.Response)
