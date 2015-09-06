@@ -261,7 +261,7 @@ func (cs *CloudStackClient) GetAsyncJobResult(jobid string, timeout int64) (b js
 // no error occured. If the API returns an error the result will be nil and the HTTP error code and CS
 // error details. If a processing (code) error occurs the result will be nil and the generated error
 func (cs *CloudStackClient) newRequest(api string, params url.Values) (json.RawMessage, error) {
-	params.Set("apikey", cs.apiKey)
+	params.Set("apiKey", cs.apiKey)
 	params.Set("command", api)
 	params.Set("response", "json")
 
