@@ -352,7 +352,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("// no error occured. If the API returns an error the result will be nil and the HTTP error code and CS")
 	pn("// error details. If a processing (code) error occurs the result will be nil and the generated error")
 	pn("func (cs *CloudStackClient) newRequest(api string, params url.Values) (json.RawMessage, error) {")
-	pn("  params.Set(\"apikey\", cs.apiKey)")
+	pn("  params.Set(\"apiKey\", cs.apiKey)")
 	pn("  params.Set(\"command\", api)")
 	pn("  params.Set(\"response\", \"json\")")
 	pn("")
