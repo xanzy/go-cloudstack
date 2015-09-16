@@ -56,13 +56,21 @@ func (s *AsyncjobService) NewQueryAsyncJobResultParams(jobid string) *QueryAsync
 
 // Retrieves the current status of asynchronous job.
 func (s *AsyncjobService) QueryAsyncJobResult(p *QueryAsyncJobResultParams) (*QueryAsyncJobResultResponse, error) {
-	resp, err := s.cs.newRequest("queryAsyncJobResult", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
+	maxRetries := 5
+	var resp json.RawMessage
+	var err error
 	var r QueryAsyncJobResultResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
+	for i := 0; i < maxRetries; i++ {
+		resp, err = s.cs.newRequest("queryAsyncJobResult", p.toURLValues())
+		if err != nil {
+			continue
+		}
+
+		if err = json.Unmarshal(resp, &r); err == nil {
+			break
+		}
+	}
+	if err != nil {
 		return nil, err
 	}
 	return &r, nil

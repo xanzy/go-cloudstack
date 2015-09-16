@@ -130,6 +130,7 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 				Proxy:           http.ProxyFromEnvironment,
 				TLSClientConfig: &tls.Config{InsecureSkipVerify: !verifyssl}, // If verifyssl is true, skipping the verify should be false and vice versa
 			},
+			Timeout: time.Duration(60 * time.Second),
 		},
 		baseURL: apiurl,
 		apiKey:  apikey,
