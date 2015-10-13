@@ -56,7 +56,16 @@ func (s *AsyncjobService) NewQueryAsyncJobResultParams(jobid string) *QueryAsync
 
 // Retrieves the current status of asynchronous job.
 func (s *AsyncjobService) QueryAsyncJobResult(p *QueryAsyncJobResultParams) (*QueryAsyncJobResultResponse, error) {
-	resp, err := s.cs.newRequest("queryAsyncJobResult", p.toURLValues())
+	var resp json.RawMessage
+	var err error
+
+	// We should be able to retry on failure as this call is idempotent
+	for i := 0; i < 3; i++ {
+		resp, err = s.cs.newRequest("queryAsyncJobResult", p.toURLValues())
+		if err != nil {
+			continue
+		}
+	}
 	if err != nil {
 		return nil, err
 	}

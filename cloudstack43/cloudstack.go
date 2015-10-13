@@ -81,8 +81,6 @@ type CloudStackClient struct {
 	LDAP             *LDAPService
 	Limit            *LimitService
 	LoadBalancer     *LoadBalancerService
-	Login            *LoginService
-	Logout           *LogoutService
 	NAT              *NATService
 	NetworkACL       *NetworkACLService
 	NetworkDevice    *NetworkDeviceService
@@ -104,8 +102,6 @@ type CloudStackClient struct {
 	ServiceOffering  *ServiceOfferingService
 	Snapshot         *SnapshotService
 	StoragePool      *StoragePoolService
-	Storage          *StorageService
-	StratosphereSSP  *StratosphereSSPService
 	Swift            *SwiftService
 	SystemCapacity   *SystemCapacityService
 	SystemVM         *SystemVMService
@@ -167,8 +163,6 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.LDAP = NewLDAPService(cs)
 	cs.Limit = NewLimitService(cs)
 	cs.LoadBalancer = NewLoadBalancerService(cs)
-	cs.Login = NewLoginService(cs)
-	cs.Logout = NewLogoutService(cs)
 	cs.NAT = NewNATService(cs)
 	cs.NetworkACL = NewNetworkACLService(cs)
 	cs.NetworkDevice = NewNetworkDeviceService(cs)
@@ -190,8 +184,6 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.ServiceOffering = NewServiceOfferingService(cs)
 	cs.Snapshot = NewSnapshotService(cs)
 	cs.StoragePool = NewStoragePoolService(cs)
-	cs.Storage = NewStorageService(cs)
-	cs.StratosphereSSP = NewStratosphereSSPService(cs)
 	cs.Swift = NewSwiftService(cs)
 	cs.SystemCapacity = NewSystemCapacityService(cs)
 	cs.SystemVM = NewSystemVMService(cs)
@@ -599,22 +591,6 @@ func NewLoadBalancerService(cs *CloudStackClient) *LoadBalancerService {
 	return &LoadBalancerService{cs: cs}
 }
 
-type LoginService struct {
-	cs *CloudStackClient
-}
-
-func NewLoginService(cs *CloudStackClient) *LoginService {
-	return &LoginService{cs: cs}
-}
-
-type LogoutService struct {
-	cs *CloudStackClient
-}
-
-func NewLogoutService(cs *CloudStackClient) *LogoutService {
-	return &LogoutService{cs: cs}
-}
-
 type NATService struct {
 	cs *CloudStackClient
 }
@@ -781,22 +757,6 @@ type StoragePoolService struct {
 
 func NewStoragePoolService(cs *CloudStackClient) *StoragePoolService {
 	return &StoragePoolService{cs: cs}
-}
-
-type StorageService struct {
-	cs *CloudStackClient
-}
-
-func NewStorageService(cs *CloudStackClient) *StorageService {
-	return &StorageService{cs: cs}
-}
-
-type StratosphereSSPService struct {
-	cs *CloudStackClient
-}
-
-func NewStratosphereSSPService(cs *CloudStackClient) *StratosphereSSPService {
-	return &StratosphereSSPService{cs: cs}
 }
 
 type SwiftService struct {
