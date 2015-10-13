@@ -211,9 +211,6 @@ var v43 = apiInfo{
 		"migrateVolume",
 		"resizeVolume",
 		"updateVolume",
-		"createVolumeOnFiler",
-		"destroyVolumeOnFiler",
-		"listVolumesOnFiler",
 	},
 	"TemplateService": {
 		"createTemplate",
@@ -346,10 +343,6 @@ var v43 = apiInfo{
 		"updateStoragePool",
 		"deleteStoragePool",
 		"findStoragePoolsForMigration",
-		"createPool",
-		"deletePool",
-		"modifyPool",
-		"listPools",
 	},
 	"UCSService": {
 		"addUcsManager",
@@ -441,13 +434,6 @@ var v43 = apiInfo{
 		"stopInternalLoadBalancerVM",
 		"startInternalLoadBalancerVM",
 		"listInternalLoadBalancerVMs",
-	},
-	"StorageService": {
-		"createLunOnFiler",
-		"destroyLunOnFiler",
-		"listLunsOnFiler",
-		"associateLun",
-		"dissociateLun",
 	},
 	"SSHService": {
 		"resetSSHKeyForVirtualMachine",
@@ -612,12 +598,6 @@ var v43 = apiInfo{
 	"SystemCapacityService": {
 		"listCapacity",
 	},
-	"LogoutService": {
-		"logout",
-	},
-	"LoginService": {
-		"login",
-	},
 	"LDAPService": {
 		"ldapCreateAccount",
 	},
@@ -629,9 +609,6 @@ var v43 = apiInfo{
 	},
 	"APIDiscoveryService": {
 		"listApis",
-	},
-	"StratosphereSSPService": {
-		"addStratosphereSsp",
 	},
 }
 

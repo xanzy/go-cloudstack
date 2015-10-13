@@ -30,15 +30,10 @@ import (
 	"sort"
 	"strings"
 	"unicode"
-
-	"github.com/svanharmelen/gocs"
 )
 
 var (
 	version = flag.String("version", "", "The CloudStack API version for which to generate the client package, like 'v43', 'v44' or 'latest'.")
-	apiurl  = flag.String("apiurl", "", "URL to the CloudStack API.")
-	apikey  = flag.String("apikey", "", "API key to authenticate to the CloudStack API.")
-	secret  = flag.String("secret", "", "API secret to authenticate to the CloudStack API.")
 )
 
 type apiInfo map[string][]string
@@ -131,7 +126,6 @@ type APIParam struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Type        string `json:"type"`
-	Length      int    `json:"length"`
 	Required    bool   `json:"required"`
 }
 
@@ -920,75 +914,64 @@ func (s *service) generateNewAPICallFunc(a *API) {
 	pn("// %s", a.Description)
 	pn("func (s *%s) %s(p *%s) (*%s, error) {", s.name, n, n+"Params", n+"Response")
 
-	// If API Call is idempotent, we should be able to retry on failure
+	// Generate the function body
 	if n == "QueryAsyncJobResult" {
-		pn("	maxRetries := 5")
 		pn("	var resp json.RawMessage")
 		pn("	var err error")
-		pn("	var r %s", n+"Response")
-		pn("	for i:=0; i<maxRetries; i++ {")
+		pn("")
+		pn("	// We should be able to retry on failure as this call is idempotent")
+		pn("	for i := 0; i < 3; i++ {")
 		pn("		resp, err = s.cs.newRequest(\"%s\", p.toURLValues())", a.Name)
 		pn("		if (err != nil) {")
 		pn("        		continue")
 		pn("		}")
-		pn("")
-		pn("		if err = json.Unmarshal(resp, &r); err == nil {")
-		pn("        		break")
-		pn("		}")
 		pn("	}")
-		pn("	if err != nil {")
-		pn("		return nil, err")
-		pn("	}")
-		pn("	return &r, nil")
-		pn("}")
-		pn("")
 	} else {
-		// Generate the function body
 		pn("	resp, err := s.cs.newRequest(\"%s\", p.toURLValues())", a.Name)
-		pn("	if err != nil {")
+	}
+	pn("	if err != nil {")
+	pn("		return nil, err")
+	pn("	}")
+	pn("")
+	if n == "CreateNetwork" || n == "CreateSSHKeyPair" || n == "RegisterSSHKeyPair" {
+		pn("	if resp, err = getRawValue(resp); err != nil {")
 		pn("		return nil, err")
 		pn("	}")
-		pn("")
-		if n == "CreateNetwork" || n == "CreateSSHKeyPair" || n == "RegisterSSHKeyPair" {
-			pn("	if resp, err = getRawValue(resp); err != nil {")
-			pn("		return nil, err")
-			pn("	}")
-			pn("")
-		}
-		pn("	var r %s", n+"Response")
-		pn("	if err := json.Unmarshal(resp, &r); err != nil {")
-		pn("		return nil, err")
-		pn("	}")
-		if a.Isasync {
-			pn("")
-			pn("	// If we have a async client, we need to wait for the async result")
-			pn("	if s.cs.async {")
-			pn("		b, warn, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)")
-			pn("		if err != nil {")
-			pn("			return nil, err")
-			pn("		}")
-			pn("		// If 'warn' has a value it means the job is running longer than the configured")
-			pn("		// timeout, the resonse will contain the jobid of the running async job")
-			pn("		if warn != nil {")
-			pn("			return &r, warn")
-			pn("		}")
-			pn("")
-			if !isSuccessOnlyResponse(a.Response) {
-				pn("    b, err = getRawValue(b)")
-				pn("    if err != nil {")
-				pn("      return nil, err")
-				pn("    }")
-				pn("")
-			}
-			pn("		if err := json.Unmarshal(b, &r); err != nil {")
-			pn("			return nil, err")
-			pn("		}")
-			pn("	}")
-		}
-		pn("	return &r, nil")
-		pn("}")
 		pn("")
 	}
+	pn("	var r %s", n+"Response")
+	pn("	if err := json.Unmarshal(resp, &r); err != nil {")
+	pn("		return nil, err")
+	pn("	}")
+	if a.Isasync {
+		pn("")
+		pn("	// If we have a async client, we need to wait for the async result")
+		pn("	if s.cs.async {")
+		pn("		b, warn, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)")
+		pn("		if err != nil {")
+		pn("			return nil, err")
+		pn("		}")
+		pn("		// If 'warn' has a value it means the job is running longer than the configured")
+		pn("		// timeout, the resonse will contain the jobid of the running async job")
+		pn("		if warn != nil {")
+		pn("			return &r, warn")
+		pn("		}")
+		pn("")
+		if !isSuccessOnlyResponse(a.Response) {
+			pn("    b, err = getRawValue(b)")
+			pn("    if err != nil {")
+			pn("      return nil, err")
+			pn("    }")
+			pn("")
+		}
+		pn("		if err := json.Unmarshal(b, &r); err != nil {")
+		pn("			return nil, err")
+		pn("		}")
+		pn("	}")
+	}
+	pn("	return &r, nil")
+	pn("}")
+	pn("")
 }
 
 func isSuccessOnlyResponse(resp APIResponses) bool {
@@ -1122,13 +1105,15 @@ func getAllServices() (*allServices, []error, error) {
 }
 
 func getApiInfo() (map[string]*API, error) {
-	cs, err := gocs.NewClient(*apiurl, *apikey, *secret, false)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := cs.RawRequest("listApis", "")
-	if err != nil {
-		return nil, err
+	var apiInfo []byte
+
+	switch *version {
+	case "v43":
+		apiInfo = []byte(v43api)
+	case "v44", "latest":
+		apiInfo = []byte(v44api)
+	default:
+		return nil, fmt.Errorf("Unknown version: %s", *version)
 	}
 
 	var ar struct {
@@ -1137,7 +1122,7 @@ func getApiInfo() (map[string]*API, error) {
 			APIs  []*API `json:"api"`
 		} `json:"listapisresponse"`
 	}
-	if err := json.Unmarshal(resp, &ar); err != nil {
+	if err := json.Unmarshal(apiInfo, &ar); err != nil {
 		return nil, err
 	}
 

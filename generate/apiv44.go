@@ -581,12 +581,6 @@ var v44 = apiInfo{
 	"SystemCapacityService": {
 		"listCapacity",
 	},
-	"LogoutService": {
-		"logout",
-	},
-	"LoginService": {
-		"login",
-	},
 	"LDAPService": {
 		"ldapCreateAccount",
 	},

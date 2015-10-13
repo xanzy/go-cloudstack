@@ -78,8 +78,6 @@ type CloudStackClient struct {
 	LDAP             *LDAPService
 	Limit            *LimitService
 	LoadBalancer     *LoadBalancerService
-	Login            *LoginService
-	Logout           *LogoutService
 	NAT              *NATService
 	NetworkACL       *NetworkACLService
 	NetworkDevice    *NetworkDeviceService
@@ -127,6 +125,7 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 				Proxy:           http.ProxyFromEnvironment,
 				TLSClientConfig: &tls.Config{InsecureSkipVerify: !verifyssl}, // If verifyssl is true, skipping the verify should be false and vice versa
 			},
+			Timeout: time.Duration(60 * time.Second),
 		},
 		baseURL: apiurl,
 		apiKey:  apikey,
@@ -160,8 +159,6 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.LDAP = NewLDAPService(cs)
 	cs.Limit = NewLimitService(cs)
 	cs.LoadBalancer = NewLoadBalancerService(cs)
-	cs.Login = NewLoginService(cs)
-	cs.Logout = NewLogoutService(cs)
 	cs.NAT = NewNATService(cs)
 	cs.NetworkACL = NewNetworkACLService(cs)
 	cs.NetworkDevice = NewNetworkDeviceService(cs)
@@ -566,22 +563,6 @@ type LoadBalancerService struct {
 
 func NewLoadBalancerService(cs *CloudStackClient) *LoadBalancerService {
 	return &LoadBalancerService{cs: cs}
-}
-
-type LoginService struct {
-	cs *CloudStackClient
-}
-
-func NewLoginService(cs *CloudStackClient) *LoginService {
-	return &LoginService{cs: cs}
-}
-
-type LogoutService struct {
-	cs *CloudStackClient
-}
-
-func NewLogoutService(cs *CloudStackClient) *LogoutService {
-	return &LogoutService{cs: cs}
 }
 
 type NATService struct {
