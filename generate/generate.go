@@ -680,8 +680,12 @@ func (s *service) generateHelperFuncs(a *API) {
 				}
 			}
 
-			// Add an addition (needed) parameter for the GetTemplateId helper function
-			if parseSingular(ln) == "Template" {
+			// Add an addition (needed) parameters for the GetTemplateID and
+			// GetIsoID helper functions
+			if parseSingular(ln) == "Iso" {
+				p("isofilter string, ")
+			}
+			if parseSingular(ln) == "Template" || parseSingular(ln) == "Iso" {
 				p("zoneid string, ")
 			}
 			pn(") (string, error) {")
@@ -697,8 +701,12 @@ func (s *service) generateHelperFuncs(a *API) {
 				}
 			}
 
-			// Assign the additional parameter for the GetTemplateId helper function
-			if parseSingular(ln) == "Template" {
+			// Assign the additional parameters for the GetTemplateID and
+			// GetIsoID helper functions
+			if parseSingular(ln) == "Iso" {
+				pn("	p.p[\"isofilter\"] = isofilter")
+			}
+			if parseSingular(ln) == "Template" || parseSingular(ln) == "Iso" {
 				pn("	p.p[\"zoneid\"] = zoneid")
 			}
 			pn("")
@@ -751,8 +759,12 @@ func (s *service) generateHelperFuncs(a *API) {
 					}
 				}
 
-				// Add an addition (needed) parameter for the GetTemplateId helper function
-				if parseSingular(ln) == "Template" {
+				// Add an addition (needed) parameter for the GetTemplateID and
+				// GetIsoID helper functions
+				if parseSingular(ln) == "Iso" {
+					p("isofilter string, ")
+				}
+				if parseSingular(ln) == "Template" || parseSingular(ln) == "Iso" {
 					p("zoneid string, ")
 				}
 				pn(") (*%s, int, error) {", parseSingular(ln))
@@ -765,8 +777,12 @@ func (s *service) generateHelperFuncs(a *API) {
 					}
 				}
 
-				// Assign the additional parameter for the GetTemplateId helper function
-				if parseSingular(ln) == "Template" {
+				// Assign the additional parameter for the GetTemplateID and
+				// GetIsoID helper functions
+				if parseSingular(ln) == "Iso" {
+					p("isofilter, ")
+				}
+				if parseSingular(ln) == "Template" || parseSingular(ln) == "Iso" {
 					p("zoneid")
 				}
 				pn(")")
