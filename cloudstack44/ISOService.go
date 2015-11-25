@@ -746,11 +746,13 @@ func (s *ISOService) NewListIsosParams() *ListIsosParams {
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *ISOService) GetIsoID(name string) (string, error) {
+func (s *ISOService) GetIsoID(name string, isofilter string, zoneid string) (string, error) {
 	p := &ListIsosParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
+	p.p["isofilter"] = isofilter
+	p.p["zoneid"] = zoneid
 
 	l, err := s.ListIsos(p)
 	if err != nil {
@@ -786,8 +788,8 @@ func (s *ISOService) GetIsoID(name string) (string, error) {
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *ISOService) GetIsoByName(name string) (*Iso, int, error) {
-	id, err := s.GetIsoID(name)
+func (s *ISOService) GetIsoByName(name string, isofilter string, zoneid string) (*Iso, int, error) {
+	id, err := s.GetIsoID(name, isofilter, zoneid)
 	if err != nil {
 		return nil, -1, err
 	}
