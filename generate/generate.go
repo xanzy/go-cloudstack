@@ -99,6 +99,7 @@ func (s services) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
+// APIParams represents a list of API params
 type APIParams []*APIParam
 
 // Add functions for the Sort interface
@@ -114,6 +115,7 @@ func (s APIParams) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
+// API represents an API endpoint we can call
 type API struct {
 	Name        string       `json:"name"`
 	Description string       `json:"description"`
@@ -122,6 +124,7 @@ type API struct {
 	Response    APIResponses `json:"response"`
 }
 
+// APIParam represents a single API parameter
 type APIParam struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -129,6 +132,7 @@ type APIParam struct {
 	Required    bool   `json:"required"`
 }
 
+// APIResponse represents a API response
 type APIResponse struct {
 	Name        string       `json:"name"`
 	Description string       `json:"description"`
@@ -136,6 +140,7 @@ type APIResponse struct {
 	Response    APIResponses `json:"response,omitempty"`
 }
 
+// APIResponses represents a list of API responses
 type APIResponses []*APIResponse
 
 // Add functions for the Sort interface
@@ -259,7 +264,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("  apiKey  string       // Api key")
 	pn("  secret  string       // Secret key")
 	pn("  async   bool         // Wait for async calls to finish")
-	pn("  timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 60 seconds")
+	pn("  timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 300 seconds")
 	pn("")
 	for _, s := range as.services {
 		pn("  %s *%s", strings.TrimSuffix(s.name, "Service"), s.name)
@@ -280,7 +285,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("    apiKey:  apikey,")
 	pn("    secret:  secret,")
 	pn("    async:   async,")
-	pn("    timeout: 60,")
+	pn("    timeout: 300,")
 	pn("  }")
 	for _, s := range as.services {
 		pn("	cs.%s = New%s(cs)", strings.TrimSuffix(s.name, "Service"), s.name)
@@ -305,39 +310,41 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("  return cs")
 	pn("}")
 	pn("")
-	pn("// When using the async client an api call will wait for the async call to finish before returning. The default is to poll for 60")
+	pn("// When using the async client an api call will wait for the async call to finish before returning. The default is to poll for 300 seconds")
 	pn("// seconds, to check if the async job is finished.")
 	pn("func (cs *CloudStackClient) AsyncTimeout(timeoutInSeconds int64) {")
 	pn("	cs.timeout = timeoutInSeconds")
 	pn("}")
 	pn("")
+	pn("var AsyncTimeoutErr = errors.New(\"Timeout while waiting for async job to finish\")")
+	pn("")
 	pn("// A helper function that you can use to get the result of a running async job. If the job is not finished within the configured")
-	pn("// timeout, the async job return a warning saying the timer has expired.")
-	pn("func (cs *CloudStackClient) GetAsyncJobResult(jobid string, timeout int64) (b json.RawMessage, warn error, err error) {")
+	pn("// timeout, the async job returns a AsyncTimeoutErr.")
+	pn("func (cs *CloudStackClient) GetAsyncJobResult(jobid string, timeout int64) (json.RawMessage, error) {")
 	pn("  currentTime := time.Now().Unix()")
 	pn("  for {")
 	pn("    p := cs.Asyncjob.NewQueryAsyncJobResultParams(jobid)")
 	pn("    r, err := cs.Asyncjob.QueryAsyncJobResult(p)")
 	pn("    if err != nil {")
-	pn("      return nil, nil, err")
+	pn("      return nil, err")
 	pn("    }")
 	pn("")
 	pn("    // Status 1 means the job is finished successfully")
 	pn("    if r.Jobstatus == 1 {")
-	pn("      return r.Jobresult, nil, nil")
+	pn("      return r.Jobresult, nil")
 	pn("    }")
 	pn("")
 	pn("    // When the status is 2, the job has failed")
 	pn("    if r.Jobstatus == 2 {")
 	pn("      if r.Jobresulttype == \"text\" {")
-	pn("        return nil, nil, fmt.Errorf(string(r.Jobresult))")
+	pn("        return nil, fmt.Errorf(string(r.Jobresult))")
 	pn("      } else {")
-	pn("        return nil, nil, fmt.Errorf(\"Undefined error: %%s\", string(r.Jobresult))")
+	pn("        return nil, fmt.Errorf(\"Undefined error: %%s\", string(r.Jobresult))")
 	pn("      }")
 	pn("    }")
 	pn("")
 	pn("    if time.Now().Unix()-currentTime > timeout {")
-	pn("      return nil, fmt.Errorf(\"Timeout while waiting for async job to finish\"), nil")
+	pn("      return nil, AsyncTimeoutErr")
 	pn("    }")
 	pn("    time.Sleep(3 * time.Second)")
 	pn("  }")
@@ -938,9 +945,10 @@ func (s *service) generateNewAPICallFunc(a *API) {
 		pn("	// We should be able to retry on failure as this call is idempotent")
 		pn("	for i := 0; i < 3; i++ {")
 		pn("		resp, err = s.cs.newRequest(\"%s\", p.toURLValues())", a.Name)
-		pn("		if (err != nil) {")
-		pn("        		continue")
+		pn("		if err == nil {")
+		pn("			break")
 		pn("		}")
+		pn("		time.Sleep(1 * time.Second)")
 		pn("	}")
 	} else {
 		pn("	resp, err := s.cs.newRequest(\"%s\", p.toURLValues())", a.Name)
@@ -963,14 +971,12 @@ func (s *service) generateNewAPICallFunc(a *API) {
 		pn("")
 		pn("	// If we have a async client, we need to wait for the async result")
 		pn("	if s.cs.async {")
-		pn("		b, warn, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)")
+		pn("		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)")
 		pn("		if err != nil {")
+		pn("			if err == AsyncTimeoutErr {")
+		pn("				return &r, err")
+		pn("			}")
 		pn("			return nil, err")
-		pn("		}")
-		pn("		// If 'warn' has a value it means the job is running longer than the configured")
-		pn("		// timeout, the resonse will contain the jobid of the running async job")
-		pn("		if warn != nil {")
-		pn("			return &r, warn")
 		pn("		}")
 		pn("")
 		if !isSuccessOnlyResponse(a.Response) {
@@ -1093,7 +1099,7 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (o
 
 func getAllServices() (*allServices, []error, error) {
 	// Get a map with all API info
-	ai, err := getApiInfo()
+	ai, err := getAPIInfo()
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1120,7 +1126,7 @@ func getAllServices() (*allServices, []error, error) {
 	return as, errors, nil
 }
 
-func getApiInfo() (map[string]*API, error) {
+func getAPIInfo() (map[string]*API, error) {
 	var apiInfo []byte
 
 	switch *version {

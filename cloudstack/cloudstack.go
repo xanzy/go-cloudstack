@@ -23,6 +23,7 @@ import (
 	"crypto/tls"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -50,7 +51,7 @@ type CloudStackClient struct {
 	apiKey  string       // Api key
 	secret  string       // Secret key
 	async   bool         // Wait for async calls to finish
-	timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 60 seconds
+	timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 300 seconds
 
 	APIDiscovery     *APIDiscoveryService
 	Account          *AccountService
@@ -131,7 +132,7 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 		apiKey:  apikey,
 		secret:  secret,
 		async:   async,
-		timeout: 60,
+		timeout: 300,
 	}
 	cs.APIDiscovery = NewAPIDiscoveryService(cs)
 	cs.Account = NewAccountService(cs)
@@ -216,39 +217,41 @@ func NewAsyncClient(apiurl string, apikey string, secret string, verifyssl bool)
 	return cs
 }
 
-// When using the async client an api call will wait for the async call to finish before returning. The default is to poll for 60
+// When using the async client an api call will wait for the async call to finish before returning. The default is to poll for 300 seconds
 // seconds, to check if the async job is finished.
 func (cs *CloudStackClient) AsyncTimeout(timeoutInSeconds int64) {
 	cs.timeout = timeoutInSeconds
 }
 
+var AsyncTimeoutErr = errors.New("Timeout while waiting for async job to finish")
+
 // A helper function that you can use to get the result of a running async job. If the job is not finished within the configured
-// timeout, the async job return a warning saying the timer has expired.
-func (cs *CloudStackClient) GetAsyncJobResult(jobid string, timeout int64) (b json.RawMessage, warn error, err error) {
+// timeout, the async job returns a AsyncTimeoutErr.
+func (cs *CloudStackClient) GetAsyncJobResult(jobid string, timeout int64) (json.RawMessage, error) {
 	currentTime := time.Now().Unix()
 	for {
 		p := cs.Asyncjob.NewQueryAsyncJobResultParams(jobid)
 		r, err := cs.Asyncjob.QueryAsyncJobResult(p)
 		if err != nil {
-			return nil, nil, err
+			return nil, err
 		}
 
 		// Status 1 means the job is finished successfully
 		if r.Jobstatus == 1 {
-			return r.Jobresult, nil, nil
+			return r.Jobresult, nil
 		}
 
 		// When the status is 2, the job has failed
 		if r.Jobstatus == 2 {
 			if r.Jobresulttype == "text" {
-				return nil, nil, fmt.Errorf(string(r.Jobresult))
+				return nil, fmt.Errorf(string(r.Jobresult))
 			} else {
-				return nil, nil, fmt.Errorf("Undefined error: %s", string(r.Jobresult))
+				return nil, fmt.Errorf("Undefined error: %s", string(r.Jobresult))
 			}
 		}
 
 		if time.Now().Unix()-currentTime > timeout {
-			return nil, fmt.Errorf("Timeout while waiting for async job to finish"), nil
+			return nil, AsyncTimeoutErr
 		}
 		time.Sleep(3 * time.Second)
 	}

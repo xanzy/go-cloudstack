@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"net/url"
 	"strconv"
+	"time"
 )
 
 type QueryAsyncJobResultParams struct {
@@ -62,9 +63,10 @@ func (s *AsyncjobService) QueryAsyncJobResult(p *QueryAsyncJobResultParams) (*Qu
 	// We should be able to retry on failure as this call is idempotent
 	for i := 0; i < 3; i++ {
 		resp, err = s.cs.newRequest("queryAsyncJobResult", p.toURLValues())
-		if err != nil {
-			continue
+		if err == nil {
+			break
 		}
+		time.Sleep(1 * time.Second)
 	}
 	if err != nil {
 		return nil, err
