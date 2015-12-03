@@ -230,7 +230,9 @@ var AsyncTimeoutErr = errors.New("Timeout while waiting for async job to finish"
 // A helper function that you can use to get the result of a running async job. If the job is not finished within the configured
 // timeout, the async job returns a AsyncTimeoutErr.
 func (cs *CloudStackClient) GetAsyncJobResult(jobid string, timeout int64) (json.RawMessage, error) {
+	var timer time.Duration
 	currentTime := time.Now().Unix()
+
 	for {
 		p := cs.Asyncjob.NewQueryAsyncJobResultParams(jobid)
 		r, err := cs.Asyncjob.QueryAsyncJobResult(p)
@@ -255,7 +257,14 @@ func (cs *CloudStackClient) GetAsyncJobResult(jobid string, timeout int64) (json
 		if time.Now().Unix()-currentTime > timeout {
 			return nil, AsyncTimeoutErr
 		}
-		time.Sleep(3 * time.Second)
+
+		// Add an (extremely simple) exponential backoff like feature to prevent
+		// flooding the CloudStack API
+		if timer < 15 {
+			timer++
+		}
+
+		time.Sleep(timer * time.Second)
 	}
 }
 
