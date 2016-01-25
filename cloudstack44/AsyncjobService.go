@@ -221,7 +221,7 @@ func (s *AsyncjobService) ListAsyncJobs(p *ListAsyncJobsParams) (*ListAsyncJobsR
 
 type ListAsyncJobsResponse struct {
 	Count     int         `json:"count"`
-	AsyncJobs []*AsyncJob `json:"asyncjob"`
+	AsyncJobs []*AsyncJob `json:"asyncjobs"`
 }
 
 type AsyncJob struct {
