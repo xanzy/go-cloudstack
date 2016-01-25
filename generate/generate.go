@@ -1034,6 +1034,8 @@ func (s *service) generateResponseType(a *API) {
 
 		// This nasty check is for some specific response that do not behave consistent
 		switch a.Name {
+		case "listAsyncJobs":
+			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "asyncjobs")
 		case "listEgressFirewallRules":
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "firewallrule")
 		case "registerTemplate":
