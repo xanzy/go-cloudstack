@@ -24463,7 +24463,7 @@ const v44api = `{
              "length": 255,
              "name": "serviceproviderlist",
              "required": false,
-             "type": "map"
+             "type": "map_service-provider"
            },
            {
              "description": "the name of the vpc offering",
@@ -65265,7 +65265,7 @@ const v44api = `{
              "length": 255,
              "name": "serviceproviderlist",
              "required": false,
-             "type": "map"
+             "type": "map_service-provider"
            },
            {
              "description": "if true keepalive will be turned on in the loadbalancer. At the time of writing this has only an effect on haproxy; the mode http and httpclose options are unset in the haproxy conf file.",
