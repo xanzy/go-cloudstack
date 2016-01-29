@@ -289,6 +289,10 @@ func (s *NetworkOfferingService) CreateNetworkOffering(p *CreateNetworkOfferingP
 		return nil, err
 	}
 
+	if resp, err = getRawValue(resp); err != nil {
+		return nil, err
+	}
+
 	var r CreateNetworkOfferingResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
