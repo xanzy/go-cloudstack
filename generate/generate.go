@@ -966,7 +966,7 @@ func (s *service) generateNewAPICallFunc(a *API) {
 	pn("		return nil, err")
 	pn("	}")
 	pn("")
-	if n == "CreateNetwork" || n == "CreateSSHKeyPair" || n == "RegisterSSHKeyPair" {
+	if n == "CreateNetwork" || n == "CreateServiceOffering" || n == "CreateSSHKeyPair" || n == "RegisterSSHKeyPair" {
 		pn("	if resp, err = getRawValue(resp); err != nil {")
 		pn("		return nil, err")
 		pn("	}")
