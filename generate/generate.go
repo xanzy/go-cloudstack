@@ -604,6 +604,13 @@ func (s *service) generateConvertCode(name, typ string) {
 		pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), vv)", n)
 		pn("	i++")
 		pn("}")
+	case "map[string]string_service-provider":
+		pn("i := 0")
+		pn("for k, vv := range v.(map[string]string) {")
+		pn("	u.Set(fmt.Sprintf(\"%s[%%d].service\", i), k)", n)
+		pn("	u.Set(fmt.Sprintf(\"%s[%%d].provider\", i), vv)", n)
+		pn("	i++")
+		pn("}")
 	}
 	return
 }
@@ -628,7 +635,7 @@ func (s *service) generateParamSettersFunc(a *API) {
 
 	for _, ap := range a.Params {
 		if !found[ap.Name] {
-			pn("func (p *%s) Set%s(v %s) {", capitalize(a.Name+"Params"), capitalize(ap.Name), mapType(ap.Type))
+			pn("func (p *%s) Set%s(v %s) {", capitalize(a.Name+"Params"), capitalize(ap.Name), strings.Split(mapType(ap.Type),"_")[0])
 			pn("	if p.p == nil {")
 			pn("		p.p = make(map[string]interface{})")
 			pn("	}")
@@ -654,7 +661,7 @@ func (s *service) generateNewParamTypeFunc(a *API) {
 	for _, ap := range a.Params {
 		if ap.Required {
 			rp = append(rp, ap)
-			p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
+			p("%s %s, ", s.parseParamName(ap.Name), strings.Split(mapType(ap.Type),"_")[0])
 		}
 	}
 	pn(") *%s {", tn)
@@ -692,7 +699,7 @@ func (s *service) generateHelperFuncs(a *API) {
 			p("func (s *%s) Get%sID(%s string, ", s.name, parseSingular(ln), v)
 			for _, ap := range a.Params {
 				if ap.Required {
-					p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
+					p("%s %s, ", s.parseParamName(ap.Name), strings.Split(mapType(ap.Type),"_")[0])
 				}
 			}
 
@@ -771,7 +778,7 @@ func (s *service) generateHelperFuncs(a *API) {
 				p("func (s *%s) Get%sByName(name string, ", s.name, parseSingular(ln))
 				for _, ap := range a.Params {
 					if ap.Required {
-						p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
+						p("%s %s, ", s.parseParamName(ap.Name), strings.Split(mapType(ap.Type),"_")[0])
 					}
 				}
 
@@ -830,7 +837,7 @@ func (s *service) generateHelperFuncs(a *API) {
 			p("func (s *%s) Get%sByID(id string, ", s.name, parseSingular(ln))
 			for _, ap := range a.Params {
 				if ap.Required && s.parseParamName(ap.Name) != "id" {
-					p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
+					p("%s %s, ", s.parseParamName(ap.Name), strings.Split(mapType(ap.Type),"_")[0])
 				}
 			}
 			pn(") (*%s, int, error) {", parseSingular(ln))
@@ -893,11 +900,11 @@ func (s *service) generateHelperFuncs(a *API) {
 
 func hasNameOrKeywordParamField(params APIParams) (v string, found bool) {
 	for _, p := range params {
-		if p.Name == "keyword" && mapType(p.Type) == "string" {
+		if p.Name == "keyword" && strings.Split(mapType(p.Type),"_")[0] == "string" {
 			v = "keyword"
 			found = true
 		}
-		if p.Name == "name" && mapType(p.Type) == "string" {
+		if p.Name == "name" && strings.Split(mapType(p.Type),"_")[0] == "string" {
 			return "name", true
 		}
 
@@ -907,7 +914,7 @@ func hasNameOrKeywordParamField(params APIParams) (v string, found bool) {
 
 func hasIDParamField(params APIParams) bool {
 	for _, p := range params {
-		if p.Name == "id" && mapType(p.Type) == "string" {
+		if p.Name == "id" && strings.Split(mapType(p.Type),"_")[0] == "string" {
 			return true
 		}
 	}
@@ -916,7 +923,7 @@ func hasIDParamField(params APIParams) bool {
 
 func hasProjectIDParamField(params APIParams) bool {
 	for _, p := range params {
-		if p.Name == "projectid" && mapType(p.Type) == "string" {
+		if p.Name == "projectid" && strings.Split(mapType(p.Type),"_")[0] == "string" {
 			return true
 		}
 	}
@@ -928,10 +935,10 @@ func hasIDAndNameResponseField(resp APIResponses) bool {
 	name := false
 
 	for _, r := range resp {
-		if r.Name == "id" && mapType(r.Type) == "string" {
+		if r.Name == "id" && strings.Split(mapType(r.Type),"_")[0] == "string" {
 			id = true
 		}
-		if r.Name == "name" && mapType(r.Type) == "string" {
+		if r.Name == "name" && strings.Split(mapType(r.Type),"_")[0] == "string" {
 			name = true
 		}
 	}
@@ -1099,7 +1106,7 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (o
 						pn("%s string `json:\"%s,omitempty\"`", capitalize(r.Name), r.Name)
 					}
 				} else {
-					pn("%s %s `json:\"%s,omitempty\"`", capitalize(r.Name), mapType(r.Type), r.Name)
+					pn("%s %s `json:\"%s,omitempty\"`", capitalize(r.Name), strings.Split(mapType(r.Type),"_")[0], r.Name)
 				}
 				found[r.Name] = true
 			}
@@ -1192,6 +1199,8 @@ func mapType(t string) string {
 		return "[]string"
 	case "map":
 		return "map[string]string"
+	case "map_service-provider":
+		return "map[string]string_service-provider"
 	case "responseobject":
 		return "json.RawMessage"
 	default:

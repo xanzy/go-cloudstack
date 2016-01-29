@@ -23491,7 +23491,7 @@ const v43api = `{
 	     "length": 255,
 	     "name": "serviceproviderlist",
 	     "required": false,
-	     "type": "map"
+	     "type": "map_service-provider"
 	   }
 	 ],
 	 "related": "listVPCOfferings",
@@ -62127,7 +62127,7 @@ const v43api = `{
 	     "length": 255,
 	     "name": "serviceproviderlist",
 	     "required": false,
-	     "type": "map"
+	     "type": "map_service-provider"
 	   },
 	   {
 	     "description": "desired service capabilities as part of network offering",
