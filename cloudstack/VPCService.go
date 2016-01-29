@@ -1350,8 +1350,8 @@ func (p *CreateVPCOfferingParams) toURLValues() url.Values {
 	if v, found := p.p["serviceproviderlist"]; found {
 		i := 0
 		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("serviceproviderlist[%d].key", i), k)
-			u.Set(fmt.Sprintf("serviceproviderlist[%d].value", i), vv)
+			u.Set(fmt.Sprintf("serviceproviderlist[%d].service", i), k)
+			u.Set(fmt.Sprintf("serviceproviderlist[%d].provider", i), vv)
 			i++
 		}
 	}

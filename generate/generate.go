@@ -600,8 +600,14 @@ func (s *service) generateConvertCode(name, typ string) {
 	case "map[string]string":
 		pn("i := 0")
 		pn("for k, vv := range v.(map[string]string) {")
-		pn("	u.Set(fmt.Sprintf(\"%s[%%d].key\", i), k)", n)
-		pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), vv)", n)
+		switch name {
+		case "serviceproviderlist":
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].service\", i), k)", n)
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].provider\", i), vv)", n)
+		default:
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].key\", i), k)", n)
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), vv)", n)
+		}
 		pn("	i++")
 		pn("}")
 	}
@@ -966,7 +972,8 @@ func (s *service) generateNewAPICallFunc(a *API) {
 	pn("		return nil, err")
 	pn("	}")
 	pn("")
-	if n == "CreateNetwork" || n == "CreateServiceOffering" || n == "CreateSSHKeyPair" || n == "RegisterSSHKeyPair" {
+	switch n {
+	case "CreateNetwork", "CreateServiceOffering", "CreateSSHKeyPair", "RegisterSSHKeyPair":
 		pn("	if resp, err = getRawValue(resp); err != nil {")
 		pn("		return nil, err")
 		pn("	}")
