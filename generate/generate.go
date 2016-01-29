@@ -973,7 +973,7 @@ func (s *service) generateNewAPICallFunc(a *API) {
 	pn("	}")
 	pn("")
 	switch n {
-	case "CreateNetwork", "CreateServiceOffering", "CreateSSHKeyPair", "RegisterSSHKeyPair":
+	case "CreateNetwork", "CreateNetworkOffering", "CreateServiceOffering", "CreateSSHKeyPair", "RegisterSSHKeyPair":
 		pn("	if resp, err = getRawValue(resp); err != nil {")
 		pn("		return nil, err")
 		pn("	}")
