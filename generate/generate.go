@@ -19,7 +19,6 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"flag"
 	"fmt"
 	"go/format"
 	"io/ioutil"
@@ -32,20 +31,9 @@ import (
 	"unicode"
 )
 
-var (
-	version = flag.String("version", "", "The CloudStack API version for which to generate the client package, like 'v43', 'v44' or 'latest'.")
-)
-
 type apiInfo map[string][]string
 
-var mapVersion = map[string]apiInfo{
-	// If new API versions are added, they need to be added here also!
-	"v43":    v43,
-	"v44":    v44,
-	"latest": v44,
-}
-
-var pkg string
+const pkg = "cloudstack"
 
 type allServices struct {
 	services services
@@ -157,13 +145,6 @@ func (s APIResponses) Swap(i, j int) {
 }
 
 func main() {
-	flag.Parse()
-
-	pkg = "cloudstack"
-	if *version != "latest" {
-		pkg += strings.TrimPrefix(*version, "v")
-	}
-
 	as, errors, err := getAllServices()
 	if err != nil {
 		log.Fatal(err)
@@ -531,6 +512,58 @@ func (s *service) GenerateCode() ([]byte, error) {
 	pn("	\t%q", "fmt")
 	pn(")")
 	pn("")
+	if s.name == "FirewallService" {
+		pn("// Helper function for maintaining backwards compatibility")
+		pn("func convertFirewallServiceResponse(b []byte) ([]byte, error) {")
+		pn("	var raw map[string]interface{}")
+		pn("	if err := json.Unmarshal(b, &raw); err != nil {")
+		pn("		return nil, err")
+		pn("	}")
+		pn("")
+		pn("	if _, ok := raw[\"firewallrule\"]; ok {")
+		pn("		return convertFirewallServiceListResponse(b)")
+		pn("	}")
+		pn("")
+		pn("	for _, k := range []string{\"endport\", \"startport\"} {")
+		pn("		if sVal, ok := raw[k].(string); ok {")
+		pn("			iVal, err := strconv.Atoi(sVal)")
+		pn("			if err != nil {")
+		pn("				return nil, err")
+		pn("			}")
+		pn("			raw[k] = iVal")
+		pn("		}")
+		pn("	}")
+		pn("")
+		pn("	return json.Marshal(raw)")
+		pn("}")
+		pn("")
+		pn("// Helper function for maintaining backwards compatibility")
+		pn("func convertFirewallServiceListResponse(b []byte) ([]byte, error) {")
+		pn("	var rawList struct {")
+		pn("		Count         int                      `json:\"count\"`")
+		pn("		FirewallRules []map[string]interface{} `json:\"firewallrule\"`")
+		pn("	}")
+		pn("")
+		pn("	if err := json.Unmarshal(b, &rawList); err != nil {")
+		pn("		return nil, err")
+		pn("	}")
+		pn("")
+		pn("	for _, r := range rawList.FirewallRules {")
+		pn("		for _, k := range []string{\"endport\", \"startport\"} {")
+		pn("			if sVal, ok := r[k].(string); ok {")
+		pn("				iVal, err := strconv.Atoi(sVal)")
+		pn("				if err != nil {")
+		pn("					return nil, err")
+		pn("				}")
+		pn("				r[k] = iVal")
+		pn("			}")
+		pn("		}")
+		pn("	}")
+		pn("")
+		pn("	return json.Marshal(rawList)")
+		pn("}")
+		pn("")
+	}
 
 	for _, a := range s.apis {
 		s.generateParamType(a)
@@ -979,6 +1012,13 @@ func (s *service) generateNewAPICallFunc(a *API) {
 		pn("	}")
 		pn("")
 	}
+	if s.name == "FirewallService" {
+		pn("	resp, err = convertFirewallServiceResponse(resp)")
+		pn("	if err != nil {")
+		pn("		return nil, err")
+		pn("	}")
+		pn("")
+	}
 	pn("	var r %s", n+"Response")
 	pn("	if err := json.Unmarshal(resp, &r); err != nil {")
 	pn("		return nil, err")
@@ -996,10 +1036,17 @@ func (s *service) generateNewAPICallFunc(a *API) {
 		pn("		}")
 		pn("")
 		if !isSuccessOnlyResponse(a.Response) {
-			pn("    b, err = getRawValue(b)")
-			pn("    if err != nil {")
-			pn("      return nil, err")
-			pn("    }")
+			pn("		b, err = getRawValue(b)")
+			pn("		if err != nil {")
+			pn("		  return nil, err")
+			pn("		}")
+			pn("")
+		}
+		if s.name == "FirewallService" {
+			pn("		b, err = convertFirewallServiceResponse(b)")
+			pn("		if err != nil {")
+			pn("			return nil, err")
+			pn("		}")
 			pn("")
 		}
 		pn("		if err := json.Unmarshal(b, &r); err != nil {")
@@ -1125,7 +1172,7 @@ func getAllServices() (*allServices, []error, error) {
 	// Generate a complete set of services with their methods (APIs)
 	as := &allServices{}
 	errors := []error{}
-	for sn, apis := range mapVersion[*version] {
+	for sn, apis := range layout {
 		s := &service{name: sn}
 		for _, api := range apis {
 			a, found := ai[api]
@@ -1145,24 +1192,13 @@ func getAllServices() (*allServices, []error, error) {
 }
 
 func getAPIInfo() (map[string]*API, error) {
-	var apiInfo []byte
-
-	switch *version {
-	case "v43":
-		apiInfo = []byte(v43api)
-	case "v44", "latest":
-		apiInfo = []byte(v44api)
-	default:
-		return nil, fmt.Errorf("Unknown version: %s", *version)
-	}
-
 	var ar struct {
 		ListAPIsResponse struct {
 			Count int    `json:"count"`
 			APIs  []*API `json:"api"`
 		} `json:"listapisresponse"`
 	}
-	if err := json.Unmarshal(apiInfo, &ar); err != nil {
+	if err := json.Unmarshal([]byte(api), &ar); err != nil {
 		return nil, err
 	}
 
