@@ -24,6 +24,56 @@ import (
 	"strings"
 )
 
+// Helper function for maintaining backwards compatibility
+func convertFirewallServiceResponse(b []byte) ([]byte, error) {
+	var raw map[string]interface{}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return nil, err
+	}
+
+	if _, ok := raw["firewallrule"]; ok {
+		return convertFirewallServiceListResponse(b)
+	}
+
+	for _, k := range []string{"endport", "startport"} {
+		if sVal, ok := raw[k].(string); ok {
+			iVal, err := strconv.Atoi(sVal)
+			if err != nil {
+				return nil, err
+			}
+			raw[k] = iVal
+		}
+	}
+
+	return json.Marshal(raw)
+}
+
+// Helper function for maintaining backwards compatibility
+func convertFirewallServiceListResponse(b []byte) ([]byte, error) {
+	var rawList struct {
+		Count         int                      `json:"count"`
+		FirewallRules []map[string]interface{} `json:"firewallrule"`
+	}
+
+	if err := json.Unmarshal(b, &rawList); err != nil {
+		return nil, err
+	}
+
+	for _, r := range rawList.FirewallRules {
+		for _, k := range []string{"endport", "startport"} {
+			if sVal, ok := r[k].(string); ok {
+				iVal, err := strconv.Atoi(sVal)
+				if err != nil {
+					return nil, err
+				}
+				r[k] = iVal
+			}
+		}
+	}
+
+	return json.Marshal(rawList)
+}
+
 type ListPortForwardingRulesParams struct {
 	p map[string]interface{}
 }
@@ -246,6 +296,11 @@ func (s *FirewallService) ListPortForwardingRules(p *ListPortForwardingRulesPara
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r ListPortForwardingRulesResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -460,6 +515,11 @@ func (s *FirewallService) CreatePortForwardingRule(p *CreatePortForwardingRulePa
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r CreatePortForwardingRuleResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -476,6 +536,11 @@ func (s *FirewallService) CreatePortForwardingRule(p *CreatePortForwardingRulePa
 		}
 
 		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
 		if err != nil {
 			return nil, err
 		}
@@ -558,6 +623,11 @@ func (s *FirewallService) DeletePortForwardingRule(p *DeletePortForwardingRulePa
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r DeletePortForwardingRuleResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -570,6 +640,11 @@ func (s *FirewallService) DeletePortForwardingRule(p *DeletePortForwardingRulePa
 			if err == AsyncTimeoutErr {
 				return &r, err
 			}
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
+		if err != nil {
 			return nil, err
 		}
 
@@ -682,6 +757,11 @@ func (s *FirewallService) UpdatePortForwardingRule(p *UpdatePortForwardingRulePa
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r UpdatePortForwardingRuleResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -698,6 +778,11 @@ func (s *FirewallService) UpdatePortForwardingRule(p *UpdatePortForwardingRulePa
 		}
 
 		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
 		if err != nil {
 			return nil, err
 		}
@@ -875,6 +960,11 @@ func (s *FirewallService) CreateFirewallRule(p *CreateFirewallRuleParams) (*Crea
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r CreateFirewallRuleResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -891,6 +981,11 @@ func (s *FirewallService) CreateFirewallRule(p *CreateFirewallRuleParams) (*Crea
 		}
 
 		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
 		if err != nil {
 			return nil, err
 		}
@@ -969,6 +1064,11 @@ func (s *FirewallService) DeleteFirewallRule(p *DeleteFirewallRuleParams) (*Dele
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r DeleteFirewallRuleResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -981,6 +1081,11 @@ func (s *FirewallService) DeleteFirewallRule(p *DeleteFirewallRuleParams) (*Dele
 			if err == AsyncTimeoutErr {
 				return &r, err
 			}
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
+		if err != nil {
 			return nil, err
 		}
 
@@ -1219,6 +1324,11 @@ func (s *FirewallService) ListFirewallRules(p *ListFirewallRulesParams) (*ListFi
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r ListFirewallRulesResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -1320,6 +1430,11 @@ func (s *FirewallService) UpdateFirewallRule(p *UpdateFirewallRuleParams) (*Upda
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r UpdateFirewallRuleResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -1336,6 +1451,11 @@ func (s *FirewallService) UpdateFirewallRule(p *UpdateFirewallRuleParams) (*Upda
 		}
 
 		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
 		if err != nil {
 			return nil, err
 		}
@@ -1509,6 +1629,11 @@ func (s *FirewallService) CreateEgressFirewallRule(p *CreateEgressFirewallRulePa
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r CreateEgressFirewallRuleResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -1525,6 +1650,11 @@ func (s *FirewallService) CreateEgressFirewallRule(p *CreateEgressFirewallRulePa
 		}
 
 		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
 		if err != nil {
 			return nil, err
 		}
@@ -1603,6 +1733,11 @@ func (s *FirewallService) DeleteEgressFirewallRule(p *DeleteEgressFirewallRulePa
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r DeleteEgressFirewallRuleResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -1615,6 +1750,11 @@ func (s *FirewallService) DeleteEgressFirewallRule(p *DeleteEgressFirewallRulePa
 			if err == AsyncTimeoutErr {
 				return &r, err
 			}
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
+		if err != nil {
 			return nil, err
 		}
 
@@ -1853,6 +1993,11 @@ func (s *FirewallService) ListEgressFirewallRules(p *ListEgressFirewallRulesPara
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r ListEgressFirewallRulesResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -1954,6 +2099,11 @@ func (s *FirewallService) UpdateEgressFirewallRule(p *UpdateEgressFirewallRulePa
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r UpdateEgressFirewallRuleResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -1970,6 +2120,11 @@ func (s *FirewallService) UpdateEgressFirewallRule(p *UpdateEgressFirewallRulePa
 		}
 
 		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
 		if err != nil {
 			return nil, err
 		}
@@ -2096,6 +2251,11 @@ func (s *FirewallService) AddPaloAltoFirewall(p *AddPaloAltoFirewallParams) (*Ad
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r AddPaloAltoFirewallResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -2112,6 +2272,11 @@ func (s *FirewallService) AddPaloAltoFirewall(p *AddPaloAltoFirewallParams) (*Ad
 		}
 
 		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
 		if err != nil {
 			return nil, err
 		}
@@ -2182,6 +2347,11 @@ func (s *FirewallService) DeletePaloAltoFirewall(p *DeletePaloAltoFirewallParams
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r DeletePaloAltoFirewallResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -2194,6 +2364,11 @@ func (s *FirewallService) DeletePaloAltoFirewall(p *DeletePaloAltoFirewallParams
 			if err == AsyncTimeoutErr {
 				return &r, err
 			}
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
+		if err != nil {
 			return nil, err
 		}
 
@@ -2261,6 +2436,11 @@ func (s *FirewallService) ConfigurePaloAltoFirewall(p *ConfigurePaloAltoFirewall
 		return nil, err
 	}
 
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var r ConfigurePaloAltoFirewallResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -2277,6 +2457,11 @@ func (s *FirewallService) ConfigurePaloAltoFirewall(p *ConfigurePaloAltoFirewall
 		}
 
 		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
 		if err != nil {
 			return nil, err
 		}
@@ -2388,6 +2573,11 @@ func (s *FirewallService) NewListPaloAltoFirewallsParams() *ListPaloAltoFirewall
 // lists Palo Alto firewall devices in a physical network
 func (s *FirewallService) ListPaloAltoFirewalls(p *ListPaloAltoFirewallsParams) (*ListPaloAltoFirewallsResponse, error) {
 	resp, err := s.cs.newRequest("listPaloAltoFirewalls", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err = convertFirewallServiceResponse(resp)
 	if err != nil {
 		return nil, err
 	}
