@@ -389,10 +389,19 @@ func (s *VPNService) NewListRemoteAccessVpnsParams() *ListRemoteAccessVpnsParams
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPNService) GetRemoteAccessVpnByID(id string) (*RemoteAccessVpn, int, error) {
+	return s.GetRemoteAccessVpnByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPNService) GetRemoteAccessVpnByIDAndProjectID(id string, projectid string) (*RemoteAccessVpn, int, error) {
 	p := &ListRemoteAccessVpnsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListRemoteAccessVpns(p)
 	if err != nil {
@@ -402,21 +411,6 @@ func (s *VPNService) GetRemoteAccessVpnByID(id string) (*RemoteAccessVpn, int, e
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListRemoteAccessVpns(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -927,10 +921,19 @@ func (s *VPNService) NewListVpnUsersParams() *ListVpnUsersParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPNService) GetVpnUserByID(id string) (*VpnUser, int, error) {
+	return s.GetVpnUserByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPNService) GetVpnUserByIDAndProjectID(id string, projectid string) (*VpnUser, int, error) {
 	p := &ListVpnUsersParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListVpnUsers(p)
 	if err != nil {
@@ -940,21 +943,6 @@ func (s *VPNService) GetVpnUserByID(id string) (*VpnUser, int, error) {
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListVpnUsers(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -2116,24 +2104,23 @@ func (s *VPNService) NewListVpnCustomerGatewaysParams() *ListVpnCustomerGateways
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPNService) GetVpnCustomerGatewayID(keyword string) (string, error) {
+	return s.GetVpnCustomerGatewayIDForProject(keyword, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPNService) GetVpnCustomerGatewayIDForProject(keyword string, projectid string) (string, error) {
 	p := &ListVpnCustomerGatewaysParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["keyword"] = keyword
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListVpnCustomerGateways(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListVpnCustomerGateways(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -2156,7 +2143,12 @@ func (s *VPNService) GetVpnCustomerGatewayID(keyword string) (string, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPNService) GetVpnCustomerGatewayByName(name string) (*VpnCustomerGateway, int, error) {
-	id, err := s.GetVpnCustomerGatewayID(name)
+	return s.GetVpnCustomerGatewayByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPNService) GetVpnCustomerGatewayByNameAndProjectID(name string, projectid string) (*VpnCustomerGateway, int, error) {
+	id, err := s.GetVpnCustomerGatewayIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -2170,10 +2162,19 @@ func (s *VPNService) GetVpnCustomerGatewayByName(name string) (*VpnCustomerGatew
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPNService) GetVpnCustomerGatewayByID(id string) (*VpnCustomerGateway, int, error) {
+	return s.GetVpnCustomerGatewayByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPNService) GetVpnCustomerGatewayByIDAndProjectID(id string, projectid string) (*VpnCustomerGateway, int, error) {
 	p := &ListVpnCustomerGatewaysParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListVpnCustomerGateways(p)
 	if err != nil {
@@ -2183,21 +2184,6 @@ func (s *VPNService) GetVpnCustomerGatewayByID(id string) (*VpnCustomerGateway, 
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListVpnCustomerGateways(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -2398,10 +2384,19 @@ func (s *VPNService) NewListVpnGatewaysParams() *ListVpnGatewaysParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPNService) GetVpnGatewayByID(id string) (*VpnGateway, int, error) {
+	return s.GetVpnGatewayByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPNService) GetVpnGatewayByIDAndProjectID(id string, projectid string) (*VpnGateway, int, error) {
 	p := &ListVpnGatewaysParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListVpnGateways(p)
 	if err != nil {
@@ -2411,21 +2406,6 @@ func (s *VPNService) GetVpnGatewayByID(id string) (*VpnGateway, int, error) {
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListVpnGateways(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -2618,10 +2598,19 @@ func (s *VPNService) NewListVpnConnectionsParams() *ListVpnConnectionsParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPNService) GetVpnConnectionByID(id string) (*VpnConnection, int, error) {
+	return s.GetVpnConnectionByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPNService) GetVpnConnectionByIDAndProjectID(id string, projectid string) (*VpnConnection, int, error) {
 	p := &ListVpnConnectionsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListVpnConnections(p)
 	if err != nil {
@@ -2631,21 +2620,6 @@ func (s *VPNService) GetVpnConnectionByID(id string) (*VpnConnection, int, error
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListVpnConnections(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

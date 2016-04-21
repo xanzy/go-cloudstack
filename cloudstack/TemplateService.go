@@ -1315,6 +1315,11 @@ func (s *TemplateService) NewListTemplatesParams(templatefilter string) *ListTem
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *TemplateService) GetTemplateID(name string, templatefilter string, zoneid string) (string, error) {
+	return s.GetTemplateIDForProject(name, templatefilter, zoneid, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *TemplateService) GetTemplateIDForProject(name string, templatefilter string, zoneid string, projectid string) (string, error) {
 	p := &ListTemplatesParams{}
 	p.p = make(map[string]interface{})
 
@@ -1322,19 +1327,13 @@ func (s *TemplateService) GetTemplateID(name string, templatefilter string, zone
 	p.p["templatefilter"] = templatefilter
 	p.p["zoneid"] = zoneid
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListTemplates(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListTemplates(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -1357,7 +1356,12 @@ func (s *TemplateService) GetTemplateID(name string, templatefilter string, zone
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *TemplateService) GetTemplateByName(name string, templatefilter string, zoneid string) (*Template, int, error) {
-	id, err := s.GetTemplateID(name, templatefilter, zoneid)
+	return s.GetTemplateByNameAndProjectID(name, templatefilter, zoneid, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *TemplateService) GetTemplateByNameAndProjectID(name string, templatefilter string, zoneid string, projectid string) (*Template, int, error) {
+	id, err := s.GetTemplateIDForProject(name, templatefilter, zoneid, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -1371,11 +1375,20 @@ func (s *TemplateService) GetTemplateByName(name string, templatefilter string, 
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *TemplateService) GetTemplateByID(id string, templatefilter string) (*Template, int, error) {
+	return s.GetTemplateByIDAndProjectID(id, templatefilter, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *TemplateService) GetTemplateByIDAndProjectID(id string, templatefilter string, projectid string) (*Template, int, error) {
 	p := &ListTemplatesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
 	p.p["templatefilter"] = templatefilter
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListTemplates(p)
 	if err != nil {
@@ -1385,21 +1398,6 @@ func (s *TemplateService) GetTemplateByID(id string, templatefilter string) (*Te
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListTemplates(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

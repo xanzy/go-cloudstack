@@ -1099,10 +1099,19 @@ func (s *ProjectService) NewListProjectInvitationsParams() *ListProjectInvitatio
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *ProjectService) GetProjectInvitationByID(id string) (*ProjectInvitation, int, error) {
+	return s.GetProjectInvitationByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ProjectService) GetProjectInvitationByIDAndProjectID(id string, projectid string) (*ProjectInvitation, int, error) {
 	p := &ListProjectInvitationsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListProjectInvitations(p)
 	if err != nil {
@@ -1112,21 +1121,6 @@ func (s *ProjectService) GetProjectInvitationByID(id string) (*ProjectInvitation
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListProjectInvitations(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

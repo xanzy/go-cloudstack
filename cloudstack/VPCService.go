@@ -579,24 +579,23 @@ func (s *VPCService) NewListVPCsParams() *ListVPCsParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPCService) GetVPCID(name string) (string, error) {
+	return s.GetVPCIDForProject(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPCService) GetVPCIDForProject(name string, projectid string) (string, error) {
 	p := &ListVPCsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListVPCs(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListVPCs(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -619,7 +618,12 @@ func (s *VPCService) GetVPCID(name string) (string, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPCService) GetVPCByName(name string) (*VPC, int, error) {
-	id, err := s.GetVPCID(name)
+	return s.GetVPCByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPCService) GetVPCByNameAndProjectID(name string, projectid string) (*VPC, int, error) {
+	id, err := s.GetVPCIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -633,10 +637,19 @@ func (s *VPCService) GetVPCByName(name string) (*VPC, int, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPCService) GetVPCByID(id string) (*VPC, int, error) {
+	return s.GetVPCByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPCService) GetVPCByIDAndProjectID(id string, projectid string) (*VPC, int, error) {
 	p := &ListVPCsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListVPCs(p)
 	if err != nil {
@@ -646,21 +659,6 @@ func (s *VPCService) GetVPCByID(id string) (*VPC, int, error) {
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListVPCs(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -2297,10 +2295,19 @@ func (s *VPCService) NewListPrivateGatewaysParams() *ListPrivateGatewaysParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPCService) GetPrivateGatewayByID(id string) (*PrivateGateway, int, error) {
+	return s.GetPrivateGatewayByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPCService) GetPrivateGatewayByIDAndProjectID(id string, projectid string) (*PrivateGateway, int, error) {
 	p := &ListPrivateGatewaysParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListPrivateGateways(p)
 	if err != nil {
@@ -2310,21 +2317,6 @@ func (s *VPCService) GetPrivateGatewayByID(id string) (*PrivateGateway, int, err
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListPrivateGateways(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -2777,10 +2769,19 @@ func (s *VPCService) NewListStaticRoutesParams() *ListStaticRoutesParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VPCService) GetStaticRouteByID(id string) (*StaticRoute, int, error) {
+	return s.GetStaticRouteByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VPCService) GetStaticRouteByIDAndProjectID(id string, projectid string) (*StaticRoute, int, error) {
 	p := &ListStaticRoutesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListStaticRoutes(p)
 	if err != nil {
@@ -2790,21 +2791,6 @@ func (s *VPCService) GetStaticRouteByID(id string) (*StaticRoute, int, error) {
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListStaticRoutes(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

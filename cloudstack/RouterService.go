@@ -953,24 +953,23 @@ func (s *RouterService) NewListRoutersParams() *ListRoutersParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *RouterService) GetRouterID(name string) (string, error) {
+	return s.GetRouterIDForProject(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *RouterService) GetRouterIDForProject(name string, projectid string) (string, error) {
 	p := &ListRoutersParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListRouters(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListRouters(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -993,7 +992,12 @@ func (s *RouterService) GetRouterID(name string) (string, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *RouterService) GetRouterByName(name string) (*Router, int, error) {
-	id, err := s.GetRouterID(name)
+	return s.GetRouterByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *RouterService) GetRouterByNameAndProjectID(name string, projectid string) (*Router, int, error) {
+	id, err := s.GetRouterIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -1007,10 +1011,19 @@ func (s *RouterService) GetRouterByName(name string) (*Router, int, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *RouterService) GetRouterByID(id string) (*Router, int, error) {
+	return s.GetRouterByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *RouterService) GetRouterByIDAndProjectID(id string, projectid string) (*Router, int, error) {
 	p := &ListRoutersParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListRouters(p)
 	if err != nil {
@@ -1020,21 +1033,6 @@ func (s *RouterService) GetRouterByID(id string) (*Router, int, error) {
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListRouters(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

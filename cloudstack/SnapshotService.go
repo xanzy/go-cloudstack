@@ -375,24 +375,23 @@ func (s *SnapshotService) NewListSnapshotsParams() *ListSnapshotsParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *SnapshotService) GetSnapshotID(name string) (string, error) {
+	return s.GetSnapshotIDForProject(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *SnapshotService) GetSnapshotIDForProject(name string, projectid string) (string, error) {
 	p := &ListSnapshotsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListSnapshots(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListSnapshots(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -415,7 +414,12 @@ func (s *SnapshotService) GetSnapshotID(name string) (string, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *SnapshotService) GetSnapshotByName(name string) (*Snapshot, int, error) {
-	id, err := s.GetSnapshotID(name)
+	return s.GetSnapshotByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *SnapshotService) GetSnapshotByNameAndProjectID(name string, projectid string) (*Snapshot, int, error) {
+	id, err := s.GetSnapshotIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -429,10 +433,19 @@ func (s *SnapshotService) GetSnapshotByName(name string) (*Snapshot, int, error)
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *SnapshotService) GetSnapshotByID(id string) (*Snapshot, int, error) {
+	return s.GetSnapshotByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *SnapshotService) GetSnapshotByIDAndProjectID(id string, projectid string) (*Snapshot, int, error) {
 	p := &ListSnapshotsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListSnapshots(p)
 	if err != nil {
@@ -442,21 +455,6 @@ func (s *SnapshotService) GetSnapshotByID(id string) (*Snapshot, int, error) {
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListSnapshots(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -1283,24 +1281,23 @@ func (s *SnapshotService) NewListVMSnapshotParams() *ListVMSnapshotParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *SnapshotService) GetVMSnapshotID(name string) (string, error) {
+	return s.GetVMSnapshotIDForProject(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *SnapshotService) GetVMSnapshotIDForProject(name string, projectid string) (string, error) {
 	p := &ListVMSnapshotParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListVMSnapshot(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListVMSnapshot(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {

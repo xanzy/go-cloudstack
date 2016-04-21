@@ -1809,10 +1809,19 @@ func (s *AutoScaleService) NewListAutoScaleVmProfilesParams() *ListAutoScaleVmPr
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *AutoScaleService) GetAutoScaleVmProfileByID(id string) (*AutoScaleVmProfile, int, error) {
+	return s.GetAutoScaleVmProfileByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *AutoScaleService) GetAutoScaleVmProfileByIDAndProjectID(id string, projectid string) (*AutoScaleVmProfile, int, error) {
 	p := &ListAutoScaleVmProfilesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListAutoScaleVmProfiles(p)
 	if err != nil {
@@ -1822,21 +1831,6 @@ func (s *AutoScaleService) GetAutoScaleVmProfileByID(id string) (*AutoScaleVmPro
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListAutoScaleVmProfiles(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -2065,10 +2059,19 @@ func (s *AutoScaleService) NewListAutoScaleVmGroupsParams() *ListAutoScaleVmGrou
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *AutoScaleService) GetAutoScaleVmGroupByID(id string) (*AutoScaleVmGroup, int, error) {
+	return s.GetAutoScaleVmGroupByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *AutoScaleService) GetAutoScaleVmGroupByIDAndProjectID(id string, projectid string) (*AutoScaleVmGroup, int, error) {
 	p := &ListAutoScaleVmGroupsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListAutoScaleVmGroups(p)
 	if err != nil {
@@ -2078,21 +2081,6 @@ func (s *AutoScaleService) GetAutoScaleVmGroupByID(id string) (*AutoScaleVmGroup
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListAutoScaleVmGroups(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
