@@ -490,10 +490,19 @@ func (s *VLANService) NewListVlanIpRangesParams() *ListVlanIpRangesParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VLANService) GetVlanIpRangeByID(id string) (*VlanIpRange, int, error) {
+	return s.GetVlanIpRangeByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VLANService) GetVlanIpRangeByIDAndProjectID(id string, projectid string) (*VlanIpRange, int, error) {
 	p := &ListVlanIpRangesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListVlanIpRanges(p)
 	if err != nil {
@@ -503,21 +512,6 @@ func (s *VLANService) GetVlanIpRangeByID(id string) (*VlanIpRange, int, error) {
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListVlanIpRanges(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -880,10 +874,19 @@ func (s *VLANService) NewListDedicatedGuestVlanRangesParams() *ListDedicatedGues
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VLANService) GetDedicatedGuestVlanRangeByID(id string) (*DedicatedGuestVlanRange, int, error) {
+	return s.GetDedicatedGuestVlanRangeByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VLANService) GetDedicatedGuestVlanRangeByIDAndProjectID(id string, projectid string) (*DedicatedGuestVlanRange, int, error) {
 	p := &ListDedicatedGuestVlanRangesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListDedicatedGuestVlanRanges(p)
 	if err != nil {
@@ -893,21 +896,6 @@ func (s *VLANService) GetDedicatedGuestVlanRangeByID(id string) (*DedicatedGuest
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListDedicatedGuestVlanRanges(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

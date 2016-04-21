@@ -1127,24 +1127,23 @@ func (s *VolumeService) NewListVolumesParams() *ListVolumesParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VolumeService) GetVolumeID(name string) (string, error) {
+	return s.GetVolumeIDForProject(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VolumeService) GetVolumeIDForProject(name string, projectid string) (string, error) {
 	p := &ListVolumesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListVolumes(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListVolumes(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -1167,7 +1166,12 @@ func (s *VolumeService) GetVolumeID(name string) (string, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VolumeService) GetVolumeByName(name string) (*Volume, int, error) {
-	id, err := s.GetVolumeID(name)
+	return s.GetVolumeByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VolumeService) GetVolumeByNameAndProjectID(name string, projectid string) (*Volume, int, error) {
+	id, err := s.GetVolumeIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -1181,10 +1185,19 @@ func (s *VolumeService) GetVolumeByName(name string) (*Volume, int, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VolumeService) GetVolumeByID(id string) (*Volume, int, error) {
+	return s.GetVolumeByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VolumeService) GetVolumeByIDAndProjectID(id string, projectid string) (*Volume, int, error) {
 	p := &ListVolumesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListVolumes(p)
 	if err != nil {
@@ -1194,21 +1207,6 @@ func (s *VolumeService) GetVolumeByID(id string) (*Volume, int, error) {
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListVolumes(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

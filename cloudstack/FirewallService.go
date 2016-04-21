@@ -249,10 +249,19 @@ func (s *FirewallService) NewListPortForwardingRulesParams() *ListPortForwarding
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *FirewallService) GetPortForwardingRuleByID(id string) (*PortForwardingRule, int, error) {
+	return s.GetPortForwardingRuleByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *FirewallService) GetPortForwardingRuleByIDAndProjectID(id string, projectid string) (*PortForwardingRule, int, error) {
 	p := &ListPortForwardingRulesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListPortForwardingRules(p)
 	if err != nil {
@@ -262,21 +271,6 @@ func (s *FirewallService) GetPortForwardingRuleByID(id string) (*PortForwardingR
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListPortForwardingRules(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -1277,10 +1271,19 @@ func (s *FirewallService) NewListFirewallRulesParams() *ListFirewallRulesParams 
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *FirewallService) GetFirewallRuleByID(id string) (*FirewallRule, int, error) {
+	return s.GetFirewallRuleByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *FirewallService) GetFirewallRuleByIDAndProjectID(id string, projectid string) (*FirewallRule, int, error) {
 	p := &ListFirewallRulesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListFirewallRules(p)
 	if err != nil {
@@ -1290,21 +1293,6 @@ func (s *FirewallService) GetFirewallRuleByID(id string) (*FirewallRule, int, er
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListFirewallRules(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -1946,10 +1934,19 @@ func (s *FirewallService) NewListEgressFirewallRulesParams() *ListEgressFirewall
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *FirewallService) GetEgressFirewallRuleByID(id string) (*EgressFirewallRule, int, error) {
+	return s.GetEgressFirewallRuleByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *FirewallService) GetEgressFirewallRuleByIDAndProjectID(id string, projectid string) (*EgressFirewallRule, int, error) {
 	p := &ListEgressFirewallRulesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListEgressFirewallRules(p)
 	if err != nil {
@@ -1959,21 +1956,6 @@ func (s *FirewallService) GetEgressFirewallRuleByID(id string) (*EgressFirewallR
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListEgressFirewallRules(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

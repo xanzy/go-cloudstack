@@ -826,24 +826,23 @@ func (s *InternalLBService) NewListInternalLoadBalancerVMsParams() *ListInternal
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *InternalLBService) GetInternalLoadBalancerVMID(name string) (string, error) {
+	return s.GetInternalLoadBalancerVMIDForProject(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *InternalLBService) GetInternalLoadBalancerVMIDForProject(name string, projectid string) (string, error) {
 	p := &ListInternalLoadBalancerVMsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListInternalLoadBalancerVMs(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListInternalLoadBalancerVMs(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -866,7 +865,12 @@ func (s *InternalLBService) GetInternalLoadBalancerVMID(name string) (string, er
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *InternalLBService) GetInternalLoadBalancerVMByName(name string) (*InternalLoadBalancerVM, int, error) {
-	id, err := s.GetInternalLoadBalancerVMID(name)
+	return s.GetInternalLoadBalancerVMByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *InternalLBService) GetInternalLoadBalancerVMByNameAndProjectID(name string, projectid string) (*InternalLoadBalancerVM, int, error) {
+	id, err := s.GetInternalLoadBalancerVMIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -880,10 +884,19 @@ func (s *InternalLBService) GetInternalLoadBalancerVMByName(name string) (*Inter
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *InternalLBService) GetInternalLoadBalancerVMByID(id string) (*InternalLoadBalancerVM, int, error) {
+	return s.GetInternalLoadBalancerVMByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *InternalLBService) GetInternalLoadBalancerVMByIDAndProjectID(id string, projectid string) (*InternalLoadBalancerVM, int, error) {
 	p := &ListInternalLoadBalancerVMsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListInternalLoadBalancerVMs(p)
 	if err != nil {
@@ -893,21 +906,6 @@ func (s *InternalLBService) GetInternalLoadBalancerVMByID(id string) (*InternalL
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListInternalLoadBalancerVMs(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

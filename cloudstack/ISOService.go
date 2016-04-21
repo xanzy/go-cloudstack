@@ -755,6 +755,11 @@ func (s *ISOService) NewListIsosParams() *ListIsosParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *ISOService) GetIsoID(name string, isofilter string, zoneid string) (string, error) {
+	return s.GetIsoIDForProject(name, isofilter, zoneid, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ISOService) GetIsoIDForProject(name string, isofilter string, zoneid string, projectid string) (string, error) {
 	p := &ListIsosParams{}
 	p.p = make(map[string]interface{})
 
@@ -762,19 +767,13 @@ func (s *ISOService) GetIsoID(name string, isofilter string, zoneid string) (str
 	p.p["isofilter"] = isofilter
 	p.p["zoneid"] = zoneid
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListIsos(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListIsos(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -797,7 +796,12 @@ func (s *ISOService) GetIsoID(name string, isofilter string, zoneid string) (str
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *ISOService) GetIsoByName(name string, isofilter string, zoneid string) (*Iso, int, error) {
-	id, err := s.GetIsoID(name, isofilter, zoneid)
+	return s.GetIsoByNameAndProjectID(name, isofilter, zoneid, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ISOService) GetIsoByNameAndProjectID(name string, isofilter string, zoneid string, projectid string) (*Iso, int, error) {
+	id, err := s.GetIsoIDForProject(name, isofilter, zoneid, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -811,10 +815,19 @@ func (s *ISOService) GetIsoByName(name string, isofilter string, zoneid string) 
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *ISOService) GetIsoByID(id string) (*Iso, int, error) {
+	return s.GetIsoByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ISOService) GetIsoByIDAndProjectID(id string, projectid string) (*Iso, int, error) {
 	p := &ListIsosParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListIsos(p)
 	if err != nil {
@@ -824,21 +837,6 @@ func (s *ISOService) GetIsoByID(id string) (*Iso, int, error) {
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListIsos(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

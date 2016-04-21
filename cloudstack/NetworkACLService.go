@@ -745,10 +745,19 @@ func (s *NetworkACLService) NewListNetworkACLsParams() *ListNetworkACLsParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *NetworkACLService) GetNetworkACLByID(id string) (*NetworkACL, int, error) {
+	return s.GetNetworkACLByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *NetworkACLService) GetNetworkACLByIDAndProjectID(id string, projectid string) (*NetworkACL, int, error) {
 	p := &ListNetworkACLsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListNetworkACLs(p)
 	if err != nil {
@@ -758,21 +767,6 @@ func (s *NetworkACLService) GetNetworkACLByID(id string) (*NetworkACL, int, erro
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListNetworkACLs(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -1268,24 +1262,23 @@ func (s *NetworkACLService) NewListNetworkACLListsParams() *ListNetworkACLListsP
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *NetworkACLService) GetNetworkACLListID(name string) (string, error) {
+	return s.GetNetworkACLListIDForProject(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *NetworkACLService) GetNetworkACLListIDForProject(name string, projectid string) (string, error) {
 	p := &ListNetworkACLListsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListNetworkACLLists(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListNetworkACLLists(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -1308,7 +1301,12 @@ func (s *NetworkACLService) GetNetworkACLListID(name string) (string, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *NetworkACLService) GetNetworkACLListByName(name string) (*NetworkACLList, int, error) {
-	id, err := s.GetNetworkACLListID(name)
+	return s.GetNetworkACLListByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *NetworkACLService) GetNetworkACLListByNameAndProjectID(name string, projectid string) (*NetworkACLList, int, error) {
+	id, err := s.GetNetworkACLListIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -1322,10 +1320,19 @@ func (s *NetworkACLService) GetNetworkACLListByName(name string) (*NetworkACLLis
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *NetworkACLService) GetNetworkACLListByID(id string) (*NetworkACLList, int, error) {
+	return s.GetNetworkACLListByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *NetworkACLService) GetNetworkACLListByIDAndProjectID(id string, projectid string) (*NetworkACLList, int, error) {
 	p := &ListNetworkACLListsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListNetworkACLLists(p)
 	if err != nil {
@@ -1335,21 +1342,6 @@ func (s *NetworkACLService) GetNetworkACLListByID(id string) (*NetworkACLList, i
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListNetworkACLLists(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

@@ -1018,24 +1018,23 @@ func (s *SecurityGroupService) NewListSecurityGroupsParams() *ListSecurityGroups
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *SecurityGroupService) GetSecurityGroupID(keyword string) (string, error) {
+	return s.GetSecurityGroupIDForProject(keyword, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *SecurityGroupService) GetSecurityGroupIDForProject(keyword string, projectid string) (string, error) {
 	p := &ListSecurityGroupsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["keyword"] = keyword
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListSecurityGroups(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListSecurityGroups(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -1058,7 +1057,12 @@ func (s *SecurityGroupService) GetSecurityGroupID(keyword string) (string, error
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *SecurityGroupService) GetSecurityGroupByName(name string) (*SecurityGroup, int, error) {
-	id, err := s.GetSecurityGroupID(name)
+	return s.GetSecurityGroupByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *SecurityGroupService) GetSecurityGroupByNameAndProjectID(name string, projectid string) (*SecurityGroup, int, error) {
+	id, err := s.GetSecurityGroupIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -1072,10 +1076,19 @@ func (s *SecurityGroupService) GetSecurityGroupByName(name string) (*SecurityGro
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *SecurityGroupService) GetSecurityGroupByID(id string) (*SecurityGroup, int, error) {
+	return s.GetSecurityGroupByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *SecurityGroupService) GetSecurityGroupByIDAndProjectID(id string, projectid string) (*SecurityGroup, int, error) {
 	p := &ListSecurityGroupsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListSecurityGroups(p)
 	if err != nil {
@@ -1085,21 +1098,6 @@ func (s *SecurityGroupService) GetSecurityGroupByID(id string) (*SecurityGroup, 
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListSecurityGroups(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

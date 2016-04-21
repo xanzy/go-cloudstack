@@ -1068,24 +1068,23 @@ func (s *LoadBalancerService) NewListLoadBalancerRulesParams() *ListLoadBalancer
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *LoadBalancerService) GetLoadBalancerRuleID(name string) (string, error) {
+	return s.GetLoadBalancerRuleIDForProject(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLoadBalancerRuleIDForProject(name string, projectid string) (string, error) {
 	p := &ListLoadBalancerRulesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListLoadBalancerRules(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListLoadBalancerRules(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -1108,7 +1107,12 @@ func (s *LoadBalancerService) GetLoadBalancerRuleID(name string) (string, error)
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *LoadBalancerService) GetLoadBalancerRuleByName(name string) (*LoadBalancerRule, int, error) {
-	id, err := s.GetLoadBalancerRuleID(name)
+	return s.GetLoadBalancerRuleByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLoadBalancerRuleByNameAndProjectID(name string, projectid string) (*LoadBalancerRule, int, error) {
+	id, err := s.GetLoadBalancerRuleIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -1122,10 +1126,19 @@ func (s *LoadBalancerService) GetLoadBalancerRuleByName(name string) (*LoadBalan
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *LoadBalancerService) GetLoadBalancerRuleByID(id string) (*LoadBalancerRule, int, error) {
+	return s.GetLoadBalancerRuleByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLoadBalancerRuleByIDAndProjectID(id string, projectid string) (*LoadBalancerRule, int, error) {
 	p := &ListLoadBalancerRulesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListLoadBalancerRules(p)
 	if err != nil {
@@ -1135,21 +1148,6 @@ func (s *LoadBalancerService) GetLoadBalancerRuleByID(id string) (*LoadBalancerR
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListLoadBalancerRules(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -3657,24 +3655,23 @@ func (s *LoadBalancerService) NewListGlobalLoadBalancerRulesParams() *ListGlobal
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *LoadBalancerService) GetGlobalLoadBalancerRuleID(keyword string) (string, error) {
+	return s.GetGlobalLoadBalancerRuleIDForProject(keyword, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetGlobalLoadBalancerRuleIDForProject(keyword string, projectid string) (string, error) {
 	p := &ListGlobalLoadBalancerRulesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["keyword"] = keyword
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListGlobalLoadBalancerRules(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListGlobalLoadBalancerRules(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -3697,7 +3694,12 @@ func (s *LoadBalancerService) GetGlobalLoadBalancerRuleID(keyword string) (strin
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *LoadBalancerService) GetGlobalLoadBalancerRuleByName(name string) (*GlobalLoadBalancerRule, int, error) {
-	id, err := s.GetGlobalLoadBalancerRuleID(name)
+	return s.GetGlobalLoadBalancerRuleByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetGlobalLoadBalancerRuleByNameAndProjectID(name string, projectid string) (*GlobalLoadBalancerRule, int, error) {
+	id, err := s.GetGlobalLoadBalancerRuleIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -3711,10 +3713,19 @@ func (s *LoadBalancerService) GetGlobalLoadBalancerRuleByName(name string) (*Glo
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *LoadBalancerService) GetGlobalLoadBalancerRuleByID(id string) (*GlobalLoadBalancerRule, int, error) {
+	return s.GetGlobalLoadBalancerRuleByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetGlobalLoadBalancerRuleByIDAndProjectID(id string, projectid string) (*GlobalLoadBalancerRule, int, error) {
 	p := &ListGlobalLoadBalancerRulesParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListGlobalLoadBalancerRules(p)
 	if err != nil {
@@ -3724,21 +3735,6 @@ func (s *LoadBalancerService) GetGlobalLoadBalancerRuleByID(id string) (*GlobalL
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListGlobalLoadBalancerRules(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
@@ -4417,24 +4413,23 @@ func (s *LoadBalancerService) NewListLoadBalancersParams() *ListLoadBalancersPar
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *LoadBalancerService) GetLoadBalancerID(name string) (string, error) {
+	return s.GetLoadBalancerIDForProject(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLoadBalancerIDForProject(name string, projectid string) (string, error) {
 	p := &ListLoadBalancersParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListLoadBalancers(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListLoadBalancers(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -4457,7 +4452,12 @@ func (s *LoadBalancerService) GetLoadBalancerID(name string) (string, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *LoadBalancerService) GetLoadBalancerByName(name string) (*LoadBalancer, int, error) {
-	id, err := s.GetLoadBalancerID(name)
+	return s.GetLoadBalancerByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLoadBalancerByNameAndProjectID(name string, projectid string) (*LoadBalancer, int, error) {
+	id, err := s.GetLoadBalancerIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -4471,10 +4471,19 @@ func (s *LoadBalancerService) GetLoadBalancerByName(name string) (*LoadBalancer,
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *LoadBalancerService) GetLoadBalancerByID(id string) (*LoadBalancer, int, error) {
+	return s.GetLoadBalancerByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLoadBalancerByIDAndProjectID(id string, projectid string) (*LoadBalancer, int, error) {
 	p := &ListLoadBalancersParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListLoadBalancers(p)
 	if err != nil {
@@ -4484,21 +4493,6 @@ func (s *LoadBalancerService) GetLoadBalancerByID(id string) (*LoadBalancer, int
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListLoadBalancers(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

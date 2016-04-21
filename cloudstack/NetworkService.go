@@ -936,24 +936,23 @@ func (s *NetworkService) NewListNetworksParams() *ListNetworksParams {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *NetworkService) GetNetworkID(keyword string) (string, error) {
+	return s.GetNetworkIDForProject(keyword, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *NetworkService) GetNetworkIDForProject(keyword string, projectid string) (string, error) {
 	p := &ListNetworksParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["keyword"] = keyword
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListNetworks(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListNetworks(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -976,7 +975,12 @@ func (s *NetworkService) GetNetworkID(keyword string) (string, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *NetworkService) GetNetworkByName(name string) (*Network, int, error) {
-	id, err := s.GetNetworkID(name)
+	return s.GetNetworkByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *NetworkService) GetNetworkByNameAndProjectID(name string, projectid string) (*Network, int, error) {
+	id, err := s.GetNetworkIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -990,10 +994,19 @@ func (s *NetworkService) GetNetworkByName(name string) (*Network, int, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *NetworkService) GetNetworkByID(id string) (*Network, int, error) {
+	return s.GetNetworkByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *NetworkService) GetNetworkByIDAndProjectID(id string, projectid string) (*Network, int, error) {
 	p := &ListNetworksParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListNetworks(p)
 	if err != nil {
@@ -1003,21 +1016,6 @@ func (s *NetworkService) GetNetworkByID(id string) (*Network, int, error) {
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListNetworks(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {

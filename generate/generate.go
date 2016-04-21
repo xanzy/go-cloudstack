@@ -90,6 +90,16 @@ func (s services) Swap(i, j int) {
 // APIParams represents a list of API params
 type APIParams []*APIParam
 
+func (s APIParams) isRequired(name string) bool {
+	for _, p := range s {
+		if p.Name == name && p.Required {
+			return true
+		}
+	}
+
+	return false
+}
+
 // Add functions for the Sort interface
 func (s APIParams) Len() int {
 	return len(s)
@@ -734,9 +744,6 @@ func (s *service) generateHelperFuncs(a *API) {
 					p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
 				}
 			}
-
-			// Add an addition (needed) parameters for the GetTemplateID and
-			// GetIsoID helper functions
 			if parseSingular(ln) == "Iso" {
 				p("isofilter string, ")
 			}
@@ -744,6 +751,39 @@ func (s *service) generateHelperFuncs(a *API) {
 				p("zoneid string, ")
 			}
 			pn(") (string, error) {")
+
+			if hasProjectIDParamField(a.Params) && !a.Params.isRequired("projectid") {
+				p("return s.Get%sIDForProject(%s, ", parseSingular(ln), v)
+				for _, ap := range a.Params {
+					if ap.Required && s.parseParamName(ap.Name) != "id" {
+						p("%s, ", s.parseParamName(ap.Name))
+					}
+				}
+				if parseSingular(ln) == "Iso" {
+					p("isofilter, ")
+				}
+				if parseSingular(ln) == "Template" || parseSingular(ln) == "Iso" {
+					p("zoneid, ")
+				}
+				pn("\"\")")
+				pn("}")
+				pn("")
+
+				pn("// This is a courtesy helper function, which in some cases may not work as expected!")
+				p("func (s *%s) Get%sIDForProject(%s string, ", s.name, parseSingular(ln), v)
+				for _, ap := range a.Params {
+					if ap.Required {
+						p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
+					}
+				}
+				if parseSingular(ln) == "Iso" {
+					p("isofilter string, ")
+				}
+				if parseSingular(ln) == "Template" || parseSingular(ln) == "Iso" {
+					p("zoneid string, ")
+				}
+				pn("projectid string) (string, error) {")
+			}
 
 			// Generate the function body
 			pn("	p := &List%sParams{}", ln)
@@ -755,9 +795,6 @@ func (s *service) generateHelperFuncs(a *API) {
 					pn("	p.p[\"%s\"] = %s", s.parseParamName(ap.Name), s.parseParamName(ap.Name))
 				}
 			}
-
-			// Assign the additional parameters for the GetTemplateID and
-			// GetIsoID helper functions
 			if parseSingular(ln) == "Iso" {
 				pn("	p.p[\"isofilter\"] = isofilter")
 			}
@@ -765,26 +802,17 @@ func (s *service) generateHelperFuncs(a *API) {
 				pn("	p.p[\"zoneid\"] = zoneid")
 			}
 			pn("")
+			if hasProjectIDParamField(a.Params) && !a.Params.isRequired("projectid") {
+				pn("	if projectid != \"\" {")
+				pn("		p.p[\"projectid\"] = projectid")
+				pn("	}")
+				pn("")
+			}
 			pn("	l, err := s.List%s(p)", ln)
 			pn("	if err != nil {")
 			pn("		return \"\", err")
 			pn("	}")
 			pn("")
-
-			// If we have a function that also has a projectid parameter, add some logic
-			// that will also search in all existing projects if no match was found
-			if hasProjectIDParamField(a.Params) {
-				pn("	if l.Count == 0 {")
-				pn("		// If no matches, search all projects")
-				pn("		p.p[\"projectid\"] = \"-1\"")
-				pn("")
-				pn("		l, err = s.List%s(p)", ln)
-				pn("		if err != nil {")
-				pn("			return \"\", err")
-				pn("		}")
-				pn("	}")
-				pn("")
-			}
 			pn("	if l.Count == 0 {")
 			pn("	  return \"\", fmt.Errorf(\"No match found for %%s: %%+v\", %s, l)", v)
 			pn("	}")
@@ -813,9 +841,6 @@ func (s *service) generateHelperFuncs(a *API) {
 						p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
 					}
 				}
-
-				// Add an addition (needed) parameter for the GetTemplateID and
-				// GetIsoID helper functions
 				if parseSingular(ln) == "Iso" {
 					p("isofilter string, ")
 				}
@@ -824,21 +849,58 @@ func (s *service) generateHelperFuncs(a *API) {
 				}
 				pn(") (*%s, int, error) {", parseSingular(ln))
 
+				if hasProjectIDParamField(a.Params) {
+					p("return s.Get%sByNameAndProjectID(name, ", parseSingular(ln))
+					for _, ap := range a.Params {
+						if ap.Required && s.parseParamName(ap.Name) != "id" {
+							p("%s, ", s.parseParamName(ap.Name))
+						}
+					}
+					if parseSingular(ln) == "Iso" {
+						p("isofilter, ")
+					}
+					if parseSingular(ln) == "Template" || parseSingular(ln) == "Iso" {
+						p("zoneid, ")
+					}
+					pn("\"\")")
+					pn("}")
+					pn("")
+
+					pn("// This is a courtesy helper function, which in some cases may not work as expected!")
+					p("func (s *%s) Get%sByNameAndProjectID(name string, ", s.name, parseSingular(ln))
+					for _, ap := range a.Params {
+						if ap.Required {
+							p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
+						}
+					}
+					if parseSingular(ln) == "Iso" {
+						p("isofilter string, ")
+					}
+					if parseSingular(ln) == "Template" || parseSingular(ln) == "Iso" {
+						p("zoneid string, ")
+					}
+					pn("projectid string) (*%s, int, error) {", parseSingular(ln))
+				}
+
 				// Generate the function body
-				p("  id, err := s.Get%sID(name, ", parseSingular(ln))
+				if hasProjectIDParamField(a.Params) {
+					p("  id, err := s.Get%sIDForProject(name, ", parseSingular(ln))
+				} else {
+					p("  id, err := s.Get%sID(name, ", parseSingular(ln))
+				}
 				for _, ap := range a.Params {
 					if ap.Required {
 						p("%s, ", s.parseParamName(ap.Name))
 					}
 				}
-
-				// Assign the additional parameter for the GetTemplateID and
-				// GetIsoID helper functions
 				if parseSingular(ln) == "Iso" {
 					p("isofilter, ")
 				}
 				if parseSingular(ln) == "Template" || parseSingular(ln) == "Iso" {
-					p("zoneid")
+					p("zoneid, ")
+				}
+				if hasProjectIDParamField(a.Params) {
+					p("projectid")
 				}
 				pn(")")
 				pn("  if err != nil {")
@@ -874,6 +936,27 @@ func (s *service) generateHelperFuncs(a *API) {
 			}
 			pn(") (*%s, int, error) {", parseSingular(ln))
 
+			if hasProjectIDParamField(a.Params) {
+				p("return s.Get%sByIDAndProjectID(id, ", parseSingular(ln))
+				for _, ap := range a.Params {
+					if ap.Required && s.parseParamName(ap.Name) != "id" {
+						p("%s, ", s.parseParamName(ap.Name))
+					}
+				}
+				pn("\"\")")
+				pn("}")
+				pn("")
+
+				pn("// This is a courtesy helper function, which in some cases may not work as expected!")
+				p("func (s *%s) Get%sByIDAndProjectID(id string, ", s.name, parseSingular(ln))
+				for _, ap := range a.Params {
+					if ap.Required && s.parseParamName(ap.Name) != "id" {
+						p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
+					}
+				}
+				pn("projectid string) (*%s, int, error) {", parseSingular(ln))
+			}
+
 			// Generate the function body
 			pn("	p := &List%sParams{}", ln)
 			pn("	p.p = make(map[string]interface{})")
@@ -885,6 +968,12 @@ func (s *service) generateHelperFuncs(a *API) {
 				}
 			}
 			pn("")
+			if hasProjectIDParamField(a.Params) {
+				pn("	if projectid != \"\" {")
+				pn("		p.p[\"projectid\"] = projectid")
+				pn("	}")
+				pn("")
+			}
 			pn("	l, err := s.List%s(p)", ln)
 			pn("	if err != nil {")
 			pn("		if strings.Contains(err.Error(), fmt.Sprintf(")
@@ -895,26 +984,6 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("		return nil, -1, err")
 			pn("	}")
 			pn("")
-
-			// If we have a function that also has a projectid parameter, add some logic
-			// that will also search in all existing projects if no match was found
-			if hasProjectIDParamField(a.Params) {
-				pn("	if l.Count == 0 {")
-				pn("		// If no matches, search all projects")
-				pn("		p.p[\"projectid\"] = \"-1\"")
-				pn("")
-				pn("		l, err = s.List%s(p)", ln)
-				pn("		if err != nil {")
-				pn("			if strings.Contains(err.Error(), fmt.Sprintf(")
-				pn("				\"Invalid parameter id value=%%s due to incorrect long value format, \"+")
-				pn("				\"or entity does not exist\", id)) {")
-				pn("				return nil, 0, fmt.Errorf(\"No match found for %%s: %%+v\", id, l)")
-				pn("			}")
-				pn("			return nil, -1, err")
-				pn("		}")
-				pn("	}")
-				pn("")
-			}
 			pn("	if l.Count == 0 {")
 			pn("	  return nil, l.Count, fmt.Errorf(\"No match found for %%s: %%+v\", id, l)")
 			pn("	}")

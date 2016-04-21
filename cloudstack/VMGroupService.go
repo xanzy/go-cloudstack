@@ -369,24 +369,23 @@ func (s *VMGroupService) NewListInstanceGroupsParams() *ListInstanceGroupsParams
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VMGroupService) GetInstanceGroupID(name string) (string, error) {
+	return s.GetInstanceGroupIDForProject(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VMGroupService) GetInstanceGroupIDForProject(name string, projectid string) (string, error) {
 	p := &ListInstanceGroupsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["name"] = name
 
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
+
 	l, err := s.ListInstanceGroups(p)
 	if err != nil {
 		return "", err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListInstanceGroups(p)
-		if err != nil {
-			return "", err
-		}
 	}
 
 	if l.Count == 0 {
@@ -409,7 +408,12 @@ func (s *VMGroupService) GetInstanceGroupID(name string) (string, error) {
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VMGroupService) GetInstanceGroupByName(name string) (*InstanceGroup, int, error) {
-	id, err := s.GetInstanceGroupID(name)
+	return s.GetInstanceGroupByNameAndProjectID(name, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VMGroupService) GetInstanceGroupByNameAndProjectID(name string, projectid string) (*InstanceGroup, int, error) {
+	id, err := s.GetInstanceGroupIDForProject(name, projectid)
 	if err != nil {
 		return nil, -1, err
 	}
@@ -423,10 +427,19 @@ func (s *VMGroupService) GetInstanceGroupByName(name string) (*InstanceGroup, in
 
 // This is a courtesy helper function, which in some cases may not work as expected!
 func (s *VMGroupService) GetInstanceGroupByID(id string) (*InstanceGroup, int, error) {
+	return s.GetInstanceGroupByIDAndProjectID(id, "")
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VMGroupService) GetInstanceGroupByIDAndProjectID(id string, projectid string) (*InstanceGroup, int, error) {
 	p := &ListInstanceGroupsParams{}
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
+
+	if projectid != "" {
+		p.p["projectid"] = projectid
+	}
 
 	l, err := s.ListInstanceGroups(p)
 	if err != nil {
@@ -436,21 +449,6 @@ func (s *VMGroupService) GetInstanceGroupByID(id string) (*InstanceGroup, int, e
 			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
 		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		// If no matches, search all projects
-		p.p["projectid"] = "-1"
-
-		l, err = s.ListInstanceGroups(p)
-		if err != nil {
-			if strings.Contains(err.Error(), fmt.Sprintf(
-				"Invalid parameter id value=%s due to incorrect long value format, "+
-					"or entity does not exist", id)) {
-				return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-			}
-			return nil, -1, err
-		}
 	}
 
 	if l.Count == 0 {
