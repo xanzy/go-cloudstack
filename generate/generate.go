@@ -1081,6 +1081,8 @@ func (s *service) generateResponseType(a *API) {
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "asyncjobs")
 		case "listEgressFirewallRules":
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "firewallrule")
+		case "listLoadBalancerRuleInstances":
+			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "lbrulevmidip")
 		case "registerTemplate":
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "template")
 		default:
@@ -1226,6 +1228,9 @@ func mapType(t string) string {
 		return "map[string]string"
 	case "responseobject":
 		return "json.RawMessage"
+	case "uservmresponse":
+		// This is a really specific abnormaly of the API
+		return "*VirtualMachine"
 	default:
 		return "string"
 	}
