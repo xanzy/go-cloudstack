@@ -467,7 +467,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("		}")
 	pn("")
 	pn("		if !IsID(project) {")
-	pn("			id, err := cs.Project.GetProjectID(project)")
+	pn("			id, _, err := cs.Project.GetProjectID(project)")
 	pn("			if err != nil {")
 	pn("				return err")
 	pn("			}")
@@ -793,7 +793,7 @@ func (s *service) generateHelperFuncs(a *API) {
 			if parseSingular(ln) == "Template" || parseSingular(ln) == "Iso" {
 				p("zoneid string, ")
 			}
-			pn("opts ...OptionFunc) (string, error) {")
+			pn("opts ...OptionFunc) (string, int, error) {")
 
 			// Generate the function body
 			pn("	p := &List%sParams{}", ln)
@@ -814,31 +814,31 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("")
 			pn("	for _, fn := range opts {")
 			pn("		if err := fn(s.cs, p); err != nil {")
-			pn("			return \"\", err")
+			pn("			return \"\", -1, err")
 			pn("		}")
 			pn("	}")
 			pn("")
 			pn("	l, err := s.List%s(p)", ln)
 			pn("	if err != nil {")
-			pn("		return \"\", err")
+			pn("		return \"\", -1, err")
 			pn("	}")
 			pn("")
 			pn("	if l.Count == 0 {")
-			pn("	  return \"\", fmt.Errorf(\"No match found for %%s: %%+v\", %s, l)", v)
+			pn("	  return \"\", l.Count, fmt.Errorf(\"No match found for %%s: %%+v\", %s, l)", v)
 			pn("	}")
 			pn("")
 			pn("	if l.Count == 1 {")
-			pn("	  return l.%s[0].Id, nil", ln)
+			pn("	  return l.%s[0].Id, l.Count, nil", ln)
 			pn("	}")
 			pn("")
 			pn(" 	if l.Count > 1 {")
 			pn("    for _, v := range l.%s {", ln)
 			pn("      if v.Name == %s {", v)
-			pn("        return v.Id, nil")
+			pn("        return v.Id, l.Count, nil")
 			pn("      }")
 			pn("    }")
 			pn("	}")
-			pn("  return \"\", fmt.Errorf(\"Could not find an exact match for %%s: %%+v\", %s, l)", v)
+			pn("  return \"\", l.Count, fmt.Errorf(\"Could not find an exact match for %%s: %%+v\", %s, l)", v)
 			pn("}\n")
 			pn("")
 
@@ -860,7 +860,7 @@ func (s *service) generateHelperFuncs(a *API) {
 				pn("opts ...OptionFunc) (*%s, int, error) {", parseSingular(ln))
 
 				// Generate the function body
-				p("  id, err := s.Get%sID(name, ", parseSingular(ln))
+				p("  id, count, err := s.Get%sID(name, ", parseSingular(ln))
 				for _, ap := range a.Params {
 					if ap.Required {
 						p("%s, ", s.parseParamName(ap.Name))
@@ -874,7 +874,7 @@ func (s *service) generateHelperFuncs(a *API) {
 				}
 				pn("opts...)")
 				pn("  if err != nil {")
-				pn("    return nil, -1, err")
+				pn("    return nil, count, err")
 				pn("  }")
 				pn("")
 				p("  r, count, err := s.Get%sByID(id, ", parseSingular(ln))
