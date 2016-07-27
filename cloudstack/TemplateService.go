@@ -1628,7 +1628,6 @@ func (s *TemplateService) GetTemplatePermissionByID(id string, opts ...OptionFun
 	p.p = make(map[string]interface{})
 
 	p.p["id"] = id
-	p.p["id"] = id
 
 	for _, fn := range opts {
 		if err := fn(s.cs, p); err != nil {

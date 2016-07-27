@@ -1959,11 +1959,10 @@ func (s *LoadBalancerService) NewListLoadBalancerRuleInstancesParams(id string) 
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *LoadBalancerService) GetLoadBalancerRuleInstanceByID(id string, opts ...OptionFunc) (*LoadBalancerRuleInstance, int, error) {
+func (s *LoadBalancerService) GetLoadBalancerRuleInstanceByID(id string, opts ...OptionFunc) (*VirtualMachine, int, error) {
 	p := &ListLoadBalancerRuleInstancesParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["id"] = id
 	p.p["id"] = id
 
 	for _, fn := range opts {
@@ -2008,7 +2007,8 @@ func (s *LoadBalancerService) ListLoadBalancerRuleInstances(p *ListLoadBalancerR
 
 type ListLoadBalancerRuleInstancesResponse struct {
 	Count                     int                         `json:"count"`
-	LoadBalancerRuleInstances []*LoadBalancerRuleInstance `json:"lbrulevmidip"`
+	LBRuleVMIDIPs             []*LoadBalancerRuleInstance `json:"lbrulevmidip,omitempty"`
+	LoadBalancerRuleInstances []*VirtualMachine           `json:"loadbalancerruleinstance,omitempty"`
 }
 
 type LoadBalancerRuleInstance struct {
