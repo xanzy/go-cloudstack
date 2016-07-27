@@ -904,7 +904,11 @@ func (s *service) generateHelperFuncs(a *API) {
 					p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
 				}
 			}
-			pn("opts ...OptionFunc) (*%s, int, error) {", parseSingular(ln))
+			if ln == "LoadBalancerRuleInstances" {
+				pn("opts ...OptionFunc) (*VirtualMachine, int, error) {")
+			} else {
+				pn("opts ...OptionFunc) (*%s, int, error) {", parseSingular(ln))
+			}
 
 			// Generate the function body
 			pn("	p := &List%sParams{}", ln)
@@ -912,7 +916,7 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("")
 			pn("	p.p[\"id\"] = id")
 			for _, ap := range a.Params {
-				if ap.Required {
+				if ap.Required && s.parseParamName(ap.Name) != "id" {
 					pn("	p.p[\"%s\"] = %s", s.parseParamName(ap.Name), s.parseParamName(ap.Name))
 				}
 			}
@@ -1102,7 +1106,8 @@ func (s *service) generateResponseType(a *API) {
 		case "listEgressFirewallRules":
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "firewallrule")
 		case "listLoadBalancerRuleInstances":
-			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "lbrulevmidip")
+			pn("	LBRuleVMIDIPs []*%s `json:\"%s,omitempty\"`", parseSingular(ln), "lbrulevmidip")
+			pn("	LoadBalancerRuleInstances []*VirtualMachine `json:\"%s,omitempty\"`", strings.ToLower(parseSingular(ln)))
 		case "registerTemplate":
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "template")
 		default:
