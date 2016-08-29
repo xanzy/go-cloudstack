@@ -655,7 +655,7 @@ func (s *service) generateToURLValuesFunc(a *API) {
 	pn("	}")
 	for _, ap := range a.Params {
 		pn("	if v, found := p.p[\"%s\"]; found {", ap.Name)
-		s.generateConvertCode(s.parseParamName(ap.Name), mapType(ap.Type))
+		s.generateConvertCode(ap.Name, mapType(ap.Type))
 		pn("	}")
 	}
 	pn("	return u")
@@ -666,33 +666,32 @@ func (s *service) generateToURLValuesFunc(a *API) {
 
 func (s *service) generateConvertCode(name, typ string) {
 	pn := s.pn
-	n := s.unparseParamName(name)
 
 	switch typ {
 	case "string":
-		pn("u.Set(\"%s\", v.(string))", n)
+		pn("u.Set(\"%s\", v.(string))", name)
 	case "int":
 		pn("vv := strconv.Itoa(v.(int))")
-		pn("u.Set(\"%s\", vv)", n)
+		pn("u.Set(\"%s\", vv)", name)
 	case "int64":
 		pn("vv := strconv.FormatInt(v.(int64), 10)")
-		pn("u.Set(\"%s\", vv)", n)
+		pn("u.Set(\"%s\", vv)", name)
 	case "bool":
 		pn("vv := strconv.FormatBool(v.(bool))")
-		pn("u.Set(\"%s\", vv)", n)
+		pn("u.Set(\"%s\", vv)", name)
 	case "[]string":
 		pn("vv := strings.Join(v.([]string), \",\")")
-		pn("u.Set(\"%s\", vv)", n)
+		pn("u.Set(\"%s\", vv)", name)
 	case "map[string]string":
 		pn("i := 0")
 		pn("for k, vv := range v.(map[string]string) {")
 		switch name {
 		case "serviceproviderlist":
-			pn("	u.Set(fmt.Sprintf(\"%s[%%d].service\", i), k)", n)
-			pn("	u.Set(fmt.Sprintf(\"%s[%%d].provider\", i), vv)", n)
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].service\", i), k)", name)
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].provider\", i), vv)", name)
 		default:
-			pn("	u.Set(fmt.Sprintf(\"%s[%%d].key\", i), k)", n)
-			pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), vv)", n)
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].key\", i), k)", name)
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), vv)", name)
 		}
 		pn("	i++")
 		pn("}")
@@ -704,14 +703,7 @@ func (s *service) parseParamName(name string) string {
 	if name != "type" {
 		return name
 	}
-	return uncapitalize(strings.TrimSuffix(s.name, "Service")) + capitalize(name)
-}
-
-func (s *service) unparseParamName(name string) string {
-	if name == uncapitalize(strings.TrimSuffix(s.name, "Service"))+"Type" {
-		return "type"
-	}
-	return name
+	return uncapitalize(strings.TrimSuffix(s.name, "Service")) + "Type"
 }
 
 func (s *service) generateParamSettersFunc(a *API) {
@@ -724,7 +716,7 @@ func (s *service) generateParamSettersFunc(a *API) {
 			pn("	if p.p == nil {")
 			pn("		p.p = make(map[string]interface{})")
 			pn("	}")
-			pn("	p.p[\"%s\"] = v", s.parseParamName(ap.Name))
+			pn("	p.p[\"%s\"] = v", ap.Name)
 			pn("	return")
 			pn("}")
 			pn("")
@@ -756,7 +748,7 @@ func (s *service) generateNewParamTypeFunc(a *API) {
 	pn("	p.p = make(map[string]interface{})")
 	sort.Sort(rp)
 	for _, ap := range rp {
-		pn("	p.p[\"%s\"] = %s", s.parseParamName(ap.Name), s.parseParamName(ap.Name))
+		pn("	p.p[\"%s\"] = %s", ap.Name, s.parseParamName(ap.Name))
 	}
 	pn("	return p")
 	pn("}")
@@ -774,7 +766,7 @@ func (s *service) generateHelperFuncs(a *API) {
 
 			// Check if ID is a required parameters and bail if so
 			for _, ap := range a.Params {
-				if ap.Required && s.parseParamName(ap.Name) == "id" {
+				if ap.Required && ap.Name == "id" {
 					return
 				}
 			}
@@ -802,7 +794,7 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("	p.p[\"%s\"] = %s", v, v)
 			for _, ap := range a.Params {
 				if ap.Required {
-					pn("	p.p[\"%s\"] = %s", s.parseParamName(ap.Name), s.parseParamName(ap.Name))
+					pn("	p.p[\"%s\"] = %s", ap.Name, s.parseParamName(ap.Name))
 				}
 			}
 			if parseSingular(ln) == "Iso" {
@@ -901,7 +893,7 @@ func (s *service) generateHelperFuncs(a *API) {
 			p("func (s *%s) Get%sByID(id string, ", s.name, parseSingular(ln))
 			for _, ap := range a.Params {
 				if ap.Required && s.parseParamName(ap.Name) != "id" {
-					p("%s %s, ", s.parseParamName(ap.Name), mapType(ap.Type))
+					p("%s %s, ", ap.Name, mapType(ap.Type))
 				}
 			}
 			if ln == "LoadBalancerRuleInstances" {
@@ -917,7 +909,7 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("	p.p[\"id\"] = id")
 			for _, ap := range a.Params {
 				if ap.Required && s.parseParamName(ap.Name) != "id" {
-					pn("	p.p[\"%s\"] = %s", s.parseParamName(ap.Name), s.parseParamName(ap.Name))
+					pn("	p.p[\"%s\"] = %s", ap.Name, s.parseParamName(ap.Name))
 				}
 			}
 			pn("")

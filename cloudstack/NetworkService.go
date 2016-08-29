@@ -906,7 +906,7 @@ func (p *ListNetworksParams) SetType(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["networkType"] = v
+	p.p["type"] = v
 	return
 }
 

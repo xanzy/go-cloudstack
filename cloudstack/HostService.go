@@ -1008,7 +1008,7 @@ func (p *ListHostsParams) SetType(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["hostType"] = v
+	p.p["type"] = v
 	return
 }
 
