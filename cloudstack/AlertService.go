@@ -100,7 +100,7 @@ func (p *ListAlertsParams) SetType(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["alertType"] = v
+	p.p["type"] = v
 	return
 }
 
@@ -275,7 +275,7 @@ func (p *ArchiveAlertsParams) SetType(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["alertType"] = v
+	p.p["type"] = v
 	return
 }
 
@@ -359,7 +359,7 @@ func (p *DeleteAlertsParams) SetType(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["alertType"] = v
+	p.p["type"] = v
 	return
 }
 
@@ -446,7 +446,7 @@ func (p *GenerateAlertParams) SetType(v int) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["alertType"] = v
+	p.p["type"] = v
 	return
 }
 
@@ -465,7 +465,7 @@ func (s *AlertService) NewGenerateAlertParams(description string, name string, a
 	p.p = make(map[string]interface{})
 	p.p["description"] = description
 	p.p["name"] = name
-	p.p["alertType"] = alertType
+	p.p["type"] = alertType
 	return p
 }
 

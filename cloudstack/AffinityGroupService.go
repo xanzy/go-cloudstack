@@ -98,7 +98,7 @@ func (p *CreateAffinityGroupParams) SetType(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["affinityGroupType"] = v
+	p.p["type"] = v
 	return
 }
 
@@ -108,7 +108,7 @@ func (s *AffinityGroupService) NewCreateAffinityGroupParams(name string, affinit
 	p := &CreateAffinityGroupParams{}
 	p.p = make(map[string]interface{})
 	p.p["name"] = name
-	p.p["affinityGroupType"] = affinityGroupType
+	p.p["type"] = affinityGroupType
 	return p
 }
 
@@ -406,7 +406,7 @@ func (p *ListAffinityGroupsParams) SetType(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["affinityGroupType"] = v
+	p.p["type"] = v
 	return
 }
 

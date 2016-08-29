@@ -811,7 +811,7 @@ func (p *ListUsageRecordsParams) SetType(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["usageType"] = v
+	p.p["type"] = v
 	return
 }
 
