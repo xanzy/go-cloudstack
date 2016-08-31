@@ -815,6 +815,12 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("		return \"\", -1, err")
 			pn("	}")
 			pn("")
+			if ln == "AffinityGroups" {
+				pn("	// This is needed because of a bug with the listAffinityGroup call. It reports the")
+				pn("	// number of VirtualMachines in the groups as being the number of groups found.")
+				pn("	l.Count = len(l.%s)", ln)
+				pn("")
+			}
 			pn("	if l.Count == 0 {")
 			pn("	  return \"\", l.Count, fmt.Errorf(\"No match found for %%s: %%+v\", %s, l)", v)
 			pn("	}")
@@ -929,6 +935,12 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("		return nil, -1, err")
 			pn("	}")
 			pn("")
+			if ln == "AffinityGroups" {
+				pn("	// This is needed because of a bug with the listAffinityGroup call. It reports the")
+				pn("	// number of VirtualMachines in the groups as being the number of groups found.")
+				pn("	l.Count = len(l.%s)", ln)
+				pn("")
+			}
 			pn("	if l.Count == 0 {")
 			pn("	  return nil, l.Count, fmt.Errorf(\"No match found for %%s: %%+v\", id, l)")
 			pn("	}")

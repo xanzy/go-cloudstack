@@ -444,6 +444,10 @@ func (s *AffinityGroupService) GetAffinityGroupID(name string, opts ...OptionFun
 		return "", -1, err
 	}
 
+	// This is needed because of a bug with the listAffinityGroup call. It reports the
+	// number of VirtualMachines in the groups as being the number of groups found.
+	l.Count = len(l.AffinityGroups)
+
 	if l.Count == 0 {
 		return "", l.Count, fmt.Errorf("No match found for %s: %+v", name, l)
 	}
@@ -498,6 +502,10 @@ func (s *AffinityGroupService) GetAffinityGroupByID(id string, opts ...OptionFun
 		}
 		return nil, -1, err
 	}
+
+	// This is needed because of a bug with the listAffinityGroup call. It reports the
+	// number of VirtualMachines in the groups as being the number of groups found.
+	l.Count = len(l.AffinityGroups)
 
 	if l.Count == 0 {
 		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
