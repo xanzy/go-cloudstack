@@ -331,11 +331,8 @@ func (p *AuthorizeSecurityGroupIngressParams) toURLValues() url.Values {
 		u.Set("startport", vv)
 	}
 	if v, found := p.p["usersecuritygrouplist"]; found {
-		i := 0
 		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].key", i), k)
-			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("usersecuritygrouplist[0].%v", k), vv)
 		}
 	}
 	return u
