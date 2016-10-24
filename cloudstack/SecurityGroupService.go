@@ -620,7 +620,7 @@ func (p *AuthorizeSecurityGroupEgressParams) toURLValues() url.Values {
 	if v, found := p.p["usersecuritygrouplist"]; found {
 		i := 0
 		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].%s", i, k), vv)
+			u.Set(fmt.Sprintf("usersecuritygrouplist[0].%s", i, k), vv)
 			i++
 		}
 	}

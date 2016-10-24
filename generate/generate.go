@@ -690,7 +690,7 @@ func (s *service) generateConvertCode(name, typ string) {
 			pn("	u.Set(fmt.Sprintf(\"%s[%%d].service\", i), k)", name)
 			pn("	u.Set(fmt.Sprintf(\"%s[%%d].provider\", i), vv)", name)
 		case "usersecuritygrouplist":
-			pn("	u.Set(fmt.Sprintf(\"%s[%%d].%%s\", i, k), vv)", name)
+			pn("	u.Set(fmt.Sprintf(\"%s[0].%%s\", i, k), vv)", name)
 		default:
 			pn("	u.Set(fmt.Sprintf(\"%s[%%d].key\", i), k)", name)
 			pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), vv)", name)
