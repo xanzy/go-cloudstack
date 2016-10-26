@@ -617,6 +617,40 @@ func (s *service) GenerateCode() ([]byte, error) {
 		pn("}")
 		pn("")
 	}
+	if s.name == "SecurityGroupService" {
+		pn("// Helper function for maintaining backwards compatibility")
+		pn("func convertAuthorizeSecurityGroupIngressResponse(b []byte) ([]byte, error) {")
+		pn("	var raw struct {")
+		pn("		Ingressrule []interface{} `json:\"ingressrule\"`")
+		pn("	}")
+		pn("	if err := json.Unmarshal(b, &raw); err != nil {")
+		pn("		return nil, err")
+		pn("	}")
+		pn("")
+		pn("	if len(raw.Ingressrule) != 1 {")
+		pn("		return b, nil")
+		pn("	}")
+		pn("")
+		pn("	return json.Marshal(raw.Ingressrule[0])")
+		pn("}")
+		pn("")
+		pn("// Helper function for maintaining backwards compatibility")
+		pn("func convertAuthorizeSecurityGroupEgressResponse(b []byte) ([]byte, error) {")
+		pn("	var raw struct {")
+		pn("		Egressrule []interface{} `json:\"egressrule\"`")
+		pn("	}")
+		pn("	if err := json.Unmarshal(b, &raw); err != nil {")
+		pn("		return nil, err")
+		pn("	}")
+		pn("")
+		pn("	if len(raw.Egressrule) != 1 {")
+		pn("		return b, nil")
+		pn("	}")
+		pn("")
+		pn("	return json.Marshal(raw.Egressrule[0])")
+		pn("}")
+		pn("")
+	}
 
 	for _, a := range s.apis {
 		s.generateParamType(a)
@@ -1032,13 +1066,6 @@ func (s *service) generateNewAPICallFunc(a *API) {
 		pn("	}")
 		pn("")
 	}
-	if s.name == "FirewallService" {
-		pn("	resp, err = convertFirewallServiceResponse(resp)")
-		pn("	if err != nil {")
-		pn("		return nil, err")
-		pn("	}")
-		pn("")
-	}
 	pn("	var r %s", n+"Response")
 	pn("	if err := json.Unmarshal(resp, &r); err != nil {")
 	pn("		return nil, err")
@@ -1064,6 +1091,20 @@ func (s *service) generateNewAPICallFunc(a *API) {
 		}
 		if s.name == "FirewallService" {
 			pn("		b, err = convertFirewallServiceResponse(b)")
+			pn("		if err != nil {")
+			pn("			return nil, err")
+			pn("		}")
+			pn("")
+		}
+		if n == "AuthorizeSecurityGroupIngress" {
+			pn("		b, err = convertAuthorizeSecurityGroupIngressResponse(b)")
+			pn("		if err != nil {")
+			pn("			return nil, err")
+			pn("		}")
+			pn("")
+		}
+		if n == "AuthorizeSecurityGroupEgress" {
+			pn("		b, err = convertAuthorizeSecurityGroupEgressResponse(b)")
 			pn("		if err != nil {")
 			pn("			return nil, err")
 			pn("		}")
