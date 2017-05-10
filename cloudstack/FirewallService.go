@@ -1276,6 +1276,11 @@ func (s *FirewallService) ListFirewallRules(p *ListFirewallRulesParams) (*ListFi
 		return nil, err
 	}
 
+    resp, err = convertFirewallServiceResponse(resp)
+    if err != nil {
+        return nil, err
+    }
+
 	var r ListFirewallRulesResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
