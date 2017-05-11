@@ -1066,12 +1066,19 @@ func (s *service) generateNewAPICallFunc(a *API) {
 		pn("	}")
 		pn("")
 	}
+	if !a.Isasync && s.name == "FirewallService" {
+		pn("		resp, err = convertFirewallServiceResponse(resp)")
+		pn("		if err != nil {")
+		pn("			return nil, err")
+		pn("		}")
+		pn("")
+	}
 	pn("	var r %s", n+"Response")
 	pn("	if err := json.Unmarshal(resp, &r); err != nil {")
 	pn("		return nil, err")
 	pn("	}")
+	pn("")
 	if a.Isasync {
-		pn("")
 		pn("	// If we have a async client, we need to wait for the async result")
 		pn("	if s.cs.async {")
 		pn("		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)")
@@ -1114,6 +1121,7 @@ func (s *service) generateNewAPICallFunc(a *API) {
 		pn("			return nil, err")
 		pn("		}")
 		pn("	}")
+		pn("")
 	}
 	pn("	return &r, nil")
 	pn("}")
