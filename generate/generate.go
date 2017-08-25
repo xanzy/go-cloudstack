@@ -150,12 +150,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if err := as.WriteGeneralCode(); err != nil {
+	if err = as.WriteGeneralCode(); err != nil {
 		log.Fatal(err)
 	}
 
 	for _, s := range as.services {
-		if err := s.WriteGeneratedCode(); err != nil {
+		if err = s.WriteGeneratedCode(); err != nil {
 			errors = append(errors, &generateError{s, err})
 		}
 	}
