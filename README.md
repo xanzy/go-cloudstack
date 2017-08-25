@@ -1,5 +1,7 @@
 go-cloudstack
 =============
+
+[![Join the chat at https://gitter.im/xanzy/go-cloudstack](https://badges.gitter.im/xanzy/go-cloudstack.svg)](https://gitter.im/xanzy/go-cloudstack?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 A CloudStack API client enabling Go programs to interact with CloudStack in a simple and uniform way
 
 ## Status
