@@ -206,6 +206,10 @@ func (s *AccountService) CreateAccount(p *CreateAccountParams) (*CreateAccountRe
 		return nil, err
 	}
 
+	if resp, err = getRawValue(resp); err != nil {
+		return nil, err
+	}
+
 	var r CreateAccountResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
