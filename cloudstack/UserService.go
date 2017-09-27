@@ -156,6 +156,10 @@ func (s *UserService) CreateUser(p *CreateUserParams) (*CreateUserResponse, erro
 		return nil, err
 	}
 
+	if resp, err = getRawValue(resp); err != nil {
+		return nil, err
+	}
+
 	var r CreateUserResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
@@ -987,6 +991,10 @@ func (s *UserService) NewRegisterUserKeysParams(id string) *RegisterUserKeysPara
 func (s *UserService) RegisterUserKeys(p *RegisterUserKeysParams) (*RegisterUserKeysResponse, error) {
 	resp, err := s.cs.newRequest("registerUserKeys", p.toURLValues())
 	if err != nil {
+		return nil, err
+	}
+
+	if resp, err = getRawValue(resp); err != nil {
 		return nil, err
 	}
 
