@@ -651,6 +651,47 @@ func (s *service) GenerateCode() ([]byte, error) {
 		pn("}")
 		pn("")
 	}
+	if s.name == "CustomService" {
+		pn("type CustomServiceParams struct {")
+		pn("	p map[string]interface{}")
+		pn("}")
+		pn("")
+		pn("func (p *CustomServiceParams) toURLValues() url.Values {")
+		pn("	u := url.Values{}")
+		pn("	if p.p == nil {")
+		pn("		return u")
+		pn("	}")
+		pn("	for k, v := range p.p {")
+		pn("		switch t := v.(type) {")
+		pn("		case bool:")
+		pn("			u.Set(k, strconv.FormatBool(t))")
+		pn("		case int:")
+		pn("			u.Set(k, strconv.Itoa(t))")
+		pn("		case string:")
+		pn("			u.Set(k, t)")
+		pn("		case []string:")
+		pn("			u.Set(k, strings.Join(t, \", \"))")
+		pn("		}")
+		pn("	}")
+		pn("	return u")
+		pn("}")
+		pn("")
+		pn("func (p *CustomServiceParams) SetParam(param string, v interface{}) {")
+		pn("	if p.p == nil {")
+		pn("		p.p = make(map[string]interface{})")
+		pn("	}")
+		pn("	p.p[param] = v")
+		pn("	return")
+		pn("}")
+		pn("")
+		pn("func (s *CustomService) CustomRequest(api string, p *CustomServiceParams, result interface{}) error {")
+		pn("	resp, err := s.cs.newRequest(api, p.toURLValues())")
+		pn("	if err != nil {")
+		pn("		return err")
+		pn("	}")
+		pn("	return json.Unmarshal(resp, result)")
+		pn("}")
+	}
 
 	for _, a := range s.apis {
 		s.generateParamType(a)
@@ -1259,6 +1300,7 @@ func getAllServices() (*allServices, []error, error) {
 		}
 		as.services = append(as.services, s)
 	}
+	as.services = append(as.services, &service{name: "CustomService"})
 	sort.Sort(as.services)
 	return as, errors, nil
 }
