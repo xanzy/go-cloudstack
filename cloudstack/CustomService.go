@@ -1,5 +1,5 @@
 //
-// Copyright 2016, Sander van Harmelen
+// Copyright 2017, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package cloudstack
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strconv"
 	"strings"
@@ -32,18 +33,30 @@ func (p *CustomServiceParams) toURLValues() url.Values {
 	if p.p == nil {
 		return u
 	}
+
 	for k, v := range p.p {
 		switch t := v.(type) {
 		case bool:
 			u.Set(k, strconv.FormatBool(t))
 		case int:
 			u.Set(k, strconv.Itoa(t))
+		case int64:
+			vv := strconv.FormatInt(t, 10)
+			u.Set(k, vv)
 		case string:
 			u.Set(k, t)
 		case []string:
 			u.Set(k, strings.Join(t, ", "))
+		case map[string]string:
+			i := 0
+			for kk, vv := range t {
+				u.Set(fmt.Sprintf("k[%d].key", i), kk)
+				u.Set(fmt.Sprintf("k[%d].value", i), vv)
+				i++
+			}
 		}
 	}
+
 	return u
 }
 
@@ -60,5 +73,6 @@ func (s *CustomService) CustomRequest(api string, p *CustomServiceParams, result
 	if err != nil {
 		return err
 	}
+
 	return json.Unmarshal(resp, result)
 }
