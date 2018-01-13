@@ -689,8 +689,7 @@ func (s *service) GenerateCode() ([]byte, error) {
 		pn("		case map[string]string:")
 		pn("			i := 0")
 		pn("			for kk, vv := range t {")
-		pn("				u.Set(fmt.Sprintf(\"k[%%d].key\", i), kk)")
-		pn("				u.Set(fmt.Sprintf(\"k[%%d].value\", i), vv)")
+		pn("				u.Set(fmt.Sprintf(\"%%s[%%d].%%s\", k, i, kk), vv)")
 		pn("				i++")
 		pn("			}")
 		pn("		}")
@@ -785,6 +784,8 @@ func (s *service) generateConvertCode(name, typ string) {
 		pn("i := 0")
 		pn("for k, vv := range v.(map[string]string) {")
 		switch name {
+		case "details":
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].%%s\", i, k), vv)", name)
 		case "serviceproviderlist":
 			pn("	u.Set(fmt.Sprintf(\"%s[%%d].service\", i), k)", name)
 			pn("	u.Set(fmt.Sprintf(\"%s[%%d].provider\", i), vv)", name)
