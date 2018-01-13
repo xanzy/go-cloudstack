@@ -1137,7 +1137,7 @@ func (s *VolumeService) GetVolumeID(name string, opts ...OptionFunc) (string, in
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -1187,7 +1187,7 @@ func (s *VolumeService) GetVolumeByID(id string, opts ...OptionFunc) (*Volume, i
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

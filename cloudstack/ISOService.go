@@ -764,7 +764,7 @@ func (s *ISOService) GetIsoID(name string, isofilter string, zoneid string, opts
 	p.p["isofilter"] = isofilter
 	p.p["zoneid"] = zoneid
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -814,7 +814,7 @@ func (s *ISOService) GetIsoByID(id string, opts ...OptionFunc) (*Iso, int, error
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -1780,7 +1780,7 @@ func (s *ISOService) GetIsoPermissionByID(id string, opts ...OptionFunc) (*IsoPe
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

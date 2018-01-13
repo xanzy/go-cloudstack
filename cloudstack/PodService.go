@@ -472,7 +472,7 @@ func (s *PodService) GetPodID(name string, opts ...OptionFunc) (string, int, err
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -522,7 +522,7 @@ func (s *PodService) GetPodByID(id string, opts ...OptionFunc) (*Pod, int, error
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

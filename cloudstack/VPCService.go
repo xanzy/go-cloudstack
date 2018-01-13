@@ -585,7 +585,7 @@ func (s *VPCService) GetVPCID(name string, opts ...OptionFunc) (string, int, err
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -635,7 +635,7 @@ func (s *VPCService) GetVPCByID(id string, opts ...OptionFunc) (*VPC, int, error
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -1832,7 +1832,7 @@ func (s *VPCService) GetVPCOfferingID(name string, opts ...OptionFunc) (string, 
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -1882,7 +1882,7 @@ func (s *VPCService) GetVPCOfferingByID(id string, opts ...OptionFunc) (*VPCOffe
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -2311,7 +2311,7 @@ func (s *VPCService) GetPrivateGatewayByID(id string, opts ...OptionFunc) (*Priv
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -2786,7 +2786,7 @@ func (s *VPCService) GetStaticRouteByID(id string, opts ...OptionFunc) (*StaticR
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

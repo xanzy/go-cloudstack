@@ -334,7 +334,7 @@ func (s *UsageService) GetTrafficTypeID(keyword string, physicalnetworkid string
 	p.p["keyword"] = keyword
 	p.p["physicalnetworkid"] = physicalnetworkid
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}

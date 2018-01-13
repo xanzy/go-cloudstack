@@ -189,7 +189,7 @@ func (s *SwiftService) GetSwiftID(keyword string, opts ...OptionFunc) (string, i
 
 	p.p["keyword"] = keyword
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}

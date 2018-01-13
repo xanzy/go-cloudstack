@@ -1146,7 +1146,7 @@ func (s *AccountService) GetAccountID(name string, opts ...OptionFunc) (string, 
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -1196,7 +1196,7 @@ func (s *AccountService) GetAccountByID(id string, opts ...OptionFunc) (*Account
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -1749,7 +1749,7 @@ func (s *AccountService) GetProjectAccountID(keyword string, projectid string, o
 	p.p["keyword"] = keyword
 	p.p["projectid"] = projectid
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}

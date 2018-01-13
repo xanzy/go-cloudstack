@@ -65,6 +65,7 @@ type CloudStackClient struct {
 	apiKey  string       // Api key
 	secret  string       // Secret key
 	async   bool         // Wait for async calls to finish
+	options []OptionFunc // A list of option functions to apply to all API calls
 	timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 300 seconds
 
 	APIDiscovery     *APIDiscoveryService
@@ -147,6 +148,7 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 		apiKey:  apikey,
 		secret:  secret,
 		async:   async,
+		options: []OptionFunc{},
 		timeout: 300,
 	}
 	cs.APIDiscovery = NewAPIDiscoveryService(cs)
@@ -237,6 +239,15 @@ func NewAsyncClient(apiurl string, apikey string, secret string, verifyssl bool)
 // seconds, to check if the async job is finished.
 func (cs *CloudStackClient) AsyncTimeout(timeoutInSeconds int64) {
 	cs.timeout = timeoutInSeconds
+}
+
+// Set any default options that would be added to all API calls that support it.
+func (cs *CloudStackClient) DefaultOptions(options ...OptionFunc) {
+	if options != nil {
+		cs.options = options
+	} else {
+		cs.options = []OptionFunc{}
+	}
 }
 
 var AsyncTimeoutErr = errors.New("Timeout while waiting for async job to finish")

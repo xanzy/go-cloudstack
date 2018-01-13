@@ -490,7 +490,7 @@ func (s *NATService) GetIpForwardingRuleByID(id string, opts ...OptionFunc) (*Ip
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

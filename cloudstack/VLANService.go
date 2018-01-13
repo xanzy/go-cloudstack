@@ -497,7 +497,7 @@ func (s *VLANService) GetVlanIpRangeByID(id string, opts ...OptionFunc) (*VlanIp
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -881,7 +881,7 @@ func (s *VLANService) GetDedicatedGuestVlanRangeByID(id string, opts ...OptionFu
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

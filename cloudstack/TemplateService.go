@@ -1327,7 +1327,7 @@ func (s *TemplateService) GetTemplateID(name string, templatefilter string, zone
 	p.p["templatefilter"] = templatefilter
 	p.p["zoneid"] = zoneid
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -1378,7 +1378,7 @@ func (s *TemplateService) GetTemplateByID(id string, templatefilter string, opts
 	p.p["id"] = id
 	p.p["templatefilter"] = templatefilter
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -1636,7 +1636,7 @@ func (s *TemplateService) GetTemplatePermissionByID(id string, opts ...OptionFun
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
