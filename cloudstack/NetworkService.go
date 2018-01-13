@@ -945,7 +945,7 @@ func (s *NetworkService) GetNetworkID(keyword string, opts ...OptionFunc) (strin
 
 	p.p["keyword"] = keyword
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -995,7 +995,7 @@ func (s *NetworkService) GetNetworkByID(id string, opts ...OptionFunc) (*Network
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -1803,7 +1803,7 @@ func (s *NetworkService) GetPhysicalNetworkID(name string, opts ...OptionFunc) (
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -1853,7 +1853,7 @@ func (s *NetworkService) GetPhysicalNetworkByID(id string, opts ...OptionFunc) (
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -2429,7 +2429,7 @@ func (s *NetworkService) GetNetworkServiceProviderID(name string, opts ...Option
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -2891,7 +2891,7 @@ func (s *NetworkService) GetStorageNetworkIpRangeByID(id string, opts ...OptionF
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -3149,7 +3149,7 @@ func (s *NetworkService) GetPaloAltoFirewallNetworkID(keyword string, lbdeviceid
 	p.p["keyword"] = keyword
 	p.p["lbdeviceid"] = lbdeviceid
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -3351,7 +3351,7 @@ func (s *NetworkService) GetNetscalerLoadBalancerNetworkID(keyword string, lbdev
 	p.p["keyword"] = keyword
 	p.p["lbdeviceid"] = lbdeviceid
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -3553,7 +3553,7 @@ func (s *NetworkService) GetNiciraNvpDeviceNetworkID(keyword string, nvpdeviceid
 	p.p["keyword"] = keyword
 	p.p["nvpdeviceid"] = nvpdeviceid
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -3996,7 +3996,7 @@ func (s *NetworkService) GetOpenDaylightControllerByID(id string, opts ...Option
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

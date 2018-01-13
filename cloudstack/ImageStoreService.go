@@ -427,7 +427,7 @@ func (s *ImageStoreService) GetImageStoreID(name string, opts ...OptionFunc) (st
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -477,7 +477,7 @@ func (s *ImageStoreService) GetImageStoreByID(id string, opts ...OptionFunc) (*I
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -812,7 +812,7 @@ func (s *ImageStoreService) GetSecondaryStagingStoreID(name string, opts ...Opti
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -862,7 +862,7 @@ func (s *ImageStoreService) GetSecondaryStagingStoreByID(id string, opts ...Opti
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

@@ -1150,7 +1150,7 @@ func (s *AutoScaleService) GetCounterID(name string, opts ...OptionFunc) (string
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -1200,7 +1200,7 @@ func (s *AutoScaleService) GetCounterByID(id string, opts ...OptionFunc) (*Count
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -1395,7 +1395,7 @@ func (s *AutoScaleService) GetConditionByID(id string, opts ...OptionFunc) (*Con
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -1606,7 +1606,7 @@ func (s *AutoScaleService) GetAutoScalePolicyByID(id string, opts ...OptionFunc)
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -1851,7 +1851,7 @@ func (s *AutoScaleService) GetAutoScaleVmProfileByID(id string, opts ...OptionFu
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -2099,7 +2099,7 @@ func (s *AutoScaleService) GetAutoScaleVmGroupByID(id string, opts ...OptionFunc
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

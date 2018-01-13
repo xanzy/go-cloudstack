@@ -174,7 +174,7 @@ func (s *PoolService) GetStoragePoolID(name string, opts ...OptionFunc) (string,
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -224,7 +224,7 @@ func (s *PoolService) GetStoragePoolByID(id string, opts ...OptionFunc) (*Storag
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

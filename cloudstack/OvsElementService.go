@@ -212,7 +212,7 @@ func (s *OvsElementService) GetOvsElementByID(id string, opts ...OptionFunc) (*O
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

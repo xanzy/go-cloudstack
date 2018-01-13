@@ -209,7 +209,7 @@ func (s *UCSService) GetUcsManagerID(keyword string, opts ...OptionFunc) (string
 
 	p.p["keyword"] = keyword
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -259,7 +259,7 @@ func (s *UCSService) GetUcsManagerByID(id string, opts ...OptionFunc) (*UcsManag
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

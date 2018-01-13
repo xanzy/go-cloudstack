@@ -396,7 +396,7 @@ func (s *VPNService) GetRemoteAccessVpnByID(id string, opts ...OptionFunc) (*Rem
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -929,7 +929,7 @@ func (s *VPNService) GetVpnUserByID(id string, opts ...OptionFunc) (*VpnUser, in
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -2118,7 +2118,7 @@ func (s *VPNService) GetVpnCustomerGatewayID(keyword string, opts ...OptionFunc)
 
 	p.p["keyword"] = keyword
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -2168,7 +2168,7 @@ func (s *VPNService) GetVpnCustomerGatewayByID(id string, opts ...OptionFunc) (*
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -2388,7 +2388,7 @@ func (s *VPNService) GetVpnGatewayByID(id string, opts ...OptionFunc) (*VpnGatew
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -2600,7 +2600,7 @@ func (s *VPNService) GetVpnConnectionByID(id string, opts ...OptionFunc) (*VpnCo
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

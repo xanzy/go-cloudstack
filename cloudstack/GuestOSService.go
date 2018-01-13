@@ -119,7 +119,7 @@ func (s *GuestOSService) GetOsTypeByID(id string, opts ...OptionFunc) (*OsType, 
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -256,7 +256,7 @@ func (s *GuestOSService) GetOsCategoryID(name string, opts ...OptionFunc) (strin
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -306,7 +306,7 @@ func (s *GuestOSService) GetOsCategoryByID(id string, opts ...OptionFunc) (*OsCa
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -716,7 +716,7 @@ func (s *GuestOSService) GetGuestOsMappingByID(id string, opts ...OptionFunc) (*
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

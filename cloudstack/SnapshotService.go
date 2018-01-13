@@ -381,7 +381,7 @@ func (s *SnapshotService) GetSnapshotID(name string, opts ...OptionFunc) (string
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -431,7 +431,7 @@ func (s *SnapshotService) GetSnapshotByID(id string, opts ...OptionFunc) (*Snaps
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -954,7 +954,7 @@ func (s *SnapshotService) GetSnapshotPolicyByID(id string, opts ...OptionFunc) (
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -1289,7 +1289,7 @@ func (s *SnapshotService) GetVMSnapshotID(name string, opts ...OptionFunc) (stri
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}

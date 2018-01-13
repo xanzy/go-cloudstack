@@ -963,7 +963,7 @@ func (s *RouterService) GetRouterID(name string, opts ...OptionFunc) (string, in
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -1013,7 +1013,7 @@ func (s *RouterService) GetRouterByID(id string, opts ...OptionFunc) (*Router, i
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -1226,7 +1226,7 @@ func (s *RouterService) GetVirtualRouterElementByID(id string, opts ...OptionFun
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

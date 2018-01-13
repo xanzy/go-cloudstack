@@ -254,6 +254,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("	apiKey  string       // Api key")
 	pn("	secret  string       // Secret key")
 	pn("	async   bool         // Wait for async calls to finish")
+	pn("	options []OptionFunc // A list of option functions to apply to all API calls")
 	pn("	timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 300 seconds")
 	pn("")
 	for _, s := range as.services {
@@ -275,6 +276,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("		apiKey:  apikey,")
 	pn("		secret:  secret,")
 	pn("		async:   async,")
+	pn("		options: []OptionFunc{},")
 	pn("		timeout: 300,")
 	pn("	}")
 	for _, s := range as.services {
@@ -304,6 +306,15 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("// seconds, to check if the async job is finished.")
 	pn("func (cs *CloudStackClient) AsyncTimeout(timeoutInSeconds int64) {")
 	pn("	cs.timeout = timeoutInSeconds")
+	pn("}")
+	pn("")
+	pn("// Set any default options that would be added to all API calls that support it.")
+	pn("func (cs *CloudStackClient) DefaultOptions(options ...OptionFunc) {")
+	pn("	if options != nil {")
+	pn("		cs.options = options")
+	pn("	} else {")
+	pn("		cs.options = []OptionFunc{}")
+	pn("	}")
 	pn("}")
 	pn("")
 	pn("var AsyncTimeoutErr = errors.New(\"Timeout while waiting for async job to finish\")")
@@ -895,7 +906,7 @@ func (s *service) generateHelperFuncs(a *API) {
 				pn("	p.p[\"zoneid\"] = zoneid")
 			}
 			pn("")
-			pn("	for _, fn := range opts {")
+			pn("	for _, fn := range append(s.cs.options, opts...) {")
 			pn("		if err := fn(s.cs, p); err != nil {")
 			pn("			return \"\", -1, err")
 			pn("		}")
@@ -1010,7 +1021,7 @@ func (s *service) generateHelperFuncs(a *API) {
 				}
 			}
 			pn("")
-			pn("	for _, fn := range opts {")
+			pn("	for _, fn := range append(s.cs.options, opts...) {")
 			pn("		if err := fn(s.cs, p); err != nil {")
 			pn("			return nil, -1, err")
 			pn("		}")

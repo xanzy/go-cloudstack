@@ -726,7 +726,7 @@ func (s *ServiceOfferingService) GetServiceOfferingID(name string, opts ...Optio
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -776,7 +776,7 @@ func (s *ServiceOfferingService) GetServiceOfferingByID(id string, opts ...Optio
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}

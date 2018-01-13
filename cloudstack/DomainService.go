@@ -457,7 +457,7 @@ func (s *DomainService) GetDomainID(name string, opts ...OptionFunc) (string, in
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -507,7 +507,7 @@ func (s *DomainService) GetDomainByID(id string, opts ...OptionFunc) (*Domain, i
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
@@ -709,7 +709,7 @@ func (s *DomainService) GetDomainChildrenID(name string, opts ...OptionFunc) (st
 
 	p.p["name"] = name
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return "", -1, err
 		}
@@ -759,7 +759,7 @@ func (s *DomainService) GetDomainChildrenByID(id string, opts ...OptionFunc) (*D
 
 	p.p["id"] = id
 
-	for _, fn := range opts {
+	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
 			return nil, -1, err
 		}
