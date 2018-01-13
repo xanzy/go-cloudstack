@@ -50,8 +50,7 @@ func (p *CustomServiceParams) toURLValues() url.Values {
 		case map[string]string:
 			i := 0
 			for kk, vv := range t {
-				u.Set(fmt.Sprintf("k[%d].key", i), kk)
-				u.Set(fmt.Sprintf("k[%d].value", i), vv)
+				u.Set(fmt.Sprintf("%s[%d].%s", k, i, kk), vv)
 				i++
 			}
 		}
