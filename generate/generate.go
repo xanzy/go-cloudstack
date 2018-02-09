@@ -19,7 +19,9 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"flag"
 	"fmt"
+	"github.com/xanzy/go-cloudstack/cloudstack"
 	"go/format"
 	"io/ioutil"
 	"log"
@@ -34,6 +36,8 @@ import (
 type apiInfo map[string][]string
 
 const pkg = "cloudstack"
+
+var allowEmpty bool
 
 type allServices struct {
 	services services
@@ -145,7 +149,28 @@ func (s APIResponses) Swap(i, j int) {
 }
 
 func main() {
-	as, errors, err := getAllServices()
+	var as *allServices
+	var errors []error
+	var err error
+
+	fs := flag.NewFlagSet("generate", flag.ContinueOnError)
+	keyPtr := fs.String("key", "", "API Key")
+	secretPtr := fs.String("secret", "", "API Secret")
+	schemePtr := fs.String("scheme", "http", "http or https")
+	addrPtr := fs.String("addr", "127.0.0.1:8080", "Management server host")
+	pathPtr := fs.String("path", "/client/api", "URI path")
+	fs.BoolVar(&allowEmpty, "allow-empty", false, "Prevent \",omitempty\" field tag on response structs")
+	if err = fs.Parse(os.Args[1:]); err != nil {
+		log.Fatalln("error parsing flags: " + err.Error())
+	}
+
+	if *keyPtr == "" || *secretPtr == "" {
+		log.Println("[info] No key and/or secret provided, using cached listApisResponse")
+		as, errors, err = getAllServices()
+	} else {
+		log.Printf("[info] Fetching API's from host \"%s\"...", *addrPtr)
+		as, errors, err = fetchAllServices(*keyPtr, *secretPtr, *schemePtr, *addrPtr, *pathPtr)
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -554,6 +579,9 @@ func (s *service) GenerateCode() ([]byte, error) {
 		}
 	}
 	s.pn = func(format string, args ...interface{}) {
+		if allowEmpty {
+			format = strings.Replace(format, ",omitempty\"", "\"", 1)
+		}
 		s.p(format+"\n", args...)
 	}
 	pn := s.pn
@@ -1300,6 +1328,118 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (o
 	return
 }
 
+func expandSubResponse(response map[string]interface{}) *APIResponse {
+	resp := new(APIResponse)
+	if name, ok := response["name"]; ok {
+		if s, ok := name.(string); ok {
+			resp.Name = s
+		} else {
+			return nil
+		}
+	} else {
+		return nil
+	}
+	if t, ok := response["type"]; ok {
+		if s, ok := t.(string); ok {
+			resp.Type = s
+		}
+	}
+	if desc, ok := response["description"]; ok {
+		resp.Description = desc.(string)
+	}
+	if subResp, ok := response["response"]; ok {
+		if deeper, ok := subResp.([]interface{}); ok {
+			resp.Response = expandSubResponses(deeper)
+		}
+	}
+	return resp
+}
+
+func expandSubResponses(in []interface{}) APIResponses {
+	l := len(in)
+	if l == 0 {
+		return nil
+	}
+	responses := make(APIResponses, 0)
+	for _, subResponse := range in {
+		if m, ok := subResponse.(map[string]interface{}); ok {
+			if resp := expandSubResponse(m); resp != nil {
+				responses = append(responses, resp)
+			}
+		}
+	}
+	return responses
+}
+
+func fetchAllServices(key, secret, scheme, addr, path string) (*allServices, []error, error) {
+	client := cloudstack.NewClient(fmt.Sprintf("%s://%s%s", scheme, addr, path), key, secret, false)
+	apis, err := client.APIDiscovery.ListApis(client.APIDiscovery.NewListApisParams())
+	if err != nil {
+		return nil, nil, err
+	}
+
+	ai := make(map[string]*cloudstack.Api)
+	for _, api := range apis.Apis {
+		ai[api.Name] = api
+	}
+
+	as := &allServices{}
+	errors := make([]error, 0)
+	for sn, apiNames := range layout {
+		s := &service{name: sn}
+		for _, apiName := range apiNames {
+			api, found := ai[apiName]
+			if !found {
+				errors = append(errors, &apiInfoNotFoundError{apiName})
+				continue
+			} else {
+				delete(ai, apiName)
+			}
+			params := make(APIParams, len(api.Params))
+			for i, param := range api.Params {
+				params[i] = &APIParam{
+					Name:        param.Name,
+					Description: param.Description,
+					Type:        param.Type,
+					Required:    param.Required,
+				}
+			}
+			sort.Sort(params)
+			responses := make(APIResponses, len(api.Response))
+			for i, response := range api.Response {
+				responses[i] = &APIResponse{
+					Name:        response.Name,
+					Description: response.Description,
+					Type:        response.Type,
+					Response:    expandSubResponses(response.Response),
+				}
+			}
+			s.apis = append(s.apis, &API{
+				Name:        api.Name,
+				Description: api.Description,
+				Isasync:     api.Isasync,
+				Params:      params,
+				Response:    responses,
+			})
+		}
+		as.services = append(as.services, s)
+	}
+
+	if l := len(ai); l > 0 {
+		log.Printf("[warning] %d apis do not have an entry in \"layout\"!", l)
+		for sn := range ai {
+			log.Printf("  api: %s", sn)
+		}
+	}
+
+	// Add an extra field to enable adding a custom service
+	as.services = append(as.services, &service{name: "CustomService"})
+
+	sort.Sort(as.services)
+	massageServices(as)
+	return as, nil, nil
+}
+
 func getAllServices() (*allServices, []error, error) {
 	// Get a map with all API info
 	ai, err := getAPIInfo()
@@ -1330,6 +1470,7 @@ func getAllServices() (*allServices, []error, error) {
 	as.services = append(as.services, &service{name: "CustomService"})
 
 	sort.Sort(as.services)
+	massageServices(as)
 	return as, errors, nil
 }
 
@@ -1350,6 +1491,24 @@ func getAPIInfo() (map[string]*API, error) {
 		ai[api.Name] = api
 	}
 	return ai, nil
+}
+
+func massageServices(as *allServices) {
+	for _, service := range as.services {
+		switch service.name {
+		case "UsageService":
+			for _, api := range service.apis {
+				switch api.Name {
+				case "listTrafficTypes":
+					api.Response = append(api.Response, &APIResponse{
+						Name: "traffictype",
+						Type: "string",
+					})
+					sort.Sort(api.Response)
+				}
+			}
+		}
+	}
 }
 
 func sourceDir() (string, error) {
@@ -1373,14 +1532,16 @@ func mapType(t string) string {
 		return "int"
 	case "long":
 		return "int64"
-	case "list", "set":
+	case "list":
 		return "[]string"
 	case "map":
 		return "map[string]string"
+	case "set":
+		return "[]interface{}"
 	case "responseobject":
 		return "json.RawMessage"
 	case "uservmresponse":
-		// This is a really specific abnormaly of the API
+		// This is a really specific anomaly of the API
 		return "*VirtualMachine"
 	default:
 		return "string"

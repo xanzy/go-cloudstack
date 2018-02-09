@@ -615,7 +615,7 @@ func (s *AddressService) GetPublicIpAddressByID(id string, opts ...OptionFunc) (
 	return nil, l.Count, fmt.Errorf("There is more then one result for PublicIpAddress UUID: %s!", id)
 }
 
-// Lists all public ip addresses
+// Lists all public IP addresses
 func (s *AddressService) ListPublicIpAddresses(p *ListPublicIpAddressesParams) (*ListPublicIpAddressesResponse, error) {
 	resp, err := s.cs.newRequest("listPublicIpAddresses", p.toURLValues())
 	if err != nil {

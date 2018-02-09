@@ -1540,15 +1540,15 @@ func (s *HostService) AddSecondaryStorage(p *AddSecondaryStorageParams) (*AddSec
 }
 
 type AddSecondaryStorageResponse struct {
-	Details      []string `json:"details,omitempty"`
-	Id           string   `json:"id,omitempty"`
-	Name         string   `json:"name,omitempty"`
-	Protocol     string   `json:"protocol,omitempty"`
-	Providername string   `json:"providername,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
-	Zonename     string   `json:"zonename,omitempty"`
+	Details      []interface{} `json:"details,omitempty"`
+	Id           string        `json:"id,omitempty"`
+	Name         string        `json:"name,omitempty"`
+	Protocol     string        `json:"protocol,omitempty"`
+	Providername string        `json:"providername,omitempty"`
+	Scope        string        `json:"scope,omitempty"`
+	Url          string        `json:"url,omitempty"`
+	Zoneid       string        `json:"zoneid,omitempty"`
+	Zonename     string        `json:"zonename,omitempty"`
 }
 
 type UpdateHostPasswordParams struct {

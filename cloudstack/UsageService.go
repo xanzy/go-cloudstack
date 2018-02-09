@@ -391,6 +391,7 @@ type TrafficType struct {
 	Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
 	Servicelist                  []string `json:"servicelist,omitempty"`
 	State                        string   `json:"state,omitempty"`
+	Traffictype                  string   `json:"traffictype,omitempty"`
 }
 
 type UpdateTrafficTypeParams struct {

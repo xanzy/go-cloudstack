@@ -87,10 +87,10 @@ type Api struct {
 	} `json:"params,omitempty"`
 	Related  string `json:"related,omitempty"`
 	Response []struct {
-		Description string   `json:"description,omitempty"`
-		Name        string   `json:"name,omitempty"`
-		Response    []string `json:"response,omitempty"`
-		Type        string   `json:"type,omitempty"`
+		Description string        `json:"description,omitempty"`
+		Name        string        `json:"name,omitempty"`
+		Response    []interface{} `json:"response,omitempty"`
+		Type        string        `json:"type,omitempty"`
 	} `json:"response,omitempty"`
 	Since string `json:"since,omitempty"`
 	Type  string `json:"type,omitempty"`
