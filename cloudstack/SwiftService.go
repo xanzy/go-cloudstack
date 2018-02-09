@@ -104,15 +104,15 @@ func (s *SwiftService) AddSwift(p *AddSwiftParams) (*AddSwiftResponse, error) {
 }
 
 type AddSwiftResponse struct {
-	Details      []string `json:"details,omitempty"`
-	Id           string   `json:"id,omitempty"`
-	Name         string   `json:"name,omitempty"`
-	Protocol     string   `json:"protocol,omitempty"`
-	Providername string   `json:"providername,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
-	Zonename     string   `json:"zonename,omitempty"`
+	Details      []interface{} `json:"details,omitempty"`
+	Id           string        `json:"id,omitempty"`
+	Name         string        `json:"name,omitempty"`
+	Protocol     string        `json:"protocol,omitempty"`
+	Providername string        `json:"providername,omitempty"`
+	Scope        string        `json:"scope,omitempty"`
+	Url          string        `json:"url,omitempty"`
+	Zoneid       string        `json:"zoneid,omitempty"`
+	Zonename     string        `json:"zonename,omitempty"`
 }
 
 type ListSwiftsParams struct {
@@ -239,13 +239,13 @@ type ListSwiftsResponse struct {
 }
 
 type Swift struct {
-	Details      []string `json:"details,omitempty"`
-	Id           string   `json:"id,omitempty"`
-	Name         string   `json:"name,omitempty"`
-	Protocol     string   `json:"protocol,omitempty"`
-	Providername string   `json:"providername,omitempty"`
-	Scope        string   `json:"scope,omitempty"`
-	Url          string   `json:"url,omitempty"`
-	Zoneid       string   `json:"zoneid,omitempty"`
-	Zonename     string   `json:"zonename,omitempty"`
+	Details      []interface{} `json:"details,omitempty"`
+	Id           string        `json:"id,omitempty"`
+	Name         string        `json:"name,omitempty"`
+	Protocol     string        `json:"protocol,omitempty"`
+	Providername string        `json:"providername,omitempty"`
+	Scope        string        `json:"scope,omitempty"`
+	Url          string        `json:"url,omitempty"`
+	Zoneid       string        `json:"zoneid,omitempty"`
+	Zonename     string        `json:"zonename,omitempty"`
 }

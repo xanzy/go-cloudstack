@@ -153,21 +153,23 @@ type AttachIsoResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -251,8 +253,8 @@ type AttachIsoResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -397,21 +399,23 @@ type DetachIsoResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -495,8 +499,8 @@ type DetachIsoResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -863,6 +867,7 @@ type ListIsosResponse struct {
 type Iso struct {
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -1122,6 +1127,7 @@ func (s *ISOService) RegisterIso(p *RegisterIsoParams) (*RegisterIsoResponse, er
 type RegisterIsoResponse struct {
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -1350,6 +1356,7 @@ func (s *ISOService) UpdateIso(p *UpdateIsoParams) (*UpdateIsoResponse, error) {
 type UpdateIsoResponse struct {
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -1531,7 +1538,7 @@ func (s *ISOService) NewCopyIsoParams(destzoneid string, id string) *CopyIsoPara
 	return p
 }
 
-// Copies an ISO from one zone to another.
+// Copies an iso from one zone to another.
 func (s *ISOService) CopyIso(p *CopyIsoParams) (*CopyIsoResponse, error) {
 	resp, err := s.cs.newRequest("copyIso", p.toURLValues())
 	if err != nil {
@@ -1570,6 +1577,7 @@ type CopyIsoResponse struct {
 	JobID                 string            `json:"jobid,omitempty"`
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -1805,7 +1813,7 @@ func (s *ISOService) GetIsoPermissionByID(id string, opts ...OptionFunc) (*IsoPe
 	return nil, l.Count, fmt.Errorf("There is more then one result for IsoPermission UUID: %s!", id)
 }
 
-// List iso visibility and all accounts that have permissions to view this iso.
+// List ISO visibility and all accounts that have permissions to view this ISO.
 func (s *ISOService) ListIsoPermissions(p *ListIsoPermissionsParams) (*ListIsoPermissionsResponse, error) {
 	resp, err := s.cs.newRequest("listIsoPermissions", p.toURLValues())
 	if err != nil {
