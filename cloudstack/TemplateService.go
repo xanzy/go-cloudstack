@@ -272,6 +272,7 @@ type CreateTemplateResponse struct {
 	JobID                 string            `json:"jobid,omitempty"`
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -612,6 +613,7 @@ type RegisterTemplateResponse struct {
 type RegisterTemplate struct {
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -828,6 +830,7 @@ func (s *TemplateService) UpdateTemplate(p *UpdateTemplateParams) (*UpdateTempla
 type UpdateTemplateResponse struct {
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -957,6 +960,7 @@ type CopyTemplateResponse struct {
 	JobID                 string            `json:"jobid,omitempty"`
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -1388,6 +1392,7 @@ type ListTemplatesResponse struct {
 type Template struct {
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -1831,6 +1836,7 @@ func (s *TemplateService) PrepareTemplate(p *PrepareTemplateParams) (*PrepareTem
 type PrepareTemplateResponse struct {
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`

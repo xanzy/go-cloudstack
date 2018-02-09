@@ -288,13 +288,13 @@ type CreateVPCResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Traffictype       string   `json:"traffictype,omitempty"`
-		Type              string   `json:"type,omitempty"`
-		Vlan              string   `json:"vlan,omitempty"`
-		Vpcid             string   `json:"vpcid,omitempty"`
-		Zoneid            string   `json:"zoneid,omitempty"`
-		Zonename          string   `json:"zonename,omitempty"`
-		Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
+		Traffictype       string        `json:"traffictype,omitempty"`
+		Type              string        `json:"type,omitempty"`
+		Vlan              string        `json:"vlan,omitempty"`
+		Vpcid             string        `json:"vpcid,omitempty"`
+		Zoneid            string        `json:"zoneid,omitempty"`
+		Zonename          string        `json:"zonename,omitempty"`
+		Zonesnetworkspans []interface{} `json:"zonesnetworkspans,omitempty"`
 	} `json:"network,omitempty"`
 	Networkdomain      string `json:"networkdomain,omitempty"`
 	Project            string `json:"project,omitempty"`
@@ -761,13 +761,13 @@ type VPC struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Traffictype       string   `json:"traffictype,omitempty"`
-		Type              string   `json:"type,omitempty"`
-		Vlan              string   `json:"vlan,omitempty"`
-		Vpcid             string   `json:"vpcid,omitempty"`
-		Zoneid            string   `json:"zoneid,omitempty"`
-		Zonename          string   `json:"zonename,omitempty"`
-		Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
+		Traffictype       string        `json:"traffictype,omitempty"`
+		Type              string        `json:"type,omitempty"`
+		Vlan              string        `json:"vlan,omitempty"`
+		Vpcid             string        `json:"vpcid,omitempty"`
+		Zoneid            string        `json:"zoneid,omitempty"`
+		Zonename          string        `json:"zonename,omitempty"`
+		Zonesnetworkspans []interface{} `json:"zonesnetworkspans,omitempty"`
 	} `json:"network,omitempty"`
 	Networkdomain      string `json:"networkdomain,omitempty"`
 	Project            string `json:"project,omitempty"`
@@ -1071,13 +1071,13 @@ type UpdateVPCResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Traffictype       string   `json:"traffictype,omitempty"`
-		Type              string   `json:"type,omitempty"`
-		Vlan              string   `json:"vlan,omitempty"`
-		Vpcid             string   `json:"vpcid,omitempty"`
-		Zoneid            string   `json:"zoneid,omitempty"`
-		Zonename          string   `json:"zonename,omitempty"`
-		Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
+		Traffictype       string        `json:"traffictype,omitempty"`
+		Type              string        `json:"type,omitempty"`
+		Vlan              string        `json:"vlan,omitempty"`
+		Vpcid             string        `json:"vpcid,omitempty"`
+		Zoneid            string        `json:"zoneid,omitempty"`
+		Zonename          string        `json:"zonename,omitempty"`
+		Zonesnetworkspans []interface{} `json:"zonesnetworkspans,omitempty"`
 	} `json:"network,omitempty"`
 	Networkdomain      string `json:"networkdomain,omitempty"`
 	Project            string `json:"project,omitempty"`
@@ -1292,13 +1292,13 @@ type RestartVPCResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Traffictype       string   `json:"traffictype,omitempty"`
-		Type              string   `json:"type,omitempty"`
-		Vlan              string   `json:"vlan,omitempty"`
-		Vpcid             string   `json:"vpcid,omitempty"`
-		Zoneid            string   `json:"zoneid,omitempty"`
-		Zonename          string   `json:"zonename,omitempty"`
-		Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
+		Traffictype       string        `json:"traffictype,omitempty"`
+		Type              string        `json:"type,omitempty"`
+		Vlan              string        `json:"vlan,omitempty"`
+		Vpcid             string        `json:"vpcid,omitempty"`
+		Zoneid            string        `json:"zoneid,omitempty"`
+		Zonename          string        `json:"zonename,omitempty"`
+		Zonesnetworkspans []interface{} `json:"zonesnetworkspans,omitempty"`
 	} `json:"network,omitempty"`
 	Networkdomain      string `json:"networkdomain,omitempty"`
 	Project            string `json:"project,omitempty"`

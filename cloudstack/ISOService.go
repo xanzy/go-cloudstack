@@ -256,8 +256,8 @@ type AttachIsoResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -493,8 +493,8 @@ type DetachIsoResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -849,6 +849,7 @@ type ListIsosResponse struct {
 type Iso struct {
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -1096,6 +1097,7 @@ func (s *ISOService) RegisterIso(p *RegisterIsoParams) (*RegisterIsoResponse, er
 type RegisterIsoResponse struct {
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -1312,6 +1314,7 @@ func (s *ISOService) UpdateIso(p *UpdateIsoParams) (*UpdateIsoResponse, error) {
 type UpdateIsoResponse struct {
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -1520,6 +1523,7 @@ type CopyIsoResponse struct {
 	JobID                 string            `json:"jobid,omitempty"`
 	Account               string            `json:"account,omitempty"`
 	Accountid             string            `json:"accountid,omitempty"`
+	Bits                  int               `json:"bits,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
 	Created               string            `json:"created,omitempty"`

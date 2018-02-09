@@ -165,6 +165,10 @@ func (p *ListConfigurationsParams) toURLValues() url.Values {
 		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
+	if v, found := p.p["showhidden"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("showhidden", vv)
+	}
 	if v, found := p.p["storageid"]; found {
 		u.Set("storageid", v.(string))
 	}
@@ -227,6 +231,14 @@ func (p *ListConfigurationsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
+	return
+}
+
+func (p *ListConfigurationsParams) SetShowhidden(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["showhidden"] = v
 	return
 }
 
