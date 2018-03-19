@@ -99,6 +99,9 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 	if v, found := p.p["keypair"]; found {
 		u.Set("keypair", v.(string))
 	}
+	if v, found := p.p["macaddress"]; found {
+		u.Set("macaddress", v.(string))
+	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
 	}
@@ -285,6 +288,14 @@ func (p *DeployVirtualMachineParams) SetKeypair(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keypair"] = v
+	return
+}
+
+func (p *DeployVirtualMachineParams) SetMacaddress(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["macaddress"] = v
 	return
 }
 
@@ -583,8 +594,8 @@ type DeployVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -644,7 +655,7 @@ func (s *VirtualMachineService) NewDestroyVirtualMachineParams(id string) *Destr
 	return p
 }
 
-// Destroys a virtual machine.
+// Destroys a virtual machine. Once destroyed, only the administrator can recover it.
 func (s *VirtualMachineService) DestroyVirtualMachine(p *DestroyVirtualMachineParams) (*DestroyVirtualMachineResponse, error) {
 	resp, err := s.cs.newRequest("destroyVirtualMachine", p.toURLValues())
 	if err != nil {
@@ -832,8 +843,8 @@ type DestroyVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -1069,8 +1080,8 @@ type RebootVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -1328,8 +1339,8 @@ type StartVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -1577,8 +1588,8 @@ type StopVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -1814,8 +1825,8 @@ type ResetPasswordForVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -2182,8 +2193,8 @@ type UpdateVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -2826,8 +2837,8 @@ type VirtualMachine struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -3125,8 +3136,8 @@ type RestoreVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -3368,8 +3379,8 @@ type ChangeServiceForVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -3727,8 +3738,8 @@ type AssignVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -3986,8 +3997,8 @@ type MigrateVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -4251,8 +4262,8 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -4467,8 +4478,8 @@ type RecoverVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -4620,6 +4631,9 @@ func (p *AddNicToVirtualMachineParams) toURLValues() url.Values {
 	if v, found := p.p["ipaddress"]; found {
 		u.Set("ipaddress", v.(string))
 	}
+	if v, found := p.p["macaddress"]; found {
+		u.Set("macaddress", v.(string))
+	}
 	if v, found := p.p["networkid"]; found {
 		u.Set("networkid", v.(string))
 	}
@@ -4634,6 +4648,14 @@ func (p *AddNicToVirtualMachineParams) SetIpaddress(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddress"] = v
+	return
+}
+
+func (p *AddNicToVirtualMachineParams) SetMacaddress(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["macaddress"] = v
 	return
 }
 
@@ -4851,8 +4873,8 @@ type AddNicToVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -5100,8 +5122,8 @@ type RemoveNicFromVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
@@ -5349,8 +5371,8 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`

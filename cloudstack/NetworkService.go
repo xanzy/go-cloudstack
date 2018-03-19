@@ -560,13 +560,13 @@ type CreateNetworkResponse struct {
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Traffictype       string   `json:"traffictype,omitempty"`
-	Type              string   `json:"type,omitempty"`
-	Vlan              string   `json:"vlan,omitempty"`
-	Vpcid             string   `json:"vpcid,omitempty"`
-	Zoneid            string   `json:"zoneid,omitempty"`
-	Zonename          string   `json:"zonename,omitempty"`
-	Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
+	Traffictype       string        `json:"traffictype,omitempty"`
+	Type              string        `json:"type,omitempty"`
+	Vlan              string        `json:"vlan,omitempty"`
+	Vpcid             string        `json:"vpcid,omitempty"`
+	Zoneid            string        `json:"zoneid,omitempty"`
+	Zonename          string        `json:"zonename,omitempty"`
+	Zonesnetworkspans []interface{} `json:"zonesnetworkspans,omitempty"`
 }
 
 type DeleteNetworkParams struct {
@@ -1110,13 +1110,13 @@ type Network struct {
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Traffictype       string   `json:"traffictype,omitempty"`
-	Type              string   `json:"type,omitempty"`
-	Vlan              string   `json:"vlan,omitempty"`
-	Vpcid             string   `json:"vpcid,omitempty"`
-	Zoneid            string   `json:"zoneid,omitempty"`
-	Zonename          string   `json:"zonename,omitempty"`
-	Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
+	Traffictype       string        `json:"traffictype,omitempty"`
+	Type              string        `json:"type,omitempty"`
+	Vlan              string        `json:"vlan,omitempty"`
+	Vpcid             string        `json:"vpcid,omitempty"`
+	Zoneid            string        `json:"zoneid,omitempty"`
+	Zonename          string        `json:"zonename,omitempty"`
+	Zonesnetworkspans []interface{} `json:"zonesnetworkspans,omitempty"`
 }
 
 type RestartNetworkParams struct {
@@ -1266,6 +1266,10 @@ func (p *UpdateNetworkParams) toURLValues() url.Values {
 	if v, found := p.p["displaytext"]; found {
 		u.Set("displaytext", v.(string))
 	}
+	if v, found := p.p["forced"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("forced", vv)
+	}
 	if v, found := p.p["guestvmcidr"]; found {
 		u.Set("guestvmcidr", v.(string))
 	}
@@ -1280,6 +1284,10 @@ func (p *UpdateNetworkParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["networkofferingid"]; found {
 		u.Set("networkofferingid", v.(string))
+	}
+	if v, found := p.p["updateinsequence"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("updateinsequence", vv)
 	}
 	return u
 }
@@ -1313,6 +1321,14 @@ func (p *UpdateNetworkParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
+	return
+}
+
+func (p *UpdateNetworkParams) SetForced(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forced"] = v
 	return
 }
 
@@ -1353,6 +1369,14 @@ func (p *UpdateNetworkParams) SetNetworkofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkofferingid"] = v
+	return
+}
+
+func (p *UpdateNetworkParams) SetUpdateinsequence(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["updateinsequence"] = v
 	return
 }
 
@@ -1470,13 +1494,13 @@ type UpdateNetworkResponse struct {
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Traffictype       string   `json:"traffictype,omitempty"`
-	Type              string   `json:"type,omitempty"`
-	Vlan              string   `json:"vlan,omitempty"`
-	Vpcid             string   `json:"vpcid,omitempty"`
-	Zoneid            string   `json:"zoneid,omitempty"`
-	Zonename          string   `json:"zonename,omitempty"`
-	Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
+	Traffictype       string        `json:"traffictype,omitempty"`
+	Type              string        `json:"type,omitempty"`
+	Vlan              string        `json:"vlan,omitempty"`
+	Vpcid             string        `json:"vpcid,omitempty"`
+	Zoneid            string        `json:"zoneid,omitempty"`
+	Zonename          string        `json:"zonename,omitempty"`
+	Zonesnetworkspans []interface{} `json:"zonesnetworkspans,omitempty"`
 }
 
 type CreatePhysicalNetworkParams struct {
@@ -3267,13 +3291,13 @@ type PaloAltoFirewallNetwork struct {
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Traffictype       string   `json:"traffictype,omitempty"`
-	Type              string   `json:"type,omitempty"`
-	Vlan              string   `json:"vlan,omitempty"`
-	Vpcid             string   `json:"vpcid,omitempty"`
-	Zoneid            string   `json:"zoneid,omitempty"`
-	Zonename          string   `json:"zonename,omitempty"`
-	Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
+	Traffictype       string        `json:"traffictype,omitempty"`
+	Type              string        `json:"type,omitempty"`
+	Vlan              string        `json:"vlan,omitempty"`
+	Vpcid             string        `json:"vpcid,omitempty"`
+	Zoneid            string        `json:"zoneid,omitempty"`
+	Zonename          string        `json:"zonename,omitempty"`
+	Zonesnetworkspans []interface{} `json:"zonesnetworkspans,omitempty"`
 }
 
 type ListNetscalerLoadBalancerNetworksParams struct {
@@ -3469,13 +3493,13 @@ type NetscalerLoadBalancerNetwork struct {
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Traffictype       string   `json:"traffictype,omitempty"`
-	Type              string   `json:"type,omitempty"`
-	Vlan              string   `json:"vlan,omitempty"`
-	Vpcid             string   `json:"vpcid,omitempty"`
-	Zoneid            string   `json:"zoneid,omitempty"`
-	Zonename          string   `json:"zonename,omitempty"`
-	Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
+	Traffictype       string        `json:"traffictype,omitempty"`
+	Type              string        `json:"type,omitempty"`
+	Vlan              string        `json:"vlan,omitempty"`
+	Vpcid             string        `json:"vpcid,omitempty"`
+	Zoneid            string        `json:"zoneid,omitempty"`
+	Zonename          string        `json:"zonename,omitempty"`
+	Zonesnetworkspans []interface{} `json:"zonesnetworkspans,omitempty"`
 }
 
 type ListNiciraNvpDeviceNetworksParams struct {
@@ -3671,13 +3695,13 @@ type NiciraNvpDeviceNetwork struct {
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Traffictype       string   `json:"traffictype,omitempty"`
-	Type              string   `json:"type,omitempty"`
-	Vlan              string   `json:"vlan,omitempty"`
-	Vpcid             string   `json:"vpcid,omitempty"`
-	Zoneid            string   `json:"zoneid,omitempty"`
-	Zonename          string   `json:"zonename,omitempty"`
-	Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
+	Traffictype       string        `json:"traffictype,omitempty"`
+	Type              string        `json:"type,omitempty"`
+	Vlan              string        `json:"vlan,omitempty"`
+	Vpcid             string        `json:"vpcid,omitempty"`
+	Zoneid            string        `json:"zoneid,omitempty"`
+	Zonename          string        `json:"zonename,omitempty"`
+	Zonesnetworkspans []interface{} `json:"zonesnetworkspans,omitempty"`
 }
 
 type ListNetworkIsolationMethodsParams struct {

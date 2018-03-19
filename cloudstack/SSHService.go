@@ -287,8 +287,8 @@ type ResetSSHKeyForVirtualMachineResponse struct {
 			Resourcetype string `json:"resourcetype,omitempty"`
 			Value        string `json:"value,omitempty"`
 		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
+		Virtualmachinecount int           `json:"virtualmachinecount,omitempty"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids,omitempty"`
 	} `json:"securitygroup,omitempty"`
 	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
