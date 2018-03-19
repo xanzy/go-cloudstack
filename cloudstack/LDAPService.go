@@ -56,6 +56,9 @@ func (p *LdapCreateAccountParams) toURLValues() url.Values {
 	if v, found := p.p["networkdomain"]; found {
 		u.Set("networkdomain", v.(string))
 	}
+	if v, found := p.p["roleid"]; found {
+		u.Set("roleid", v.(string))
+	}
 	if v, found := p.p["timezone"]; found {
 		u.Set("timezone", v.(string))
 	}
@@ -116,6 +119,14 @@ func (p *LdapCreateAccountParams) SetNetworkdomain(v string) {
 	return
 }
 
+func (p *LdapCreateAccountParams) SetRoleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["roleid"] = v
+	return
+}
+
 func (p *LdapCreateAccountParams) SetTimezone(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -142,10 +153,9 @@ func (p *LdapCreateAccountParams) SetUsername(v string) {
 
 // You should always use this function to get a new LdapCreateAccountParams instance,
 // as then you are sure you have configured all required params
-func (s *LDAPService) NewLdapCreateAccountParams(accounttype int, username string) *LdapCreateAccountParams {
+func (s *LDAPService) NewLdapCreateAccountParams(username string) *LdapCreateAccountParams {
 	p := &LdapCreateAccountParams{}
 	p.p = make(map[string]interface{})
-	p.p["accounttype"] = accounttype
 	p.p["username"] = username
 	return p
 }
@@ -196,6 +206,9 @@ type LdapCreateAccountResponse struct {
 	Projectlimit              string            `json:"projectlimit,omitempty"`
 	Projecttotal              int64             `json:"projecttotal,omitempty"`
 	Receivedbytes             int64             `json:"receivedbytes,omitempty"`
+	Roleid                    string            `json:"roleid,omitempty"`
+	Rolename                  string            `json:"rolename,omitempty"`
+	Roletype                  string            `json:"roletype,omitempty"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
 	Secondarystoragetotal     int64             `json:"secondarystoragetotal,omitempty"`
@@ -221,6 +234,9 @@ type LdapCreateAccountResponse struct {
 		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 		Isdefault           bool   `json:"isdefault,omitempty"`
 		Lastname            string `json:"lastname,omitempty"`
+		Roleid              string `json:"roleid,omitempty"`
+		Rolename            string `json:"rolename,omitempty"`
+		Roletype            string `json:"roletype,omitempty"`
 		Secretkey           string `json:"secretkey,omitempty"`
 		State               string `json:"state,omitempty"`
 		Timezone            string `json:"timezone,omitempty"`

@@ -69,6 +69,9 @@ func (p *CreateAccountParams) toURLValues() url.Values {
 	if v, found := p.p["password"]; found {
 		u.Set("password", v.(string))
 	}
+	if v, found := p.p["roleid"]; found {
+		u.Set("roleid", v.(string))
+	}
 	if v, found := p.p["timezone"]; found {
 		u.Set("timezone", v.(string))
 	}
@@ -161,6 +164,14 @@ func (p *CreateAccountParams) SetPassword(v string) {
 	return
 }
 
+func (p *CreateAccountParams) SetRoleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["roleid"] = v
+	return
+}
+
 func (p *CreateAccountParams) SetTimezone(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -187,10 +198,9 @@ func (p *CreateAccountParams) SetUsername(v string) {
 
 // You should always use this function to get a new CreateAccountParams instance,
 // as then you are sure you have configured all required params
-func (s *AccountService) NewCreateAccountParams(accounttype int, email string, firstname string, lastname string, password string, username string) *CreateAccountParams {
+func (s *AccountService) NewCreateAccountParams(email string, firstname string, lastname string, password string, username string) *CreateAccountParams {
 	p := &CreateAccountParams{}
 	p.p = make(map[string]interface{})
-	p.p["accounttype"] = accounttype
 	p.p["email"] = email
 	p.p["firstname"] = firstname
 	p.p["lastname"] = lastname
@@ -249,6 +259,9 @@ type CreateAccountResponse struct {
 	Projectlimit              string            `json:"projectlimit,omitempty"`
 	Projecttotal              int64             `json:"projecttotal,omitempty"`
 	Receivedbytes             int64             `json:"receivedbytes,omitempty"`
+	Roleid                    string            `json:"roleid,omitempty"`
+	Rolename                  string            `json:"rolename,omitempty"`
+	Roletype                  string            `json:"roletype,omitempty"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
 	Secondarystoragetotal     int64             `json:"secondarystoragetotal,omitempty"`
@@ -274,6 +287,9 @@ type CreateAccountResponse struct {
 		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 		Isdefault           bool   `json:"isdefault,omitempty"`
 		Lastname            string `json:"lastname,omitempty"`
+		Roleid              string `json:"roleid,omitempty"`
+		Rolename            string `json:"rolename,omitempty"`
+		Roletype            string `json:"roletype,omitempty"`
 		Secretkey           string `json:"secretkey,omitempty"`
 		State               string `json:"state,omitempty"`
 		Timezone            string `json:"timezone,omitempty"`
@@ -498,6 +514,9 @@ type UpdateAccountResponse struct {
 	Projectlimit              string            `json:"projectlimit,omitempty"`
 	Projecttotal              int64             `json:"projecttotal,omitempty"`
 	Receivedbytes             int64             `json:"receivedbytes,omitempty"`
+	Roleid                    string            `json:"roleid,omitempty"`
+	Rolename                  string            `json:"rolename,omitempty"`
+	Roletype                  string            `json:"roletype,omitempty"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
 	Secondarystoragetotal     int64             `json:"secondarystoragetotal,omitempty"`
@@ -523,6 +542,9 @@ type UpdateAccountResponse struct {
 		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 		Isdefault           bool   `json:"isdefault,omitempty"`
 		Lastname            string `json:"lastname,omitempty"`
+		Roleid              string `json:"roleid,omitempty"`
+		Rolename            string `json:"rolename,omitempty"`
+		Roletype            string `json:"roletype,omitempty"`
 		Secretkey           string `json:"secretkey,omitempty"`
 		State               string `json:"state,omitempty"`
 		Timezone            string `json:"timezone,omitempty"`
@@ -674,6 +696,9 @@ type DisableAccountResponse struct {
 	Projectlimit              string            `json:"projectlimit,omitempty"`
 	Projecttotal              int64             `json:"projecttotal,omitempty"`
 	Receivedbytes             int64             `json:"receivedbytes,omitempty"`
+	Roleid                    string            `json:"roleid,omitempty"`
+	Rolename                  string            `json:"rolename,omitempty"`
+	Roletype                  string            `json:"roletype,omitempty"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
 	Secondarystoragetotal     int64             `json:"secondarystoragetotal,omitempty"`
@@ -699,6 +724,9 @@ type DisableAccountResponse struct {
 		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 		Isdefault           bool   `json:"isdefault,omitempty"`
 		Lastname            string `json:"lastname,omitempty"`
+		Roleid              string `json:"roleid,omitempty"`
+		Rolename            string `json:"rolename,omitempty"`
+		Roletype            string `json:"roletype,omitempty"`
 		Secretkey           string `json:"secretkey,omitempty"`
 		State               string `json:"state,omitempty"`
 		Timezone            string `json:"timezone,omitempty"`
@@ -816,6 +844,9 @@ type EnableAccountResponse struct {
 	Projectlimit              string            `json:"projectlimit,omitempty"`
 	Projecttotal              int64             `json:"projecttotal,omitempty"`
 	Receivedbytes             int64             `json:"receivedbytes,omitempty"`
+	Roleid                    string            `json:"roleid,omitempty"`
+	Rolename                  string            `json:"rolename,omitempty"`
+	Roletype                  string            `json:"roletype,omitempty"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
 	Secondarystoragetotal     int64             `json:"secondarystoragetotal,omitempty"`
@@ -841,6 +872,9 @@ type EnableAccountResponse struct {
 		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 		Isdefault           bool   `json:"isdefault,omitempty"`
 		Lastname            string `json:"lastname,omitempty"`
+		Roleid              string `json:"roleid,omitempty"`
+		Rolename            string `json:"rolename,omitempty"`
+		Roletype            string `json:"roletype,omitempty"`
 		Secretkey           string `json:"secretkey,omitempty"`
 		State               string `json:"state,omitempty"`
 		Timezone            string `json:"timezone,omitempty"`
@@ -949,6 +983,9 @@ type LockAccountResponse struct {
 	Projectlimit              string            `json:"projectlimit,omitempty"`
 	Projecttotal              int64             `json:"projecttotal,omitempty"`
 	Receivedbytes             int64             `json:"receivedbytes,omitempty"`
+	Roleid                    string            `json:"roleid,omitempty"`
+	Rolename                  string            `json:"rolename,omitempty"`
+	Roletype                  string            `json:"roletype,omitempty"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
 	Secondarystoragetotal     int64             `json:"secondarystoragetotal,omitempty"`
@@ -974,6 +1011,9 @@ type LockAccountResponse struct {
 		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 		Isdefault           bool   `json:"isdefault,omitempty"`
 		Lastname            string `json:"lastname,omitempty"`
+		Roleid              string `json:"roleid,omitempty"`
+		Rolename            string `json:"rolename,omitempty"`
+		Roletype            string `json:"roletype,omitempty"`
 		Secretkey           string `json:"secretkey,omitempty"`
 		State               string `json:"state,omitempty"`
 		Timezone            string `json:"timezone,omitempty"`
@@ -1273,6 +1313,9 @@ type Account struct {
 	Projectlimit              string            `json:"projectlimit,omitempty"`
 	Projecttotal              int64             `json:"projecttotal,omitempty"`
 	Receivedbytes             int64             `json:"receivedbytes,omitempty"`
+	Roleid                    string            `json:"roleid,omitempty"`
+	Rolename                  string            `json:"rolename,omitempty"`
+	Roletype                  string            `json:"roletype,omitempty"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
 	Secondarystoragetotal     int64             `json:"secondarystoragetotal,omitempty"`
@@ -1298,6 +1341,9 @@ type Account struct {
 		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 		Isdefault           bool   `json:"isdefault,omitempty"`
 		Lastname            string `json:"lastname,omitempty"`
+		Roleid              string `json:"roleid,omitempty"`
+		Rolename            string `json:"rolename,omitempty"`
+		Roletype            string `json:"roletype,omitempty"`
 		Secretkey           string `json:"secretkey,omitempty"`
 		State               string `json:"state,omitempty"`
 		Timezone            string `json:"timezone,omitempty"`
@@ -1439,6 +1485,9 @@ type MarkDefaultZoneForAccountResponse struct {
 	Projectlimit              string            `json:"projectlimit,omitempty"`
 	Projecttotal              int64             `json:"projecttotal,omitempty"`
 	Receivedbytes             int64             `json:"receivedbytes,omitempty"`
+	Roleid                    string            `json:"roleid,omitempty"`
+	Rolename                  string            `json:"rolename,omitempty"`
+	Roletype                  string            `json:"roletype,omitempty"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
 	Secondarystoragetotal     int64             `json:"secondarystoragetotal,omitempty"`
@@ -1464,6 +1513,9 @@ type MarkDefaultZoneForAccountResponse struct {
 		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 		Isdefault           bool   `json:"isdefault,omitempty"`
 		Lastname            string `json:"lastname,omitempty"`
+		Roleid              string `json:"roleid,omitempty"`
+		Rolename            string `json:"rolename,omitempty"`
+		Roletype            string `json:"roletype,omitempty"`
 		Secretkey           string `json:"secretkey,omitempty"`
 		State               string `json:"state,omitempty"`
 		Timezone            string `json:"timezone,omitempty"`

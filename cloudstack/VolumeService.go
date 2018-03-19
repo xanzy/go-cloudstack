@@ -157,28 +157,16 @@ type AttachVolumeResponse struct {
 	Storage                    string `json:"storage,omitempty"`
 	Storageid                  string `json:"storageid,omitempty"`
 	Storagetype                string `json:"storagetype,omitempty"`
-	Tags                       []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Templatename        string `json:"templatename,omitempty"`
-	Type                string `json:"type,omitempty"`
-	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
-	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
-	Vmname              string `json:"vmname,omitempty"`
-	Vmstate             string `json:"vmstate,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
+	Templatedisplaytext        string `json:"templatedisplaytext,omitempty"`
+	Templateid                 string `json:"templateid,omitempty"`
+	Templatename               string `json:"templatename,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
+	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
 }
 
 type UploadVolumeParams struct {
@@ -392,28 +380,16 @@ type UploadVolumeResponse struct {
 	Storage                    string `json:"storage,omitempty"`
 	Storageid                  string `json:"storageid,omitempty"`
 	Storagetype                string `json:"storagetype,omitempty"`
-	Tags                       []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Templatename        string `json:"templatename,omitempty"`
-	Type                string `json:"type,omitempty"`
-	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
-	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
-	Vmname              string `json:"vmname,omitempty"`
-	Vmstate             string `json:"vmstate,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
+	Templatedisplaytext        string `json:"templatedisplaytext,omitempty"`
+	Templateid                 string `json:"templateid,omitempty"`
+	Templatename               string `json:"templatename,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
+	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
 }
 
 type DetachVolumeParams struct {
@@ -547,28 +523,16 @@ type DetachVolumeResponse struct {
 	Storage                    string `json:"storage,omitempty"`
 	Storageid                  string `json:"storageid,omitempty"`
 	Storagetype                string `json:"storagetype,omitempty"`
-	Tags                       []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Templatename        string `json:"templatename,omitempty"`
-	Type                string `json:"type,omitempty"`
-	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
-	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
-	Vmname              string `json:"vmname,omitempty"`
-	Vmstate             string `json:"vmstate,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
+	Templatedisplaytext        string `json:"templatedisplaytext,omitempty"`
+	Templateid                 string `json:"templateid,omitempty"`
+	Templatename               string `json:"templatename,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
+	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
 }
 
 type CreateVolumeParams struct {
@@ -815,28 +779,16 @@ type CreateVolumeResponse struct {
 	Storage                    string `json:"storage,omitempty"`
 	Storageid                  string `json:"storageid,omitempty"`
 	Storagetype                string `json:"storagetype,omitempty"`
-	Tags                       []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Templatename        string `json:"templatename,omitempty"`
-	Type                string `json:"type,omitempty"`
-	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
-	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
-	Vmname              string `json:"vmname,omitempty"`
-	Vmstate             string `json:"vmstate,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
+	Templatedisplaytext        string `json:"templatedisplaytext,omitempty"`
+	Templateid                 string `json:"templateid,omitempty"`
+	Templatename               string `json:"templatename,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
+	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
 }
 
 type DeleteVolumeParams struct {
@@ -918,6 +870,10 @@ func (p *ListVolumesParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
+	}
+	if v, found := p.p["ids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("ids", vv)
 	}
 	if v, found := p.p["isrecursive"]; found {
 		vv := strconv.FormatBool(v.(bool))
@@ -1015,6 +971,14 @@ func (p *ListVolumesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
+	return
+}
+
+func (p *ListVolumesParams) SetIds(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ids"] = v
 	return
 }
 
@@ -1274,28 +1238,16 @@ type Volume struct {
 	Storage                    string `json:"storage,omitempty"`
 	Storageid                  string `json:"storageid,omitempty"`
 	Storagetype                string `json:"storagetype,omitempty"`
-	Tags                       []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Templatename        string `json:"templatename,omitempty"`
-	Type                string `json:"type,omitempty"`
-	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
-	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
-	Vmname              string `json:"vmname,omitempty"`
-	Vmstate             string `json:"vmstate,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
+	Templatedisplaytext        string `json:"templatedisplaytext,omitempty"`
+	Templateid                 string `json:"templateid,omitempty"`
+	Templatename               string `json:"templatename,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
+	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
 }
 
 type ExtractVolumeParams struct {
@@ -1551,28 +1503,16 @@ type MigrateVolumeResponse struct {
 	Storage                    string `json:"storage,omitempty"`
 	Storageid                  string `json:"storageid,omitempty"`
 	Storagetype                string `json:"storagetype,omitempty"`
-	Tags                       []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Templatename        string `json:"templatename,omitempty"`
-	Type                string `json:"type,omitempty"`
-	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
-	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
-	Vmname              string `json:"vmname,omitempty"`
-	Vmstate             string `json:"vmstate,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
+	Templatedisplaytext        string `json:"templatedisplaytext,omitempty"`
+	Templateid                 string `json:"templateid,omitempty"`
+	Templatename               string `json:"templatename,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
+	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
 }
 
 type ResizeVolumeParams struct {
@@ -1743,28 +1683,16 @@ type ResizeVolumeResponse struct {
 	Storage                    string `json:"storage,omitempty"`
 	Storageid                  string `json:"storageid,omitempty"`
 	Storagetype                string `json:"storagetype,omitempty"`
-	Tags                       []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Templatename        string `json:"templatename,omitempty"`
-	Type                string `json:"type,omitempty"`
-	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
-	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
-	Vmname              string `json:"vmname,omitempty"`
-	Vmstate             string `json:"vmstate,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
+	Templatedisplaytext        string `json:"templatedisplaytext,omitempty"`
+	Templateid                 string `json:"templateid,omitempty"`
+	Templatename               string `json:"templatename,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
+	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
 }
 
 type UpdateVolumeParams struct {
@@ -1942,28 +1870,16 @@ type UpdateVolumeResponse struct {
 	Storage                    string `json:"storage,omitempty"`
 	Storageid                  string `json:"storageid,omitempty"`
 	Storagetype                string `json:"storagetype,omitempty"`
-	Tags                       []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Templatename        string `json:"templatename,omitempty"`
-	Type                string `json:"type,omitempty"`
-	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
-	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
-	Vmname              string `json:"vmname,omitempty"`
-	Vmstate             string `json:"vmstate,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
+	Templatedisplaytext        string `json:"templatedisplaytext,omitempty"`
+	Templateid                 string `json:"templateid,omitempty"`
+	Templatename               string `json:"templatename,omitempty"`
+	Type                       string `json:"type,omitempty"`
+	Virtualmachineid           string `json:"virtualmachineid,omitempty"`
+	Vmdisplayname              string `json:"vmdisplayname,omitempty"`
+	Vmname                     string `json:"vmname,omitempty"`
+	Vmstate                    string `json:"vmstate,omitempty"`
+	Zoneid                     string `json:"zoneid,omitempty"`
+	Zonename                   string `json:"zonename,omitempty"`
 }
 
 type GetSolidFireVolumeSizeParams struct {
@@ -1975,21 +1891,10 @@ func (p *GetSolidFireVolumeSizeParams) toURLValues() url.Values {
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["storageid"]; found {
-		u.Set("storageid", v.(string))
-	}
 	if v, found := p.p["volumeid"]; found {
 		u.Set("volumeid", v.(string))
 	}
 	return u
-}
-
-func (p *GetSolidFireVolumeSizeParams) SetStorageid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["storageid"] = v
-	return
 }
 
 func (p *GetSolidFireVolumeSizeParams) SetVolumeid(v string) {
@@ -2002,10 +1907,9 @@ func (p *GetSolidFireVolumeSizeParams) SetVolumeid(v string) {
 
 // You should always use this function to get a new GetSolidFireVolumeSizeParams instance,
 // as then you are sure you have configured all required params
-func (s *VolumeService) NewGetSolidFireVolumeSizeParams(storageid string, volumeid string) *GetSolidFireVolumeSizeParams {
+func (s *VolumeService) NewGetSolidFireVolumeSizeParams(volumeid string) *GetSolidFireVolumeSizeParams {
 	p := &GetSolidFireVolumeSizeParams{}
 	p.p = make(map[string]interface{})
-	p.p["storageid"] = storageid
 	p.p["volumeid"] = volumeid
 	return p
 }
@@ -2090,57 +1994,6 @@ func (s *VolumeService) GetSolidFireVolumeAccessGroupId(p *GetSolidFireVolumeAcc
 
 type GetSolidFireVolumeAccessGroupIdResponse struct {
 	SolidFireVolumeAccessGroupId int64 `json:"solidFireVolumeAccessGroupId,omitempty"`
-}
-
-type GetSolidFireVolumeIscsiNameParams struct {
-	p map[string]interface{}
-}
-
-func (p *GetSolidFireVolumeIscsiNameParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["volumeid"]; found {
-		u.Set("volumeid", v.(string))
-	}
-	return u
-}
-
-func (p *GetSolidFireVolumeIscsiNameParams) SetVolumeid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["volumeid"] = v
-	return
-}
-
-// You should always use this function to get a new GetSolidFireVolumeIscsiNameParams instance,
-// as then you are sure you have configured all required params
-func (s *VolumeService) NewGetSolidFireVolumeIscsiNameParams(volumeid string) *GetSolidFireVolumeIscsiNameParams {
-	p := &GetSolidFireVolumeIscsiNameParams{}
-	p.p = make(map[string]interface{})
-	p.p["volumeid"] = volumeid
-	return p
-}
-
-// Get SolidFire Volume's Iscsi Name
-func (s *VolumeService) GetSolidFireVolumeIscsiName(p *GetSolidFireVolumeIscsiNameParams) (*GetSolidFireVolumeIscsiNameResponse, error) {
-	resp, err := s.cs.newRequest("getSolidFireVolumeIscsiName", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r GetSolidFireVolumeIscsiNameResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type GetSolidFireVolumeIscsiNameResponse struct {
-	SolidFireVolumeIscsiName string `json:"solidFireVolumeIscsiName,omitempty"`
 }
 
 type GetUploadParamsForVolumeParams struct {

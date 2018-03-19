@@ -476,25 +476,30 @@ type DeployVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -585,18 +590,6 @@ type DeployVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -732,25 +725,30 @@ type DestroyVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -841,18 +839,6 @@ type DestroyVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -976,25 +962,30 @@ type RebootVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -1085,18 +1076,6 @@ type RebootVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -1242,25 +1221,30 @@ type StartVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -1351,18 +1335,6 @@ type StartVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -1498,25 +1470,30 @@ type StopVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -1607,18 +1584,6 @@ type StopVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -1742,25 +1707,30 @@ type ResetPasswordForVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -1851,18 +1821,6 @@ type ResetPasswordForVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -1921,6 +1879,14 @@ func (p *UpdateVirtualMachineParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["ostypeid"]; found {
 		u.Set("ostypeid", v.(string))
+	}
+	if v, found := p.p["securitygroupids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("securitygroupids", vv)
+	}
+	if v, found := p.p["securitygroupnames"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("securitygroupnames", vv)
 	}
 	if v, found := p.p["userdata"]; found {
 		u.Set("userdata", v.(string))
@@ -2016,6 +1982,22 @@ func (p *UpdateVirtualMachineParams) SetOstypeid(v string) {
 	return
 }
 
+func (p *UpdateVirtualMachineParams) SetSecuritygroupids(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["securitygroupids"] = v
+	return
+}
+
+func (p *UpdateVirtualMachineParams) SetSecuritygroupnames(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["securitygroupnames"] = v
+	return
+}
+
 func (p *UpdateVirtualMachineParams) SetUserdata(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -2093,25 +2075,30 @@ type UpdateVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -2202,18 +2189,6 @@ type UpdateVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -2744,25 +2719,30 @@ type VirtualMachine struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -2853,18 +2833,6 @@ type VirtualMachine struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -3050,25 +3018,30 @@ type RestoreVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -3159,18 +3132,6 @@ type RestoreVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -3300,25 +3261,30 @@ type ChangeServiceForVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -3409,18 +3375,6 @@ type ChangeServiceForVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -3666,25 +3620,30 @@ type AssignVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -3775,18 +3734,6 @@ type AssignVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -3932,25 +3879,30 @@ type MigrateVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -4041,18 +3993,6 @@ type MigrateVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -4204,25 +4144,30 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -4313,18 +4258,6 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -4427,25 +4360,30 @@ type RecoverVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -4536,18 +4474,6 @@ type RecoverVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -4818,25 +4744,30 @@ type AddNicToVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -4927,18 +4858,6 @@ type AddNicToVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -5074,25 +4993,30 @@ type RemoveNicFromVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -5183,18 +5107,6 @@ type RemoveNicFromVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -5330,25 +5242,30 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -5439,18 +5356,6 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`

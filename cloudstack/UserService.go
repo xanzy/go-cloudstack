@@ -182,6 +182,9 @@ type CreateUserResponse struct {
 	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 	Isdefault           bool   `json:"isdefault,omitempty"`
 	Lastname            string `json:"lastname,omitempty"`
+	Roleid              string `json:"roleid,omitempty"`
+	Rolename            string `json:"rolename,omitempty"`
+	Roletype            string `json:"roletype,omitempty"`
 	Secretkey           string `json:"secretkey,omitempty"`
 	State               string `json:"state,omitempty"`
 	Timezone            string `json:"timezone,omitempty"`
@@ -389,6 +392,9 @@ type UpdateUserResponse struct {
 	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 	Isdefault           bool   `json:"isdefault,omitempty"`
 	Lastname            string `json:"lastname,omitempty"`
+	Roleid              string `json:"roleid,omitempty"`
+	Rolename            string `json:"rolename,omitempty"`
+	Roletype            string `json:"roletype,omitempty"`
 	Secretkey           string `json:"secretkey,omitempty"`
 	State               string `json:"state,omitempty"`
 	Timezone            string `json:"timezone,omitempty"`
@@ -608,6 +614,9 @@ type User struct {
 	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 	Isdefault           bool   `json:"isdefault,omitempty"`
 	Lastname            string `json:"lastname,omitempty"`
+	Roleid              string `json:"roleid,omitempty"`
+	Rolename            string `json:"rolename,omitempty"`
+	Roletype            string `json:"roletype,omitempty"`
 	Secretkey           string `json:"secretkey,omitempty"`
 	State               string `json:"state,omitempty"`
 	Timezone            string `json:"timezone,omitempty"`
@@ -675,6 +684,9 @@ type LockUserResponse struct {
 	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 	Isdefault           bool   `json:"isdefault,omitempty"`
 	Lastname            string `json:"lastname,omitempty"`
+	Roleid              string `json:"roleid,omitempty"`
+	Rolename            string `json:"rolename,omitempty"`
+	Roletype            string `json:"roletype,omitempty"`
 	Secretkey           string `json:"secretkey,omitempty"`
 	State               string `json:"state,omitempty"`
 	Timezone            string `json:"timezone,omitempty"`
@@ -763,6 +775,9 @@ type DisableUserResponse struct {
 	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 	Isdefault           bool   `json:"isdefault,omitempty"`
 	Lastname            string `json:"lastname,omitempty"`
+	Roleid              string `json:"roleid,omitempty"`
+	Rolename            string `json:"rolename,omitempty"`
+	Roletype            string `json:"roletype,omitempty"`
 	Secretkey           string `json:"secretkey,omitempty"`
 	State               string `json:"state,omitempty"`
 	Timezone            string `json:"timezone,omitempty"`
@@ -830,6 +845,9 @@ type EnableUserResponse struct {
 	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 	Isdefault           bool   `json:"isdefault,omitempty"`
 	Lastname            string `json:"lastname,omitempty"`
+	Roleid              string `json:"roleid,omitempty"`
+	Rolename            string `json:"rolename,omitempty"`
+	Roletype            string `json:"roletype,omitempty"`
 	Secretkey           string `json:"secretkey,omitempty"`
 	State               string `json:"state,omitempty"`
 	Timezone            string `json:"timezone,omitempty"`
@@ -897,6 +915,9 @@ type GetUserResponse struct {
 	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
 	Isdefault           bool   `json:"isdefault,omitempty"`
 	Lastname            string `json:"lastname,omitempty"`
+	Roleid              string `json:"roleid,omitempty"`
+	Rolename            string `json:"rolename,omitempty"`
+	Roletype            string `json:"roletype,omitempty"`
 	Secretkey           string `json:"secretkey,omitempty"`
 	State               string `json:"state,omitempty"`
 	Timezone            string `json:"timezone,omitempty"`
@@ -1147,6 +1168,9 @@ func (p *ImportLdapUsersParams) toURLValues() url.Values {
 		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
+	if v, found := p.p["roleid"]; found {
+		u.Set("roleid", v.(string))
+	}
 	if v, found := p.p["timezone"]; found {
 		u.Set("timezone", v.(string))
 	}
@@ -1217,6 +1241,14 @@ func (p *ImportLdapUsersParams) SetPagesize(v int) {
 	return
 }
 
+func (p *ImportLdapUsersParams) SetRoleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["roleid"] = v
+	return
+}
+
 func (p *ImportLdapUsersParams) SetTimezone(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -1227,10 +1259,9 @@ func (p *ImportLdapUsersParams) SetTimezone(v string) {
 
 // You should always use this function to get a new ImportLdapUsersParams instance,
 // as then you are sure you have configured all required params
-func (s *UserService) NewImportLdapUsersParams(accounttype int) *ImportLdapUsersParams {
+func (s *UserService) NewImportLdapUsersParams() *ImportLdapUsersParams {
 	p := &ImportLdapUsersParams{}
 	p.p = make(map[string]interface{})
-	p.p["accounttype"] = accounttype
 	return p
 }
 

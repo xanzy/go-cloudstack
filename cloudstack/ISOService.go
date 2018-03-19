@@ -149,25 +149,30 @@ type AttachIsoResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -258,18 +263,6 @@ type AttachIsoResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -393,25 +386,30 @@ type DetachIsoResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -502,18 +500,6 @@ type DetachIsoResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`
@@ -892,22 +878,10 @@ type Iso struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
-	Tags                  []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatetag  string `json:"templatetag,omitempty"`
-	Templatetype string `json:"templatetype,omitempty"`
-	Zoneid       string `json:"zoneid,omitempty"`
-	Zonename     string `json:"zonename,omitempty"`
+	Templatetag           string            `json:"templatetag,omitempty"`
+	Templatetype          string            `json:"templatetype,omitempty"`
+	Zoneid                string            `json:"zoneid,omitempty"`
+	Zonename              string            `json:"zonename,omitempty"`
 }
 
 type RegisterIsoParams struct {
@@ -1151,22 +1125,10 @@ type RegisterIsoResponse struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
-	Tags                  []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatetag  string `json:"templatetag,omitempty"`
-	Templatetype string `json:"templatetype,omitempty"`
-	Zoneid       string `json:"zoneid,omitempty"`
-	Zonename     string `json:"zonename,omitempty"`
+	Templatetag           string            `json:"templatetag,omitempty"`
+	Templatetype          string            `json:"templatetype,omitempty"`
+	Zoneid                string            `json:"zoneid,omitempty"`
+	Zonename              string            `json:"zonename,omitempty"`
 }
 
 type UpdateIsoParams struct {
@@ -1379,22 +1341,10 @@ type UpdateIsoResponse struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
-	Tags                  []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatetag  string `json:"templatetag,omitempty"`
-	Templatetype string `json:"templatetype,omitempty"`
-	Zoneid       string `json:"zoneid,omitempty"`
-	Zonename     string `json:"zonename,omitempty"`
+	Templatetag           string            `json:"templatetag,omitempty"`
+	Templatetype          string            `json:"templatetype,omitempty"`
+	Zoneid                string            `json:"zoneid,omitempty"`
+	Zonename              string            `json:"zonename,omitempty"`
 }
 
 type DeleteIsoParams struct {
@@ -1531,7 +1481,7 @@ func (s *ISOService) NewCopyIsoParams(destzoneid string, id string) *CopyIsoPara
 	return p
 }
 
-// Copies an ISO from one zone to another.
+// Copies an iso from one zone to another.
 func (s *ISOService) CopyIso(p *CopyIsoParams) (*CopyIsoResponse, error) {
 	resp, err := s.cs.newRequest("copyIso", p.toURLValues())
 	if err != nil {
@@ -1599,22 +1549,10 @@ type CopyIsoResponse struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
 	Status                string            `json:"status,omitempty"`
-	Tags                  []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatetag  string `json:"templatetag,omitempty"`
-	Templatetype string `json:"templatetype,omitempty"`
-	Zoneid       string `json:"zoneid,omitempty"`
-	Zonename     string `json:"zonename,omitempty"`
+	Templatetag           string            `json:"templatetag,omitempty"`
+	Templatetype          string            `json:"templatetype,omitempty"`
+	Zoneid                string            `json:"zoneid,omitempty"`
+	Zonename              string            `json:"zonename,omitempty"`
 }
 
 type UpdateIsoPermissionsParams struct {
@@ -1805,7 +1743,7 @@ func (s *ISOService) GetIsoPermissionByID(id string, opts ...OptionFunc) (*IsoPe
 	return nil, l.Count, fmt.Errorf("There is more then one result for IsoPermission UUID: %s!", id)
 }
 
-// List iso visibility and all accounts that have permissions to view this iso.
+// List ISO visibility and all accounts that have permissions to view this ISO.
 func (s *ISOService) ListIsoPermissions(p *ListIsoPermissionsParams) (*ListIsoPermissionsResponse, error) {
 	resp, err := s.cs.newRequest("listIsoPermissions", p.toURLValues())
 	if err != nil {

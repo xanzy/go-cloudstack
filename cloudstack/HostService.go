@@ -225,6 +225,7 @@ type AddHostResponse struct {
 	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
+	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
 	Podid                string `json:"podid,omitempty"`
 	Podname              string `json:"podname,omitempty"`
 	Removed              string `json:"removed,omitempty"`
@@ -354,6 +355,7 @@ type ReconnectHostResponse struct {
 	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
+	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
 	Podid                string `json:"podid,omitempty"`
 	Podname              string `json:"podname,omitempty"`
 	Removed              string `json:"removed,omitempty"`
@@ -507,6 +509,7 @@ type UpdateHostResponse struct {
 	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
+	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
 	Podid                string `json:"podid,omitempty"`
 	Podname              string `json:"podname,omitempty"`
 	Removed              string `json:"removed,omitempty"`
@@ -712,6 +715,7 @@ type PrepareHostForMaintenanceResponse struct {
 	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
+	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
 	Podid                string `json:"podid,omitempty"`
 	Podname              string `json:"podname,omitempty"`
 	Removed              string `json:"removed,omitempty"`
@@ -841,6 +845,7 @@ type CancelHostMaintenanceResponse struct {
 	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
+	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
 	Podid                string `json:"podid,omitempty"`
 	Podname              string `json:"podname,omitempty"`
 	Removed              string `json:"removed,omitempty"`
@@ -884,6 +889,13 @@ func (p *ListHostsParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
+	}
+	if v, found := p.p["outofbandmanagementenabled"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("outofbandmanagementenabled", vv)
+	}
+	if v, found := p.p["outofbandmanagementpowerstate"]; found {
+		u.Set("outofbandmanagementpowerstate", v.(string))
 	}
 	if v, found := p.p["page"]; found {
 		vv := strconv.Itoa(v.(int))
@@ -967,6 +979,22 @@ func (p *ListHostsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
+	return
+}
+
+func (p *ListHostsParams) SetOutofbandmanagementenabled(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["outofbandmanagementenabled"] = v
+	return
+}
+
+func (p *ListHostsParams) SetOutofbandmanagementpowerstate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["outofbandmanagementpowerstate"] = v
 	return
 }
 
@@ -1194,6 +1222,7 @@ type Host struct {
 	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
+	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
 	Podid                string `json:"podid,omitempty"`
 	Podname              string `json:"podname,omitempty"`
 	Removed              string `json:"removed,omitempty"`
@@ -1900,6 +1929,7 @@ type AddBaremetalHostResponse struct {
 	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
 	Oscategoryid         string `json:"oscategoryid,omitempty"`
 	Oscategoryname       string `json:"oscategoryname,omitempty"`
+	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
 	Podid                string `json:"podid,omitempty"`
 	Podname              string `json:"podname,omitempty"`
 	Removed              string `json:"removed,omitempty"`

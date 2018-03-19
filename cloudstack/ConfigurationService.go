@@ -332,6 +332,7 @@ type Capability struct {
 	Cloudstackversion         string `json:"cloudstackversion,omitempty"`
 	Customdiskofferingmaxsize int64  `json:"customdiskofferingmaxsize,omitempty"`
 	Customdiskofferingminsize int64  `json:"customdiskofferingminsize,omitempty"`
+	Dynamicrolesenabled       bool   `json:"dynamicrolesenabled,omitempty"`
 	Kvmsnapshotenabled        bool   `json:"kvmsnapshotenabled,omitempty"`
 	Projectinviterequired     bool   `json:"projectinviterequired,omitempty"`
 	Regionsecondaryenabled    bool   `json:"regionsecondaryenabled,omitempty"`
