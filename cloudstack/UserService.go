@@ -924,6 +924,53 @@ type GetUserResponse struct {
 	Username            string `json:"username,omitempty"`
 }
 
+type GetUserKeysParams struct {
+        p map[string]interface{}
+}
+
+func (p *GetUserKeysParams) toURLValues() url.Values {
+        u := url.Values{}
+        if p.p == nil {
+                return u
+        }
+        if v, found := p.p["id"]; found {
+                u.Set("id", v.(string))
+        }
+        return u
+}
+
+// You should always use this function to get a new GetUserKeysParams instance,
+// as then you are sure you have configured all required params
+func (s *UserService) NewGetUserKeysParams(userid string) *GetUserKeysParams {
+        p := &GetUserKeysParams{}
+        p.p = make(map[string]interface{})
+        p.p["id"] = userid
+        return p
+}
+
+// Find user account by user ID
+func (s *UserService) GetUserKeys(p *GetUserKeysParams) (*GetUserKeysResponse, error) {
+        resp, err := s.cs.newRequest("getUserKeys", p.toURLValues())
+        if err != nil {
+                return nil, err
+        }
+        var r GetUserKeysResponse
+        if errUn := json.Unmarshal(resp, &r); errUn != nil {
+                fmt.Println("Error %s", err.Error())
+                return nil, errUn
+        }
+        return &r, nil
+}
+
+type GetUserKeysResponse struct {
+        Userkeys GetUserKeysInnerResponse `json:"userkeys,omitempty"`
+}
+
+type GetUserKeysInnerResponse struct {
+        Apikey    string `json:"apikey,omitempty"`
+        Secretkey string `json:"secretkey,omitempty"`
+}
+
 type GetVirtualMachineUserDataParams struct {
 	p map[string]interface{}
 }
