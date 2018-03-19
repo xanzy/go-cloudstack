@@ -287,18 +287,19 @@ type AddClusterResponse struct {
 		Zoneid        string `json:"zoneid,omitempty"`
 		Zonename      string `json:"zonename,omitempty"`
 	} `json:"capacity,omitempty"`
-	Clustertype           string `json:"clustertype,omitempty"`
-	Cpuovercommitratio    string `json:"cpuovercommitratio,omitempty"`
-	Hypervisortype        string `json:"hypervisortype,omitempty"`
-	Id                    string `json:"id,omitempty"`
-	Managedstate          string `json:"managedstate,omitempty"`
-	Memoryovercommitratio string `json:"memoryovercommitratio,omitempty"`
-	Name                  string `json:"name,omitempty"`
-	Ovm3vip               string `json:"ovm3vip,omitempty"`
-	Podid                 string `json:"podid,omitempty"`
-	Podname               string `json:"podname,omitempty"`
-	Zoneid                string `json:"zoneid,omitempty"`
-	Zonename              string `json:"zonename,omitempty"`
+	Clustertype           string            `json:"clustertype,omitempty"`
+	Cpuovercommitratio    string            `json:"cpuovercommitratio,omitempty"`
+	Hypervisortype        string            `json:"hypervisortype,omitempty"`
+	Id                    string            `json:"id,omitempty"`
+	Managedstate          string            `json:"managedstate,omitempty"`
+	Memoryovercommitratio string            `json:"memoryovercommitratio,omitempty"`
+	Name                  string            `json:"name,omitempty"`
+	Ovm3vip               string            `json:"ovm3vip,omitempty"`
+	Podid                 string            `json:"podid,omitempty"`
+	Podname               string            `json:"podname,omitempty"`
+	Resourcedetails       map[string]string `json:"resourcedetails,omitempty"`
+	Zoneid                string            `json:"zoneid,omitempty"`
+	Zonename              string            `json:"zonename,omitempty"`
 }
 
 type DeleteClusterParams struct {
@@ -469,18 +470,19 @@ type UpdateClusterResponse struct {
 		Zoneid        string `json:"zoneid,omitempty"`
 		Zonename      string `json:"zonename,omitempty"`
 	} `json:"capacity,omitempty"`
-	Clustertype           string `json:"clustertype,omitempty"`
-	Cpuovercommitratio    string `json:"cpuovercommitratio,omitempty"`
-	Hypervisortype        string `json:"hypervisortype,omitempty"`
-	Id                    string `json:"id,omitempty"`
-	Managedstate          string `json:"managedstate,omitempty"`
-	Memoryovercommitratio string `json:"memoryovercommitratio,omitempty"`
-	Name                  string `json:"name,omitempty"`
-	Ovm3vip               string `json:"ovm3vip,omitempty"`
-	Podid                 string `json:"podid,omitempty"`
-	Podname               string `json:"podname,omitempty"`
-	Zoneid                string `json:"zoneid,omitempty"`
-	Zonename              string `json:"zonename,omitempty"`
+	Clustertype           string            `json:"clustertype,omitempty"`
+	Cpuovercommitratio    string            `json:"cpuovercommitratio,omitempty"`
+	Hypervisortype        string            `json:"hypervisortype,omitempty"`
+	Id                    string            `json:"id,omitempty"`
+	Managedstate          string            `json:"managedstate,omitempty"`
+	Memoryovercommitratio string            `json:"memoryovercommitratio,omitempty"`
+	Name                  string            `json:"name,omitempty"`
+	Ovm3vip               string            `json:"ovm3vip,omitempty"`
+	Podid                 string            `json:"podid,omitempty"`
+	Podname               string            `json:"podname,omitempty"`
+	Resourcedetails       map[string]string `json:"resourcedetails,omitempty"`
+	Zoneid                string            `json:"zoneid,omitempty"`
+	Zonename              string            `json:"zonename,omitempty"`
 }
 
 type ListClustersParams struct {
@@ -755,18 +757,19 @@ type Cluster struct {
 		Zoneid        string `json:"zoneid,omitempty"`
 		Zonename      string `json:"zonename,omitempty"`
 	} `json:"capacity,omitempty"`
-	Clustertype           string `json:"clustertype,omitempty"`
-	Cpuovercommitratio    string `json:"cpuovercommitratio,omitempty"`
-	Hypervisortype        string `json:"hypervisortype,omitempty"`
-	Id                    string `json:"id,omitempty"`
-	Managedstate          string `json:"managedstate,omitempty"`
-	Memoryovercommitratio string `json:"memoryovercommitratio,omitempty"`
-	Name                  string `json:"name,omitempty"`
-	Ovm3vip               string `json:"ovm3vip,omitempty"`
-	Podid                 string `json:"podid,omitempty"`
-	Podname               string `json:"podname,omitempty"`
-	Zoneid                string `json:"zoneid,omitempty"`
-	Zonename              string `json:"zonename,omitempty"`
+	Clustertype           string            `json:"clustertype,omitempty"`
+	Cpuovercommitratio    string            `json:"cpuovercommitratio,omitempty"`
+	Hypervisortype        string            `json:"hypervisortype,omitempty"`
+	Id                    string            `json:"id,omitempty"`
+	Managedstate          string            `json:"managedstate,omitempty"`
+	Memoryovercommitratio string            `json:"memoryovercommitratio,omitempty"`
+	Name                  string            `json:"name,omitempty"`
+	Ovm3vip               string            `json:"ovm3vip,omitempty"`
+	Podid                 string            `json:"podid,omitempty"`
+	Podname               string            `json:"podname,omitempty"`
+	Resourcedetails       map[string]string `json:"resourcedetails,omitempty"`
+	Zoneid                string            `json:"zoneid,omitempty"`
+	Zonename              string            `json:"zonename,omitempty"`
 }
 
 type DedicateClusterParams struct {

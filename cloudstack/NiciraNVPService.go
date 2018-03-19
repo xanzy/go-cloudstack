@@ -34,6 +34,9 @@ func (p *AddNiciraNvpDeviceParams) toURLValues() url.Values {
 	if v, found := p.p["hostname"]; found {
 		u.Set("hostname", v.(string))
 	}
+	if v, found := p.p["l2gatewayserviceuuid"]; found {
+		u.Set("l2gatewayserviceuuid", v.(string))
+	}
 	if v, found := p.p["l3gatewayserviceuuid"]; found {
 		u.Set("l3gatewayserviceuuid", v.(string))
 	}
@@ -57,6 +60,14 @@ func (p *AddNiciraNvpDeviceParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
+	return
+}
+
+func (p *AddNiciraNvpDeviceParams) SetL2gatewayserviceuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["l2gatewayserviceuuid"] = v
 	return
 }
 
@@ -151,6 +162,7 @@ func (s *NiciraNVPService) AddNiciraNvpDevice(p *AddNiciraNvpDeviceParams) (*Add
 type AddNiciraNvpDeviceResponse struct {
 	JobID                string `json:"jobid,omitempty"`
 	Hostname             string `json:"hostname,omitempty"`
+	L2gatewayserviceuuid string `json:"l2gatewayserviceuuid,omitempty"`
 	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid,omitempty"`
 	Niciradevicename     string `json:"niciradevicename,omitempty"`
 	Nvpdeviceid          string `json:"nvpdeviceid,omitempty"`
@@ -326,6 +338,7 @@ type ListNiciraNvpDevicesResponse struct {
 
 type NiciraNvpDevice struct {
 	Hostname             string `json:"hostname,omitempty"`
+	L2gatewayserviceuuid string `json:"l2gatewayserviceuuid,omitempty"`
 	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid,omitempty"`
 	Niciradevicename     string `json:"niciradevicename,omitempty"`
 	Nvpdeviceid          string `json:"nvpdeviceid,omitempty"`

@@ -180,25 +180,30 @@ type ResetSSHKeyForVirtualMachineResponse struct {
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs,omitempty"`
+	Memorykbs             int64             `json:"memorykbs,omitempty"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
+		Broadcasturi         string `json:"broadcasturi,omitempty"`
+		Deviceid             string `json:"deviceid,omitempty"`
+		Gateway              string `json:"gateway,omitempty"`
+		Id                   string `json:"id,omitempty"`
+		Ip6address           string `json:"ip6address,omitempty"`
+		Ip6cidr              string `json:"ip6cidr,omitempty"`
+		Ip6gateway           string `json:"ip6gateway,omitempty"`
+		Ipaddress            string `json:"ipaddress,omitempty"`
+		Isdefault            bool   `json:"isdefault,omitempty"`
+		Isolationuri         string `json:"isolationuri,omitempty"`
+		Macaddress           string `json:"macaddress,omitempty"`
+		Netmask              string `json:"netmask,omitempty"`
+		Networkid            string `json:"networkid,omitempty"`
+		Networkname          string `json:"networkname,omitempty"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch,omitempty"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport,omitempty"`
+		Secondaryip          []struct {
 			Id        string `json:"id,omitempty"`
 			Ipaddress string `json:"ipaddress,omitempty"`
 		} `json:"secondaryip,omitempty"`
@@ -289,18 +294,6 @@ type ResetSSHKeyForVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname,omitempty"`
 	Servicestate        string `json:"servicestate,omitempty"`
 	State               string `json:"state,omitempty"`
-	Tags                []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
 	Templateid          string `json:"templateid,omitempty"`
 	Templatename        string `json:"templatename,omitempty"`

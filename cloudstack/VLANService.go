@@ -637,11 +637,9 @@ func (p *DedicateGuestVlanRangeParams) SetVlanrange(v string) {
 
 // You should always use this function to get a new DedicateGuestVlanRangeParams instance,
 // as then you are sure you have configured all required params
-func (s *VLANService) NewDedicateGuestVlanRangeParams(account string, domainid string, physicalnetworkid string, vlanrange string) *DedicateGuestVlanRangeParams {
+func (s *VLANService) NewDedicateGuestVlanRangeParams(physicalnetworkid string, vlanrange string) *DedicateGuestVlanRangeParams {
 	p := &DedicateGuestVlanRangeParams{}
 	p.p = make(map[string]interface{})
-	p.p["account"] = account
-	p.p["domainid"] = domainid
 	p.p["physicalnetworkid"] = physicalnetworkid
 	p.p["vlanrange"] = vlanrange
 	return p
