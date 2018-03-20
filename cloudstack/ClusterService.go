@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -274,32 +274,132 @@ func (s *ClusterService) AddCluster(p *AddClusterParams) (*AddClusterResponse, e
 }
 
 type AddClusterResponse struct {
-	Allocationstate string `json:"allocationstate,omitempty"`
+	Allocationstate string `json:"allocationstate"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal,omitempty"`
-		Capacityused  int64  `json:"capacityused,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
-		Clustername   string `json:"clustername,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-		Type          int    `json:"type,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
-	} `json:"capacity,omitempty"`
-	Clustertype           string            `json:"clustertype,omitempty"`
-	Cpuovercommitratio    string            `json:"cpuovercommitratio,omitempty"`
-	Hypervisortype        string            `json:"hypervisortype,omitempty"`
-	Id                    string            `json:"id,omitempty"`
-	Managedstate          string            `json:"managedstate,omitempty"`
-	Memoryovercommitratio string            `json:"memoryovercommitratio,omitempty"`
-	Name                  string            `json:"name,omitempty"`
-	Ovm3vip               string            `json:"ovm3vip,omitempty"`
-	Podid                 string            `json:"podid,omitempty"`
-	Podname               string            `json:"podname,omitempty"`
-	Resourcedetails       map[string]string `json:"resourcedetails,omitempty"`
-	Zoneid                string            `json:"zoneid,omitempty"`
-	Zonename              string            `json:"zonename,omitempty"`
+		Capacitytotal int64  `json:"capacitytotal"`
+		Capacityused  int64  `json:"capacityused"`
+		Clusterid     string `json:"clusterid"`
+		Clustername   string `json:"clustername"`
+		Percentused   string `json:"percentused"`
+		Podid         string `json:"podid"`
+		Podname       string `json:"podname"`
+		Type          int    `json:"type"`
+		Zoneid        string `json:"zoneid"`
+		Zonename      string `json:"zonename"`
+	} `json:"capacity"`
+	Clustertype           string            `json:"clustertype"`
+	Cpuovercommitratio    string            `json:"cpuovercommitratio"`
+	Hypervisortype        string            `json:"hypervisortype"`
+	Id                    string            `json:"id"`
+	Managedstate          string            `json:"managedstate"`
+	Memoryovercommitratio string            `json:"memoryovercommitratio"`
+	Name                  string            `json:"name"`
+	Ovm3vip               string            `json:"ovm3vip"`
+	Podid                 string            `json:"podid"`
+	Podname               string            `json:"podname"`
+	Resourcedetails       map[string]string `json:"resourcedetails"`
+	Zoneid                string            `json:"zoneid"`
+	Zonename              string            `json:"zonename"`
+}
+
+type DedicateClusterParams struct {
+	p map[string]interface{}
+}
+
+func (p *DedicateClusterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["clusterid"]; found {
+		u.Set("clusterid", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	return u
+}
+
+func (p *DedicateClusterParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+	return
+}
+
+func (p *DedicateClusterParams) SetClusterid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clusterid"] = v
+	return
+}
+
+func (p *DedicateClusterParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+	return
+}
+
+// You should always use this function to get a new DedicateClusterParams instance,
+// as then you are sure you have configured all required params
+func (s *ClusterService) NewDedicateClusterParams(clusterid string, domainid string) *DedicateClusterParams {
+	p := &DedicateClusterParams{}
+	p.p = make(map[string]interface{})
+	p.p["clusterid"] = clusterid
+	p.p["domainid"] = domainid
+	return p
+}
+
+// Dedicate an existing cluster
+func (s *ClusterService) DedicateCluster(p *DedicateClusterParams) (*DedicateClusterResponse, error) {
+	resp, err := s.cs.newRequest("dedicateCluster", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DedicateClusterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type DedicateClusterResponse struct {
+	JobID           string `json:"jobid"`
+	Accountid       string `json:"accountid"`
+	Affinitygroupid string `json:"affinitygroupid"`
+	Clusterid       string `json:"clusterid"`
+	Clustername     string `json:"clustername"`
+	Domainid        string `json:"domainid"`
+	Id              string `json:"id"`
 }
 
 type DeleteClusterParams struct {
@@ -350,139 +450,172 @@ func (s *ClusterService) DeleteCluster(p *DeleteClusterParams) (*DeleteClusterRe
 }
 
 type DeleteClusterResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
+	Displaytext string `json:"displaytext"`
+	Success     string `json:"success"`
 }
 
-type UpdateClusterParams struct {
+type DisableOutOfBandManagementForClusterParams struct {
 	p map[string]interface{}
 }
 
-func (p *UpdateClusterParams) toURLValues() url.Values {
+func (p *DisableOutOfBandManagementForClusterParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["allocationstate"]; found {
-		u.Set("allocationstate", v.(string))
-	}
-	if v, found := p.p["clustername"]; found {
-		u.Set("clustername", v.(string))
-	}
-	if v, found := p.p["clustertype"]; found {
-		u.Set("clustertype", v.(string))
-	}
-	if v, found := p.p["hypervisor"]; found {
-		u.Set("hypervisor", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["managedstate"]; found {
-		u.Set("managedstate", v.(string))
+	if v, found := p.p["clusterid"]; found {
+		u.Set("clusterid", v.(string))
 	}
 	return u
 }
 
-func (p *UpdateClusterParams) SetAllocationstate(v string) {
+func (p *DisableOutOfBandManagementForClusterParams) SetClusterid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["allocationstate"] = v
+	p.p["clusterid"] = v
 	return
 }
 
-func (p *UpdateClusterParams) SetClustername(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clustername"] = v
-	return
-}
-
-func (p *UpdateClusterParams) SetClustertype(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clustertype"] = v
-	return
-}
-
-func (p *UpdateClusterParams) SetHypervisor(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hypervisor"] = v
-	return
-}
-
-func (p *UpdateClusterParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-	return
-}
-
-func (p *UpdateClusterParams) SetManagedstate(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["managedstate"] = v
-	return
-}
-
-// You should always use this function to get a new UpdateClusterParams instance,
+// You should always use this function to get a new DisableOutOfBandManagementForClusterParams instance,
 // as then you are sure you have configured all required params
-func (s *ClusterService) NewUpdateClusterParams(id string) *UpdateClusterParams {
-	p := &UpdateClusterParams{}
+func (s *ClusterService) NewDisableOutOfBandManagementForClusterParams(clusterid string) *DisableOutOfBandManagementForClusterParams {
+	p := &DisableOutOfBandManagementForClusterParams{}
 	p.p = make(map[string]interface{})
-	p.p["id"] = id
+	p.p["clusterid"] = clusterid
 	return p
 }
 
-// Updates an existing cluster
-func (s *ClusterService) UpdateCluster(p *UpdateClusterParams) (*UpdateClusterResponse, error) {
-	resp, err := s.cs.newRequest("updateCluster", p.toURLValues())
+// Disables out-of-band management for a cluster
+func (s *ClusterService) DisableOutOfBandManagementForCluster(p *DisableOutOfBandManagementForClusterParams) (*DisableOutOfBandManagementForClusterResponse, error) {
+	resp, err := s.cs.newRequest("disableOutOfBandManagementForCluster", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r UpdateClusterResponse
+	var r DisableOutOfBandManagementForClusterResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
 	}
 
 	return &r, nil
 }
 
-type UpdateClusterResponse struct {
-	Allocationstate string `json:"allocationstate,omitempty"`
-	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal,omitempty"`
-		Capacityused  int64  `json:"capacityused,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
-		Clustername   string `json:"clustername,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-		Type          int    `json:"type,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
-	} `json:"capacity,omitempty"`
-	Clustertype           string            `json:"clustertype,omitempty"`
-	Cpuovercommitratio    string            `json:"cpuovercommitratio,omitempty"`
-	Hypervisortype        string            `json:"hypervisortype,omitempty"`
-	Id                    string            `json:"id,omitempty"`
-	Managedstate          string            `json:"managedstate,omitempty"`
-	Memoryovercommitratio string            `json:"memoryovercommitratio,omitempty"`
-	Name                  string            `json:"name,omitempty"`
-	Ovm3vip               string            `json:"ovm3vip,omitempty"`
-	Podid                 string            `json:"podid,omitempty"`
-	Podname               string            `json:"podname,omitempty"`
-	Resourcedetails       map[string]string `json:"resourcedetails,omitempty"`
-	Zoneid                string            `json:"zoneid,omitempty"`
-	Zonename              string            `json:"zonename,omitempty"`
+type DisableOutOfBandManagementForClusterResponse struct {
+	JobID       string `json:"jobid"`
+	Action      string `json:"action"`
+	Address     string `json:"address"`
+	Description string `json:"description"`
+	Driver      string `json:"driver"`
+	Enabled     bool   `json:"enabled"`
+	Hostid      string `json:"hostid"`
+	Password    string `json:"password"`
+	Port        string `json:"port"`
+	Powerstate  string `json:"powerstate"`
+	Status      bool   `json:"status"`
+	Username    string `json:"username"`
+}
+
+type EnableOutOfBandManagementForClusterParams struct {
+	p map[string]interface{}
+}
+
+func (p *EnableOutOfBandManagementForClusterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["clusterid"]; found {
+		u.Set("clusterid", v.(string))
+	}
+	return u
+}
+
+func (p *EnableOutOfBandManagementForClusterParams) SetClusterid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clusterid"] = v
+	return
+}
+
+// You should always use this function to get a new EnableOutOfBandManagementForClusterParams instance,
+// as then you are sure you have configured all required params
+func (s *ClusterService) NewEnableOutOfBandManagementForClusterParams(clusterid string) *EnableOutOfBandManagementForClusterParams {
+	p := &EnableOutOfBandManagementForClusterParams{}
+	p.p = make(map[string]interface{})
+	p.p["clusterid"] = clusterid
+	return p
+}
+
+// Enables out-of-band management for a cluster
+func (s *ClusterService) EnableOutOfBandManagementForCluster(p *EnableOutOfBandManagementForClusterParams) (*EnableOutOfBandManagementForClusterResponse, error) {
+	resp, err := s.cs.newRequest("enableOutOfBandManagementForCluster", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r EnableOutOfBandManagementForClusterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type EnableOutOfBandManagementForClusterResponse struct {
+	JobID       string `json:"jobid"`
+	Action      string `json:"action"`
+	Address     string `json:"address"`
+	Description string `json:"description"`
+	Driver      string `json:"driver"`
+	Enabled     bool   `json:"enabled"`
+	Hostid      string `json:"hostid"`
+	Password    string `json:"password"`
+	Port        string `json:"port"`
+	Powerstate  string `json:"powerstate"`
+	Status      bool   `json:"status"`
+	Username    string `json:"username"`
 }
 
 type ListClustersParams struct {
@@ -744,200 +877,261 @@ type ListClustersResponse struct {
 }
 
 type Cluster struct {
-	Allocationstate string `json:"allocationstate,omitempty"`
+	Allocationstate string `json:"allocationstate"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal,omitempty"`
-		Capacityused  int64  `json:"capacityused,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
-		Clustername   string `json:"clustername,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-		Type          int    `json:"type,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
-	} `json:"capacity,omitempty"`
-	Clustertype           string            `json:"clustertype,omitempty"`
-	Cpuovercommitratio    string            `json:"cpuovercommitratio,omitempty"`
-	Hypervisortype        string            `json:"hypervisortype,omitempty"`
-	Id                    string            `json:"id,omitempty"`
-	Managedstate          string            `json:"managedstate,omitempty"`
-	Memoryovercommitratio string            `json:"memoryovercommitratio,omitempty"`
-	Name                  string            `json:"name,omitempty"`
-	Ovm3vip               string            `json:"ovm3vip,omitempty"`
-	Podid                 string            `json:"podid,omitempty"`
-	Podname               string            `json:"podname,omitempty"`
-	Resourcedetails       map[string]string `json:"resourcedetails,omitempty"`
-	Zoneid                string            `json:"zoneid,omitempty"`
-	Zonename              string            `json:"zonename,omitempty"`
+		Capacitytotal int64  `json:"capacitytotal"`
+		Capacityused  int64  `json:"capacityused"`
+		Clusterid     string `json:"clusterid"`
+		Clustername   string `json:"clustername"`
+		Percentused   string `json:"percentused"`
+		Podid         string `json:"podid"`
+		Podname       string `json:"podname"`
+		Type          int    `json:"type"`
+		Zoneid        string `json:"zoneid"`
+		Zonename      string `json:"zonename"`
+	} `json:"capacity"`
+	Clustertype           string            `json:"clustertype"`
+	Cpuovercommitratio    string            `json:"cpuovercommitratio"`
+	Hypervisortype        string            `json:"hypervisortype"`
+	Id                    string            `json:"id"`
+	Managedstate          string            `json:"managedstate"`
+	Memoryovercommitratio string            `json:"memoryovercommitratio"`
+	Name                  string            `json:"name"`
+	Ovm3vip               string            `json:"ovm3vip"`
+	Podid                 string            `json:"podid"`
+	Podname               string            `json:"podname"`
+	Resourcedetails       map[string]string `json:"resourcedetails"`
+	Zoneid                string            `json:"zoneid"`
+	Zonename              string            `json:"zonename"`
 }
 
-type DedicateClusterParams struct {
+type ListClustersMetricsParams struct {
 	p map[string]interface{}
 }
 
-func (p *DedicateClusterParams) toURLValues() url.Values {
+func (p *ListClustersMetricsParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
+	if v, found := p.p["allocationstate"]; found {
+		u.Set("allocationstate", v.(string))
 	}
-	if v, found := p.p["clusterid"]; found {
-		u.Set("clusterid", v.(string))
+	if v, found := p.p["clustertype"]; found {
+		u.Set("clustertype", v.(string))
 	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
+	if v, found := p.p["hypervisor"]; found {
+		u.Set("hypervisor", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["managedstate"]; found {
+		u.Set("managedstate", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	if v, found := p.p["showcapacities"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("showcapacities", vv)
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
 	}
 	return u
 }
 
-func (p *DedicateClusterParams) SetAccount(v string) {
+func (p *ListClustersMetricsParams) SetAllocationstate(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["account"] = v
+	p.p["allocationstate"] = v
 	return
 }
 
-func (p *DedicateClusterParams) SetClusterid(v string) {
+func (p *ListClustersMetricsParams) SetClustertype(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["clusterid"] = v
+	p.p["clustertype"] = v
 	return
 }
 
-func (p *DedicateClusterParams) SetDomainid(v string) {
+func (p *ListClustersMetricsParams) SetHypervisor(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["domainid"] = v
+	p.p["hypervisor"] = v
 	return
 }
 
-// You should always use this function to get a new DedicateClusterParams instance,
+func (p *ListClustersMetricsParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetManagedstate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["managedstate"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetShowcapacities(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["showcapacities"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+	return
+}
+
+// You should always use this function to get a new ListClustersMetricsParams instance,
 // as then you are sure you have configured all required params
-func (s *ClusterService) NewDedicateClusterParams(clusterid string, domainid string) *DedicateClusterParams {
-	p := &DedicateClusterParams{}
+func (s *ClusterService) NewListClustersMetricsParams() *ListClustersMetricsParams {
+	p := &ListClustersMetricsParams{}
 	p.p = make(map[string]interface{})
-	p.p["clusterid"] = clusterid
-	p.p["domainid"] = domainid
 	return p
 }
 
-// Dedicate an existing cluster
-func (s *ClusterService) DedicateCluster(p *DedicateClusterParams) (*DedicateClusterResponse, error) {
-	resp, err := s.cs.newRequest("dedicateCluster", p.toURLValues())
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ClusterService) GetClustersMetricByID(id string, opts ...OptionFunc) (*ClustersMetric, int, error) {
+	p := &ListClustersMetricsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range append(s.cs.options, opts...) {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListClustersMetrics(p)
+	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.ClustersMetrics[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for ClustersMetric UUID: %s!", id)
+}
+
+// Lists clusters metrics
+func (s *ClusterService) ListClustersMetrics(p *ListClustersMetricsParams) (*ListClustersMetricsResponse, error) {
+	resp, err := s.cs.newRequest("listClustersMetrics", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r DedicateClusterResponse
+	var r ListClustersMetricsResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
 	}
 
 	return &r, nil
 }
 
-type DedicateClusterResponse struct {
-	JobID           string `json:"jobid,omitempty"`
-	Accountid       string `json:"accountid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Clusterid       string `json:"clusterid,omitempty"`
-	Clustername     string `json:"clustername,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Id              string `json:"id,omitempty"`
+type ListClustersMetricsResponse struct {
+	Count           int               `json:"count"`
+	ClustersMetrics []*ClustersMetric `json:"clustersmetric"`
 }
 
-type ReleaseDedicatedClusterParams struct {
-	p map[string]interface{}
-}
-
-func (p *ReleaseDedicatedClusterParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["clusterid"]; found {
-		u.Set("clusterid", v.(string))
-	}
-	return u
-}
-
-func (p *ReleaseDedicatedClusterParams) SetClusterid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clusterid"] = v
-	return
-}
-
-// You should always use this function to get a new ReleaseDedicatedClusterParams instance,
-// as then you are sure you have configured all required params
-func (s *ClusterService) NewReleaseDedicatedClusterParams(clusterid string) *ReleaseDedicatedClusterParams {
-	p := &ReleaseDedicatedClusterParams{}
-	p.p = make(map[string]interface{})
-	p.p["clusterid"] = clusterid
-	return p
-}
-
-// Release the dedication for cluster
-func (s *ClusterService) ReleaseDedicatedCluster(p *ReleaseDedicatedClusterParams) (*ReleaseDedicatedClusterResponse, error) {
-	resp, err := s.cs.newRequest("releaseDedicatedCluster", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ReleaseDedicatedClusterResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-
-	return &r, nil
-}
-
-type ReleaseDedicatedClusterResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+type ClustersMetric struct {
+	Cpuallocated                    string `json:"cpuallocated"`
+	Cpuallocateddisablethreshold    bool   `json:"cpuallocateddisablethreshold"`
+	Cpuallocatedthreshold           bool   `json:"cpuallocatedthreshold"`
+	Cpudisablethreshold             bool   `json:"cpudisablethreshold"`
+	Cpumaxdeviation                 string `json:"cpumaxdeviation"`
+	Cputhreshold                    bool   `json:"cputhreshold"`
+	Cputotal                        string `json:"cputotal"`
+	Cpuused                         string `json:"cpuused"`
+	Hosts                           string `json:"hosts"`
+	Memoryallocated                 string `json:"memoryallocated"`
+	Memoryallocateddisablethreshold bool   `json:"memoryallocateddisablethreshold"`
+	Memoryallocatedthreshold        bool   `json:"memoryallocatedthreshold"`
+	Memorydisablethreshold          bool   `json:"memorydisablethreshold"`
+	Memorymaxdeviation              string `json:"memorymaxdeviation"`
+	Memorythreshold                 bool   `json:"memorythreshold"`
+	Memorytotal                     string `json:"memorytotal"`
+	Memoryused                      string `json:"memoryused"`
+	State                           string `json:"state"`
 }
 
 type ListDedicatedClustersParams struct {
@@ -1060,10 +1254,209 @@ type ListDedicatedClustersResponse struct {
 }
 
 type DedicatedCluster struct {
-	Accountid       string `json:"accountid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Clusterid       string `json:"clusterid,omitempty"`
-	Clustername     string `json:"clustername,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Id              string `json:"id,omitempty"`
+	Accountid       string `json:"accountid"`
+	Affinitygroupid string `json:"affinitygroupid"`
+	Clusterid       string `json:"clusterid"`
+	Clustername     string `json:"clustername"`
+	Domainid        string `json:"domainid"`
+	Id              string `json:"id"`
+}
+
+type ReleaseDedicatedClusterParams struct {
+	p map[string]interface{}
+}
+
+func (p *ReleaseDedicatedClusterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["clusterid"]; found {
+		u.Set("clusterid", v.(string))
+	}
+	return u
+}
+
+func (p *ReleaseDedicatedClusterParams) SetClusterid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clusterid"] = v
+	return
+}
+
+// You should always use this function to get a new ReleaseDedicatedClusterParams instance,
+// as then you are sure you have configured all required params
+func (s *ClusterService) NewReleaseDedicatedClusterParams(clusterid string) *ReleaseDedicatedClusterParams {
+	p := &ReleaseDedicatedClusterParams{}
+	p.p = make(map[string]interface{})
+	p.p["clusterid"] = clusterid
+	return p
+}
+
+// Release the dedication for cluster
+func (s *ClusterService) ReleaseDedicatedCluster(p *ReleaseDedicatedClusterParams) (*ReleaseDedicatedClusterResponse, error) {
+	resp, err := s.cs.newRequest("releaseDedicatedCluster", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ReleaseDedicatedClusterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type ReleaseDedicatedClusterResponse struct {
+	JobID       string `json:"jobid"`
+	Displaytext string `json:"displaytext"`
+	Success     bool   `json:"success"`
+}
+
+type UpdateClusterParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateClusterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["allocationstate"]; found {
+		u.Set("allocationstate", v.(string))
+	}
+	if v, found := p.p["clustername"]; found {
+		u.Set("clustername", v.(string))
+	}
+	if v, found := p.p["clustertype"]; found {
+		u.Set("clustertype", v.(string))
+	}
+	if v, found := p.p["hypervisor"]; found {
+		u.Set("hypervisor", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["managedstate"]; found {
+		u.Set("managedstate", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateClusterParams) SetAllocationstate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["allocationstate"] = v
+	return
+}
+
+func (p *UpdateClusterParams) SetClustername(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clustername"] = v
+	return
+}
+
+func (p *UpdateClusterParams) SetClustertype(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clustertype"] = v
+	return
+}
+
+func (p *UpdateClusterParams) SetHypervisor(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hypervisor"] = v
+	return
+}
+
+func (p *UpdateClusterParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+func (p *UpdateClusterParams) SetManagedstate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["managedstate"] = v
+	return
+}
+
+// You should always use this function to get a new UpdateClusterParams instance,
+// as then you are sure you have configured all required params
+func (s *ClusterService) NewUpdateClusterParams(id string) *UpdateClusterParams {
+	p := &UpdateClusterParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates an existing cluster
+func (s *ClusterService) UpdateCluster(p *UpdateClusterParams) (*UpdateClusterResponse, error) {
+	resp, err := s.cs.newRequest("updateCluster", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateClusterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type UpdateClusterResponse struct {
+	Allocationstate string `json:"allocationstate"`
+	Capacity        []struct {
+		Capacitytotal int64  `json:"capacitytotal"`
+		Capacityused  int64  `json:"capacityused"`
+		Clusterid     string `json:"clusterid"`
+		Clustername   string `json:"clustername"`
+		Percentused   string `json:"percentused"`
+		Podid         string `json:"podid"`
+		Podname       string `json:"podname"`
+		Type          int    `json:"type"`
+		Zoneid        string `json:"zoneid"`
+		Zonename      string `json:"zonename"`
+	} `json:"capacity"`
+	Clustertype           string            `json:"clustertype"`
+	Cpuovercommitratio    string            `json:"cpuovercommitratio"`
+	Hypervisortype        string            `json:"hypervisortype"`
+	Id                    string            `json:"id"`
+	Managedstate          string            `json:"managedstate"`
+	Memoryovercommitratio string            `json:"memoryovercommitratio"`
+	Name                  string            `json:"name"`
+	Ovm3vip               string            `json:"ovm3vip"`
+	Podid                 string            `json:"podid"`
+	Podname               string            `json:"podname"`
+	Resourcedetails       map[string]string `json:"resourcedetails"`
+	Zoneid                string            `json:"zoneid"`
+	Zonename              string            `json:"zonename"`
 }

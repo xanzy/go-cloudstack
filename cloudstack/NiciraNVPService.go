@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -160,15 +160,15 @@ func (s *NiciraNVPService) AddNiciraNvpDevice(p *AddNiciraNvpDeviceParams) (*Add
 }
 
 type AddNiciraNvpDeviceResponse struct {
-	JobID                string `json:"jobid,omitempty"`
-	Hostname             string `json:"hostname,omitempty"`
-	L2gatewayserviceuuid string `json:"l2gatewayserviceuuid,omitempty"`
-	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid,omitempty"`
-	Niciradevicename     string `json:"niciradevicename,omitempty"`
-	Nvpdeviceid          string `json:"nvpdeviceid,omitempty"`
-	Physicalnetworkid    string `json:"physicalnetworkid,omitempty"`
-	Provider             string `json:"provider,omitempty"`
-	Transportzoneuuid    string `json:"transportzoneuuid,omitempty"`
+	JobID                string `json:"jobid"`
+	Hostname             string `json:"hostname"`
+	L2gatewayserviceuuid string `json:"l2gatewayserviceuuid"`
+	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid"`
+	Niciradevicename     string `json:"niciradevicename"`
+	Nvpdeviceid          string `json:"nvpdeviceid"`
+	Physicalnetworkid    string `json:"physicalnetworkid"`
+	Provider             string `json:"provider"`
+	Transportzoneuuid    string `json:"transportzoneuuid"`
 }
 
 type DeleteNiciraNvpDeviceParams struct {
@@ -234,9 +234,9 @@ func (s *NiciraNVPService) DeleteNiciraNvpDevice(p *DeleteNiciraNvpDeviceParams)
 }
 
 type DeleteNiciraNvpDeviceResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+	JobID       string `json:"jobid"`
+	Displaytext string `json:"displaytext"`
+	Success     bool   `json:"success"`
 }
 
 type ListNiciraNvpDevicesParams struct {
@@ -337,12 +337,12 @@ type ListNiciraNvpDevicesResponse struct {
 }
 
 type NiciraNvpDevice struct {
-	Hostname             string `json:"hostname,omitempty"`
-	L2gatewayserviceuuid string `json:"l2gatewayserviceuuid,omitempty"`
-	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid,omitempty"`
-	Niciradevicename     string `json:"niciradevicename,omitempty"`
-	Nvpdeviceid          string `json:"nvpdeviceid,omitempty"`
-	Physicalnetworkid    string `json:"physicalnetworkid,omitempty"`
-	Provider             string `json:"provider,omitempty"`
-	Transportzoneuuid    string `json:"transportzoneuuid,omitempty"`
+	Hostname             string `json:"hostname"`
+	L2gatewayserviceuuid string `json:"l2gatewayserviceuuid"`
+	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid"`
+	Niciradevicename     string `json:"niciradevicename"`
+	Nvpdeviceid          string `json:"nvpdeviceid"`
+	Physicalnetworkid    string `json:"physicalnetworkid"`
+	Provider             string `json:"provider"`
+	Transportzoneuuid    string `json:"transportzoneuuid"`
 }

@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,6 +23,454 @@ import (
 	"strconv"
 	"strings"
 )
+
+type CreateStoragePoolParams struct {
+	p map[string]interface{}
+}
+
+func (p *CreateStoragePoolParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["capacitybytes"]; found {
+		vv := strconv.FormatInt(v.(int64), 10)
+		u.Set("capacitybytes", vv)
+	}
+	if v, found := p.p["capacityiops"]; found {
+		vv := strconv.FormatInt(v.(int64), 10)
+		u.Set("capacityiops", vv)
+	}
+	if v, found := p.p["clusterid"]; found {
+		u.Set("clusterid", v.(string))
+	}
+	if v, found := p.p["details"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
+			i++
+		}
+	}
+	if v, found := p.p["hypervisor"]; found {
+		u.Set("hypervisor", v.(string))
+	}
+	if v, found := p.p["managed"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("managed", vv)
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	if v, found := p.p["provider"]; found {
+		u.Set("provider", v.(string))
+	}
+	if v, found := p.p["scope"]; found {
+		u.Set("scope", v.(string))
+	}
+	if v, found := p.p["tags"]; found {
+		u.Set("tags", v.(string))
+	}
+	if v, found := p.p["url"]; found {
+		u.Set("url", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *CreateStoragePoolParams) SetCapacitybytes(v int64) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["capacitybytes"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetCapacityiops(v int64) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["capacityiops"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetClusterid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clusterid"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetDetails(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["details"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetHypervisor(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hypervisor"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetManaged(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["managed"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetProvider(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["provider"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetScope(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["scope"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetTags(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["tags"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetUrl(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["url"] = v
+	return
+}
+
+func (p *CreateStoragePoolParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+	return
+}
+
+// You should always use this function to get a new CreateStoragePoolParams instance,
+// as then you are sure you have configured all required params
+func (s *PoolService) NewCreateStoragePoolParams(name string, url string, zoneid string) *CreateStoragePoolParams {
+	p := &CreateStoragePoolParams{}
+	p.p = make(map[string]interface{})
+	p.p["name"] = name
+	p.p["url"] = url
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// Creates a storage pool.
+func (s *PoolService) CreateStoragePool(p *CreateStoragePoolParams) (*CreateStoragePoolResponse, error) {
+	resp, err := s.cs.newRequest("createStoragePool", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CreateStoragePoolResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type CreateStoragePoolResponse struct {
+	Capacityiops         int64             `json:"capacityiops"`
+	Clusterid            string            `json:"clusterid"`
+	Clustername          string            `json:"clustername"`
+	Created              string            `json:"created"`
+	Disksizeallocated    int64             `json:"disksizeallocated"`
+	Disksizetotal        int64             `json:"disksizetotal"`
+	Disksizeused         int64             `json:"disksizeused"`
+	Hypervisor           string            `json:"hypervisor"`
+	Id                   string            `json:"id"`
+	Ipaddress            string            `json:"ipaddress"`
+	Name                 string            `json:"name"`
+	Overprovisionfactor  string            `json:"overprovisionfactor"`
+	Path                 string            `json:"path"`
+	Podid                string            `json:"podid"`
+	Podname              string            `json:"podname"`
+	Scope                string            `json:"scope"`
+	State                string            `json:"state"`
+	Storagecapabilities  map[string]string `json:"storagecapabilities"`
+	Suitableformigration bool              `json:"suitableformigration"`
+	Tags                 string            `json:"tags"`
+	Type                 string            `json:"type"`
+	Zoneid               string            `json:"zoneid"`
+	Zonename             string            `json:"zonename"`
+}
+
+type DeleteStoragePoolParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteStoragePoolParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["forced"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("forced", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteStoragePoolParams) SetForced(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forced"] = v
+	return
+}
+
+func (p *DeleteStoragePoolParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+// You should always use this function to get a new DeleteStoragePoolParams instance,
+// as then you are sure you have configured all required params
+func (s *PoolService) NewDeleteStoragePoolParams(id string) *DeleteStoragePoolParams {
+	p := &DeleteStoragePoolParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes a storage pool.
+func (s *PoolService) DeleteStoragePool(p *DeleteStoragePoolParams) (*DeleteStoragePoolResponse, error) {
+	resp, err := s.cs.newRequest("deleteStoragePool", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteStoragePoolResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type DeleteStoragePoolResponse struct {
+	Displaytext string `json:"displaytext"`
+	Success     string `json:"success"`
+}
+
+type FindStoragePoolsForMigrationParams struct {
+	p map[string]interface{}
+}
+
+func (p *FindStoragePoolsForMigrationParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *FindStoragePoolsForMigrationParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+func (p *FindStoragePoolsForMigrationParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *FindStoragePoolsForMigrationParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *FindStoragePoolsForMigrationParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+// You should always use this function to get a new FindStoragePoolsForMigrationParams instance,
+// as then you are sure you have configured all required params
+func (s *PoolService) NewFindStoragePoolsForMigrationParams(id string) *FindStoragePoolsForMigrationParams {
+	p := &FindStoragePoolsForMigrationParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Lists storage pools available for migration of a volume.
+func (s *PoolService) FindStoragePoolsForMigration(p *FindStoragePoolsForMigrationParams) (*FindStoragePoolsForMigrationResponse, error) {
+	resp, err := s.cs.newRequest("findStoragePoolsForMigration", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r FindStoragePoolsForMigrationResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type FindStoragePoolsForMigrationResponse struct {
+	Capacityiops         int64             `json:"capacityiops"`
+	Clusterid            string            `json:"clusterid"`
+	Clustername          string            `json:"clustername"`
+	Created              string            `json:"created"`
+	Disksizeallocated    int64             `json:"disksizeallocated"`
+	Disksizetotal        int64             `json:"disksizetotal"`
+	Disksizeused         int64             `json:"disksizeused"`
+	Hypervisor           string            `json:"hypervisor"`
+	Id                   string            `json:"id"`
+	Ipaddress            string            `json:"ipaddress"`
+	Name                 string            `json:"name"`
+	Overprovisionfactor  string            `json:"overprovisionfactor"`
+	Path                 string            `json:"path"`
+	Podid                string            `json:"podid"`
+	Podname              string            `json:"podname"`
+	Scope                string            `json:"scope"`
+	State                string            `json:"state"`
+	Storagecapabilities  map[string]string `json:"storagecapabilities"`
+	Suitableformigration bool              `json:"suitableformigration"`
+	Tags                 string            `json:"tags"`
+	Type                 string            `json:"type"`
+	Zoneid               string            `json:"zoneid"`
+	Zonename             string            `json:"zonename"`
+}
+
+type ListElastistorPoolParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListElastistorPoolParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		vv := strconv.FormatInt(v.(int64), 10)
+		u.Set("id", vv)
+	}
+	return u
+}
+
+func (p *ListElastistorPoolParams) SetId(v int64) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+// You should always use this function to get a new ListElastistorPoolParams instance,
+// as then you are sure you have configured all required params
+func (s *PoolService) NewListElastistorPoolParams() *ListElastistorPoolParams {
+	p := &ListElastistorPoolParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Lists the pools of elastistor
+func (s *PoolService) ListElastistorPool(p *ListElastistorPoolParams) (*ListElastistorPoolResponse, error) {
+	resp, err := s.cs.newRequest("listElastistorPool", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListElastistorPoolResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListElastistorPoolResponse struct {
+	Count          int               `json:"count"`
+	ElastistorPool []*ElastistorPool `json:"elastistorpool"`
+}
+
+type ElastistorPool struct {
+	Controllerid string `json:"controllerid"`
+	Gateway      string `json:"gateway"`
+	Id           string `json:"id"`
+	Maxiops      int64  `json:"maxiops"`
+	Name         string `json:"name"`
+	Size         int64  `json:"size"`
+	State        string `json:"state"`
+}
 
 type ListStoragePoolsParams struct {
 	p map[string]interface{}
@@ -271,243 +719,29 @@ type ListStoragePoolsResponse struct {
 }
 
 type StoragePool struct {
-	Capacityiops         int64             `json:"capacityiops,omitempty"`
-	Clusterid            string            `json:"clusterid,omitempty"`
-	Clustername          string            `json:"clustername,omitempty"`
-	Created              string            `json:"created,omitempty"`
-	Disksizeallocated    int64             `json:"disksizeallocated,omitempty"`
-	Disksizetotal        int64             `json:"disksizetotal,omitempty"`
-	Disksizeused         int64             `json:"disksizeused,omitempty"`
-	Hypervisor           string            `json:"hypervisor,omitempty"`
-	Id                   string            `json:"id,omitempty"`
-	Ipaddress            string            `json:"ipaddress,omitempty"`
-	Name                 string            `json:"name,omitempty"`
-	Overprovisionfactor  string            `json:"overprovisionfactor,omitempty"`
-	Path                 string            `json:"path,omitempty"`
-	Podid                string            `json:"podid,omitempty"`
-	Podname              string            `json:"podname,omitempty"`
-	Scope                string            `json:"scope,omitempty"`
-	State                string            `json:"state,omitempty"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
-	Suitableformigration bool              `json:"suitableformigration,omitempty"`
-	Tags                 string            `json:"tags,omitempty"`
-	Type                 string            `json:"type,omitempty"`
-	Zoneid               string            `json:"zoneid,omitempty"`
-	Zonename             string            `json:"zonename,omitempty"`
-}
-
-type CreateStoragePoolParams struct {
-	p map[string]interface{}
-}
-
-func (p *CreateStoragePoolParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["capacitybytes"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
-		u.Set("capacitybytes", vv)
-	}
-	if v, found := p.p["capacityiops"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
-		u.Set("capacityiops", vv)
-	}
-	if v, found := p.p["clusterid"]; found {
-		u.Set("clusterid", v.(string))
-	}
-	if v, found := p.p["details"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
-			i++
-		}
-	}
-	if v, found := p.p["hypervisor"]; found {
-		u.Set("hypervisor", v.(string))
-	}
-	if v, found := p.p["managed"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("managed", vv)
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
-	if v, found := p.p["provider"]; found {
-		u.Set("provider", v.(string))
-	}
-	if v, found := p.p["scope"]; found {
-		u.Set("scope", v.(string))
-	}
-	if v, found := p.p["tags"]; found {
-		u.Set("tags", v.(string))
-	}
-	if v, found := p.p["url"]; found {
-		u.Set("url", v.(string))
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
-	}
-	return u
-}
-
-func (p *CreateStoragePoolParams) SetCapacitybytes(v int64) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["capacitybytes"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetCapacityiops(v int64) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["capacityiops"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetClusterid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clusterid"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetDetails(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["details"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetHypervisor(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hypervisor"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetManaged(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["managed"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetPodid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["podid"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetProvider(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["provider"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetScope(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["scope"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetTags(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["tags"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetUrl(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["url"] = v
-	return
-}
-
-func (p *CreateStoragePoolParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-	return
-}
-
-// You should always use this function to get a new CreateStoragePoolParams instance,
-// as then you are sure you have configured all required params
-func (s *PoolService) NewCreateStoragePoolParams(name string, url string, zoneid string) *CreateStoragePoolParams {
-	p := &CreateStoragePoolParams{}
-	p.p = make(map[string]interface{})
-	p.p["name"] = name
-	p.p["url"] = url
-	p.p["zoneid"] = zoneid
-	return p
-}
-
-// Creates a storage pool.
-func (s *PoolService) CreateStoragePool(p *CreateStoragePoolParams) (*CreateStoragePoolResponse, error) {
-	resp, err := s.cs.newRequest("createStoragePool", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r CreateStoragePoolResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type CreateStoragePoolResponse struct {
-	Capacityiops         int64             `json:"capacityiops,omitempty"`
-	Clusterid            string            `json:"clusterid,omitempty"`
-	Clustername          string            `json:"clustername,omitempty"`
-	Created              string            `json:"created,omitempty"`
-	Disksizeallocated    int64             `json:"disksizeallocated,omitempty"`
-	Disksizetotal        int64             `json:"disksizetotal,omitempty"`
-	Disksizeused         int64             `json:"disksizeused,omitempty"`
-	Hypervisor           string            `json:"hypervisor,omitempty"`
-	Id                   string            `json:"id,omitempty"`
-	Ipaddress            string            `json:"ipaddress,omitempty"`
-	Name                 string            `json:"name,omitempty"`
-	Overprovisionfactor  string            `json:"overprovisionfactor,omitempty"`
-	Path                 string            `json:"path,omitempty"`
-	Podid                string            `json:"podid,omitempty"`
-	Podname              string            `json:"podname,omitempty"`
-	Scope                string            `json:"scope,omitempty"`
-	State                string            `json:"state,omitempty"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
-	Suitableformigration bool              `json:"suitableformigration,omitempty"`
-	Tags                 string            `json:"tags,omitempty"`
-	Type                 string            `json:"type,omitempty"`
-	Zoneid               string            `json:"zoneid,omitempty"`
-	Zonename             string            `json:"zonename,omitempty"`
+	Capacityiops         int64             `json:"capacityiops"`
+	Clusterid            string            `json:"clusterid"`
+	Clustername          string            `json:"clustername"`
+	Created              string            `json:"created"`
+	Disksizeallocated    int64             `json:"disksizeallocated"`
+	Disksizetotal        int64             `json:"disksizetotal"`
+	Disksizeused         int64             `json:"disksizeused"`
+	Hypervisor           string            `json:"hypervisor"`
+	Id                   string            `json:"id"`
+	Ipaddress            string            `json:"ipaddress"`
+	Name                 string            `json:"name"`
+	Overprovisionfactor  string            `json:"overprovisionfactor"`
+	Path                 string            `json:"path"`
+	Podid                string            `json:"podid"`
+	Podname              string            `json:"podname"`
+	Scope                string            `json:"scope"`
+	State                string            `json:"state"`
+	Storagecapabilities  map[string]string `json:"storagecapabilities"`
+	Suitableformigration bool              `json:"suitableformigration"`
+	Tags                 string            `json:"tags"`
+	Type                 string            `json:"type"`
+	Zoneid               string            `json:"zoneid"`
+	Zonename             string            `json:"zonename"`
 }
 
 type UpdateStoragePoolParams struct {
@@ -606,199 +840,27 @@ func (s *PoolService) UpdateStoragePool(p *UpdateStoragePoolParams) (*UpdateStor
 }
 
 type UpdateStoragePoolResponse struct {
-	Capacityiops         int64             `json:"capacityiops,omitempty"`
-	Clusterid            string            `json:"clusterid,omitempty"`
-	Clustername          string            `json:"clustername,omitempty"`
-	Created              string            `json:"created,omitempty"`
-	Disksizeallocated    int64             `json:"disksizeallocated,omitempty"`
-	Disksizetotal        int64             `json:"disksizetotal,omitempty"`
-	Disksizeused         int64             `json:"disksizeused,omitempty"`
-	Hypervisor           string            `json:"hypervisor,omitempty"`
-	Id                   string            `json:"id,omitempty"`
-	Ipaddress            string            `json:"ipaddress,omitempty"`
-	Name                 string            `json:"name,omitempty"`
-	Overprovisionfactor  string            `json:"overprovisionfactor,omitempty"`
-	Path                 string            `json:"path,omitempty"`
-	Podid                string            `json:"podid,omitempty"`
-	Podname              string            `json:"podname,omitempty"`
-	Scope                string            `json:"scope,omitempty"`
-	State                string            `json:"state,omitempty"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
-	Suitableformigration bool              `json:"suitableformigration,omitempty"`
-	Tags                 string            `json:"tags,omitempty"`
-	Type                 string            `json:"type,omitempty"`
-	Zoneid               string            `json:"zoneid,omitempty"`
-	Zonename             string            `json:"zonename,omitempty"`
-}
-
-type DeleteStoragePoolParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteStoragePoolParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["forced"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("forced", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteStoragePoolParams) SetForced(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["forced"] = v
-	return
-}
-
-func (p *DeleteStoragePoolParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-	return
-}
-
-// You should always use this function to get a new DeleteStoragePoolParams instance,
-// as then you are sure you have configured all required params
-func (s *PoolService) NewDeleteStoragePoolParams(id string) *DeleteStoragePoolParams {
-	p := &DeleteStoragePoolParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes a storage pool.
-func (s *PoolService) DeleteStoragePool(p *DeleteStoragePoolParams) (*DeleteStoragePoolResponse, error) {
-	resp, err := s.cs.newRequest("deleteStoragePool", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteStoragePoolResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type DeleteStoragePoolResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
-type FindStoragePoolsForMigrationParams struct {
-	p map[string]interface{}
-}
-
-func (p *FindStoragePoolsForMigrationParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	return u
-}
-
-func (p *FindStoragePoolsForMigrationParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-	return
-}
-
-func (p *FindStoragePoolsForMigrationParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-	return
-}
-
-func (p *FindStoragePoolsForMigrationParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-	return
-}
-
-func (p *FindStoragePoolsForMigrationParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-	return
-}
-
-// You should always use this function to get a new FindStoragePoolsForMigrationParams instance,
-// as then you are sure you have configured all required params
-func (s *PoolService) NewFindStoragePoolsForMigrationParams(id string) *FindStoragePoolsForMigrationParams {
-	p := &FindStoragePoolsForMigrationParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Lists storage pools available for migration of a volume.
-func (s *PoolService) FindStoragePoolsForMigration(p *FindStoragePoolsForMigrationParams) (*FindStoragePoolsForMigrationResponse, error) {
-	resp, err := s.cs.newRequest("findStoragePoolsForMigration", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r FindStoragePoolsForMigrationResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type FindStoragePoolsForMigrationResponse struct {
-	Capacityiops         int64             `json:"capacityiops,omitempty"`
-	Clusterid            string            `json:"clusterid,omitempty"`
-	Clustername          string            `json:"clustername,omitempty"`
-	Created              string            `json:"created,omitempty"`
-	Disksizeallocated    int64             `json:"disksizeallocated,omitempty"`
-	Disksizetotal        int64             `json:"disksizetotal,omitempty"`
-	Disksizeused         int64             `json:"disksizeused,omitempty"`
-	Hypervisor           string            `json:"hypervisor,omitempty"`
-	Id                   string            `json:"id,omitempty"`
-	Ipaddress            string            `json:"ipaddress,omitempty"`
-	Name                 string            `json:"name,omitempty"`
-	Overprovisionfactor  string            `json:"overprovisionfactor,omitempty"`
-	Path                 string            `json:"path,omitempty"`
-	Podid                string            `json:"podid,omitempty"`
-	Podname              string            `json:"podname,omitempty"`
-	Scope                string            `json:"scope,omitempty"`
-	State                string            `json:"state,omitempty"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities,omitempty"`
-	Suitableformigration bool              `json:"suitableformigration,omitempty"`
-	Tags                 string            `json:"tags,omitempty"`
-	Type                 string            `json:"type,omitempty"`
-	Zoneid               string            `json:"zoneid,omitempty"`
-	Zonename             string            `json:"zonename,omitempty"`
+	Capacityiops         int64             `json:"capacityiops"`
+	Clusterid            string            `json:"clusterid"`
+	Clustername          string            `json:"clustername"`
+	Created              string            `json:"created"`
+	Disksizeallocated    int64             `json:"disksizeallocated"`
+	Disksizetotal        int64             `json:"disksizetotal"`
+	Disksizeused         int64             `json:"disksizeused"`
+	Hypervisor           string            `json:"hypervisor"`
+	Id                   string            `json:"id"`
+	Ipaddress            string            `json:"ipaddress"`
+	Name                 string            `json:"name"`
+	Overprovisionfactor  string            `json:"overprovisionfactor"`
+	Path                 string            `json:"path"`
+	Podid                string            `json:"podid"`
+	Podname              string            `json:"podname"`
+	Scope                string            `json:"scope"`
+	State                string            `json:"state"`
+	Storagecapabilities  map[string]string `json:"storagecapabilities"`
+	Suitableformigration bool              `json:"suitableformigration"`
+	Tags                 string            `json:"tags"`
+	Type                 string            `json:"type"`
+	Zoneid               string            `json:"zoneid"`
+	Zonename             string            `json:"zonename"`
 }

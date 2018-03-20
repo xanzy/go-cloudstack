@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,6 +23,335 @@ import (
 	"strconv"
 	"strings"
 )
+
+type AddBaremetalHostParams struct {
+	p map[string]interface{}
+}
+
+func (p *AddBaremetalHostParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["allocationstate"]; found {
+		u.Set("allocationstate", v.(string))
+	}
+	if v, found := p.p["clusterid"]; found {
+		u.Set("clusterid", v.(string))
+	}
+	if v, found := p.p["clustername"]; found {
+		u.Set("clustername", v.(string))
+	}
+	if v, found := p.p["hosttags"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("hosttags", vv)
+	}
+	if v, found := p.p["hypervisor"]; found {
+		u.Set("hypervisor", v.(string))
+	}
+	if v, found := p.p["ipaddress"]; found {
+		u.Set("ipaddress", v.(string))
+	}
+	if v, found := p.p["password"]; found {
+		u.Set("password", v.(string))
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	if v, found := p.p["url"]; found {
+		u.Set("url", v.(string))
+	}
+	if v, found := p.p["username"]; found {
+		u.Set("username", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *AddBaremetalHostParams) SetAllocationstate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["allocationstate"] = v
+	return
+}
+
+func (p *AddBaremetalHostParams) SetClusterid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clusterid"] = v
+	return
+}
+
+func (p *AddBaremetalHostParams) SetClustername(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clustername"] = v
+	return
+}
+
+func (p *AddBaremetalHostParams) SetHosttags(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hosttags"] = v
+	return
+}
+
+func (p *AddBaremetalHostParams) SetHypervisor(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hypervisor"] = v
+	return
+}
+
+func (p *AddBaremetalHostParams) SetIpaddress(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ipaddress"] = v
+	return
+}
+
+func (p *AddBaremetalHostParams) SetPassword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["password"] = v
+	return
+}
+
+func (p *AddBaremetalHostParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+	return
+}
+
+func (p *AddBaremetalHostParams) SetUrl(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["url"] = v
+	return
+}
+
+func (p *AddBaremetalHostParams) SetUsername(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["username"] = v
+	return
+}
+
+func (p *AddBaremetalHostParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+	return
+}
+
+// You should always use this function to get a new AddBaremetalHostParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewAddBaremetalHostParams(hypervisor string, password string, podid string, url string, username string, zoneid string) *AddBaremetalHostParams {
+	p := &AddBaremetalHostParams{}
+	p.p = make(map[string]interface{})
+	p.p["hypervisor"] = hypervisor
+	p.p["password"] = password
+	p.p["podid"] = podid
+	p.p["url"] = url
+	p.p["username"] = username
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// add a baremetal host
+func (s *HostService) AddBaremetalHost(p *AddBaremetalHostParams) (*AddBaremetalHostResponse, error) {
+	resp, err := s.cs.newRequest("addBaremetalHost", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r AddBaremetalHostResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type AddBaremetalHostResponse struct {
+	Averageload             int64             `json:"averageload"`
+	Capabilities            string            `json:"capabilities"`
+	Clusterid               string            `json:"clusterid"`
+	Clustername             string            `json:"clustername"`
+	Clustertype             string            `json:"clustertype"`
+	Cpuallocated            string            `json:"cpuallocated"`
+	Cpunumber               int               `json:"cpunumber"`
+	Cpusockets              int               `json:"cpusockets"`
+	Cpuspeed                int64             `json:"cpuspeed"`
+	Cpuused                 string            `json:"cpuused"`
+	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning"`
+	Created                 string            `json:"created"`
+	Details                 map[string]string `json:"details"`
+	Disconnected            string            `json:"disconnected"`
+	Disksizeallocated       int64             `json:"disksizeallocated"`
+	Disksizetotal           int64             `json:"disksizetotal"`
+	Events                  string            `json:"events"`
+	Gpugroup                []struct {
+		Gpugroupname string `json:"gpugroupname"`
+		Vgpu         []struct {
+			Maxcapacity       int64  `json:"maxcapacity"`
+			Maxheads          int64  `json:"maxheads"`
+			Maxresolutionx    int64  `json:"maxresolutionx"`
+			Maxresolutiony    int64  `json:"maxresolutiony"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu"`
+			Remainingcapacity int64  `json:"remainingcapacity"`
+			Vgputype          string `json:"vgputype"`
+			Videoram          int64  `json:"videoram"`
+		} `json:"vgpu"`
+	} `json:"gpugroup"`
+	Hahost               bool   `json:"hahost"`
+	Hasenoughcapacity    bool   `json:"hasenoughcapacity"`
+	Hosttags             string `json:"hosttags"`
+	Hypervisor           string `json:"hypervisor"`
+	Hypervisorversion    string `json:"hypervisorversion"`
+	Id                   string `json:"id"`
+	Ipaddress            string `json:"ipaddress"`
+	Islocalstorageactive bool   `json:"islocalstorageactive"`
+	Lastpinged           string `json:"lastpinged"`
+	Managementserverid   int64  `json:"managementserverid"`
+	Memoryallocated      int64  `json:"memoryallocated"`
+	Memorytotal          int64  `json:"memorytotal"`
+	Memoryused           int64  `json:"memoryused"`
+	Name                 string `json:"name"`
+	Networkkbsread       int64  `json:"networkkbsread"`
+	Networkkbswrite      int64  `json:"networkkbswrite"`
+	Oscategoryid         string `json:"oscategoryid"`
+	Oscategoryname       string `json:"oscategoryname"`
+	Outofbandmanagement  string `json:"outofbandmanagement"`
+	Podid                string `json:"podid"`
+	Podname              string `json:"podname"`
+	Removed              string `json:"removed"`
+	Resourcestate        string `json:"resourcestate"`
+	State                string `json:"state"`
+	Suitableformigration bool   `json:"suitableformigration"`
+	Type                 string `json:"type"`
+	Version              string `json:"version"`
+	Zoneid               string `json:"zoneid"`
+	Zonename             string `json:"zonename"`
+}
+
+type AddGloboDnsHostParams struct {
+	p map[string]interface{}
+}
+
+func (p *AddGloboDnsHostParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["password"]; found {
+		u.Set("password", v.(string))
+	}
+	if v, found := p.p["physicalnetworkid"]; found {
+		u.Set("physicalnetworkid", v.(string))
+	}
+	if v, found := p.p["url"]; found {
+		u.Set("url", v.(string))
+	}
+	if v, found := p.p["username"]; found {
+		u.Set("username", v.(string))
+	}
+	return u
+}
+
+func (p *AddGloboDnsHostParams) SetPassword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["password"] = v
+	return
+}
+
+func (p *AddGloboDnsHostParams) SetPhysicalnetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["physicalnetworkid"] = v
+	return
+}
+
+func (p *AddGloboDnsHostParams) SetUrl(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["url"] = v
+	return
+}
+
+func (p *AddGloboDnsHostParams) SetUsername(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["username"] = v
+	return
+}
+
+// You should always use this function to get a new AddGloboDnsHostParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewAddGloboDnsHostParams(password string, physicalnetworkid string, url string, username string) *AddGloboDnsHostParams {
+	p := &AddGloboDnsHostParams{}
+	p.p = make(map[string]interface{})
+	p.p["password"] = password
+	p.p["physicalnetworkid"] = physicalnetworkid
+	p.p["url"] = url
+	p.p["username"] = username
+	return p
+}
+
+// Adds the GloboDNS external host
+func (s *HostService) AddGloboDnsHost(p *AddGloboDnsHostParams) (*AddGloboDnsHostResponse, error) {
+	resp, err := s.cs.newRequest("addGloboDnsHost", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r AddGloboDnsHostResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type AddGloboDnsHostResponse struct {
+	JobID       string `json:"jobid"`
+	Displaytext string `json:"displaytext"`
+	Success     bool   `json:"success"`
+}
 
 type AddHostParams struct {
 	p map[string]interface{}
@@ -177,72 +506,142 @@ func (s *HostService) AddHost(p *AddHostParams) (*AddHostResponse, error) {
 }
 
 type AddHostResponse struct {
-	Averageload             int64             `json:"averageload,omitempty"`
-	Capabilities            string            `json:"capabilities,omitempty"`
-	Clusterid               string            `json:"clusterid,omitempty"`
-	Clustername             string            `json:"clustername,omitempty"`
-	Clustertype             string            `json:"clustertype,omitempty"`
-	Cpuallocated            string            `json:"cpuallocated,omitempty"`
-	Cpunumber               int               `json:"cpunumber,omitempty"`
-	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
-	Cpuused                 string            `json:"cpuused,omitempty"`
-	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
-	Created                 string            `json:"created,omitempty"`
-	Details                 map[string]string `json:"details,omitempty"`
-	Disconnected            string            `json:"disconnected,omitempty"`
-	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
-	Events                  string            `json:"events,omitempty"`
+	Averageload             int64             `json:"averageload"`
+	Capabilities            string            `json:"capabilities"`
+	Clusterid               string            `json:"clusterid"`
+	Clustername             string            `json:"clustername"`
+	Clustertype             string            `json:"clustertype"`
+	Cpuallocated            string            `json:"cpuallocated"`
+	Cpunumber               int               `json:"cpunumber"`
+	Cpusockets              int               `json:"cpusockets"`
+	Cpuspeed                int64             `json:"cpuspeed"`
+	Cpuused                 string            `json:"cpuused"`
+	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning"`
+	Created                 string            `json:"created"`
+	Details                 map[string]string `json:"details"`
+	Disconnected            string            `json:"disconnected"`
+	Disksizeallocated       int64             `json:"disksizeallocated"`
+	Disksizetotal           int64             `json:"disksizetotal"`
+	Events                  string            `json:"events"`
 	Gpugroup                []struct {
-		Gpugroupname string `json:"gpugroupname,omitempty"`
+		Gpugroupname string `json:"gpugroupname"`
 		Vgpu         []struct {
-			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
-			Maxheads          int64  `json:"maxheads,omitempty"`
-			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
-			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int64  `json:"videoram,omitempty"`
-		} `json:"vgpu,omitempty"`
-	} `json:"gpugroup,omitempty"`
-	Hahost               bool   `json:"hahost,omitempty"`
-	Hasenoughcapacity    bool   `json:"hasenoughcapacity,omitempty"`
-	Hosttags             string `json:"hosttags,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
-	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Ipaddress            string `json:"ipaddress,omitempty"`
-	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
-	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int64  `json:"managementserverid,omitempty"`
-	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
-	Memorytotal          int64  `json:"memorytotal,omitempty"`
-	Memoryused           int64  `json:"memoryused,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
-	Oscategoryid         string `json:"oscategoryid,omitempty"`
-	Oscategoryname       string `json:"oscategoryname,omitempty"`
-	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
-	Podid                string `json:"podid,omitempty"`
-	Podname              string `json:"podname,omitempty"`
-	Removed              string `json:"removed,omitempty"`
-	Resourcestate        string `json:"resourcestate,omitempty"`
-	State                string `json:"state,omitempty"`
-	Suitableformigration bool   `json:"suitableformigration,omitempty"`
-	Type                 string `json:"type,omitempty"`
-	Version              string `json:"version,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
-	Zonename             string `json:"zonename,omitempty"`
+			Maxcapacity       int64  `json:"maxcapacity"`
+			Maxheads          int64  `json:"maxheads"`
+			Maxresolutionx    int64  `json:"maxresolutionx"`
+			Maxresolutiony    int64  `json:"maxresolutiony"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu"`
+			Remainingcapacity int64  `json:"remainingcapacity"`
+			Vgputype          string `json:"vgputype"`
+			Videoram          int64  `json:"videoram"`
+		} `json:"vgpu"`
+	} `json:"gpugroup"`
+	Hahost               bool   `json:"hahost"`
+	Hasenoughcapacity    bool   `json:"hasenoughcapacity"`
+	Hosttags             string `json:"hosttags"`
+	Hypervisor           string `json:"hypervisor"`
+	Hypervisorversion    string `json:"hypervisorversion"`
+	Id                   string `json:"id"`
+	Ipaddress            string `json:"ipaddress"`
+	Islocalstorageactive bool   `json:"islocalstorageactive"`
+	Lastpinged           string `json:"lastpinged"`
+	Managementserverid   int64  `json:"managementserverid"`
+	Memoryallocated      int64  `json:"memoryallocated"`
+	Memorytotal          int64  `json:"memorytotal"`
+	Memoryused           int64  `json:"memoryused"`
+	Name                 string `json:"name"`
+	Networkkbsread       int64  `json:"networkkbsread"`
+	Networkkbswrite      int64  `json:"networkkbswrite"`
+	Oscategoryid         string `json:"oscategoryid"`
+	Oscategoryname       string `json:"oscategoryname"`
+	Outofbandmanagement  string `json:"outofbandmanagement"`
+	Podid                string `json:"podid"`
+	Podname              string `json:"podname"`
+	Removed              string `json:"removed"`
+	Resourcestate        string `json:"resourcestate"`
+	State                string `json:"state"`
+	Suitableformigration bool   `json:"suitableformigration"`
+	Type                 string `json:"type"`
+	Version              string `json:"version"`
+	Zoneid               string `json:"zoneid"`
+	Zonename             string `json:"zonename"`
 }
 
-type ReconnectHostParams struct {
+type AddSecondaryStorageParams struct {
 	p map[string]interface{}
 }
 
-func (p *ReconnectHostParams) toURLValues() url.Values {
+func (p *AddSecondaryStorageParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["url"]; found {
+		u.Set("url", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *AddSecondaryStorageParams) SetUrl(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["url"] = v
+	return
+}
+
+func (p *AddSecondaryStorageParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+	return
+}
+
+// You should always use this function to get a new AddSecondaryStorageParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewAddSecondaryStorageParams(url string) *AddSecondaryStorageParams {
+	p := &AddSecondaryStorageParams{}
+	p.p = make(map[string]interface{})
+	p.p["url"] = url
+	return p
+}
+
+// Adds secondary storage.
+func (s *HostService) AddSecondaryStorage(p *AddSecondaryStorageParams) (*AddSecondaryStorageResponse, error) {
+	resp, err := s.cs.newRequest("addSecondaryStorage", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r AddSecondaryStorageResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type AddSecondaryStorageResponse struct {
+	Details      []interface{} `json:"details"`
+	Id           string        `json:"id"`
+	Name         string        `json:"name"`
+	Protocol     string        `json:"protocol"`
+	Providername string        `json:"providername"`
+	Scope        string        `json:"scope"`
+	Url          string        `json:"url"`
+	Zoneid       string        `json:"zoneid"`
+	Zonename     string        `json:"zonename"`
+}
+
+type CancelHostMaintenanceParams struct {
+	p map[string]interface{}
+}
+
+func (p *CancelHostMaintenanceParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
@@ -253,7 +652,7 @@ func (p *ReconnectHostParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *ReconnectHostParams) SetId(v string) {
+func (p *CancelHostMaintenanceParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -261,23 +660,23 @@ func (p *ReconnectHostParams) SetId(v string) {
 	return
 }
 
-// You should always use this function to get a new ReconnectHostParams instance,
+// You should always use this function to get a new CancelHostMaintenanceParams instance,
 // as then you are sure you have configured all required params
-func (s *HostService) NewReconnectHostParams(id string) *ReconnectHostParams {
-	p := &ReconnectHostParams{}
+func (s *HostService) NewCancelHostMaintenanceParams(id string) *CancelHostMaintenanceParams {
+	p := &CancelHostMaintenanceParams{}
 	p.p = make(map[string]interface{})
 	p.p["id"] = id
 	return p
 }
 
-// Reconnects a host.
-func (s *HostService) ReconnectHost(p *ReconnectHostParams) (*ReconnectHostResponse, error) {
-	resp, err := s.cs.newRequest("reconnectHost", p.toURLValues())
+// Cancels host maintenance.
+func (s *HostService) CancelHostMaintenance(p *CancelHostMaintenanceParams) (*CancelHostMaintenanceResponse, error) {
+	resp, err := s.cs.newRequest("cancelHostMaintenance", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r ReconnectHostResponse
+	var r CancelHostMaintenanceResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -305,221 +704,167 @@ func (s *HostService) ReconnectHost(p *ReconnectHostParams) (*ReconnectHostRespo
 	return &r, nil
 }
 
-type ReconnectHostResponse struct {
-	JobID                   string            `json:"jobid,omitempty"`
-	Averageload             int64             `json:"averageload,omitempty"`
-	Capabilities            string            `json:"capabilities,omitempty"`
-	Clusterid               string            `json:"clusterid,omitempty"`
-	Clustername             string            `json:"clustername,omitempty"`
-	Clustertype             string            `json:"clustertype,omitempty"`
-	Cpuallocated            string            `json:"cpuallocated,omitempty"`
-	Cpunumber               int               `json:"cpunumber,omitempty"`
-	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
-	Cpuused                 string            `json:"cpuused,omitempty"`
-	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
-	Created                 string            `json:"created,omitempty"`
-	Details                 map[string]string `json:"details,omitempty"`
-	Disconnected            string            `json:"disconnected,omitempty"`
-	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
-	Events                  string            `json:"events,omitempty"`
+type CancelHostMaintenanceResponse struct {
+	JobID                   string            `json:"jobid"`
+	Averageload             int64             `json:"averageload"`
+	Capabilities            string            `json:"capabilities"`
+	Clusterid               string            `json:"clusterid"`
+	Clustername             string            `json:"clustername"`
+	Clustertype             string            `json:"clustertype"`
+	Cpuallocated            string            `json:"cpuallocated"`
+	Cpunumber               int               `json:"cpunumber"`
+	Cpusockets              int               `json:"cpusockets"`
+	Cpuspeed                int64             `json:"cpuspeed"`
+	Cpuused                 string            `json:"cpuused"`
+	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning"`
+	Created                 string            `json:"created"`
+	Details                 map[string]string `json:"details"`
+	Disconnected            string            `json:"disconnected"`
+	Disksizeallocated       int64             `json:"disksizeallocated"`
+	Disksizetotal           int64             `json:"disksizetotal"`
+	Events                  string            `json:"events"`
 	Gpugroup                []struct {
-		Gpugroupname string `json:"gpugroupname,omitempty"`
+		Gpugroupname string `json:"gpugroupname"`
 		Vgpu         []struct {
-			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
-			Maxheads          int64  `json:"maxheads,omitempty"`
-			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
-			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int64  `json:"videoram,omitempty"`
-		} `json:"vgpu,omitempty"`
-	} `json:"gpugroup,omitempty"`
-	Hahost               bool   `json:"hahost,omitempty"`
-	Hasenoughcapacity    bool   `json:"hasenoughcapacity,omitempty"`
-	Hosttags             string `json:"hosttags,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
-	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Ipaddress            string `json:"ipaddress,omitempty"`
-	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
-	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int64  `json:"managementserverid,omitempty"`
-	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
-	Memorytotal          int64  `json:"memorytotal,omitempty"`
-	Memoryused           int64  `json:"memoryused,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
-	Oscategoryid         string `json:"oscategoryid,omitempty"`
-	Oscategoryname       string `json:"oscategoryname,omitempty"`
-	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
-	Podid                string `json:"podid,omitempty"`
-	Podname              string `json:"podname,omitempty"`
-	Removed              string `json:"removed,omitempty"`
-	Resourcestate        string `json:"resourcestate,omitempty"`
-	State                string `json:"state,omitempty"`
-	Suitableformigration bool   `json:"suitableformigration,omitempty"`
-	Type                 string `json:"type,omitempty"`
-	Version              string `json:"version,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
-	Zonename             string `json:"zonename,omitempty"`
+			Maxcapacity       int64  `json:"maxcapacity"`
+			Maxheads          int64  `json:"maxheads"`
+			Maxresolutionx    int64  `json:"maxresolutionx"`
+			Maxresolutiony    int64  `json:"maxresolutiony"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu"`
+			Remainingcapacity int64  `json:"remainingcapacity"`
+			Vgputype          string `json:"vgputype"`
+			Videoram          int64  `json:"videoram"`
+		} `json:"vgpu"`
+	} `json:"gpugroup"`
+	Hahost               bool   `json:"hahost"`
+	Hasenoughcapacity    bool   `json:"hasenoughcapacity"`
+	Hosttags             string `json:"hosttags"`
+	Hypervisor           string `json:"hypervisor"`
+	Hypervisorversion    string `json:"hypervisorversion"`
+	Id                   string `json:"id"`
+	Ipaddress            string `json:"ipaddress"`
+	Islocalstorageactive bool   `json:"islocalstorageactive"`
+	Lastpinged           string `json:"lastpinged"`
+	Managementserverid   int64  `json:"managementserverid"`
+	Memoryallocated      int64  `json:"memoryallocated"`
+	Memorytotal          int64  `json:"memorytotal"`
+	Memoryused           int64  `json:"memoryused"`
+	Name                 string `json:"name"`
+	Networkkbsread       int64  `json:"networkkbsread"`
+	Networkkbswrite      int64  `json:"networkkbswrite"`
+	Oscategoryid         string `json:"oscategoryid"`
+	Oscategoryname       string `json:"oscategoryname"`
+	Outofbandmanagement  string `json:"outofbandmanagement"`
+	Podid                string `json:"podid"`
+	Podname              string `json:"podname"`
+	Removed              string `json:"removed"`
+	Resourcestate        string `json:"resourcestate"`
+	State                string `json:"state"`
+	Suitableformigration bool   `json:"suitableformigration"`
+	Type                 string `json:"type"`
+	Version              string `json:"version"`
+	Zoneid               string `json:"zoneid"`
+	Zonename             string `json:"zonename"`
 }
 
-type UpdateHostParams struct {
+type DedicateHostParams struct {
 	p map[string]interface{}
 }
 
-func (p *UpdateHostParams) toURLValues() url.Values {
+func (p *DedicateHostParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["allocationstate"]; found {
-		u.Set("allocationstate", v.(string))
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
 	}
-	if v, found := p.p["hosttags"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("hosttags", vv)
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
 	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["oscategoryid"]; found {
-		u.Set("oscategoryid", v.(string))
-	}
-	if v, found := p.p["url"]; found {
-		u.Set("url", v.(string))
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
 	}
 	return u
 }
 
-func (p *UpdateHostParams) SetAllocationstate(v string) {
+func (p *DedicateHostParams) SetAccount(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["allocationstate"] = v
+	p.p["account"] = v
 	return
 }
 
-func (p *UpdateHostParams) SetHosttags(v []string) {
+func (p *DedicateHostParams) SetDomainid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["hosttags"] = v
+	p.p["domainid"] = v
 	return
 }
 
-func (p *UpdateHostParams) SetId(v string) {
+func (p *DedicateHostParams) SetHostid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["id"] = v
+	p.p["hostid"] = v
 	return
 }
 
-func (p *UpdateHostParams) SetOscategoryid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["oscategoryid"] = v
-	return
-}
-
-func (p *UpdateHostParams) SetUrl(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["url"] = v
-	return
-}
-
-// You should always use this function to get a new UpdateHostParams instance,
+// You should always use this function to get a new DedicateHostParams instance,
 // as then you are sure you have configured all required params
-func (s *HostService) NewUpdateHostParams(id string) *UpdateHostParams {
-	p := &UpdateHostParams{}
+func (s *HostService) NewDedicateHostParams(domainid string, hostid string) *DedicateHostParams {
+	p := &DedicateHostParams{}
 	p.p = make(map[string]interface{})
-	p.p["id"] = id
+	p.p["domainid"] = domainid
+	p.p["hostid"] = hostid
 	return p
 }
 
-// Updates a host.
-func (s *HostService) UpdateHost(p *UpdateHostParams) (*UpdateHostResponse, error) {
-	resp, err := s.cs.newRequest("updateHost", p.toURLValues())
+// Dedicates a host.
+func (s *HostService) DedicateHost(p *DedicateHostParams) (*DedicateHostResponse, error) {
+	resp, err := s.cs.newRequest("dedicateHost", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r UpdateHostResponse
+	var r DedicateHostResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
 	}
 
 	return &r, nil
 }
 
-type UpdateHostResponse struct {
-	Averageload             int64             `json:"averageload,omitempty"`
-	Capabilities            string            `json:"capabilities,omitempty"`
-	Clusterid               string            `json:"clusterid,omitempty"`
-	Clustername             string            `json:"clustername,omitempty"`
-	Clustertype             string            `json:"clustertype,omitempty"`
-	Cpuallocated            string            `json:"cpuallocated,omitempty"`
-	Cpunumber               int               `json:"cpunumber,omitempty"`
-	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
-	Cpuused                 string            `json:"cpuused,omitempty"`
-	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
-	Created                 string            `json:"created,omitempty"`
-	Details                 map[string]string `json:"details,omitempty"`
-	Disconnected            string            `json:"disconnected,omitempty"`
-	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
-	Events                  string            `json:"events,omitempty"`
-	Gpugroup                []struct {
-		Gpugroupname string `json:"gpugroupname,omitempty"`
-		Vgpu         []struct {
-			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
-			Maxheads          int64  `json:"maxheads,omitempty"`
-			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
-			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int64  `json:"videoram,omitempty"`
-		} `json:"vgpu,omitempty"`
-	} `json:"gpugroup,omitempty"`
-	Hahost               bool   `json:"hahost,omitempty"`
-	Hasenoughcapacity    bool   `json:"hasenoughcapacity,omitempty"`
-	Hosttags             string `json:"hosttags,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
-	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Ipaddress            string `json:"ipaddress,omitempty"`
-	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
-	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int64  `json:"managementserverid,omitempty"`
-	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
-	Memorytotal          int64  `json:"memorytotal,omitempty"`
-	Memoryused           int64  `json:"memoryused,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
-	Oscategoryid         string `json:"oscategoryid,omitempty"`
-	Oscategoryname       string `json:"oscategoryname,omitempty"`
-	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
-	Podid                string `json:"podid,omitempty"`
-	Podname              string `json:"podname,omitempty"`
-	Removed              string `json:"removed,omitempty"`
-	Resourcestate        string `json:"resourcestate,omitempty"`
-	State                string `json:"state,omitempty"`
-	Suitableformigration bool   `json:"suitableformigration,omitempty"`
-	Type                 string `json:"type,omitempty"`
-	Version              string `json:"version,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
-	Zonename             string `json:"zonename,omitempty"`
+type DedicateHostResponse struct {
+	JobID           string `json:"jobid"`
+	Accountid       string `json:"accountid"`
+	Affinitygroupid string `json:"affinitygroupid"`
+	Domainid        string `json:"domainid"`
+	Hostid          string `json:"hostid"`
+	Hostname        string `json:"hostname"`
+	Id              string `json:"id"`
 }
 
 type DeleteHostParams struct {
@@ -594,50 +939,50 @@ func (s *HostService) DeleteHost(p *DeleteHostParams) (*DeleteHostResponse, erro
 }
 
 type DeleteHostResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
+	Displaytext string `json:"displaytext"`
+	Success     string `json:"success"`
 }
 
-type PrepareHostForMaintenanceParams struct {
+type DisableOutOfBandManagementForHostParams struct {
 	p map[string]interface{}
 }
 
-func (p *PrepareHostForMaintenanceParams) toURLValues() url.Values {
+func (p *DisableOutOfBandManagementForHostParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
 	}
 	return u
 }
 
-func (p *PrepareHostForMaintenanceParams) SetId(v string) {
+func (p *DisableOutOfBandManagementForHostParams) SetHostid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["id"] = v
+	p.p["hostid"] = v
 	return
 }
 
-// You should always use this function to get a new PrepareHostForMaintenanceParams instance,
+// You should always use this function to get a new DisableOutOfBandManagementForHostParams instance,
 // as then you are sure you have configured all required params
-func (s *HostService) NewPrepareHostForMaintenanceParams(id string) *PrepareHostForMaintenanceParams {
-	p := &PrepareHostForMaintenanceParams{}
+func (s *HostService) NewDisableOutOfBandManagementForHostParams(hostid string) *DisableOutOfBandManagementForHostParams {
+	p := &DisableOutOfBandManagementForHostParams{}
 	p.p = make(map[string]interface{})
-	p.p["id"] = id
+	p.p["hostid"] = hostid
 	return p
 }
 
-// Prepares a host for maintenance.
-func (s *HostService) PrepareHostForMaintenance(p *PrepareHostForMaintenanceParams) (*PrepareHostForMaintenanceResponse, error) {
-	resp, err := s.cs.newRequest("prepareHostForMaintenance", p.toURLValues())
+// Disables out-of-band management for a host
+func (s *HostService) DisableOutOfBandManagementForHost(p *DisableOutOfBandManagementForHostParams) (*DisableOutOfBandManagementForHostResponse, error) {
+	resp, err := s.cs.newRequest("disableOutOfBandManagementForHost", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r PrepareHostForMaintenanceResponse
+	var r DisableOutOfBandManagementForHostResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -665,109 +1010,61 @@ func (s *HostService) PrepareHostForMaintenance(p *PrepareHostForMaintenancePara
 	return &r, nil
 }
 
-type PrepareHostForMaintenanceResponse struct {
-	JobID                   string            `json:"jobid,omitempty"`
-	Averageload             int64             `json:"averageload,omitempty"`
-	Capabilities            string            `json:"capabilities,omitempty"`
-	Clusterid               string            `json:"clusterid,omitempty"`
-	Clustername             string            `json:"clustername,omitempty"`
-	Clustertype             string            `json:"clustertype,omitempty"`
-	Cpuallocated            string            `json:"cpuallocated,omitempty"`
-	Cpunumber               int               `json:"cpunumber,omitempty"`
-	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
-	Cpuused                 string            `json:"cpuused,omitempty"`
-	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
-	Created                 string            `json:"created,omitempty"`
-	Details                 map[string]string `json:"details,omitempty"`
-	Disconnected            string            `json:"disconnected,omitempty"`
-	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
-	Events                  string            `json:"events,omitempty"`
-	Gpugroup                []struct {
-		Gpugroupname string `json:"gpugroupname,omitempty"`
-		Vgpu         []struct {
-			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
-			Maxheads          int64  `json:"maxheads,omitempty"`
-			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
-			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int64  `json:"videoram,omitempty"`
-		} `json:"vgpu,omitempty"`
-	} `json:"gpugroup,omitempty"`
-	Hahost               bool   `json:"hahost,omitempty"`
-	Hasenoughcapacity    bool   `json:"hasenoughcapacity,omitempty"`
-	Hosttags             string `json:"hosttags,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
-	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Ipaddress            string `json:"ipaddress,omitempty"`
-	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
-	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int64  `json:"managementserverid,omitempty"`
-	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
-	Memorytotal          int64  `json:"memorytotal,omitempty"`
-	Memoryused           int64  `json:"memoryused,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
-	Oscategoryid         string `json:"oscategoryid,omitempty"`
-	Oscategoryname       string `json:"oscategoryname,omitempty"`
-	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
-	Podid                string `json:"podid,omitempty"`
-	Podname              string `json:"podname,omitempty"`
-	Removed              string `json:"removed,omitempty"`
-	Resourcestate        string `json:"resourcestate,omitempty"`
-	State                string `json:"state,omitempty"`
-	Suitableformigration bool   `json:"suitableformigration,omitempty"`
-	Type                 string `json:"type,omitempty"`
-	Version              string `json:"version,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
-	Zonename             string `json:"zonename,omitempty"`
+type DisableOutOfBandManagementForHostResponse struct {
+	JobID       string `json:"jobid"`
+	Action      string `json:"action"`
+	Address     string `json:"address"`
+	Description string `json:"description"`
+	Driver      string `json:"driver"`
+	Enabled     bool   `json:"enabled"`
+	Hostid      string `json:"hostid"`
+	Password    string `json:"password"`
+	Port        string `json:"port"`
+	Powerstate  string `json:"powerstate"`
+	Status      bool   `json:"status"`
+	Username    string `json:"username"`
 }
 
-type CancelHostMaintenanceParams struct {
+type EnableOutOfBandManagementForHostParams struct {
 	p map[string]interface{}
 }
 
-func (p *CancelHostMaintenanceParams) toURLValues() url.Values {
+func (p *EnableOutOfBandManagementForHostParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
 	}
 	return u
 }
 
-func (p *CancelHostMaintenanceParams) SetId(v string) {
+func (p *EnableOutOfBandManagementForHostParams) SetHostid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["id"] = v
+	p.p["hostid"] = v
 	return
 }
 
-// You should always use this function to get a new CancelHostMaintenanceParams instance,
+// You should always use this function to get a new EnableOutOfBandManagementForHostParams instance,
 // as then you are sure you have configured all required params
-func (s *HostService) NewCancelHostMaintenanceParams(id string) *CancelHostMaintenanceParams {
-	p := &CancelHostMaintenanceParams{}
+func (s *HostService) NewEnableOutOfBandManagementForHostParams(hostid string) *EnableOutOfBandManagementForHostParams {
+	p := &EnableOutOfBandManagementForHostParams{}
 	p.p = make(map[string]interface{})
-	p.p["id"] = id
+	p.p["hostid"] = hostid
 	return p
 }
 
-// Cancels host maintenance.
-func (s *HostService) CancelHostMaintenance(p *CancelHostMaintenanceParams) (*CancelHostMaintenanceResponse, error) {
-	resp, err := s.cs.newRequest("cancelHostMaintenance", p.toURLValues())
+// Enables out-of-band management for a host
+func (s *HostService) EnableOutOfBandManagementForHost(p *EnableOutOfBandManagementForHostParams) (*EnableOutOfBandManagementForHostResponse, error) {
+	resp, err := s.cs.newRequest("enableOutOfBandManagementForHost", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r CancelHostMaintenanceResponse
+	var r EnableOutOfBandManagementForHostResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -795,67 +1092,393 @@ func (s *HostService) CancelHostMaintenance(p *CancelHostMaintenanceParams) (*Ca
 	return &r, nil
 }
 
-type CancelHostMaintenanceResponse struct {
-	JobID                   string            `json:"jobid,omitempty"`
-	Averageload             int64             `json:"averageload,omitempty"`
-	Capabilities            string            `json:"capabilities,omitempty"`
-	Clusterid               string            `json:"clusterid,omitempty"`
-	Clustername             string            `json:"clustername,omitempty"`
-	Clustertype             string            `json:"clustertype,omitempty"`
-	Cpuallocated            string            `json:"cpuallocated,omitempty"`
-	Cpunumber               int               `json:"cpunumber,omitempty"`
-	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
-	Cpuused                 string            `json:"cpuused,omitempty"`
-	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
-	Created                 string            `json:"created,omitempty"`
-	Details                 map[string]string `json:"details,omitempty"`
-	Disconnected            string            `json:"disconnected,omitempty"`
-	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
-	Events                  string            `json:"events,omitempty"`
-	Gpugroup                []struct {
-		Gpugroupname string `json:"gpugroupname,omitempty"`
-		Vgpu         []struct {
-			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
-			Maxheads          int64  `json:"maxheads,omitempty"`
-			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
-			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int64  `json:"videoram,omitempty"`
-		} `json:"vgpu,omitempty"`
-	} `json:"gpugroup,omitempty"`
-	Hahost               bool   `json:"hahost,omitempty"`
-	Hasenoughcapacity    bool   `json:"hasenoughcapacity,omitempty"`
-	Hosttags             string `json:"hosttags,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
-	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Ipaddress            string `json:"ipaddress,omitempty"`
-	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
-	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int64  `json:"managementserverid,omitempty"`
-	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
-	Memorytotal          int64  `json:"memorytotal,omitempty"`
-	Memoryused           int64  `json:"memoryused,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
-	Oscategoryid         string `json:"oscategoryid,omitempty"`
-	Oscategoryname       string `json:"oscategoryname,omitempty"`
-	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
-	Podid                string `json:"podid,omitempty"`
-	Podname              string `json:"podname,omitempty"`
-	Removed              string `json:"removed,omitempty"`
-	Resourcestate        string `json:"resourcestate,omitempty"`
-	State                string `json:"state,omitempty"`
-	Suitableformigration bool   `json:"suitableformigration,omitempty"`
-	Type                 string `json:"type,omitempty"`
-	Version              string `json:"version,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
-	Zonename             string `json:"zonename,omitempty"`
+type EnableOutOfBandManagementForHostResponse struct {
+	JobID       string `json:"jobid"`
+	Action      string `json:"action"`
+	Address     string `json:"address"`
+	Description string `json:"description"`
+	Driver      string `json:"driver"`
+	Enabled     bool   `json:"enabled"`
+	Hostid      string `json:"hostid"`
+	Password    string `json:"password"`
+	Port        string `json:"port"`
+	Powerstate  string `json:"powerstate"`
+	Status      bool   `json:"status"`
+	Username    string `json:"username"`
+}
+
+type FindHostsForMigrationParams struct {
+	p map[string]interface{}
+}
+
+func (p *FindHostsForMigrationParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["virtualmachineid"]; found {
+		u.Set("virtualmachineid", v.(string))
+	}
+	return u
+}
+
+func (p *FindHostsForMigrationParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *FindHostsForMigrationParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *FindHostsForMigrationParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+func (p *FindHostsForMigrationParams) SetVirtualmachineid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["virtualmachineid"] = v
+	return
+}
+
+// You should always use this function to get a new FindHostsForMigrationParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewFindHostsForMigrationParams(virtualmachineid string) *FindHostsForMigrationParams {
+	p := &FindHostsForMigrationParams{}
+	p.p = make(map[string]interface{})
+	p.p["virtualmachineid"] = virtualmachineid
+	return p
+}
+
+// Find hosts suitable for migrating a virtual machine.
+func (s *HostService) FindHostsForMigration(p *FindHostsForMigrationParams) (*FindHostsForMigrationResponse, error) {
+	resp, err := s.cs.newRequest("findHostsForMigration", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r FindHostsForMigrationResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type FindHostsForMigrationResponse struct {
+	Averageload             int64  `json:"averageload"`
+	Capabilities            string `json:"capabilities"`
+	Clusterid               string `json:"clusterid"`
+	Clustername             string `json:"clustername"`
+	Clustertype             string `json:"clustertype"`
+	Cpuallocated            string `json:"cpuallocated"`
+	Cpunumber               int    `json:"cpunumber"`
+	Cpuspeed                int64  `json:"cpuspeed"`
+	Cpuused                 string `json:"cpuused"`
+	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning"`
+	Created                 string `json:"created"`
+	Disconnected            string `json:"disconnected"`
+	Disksizeallocated       int64  `json:"disksizeallocated"`
+	Disksizetotal           int64  `json:"disksizetotal"`
+	Events                  string `json:"events"`
+	Hahost                  bool   `json:"hahost"`
+	Hasenoughcapacity       bool   `json:"hasenoughcapacity"`
+	Hosttags                string `json:"hosttags"`
+	Hypervisor              string `json:"hypervisor"`
+	Hypervisorversion       string `json:"hypervisorversion"`
+	Id                      string `json:"id"`
+	Ipaddress               string `json:"ipaddress"`
+	Islocalstorageactive    bool   `json:"islocalstorageactive"`
+	Lastpinged              string `json:"lastpinged"`
+	Managementserverid      int64  `json:"managementserverid"`
+	Memoryallocated         int64  `json:"memoryallocated"`
+	Memorytotal             int64  `json:"memorytotal"`
+	Memoryused              int64  `json:"memoryused"`
+	Name                    string `json:"name"`
+	Networkkbsread          int64  `json:"networkkbsread"`
+	Networkkbswrite         int64  `json:"networkkbswrite"`
+	Oscategoryid            string `json:"oscategoryid"`
+	Oscategoryname          string `json:"oscategoryname"`
+	Podid                   string `json:"podid"`
+	Podname                 string `json:"podname"`
+	Removed                 string `json:"removed"`
+	RequiresStorageMotion   bool   `json:"requiresStorageMotion"`
+	Resourcestate           string `json:"resourcestate"`
+	State                   string `json:"state"`
+	Suitableformigration    bool   `json:"suitableformigration"`
+	Type                    string `json:"type"`
+	Version                 string `json:"version"`
+	Zoneid                  string `json:"zoneid"`
+	Zonename                string `json:"zonename"`
+}
+
+type ListDedicatedHostsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListDedicatedHostsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["affinitygroupid"]; found {
+		u.Set("affinitygroupid", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListDedicatedHostsParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+	return
+}
+
+func (p *ListDedicatedHostsParams) SetAffinitygroupid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["affinitygroupid"] = v
+	return
+}
+
+func (p *ListDedicatedHostsParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+	return
+}
+
+func (p *ListDedicatedHostsParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+	return
+}
+
+func (p *ListDedicatedHostsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *ListDedicatedHostsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *ListDedicatedHostsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+// You should always use this function to get a new ListDedicatedHostsParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewListDedicatedHostsParams() *ListDedicatedHostsParams {
+	p := &ListDedicatedHostsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Lists dedicated hosts.
+func (s *HostService) ListDedicatedHosts(p *ListDedicatedHostsParams) (*ListDedicatedHostsResponse, error) {
+	resp, err := s.cs.newRequest("listDedicatedHosts", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListDedicatedHostsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListDedicatedHostsResponse struct {
+	Count          int              `json:"count"`
+	DedicatedHosts []*DedicatedHost `json:"dedicatedhost"`
+}
+
+type DedicatedHost struct {
+	Accountid       string `json:"accountid"`
+	Affinitygroupid string `json:"affinitygroupid"`
+	Domainid        string `json:"domainid"`
+	Hostid          string `json:"hostid"`
+	Hostname        string `json:"hostname"`
+	Id              string `json:"id"`
+}
+
+type ListHostTagsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListHostTagsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListHostTagsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *ListHostTagsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *ListHostTagsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+// You should always use this function to get a new ListHostTagsParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewListHostTagsParams() *ListHostTagsParams {
+	p := &ListHostTagsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *HostService) GetHostTagID(keyword string, opts ...OptionFunc) (string, int, error) {
+	p := &ListHostTagsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["keyword"] = keyword
+
+	for _, fn := range append(s.cs.options, opts...) {
+		if err := fn(s.cs, p); err != nil {
+			return "", -1, err
+		}
+	}
+
+	l, err := s.ListHostTags(p)
+	if err != nil {
+		return "", -1, err
+	}
+
+	if l.Count == 0 {
+		return "", l.Count, fmt.Errorf("No match found for %s: %+v", keyword, l)
+	}
+
+	if l.Count == 1 {
+		return l.HostTags[0].Id, l.Count, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.HostTags {
+			if v.Name == keyword {
+				return v.Id, l.Count, nil
+			}
+		}
+	}
+	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
+}
+
+// Lists host tags
+func (s *HostService) ListHostTags(p *ListHostTagsParams) (*ListHostTagsResponse, error) {
+	resp, err := s.cs.newRequest("listHostTags", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListHostTagsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListHostTagsResponse struct {
+	Count    int        `json:"count"`
+	HostTags []*HostTag `json:"hosttag"`
+}
+
+type HostTag struct {
+	Hostid int64  `json:"hostid"`
+	Id     string `json:"id"`
+	Name   string `json:"name"`
 }
 
 type ListHostsParams struct {
@@ -1174,78 +1797,105 @@ type ListHostsResponse struct {
 }
 
 type Host struct {
-	Averageload             int64             `json:"averageload,omitempty"`
-	Capabilities            string            `json:"capabilities,omitempty"`
-	Clusterid               string            `json:"clusterid,omitempty"`
-	Clustername             string            `json:"clustername,omitempty"`
-	Clustertype             string            `json:"clustertype,omitempty"`
-	Cpuallocated            string            `json:"cpuallocated,omitempty"`
-	Cpunumber               int               `json:"cpunumber,omitempty"`
-	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
-	Cpuused                 string            `json:"cpuused,omitempty"`
-	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
-	Created                 string            `json:"created,omitempty"`
-	Details                 map[string]string `json:"details,omitempty"`
-	Disconnected            string            `json:"disconnected,omitempty"`
-	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
-	Events                  string            `json:"events,omitempty"`
+	Averageload             int64             `json:"averageload"`
+	Capabilities            string            `json:"capabilities"`
+	Clusterid               string            `json:"clusterid"`
+	Clustername             string            `json:"clustername"`
+	Clustertype             string            `json:"clustertype"`
+	Cpuallocated            string            `json:"cpuallocated"`
+	Cpunumber               int               `json:"cpunumber"`
+	Cpusockets              int               `json:"cpusockets"`
+	Cpuspeed                int64             `json:"cpuspeed"`
+	Cpuused                 string            `json:"cpuused"`
+	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning"`
+	Created                 string            `json:"created"`
+	Details                 map[string]string `json:"details"`
+	Disconnected            string            `json:"disconnected"`
+	Disksizeallocated       int64             `json:"disksizeallocated"`
+	Disksizetotal           int64             `json:"disksizetotal"`
+	Events                  string            `json:"events"`
 	Gpugroup                []struct {
-		Gpugroupname string `json:"gpugroupname,omitempty"`
+		Gpugroupname string `json:"gpugroupname"`
 		Vgpu         []struct {
-			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
-			Maxheads          int64  `json:"maxheads,omitempty"`
-			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
-			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int64  `json:"videoram,omitempty"`
-		} `json:"vgpu,omitempty"`
-	} `json:"gpugroup,omitempty"`
-	Hahost               bool   `json:"hahost,omitempty"`
-	Hasenoughcapacity    bool   `json:"hasenoughcapacity,omitempty"`
-	Hosttags             string `json:"hosttags,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
-	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Ipaddress            string `json:"ipaddress,omitempty"`
-	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
-	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int64  `json:"managementserverid,omitempty"`
-	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
-	Memorytotal          int64  `json:"memorytotal,omitempty"`
-	Memoryused           int64  `json:"memoryused,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
-	Oscategoryid         string `json:"oscategoryid,omitempty"`
-	Oscategoryname       string `json:"oscategoryname,omitempty"`
-	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
-	Podid                string `json:"podid,omitempty"`
-	Podname              string `json:"podname,omitempty"`
-	Removed              string `json:"removed,omitempty"`
-	Resourcestate        string `json:"resourcestate,omitempty"`
-	State                string `json:"state,omitempty"`
-	Suitableformigration bool   `json:"suitableformigration,omitempty"`
-	Type                 string `json:"type,omitempty"`
-	Version              string `json:"version,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
-	Zonename             string `json:"zonename,omitempty"`
+			Maxcapacity       int64  `json:"maxcapacity"`
+			Maxheads          int64  `json:"maxheads"`
+			Maxresolutionx    int64  `json:"maxresolutionx"`
+			Maxresolutiony    int64  `json:"maxresolutiony"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu"`
+			Remainingcapacity int64  `json:"remainingcapacity"`
+			Vgputype          string `json:"vgputype"`
+			Videoram          int64  `json:"videoram"`
+		} `json:"vgpu"`
+	} `json:"gpugroup"`
+	Hahost               bool   `json:"hahost"`
+	Hasenoughcapacity    bool   `json:"hasenoughcapacity"`
+	Hosttags             string `json:"hosttags"`
+	Hypervisor           string `json:"hypervisor"`
+	Hypervisorversion    string `json:"hypervisorversion"`
+	Id                   string `json:"id"`
+	Ipaddress            string `json:"ipaddress"`
+	Islocalstorageactive bool   `json:"islocalstorageactive"`
+	Lastpinged           string `json:"lastpinged"`
+	Managementserverid   int64  `json:"managementserverid"`
+	Memoryallocated      int64  `json:"memoryallocated"`
+	Memorytotal          int64  `json:"memorytotal"`
+	Memoryused           int64  `json:"memoryused"`
+	Name                 string `json:"name"`
+	Networkkbsread       int64  `json:"networkkbsread"`
+	Networkkbswrite      int64  `json:"networkkbswrite"`
+	Oscategoryid         string `json:"oscategoryid"`
+	Oscategoryname       string `json:"oscategoryname"`
+	Outofbandmanagement  string `json:"outofbandmanagement"`
+	Podid                string `json:"podid"`
+	Podname              string `json:"podname"`
+	Removed              string `json:"removed"`
+	Resourcestate        string `json:"resourcestate"`
+	State                string `json:"state"`
+	Suitableformigration bool   `json:"suitableformigration"`
+	Type                 string `json:"type"`
+	Version              string `json:"version"`
+	Zoneid               string `json:"zoneid"`
+	Zonename             string `json:"zonename"`
 }
 
-type ListHostTagsParams struct {
+type ListHostsMetricsParams struct {
 	p map[string]interface{}
 }
 
-func (p *ListHostTagsParams) toURLValues() url.Values {
+func (p *ListHostsMetricsParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
+	if v, found := p.p["clusterid"]; found {
+		u.Set("clusterid", v.(string))
+	}
+	if v, found := p.p["details"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("details", vv)
+	}
+	if v, found := p.p["hahost"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("hahost", vv)
+	}
+	if v, found := p.p["hypervisor"]; found {
+		u.Set("hypervisor", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
 	if v, found := p.p["keyword"]; found {
 		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["outofbandmanagementenabled"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("outofbandmanagementenabled", vv)
+	}
+	if v, found := p.p["outofbandmanagementpowerstate"]; found {
+		u.Set("outofbandmanagementpowerstate", v.(string))
 	}
 	if v, found := p.p["page"]; found {
 		vv := strconv.Itoa(v.(int))
@@ -1255,243 +1905,20 @@ func (p *ListHostTagsParams) toURLValues() url.Values {
 		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
-	return u
-}
-
-func (p *ListHostTagsParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
 	}
-	p.p["keyword"] = v
-	return
-}
-
-func (p *ListHostTagsParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
+	if v, found := p.p["resourcestate"]; found {
+		u.Set("resourcestate", v.(string))
 	}
-	p.p["page"] = v
-	return
-}
-
-func (p *ListHostTagsParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
+	if v, found := p.p["state"]; found {
+		u.Set("state", v.(string))
 	}
-	p.p["pagesize"] = v
-	return
-}
-
-// You should always use this function to get a new ListHostTagsParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewListHostTagsParams() *ListHostTagsParams {
-	p := &ListHostTagsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *HostService) GetHostTagID(keyword string, opts ...OptionFunc) (string, int, error) {
-	p := &ListHostTagsParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-
-	for _, fn := range append(s.cs.options, opts...) {
-		if err := fn(s.cs, p); err != nil {
-			return "", -1, err
-		}
-	}
-
-	l, err := s.ListHostTags(p)
-	if err != nil {
-		return "", -1, err
-	}
-
-	if l.Count == 0 {
-		return "", l.Count, fmt.Errorf("No match found for %s: %+v", keyword, l)
-	}
-
-	if l.Count == 1 {
-		return l.HostTags[0].Id, l.Count, nil
-	}
-
-	if l.Count > 1 {
-		for _, v := range l.HostTags {
-			if v.Name == keyword {
-				return v.Id, l.Count, nil
-			}
-		}
-	}
-	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
-}
-
-// Lists host tags
-func (s *HostService) ListHostTags(p *ListHostTagsParams) (*ListHostTagsResponse, error) {
-	resp, err := s.cs.newRequest("listHostTags", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ListHostTagsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type ListHostTagsResponse struct {
-	Count    int        `json:"count"`
-	HostTags []*HostTag `json:"hosttag"`
-}
-
-type HostTag struct {
-	Hostid int64  `json:"hostid,omitempty"`
-	Id     string `json:"id,omitempty"`
-	Name   string `json:"name,omitempty"`
-}
-
-type FindHostsForMigrationParams struct {
-	p map[string]interface{}
-}
-
-func (p *FindHostsForMigrationParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
+	if v, found := p.p["type"]; found {
+		u.Set("type", v.(string))
 	}
 	if v, found := p.p["virtualmachineid"]; found {
 		u.Set("virtualmachineid", v.(string))
-	}
-	return u
-}
-
-func (p *FindHostsForMigrationParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-	return
-}
-
-func (p *FindHostsForMigrationParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-	return
-}
-
-func (p *FindHostsForMigrationParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-	return
-}
-
-func (p *FindHostsForMigrationParams) SetVirtualmachineid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["virtualmachineid"] = v
-	return
-}
-
-// You should always use this function to get a new FindHostsForMigrationParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewFindHostsForMigrationParams(virtualmachineid string) *FindHostsForMigrationParams {
-	p := &FindHostsForMigrationParams{}
-	p.p = make(map[string]interface{})
-	p.p["virtualmachineid"] = virtualmachineid
-	return p
-}
-
-// Find hosts suitable for migrating a virtual machine.
-func (s *HostService) FindHostsForMigration(p *FindHostsForMigrationParams) (*FindHostsForMigrationResponse, error) {
-	resp, err := s.cs.newRequest("findHostsForMigration", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r FindHostsForMigrationResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type FindHostsForMigrationResponse struct {
-	Averageload             int64  `json:"averageload,omitempty"`
-	Capabilities            string `json:"capabilities,omitempty"`
-	Clusterid               string `json:"clusterid,omitempty"`
-	Clustername             string `json:"clustername,omitempty"`
-	Clustertype             string `json:"clustertype,omitempty"`
-	Cpuallocated            string `json:"cpuallocated,omitempty"`
-	Cpunumber               int    `json:"cpunumber,omitempty"`
-	Cpuspeed                int64  `json:"cpuspeed,omitempty"`
-	Cpuused                 string `json:"cpuused,omitempty"`
-	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
-	Created                 string `json:"created,omitempty"`
-	Disconnected            string `json:"disconnected,omitempty"`
-	Disksizeallocated       int64  `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int64  `json:"disksizetotal,omitempty"`
-	Events                  string `json:"events,omitempty"`
-	Hahost                  bool   `json:"hahost,omitempty"`
-	Hasenoughcapacity       bool   `json:"hasenoughcapacity,omitempty"`
-	Hosttags                string `json:"hosttags,omitempty"`
-	Hypervisor              string `json:"hypervisor,omitempty"`
-	Hypervisorversion       string `json:"hypervisorversion,omitempty"`
-	Id                      string `json:"id,omitempty"`
-	Ipaddress               string `json:"ipaddress,omitempty"`
-	Islocalstorageactive    bool   `json:"islocalstorageactive,omitempty"`
-	Lastpinged              string `json:"lastpinged,omitempty"`
-	Managementserverid      int64  `json:"managementserverid,omitempty"`
-	Memoryallocated         int64  `json:"memoryallocated,omitempty"`
-	Memorytotal             int64  `json:"memorytotal,omitempty"`
-	Memoryused              int64  `json:"memoryused,omitempty"`
-	Name                    string `json:"name,omitempty"`
-	Networkkbsread          int64  `json:"networkkbsread,omitempty"`
-	Networkkbswrite         int64  `json:"networkkbswrite,omitempty"`
-	Oscategoryid            string `json:"oscategoryid,omitempty"`
-	Oscategoryname          string `json:"oscategoryname,omitempty"`
-	Podid                   string `json:"podid,omitempty"`
-	Podname                 string `json:"podname,omitempty"`
-	Removed                 string `json:"removed,omitempty"`
-	RequiresStorageMotion   bool   `json:"requiresStorageMotion,omitempty"`
-	Resourcestate           string `json:"resourcestate,omitempty"`
-	State                   string `json:"state,omitempty"`
-	Suitableformigration    bool   `json:"suitableformigration,omitempty"`
-	Type                    string `json:"type,omitempty"`
-	Version                 string `json:"version,omitempty"`
-	Zoneid                  string `json:"zoneid,omitempty"`
-	Zonename                string `json:"zonename,omitempty"`
-}
-
-type AddSecondaryStorageParams struct {
-	p map[string]interface{}
-}
-
-func (p *AddSecondaryStorageParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["url"]; found {
-		u.Set("url", v.(string))
 	}
 	if v, found := p.p["zoneid"]; found {
 		u.Set("zoneid", v.(string))
@@ -1499,15 +1926,135 @@ func (p *AddSecondaryStorageParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *AddSecondaryStorageParams) SetUrl(v string) {
+func (p *ListHostsMetricsParams) SetClusterid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["url"] = v
+	p.p["clusterid"] = v
 	return
 }
 
-func (p *AddSecondaryStorageParams) SetZoneid(v string) {
+func (p *ListHostsMetricsParams) SetDetails(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["details"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetHahost(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hahost"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetHypervisor(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hypervisor"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetOutofbandmanagementenabled(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["outofbandmanagementenabled"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetOutofbandmanagementpowerstate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["outofbandmanagementpowerstate"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetResourcestate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["resourcestate"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetState(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["state"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetType(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["type"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetVirtualmachineid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["virtualmachineid"] = v
+	return
+}
+
+func (p *ListHostsMetricsParams) SetZoneid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -1515,23 +2062,55 @@ func (p *AddSecondaryStorageParams) SetZoneid(v string) {
 	return
 }
 
-// You should always use this function to get a new AddSecondaryStorageParams instance,
+// You should always use this function to get a new ListHostsMetricsParams instance,
 // as then you are sure you have configured all required params
-func (s *HostService) NewAddSecondaryStorageParams(url string) *AddSecondaryStorageParams {
-	p := &AddSecondaryStorageParams{}
+func (s *HostService) NewListHostsMetricsParams() *ListHostsMetricsParams {
+	p := &ListHostsMetricsParams{}
 	p.p = make(map[string]interface{})
-	p.p["url"] = url
 	return p
 }
 
-// Adds secondary storage.
-func (s *HostService) AddSecondaryStorage(p *AddSecondaryStorageParams) (*AddSecondaryStorageResponse, error) {
-	resp, err := s.cs.newRequest("addSecondaryStorage", p.toURLValues())
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *HostService) GetHostsMetricByID(id string, opts ...OptionFunc) (*HostsMetric, int, error) {
+	p := &ListHostsMetricsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range append(s.cs.options, opts...) {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListHostsMetrics(p)
+	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.HostsMetrics[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for HostsMetric UUID: %s!", id)
+}
+
+// Lists hosts metrics
+func (s *HostService) ListHostsMetrics(p *ListHostsMetricsParams) (*ListHostsMetricsResponse, error) {
+	resp, err := s.cs.newRequest("listHostsMetrics", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r AddSecondaryStorageResponse
+	var r ListHostsMetricsResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -1539,16 +2118,580 @@ func (s *HostService) AddSecondaryStorage(p *AddSecondaryStorageParams) (*AddSec
 	return &r, nil
 }
 
-type AddSecondaryStorageResponse struct {
-	Details      []interface{} `json:"details,omitempty"`
-	Id           string        `json:"id,omitempty"`
-	Name         string        `json:"name,omitempty"`
-	Protocol     string        `json:"protocol,omitempty"`
-	Providername string        `json:"providername,omitempty"`
-	Scope        string        `json:"scope,omitempty"`
-	Url          string        `json:"url,omitempty"`
-	Zoneid       string        `json:"zoneid,omitempty"`
-	Zonename     string        `json:"zonename,omitempty"`
+type ListHostsMetricsResponse struct {
+	Count        int            `json:"count"`
+	HostsMetrics []*HostsMetric `json:"hostsmetric"`
+}
+
+type HostsMetric struct {
+	Cpuallocateddisablethreshold    bool   `json:"cpuallocateddisablethreshold"`
+	Cpuallocatedghz                 string `json:"cpuallocatedghz"`
+	Cpuallocatedthreshold           bool   `json:"cpuallocatedthreshold"`
+	Cpudisablethreshold             bool   `json:"cpudisablethreshold"`
+	Cputhreshold                    bool   `json:"cputhreshold"`
+	Cputotalghz                     string `json:"cputotalghz"`
+	Cpuusedghz                      string `json:"cpuusedghz"`
+	Instances                       string `json:"instances"`
+	Memoryallocateddisablethreshold bool   `json:"memoryallocateddisablethreshold"`
+	Memoryallocatedgb               string `json:"memoryallocatedgb"`
+	Memoryallocatedthreshold        bool   `json:"memoryallocatedthreshold"`
+	Memorydisablethreshold          bool   `json:"memorydisablethreshold"`
+	Memorythreshold                 bool   `json:"memorythreshold"`
+	Memorytotalgb                   string `json:"memorytotalgb"`
+	Memoryusedgb                    string `json:"memoryusedgb"`
+	Networkread                     string `json:"networkread"`
+	Networkwrite                    string `json:"networkwrite"`
+	Powerstate                      string `json:"powerstate"`
+}
+
+type PrepareHostForMaintenanceParams struct {
+	p map[string]interface{}
+}
+
+func (p *PrepareHostForMaintenanceParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *PrepareHostForMaintenanceParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+// You should always use this function to get a new PrepareHostForMaintenanceParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewPrepareHostForMaintenanceParams(id string) *PrepareHostForMaintenanceParams {
+	p := &PrepareHostForMaintenanceParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Prepares a host for maintenance.
+func (s *HostService) PrepareHostForMaintenance(p *PrepareHostForMaintenanceParams) (*PrepareHostForMaintenanceResponse, error) {
+	resp, err := s.cs.newRequest("prepareHostForMaintenance", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r PrepareHostForMaintenanceResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type PrepareHostForMaintenanceResponse struct {
+	JobID                   string            `json:"jobid"`
+	Averageload             int64             `json:"averageload"`
+	Capabilities            string            `json:"capabilities"`
+	Clusterid               string            `json:"clusterid"`
+	Clustername             string            `json:"clustername"`
+	Clustertype             string            `json:"clustertype"`
+	Cpuallocated            string            `json:"cpuallocated"`
+	Cpunumber               int               `json:"cpunumber"`
+	Cpusockets              int               `json:"cpusockets"`
+	Cpuspeed                int64             `json:"cpuspeed"`
+	Cpuused                 string            `json:"cpuused"`
+	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning"`
+	Created                 string            `json:"created"`
+	Details                 map[string]string `json:"details"`
+	Disconnected            string            `json:"disconnected"`
+	Disksizeallocated       int64             `json:"disksizeallocated"`
+	Disksizetotal           int64             `json:"disksizetotal"`
+	Events                  string            `json:"events"`
+	Gpugroup                []struct {
+		Gpugroupname string `json:"gpugroupname"`
+		Vgpu         []struct {
+			Maxcapacity       int64  `json:"maxcapacity"`
+			Maxheads          int64  `json:"maxheads"`
+			Maxresolutionx    int64  `json:"maxresolutionx"`
+			Maxresolutiony    int64  `json:"maxresolutiony"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu"`
+			Remainingcapacity int64  `json:"remainingcapacity"`
+			Vgputype          string `json:"vgputype"`
+			Videoram          int64  `json:"videoram"`
+		} `json:"vgpu"`
+	} `json:"gpugroup"`
+	Hahost               bool   `json:"hahost"`
+	Hasenoughcapacity    bool   `json:"hasenoughcapacity"`
+	Hosttags             string `json:"hosttags"`
+	Hypervisor           string `json:"hypervisor"`
+	Hypervisorversion    string `json:"hypervisorversion"`
+	Id                   string `json:"id"`
+	Ipaddress            string `json:"ipaddress"`
+	Islocalstorageactive bool   `json:"islocalstorageactive"`
+	Lastpinged           string `json:"lastpinged"`
+	Managementserverid   int64  `json:"managementserverid"`
+	Memoryallocated      int64  `json:"memoryallocated"`
+	Memorytotal          int64  `json:"memorytotal"`
+	Memoryused           int64  `json:"memoryused"`
+	Name                 string `json:"name"`
+	Networkkbsread       int64  `json:"networkkbsread"`
+	Networkkbswrite      int64  `json:"networkkbswrite"`
+	Oscategoryid         string `json:"oscategoryid"`
+	Oscategoryname       string `json:"oscategoryname"`
+	Outofbandmanagement  string `json:"outofbandmanagement"`
+	Podid                string `json:"podid"`
+	Podname              string `json:"podname"`
+	Removed              string `json:"removed"`
+	Resourcestate        string `json:"resourcestate"`
+	State                string `json:"state"`
+	Suitableformigration bool   `json:"suitableformigration"`
+	Type                 string `json:"type"`
+	Version              string `json:"version"`
+	Zoneid               string `json:"zoneid"`
+	Zonename             string `json:"zonename"`
+}
+
+type ReconnectHostParams struct {
+	p map[string]interface{}
+}
+
+func (p *ReconnectHostParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *ReconnectHostParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+// You should always use this function to get a new ReconnectHostParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewReconnectHostParams(id string) *ReconnectHostParams {
+	p := &ReconnectHostParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Reconnects a host.
+func (s *HostService) ReconnectHost(p *ReconnectHostParams) (*ReconnectHostResponse, error) {
+	resp, err := s.cs.newRequest("reconnectHost", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ReconnectHostResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type ReconnectHostResponse struct {
+	JobID                   string            `json:"jobid"`
+	Averageload             int64             `json:"averageload"`
+	Capabilities            string            `json:"capabilities"`
+	Clusterid               string            `json:"clusterid"`
+	Clustername             string            `json:"clustername"`
+	Clustertype             string            `json:"clustertype"`
+	Cpuallocated            string            `json:"cpuallocated"`
+	Cpunumber               int               `json:"cpunumber"`
+	Cpusockets              int               `json:"cpusockets"`
+	Cpuspeed                int64             `json:"cpuspeed"`
+	Cpuused                 string            `json:"cpuused"`
+	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning"`
+	Created                 string            `json:"created"`
+	Details                 map[string]string `json:"details"`
+	Disconnected            string            `json:"disconnected"`
+	Disksizeallocated       int64             `json:"disksizeallocated"`
+	Disksizetotal           int64             `json:"disksizetotal"`
+	Events                  string            `json:"events"`
+	Gpugroup                []struct {
+		Gpugroupname string `json:"gpugroupname"`
+		Vgpu         []struct {
+			Maxcapacity       int64  `json:"maxcapacity"`
+			Maxheads          int64  `json:"maxheads"`
+			Maxresolutionx    int64  `json:"maxresolutionx"`
+			Maxresolutiony    int64  `json:"maxresolutiony"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu"`
+			Remainingcapacity int64  `json:"remainingcapacity"`
+			Vgputype          string `json:"vgputype"`
+			Videoram          int64  `json:"videoram"`
+		} `json:"vgpu"`
+	} `json:"gpugroup"`
+	Hahost               bool   `json:"hahost"`
+	Hasenoughcapacity    bool   `json:"hasenoughcapacity"`
+	Hosttags             string `json:"hosttags"`
+	Hypervisor           string `json:"hypervisor"`
+	Hypervisorversion    string `json:"hypervisorversion"`
+	Id                   string `json:"id"`
+	Ipaddress            string `json:"ipaddress"`
+	Islocalstorageactive bool   `json:"islocalstorageactive"`
+	Lastpinged           string `json:"lastpinged"`
+	Managementserverid   int64  `json:"managementserverid"`
+	Memoryallocated      int64  `json:"memoryallocated"`
+	Memorytotal          int64  `json:"memorytotal"`
+	Memoryused           int64  `json:"memoryused"`
+	Name                 string `json:"name"`
+	Networkkbsread       int64  `json:"networkkbsread"`
+	Networkkbswrite      int64  `json:"networkkbswrite"`
+	Oscategoryid         string `json:"oscategoryid"`
+	Oscategoryname       string `json:"oscategoryname"`
+	Outofbandmanagement  string `json:"outofbandmanagement"`
+	Podid                string `json:"podid"`
+	Podname              string `json:"podname"`
+	Removed              string `json:"removed"`
+	Resourcestate        string `json:"resourcestate"`
+	State                string `json:"state"`
+	Suitableformigration bool   `json:"suitableformigration"`
+	Type                 string `json:"type"`
+	Version              string `json:"version"`
+	Zoneid               string `json:"zoneid"`
+	Zonename             string `json:"zonename"`
+}
+
+type ReleaseDedicatedHostParams struct {
+	p map[string]interface{}
+}
+
+func (p *ReleaseDedicatedHostParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	return u
+}
+
+func (p *ReleaseDedicatedHostParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+	return
+}
+
+// You should always use this function to get a new ReleaseDedicatedHostParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewReleaseDedicatedHostParams(hostid string) *ReleaseDedicatedHostParams {
+	p := &ReleaseDedicatedHostParams{}
+	p.p = make(map[string]interface{})
+	p.p["hostid"] = hostid
+	return p
+}
+
+// Release the dedication for host
+func (s *HostService) ReleaseDedicatedHost(p *ReleaseDedicatedHostParams) (*ReleaseDedicatedHostResponse, error) {
+	resp, err := s.cs.newRequest("releaseDedicatedHost", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ReleaseDedicatedHostResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type ReleaseDedicatedHostResponse struct {
+	JobID       string `json:"jobid"`
+	Displaytext string `json:"displaytext"`
+	Success     bool   `json:"success"`
+}
+
+type ReleaseHostReservationParams struct {
+	p map[string]interface{}
+}
+
+func (p *ReleaseHostReservationParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *ReleaseHostReservationParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+// You should always use this function to get a new ReleaseHostReservationParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewReleaseHostReservationParams(id string) *ReleaseHostReservationParams {
+	p := &ReleaseHostReservationParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Releases host reservation.
+func (s *HostService) ReleaseHostReservation(p *ReleaseHostReservationParams) (*ReleaseHostReservationResponse, error) {
+	resp, err := s.cs.newRequest("releaseHostReservation", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ReleaseHostReservationResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type ReleaseHostReservationResponse struct {
+	JobID       string `json:"jobid"`
+	Displaytext string `json:"displaytext"`
+	Success     bool   `json:"success"`
+}
+
+type UpdateHostParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateHostParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["allocationstate"]; found {
+		u.Set("allocationstate", v.(string))
+	}
+	if v, found := p.p["hosttags"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("hosttags", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["oscategoryid"]; found {
+		u.Set("oscategoryid", v.(string))
+	}
+	if v, found := p.p["url"]; found {
+		u.Set("url", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateHostParams) SetAllocationstate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["allocationstate"] = v
+	return
+}
+
+func (p *UpdateHostParams) SetHosttags(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hosttags"] = v
+	return
+}
+
+func (p *UpdateHostParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+func (p *UpdateHostParams) SetOscategoryid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["oscategoryid"] = v
+	return
+}
+
+func (p *UpdateHostParams) SetUrl(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["url"] = v
+	return
+}
+
+// You should always use this function to get a new UpdateHostParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewUpdateHostParams(id string) *UpdateHostParams {
+	p := &UpdateHostParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates a host.
+func (s *HostService) UpdateHost(p *UpdateHostParams) (*UpdateHostResponse, error) {
+	resp, err := s.cs.newRequest("updateHost", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateHostResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type UpdateHostResponse struct {
+	Averageload             int64             `json:"averageload"`
+	Capabilities            string            `json:"capabilities"`
+	Clusterid               string            `json:"clusterid"`
+	Clustername             string            `json:"clustername"`
+	Clustertype             string            `json:"clustertype"`
+	Cpuallocated            string            `json:"cpuallocated"`
+	Cpunumber               int               `json:"cpunumber"`
+	Cpusockets              int               `json:"cpusockets"`
+	Cpuspeed                int64             `json:"cpuspeed"`
+	Cpuused                 string            `json:"cpuused"`
+	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning"`
+	Created                 string            `json:"created"`
+	Details                 map[string]string `json:"details"`
+	Disconnected            string            `json:"disconnected"`
+	Disksizeallocated       int64             `json:"disksizeallocated"`
+	Disksizetotal           int64             `json:"disksizetotal"`
+	Events                  string            `json:"events"`
+	Gpugroup                []struct {
+		Gpugroupname string `json:"gpugroupname"`
+		Vgpu         []struct {
+			Maxcapacity       int64  `json:"maxcapacity"`
+			Maxheads          int64  `json:"maxheads"`
+			Maxresolutionx    int64  `json:"maxresolutionx"`
+			Maxresolutiony    int64  `json:"maxresolutiony"`
+			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu"`
+			Remainingcapacity int64  `json:"remainingcapacity"`
+			Vgputype          string `json:"vgputype"`
+			Videoram          int64  `json:"videoram"`
+		} `json:"vgpu"`
+	} `json:"gpugroup"`
+	Hahost               bool   `json:"hahost"`
+	Hasenoughcapacity    bool   `json:"hasenoughcapacity"`
+	Hosttags             string `json:"hosttags"`
+	Hypervisor           string `json:"hypervisor"`
+	Hypervisorversion    string `json:"hypervisorversion"`
+	Id                   string `json:"id"`
+	Ipaddress            string `json:"ipaddress"`
+	Islocalstorageactive bool   `json:"islocalstorageactive"`
+	Lastpinged           string `json:"lastpinged"`
+	Managementserverid   int64  `json:"managementserverid"`
+	Memoryallocated      int64  `json:"memoryallocated"`
+	Memorytotal          int64  `json:"memorytotal"`
+	Memoryused           int64  `json:"memoryused"`
+	Name                 string `json:"name"`
+	Networkkbsread       int64  `json:"networkkbsread"`
+	Networkkbswrite      int64  `json:"networkkbswrite"`
+	Oscategoryid         string `json:"oscategoryid"`
+	Oscategoryname       string `json:"oscategoryname"`
+	Outofbandmanagement  string `json:"outofbandmanagement"`
+	Podid                string `json:"podid"`
+	Podname              string `json:"podname"`
+	Removed              string `json:"removed"`
+	Resourcestate        string `json:"resourcestate"`
+	State                string `json:"state"`
+	Suitableformigration bool   `json:"suitableformigration"`
+	Type                 string `json:"type"`
+	Version              string `json:"version"`
+	Zoneid               string `json:"zoneid"`
+	Zonename             string `json:"zonename"`
 }
 
 type UpdateHostPasswordParams struct {
@@ -1645,699 +2788,6 @@ func (s *HostService) UpdateHostPassword(p *UpdateHostPasswordParams) (*UpdateHo
 }
 
 type UpdateHostPasswordResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
-type ReleaseHostReservationParams struct {
-	p map[string]interface{}
-}
-
-func (p *ReleaseHostReservationParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *ReleaseHostReservationParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-	return
-}
-
-// You should always use this function to get a new ReleaseHostReservationParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewReleaseHostReservationParams(id string) *ReleaseHostReservationParams {
-	p := &ReleaseHostReservationParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Releases host reservation.
-func (s *HostService) ReleaseHostReservation(p *ReleaseHostReservationParams) (*ReleaseHostReservationResponse, error) {
-	resp, err := s.cs.newRequest("releaseHostReservation", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ReleaseHostReservationResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-
-	return &r, nil
-}
-
-type ReleaseHostReservationResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type AddBaremetalHostParams struct {
-	p map[string]interface{}
-}
-
-func (p *AddBaremetalHostParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["allocationstate"]; found {
-		u.Set("allocationstate", v.(string))
-	}
-	if v, found := p.p["clusterid"]; found {
-		u.Set("clusterid", v.(string))
-	}
-	if v, found := p.p["clustername"]; found {
-		u.Set("clustername", v.(string))
-	}
-	if v, found := p.p["hosttags"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("hosttags", vv)
-	}
-	if v, found := p.p["hypervisor"]; found {
-		u.Set("hypervisor", v.(string))
-	}
-	if v, found := p.p["ipaddress"]; found {
-		u.Set("ipaddress", v.(string))
-	}
-	if v, found := p.p["password"]; found {
-		u.Set("password", v.(string))
-	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
-	if v, found := p.p["url"]; found {
-		u.Set("url", v.(string))
-	}
-	if v, found := p.p["username"]; found {
-		u.Set("username", v.(string))
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
-	}
-	return u
-}
-
-func (p *AddBaremetalHostParams) SetAllocationstate(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["allocationstate"] = v
-	return
-}
-
-func (p *AddBaremetalHostParams) SetClusterid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clusterid"] = v
-	return
-}
-
-func (p *AddBaremetalHostParams) SetClustername(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clustername"] = v
-	return
-}
-
-func (p *AddBaremetalHostParams) SetHosttags(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hosttags"] = v
-	return
-}
-
-func (p *AddBaremetalHostParams) SetHypervisor(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hypervisor"] = v
-	return
-}
-
-func (p *AddBaremetalHostParams) SetIpaddress(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ipaddress"] = v
-	return
-}
-
-func (p *AddBaremetalHostParams) SetPassword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["password"] = v
-	return
-}
-
-func (p *AddBaremetalHostParams) SetPodid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["podid"] = v
-	return
-}
-
-func (p *AddBaremetalHostParams) SetUrl(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["url"] = v
-	return
-}
-
-func (p *AddBaremetalHostParams) SetUsername(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["username"] = v
-	return
-}
-
-func (p *AddBaremetalHostParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-	return
-}
-
-// You should always use this function to get a new AddBaremetalHostParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewAddBaremetalHostParams(hypervisor string, password string, podid string, url string, username string, zoneid string) *AddBaremetalHostParams {
-	p := &AddBaremetalHostParams{}
-	p.p = make(map[string]interface{})
-	p.p["hypervisor"] = hypervisor
-	p.p["password"] = password
-	p.p["podid"] = podid
-	p.p["url"] = url
-	p.p["username"] = username
-	p.p["zoneid"] = zoneid
-	return p
-}
-
-// add a baremetal host
-func (s *HostService) AddBaremetalHost(p *AddBaremetalHostParams) (*AddBaremetalHostResponse, error) {
-	resp, err := s.cs.newRequest("addBaremetalHost", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r AddBaremetalHostResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type AddBaremetalHostResponse struct {
-	Averageload             int64             `json:"averageload,omitempty"`
-	Capabilities            string            `json:"capabilities,omitempty"`
-	Clusterid               string            `json:"clusterid,omitempty"`
-	Clustername             string            `json:"clustername,omitempty"`
-	Clustertype             string            `json:"clustertype,omitempty"`
-	Cpuallocated            string            `json:"cpuallocated,omitempty"`
-	Cpunumber               int               `json:"cpunumber,omitempty"`
-	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
-	Cpuused                 string            `json:"cpuused,omitempty"`
-	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
-	Created                 string            `json:"created,omitempty"`
-	Details                 map[string]string `json:"details,omitempty"`
-	Disconnected            string            `json:"disconnected,omitempty"`
-	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
-	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
-	Events                  string            `json:"events,omitempty"`
-	Gpugroup                []struct {
-		Gpugroupname string `json:"gpugroupname,omitempty"`
-		Vgpu         []struct {
-			Maxcapacity       int64  `json:"maxcapacity,omitempty"`
-			Maxheads          int64  `json:"maxheads,omitempty"`
-			Maxresolutionx    int64  `json:"maxresolutionx,omitempty"`
-			Maxresolutiony    int64  `json:"maxresolutiony,omitempty"`
-			Maxvgpuperpgpu    int64  `json:"maxvgpuperpgpu,omitempty"`
-			Remainingcapacity int64  `json:"remainingcapacity,omitempty"`
-			Vgputype          string `json:"vgputype,omitempty"`
-			Videoram          int64  `json:"videoram,omitempty"`
-		} `json:"vgpu,omitempty"`
-	} `json:"gpugroup,omitempty"`
-	Hahost               bool   `json:"hahost,omitempty"`
-	Hasenoughcapacity    bool   `json:"hasenoughcapacity,omitempty"`
-	Hosttags             string `json:"hosttags,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
-	Hypervisorversion    string `json:"hypervisorversion,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Ipaddress            string `json:"ipaddress,omitempty"`
-	Islocalstorageactive bool   `json:"islocalstorageactive,omitempty"`
-	Lastpinged           string `json:"lastpinged,omitempty"`
-	Managementserverid   int64  `json:"managementserverid,omitempty"`
-	Memoryallocated      int64  `json:"memoryallocated,omitempty"`
-	Memorytotal          int64  `json:"memorytotal,omitempty"`
-	Memoryused           int64  `json:"memoryused,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkkbsread       int64  `json:"networkkbsread,omitempty"`
-	Networkkbswrite      int64  `json:"networkkbswrite,omitempty"`
-	Oscategoryid         string `json:"oscategoryid,omitempty"`
-	Oscategoryname       string `json:"oscategoryname,omitempty"`
-	Outofbandmanagement  string `json:"outofbandmanagement,omitempty"`
-	Podid                string `json:"podid,omitempty"`
-	Podname              string `json:"podname,omitempty"`
-	Removed              string `json:"removed,omitempty"`
-	Resourcestate        string `json:"resourcestate,omitempty"`
-	State                string `json:"state,omitempty"`
-	Suitableformigration bool   `json:"suitableformigration,omitempty"`
-	Type                 string `json:"type,omitempty"`
-	Version              string `json:"version,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
-	Zonename             string `json:"zonename,omitempty"`
-}
-
-type DedicateHostParams struct {
-	p map[string]interface{}
-}
-
-func (p *DedicateHostParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["hostid"]; found {
-		u.Set("hostid", v.(string))
-	}
-	return u
-}
-
-func (p *DedicateHostParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-	return
-}
-
-func (p *DedicateHostParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-	return
-}
-
-func (p *DedicateHostParams) SetHostid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostid"] = v
-	return
-}
-
-// You should always use this function to get a new DedicateHostParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewDedicateHostParams(domainid string, hostid string) *DedicateHostParams {
-	p := &DedicateHostParams{}
-	p.p = make(map[string]interface{})
-	p.p["domainid"] = domainid
-	p.p["hostid"] = hostid
-	return p
-}
-
-// Dedicates a host.
-func (s *HostService) DedicateHost(p *DedicateHostParams) (*DedicateHostResponse, error) {
-	resp, err := s.cs.newRequest("dedicateHost", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DedicateHostResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-
-	return &r, nil
-}
-
-type DedicateHostResponse struct {
-	JobID           string `json:"jobid,omitempty"`
-	Accountid       string `json:"accountid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Hostid          string `json:"hostid,omitempty"`
-	Hostname        string `json:"hostname,omitempty"`
-	Id              string `json:"id,omitempty"`
-}
-
-type ReleaseDedicatedHostParams struct {
-	p map[string]interface{}
-}
-
-func (p *ReleaseDedicatedHostParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["hostid"]; found {
-		u.Set("hostid", v.(string))
-	}
-	return u
-}
-
-func (p *ReleaseDedicatedHostParams) SetHostid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostid"] = v
-	return
-}
-
-// You should always use this function to get a new ReleaseDedicatedHostParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewReleaseDedicatedHostParams(hostid string) *ReleaseDedicatedHostParams {
-	p := &ReleaseDedicatedHostParams{}
-	p.p = make(map[string]interface{})
-	p.p["hostid"] = hostid
-	return p
-}
-
-// Release the dedication for host
-func (s *HostService) ReleaseDedicatedHost(p *ReleaseDedicatedHostParams) (*ReleaseDedicatedHostResponse, error) {
-	resp, err := s.cs.newRequest("releaseDedicatedHost", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ReleaseDedicatedHostResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-
-	return &r, nil
-}
-
-type ReleaseDedicatedHostResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type ListDedicatedHostsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListDedicatedHostsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["affinitygroupid"]; found {
-		u.Set("affinitygroupid", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["hostid"]; found {
-		u.Set("hostid", v.(string))
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	return u
-}
-
-func (p *ListDedicatedHostsParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-	return
-}
-
-func (p *ListDedicatedHostsParams) SetAffinitygroupid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["affinitygroupid"] = v
-	return
-}
-
-func (p *ListDedicatedHostsParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-	return
-}
-
-func (p *ListDedicatedHostsParams) SetHostid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostid"] = v
-	return
-}
-
-func (p *ListDedicatedHostsParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-	return
-}
-
-func (p *ListDedicatedHostsParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-	return
-}
-
-func (p *ListDedicatedHostsParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-	return
-}
-
-// You should always use this function to get a new ListDedicatedHostsParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewListDedicatedHostsParams() *ListDedicatedHostsParams {
-	p := &ListDedicatedHostsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Lists dedicated hosts.
-func (s *HostService) ListDedicatedHosts(p *ListDedicatedHostsParams) (*ListDedicatedHostsResponse, error) {
-	resp, err := s.cs.newRequest("listDedicatedHosts", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ListDedicatedHostsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type ListDedicatedHostsResponse struct {
-	Count          int              `json:"count"`
-	DedicatedHosts []*DedicatedHost `json:"dedicatedhost"`
-}
-
-type DedicatedHost struct {
-	Accountid       string `json:"accountid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Hostid          string `json:"hostid,omitempty"`
-	Hostname        string `json:"hostname,omitempty"`
-	Id              string `json:"id,omitempty"`
-}
-
-type AddGloboDnsHostParams struct {
-	p map[string]interface{}
-}
-
-func (p *AddGloboDnsHostParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["password"]; found {
-		u.Set("password", v.(string))
-	}
-	if v, found := p.p["physicalnetworkid"]; found {
-		u.Set("physicalnetworkid", v.(string))
-	}
-	if v, found := p.p["url"]; found {
-		u.Set("url", v.(string))
-	}
-	if v, found := p.p["username"]; found {
-		u.Set("username", v.(string))
-	}
-	return u
-}
-
-func (p *AddGloboDnsHostParams) SetPassword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["password"] = v
-	return
-}
-
-func (p *AddGloboDnsHostParams) SetPhysicalnetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["physicalnetworkid"] = v
-	return
-}
-
-func (p *AddGloboDnsHostParams) SetUrl(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["url"] = v
-	return
-}
-
-func (p *AddGloboDnsHostParams) SetUsername(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["username"] = v
-	return
-}
-
-// You should always use this function to get a new AddGloboDnsHostParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewAddGloboDnsHostParams(password string, physicalnetworkid string, url string, username string) *AddGloboDnsHostParams {
-	p := &AddGloboDnsHostParams{}
-	p.p = make(map[string]interface{})
-	p.p["password"] = password
-	p.p["physicalnetworkid"] = physicalnetworkid
-	p.p["url"] = url
-	p.p["username"] = username
-	return p
-}
-
-// Adds the GloboDNS external host
-func (s *HostService) AddGloboDnsHost(p *AddGloboDnsHostParams) (*AddGloboDnsHostResponse, error) {
-	resp, err := s.cs.newRequest("addGloboDnsHost", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r AddGloboDnsHostResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-
-	return &r, nil
-}
-
-type AddGloboDnsHostResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+	Displaytext string `json:"displaytext"`
+	Success     string `json:"success"`
 }

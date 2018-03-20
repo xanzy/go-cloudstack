@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,6 +23,212 @@ import (
 	"strconv"
 	"strings"
 )
+
+type CreateTagsParams struct {
+	p map[string]interface{}
+}
+
+func (p *CreateTagsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["customer"]; found {
+		u.Set("customer", v.(string))
+	}
+	if v, found := p.p["resourceids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("resourceids", vv)
+	}
+	if v, found := p.p["resourcetype"]; found {
+		u.Set("resourcetype", v.(string))
+	}
+	if v, found := p.p["tags"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("tags[%d].key", i), k)
+			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
+			i++
+		}
+	}
+	return u
+}
+
+func (p *CreateTagsParams) SetCustomer(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["customer"] = v
+	return
+}
+
+func (p *CreateTagsParams) SetResourceids(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["resourceids"] = v
+	return
+}
+
+func (p *CreateTagsParams) SetResourcetype(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["resourcetype"] = v
+	return
+}
+
+func (p *CreateTagsParams) SetTags(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["tags"] = v
+	return
+}
+
+// You should always use this function to get a new CreateTagsParams instance,
+// as then you are sure you have configured all required params
+func (s *ResourcetagsService) NewCreateTagsParams(resourceids []string, resourcetype string, tags map[string]string) *CreateTagsParams {
+	p := &CreateTagsParams{}
+	p.p = make(map[string]interface{})
+	p.p["resourceids"] = resourceids
+	p.p["resourcetype"] = resourcetype
+	p.p["tags"] = tags
+	return p
+}
+
+// Creates resource tag(s)
+func (s *ResourcetagsService) CreateTags(p *CreateTagsParams) (*CreateTagsResponse, error) {
+	resp, err := s.cs.newRequest("createTags", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CreateTagsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type CreateTagsResponse struct {
+	JobID       string `json:"jobid"`
+	Displaytext string `json:"displaytext"`
+	Success     bool   `json:"success"`
+}
+
+type DeleteTagsParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteTagsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["resourceids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("resourceids", vv)
+	}
+	if v, found := p.p["resourcetype"]; found {
+		u.Set("resourcetype", v.(string))
+	}
+	if v, found := p.p["tags"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("tags[%d].key", i), k)
+			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
+			i++
+		}
+	}
+	return u
+}
+
+func (p *DeleteTagsParams) SetResourceids(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["resourceids"] = v
+	return
+}
+
+func (p *DeleteTagsParams) SetResourcetype(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["resourcetype"] = v
+	return
+}
+
+func (p *DeleteTagsParams) SetTags(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["tags"] = v
+	return
+}
+
+// You should always use this function to get a new DeleteTagsParams instance,
+// as then you are sure you have configured all required params
+func (s *ResourcetagsService) NewDeleteTagsParams(resourceids []string, resourcetype string) *DeleteTagsParams {
+	p := &DeleteTagsParams{}
+	p.p = make(map[string]interface{})
+	p.p["resourceids"] = resourceids
+	p.p["resourcetype"] = resourcetype
+	return p
+}
+
+// Deleting resource tag(s)
+func (s *ResourcetagsService) DeleteTags(p *DeleteTagsParams) (*DeleteTagsResponse, error) {
+	resp, err := s.cs.newRequest("deleteTags", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteTagsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type DeleteTagsResponse struct {
+	JobID       string `json:"jobid"`
+	Displaytext string `json:"displaytext"`
+	Success     bool   `json:"success"`
+}
 
 type ListStorageTagsParams struct {
 	p map[string]interface{}
@@ -136,215 +342,9 @@ type ListStorageTagsResponse struct {
 }
 
 type StorageTag struct {
-	Id     string `json:"id,omitempty"`
-	Name   string `json:"name,omitempty"`
-	Poolid int64  `json:"poolid,omitempty"`
-}
-
-type CreateTagsParams struct {
-	p map[string]interface{}
-}
-
-func (p *CreateTagsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["customer"]; found {
-		u.Set("customer", v.(string))
-	}
-	if v, found := p.p["resourceids"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("resourceids", vv)
-	}
-	if v, found := p.p["resourcetype"]; found {
-		u.Set("resourcetype", v.(string))
-	}
-	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
-		}
-	}
-	return u
-}
-
-func (p *CreateTagsParams) SetCustomer(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["customer"] = v
-	return
-}
-
-func (p *CreateTagsParams) SetResourceids(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["resourceids"] = v
-	return
-}
-
-func (p *CreateTagsParams) SetResourcetype(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["resourcetype"] = v
-	return
-}
-
-func (p *CreateTagsParams) SetTags(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["tags"] = v
-	return
-}
-
-// You should always use this function to get a new CreateTagsParams instance,
-// as then you are sure you have configured all required params
-func (s *ResourcetagsService) NewCreateTagsParams(resourceids []string, resourcetype string, tags map[string]string) *CreateTagsParams {
-	p := &CreateTagsParams{}
-	p.p = make(map[string]interface{})
-	p.p["resourceids"] = resourceids
-	p.p["resourcetype"] = resourcetype
-	p.p["tags"] = tags
-	return p
-}
-
-// Creates resource tag(s)
-func (s *ResourcetagsService) CreateTags(p *CreateTagsParams) (*CreateTagsResponse, error) {
-	resp, err := s.cs.newRequest("createTags", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r CreateTagsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-
-	return &r, nil
-}
-
-type CreateTagsResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type DeleteTagsParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteTagsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["resourceids"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("resourceids", vv)
-	}
-	if v, found := p.p["resourcetype"]; found {
-		u.Set("resourcetype", v.(string))
-	}
-	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
-		}
-	}
-	return u
-}
-
-func (p *DeleteTagsParams) SetResourceids(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["resourceids"] = v
-	return
-}
-
-func (p *DeleteTagsParams) SetResourcetype(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["resourcetype"] = v
-	return
-}
-
-func (p *DeleteTagsParams) SetTags(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["tags"] = v
-	return
-}
-
-// You should always use this function to get a new DeleteTagsParams instance,
-// as then you are sure you have configured all required params
-func (s *ResourcetagsService) NewDeleteTagsParams(resourceids []string, resourcetype string) *DeleteTagsParams {
-	p := &DeleteTagsParams{}
-	p.p = make(map[string]interface{})
-	p.p["resourceids"] = resourceids
-	p.p["resourcetype"] = resourcetype
-	return p
-}
-
-// Deleting resource tag(s)
-func (s *ResourcetagsService) DeleteTags(p *DeleteTagsParams) (*DeleteTagsResponse, error) {
-	resp, err := s.cs.newRequest("deleteTags", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteTagsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-
-	return &r, nil
-}
-
-type DeleteTagsResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+	Id     string `json:"id"`
+	Name   string `json:"name"`
+	Poolid int64  `json:"poolid"`
 }
 
 type ListTagsParams struct {
@@ -535,14 +535,14 @@ type ListTagsResponse struct {
 }
 
 type Tag struct {
-	Account      string `json:"account,omitempty"`
-	Customer     string `json:"customer,omitempty"`
-	Domain       string `json:"domain,omitempty"`
-	Domainid     string `json:"domainid,omitempty"`
-	Key          string `json:"key,omitempty"`
-	Project      string `json:"project,omitempty"`
-	Projectid    string `json:"projectid,omitempty"`
-	Resourceid   string `json:"resourceid,omitempty"`
-	Resourcetype string `json:"resourcetype,omitempty"`
-	Value        string `json:"value,omitempty"`
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }

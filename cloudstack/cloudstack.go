@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -68,70 +68,78 @@ type CloudStackClient struct {
 	options []OptionFunc // A list of option functions to apply to all API calls
 	timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 300 seconds
 
-	APIDiscovery     *APIDiscoveryService
-	Account          *AccountService
-	Address          *AddressService
-	AffinityGroup    *AffinityGroupService
-	Alert            *AlertService
-	Asyncjob         *AsyncjobService
-	Authentication   *AuthenticationService
-	AutoScale        *AutoScaleService
-	Baremetal        *BaremetalService
-	Certificate      *CertificateService
-	CloudIdentifier  *CloudIdentifierService
-	Cluster          *ClusterService
-	Configuration    *ConfigurationService
-	Custom           *CustomService
-	DiskOffering     *DiskOfferingService
-	Domain           *DomainService
-	Event            *EventService
-	Firewall         *FirewallService
-	GuestOS          *GuestOSService
-	Host             *HostService
-	Hypervisor       *HypervisorService
-	ISO              *ISOService
-	ImageStore       *ImageStoreService
-	InternalLB       *InternalLBService
-	LDAP             *LDAPService
-	Limit            *LimitService
-	LoadBalancer     *LoadBalancerService
-	NAT              *NATService
-	NetworkACL       *NetworkACLService
-	NetworkDevice    *NetworkDeviceService
-	NetworkOffering  *NetworkOfferingService
-	Network          *NetworkService
-	Nic              *NicService
-	NiciraNVP        *NiciraNVPService
-	OvsElement       *OvsElementService
-	Pod              *PodService
-	Pool             *PoolService
-	PortableIP       *PortableIPService
-	Project          *ProjectService
-	Quota            *QuotaService
-	Region           *RegionService
-	Resourcemetadata *ResourcemetadataService
-	Resourcetags     *ResourcetagsService
-	Router           *RouterService
-	SSH              *SSHService
-	SecurityGroup    *SecurityGroupService
-	ServiceOffering  *ServiceOfferingService
-	Snapshot         *SnapshotService
-	StoragePool      *StoragePoolService
-	StratosphereSSP  *StratosphereSSPService
-	Swift            *SwiftService
-	SystemCapacity   *SystemCapacityService
-	SystemVM         *SystemVMService
-	Template         *TemplateService
-	UCS              *UCSService
-	Usage            *UsageService
-	User             *UserService
-	VLAN             *VLANService
-	VMGroup          *VMGroupService
-	VPC              *VPCService
-	VPN              *VPNService
-	VirtualMachine   *VirtualMachineService
-	Volume           *VolumeService
-	Zone             *ZoneService
+	APIDiscovery        *APIDiscoveryService
+	Account             *AccountService
+	Address             *AddressService
+	AffinityGroup       *AffinityGroupService
+	Alert               *AlertService
+	Asyncjob            *AsyncjobService
+	Authentication      *AuthenticationService
+	AutoScale           *AutoScaleService
+	Baremetal           *BaremetalService
+	BigSwitchBCF        *BigSwitchBCFService
+	BrocadeVCS          *BrocadeVCSService
+	Certificate         *CertificateService
+	CloudIdentifier     *CloudIdentifierService
+	Cluster             *ClusterService
+	Configuration       *ConfigurationService
+	Custom              *CustomService
+	DiskOffering        *DiskOfferingService
+	Domain              *DomainService
+	Event               *EventService
+	ExtFirewall         *ExtFirewallService
+	ExtLoadBalancer     *ExtLoadBalancer
+	ExternalDevice      *ExternalDeviceService
+	Firewall            *FirewallService
+	GuestOS             *GuestOSService
+	Host                *HostService
+	Hypervisor          *HypervisorService
+	ISO                 *ISOService
+	ImageStore          *ImageStoreService
+	InternalLB          *InternalLBService
+	LDAP                *LDAPService
+	Limit               *LimitService
+	LoadBalancer        *LoadBalancerService
+	Metrics             *MetricsService
+	Misc                *MiscService
+	NAT                 *NATService
+	Network             *NetworkService
+	Nic                 *NicService
+	NiciraNVP           *NiciraNVPService
+	NuageVSP            *NuageVSPService
+	OutofbandManagement *OutofbandManagementService
+	OvsElement          *OvsElementService
+	Pod                 *PodService
+	Pool                *PoolService
+	PortableIP          *PortableIPService
+	Project             *ProjectService
+	Quota               *QuotaService
+	Region              *RegionService
+	Resourcemetadata    *ResourcemetadataService
+	Resourcetags        *ResourcetagsService
+	Role                *RoleService
+	Router              *RouterService
+	S3                  *S3Service
+	SSH                 *SSHService
+	SecurityGroup       *SecurityGroupService
+	ServiceOffering     *ServiceOfferingService
+	Snapshot            *SnapshotService
+	StoragePool         *StoragePoolService
+	StratosphereSSP     *StratosphereSSP
+	Swift               *SwiftService
+	SystemCapacity      *SystemCapacityService
+	SystemVM            *SystemVMService
+	Template            *TemplateService
+	UCS                 *UCSService
+	Usage               *UsageService
+	User                *UserService
+	VLAN                *VLANService
+	VMGroup             *VMGroupService
+	VPC                 *VPCService
+	VPN                 *VPNService
+	VirtualMachine      *VirtualMachineService
+	Volume              *VolumeService
+	Zone                *ZoneService
 }
 
 // Creates a new client for communicating with CloudStack
@@ -160,6 +168,8 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.Authentication = NewAuthenticationService(cs)
 	cs.AutoScale = NewAutoScaleService(cs)
 	cs.Baremetal = NewBaremetalService(cs)
+	cs.BigSwitchBCF = NewBigSwitchBCFService(cs)
+	cs.BrocadeVCS = NewBrocadeVCSService(cs)
 	cs.Certificate = NewCertificateService(cs)
 	cs.CloudIdentifier = NewCloudIdentifierService(cs)
 	cs.Cluster = NewClusterService(cs)
@@ -168,6 +178,9 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.DiskOffering = NewDiskOfferingService(cs)
 	cs.Domain = NewDomainService(cs)
 	cs.Event = NewEventService(cs)
+	cs.ExtFirewall = NewExtFirewallService(cs)
+	cs.ExtLoadBalancer = NewExtLoadBalancer(cs)
+	cs.ExternalDevice = NewExternalDeviceService(cs)
 	cs.Firewall = NewFirewallService(cs)
 	cs.GuestOS = NewGuestOSService(cs)
 	cs.Host = NewHostService(cs)
@@ -178,13 +191,14 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.LDAP = NewLDAPService(cs)
 	cs.Limit = NewLimitService(cs)
 	cs.LoadBalancer = NewLoadBalancerService(cs)
+	cs.Metrics = NewMetricsService(cs)
+	cs.Misc = NewMiscService(cs)
 	cs.NAT = NewNATService(cs)
-	cs.NetworkACL = NewNetworkACLService(cs)
-	cs.NetworkDevice = NewNetworkDeviceService(cs)
-	cs.NetworkOffering = NewNetworkOfferingService(cs)
 	cs.Network = NewNetworkService(cs)
 	cs.Nic = NewNicService(cs)
 	cs.NiciraNVP = NewNiciraNVPService(cs)
+	cs.NuageVSP = NewNuageVSPService(cs)
+	cs.OutofbandManagement = NewOutofbandManagementService(cs)
 	cs.OvsElement = NewOvsElementService(cs)
 	cs.Pod = NewPodService(cs)
 	cs.Pool = NewPoolService(cs)
@@ -194,13 +208,15 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.Region = NewRegionService(cs)
 	cs.Resourcemetadata = NewResourcemetadataService(cs)
 	cs.Resourcetags = NewResourcetagsService(cs)
+	cs.Role = NewRoleService(cs)
 	cs.Router = NewRouterService(cs)
+	cs.S3 = NewS3Service(cs)
 	cs.SSH = NewSSHService(cs)
 	cs.SecurityGroup = NewSecurityGroupService(cs)
 	cs.ServiceOffering = NewServiceOfferingService(cs)
 	cs.Snapshot = NewSnapshotService(cs)
 	cs.StoragePool = NewStoragePoolService(cs)
-	cs.StratosphereSSP = NewStratosphereSSPService(cs)
+	cs.StratosphereSSP = NewStratosphereSSP(cs)
 	cs.Swift = NewSwiftService(cs)
 	cs.SystemCapacity = NewSystemCapacityService(cs)
 	cs.SystemVM = NewSystemVMService(cs)
@@ -516,6 +532,22 @@ func NewBaremetalService(cs *CloudStackClient) *BaremetalService {
 	return &BaremetalService{cs: cs}
 }
 
+type BigSwitchBCFService struct {
+	cs *CloudStackClient
+}
+
+func NewBigSwitchBCFService(cs *CloudStackClient) *BigSwitchBCFService {
+	return &BigSwitchBCFService{cs: cs}
+}
+
+type BrocadeVCSService struct {
+	cs *CloudStackClient
+}
+
+func NewBrocadeVCSService(cs *CloudStackClient) *BrocadeVCSService {
+	return &BrocadeVCSService{cs: cs}
+}
+
 type CertificateService struct {
 	cs *CloudStackClient
 }
@@ -578,6 +610,30 @@ type EventService struct {
 
 func NewEventService(cs *CloudStackClient) *EventService {
 	return &EventService{cs: cs}
+}
+
+type ExtFirewallService struct {
+	cs *CloudStackClient
+}
+
+func NewExtFirewallService(cs *CloudStackClient) *ExtFirewallService {
+	return &ExtFirewallService{cs: cs}
+}
+
+type ExtLoadBalancer struct {
+	cs *CloudStackClient
+}
+
+func NewExtLoadBalancer(cs *CloudStackClient) *ExtLoadBalancer {
+	return &ExtLoadBalancer{cs: cs}
+}
+
+type ExternalDeviceService struct {
+	cs *CloudStackClient
+}
+
+func NewExternalDeviceService(cs *CloudStackClient) *ExternalDeviceService {
+	return &ExternalDeviceService{cs: cs}
 }
 
 type FirewallService struct {
@@ -660,36 +716,28 @@ func NewLoadBalancerService(cs *CloudStackClient) *LoadBalancerService {
 	return &LoadBalancerService{cs: cs}
 }
 
+type MetricsService struct {
+	cs *CloudStackClient
+}
+
+func NewMetricsService(cs *CloudStackClient) *MetricsService {
+	return &MetricsService{cs: cs}
+}
+
+type MiscService struct {
+	cs *CloudStackClient
+}
+
+func NewMiscService(cs *CloudStackClient) *MiscService {
+	return &MiscService{cs: cs}
+}
+
 type NATService struct {
 	cs *CloudStackClient
 }
 
 func NewNATService(cs *CloudStackClient) *NATService {
 	return &NATService{cs: cs}
-}
-
-type NetworkACLService struct {
-	cs *CloudStackClient
-}
-
-func NewNetworkACLService(cs *CloudStackClient) *NetworkACLService {
-	return &NetworkACLService{cs: cs}
-}
-
-type NetworkDeviceService struct {
-	cs *CloudStackClient
-}
-
-func NewNetworkDeviceService(cs *CloudStackClient) *NetworkDeviceService {
-	return &NetworkDeviceService{cs: cs}
-}
-
-type NetworkOfferingService struct {
-	cs *CloudStackClient
-}
-
-func NewNetworkOfferingService(cs *CloudStackClient) *NetworkOfferingService {
-	return &NetworkOfferingService{cs: cs}
 }
 
 type NetworkService struct {
@@ -714,6 +762,22 @@ type NiciraNVPService struct {
 
 func NewNiciraNVPService(cs *CloudStackClient) *NiciraNVPService {
 	return &NiciraNVPService{cs: cs}
+}
+
+type NuageVSPService struct {
+	cs *CloudStackClient
+}
+
+func NewNuageVSPService(cs *CloudStackClient) *NuageVSPService {
+	return &NuageVSPService{cs: cs}
+}
+
+type OutofbandManagementService struct {
+	cs *CloudStackClient
+}
+
+func NewOutofbandManagementService(cs *CloudStackClient) *OutofbandManagementService {
+	return &OutofbandManagementService{cs: cs}
 }
 
 type OvsElementService struct {
@@ -788,12 +852,28 @@ func NewResourcetagsService(cs *CloudStackClient) *ResourcetagsService {
 	return &ResourcetagsService{cs: cs}
 }
 
+type RoleService struct {
+	cs *CloudStackClient
+}
+
+func NewRoleService(cs *CloudStackClient) *RoleService {
+	return &RoleService{cs: cs}
+}
+
 type RouterService struct {
 	cs *CloudStackClient
 }
 
 func NewRouterService(cs *CloudStackClient) *RouterService {
 	return &RouterService{cs: cs}
+}
+
+type S3Service struct {
+	cs *CloudStackClient
+}
+
+func NewS3Service(cs *CloudStackClient) *S3Service {
+	return &S3Service{cs: cs}
 }
 
 type SSHService struct {
@@ -836,12 +916,12 @@ func NewStoragePoolService(cs *CloudStackClient) *StoragePoolService {
 	return &StoragePoolService{cs: cs}
 }
 
-type StratosphereSSPService struct {
+type StratosphereSSP struct {
 	cs *CloudStackClient
 }
 
-func NewStratosphereSSPService(cs *CloudStackClient) *StratosphereSSPService {
-	return &StratosphereSSPService{cs: cs}
+func NewStratosphereSSP(cs *CloudStackClient) *StratosphereSSP {
+	return &StratosphereSSP{cs: cs}
 }
 
 type SwiftService struct {
