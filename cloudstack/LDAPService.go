@@ -140,6 +140,168 @@ type DeleteLdapConfigurationResponse struct {
 	Port     int    `json:"port"`
 }
 
+type ImportLdapUsersParams struct {
+	p map[string]interface{}
+}
+
+func (p *ImportLdapUsersParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["accountdetails"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("accountdetails[%d].key", i), k)
+			u.Set(fmt.Sprintf("accountdetails[%d].value", i), vv)
+			i++
+		}
+	}
+	if v, found := p.p["accounttype"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("accounttype", vv)
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["group"]; found {
+		u.Set("group", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["roleid"]; found {
+		u.Set("roleid", v.(string))
+	}
+	if v, found := p.p["timezone"]; found {
+		u.Set("timezone", v.(string))
+	}
+	return u
+}
+
+func (p *ImportLdapUsersParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+	return
+}
+
+func (p *ImportLdapUsersParams) SetAccountdetails(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["accountdetails"] = v
+	return
+}
+
+func (p *ImportLdapUsersParams) SetAccounttype(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["accounttype"] = v
+	return
+}
+
+func (p *ImportLdapUsersParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+	return
+}
+
+func (p *ImportLdapUsersParams) SetGroup(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["group"] = v
+	return
+}
+
+func (p *ImportLdapUsersParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *ImportLdapUsersParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *ImportLdapUsersParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+func (p *ImportLdapUsersParams) SetRoleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["roleid"] = v
+	return
+}
+
+func (p *ImportLdapUsersParams) SetTimezone(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["timezone"] = v
+	return
+}
+
+// You should always use this function to get a new ImportLdapUsersParams instance,
+// as then you are sure you have configured all required params
+func (s *LDAPService) NewImportLdapUsersParams() *ImportLdapUsersParams {
+	p := &ImportLdapUsersParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Import LDAP users
+func (s *LDAPService) ImportLdapUsers(p *ImportLdapUsersParams) (*ImportLdapUsersResponse, error) {
+	resp, err := s.cs.newRequest("importLdapUsers", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ImportLdapUsersResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ImportLdapUsersResponse struct {
+	Domain    string `json:"domain"`
+	Email     string `json:"email"`
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
+	Principal string `json:"principal"`
+	Username  string `json:"username"`
+}
+
 type LdapConfigParams struct {
 	p map[string]interface{}
 }
@@ -779,6 +941,101 @@ type ListLdapConfigurationsResponse struct {
 type LdapConfiguration struct {
 	Hostname string `json:"hostname"`
 	Port     int    `json:"port"`
+}
+
+type ListLdapUsersParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListLdapUsersParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["listtype"]; found {
+		u.Set("listtype", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListLdapUsersParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *ListLdapUsersParams) SetListtype(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["listtype"] = v
+	return
+}
+
+func (p *ListLdapUsersParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *ListLdapUsersParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+// You should always use this function to get a new ListLdapUsersParams instance,
+// as then you are sure you have configured all required params
+func (s *LDAPService) NewListLdapUsersParams() *ListLdapUsersParams {
+	p := &ListLdapUsersParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Lists all LDAP Users
+func (s *LDAPService) ListLdapUsers(p *ListLdapUsersParams) (*ListLdapUsersResponse, error) {
+	resp, err := s.cs.newRequest("listLdapUsers", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListLdapUsersResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListLdapUsersResponse struct {
+	Count     int         `json:"count"`
+	LdapUsers []*LdapUser `json:"ldapuser"`
+}
+
+type LdapUser struct {
+	Domain    string `json:"domain"`
+	Email     string `json:"email"`
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
+	Principal string `json:"principal"`
+	Username  string `json:"username"`
 }
 
 type SearchLdapParams struct {

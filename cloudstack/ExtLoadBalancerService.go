@@ -81,7 +81,7 @@ func (p *AddExternalLoadBalancerParams) SetZoneid(v string) {
 
 // You should always use this function to get a new AddExternalLoadBalancerParams instance,
 // as then you are sure you have configured all required params
-func (s *ExtLoadBalancer) NewAddExternalLoadBalancerParams(password string, url string, username string, zoneid string) *AddExternalLoadBalancerParams {
+func (s *ExtLoadBalancerService) NewAddExternalLoadBalancerParams(password string, url string, username string, zoneid string) *AddExternalLoadBalancerParams {
 	p := &AddExternalLoadBalancerParams{}
 	p.p = make(map[string]interface{})
 	p.p["password"] = password
@@ -92,7 +92,7 @@ func (s *ExtLoadBalancer) NewAddExternalLoadBalancerParams(password string, url 
 }
 
 // Adds F5 external load balancer appliance.
-func (s *ExtLoadBalancer) AddExternalLoadBalancer(p *AddExternalLoadBalancerParams) (*AddExternalLoadBalancerResponse, error) {
+func (s *ExtLoadBalancerService) AddExternalLoadBalancer(p *AddExternalLoadBalancerParams) (*AddExternalLoadBalancerResponse, error) {
 	resp, err := s.cs.newRequest("addExternalLoadBalancer", p.toURLValues())
 	if err != nil {
 		return nil, err
@@ -141,7 +141,7 @@ func (p *DeleteExternalLoadBalancerParams) SetId(v string) {
 
 // You should always use this function to get a new DeleteExternalLoadBalancerParams instance,
 // as then you are sure you have configured all required params
-func (s *ExtLoadBalancer) NewDeleteExternalLoadBalancerParams(id string) *DeleteExternalLoadBalancerParams {
+func (s *ExtLoadBalancerService) NewDeleteExternalLoadBalancerParams(id string) *DeleteExternalLoadBalancerParams {
 	p := &DeleteExternalLoadBalancerParams{}
 	p.p = make(map[string]interface{})
 	p.p["id"] = id
@@ -149,7 +149,7 @@ func (s *ExtLoadBalancer) NewDeleteExternalLoadBalancerParams(id string) *Delete
 }
 
 // Deletes a F5 external load balancer appliance added in a zone.
-func (s *ExtLoadBalancer) DeleteExternalLoadBalancer(p *DeleteExternalLoadBalancerParams) (*DeleteExternalLoadBalancerResponse, error) {
+func (s *ExtLoadBalancerService) DeleteExternalLoadBalancer(p *DeleteExternalLoadBalancerParams) (*DeleteExternalLoadBalancerResponse, error) {
 	resp, err := s.cs.newRequest("deleteExternalLoadBalancer", p.toURLValues())
 	if err != nil {
 		return nil, err
@@ -228,14 +228,14 @@ func (p *ListExternalLoadBalancersParams) SetZoneid(v string) {
 
 // You should always use this function to get a new ListExternalLoadBalancersParams instance,
 // as then you are sure you have configured all required params
-func (s *ExtLoadBalancer) NewListExternalLoadBalancersParams() *ListExternalLoadBalancersParams {
+func (s *ExtLoadBalancerService) NewListExternalLoadBalancersParams() *ListExternalLoadBalancersParams {
 	p := &ListExternalLoadBalancersParams{}
 	p.p = make(map[string]interface{})
 	return p
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *ExtLoadBalancer) GetExternalLoadBalancerID(keyword string, opts ...OptionFunc) (string, int, error) {
+func (s *ExtLoadBalancerService) GetExternalLoadBalancerID(keyword string, opts ...OptionFunc) (string, int, error) {
 	p := &ListExternalLoadBalancersParams{}
 	p.p = make(map[string]interface{})
 
@@ -271,7 +271,7 @@ func (s *ExtLoadBalancer) GetExternalLoadBalancerID(keyword string, opts ...Opti
 }
 
 // Lists F5 external load balancer appliances added in a zone.
-func (s *ExtLoadBalancer) ListExternalLoadBalancers(p *ListExternalLoadBalancersParams) (*ListExternalLoadBalancersResponse, error) {
+func (s *ExtLoadBalancerService) ListExternalLoadBalancers(p *ListExternalLoadBalancersParams) (*ListExternalLoadBalancersResponse, error) {
 	resp, err := s.cs.newRequest("listExternalLoadBalancers", p.toURLValues())
 	if err != nil {
 		return nil, err

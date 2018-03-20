@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -301,173 +301,6 @@ func (s *NetworkOfferingService) CreateNetworkOffering(p *CreateNetworkOfferingP
 }
 
 type CreateNetworkOfferingResponse struct {
-	Availability        string            `json:"availability"`
-	Conservemode        bool              `json:"conservemode"`
-	Created             string            `json:"created"`
-	Details             map[string]string `json:"details"`
-	Displaytext         string            `json:"displaytext"`
-	Egressdefaultpolicy bool              `json:"egressdefaultpolicy"`
-	Forvpc              bool              `json:"forvpc"`
-	Guestiptype         string            `json:"guestiptype"`
-	Id                  string            `json:"id"`
-	Isdefault           bool              `json:"isdefault"`
-	Ispersistent        bool              `json:"ispersistent"`
-	Maxconnections      int               `json:"maxconnections"`
-	Name                string            `json:"name"`
-	Networkrate         int               `json:"networkrate"`
-	Service             []struct {
-		Capability []struct {
-			Canchooseservicecapability bool   `json:"canchooseservicecapability"`
-			Name                       string `json:"name"`
-			Value                      string `json:"value"`
-		} `json:"capability"`
-		Name     string `json:"name"`
-		Provider []struct {
-			Canenableindividualservice   bool     `json:"canenableindividualservice"`
-			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
-			Id                           string   `json:"id"`
-			Name                         string   `json:"name"`
-			Physicalnetworkid            string   `json:"physicalnetworkid"`
-			Servicelist                  []string `json:"servicelist"`
-			State                        string   `json:"state"`
-		} `json:"provider"`
-	} `json:"service"`
-	Serviceofferingid        string `json:"serviceofferingid"`
-	Specifyipranges          bool   `json:"specifyipranges"`
-	Specifyvlan              bool   `json:"specifyvlan"`
-	State                    string `json:"state"`
-	Supportsstrechedl2subnet bool   `json:"supportsstrechedl2subnet"`
-	Tags                     string `json:"tags"`
-	Traffictype              string `json:"traffictype"`
-}
-
-type UpdateNetworkOfferingParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateNetworkOfferingParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["availability"]; found {
-		u.Set("availability", v.(string))
-	}
-	if v, found := p.p["displaytext"]; found {
-		u.Set("displaytext", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["keepaliveenabled"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("keepaliveenabled", vv)
-	}
-	if v, found := p.p["maxconnections"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("maxconnections", vv)
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["sortkey"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("sortkey", vv)
-	}
-	if v, found := p.p["state"]; found {
-		u.Set("state", v.(string))
-	}
-	return u
-}
-
-func (p *UpdateNetworkOfferingParams) SetAvailability(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["availability"] = v
-	return
-}
-
-func (p *UpdateNetworkOfferingParams) SetDisplaytext(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["displaytext"] = v
-	return
-}
-
-func (p *UpdateNetworkOfferingParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-	return
-}
-
-func (p *UpdateNetworkOfferingParams) SetKeepaliveenabled(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keepaliveenabled"] = v
-	return
-}
-
-func (p *UpdateNetworkOfferingParams) SetMaxconnections(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["maxconnections"] = v
-	return
-}
-
-func (p *UpdateNetworkOfferingParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-	return
-}
-
-func (p *UpdateNetworkOfferingParams) SetSortkey(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["sortkey"] = v
-	return
-}
-
-func (p *UpdateNetworkOfferingParams) SetState(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["state"] = v
-	return
-}
-
-// You should always use this function to get a new UpdateNetworkOfferingParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkOfferingService) NewUpdateNetworkOfferingParams() *UpdateNetworkOfferingParams {
-	p := &UpdateNetworkOfferingParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Updates a network offering.
-func (s *NetworkOfferingService) UpdateNetworkOffering(p *UpdateNetworkOfferingParams) (*UpdateNetworkOfferingResponse, error) {
-	resp, err := s.cs.newRequest("updateNetworkOffering", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateNetworkOfferingResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type UpdateNetworkOfferingResponse struct {
 	Availability        string            `json:"availability"`
 	Conservemode        bool              `json:"conservemode"`
 	Created             string            `json:"created"`
@@ -913,6 +746,173 @@ type ListNetworkOfferingsResponse struct {
 }
 
 type NetworkOffering struct {
+	Availability        string            `json:"availability"`
+	Conservemode        bool              `json:"conservemode"`
+	Created             string            `json:"created"`
+	Details             map[string]string `json:"details"`
+	Displaytext         string            `json:"displaytext"`
+	Egressdefaultpolicy bool              `json:"egressdefaultpolicy"`
+	Forvpc              bool              `json:"forvpc"`
+	Guestiptype         string            `json:"guestiptype"`
+	Id                  string            `json:"id"`
+	Isdefault           bool              `json:"isdefault"`
+	Ispersistent        bool              `json:"ispersistent"`
+	Maxconnections      int               `json:"maxconnections"`
+	Name                string            `json:"name"`
+	Networkrate         int               `json:"networkrate"`
+	Service             []struct {
+		Capability []struct {
+			Canchooseservicecapability bool   `json:"canchooseservicecapability"`
+			Name                       string `json:"name"`
+			Value                      string `json:"value"`
+		} `json:"capability"`
+		Name     string `json:"name"`
+		Provider []struct {
+			Canenableindividualservice   bool     `json:"canenableindividualservice"`
+			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
+			Id                           string   `json:"id"`
+			Name                         string   `json:"name"`
+			Physicalnetworkid            string   `json:"physicalnetworkid"`
+			Servicelist                  []string `json:"servicelist"`
+			State                        string   `json:"state"`
+		} `json:"provider"`
+	} `json:"service"`
+	Serviceofferingid        string `json:"serviceofferingid"`
+	Specifyipranges          bool   `json:"specifyipranges"`
+	Specifyvlan              bool   `json:"specifyvlan"`
+	State                    string `json:"state"`
+	Supportsstrechedl2subnet bool   `json:"supportsstrechedl2subnet"`
+	Tags                     string `json:"tags"`
+	Traffictype              string `json:"traffictype"`
+}
+
+type UpdateNetworkOfferingParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateNetworkOfferingParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["availability"]; found {
+		u.Set("availability", v.(string))
+	}
+	if v, found := p.p["displaytext"]; found {
+		u.Set("displaytext", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["keepaliveenabled"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("keepaliveenabled", vv)
+	}
+	if v, found := p.p["maxconnections"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("maxconnections", vv)
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["sortkey"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("sortkey", vv)
+	}
+	if v, found := p.p["state"]; found {
+		u.Set("state", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateNetworkOfferingParams) SetAvailability(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["availability"] = v
+	return
+}
+
+func (p *UpdateNetworkOfferingParams) SetDisplaytext(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["displaytext"] = v
+	return
+}
+
+func (p *UpdateNetworkOfferingParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+func (p *UpdateNetworkOfferingParams) SetKeepaliveenabled(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keepaliveenabled"] = v
+	return
+}
+
+func (p *UpdateNetworkOfferingParams) SetMaxconnections(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["maxconnections"] = v
+	return
+}
+
+func (p *UpdateNetworkOfferingParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+	return
+}
+
+func (p *UpdateNetworkOfferingParams) SetSortkey(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["sortkey"] = v
+	return
+}
+
+func (p *UpdateNetworkOfferingParams) SetState(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["state"] = v
+	return
+}
+
+// You should always use this function to get a new UpdateNetworkOfferingParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkOfferingService) NewUpdateNetworkOfferingParams() *UpdateNetworkOfferingParams {
+	p := &UpdateNetworkOfferingParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Updates a network offering.
+func (s *NetworkOfferingService) UpdateNetworkOffering(p *UpdateNetworkOfferingParams) (*UpdateNetworkOfferingResponse, error) {
+	resp, err := s.cs.newRequest("updateNetworkOffering", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateNetworkOfferingResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type UpdateNetworkOfferingResponse struct {
 	Availability        string            `json:"availability"`
 	Conservemode        bool              `json:"conservemode"`
 	Created             string            `json:"created"`

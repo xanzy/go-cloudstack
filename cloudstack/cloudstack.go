@@ -88,7 +88,7 @@ type CloudStackClient struct {
 	Domain              *DomainService
 	Event               *EventService
 	ExtFirewall         *ExtFirewallService
-	ExtLoadBalancer     *ExtLoadBalancer
+	ExtLoadBalancer     *ExtLoadBalancerService
 	ExternalDevice      *ExternalDeviceService
 	Firewall            *FirewallService
 	GuestOS             *GuestOSService
@@ -100,9 +100,10 @@ type CloudStackClient struct {
 	LDAP                *LDAPService
 	Limit               *LimitService
 	LoadBalancer        *LoadBalancerService
-	Metrics             *MetricsService
-	Misc                *MiscService
 	NAT                 *NATService
+	NetworkACL          *NetworkACLService
+	NetworkDevice       *NetworkDeviceService
+	NetworkOffering     *NetworkOfferingService
 	Network             *NetworkService
 	Nic                 *NicService
 	NiciraNVP           *NiciraNVPService
@@ -119,13 +120,12 @@ type CloudStackClient struct {
 	Resourcetags        *ResourcetagsService
 	Role                *RoleService
 	Router              *RouterService
-	S3                  *S3Service
 	SSH                 *SSHService
 	SecurityGroup       *SecurityGroupService
 	ServiceOffering     *ServiceOfferingService
 	Snapshot            *SnapshotService
 	StoragePool         *StoragePoolService
-	StratosphereSSP     *StratosphereSSP
+	StratosphereSSP     *StratosphereSSPService
 	Swift               *SwiftService
 	SystemCapacity      *SystemCapacityService
 	SystemVM            *SystemVMService
@@ -179,7 +179,7 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.Domain = NewDomainService(cs)
 	cs.Event = NewEventService(cs)
 	cs.ExtFirewall = NewExtFirewallService(cs)
-	cs.ExtLoadBalancer = NewExtLoadBalancer(cs)
+	cs.ExtLoadBalancer = NewExtLoadBalancerService(cs)
 	cs.ExternalDevice = NewExternalDeviceService(cs)
 	cs.Firewall = NewFirewallService(cs)
 	cs.GuestOS = NewGuestOSService(cs)
@@ -191,9 +191,10 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.LDAP = NewLDAPService(cs)
 	cs.Limit = NewLimitService(cs)
 	cs.LoadBalancer = NewLoadBalancerService(cs)
-	cs.Metrics = NewMetricsService(cs)
-	cs.Misc = NewMiscService(cs)
 	cs.NAT = NewNATService(cs)
+	cs.NetworkACL = NewNetworkACLService(cs)
+	cs.NetworkDevice = NewNetworkDeviceService(cs)
+	cs.NetworkOffering = NewNetworkOfferingService(cs)
 	cs.Network = NewNetworkService(cs)
 	cs.Nic = NewNicService(cs)
 	cs.NiciraNVP = NewNiciraNVPService(cs)
@@ -210,13 +211,12 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.Resourcetags = NewResourcetagsService(cs)
 	cs.Role = NewRoleService(cs)
 	cs.Router = NewRouterService(cs)
-	cs.S3 = NewS3Service(cs)
 	cs.SSH = NewSSHService(cs)
 	cs.SecurityGroup = NewSecurityGroupService(cs)
 	cs.ServiceOffering = NewServiceOfferingService(cs)
 	cs.Snapshot = NewSnapshotService(cs)
 	cs.StoragePool = NewStoragePoolService(cs)
-	cs.StratosphereSSP = NewStratosphereSSP(cs)
+	cs.StratosphereSSP = NewStratosphereSSPService(cs)
 	cs.Swift = NewSwiftService(cs)
 	cs.SystemCapacity = NewSystemCapacityService(cs)
 	cs.SystemVM = NewSystemVMService(cs)
@@ -620,12 +620,12 @@ func NewExtFirewallService(cs *CloudStackClient) *ExtFirewallService {
 	return &ExtFirewallService{cs: cs}
 }
 
-type ExtLoadBalancer struct {
+type ExtLoadBalancerService struct {
 	cs *CloudStackClient
 }
 
-func NewExtLoadBalancer(cs *CloudStackClient) *ExtLoadBalancer {
-	return &ExtLoadBalancer{cs: cs}
+func NewExtLoadBalancerService(cs *CloudStackClient) *ExtLoadBalancerService {
+	return &ExtLoadBalancerService{cs: cs}
 }
 
 type ExternalDeviceService struct {
@@ -716,28 +716,36 @@ func NewLoadBalancerService(cs *CloudStackClient) *LoadBalancerService {
 	return &LoadBalancerService{cs: cs}
 }
 
-type MetricsService struct {
-	cs *CloudStackClient
-}
-
-func NewMetricsService(cs *CloudStackClient) *MetricsService {
-	return &MetricsService{cs: cs}
-}
-
-type MiscService struct {
-	cs *CloudStackClient
-}
-
-func NewMiscService(cs *CloudStackClient) *MiscService {
-	return &MiscService{cs: cs}
-}
-
 type NATService struct {
 	cs *CloudStackClient
 }
 
 func NewNATService(cs *CloudStackClient) *NATService {
 	return &NATService{cs: cs}
+}
+
+type NetworkACLService struct {
+	cs *CloudStackClient
+}
+
+func NewNetworkACLService(cs *CloudStackClient) *NetworkACLService {
+	return &NetworkACLService{cs: cs}
+}
+
+type NetworkDeviceService struct {
+	cs *CloudStackClient
+}
+
+func NewNetworkDeviceService(cs *CloudStackClient) *NetworkDeviceService {
+	return &NetworkDeviceService{cs: cs}
+}
+
+type NetworkOfferingService struct {
+	cs *CloudStackClient
+}
+
+func NewNetworkOfferingService(cs *CloudStackClient) *NetworkOfferingService {
+	return &NetworkOfferingService{cs: cs}
 }
 
 type NetworkService struct {
@@ -868,14 +876,6 @@ func NewRouterService(cs *CloudStackClient) *RouterService {
 	return &RouterService{cs: cs}
 }
 
-type S3Service struct {
-	cs *CloudStackClient
-}
-
-func NewS3Service(cs *CloudStackClient) *S3Service {
-	return &S3Service{cs: cs}
-}
-
 type SSHService struct {
 	cs *CloudStackClient
 }
@@ -916,12 +916,12 @@ func NewStoragePoolService(cs *CloudStackClient) *StoragePoolService {
 	return &StoragePoolService{cs: cs}
 }
 
-type StratosphereSSP struct {
+type StratosphereSSPService struct {
 	cs *CloudStackClient
 }
 
-func NewStratosphereSSP(cs *CloudStackClient) *StratosphereSSP {
-	return &StratosphereSSP{cs: cs}
+func NewStratosphereSSPService(cs *CloudStackClient) *StratosphereSSPService {
+	return &StratosphereSSPService{cs: cs}
 }
 
 type SwiftService struct {

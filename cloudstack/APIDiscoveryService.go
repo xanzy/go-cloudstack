@@ -21,49 +21,6 @@ import (
 	"net/url"
 )
 
-type GetApiLimitParams struct {
-	p map[string]interface{}
-}
-
-func (p *GetApiLimitParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	return u
-}
-
-// You should always use this function to get a new GetApiLimitParams instance,
-// as then you are sure you have configured all required params
-func (s *APIDiscoveryService) NewGetApiLimitParams() *GetApiLimitParams {
-	p := &GetApiLimitParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Get API limit count for the caller
-func (s *APIDiscoveryService) GetApiLimit(p *GetApiLimitParams) (*GetApiLimitResponse, error) {
-	resp, err := s.cs.newRequest("getApiLimit", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r GetApiLimitResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type GetApiLimitResponse struct {
-	Account     string `json:"account"`
-	Accountid   string `json:"accountid"`
-	ApiAllowed  int    `json:"apiAllowed"`
-	ApiIssued   int    `json:"apiIssued"`
-	ExpireAfter int64  `json:"expireAfter"`
-}
-
 type ListApisParams struct {
 	p map[string]interface{}
 }
@@ -137,58 +94,4 @@ type Api struct {
 	} `json:"response"`
 	Since string `json:"since"`
 	Type  string `json:"type"`
-}
-
-type ResetApiLimitParams struct {
-	p map[string]interface{}
-}
-
-func (p *ResetApiLimitParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	return u
-}
-
-func (p *ResetApiLimitParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-	return
-}
-
-// You should always use this function to get a new ResetApiLimitParams instance,
-// as then you are sure you have configured all required params
-func (s *APIDiscoveryService) NewResetApiLimitParams() *ResetApiLimitParams {
-	p := &ResetApiLimitParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Reset api count
-func (s *APIDiscoveryService) ResetApiLimit(p *ResetApiLimitParams) (*ResetApiLimitResponse, error) {
-	resp, err := s.cs.newRequest("resetApiLimit", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ResetApiLimitResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type ResetApiLimitResponse struct {
-	Account     string `json:"account"`
-	Accountid   string `json:"accountid"`
-	ApiAllowed  int    `json:"apiAllowed"`
-	ApiIssued   int    `json:"apiIssued"`
-	ExpireAfter int64  `json:"expireAfter"`
 }

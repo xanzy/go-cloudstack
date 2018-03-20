@@ -410,68 +410,6 @@ type FindStoragePoolsForMigrationResponse struct {
 	Zonename             string            `json:"zonename"`
 }
 
-type ListElastistorPoolParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListElastistorPoolParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
-		u.Set("id", vv)
-	}
-	return u
-}
-
-func (p *ListElastistorPoolParams) SetId(v int64) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-	return
-}
-
-// You should always use this function to get a new ListElastistorPoolParams instance,
-// as then you are sure you have configured all required params
-func (s *PoolService) NewListElastistorPoolParams() *ListElastistorPoolParams {
-	p := &ListElastistorPoolParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Lists the pools of elastistor
-func (s *PoolService) ListElastistorPool(p *ListElastistorPoolParams) (*ListElastistorPoolResponse, error) {
-	resp, err := s.cs.newRequest("listElastistorPool", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ListElastistorPoolResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type ListElastistorPoolResponse struct {
-	Count          int               `json:"count"`
-	ElastistorPool []*ElastistorPool `json:"elastistorpool"`
-}
-
-type ElastistorPool struct {
-	Controllerid string `json:"controllerid"`
-	Gateway      string `json:"gateway"`
-	Id           string `json:"id"`
-	Maxiops      int64  `json:"maxiops"`
-	Name         string `json:"name"`
-	Size         int64  `json:"size"`
-	State        string `json:"state"`
-}
-
 type ListStoragePoolsParams struct {
 	p map[string]interface{}
 }

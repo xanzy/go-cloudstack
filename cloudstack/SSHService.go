@@ -460,3 +460,285 @@ type RegisterSSHKeyPairResponse struct {
 	Fingerprint string `json:"fingerprint"`
 	Name        string `json:"name"`
 }
+
+type ResetSSHKeyForVirtualMachineParams struct {
+	p map[string]interface{}
+}
+
+func (p *ResetSSHKeyForVirtualMachineParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["keypair"]; found {
+		u.Set("keypair", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	return u
+}
+
+func (p *ResetSSHKeyForVirtualMachineParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+	return
+}
+
+func (p *ResetSSHKeyForVirtualMachineParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+	return
+}
+
+func (p *ResetSSHKeyForVirtualMachineParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+func (p *ResetSSHKeyForVirtualMachineParams) SetKeypair(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keypair"] = v
+	return
+}
+
+func (p *ResetSSHKeyForVirtualMachineParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+	return
+}
+
+// You should always use this function to get a new ResetSSHKeyForVirtualMachineParams instance,
+// as then you are sure you have configured all required params
+func (s *SSHService) NewResetSSHKeyForVirtualMachineParams(id string, keypair string) *ResetSSHKeyForVirtualMachineParams {
+	p := &ResetSSHKeyForVirtualMachineParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	p.p["keypair"] = keypair
+	return p
+}
+
+// Resets the SSH Key for virtual machine. The virtual machine must be in a "Stopped" state. [async]
+func (s *SSHService) ResetSSHKeyForVirtualMachine(p *ResetSSHKeyForVirtualMachineParams) (*ResetSSHKeyForVirtualMachineResponse, error) {
+	resp, err := s.cs.newRequest("resetSSHKeyForVirtualMachine", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ResetSSHKeyForVirtualMachineResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type ResetSSHKeyForVirtualMachineResponse struct {
+	JobID         string `json:"jobid"`
+	Account       string `json:"account"`
+	Affinitygroup []struct {
+		Account           string   `json:"account"`
+		Description       string   `json:"description"`
+		Domain            string   `json:"domain"`
+		Domainid          string   `json:"domainid"`
+		Id                string   `json:"id"`
+		Name              string   `json:"name"`
+		Project           string   `json:"project"`
+		Projectid         string   `json:"projectid"`
+		Type              string   `json:"type"`
+		VirtualmachineIds []string `json:"virtualmachineIds"`
+	} `json:"affinitygroup"`
+	Cpunumber             int               `json:"cpunumber"`
+	Cpuspeed              int               `json:"cpuspeed"`
+	Cpuused               string            `json:"cpuused"`
+	Created               string            `json:"created"`
+	Details               map[string]string `json:"details"`
+	Diskioread            int64             `json:"diskioread"`
+	Diskiowrite           int64             `json:"diskiowrite"`
+	Diskkbsread           int64             `json:"diskkbsread"`
+	Diskkbswrite          int64             `json:"diskkbswrite"`
+	Diskofferingid        string            `json:"diskofferingid"`
+	Diskofferingname      string            `json:"diskofferingname"`
+	Displayname           string            `json:"displayname"`
+	Displayvm             bool              `json:"displayvm"`
+	Domain                string            `json:"domain"`
+	Domainid              string            `json:"domainid"`
+	Forvirtualnetwork     bool              `json:"forvirtualnetwork"`
+	Group                 string            `json:"group"`
+	Groupid               string            `json:"groupid"`
+	Guestosid             string            `json:"guestosid"`
+	Haenable              bool              `json:"haenable"`
+	Hostid                string            `json:"hostid"`
+	Hostname              string            `json:"hostname"`
+	Hypervisor            string            `json:"hypervisor"`
+	Id                    string            `json:"id"`
+	Instancename          string            `json:"instancename"`
+	Isdynamicallyscalable bool              `json:"isdynamicallyscalable"`
+	Isodisplaytext        string            `json:"isodisplaytext"`
+	Isoid                 string            `json:"isoid"`
+	Isoname               string            `json:"isoname"`
+	Keypair               string            `json:"keypair"`
+	Memory                int               `json:"memory"`
+	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
+	Memorykbs             int64             `json:"memorykbs"`
+	Memorytargetkbs       int64             `json:"memorytargetkbs"`
+	Name                  string            `json:"name"`
+	Networkkbsread        int64             `json:"networkkbsread"`
+	Networkkbswrite       int64             `json:"networkkbswrite"`
+	Nic                   []struct {
+		Broadcasturi         string `json:"broadcasturi"`
+		Deviceid             string `json:"deviceid"`
+		Gateway              string `json:"gateway"`
+		Id                   string `json:"id"`
+		Ip6address           string `json:"ip6address"`
+		Ip6cidr              string `json:"ip6cidr"`
+		Ip6gateway           string `json:"ip6gateway"`
+		Ipaddress            string `json:"ipaddress"`
+		Isdefault            bool   `json:"isdefault"`
+		Isolationuri         string `json:"isolationuri"`
+		Macaddress           string `json:"macaddress"`
+		Netmask              string `json:"netmask"`
+		Networkid            string `json:"networkid"`
+		Networkname          string `json:"networkname"`
+		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Secondaryip          []struct {
+			Id        string `json:"id"`
+			Ipaddress string `json:"ipaddress"`
+		} `json:"secondaryip"`
+		Traffictype      string `json:"traffictype"`
+		Type             string `json:"type"`
+		Virtualmachineid string `json:"virtualmachineid"`
+	} `json:"nic"`
+	Ostypeid        int64  `json:"ostypeid"`
+	Password        string `json:"password"`
+	Passwordenabled bool   `json:"passwordenabled"`
+	Project         string `json:"project"`
+	Projectid       string `json:"projectid"`
+	Publicip        string `json:"publicip"`
+	Publicipid      string `json:"publicipid"`
+	Rootdeviceid    int64  `json:"rootdeviceid"`
+	Rootdevicetype  string `json:"rootdevicetype"`
+	Securitygroup   []struct {
+		Account     string `json:"account"`
+		Description string `json:"description"`
+		Domain      string `json:"domain"`
+		Domainid    string `json:"domainid"`
+		Egressrule  []struct {
+			Account           string `json:"account"`
+			Cidr              string `json:"cidr"`
+			Endport           int    `json:"endport"`
+			Icmpcode          int    `json:"icmpcode"`
+			Icmptype          int    `json:"icmptype"`
+			Protocol          string `json:"protocol"`
+			Ruleid            string `json:"ruleid"`
+			Securitygroupname string `json:"securitygroupname"`
+			Startport         int    `json:"startport"`
+			Tags              []struct {
+				Account      string `json:"account"`
+				Customer     string `json:"customer"`
+				Domain       string `json:"domain"`
+				Domainid     string `json:"domainid"`
+				Key          string `json:"key"`
+				Project      string `json:"project"`
+				Projectid    string `json:"projectid"`
+				Resourceid   string `json:"resourceid"`
+				Resourcetype string `json:"resourcetype"`
+				Value        string `json:"value"`
+			} `json:"tags"`
+		} `json:"egressrule"`
+		Id          string `json:"id"`
+		Ingressrule []struct {
+			Account           string `json:"account"`
+			Cidr              string `json:"cidr"`
+			Endport           int    `json:"endport"`
+			Icmpcode          int    `json:"icmpcode"`
+			Icmptype          int    `json:"icmptype"`
+			Protocol          string `json:"protocol"`
+			Ruleid            string `json:"ruleid"`
+			Securitygroupname string `json:"securitygroupname"`
+			Startport         int    `json:"startport"`
+			Tags              []struct {
+				Account      string `json:"account"`
+				Customer     string `json:"customer"`
+				Domain       string `json:"domain"`
+				Domainid     string `json:"domainid"`
+				Key          string `json:"key"`
+				Project      string `json:"project"`
+				Projectid    string `json:"projectid"`
+				Resourceid   string `json:"resourceid"`
+				Resourcetype string `json:"resourcetype"`
+				Value        string `json:"value"`
+			} `json:"tags"`
+		} `json:"ingressrule"`
+		Name      string `json:"name"`
+		Project   string `json:"project"`
+		Projectid string `json:"projectid"`
+		Tags      []struct {
+			Account      string `json:"account"`
+			Customer     string `json:"customer"`
+			Domain       string `json:"domain"`
+			Domainid     string `json:"domainid"`
+			Key          string `json:"key"`
+			Project      string `json:"project"`
+			Projectid    string `json:"projectid"`
+			Resourceid   string `json:"resourceid"`
+			Resourcetype string `json:"resourcetype"`
+			Value        string `json:"value"`
+		} `json:"tags"`
+		Virtualmachinecount int           `json:"virtualmachinecount"`
+		Virtualmachineids   []interface{} `json:"virtualmachineids"`
+	} `json:"securitygroup"`
+	Serviceofferingid   string `json:"serviceofferingid"`
+	Serviceofferingname string `json:"serviceofferingname"`
+	Servicestate        string `json:"servicestate"`
+	State               string `json:"state"`
+	Templatedisplaytext string `json:"templatedisplaytext"`
+	Templateid          string `json:"templateid"`
+	Templatename        string `json:"templatename"`
+	Userid              string `json:"userid"`
+	Username            string `json:"username"`
+	Vgpu                string `json:"vgpu"`
+	Zoneid              string `json:"zoneid"`
+	Zonename            string `json:"zonename"`
+}
