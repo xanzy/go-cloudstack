@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -105,14 +105,14 @@ func (s *VMGroupService) CreateInstanceGroup(p *CreateInstanceGroupParams) (*Cre
 }
 
 type CreateInstanceGroupResponse struct {
-	Account   string `json:"account,omitempty"`
-	Created   string `json:"created,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
+	Account   string `json:"account"`
+	Created   string `json:"created"`
+	Domain    string `json:"domain"`
+	Domainid  string `json:"domainid"`
+	Id        string `json:"id"`
+	Name      string `json:"name"`
+	Project   string `json:"project"`
+	Projectid string `json:"projectid"`
 }
 
 type DeleteInstanceGroupParams struct {
@@ -163,77 +163,8 @@ func (s *VMGroupService) DeleteInstanceGroup(p *DeleteInstanceGroupParams) (*Del
 }
 
 type DeleteInstanceGroupResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
-type UpdateInstanceGroupParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateInstanceGroupParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	return u
-}
-
-func (p *UpdateInstanceGroupParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-	return
-}
-
-func (p *UpdateInstanceGroupParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-	return
-}
-
-// You should always use this function to get a new UpdateInstanceGroupParams instance,
-// as then you are sure you have configured all required params
-func (s *VMGroupService) NewUpdateInstanceGroupParams(id string) *UpdateInstanceGroupParams {
-	p := &UpdateInstanceGroupParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Updates a vm group
-func (s *VMGroupService) UpdateInstanceGroup(p *UpdateInstanceGroupParams) (*UpdateInstanceGroupResponse, error) {
-	resp, err := s.cs.newRequest("updateInstanceGroup", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateInstanceGroupResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type UpdateInstanceGroupResponse struct {
-	Account   string `json:"account,omitempty"`
-	Created   string `json:"created,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
+	Displaytext string `json:"displaytext"`
+	Success     string `json:"success"`
 }
 
 type ListInstanceGroupsParams struct {
@@ -474,12 +405,81 @@ type ListInstanceGroupsResponse struct {
 }
 
 type InstanceGroup struct {
-	Account   string `json:"account,omitempty"`
-	Created   string `json:"created,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
+	Account   string `json:"account"`
+	Created   string `json:"created"`
+	Domain    string `json:"domain"`
+	Domainid  string `json:"domainid"`
+	Id        string `json:"id"`
+	Name      string `json:"name"`
+	Project   string `json:"project"`
+	Projectid string `json:"projectid"`
+}
+
+type UpdateInstanceGroupParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateInstanceGroupParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateInstanceGroupParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+func (p *UpdateInstanceGroupParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+	return
+}
+
+// You should always use this function to get a new UpdateInstanceGroupParams instance,
+// as then you are sure you have configured all required params
+func (s *VMGroupService) NewUpdateInstanceGroupParams(id string) *UpdateInstanceGroupParams {
+	p := &UpdateInstanceGroupParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates a vm group
+func (s *VMGroupService) UpdateInstanceGroup(p *UpdateInstanceGroupParams) (*UpdateInstanceGroupResponse, error) {
+	resp, err := s.cs.newRequest("updateInstanceGroup", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateInstanceGroupResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type UpdateInstanceGroupResponse struct {
+	Account   string `json:"account"`
+	Created   string `json:"created"`
+	Domain    string `json:"domain"`
+	Domainid  string `json:"domainid"`
+	Id        string `json:"id"`
+	Name      string `json:"name"`
+	Project   string `json:"project"`
+	Projectid string `json:"projectid"`
 }

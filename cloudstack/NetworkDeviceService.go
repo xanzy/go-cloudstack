@@ -86,7 +86,7 @@ func (s *NetworkDeviceService) AddNetworkDevice(p *AddNetworkDeviceParams) (*Add
 }
 
 type AddNetworkDeviceResponse struct {
-	Id string `json:"id,omitempty"`
+	Id string `json:"id"`
 }
 
 type ListNetworkDeviceParams struct {
@@ -192,7 +192,7 @@ type ListNetworkDeviceResponse struct {
 }
 
 type NetworkDevice struct {
-	Id string `json:"id,omitempty"`
+	Id string `json:"id"`
 }
 
 type DeleteNetworkDeviceParams struct {
@@ -243,6 +243,6 @@ func (s *NetworkDeviceService) DeleteNetworkDevice(p *DeleteNetworkDeviceParams)
 }
 
 type DeleteNetworkDeviceResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
+	Displaytext string `json:"displaytext"`
+	Success     string `json:"success"`
 }

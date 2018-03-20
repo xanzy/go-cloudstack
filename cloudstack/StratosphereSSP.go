@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -101,7 +101,7 @@ func (p *AddStratosphereSspParams) SetZoneid(v string) {
 
 // You should always use this function to get a new AddStratosphereSspParams instance,
 // as then you are sure you have configured all required params
-func (s *StratosphereSSPService) NewAddStratosphereSspParams(name string, url string, zoneid string) *AddStratosphereSspParams {
+func (s *StratosphereSSP) NewAddStratosphereSspParams(name string, url string, zoneid string) *AddStratosphereSspParams {
 	p := &AddStratosphereSspParams{}
 	p.p = make(map[string]interface{})
 	p.p["name"] = name
@@ -111,7 +111,7 @@ func (s *StratosphereSSPService) NewAddStratosphereSspParams(name string, url st
 }
 
 // Adds stratosphere ssp server
-func (s *StratosphereSSPService) AddStratosphereSsp(p *AddStratosphereSspParams) (*AddStratosphereSspResponse, error) {
+func (s *StratosphereSSP) AddStratosphereSsp(p *AddStratosphereSspParams) (*AddStratosphereSspResponse, error) {
 	resp, err := s.cs.newRequest("addStratosphereSsp", p.toURLValues())
 	if err != nil {
 		return nil, err
@@ -130,4 +130,56 @@ type AddStratosphereSspResponse struct {
 	Name   string `json:"name"`
 	Url    string `json:"url"`
 	Zoneid string `json:"zoneid"`
+}
+
+type DeleteStratosphereSspParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteStratosphereSspParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteStratosphereSspParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+	return
+}
+
+// You should always use this function to get a new DeleteStratosphereSspParams instance,
+// as then you are sure you have configured all required params
+func (s *StratosphereSSP) NewDeleteStratosphereSspParams(hostid string) *DeleteStratosphereSspParams {
+	p := &DeleteStratosphereSspParams{}
+	p.p = make(map[string]interface{})
+	p.p["hostid"] = hostid
+	return p
+}
+
+// Removes stratosphere ssp server
+func (s *StratosphereSSP) DeleteStratosphereSsp(p *DeleteStratosphereSspParams) (*DeleteStratosphereSspResponse, error) {
+	resp, err := s.cs.newRequest("deleteStratosphereSsp", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteStratosphereSspResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type DeleteStratosphereSspResponse struct {
+	Displaytext string `json:"displaytext"`
+	Success     string `json:"success"`
 }

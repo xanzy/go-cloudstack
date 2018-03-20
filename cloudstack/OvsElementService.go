@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -105,15 +105,15 @@ func (s *OvsElementService) ConfigureOvsElement(p *ConfigureOvsElementParams) (*
 }
 
 type ConfigureOvsElementResponse struct {
-	JobID     string `json:"jobid,omitempty"`
-	Account   string `json:"account,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Enabled   bool   `json:"enabled,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Nspid     string `json:"nspid,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
+	JobID     string `json:"jobid"`
+	Account   string `json:"account"`
+	Domain    string `json:"domain"`
+	Domainid  string `json:"domainid"`
+	Enabled   bool   `json:"enabled"`
+	Id        string `json:"id"`
+	Nspid     string `json:"nspid"`
+	Project   string `json:"project"`
+	Projectid string `json:"projectid"`
 }
 
 type ListOvsElementsParams struct {
@@ -259,12 +259,12 @@ type ListOvsElementsResponse struct {
 }
 
 type OvsElement struct {
-	Account   string `json:"account,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Enabled   bool   `json:"enabled,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Nspid     string `json:"nspid,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
+	Account   string `json:"account"`
+	Domain    string `json:"domain"`
+	Domainid  string `json:"domainid"`
+	Enabled   bool   `json:"enabled"`
+	Id        string `json:"id"`
+	Nspid     string `json:"nspid"`
+	Project   string `json:"project"`
+	Projectid string `json:"projectid"`
 }

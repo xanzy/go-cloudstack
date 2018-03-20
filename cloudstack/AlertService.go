@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,6 +23,291 @@ import (
 	"strconv"
 	"strings"
 )
+
+type ArchiveAlertsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ArchiveAlertsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["enddate"]; found {
+		u.Set("enddate", v.(string))
+	}
+	if v, found := p.p["ids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("ids", vv)
+	}
+	if v, found := p.p["startdate"]; found {
+		u.Set("startdate", v.(string))
+	}
+	if v, found := p.p["type"]; found {
+		u.Set("type", v.(string))
+	}
+	return u
+}
+
+func (p *ArchiveAlertsParams) SetEnddate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["enddate"] = v
+	return
+}
+
+func (p *ArchiveAlertsParams) SetIds(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ids"] = v
+	return
+}
+
+func (p *ArchiveAlertsParams) SetStartdate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["startdate"] = v
+	return
+}
+
+func (p *ArchiveAlertsParams) SetType(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["type"] = v
+	return
+}
+
+// You should always use this function to get a new ArchiveAlertsParams instance,
+// as then you are sure you have configured all required params
+func (s *AlertService) NewArchiveAlertsParams() *ArchiveAlertsParams {
+	p := &ArchiveAlertsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Archive one or more alerts.
+func (s *AlertService) ArchiveAlerts(p *ArchiveAlertsParams) (*ArchiveAlertsResponse, error) {
+	resp, err := s.cs.newRequest("archiveAlerts", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ArchiveAlertsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ArchiveAlertsResponse struct {
+	Displaytext string `json:"displaytext"`
+	Success     string `json:"success"`
+}
+
+type DeleteAlertsParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteAlertsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["enddate"]; found {
+		u.Set("enddate", v.(string))
+	}
+	if v, found := p.p["ids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("ids", vv)
+	}
+	if v, found := p.p["startdate"]; found {
+		u.Set("startdate", v.(string))
+	}
+	if v, found := p.p["type"]; found {
+		u.Set("type", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteAlertsParams) SetEnddate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["enddate"] = v
+	return
+}
+
+func (p *DeleteAlertsParams) SetIds(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ids"] = v
+	return
+}
+
+func (p *DeleteAlertsParams) SetStartdate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["startdate"] = v
+	return
+}
+
+func (p *DeleteAlertsParams) SetType(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["type"] = v
+	return
+}
+
+// You should always use this function to get a new DeleteAlertsParams instance,
+// as then you are sure you have configured all required params
+func (s *AlertService) NewDeleteAlertsParams() *DeleteAlertsParams {
+	p := &DeleteAlertsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Delete one or more alerts.
+func (s *AlertService) DeleteAlerts(p *DeleteAlertsParams) (*DeleteAlertsResponse, error) {
+	resp, err := s.cs.newRequest("deleteAlerts", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteAlertsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type DeleteAlertsResponse struct {
+	Displaytext string `json:"displaytext"`
+	Success     string `json:"success"`
+}
+
+type GenerateAlertParams struct {
+	p map[string]interface{}
+}
+
+func (p *GenerateAlertParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["description"]; found {
+		u.Set("description", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	if v, found := p.p["type"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("type", vv)
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *GenerateAlertParams) SetDescription(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["description"] = v
+	return
+}
+
+func (p *GenerateAlertParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+	return
+}
+
+func (p *GenerateAlertParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+	return
+}
+
+func (p *GenerateAlertParams) SetType(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["type"] = v
+	return
+}
+
+func (p *GenerateAlertParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+	return
+}
+
+// You should always use this function to get a new GenerateAlertParams instance,
+// as then you are sure you have configured all required params
+func (s *AlertService) NewGenerateAlertParams(description string, name string, alertType int) *GenerateAlertParams {
+	p := &GenerateAlertParams{}
+	p.p = make(map[string]interface{})
+	p.p["description"] = description
+	p.p["name"] = name
+	p.p["type"] = alertType
+	return p
+}
+
+// Generates an alert
+func (s *AlertService) GenerateAlert(p *GenerateAlertParams) (*GenerateAlertResponse, error) {
+	resp, err := s.cs.newRequest("generateAlert", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r GenerateAlertResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type GenerateAlertResponse struct {
+	JobID       string `json:"jobid"`
+	Displaytext string `json:"displaytext"`
+	Success     bool   `json:"success"`
+}
 
 type ListAlertsParams struct {
 	p map[string]interface{}
@@ -216,294 +501,9 @@ type ListAlertsResponse struct {
 }
 
 type Alert struct {
-	Description string `json:"description,omitempty"`
-	Id          string `json:"id,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Sent        string `json:"sent,omitempty"`
-	Type        int    `json:"type,omitempty"`
-}
-
-type ArchiveAlertsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ArchiveAlertsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["enddate"]; found {
-		u.Set("enddate", v.(string))
-	}
-	if v, found := p.p["ids"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("ids", vv)
-	}
-	if v, found := p.p["startdate"]; found {
-		u.Set("startdate", v.(string))
-	}
-	if v, found := p.p["type"]; found {
-		u.Set("type", v.(string))
-	}
-	return u
-}
-
-func (p *ArchiveAlertsParams) SetEnddate(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["enddate"] = v
-	return
-}
-
-func (p *ArchiveAlertsParams) SetIds(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ids"] = v
-	return
-}
-
-func (p *ArchiveAlertsParams) SetStartdate(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["startdate"] = v
-	return
-}
-
-func (p *ArchiveAlertsParams) SetType(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["type"] = v
-	return
-}
-
-// You should always use this function to get a new ArchiveAlertsParams instance,
-// as then you are sure you have configured all required params
-func (s *AlertService) NewArchiveAlertsParams() *ArchiveAlertsParams {
-	p := &ArchiveAlertsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Archive one or more alerts.
-func (s *AlertService) ArchiveAlerts(p *ArchiveAlertsParams) (*ArchiveAlertsResponse, error) {
-	resp, err := s.cs.newRequest("archiveAlerts", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ArchiveAlertsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type ArchiveAlertsResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
-type DeleteAlertsParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteAlertsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["enddate"]; found {
-		u.Set("enddate", v.(string))
-	}
-	if v, found := p.p["ids"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("ids", vv)
-	}
-	if v, found := p.p["startdate"]; found {
-		u.Set("startdate", v.(string))
-	}
-	if v, found := p.p["type"]; found {
-		u.Set("type", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteAlertsParams) SetEnddate(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["enddate"] = v
-	return
-}
-
-func (p *DeleteAlertsParams) SetIds(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ids"] = v
-	return
-}
-
-func (p *DeleteAlertsParams) SetStartdate(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["startdate"] = v
-	return
-}
-
-func (p *DeleteAlertsParams) SetType(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["type"] = v
-	return
-}
-
-// You should always use this function to get a new DeleteAlertsParams instance,
-// as then you are sure you have configured all required params
-func (s *AlertService) NewDeleteAlertsParams() *DeleteAlertsParams {
-	p := &DeleteAlertsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Delete one or more alerts.
-func (s *AlertService) DeleteAlerts(p *DeleteAlertsParams) (*DeleteAlertsResponse, error) {
-	resp, err := s.cs.newRequest("deleteAlerts", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteAlertsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type DeleteAlertsResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
-type GenerateAlertParams struct {
-	p map[string]interface{}
-}
-
-func (p *GenerateAlertParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["description"]; found {
-		u.Set("description", v.(string))
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
-	if v, found := p.p["type"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("type", vv)
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
-	}
-	return u
-}
-
-func (p *GenerateAlertParams) SetDescription(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["description"] = v
-	return
-}
-
-func (p *GenerateAlertParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-	return
-}
-
-func (p *GenerateAlertParams) SetPodid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["podid"] = v
-	return
-}
-
-func (p *GenerateAlertParams) SetType(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["type"] = v
-	return
-}
-
-func (p *GenerateAlertParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-	return
-}
-
-// You should always use this function to get a new GenerateAlertParams instance,
-// as then you are sure you have configured all required params
-func (s *AlertService) NewGenerateAlertParams(description string, name string, alertType int) *GenerateAlertParams {
-	p := &GenerateAlertParams{}
-	p.p = make(map[string]interface{})
-	p.p["description"] = description
-	p.p["name"] = name
-	p.p["type"] = alertType
-	return p
-}
-
-// Generates an alert
-func (s *AlertService) GenerateAlert(p *GenerateAlertParams) (*GenerateAlertResponse, error) {
-	resp, err := s.cs.newRequest("generateAlert", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r GenerateAlertResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-
-	return &r, nil
-}
-
-type GenerateAlertResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+	Description string `json:"description"`
+	Id          string `json:"id"`
+	Name        string `json:"name"`
+	Sent        string `json:"sent"`
+	Type        int    `json:"type"`
 }

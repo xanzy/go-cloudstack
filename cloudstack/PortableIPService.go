@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -152,26 +152,26 @@ func (s *PortableIPService) CreatePortableIpRange(p *CreatePortableIpRangeParams
 }
 
 type CreatePortableIpRangeResponse struct {
-	JobID             string `json:"jobid,omitempty"`
-	Endip             string `json:"endip,omitempty"`
-	Gateway           string `json:"gateway,omitempty"`
-	Id                string `json:"id,omitempty"`
-	Netmask           string `json:"netmask,omitempty"`
+	JobID             string `json:"jobid"`
+	Endip             string `json:"endip"`
+	Gateway           string `json:"gateway"`
+	Id                string `json:"id"`
+	Netmask           string `json:"netmask"`
 	Portableipaddress []struct {
-		Accountid         string `json:"accountid,omitempty"`
-		Allocated         string `json:"allocated,omitempty"`
-		Domainid          string `json:"domainid,omitempty"`
-		Ipaddress         string `json:"ipaddress,omitempty"`
-		Networkid         string `json:"networkid,omitempty"`
-		Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-		Regionid          int    `json:"regionid,omitempty"`
-		State             string `json:"state,omitempty"`
-		Vpcid             string `json:"vpcid,omitempty"`
-		Zoneid            string `json:"zoneid,omitempty"`
-	} `json:"portableipaddress,omitempty"`
-	Regionid int    `json:"regionid,omitempty"`
-	Startip  string `json:"startip,omitempty"`
-	Vlan     string `json:"vlan,omitempty"`
+		Accountid         string `json:"accountid"`
+		Allocated         string `json:"allocated"`
+		Domainid          string `json:"domainid"`
+		Ipaddress         string `json:"ipaddress"`
+		Networkid         string `json:"networkid"`
+		Physicalnetworkid string `json:"physicalnetworkid"`
+		Regionid          int    `json:"regionid"`
+		State             string `json:"state"`
+		Vpcid             string `json:"vpcid"`
+		Zoneid            string `json:"zoneid"`
+	} `json:"portableipaddress"`
+	Regionid int    `json:"regionid"`
+	Startip  string `json:"startip"`
+	Vlan     string `json:"vlan"`
 }
 
 type DeletePortableIpRangeParams struct {
@@ -237,9 +237,9 @@ func (s *PortableIPService) DeletePortableIpRange(p *DeletePortableIpRangeParams
 }
 
 type DeletePortableIpRangeResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+	JobID       string `json:"jobid"`
+	Displaytext string `json:"displaytext"`
+	Success     bool   `json:"success"`
 }
 
 type ListPortableIpRangesParams struct {
@@ -374,23 +374,23 @@ type ListPortableIpRangesResponse struct {
 }
 
 type PortableIpRange struct {
-	Endip             string `json:"endip,omitempty"`
-	Gateway           string `json:"gateway,omitempty"`
-	Id                string `json:"id,omitempty"`
-	Netmask           string `json:"netmask,omitempty"`
+	Endip             string `json:"endip"`
+	Gateway           string `json:"gateway"`
+	Id                string `json:"id"`
+	Netmask           string `json:"netmask"`
 	Portableipaddress []struct {
-		Accountid         string `json:"accountid,omitempty"`
-		Allocated         string `json:"allocated,omitempty"`
-		Domainid          string `json:"domainid,omitempty"`
-		Ipaddress         string `json:"ipaddress,omitempty"`
-		Networkid         string `json:"networkid,omitempty"`
-		Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-		Regionid          int    `json:"regionid,omitempty"`
-		State             string `json:"state,omitempty"`
-		Vpcid             string `json:"vpcid,omitempty"`
-		Zoneid            string `json:"zoneid,omitempty"`
-	} `json:"portableipaddress,omitempty"`
-	Regionid int    `json:"regionid,omitempty"`
-	Startip  string `json:"startip,omitempty"`
-	Vlan     string `json:"vlan,omitempty"`
+		Accountid         string `json:"accountid"`
+		Allocated         string `json:"allocated"`
+		Domainid          string `json:"domainid"`
+		Ipaddress         string `json:"ipaddress"`
+		Networkid         string `json:"networkid"`
+		Physicalnetworkid string `json:"physicalnetworkid"`
+		Regionid          int    `json:"regionid"`
+		State             string `json:"state"`
+		Vpcid             string `json:"vpcid"`
+		Zoneid            string `json:"zoneid"`
+	} `json:"portableipaddress"`
+	Regionid int    `json:"regionid"`
+	Startip  string `json:"startip"`
+	Vlan     string `json:"vlan"`
 }

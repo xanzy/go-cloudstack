@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -373,37 +373,37 @@ func (s *ServiceOfferingService) CreateServiceOffering(p *CreateServiceOfferingP
 }
 
 type CreateServiceOfferingResponse struct {
-	Cpunumber                 int               `json:"cpunumber,omitempty"`
-	Cpuspeed                  int               `json:"cpuspeed,omitempty"`
-	Created                   string            `json:"created,omitempty"`
-	Defaultuse                bool              `json:"defaultuse,omitempty"`
-	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`
-	DiskBytesReadRate         int64             `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate        int64             `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate          int64             `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate         int64             `json:"diskIopsWriteRate,omitempty"`
-	Displaytext               string            `json:"displaytext,omitempty"`
-	Domain                    string            `json:"domain,omitempty"`
-	Domainid                  string            `json:"domainid,omitempty"`
-	Hosttags                  string            `json:"hosttags,omitempty"`
-	Hypervisorsnapshotreserve int               `json:"hypervisorsnapshotreserve,omitempty"`
-	Id                        string            `json:"id,omitempty"`
-	Iscustomized              bool              `json:"iscustomized,omitempty"`
-	Iscustomizediops          bool              `json:"iscustomizediops,omitempty"`
-	Issystem                  bool              `json:"issystem,omitempty"`
-	Isvolatile                bool              `json:"isvolatile,omitempty"`
-	Limitcpuuse               bool              `json:"limitcpuuse,omitempty"`
-	Maxiops                   int64             `json:"maxiops,omitempty"`
-	Memory                    int               `json:"memory,omitempty"`
-	Miniops                   int64             `json:"miniops,omitempty"`
-	Name                      string            `json:"name,omitempty"`
-	Networkrate               int               `json:"networkrate,omitempty"`
-	Offerha                   bool              `json:"offerha,omitempty"`
-	Provisioningtype          string            `json:"provisioningtype,omitempty"`
-	Serviceofferingdetails    map[string]string `json:"serviceofferingdetails,omitempty"`
-	Storagetype               string            `json:"storagetype,omitempty"`
-	Systemvmtype              string            `json:"systemvmtype,omitempty"`
-	Tags                      string            `json:"tags,omitempty"`
+	Cpunumber                 int               `json:"cpunumber"`
+	Cpuspeed                  int               `json:"cpuspeed"`
+	Created                   string            `json:"created"`
+	Defaultuse                bool              `json:"defaultuse"`
+	Deploymentplanner         string            `json:"deploymentplanner"`
+	DiskBytesReadRate         int64             `json:"diskBytesReadRate"`
+	DiskBytesWriteRate        int64             `json:"diskBytesWriteRate"`
+	DiskIopsReadRate          int64             `json:"diskIopsReadRate"`
+	DiskIopsWriteRate         int64             `json:"diskIopsWriteRate"`
+	Displaytext               string            `json:"displaytext"`
+	Domain                    string            `json:"domain"`
+	Domainid                  string            `json:"domainid"`
+	Hosttags                  string            `json:"hosttags"`
+	Hypervisorsnapshotreserve int               `json:"hypervisorsnapshotreserve"`
+	Id                        string            `json:"id"`
+	Iscustomized              bool              `json:"iscustomized"`
+	Iscustomizediops          bool              `json:"iscustomizediops"`
+	Issystem                  bool              `json:"issystem"`
+	Isvolatile                bool              `json:"isvolatile"`
+	Limitcpuuse               bool              `json:"limitcpuuse"`
+	Maxiops                   int64             `json:"maxiops"`
+	Memory                    int               `json:"memory"`
+	Miniops                   int64             `json:"miniops"`
+	Name                      string            `json:"name"`
+	Networkrate               int               `json:"networkrate"`
+	Offerha                   bool              `json:"offerha"`
+	Provisioningtype          string            `json:"provisioningtype"`
+	Serviceofferingdetails    map[string]string `json:"serviceofferingdetails"`
+	Storagetype               string            `json:"storagetype"`
+	Systemvmtype              string            `json:"systemvmtype"`
+	Tags                      string            `json:"tags"`
 }
 
 type DeleteServiceOfferingParams struct {
@@ -454,123 +454,8 @@ func (s *ServiceOfferingService) DeleteServiceOffering(p *DeleteServiceOfferingP
 }
 
 type DeleteServiceOfferingResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
-type UpdateServiceOfferingParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateServiceOfferingParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["displaytext"]; found {
-		u.Set("displaytext", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["sortkey"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("sortkey", vv)
-	}
-	return u
-}
-
-func (p *UpdateServiceOfferingParams) SetDisplaytext(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["displaytext"] = v
-	return
-}
-
-func (p *UpdateServiceOfferingParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-	return
-}
-
-func (p *UpdateServiceOfferingParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-	return
-}
-
-func (p *UpdateServiceOfferingParams) SetSortkey(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["sortkey"] = v
-	return
-}
-
-// You should always use this function to get a new UpdateServiceOfferingParams instance,
-// as then you are sure you have configured all required params
-func (s *ServiceOfferingService) NewUpdateServiceOfferingParams(id string) *UpdateServiceOfferingParams {
-	p := &UpdateServiceOfferingParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Updates a service offering.
-func (s *ServiceOfferingService) UpdateServiceOffering(p *UpdateServiceOfferingParams) (*UpdateServiceOfferingResponse, error) {
-	resp, err := s.cs.newRequest("updateServiceOffering", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateServiceOfferingResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type UpdateServiceOfferingResponse struct {
-	Cpunumber                 int               `json:"cpunumber,omitempty"`
-	Cpuspeed                  int               `json:"cpuspeed,omitempty"`
-	Created                   string            `json:"created,omitempty"`
-	Defaultuse                bool              `json:"defaultuse,omitempty"`
-	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`
-	DiskBytesReadRate         int64             `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate        int64             `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate          int64             `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate         int64             `json:"diskIopsWriteRate,omitempty"`
-	Displaytext               string            `json:"displaytext,omitempty"`
-	Domain                    string            `json:"domain,omitempty"`
-	Domainid                  string            `json:"domainid,omitempty"`
-	Hosttags                  string            `json:"hosttags,omitempty"`
-	Hypervisorsnapshotreserve int               `json:"hypervisorsnapshotreserve,omitempty"`
-	Id                        string            `json:"id,omitempty"`
-	Iscustomized              bool              `json:"iscustomized,omitempty"`
-	Iscustomizediops          bool              `json:"iscustomizediops,omitempty"`
-	Issystem                  bool              `json:"issystem,omitempty"`
-	Isvolatile                bool              `json:"isvolatile,omitempty"`
-	Limitcpuuse               bool              `json:"limitcpuuse,omitempty"`
-	Maxiops                   int64             `json:"maxiops,omitempty"`
-	Memory                    int               `json:"memory,omitempty"`
-	Miniops                   int64             `json:"miniops,omitempty"`
-	Name                      string            `json:"name,omitempty"`
-	Networkrate               int               `json:"networkrate,omitempty"`
-	Offerha                   bool              `json:"offerha,omitempty"`
-	Provisioningtype          string            `json:"provisioningtype,omitempty"`
-	Serviceofferingdetails    map[string]string `json:"serviceofferingdetails,omitempty"`
-	Storagetype               string            `json:"storagetype,omitempty"`
-	Systemvmtype              string            `json:"systemvmtype,omitempty"`
-	Tags                      string            `json:"tags,omitempty"`
+	Displaytext string `json:"displaytext"`
+	Success     string `json:"success"`
 }
 
 type ListServiceOfferingsParams struct {
@@ -823,35 +708,150 @@ type ListServiceOfferingsResponse struct {
 }
 
 type ServiceOffering struct {
-	Cpunumber                 int               `json:"cpunumber,omitempty"`
-	Cpuspeed                  int               `json:"cpuspeed,omitempty"`
-	Created                   string            `json:"created,omitempty"`
-	Defaultuse                bool              `json:"defaultuse,omitempty"`
-	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`
-	DiskBytesReadRate         int64             `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate        int64             `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate          int64             `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate         int64             `json:"diskIopsWriteRate,omitempty"`
-	Displaytext               string            `json:"displaytext,omitempty"`
-	Domain                    string            `json:"domain,omitempty"`
-	Domainid                  string            `json:"domainid,omitempty"`
-	Hosttags                  string            `json:"hosttags,omitempty"`
-	Hypervisorsnapshotreserve int               `json:"hypervisorsnapshotreserve,omitempty"`
-	Id                        string            `json:"id,omitempty"`
-	Iscustomized              bool              `json:"iscustomized,omitempty"`
-	Iscustomizediops          bool              `json:"iscustomizediops,omitempty"`
-	Issystem                  bool              `json:"issystem,omitempty"`
-	Isvolatile                bool              `json:"isvolatile,omitempty"`
-	Limitcpuuse               bool              `json:"limitcpuuse,omitempty"`
-	Maxiops                   int64             `json:"maxiops,omitempty"`
-	Memory                    int               `json:"memory,omitempty"`
-	Miniops                   int64             `json:"miniops,omitempty"`
-	Name                      string            `json:"name,omitempty"`
-	Networkrate               int               `json:"networkrate,omitempty"`
-	Offerha                   bool              `json:"offerha,omitempty"`
-	Provisioningtype          string            `json:"provisioningtype,omitempty"`
-	Serviceofferingdetails    map[string]string `json:"serviceofferingdetails,omitempty"`
-	Storagetype               string            `json:"storagetype,omitempty"`
-	Systemvmtype              string            `json:"systemvmtype,omitempty"`
-	Tags                      string            `json:"tags,omitempty"`
+	Cpunumber                 int               `json:"cpunumber"`
+	Cpuspeed                  int               `json:"cpuspeed"`
+	Created                   string            `json:"created"`
+	Defaultuse                bool              `json:"defaultuse"`
+	Deploymentplanner         string            `json:"deploymentplanner"`
+	DiskBytesReadRate         int64             `json:"diskBytesReadRate"`
+	DiskBytesWriteRate        int64             `json:"diskBytesWriteRate"`
+	DiskIopsReadRate          int64             `json:"diskIopsReadRate"`
+	DiskIopsWriteRate         int64             `json:"diskIopsWriteRate"`
+	Displaytext               string            `json:"displaytext"`
+	Domain                    string            `json:"domain"`
+	Domainid                  string            `json:"domainid"`
+	Hosttags                  string            `json:"hosttags"`
+	Hypervisorsnapshotreserve int               `json:"hypervisorsnapshotreserve"`
+	Id                        string            `json:"id"`
+	Iscustomized              bool              `json:"iscustomized"`
+	Iscustomizediops          bool              `json:"iscustomizediops"`
+	Issystem                  bool              `json:"issystem"`
+	Isvolatile                bool              `json:"isvolatile"`
+	Limitcpuuse               bool              `json:"limitcpuuse"`
+	Maxiops                   int64             `json:"maxiops"`
+	Memory                    int               `json:"memory"`
+	Miniops                   int64             `json:"miniops"`
+	Name                      string            `json:"name"`
+	Networkrate               int               `json:"networkrate"`
+	Offerha                   bool              `json:"offerha"`
+	Provisioningtype          string            `json:"provisioningtype"`
+	Serviceofferingdetails    map[string]string `json:"serviceofferingdetails"`
+	Storagetype               string            `json:"storagetype"`
+	Systemvmtype              string            `json:"systemvmtype"`
+	Tags                      string            `json:"tags"`
+}
+
+type UpdateServiceOfferingParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateServiceOfferingParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["displaytext"]; found {
+		u.Set("displaytext", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["sortkey"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("sortkey", vv)
+	}
+	return u
+}
+
+func (p *UpdateServiceOfferingParams) SetDisplaytext(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["displaytext"] = v
+	return
+}
+
+func (p *UpdateServiceOfferingParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+func (p *UpdateServiceOfferingParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+	return
+}
+
+func (p *UpdateServiceOfferingParams) SetSortkey(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["sortkey"] = v
+	return
+}
+
+// You should always use this function to get a new UpdateServiceOfferingParams instance,
+// as then you are sure you have configured all required params
+func (s *ServiceOfferingService) NewUpdateServiceOfferingParams(id string) *UpdateServiceOfferingParams {
+	p := &UpdateServiceOfferingParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates a service offering.
+func (s *ServiceOfferingService) UpdateServiceOffering(p *UpdateServiceOfferingParams) (*UpdateServiceOfferingResponse, error) {
+	resp, err := s.cs.newRequest("updateServiceOffering", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateServiceOfferingResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type UpdateServiceOfferingResponse struct {
+	Cpunumber                 int               `json:"cpunumber"`
+	Cpuspeed                  int               `json:"cpuspeed"`
+	Created                   string            `json:"created"`
+	Defaultuse                bool              `json:"defaultuse"`
+	Deploymentplanner         string            `json:"deploymentplanner"`
+	DiskBytesReadRate         int64             `json:"diskBytesReadRate"`
+	DiskBytesWriteRate        int64             `json:"diskBytesWriteRate"`
+	DiskIopsReadRate          int64             `json:"diskIopsReadRate"`
+	DiskIopsWriteRate         int64             `json:"diskIopsWriteRate"`
+	Displaytext               string            `json:"displaytext"`
+	Domain                    string            `json:"domain"`
+	Domainid                  string            `json:"domainid"`
+	Hosttags                  string            `json:"hosttags"`
+	Hypervisorsnapshotreserve int               `json:"hypervisorsnapshotreserve"`
+	Id                        string            `json:"id"`
+	Iscustomized              bool              `json:"iscustomized"`
+	Iscustomizediops          bool              `json:"iscustomizediops"`
+	Issystem                  bool              `json:"issystem"`
+	Isvolatile                bool              `json:"isvolatile"`
+	Limitcpuuse               bool              `json:"limitcpuuse"`
+	Maxiops                   int64             `json:"maxiops"`
+	Memory                    int               `json:"memory"`
+	Miniops                   int64             `json:"miniops"`
+	Name                      string            `json:"name"`
+	Networkrate               int               `json:"networkrate"`
+	Offerha                   bool              `json:"offerha"`
+	Provisioningtype          string            `json:"provisioningtype"`
+	Serviceofferingdetails    map[string]string `json:"serviceofferingdetails"`
+	Storagetype               string            `json:"storagetype"`
+	Systemvmtype              string            `json:"systemvmtype"`
+	Tags                      string            `json:"tags"`
 }

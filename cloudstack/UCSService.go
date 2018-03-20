@@ -1,5 +1,5 @@
 //
-// Copyright 2017, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -119,10 +119,257 @@ func (s *UCSService) AddUcsManager(p *AddUcsManagerParams) (*AddUcsManagerRespon
 }
 
 type AddUcsManagerResponse struct {
-	Id     string `json:"id,omitempty"`
-	Name   string `json:"name,omitempty"`
-	Url    string `json:"url,omitempty"`
-	Zoneid string `json:"zoneid,omitempty"`
+	Id     string `json:"id"`
+	Name   string `json:"name"`
+	Url    string `json:"url"`
+	Zoneid string `json:"zoneid"`
+}
+
+type AssociateUcsProfileToBladeParams struct {
+	p map[string]interface{}
+}
+
+func (p *AssociateUcsProfileToBladeParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["bladeid"]; found {
+		u.Set("bladeid", v.(string))
+	}
+	if v, found := p.p["profiledn"]; found {
+		u.Set("profiledn", v.(string))
+	}
+	if v, found := p.p["ucsmanagerid"]; found {
+		u.Set("ucsmanagerid", v.(string))
+	}
+	return u
+}
+
+func (p *AssociateUcsProfileToBladeParams) SetBladeid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["bladeid"] = v
+	return
+}
+
+func (p *AssociateUcsProfileToBladeParams) SetProfiledn(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["profiledn"] = v
+	return
+}
+
+func (p *AssociateUcsProfileToBladeParams) SetUcsmanagerid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ucsmanagerid"] = v
+	return
+}
+
+// You should always use this function to get a new AssociateUcsProfileToBladeParams instance,
+// as then you are sure you have configured all required params
+func (s *UCSService) NewAssociateUcsProfileToBladeParams(bladeid string, profiledn string, ucsmanagerid string) *AssociateUcsProfileToBladeParams {
+	p := &AssociateUcsProfileToBladeParams{}
+	p.p = make(map[string]interface{})
+	p.p["bladeid"] = bladeid
+	p.p["profiledn"] = profiledn
+	p.p["ucsmanagerid"] = ucsmanagerid
+	return p
+}
+
+// associate a profile to a blade
+func (s *UCSService) AssociateUcsProfileToBlade(p *AssociateUcsProfileToBladeParams) (*AssociateUcsProfileToBladeResponse, error) {
+	resp, err := s.cs.newRequest("associateUcsProfileToBlade", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r AssociateUcsProfileToBladeResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type AssociateUcsProfileToBladeResponse struct {
+	JobID        string `json:"jobid"`
+	Bladedn      string `json:"bladedn"`
+	Hostid       string `json:"hostid"`
+	Id           string `json:"id"`
+	Profiledn    string `json:"profiledn"`
+	Ucsmanagerid string `json:"ucsmanagerid"`
+}
+
+type DeleteUcsManagerParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteUcsManagerParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["ucsmanagerid"]; found {
+		u.Set("ucsmanagerid", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteUcsManagerParams) SetUcsmanagerid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ucsmanagerid"] = v
+	return
+}
+
+// You should always use this function to get a new DeleteUcsManagerParams instance,
+// as then you are sure you have configured all required params
+func (s *UCSService) NewDeleteUcsManagerParams(ucsmanagerid string) *DeleteUcsManagerParams {
+	p := &DeleteUcsManagerParams{}
+	p.p = make(map[string]interface{})
+	p.p["ucsmanagerid"] = ucsmanagerid
+	return p
+}
+
+// Delete a Ucs manager
+func (s *UCSService) DeleteUcsManager(p *DeleteUcsManagerParams) (*DeleteUcsManagerResponse, error) {
+	resp, err := s.cs.newRequest("deleteUcsManager", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteUcsManagerResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type DeleteUcsManagerResponse struct {
+	Displaytext string `json:"displaytext"`
+	Success     string `json:"success"`
+}
+
+type ListUcsBladesParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListUcsBladesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["ucsmanagerid"]; found {
+		u.Set("ucsmanagerid", v.(string))
+	}
+	return u
+}
+
+func (p *ListUcsBladesParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *ListUcsBladesParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *ListUcsBladesParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+func (p *ListUcsBladesParams) SetUcsmanagerid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ucsmanagerid"] = v
+	return
+}
+
+// You should always use this function to get a new ListUcsBladesParams instance,
+// as then you are sure you have configured all required params
+func (s *UCSService) NewListUcsBladesParams(ucsmanagerid string) *ListUcsBladesParams {
+	p := &ListUcsBladesParams{}
+	p.p = make(map[string]interface{})
+	p.p["ucsmanagerid"] = ucsmanagerid
+	return p
+}
+
+// List ucs blades
+func (s *UCSService) ListUcsBlades(p *ListUcsBladesParams) (*ListUcsBladesResponse, error) {
+	resp, err := s.cs.newRequest("listUcsBlades", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListUcsBladesResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListUcsBladesResponse struct {
+	Count     int         `json:"count"`
+	UcsBlades []*UcsBlade `json:"ucsblade"`
+}
+
+type UcsBlade struct {
+	Bladedn      string `json:"bladedn"`
+	Hostid       string `json:"hostid"`
+	Id           string `json:"id"`
+	Profiledn    string `json:"profiledn"`
+	Ucsmanagerid string `json:"ucsmanagerid"`
 }
 
 type ListUcsManagersParams struct {
@@ -306,10 +553,10 @@ type ListUcsManagersResponse struct {
 }
 
 type UcsManager struct {
-	Id     string `json:"id,omitempty"`
-	Name   string `json:"name,omitempty"`
-	Url    string `json:"url,omitempty"`
-	Zoneid string `json:"zoneid,omitempty"`
+	Id     string `json:"id"`
+	Name   string `json:"name"`
+	Url    string `json:"url"`
+	Zoneid string `json:"zoneid"`
 }
 
 type ListUcsProfilesParams struct {
@@ -400,200 +647,5 @@ type ListUcsProfilesResponse struct {
 }
 
 type UcsProfile struct {
-	Ucsdn string `json:"ucsdn,omitempty"`
-}
-
-type ListUcsBladesParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListUcsBladesParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["ucsmanagerid"]; found {
-		u.Set("ucsmanagerid", v.(string))
-	}
-	return u
-}
-
-func (p *ListUcsBladesParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-	return
-}
-
-func (p *ListUcsBladesParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-	return
-}
-
-func (p *ListUcsBladesParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-	return
-}
-
-func (p *ListUcsBladesParams) SetUcsmanagerid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ucsmanagerid"] = v
-	return
-}
-
-// You should always use this function to get a new ListUcsBladesParams instance,
-// as then you are sure you have configured all required params
-func (s *UCSService) NewListUcsBladesParams(ucsmanagerid string) *ListUcsBladesParams {
-	p := &ListUcsBladesParams{}
-	p.p = make(map[string]interface{})
-	p.p["ucsmanagerid"] = ucsmanagerid
-	return p
-}
-
-// List ucs blades
-func (s *UCSService) ListUcsBlades(p *ListUcsBladesParams) (*ListUcsBladesResponse, error) {
-	resp, err := s.cs.newRequest("listUcsBlades", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ListUcsBladesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type ListUcsBladesResponse struct {
-	Count     int         `json:"count"`
-	UcsBlades []*UcsBlade `json:"ucsblade"`
-}
-
-type UcsBlade struct {
-	Bladedn      string `json:"bladedn,omitempty"`
-	Hostid       string `json:"hostid,omitempty"`
-	Id           string `json:"id,omitempty"`
-	Profiledn    string `json:"profiledn,omitempty"`
-	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
-}
-
-type AssociateUcsProfileToBladeParams struct {
-	p map[string]interface{}
-}
-
-func (p *AssociateUcsProfileToBladeParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["bladeid"]; found {
-		u.Set("bladeid", v.(string))
-	}
-	if v, found := p.p["profiledn"]; found {
-		u.Set("profiledn", v.(string))
-	}
-	if v, found := p.p["ucsmanagerid"]; found {
-		u.Set("ucsmanagerid", v.(string))
-	}
-	return u
-}
-
-func (p *AssociateUcsProfileToBladeParams) SetBladeid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["bladeid"] = v
-	return
-}
-
-func (p *AssociateUcsProfileToBladeParams) SetProfiledn(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["profiledn"] = v
-	return
-}
-
-func (p *AssociateUcsProfileToBladeParams) SetUcsmanagerid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ucsmanagerid"] = v
-	return
-}
-
-// You should always use this function to get a new AssociateUcsProfileToBladeParams instance,
-// as then you are sure you have configured all required params
-func (s *UCSService) NewAssociateUcsProfileToBladeParams(bladeid string, profiledn string, ucsmanagerid string) *AssociateUcsProfileToBladeParams {
-	p := &AssociateUcsProfileToBladeParams{}
-	p.p = make(map[string]interface{})
-	p.p["bladeid"] = bladeid
-	p.p["profiledn"] = profiledn
-	p.p["ucsmanagerid"] = ucsmanagerid
-	return p
-}
-
-// associate a profile to a blade
-func (s *UCSService) AssociateUcsProfileToBlade(p *AssociateUcsProfileToBladeParams) (*AssociateUcsProfileToBladeResponse, error) {
-	resp, err := s.cs.newRequest("associateUcsProfileToBlade", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r AssociateUcsProfileToBladeResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-
-	return &r, nil
-}
-
-type AssociateUcsProfileToBladeResponse struct {
-	JobID        string `json:"jobid,omitempty"`
-	Bladedn      string `json:"bladedn,omitempty"`
-	Hostid       string `json:"hostid,omitempty"`
-	Id           string `json:"id,omitempty"`
-	Profiledn    string `json:"profiledn,omitempty"`
-	Ucsmanagerid string `json:"ucsmanagerid,omitempty"`
+	Ucsdn string `json:"ucsdn"`
 }
