@@ -36,8 +36,7 @@ Replace: ''
 Search: '^([\S]+)$'
 Replace: '},\n"$1Service": {'
 
-# Watch out with this one, should do this one manually
-Search: '^([\S]+)\ ([\S]+)$'
+Search: '^([\S]+)\ ([\S]+)[^{]$'
 Replace: '},\n"$1$2Service": {'
 
 Search: ' \(A\)$'
