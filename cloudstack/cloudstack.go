@@ -27,6 +27,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/http/cookiejar"
 	"net/url"
 	"regexp"
 	"sort"
@@ -144,8 +145,10 @@ type CloudStackClient struct {
 
 // Creates a new client for communicating with CloudStack
 func newClient(apiurl string, apikey string, secret string, async bool, verifyssl bool) *CloudStackClient {
+	jar, _ := cookiejar.New(nil)
 	cs := &CloudStackClient{
 		client: &http.Client{
+			Jar: jar,
 			Transport: &http.Transport{
 				Proxy:           http.ProxyFromEnvironment,
 				TLSClientConfig: &tls.Config{InsecureSkipVerify: !verifyssl}, // If verifyssl is true, skipping the verify should be false and vice versa
@@ -332,7 +335,7 @@ func (cs *CloudStackClient) newRequest(api string, params url.Values) (json.RawM
 
 	var err error
 	var resp *http.Response
-	if !cs.HTTPGETOnly && (api == "deployVirtualMachine" || api == "updateVirtualMachine") {
+	if !cs.HTTPGETOnly && (api == "deployVirtualMachine" || api == "login" || api == "updateVirtualMachine") {
 		// The deployVirtualMachine API should be called using a POST call
 		// so we don't have to worry about the userdata size
 
