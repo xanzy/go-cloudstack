@@ -70,13 +70,13 @@ func (s *InternalLBService) NewConfigureInternalLoadBalancerElementParams(enable
 }
 
 // Configures an Internal Load Balancer element.
-func (s *InternalLBService) ConfigureInternalLoadBalancerElement(p *ConfigureInternalLoadBalancerElementParams) (*ConfigureInternalLoadBalancerElementResponse, error) {
+func (s *InternalLBService) ConfigureInternalLoadBalancerElement(p *ConfigureInternalLoadBalancerElementParams) (*InternalLoadBalancerElementResponse, error) {
 	resp, err := s.cs.newRequest("configureInternalLoadBalancerElement", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r ConfigureInternalLoadBalancerElementResponse
+	var r InternalLoadBalancerElementResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -104,7 +104,7 @@ func (s *InternalLBService) ConfigureInternalLoadBalancerElement(p *ConfigureInt
 	return &r, nil
 }
 
-type ConfigureInternalLoadBalancerElementResponse struct {
+type InternalLoadBalancerElementResponse struct {
 	JobID   string `json:"jobid"`
 	Enabled bool   `json:"enabled"`
 	Id      string `json:"id"`

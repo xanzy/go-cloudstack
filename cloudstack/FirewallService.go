@@ -399,13 +399,13 @@ func (s *FirewallService) NewConfigurePaloAltoFirewallParams(fwdeviceid string) 
 }
 
 // Configures a Palo Alto firewall device
-func (s *FirewallService) ConfigurePaloAltoFirewall(p *ConfigurePaloAltoFirewallParams) (*ConfigurePaloAltoFirewallResponse, error) {
+func (s *FirewallService) ConfigurePaloAltoFirewall(p *ConfigurePaloAltoFirewallParams) (*PaloAltoFirewallResponse, error) {
 	resp, err := s.cs.newRequest("configurePaloAltoFirewall", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r ConfigurePaloAltoFirewallResponse
+	var r PaloAltoFirewallResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -438,7 +438,7 @@ func (s *FirewallService) ConfigurePaloAltoFirewall(p *ConfigurePaloAltoFirewall
 	return &r, nil
 }
 
-type ConfigurePaloAltoFirewallResponse struct {
+type PaloAltoFirewallResponse struct {
 	JobID             string `json:"jobid"`
 	Fwdevicecapacity  int64  `json:"fwdevicecapacity"`
 	Fwdeviceid        string `json:"fwdeviceid"`
@@ -503,13 +503,13 @@ func (s *FirewallService) NewConfigureSrxFirewallParams(fwdeviceid string) *Conf
 }
 
 // Configures a SRX firewall device
-func (s *FirewallService) ConfigureSrxFirewall(p *ConfigureSrxFirewallParams) (*ConfigureSrxFirewallResponse, error) {
+func (s *FirewallService) ConfigureSrxFirewall(p *ConfigureSrxFirewallParams) (*SrxFirewallResponse, error) {
 	resp, err := s.cs.newRequest("configureSrxFirewall", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r ConfigureSrxFirewallResponse
+	var r SrxFirewallResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -542,7 +542,7 @@ func (s *FirewallService) ConfigureSrxFirewall(p *ConfigureSrxFirewallParams) (*
 	return &r, nil
 }
 
-type ConfigureSrxFirewallResponse struct {
+type SrxFirewallResponse struct {
 	JobID             string `json:"jobid"`
 	Fwdevicecapacity  int64  `json:"fwdevicecapacity"`
 	Fwdeviceid        string `json:"fwdeviceid"`

@@ -651,13 +651,13 @@ func (s *LoadBalancerService) NewConfigureF5LoadBalancerParams(lbdeviceid string
 }
 
 // configures a F5 load balancer device
-func (s *LoadBalancerService) ConfigureF5LoadBalancer(p *ConfigureF5LoadBalancerParams) (*ConfigureF5LoadBalancerResponse, error) {
+func (s *LoadBalancerService) ConfigureF5LoadBalancer(p *ConfigureF5LoadBalancerParams) (*F5LoadBalancerResponse, error) {
 	resp, err := s.cs.newRequest("configureF5LoadBalancer", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r ConfigureF5LoadBalancerResponse
+	var r F5LoadBalancerResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -685,7 +685,7 @@ func (s *LoadBalancerService) ConfigureF5LoadBalancer(p *ConfigureF5LoadBalancer
 	return &r, nil
 }
 
-type ConfigureF5LoadBalancerResponse struct {
+type F5LoadBalancerResponse struct {
 	JobID             string `json:"jobid"`
 	Ipaddress         string `json:"ipaddress"`
 	Lbdevicecapacity  int64  `json:"lbdevicecapacity"`
@@ -780,13 +780,13 @@ func (s *LoadBalancerService) NewConfigureNetscalerLoadBalancerParams(lbdeviceid
 }
 
 // configures a netscaler load balancer device
-func (s *LoadBalancerService) ConfigureNetscalerLoadBalancer(p *ConfigureNetscalerLoadBalancerParams) (*ConfigureNetscalerLoadBalancerResponse, error) {
+func (s *LoadBalancerService) ConfigureNetscalerLoadBalancer(p *ConfigureNetscalerLoadBalancerParams) (*NetscalerLoadBalancerResponse, error) {
 	resp, err := s.cs.newRequest("configureNetscalerLoadBalancer", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r ConfigureNetscalerLoadBalancerResponse
+	var r NetscalerLoadBalancerResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -814,7 +814,7 @@ func (s *LoadBalancerService) ConfigureNetscalerLoadBalancer(p *ConfigureNetscal
 	return &r, nil
 }
 
-type ConfigureNetscalerLoadBalancerResponse struct {
+type NetscalerLoadBalancerResponse struct {
 	JobID                   string   `json:"jobid"`
 	Gslbprovider            bool     `json:"gslbprovider"`
 	Gslbproviderprivateip   string   `json:"gslbproviderprivateip"`

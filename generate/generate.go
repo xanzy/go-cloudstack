@@ -1109,7 +1109,7 @@ func (s *service) generateNewAPICallFunc(a *API) {
 
 	// Generate the function signature
 	pn("// %s", a.Description)
-	pn("func (s *%s) %s(p *%s) (*%s, error) {", s.name, n, n+"Params", n+"Response")
+	pn("func (s *%s) %s(p *%s) (*%s, error) {", s.name, n, n+"Params", strings.TrimPrefix(n, "Configure")+"Response")
 
 	// Generate the function body
 	if n == "QueryAsyncJobResult" {
@@ -1145,7 +1145,7 @@ func (s *service) generateNewAPICallFunc(a *API) {
 		pn("		}")
 		pn("")
 	}
-	pn("	var r %s", n+"Response")
+	pn("	var r %s", strings.TrimPrefix(n, "Configure")+"Response")
 	pn("	if err := json.Unmarshal(resp, &r); err != nil {")
 	pn("		return nil, err")
 	pn("	}")
@@ -1217,7 +1217,7 @@ func isSuccessOnlyResponse(resp APIResponses) bool {
 
 func (s *service) generateResponseType(a *API) {
 	pn := s.pn
-	tn := capitalize(a.Name + "Response")
+	tn := capitalize(strings.TrimPrefix(a.Name, "configure") + "Response")
 	ln := capitalize(strings.TrimPrefix(a.Name, "list"))
 
 	// If this is a 'list' response, we need an seperate list struct. There seem to be other
@@ -1393,6 +1393,8 @@ func mapType(t string) string {
 	case "uservmresponse":
 		// This is a really specific anomaly of the API
 		return "*VirtualMachine"
+	case "outofbandmanagementresponse":
+		return "OutOfBandManagementResponse"
 	default:
 		return "string"
 	}
