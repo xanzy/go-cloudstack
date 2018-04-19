@@ -202,13 +202,13 @@ func (s *RouterService) NewConfigureVirtualRouterElementParams(enabled bool, id 
 }
 
 // Configures a virtual router element.
-func (s *RouterService) ConfigureVirtualRouterElement(p *ConfigureVirtualRouterElementParams) (*ConfigureVirtualRouterElementResponse, error) {
+func (s *RouterService) ConfigureVirtualRouterElement(p *ConfigureVirtualRouterElementParams) (*VirtualRouterElementResponse, error) {
 	resp, err := s.cs.newRequest("configureVirtualRouterElement", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r ConfigureVirtualRouterElementResponse
+	var r VirtualRouterElementResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -236,7 +236,7 @@ func (s *RouterService) ConfigureVirtualRouterElement(p *ConfigureVirtualRouterE
 	return &r, nil
 }
 
-type ConfigureVirtualRouterElementResponse struct {
+type VirtualRouterElementResponse struct {
 	JobID     string `json:"jobid"`
 	Account   string `json:"account"`
 	Domain    string `json:"domain"`

@@ -208,13 +208,13 @@ func (s *OutofbandManagementService) NewConfigureOutOfBandManagementParams(addre
 }
 
 // Configures a host's out-of-band management interface
-func (s *OutofbandManagementService) ConfigureOutOfBandManagement(p *ConfigureOutOfBandManagementParams) (*ConfigureOutOfBandManagementResponse, error) {
+func (s *OutofbandManagementService) ConfigureOutOfBandManagement(p *ConfigureOutOfBandManagementParams) (*OutOfBandManagementResponse, error) {
 	resp, err := s.cs.newRequest("configureOutOfBandManagement", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r ConfigureOutOfBandManagementResponse
+	var r OutOfBandManagementResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -222,7 +222,7 @@ func (s *OutofbandManagementService) ConfigureOutOfBandManagement(p *ConfigureOu
 	return &r, nil
 }
 
-type ConfigureOutOfBandManagementResponse struct {
+type OutOfBandManagementResponse struct {
 	Action      string `json:"action"`
 	Address     string `json:"address"`
 	Description string `json:"description"`

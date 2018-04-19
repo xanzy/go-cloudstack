@@ -70,13 +70,13 @@ func (s *OvsElementService) NewConfigureOvsElementParams(enabled bool, id string
 }
 
 // Configures an ovs element.
-func (s *OvsElementService) ConfigureOvsElement(p *ConfigureOvsElementParams) (*ConfigureOvsElementResponse, error) {
+func (s *OvsElementService) ConfigureOvsElement(p *ConfigureOvsElementParams) (*OvsElementResponse, error) {
 	resp, err := s.cs.newRequest("configureOvsElement", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r ConfigureOvsElementResponse
+	var r OvsElementResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -104,7 +104,7 @@ func (s *OvsElementService) ConfigureOvsElement(p *ConfigureOvsElementParams) (*
 	return &r, nil
 }
 
-type ConfigureOvsElementResponse struct {
+type OvsElementResponse struct {
 	JobID     string `json:"jobid"`
 	Account   string `json:"account"`
 	Domain    string `json:"domain"`
