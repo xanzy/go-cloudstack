@@ -180,6 +180,6 @@ func (s *StratosphereSSPService) DeleteStratosphereSsp(p *DeleteStratosphereSspP
 }
 
 type DeleteStratosphereSspResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }

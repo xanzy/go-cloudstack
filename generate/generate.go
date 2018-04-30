@@ -1294,7 +1294,7 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (o
 					if async {
 						pn("%s bool `json:\"%s\"`", capitalize(r.Name), r.Name)
 					} else {
-						pn("%s string `json:\"%s\"`", capitalize(r.Name), r.Name)
+						pn("%s json.RawMessage `json:\"%s\"`", capitalize(r.Name), r.Name)
 					}
 				} else {
 					pn("%s %s `json:\"%s\"`", capitalize(r.Name), mapType(r.Type), r.Name)

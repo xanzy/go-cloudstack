@@ -273,8 +273,8 @@ func (s *UCSService) DeleteUcsManager(p *DeleteUcsManagerParams) (*DeleteUcsMana
 }
 
 type DeleteUcsManagerResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type ListUcsBladesParams struct {

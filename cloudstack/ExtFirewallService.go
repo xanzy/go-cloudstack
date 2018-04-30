@@ -167,8 +167,8 @@ func (s *ExtFirewallService) DeleteExternalFirewall(p *DeleteExternalFirewallPar
 }
 
 type DeleteExternalFirewallResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type ListExternalFirewallsParams struct {

@@ -464,8 +464,8 @@ func (s *ImageStoreService) DeleteImageStore(p *DeleteImageStoreParams) (*Delete
 }
 
 type DeleteImageStoreResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type DeleteSecondaryStagingStoreParams struct {
@@ -516,8 +516,8 @@ func (s *ImageStoreService) DeleteSecondaryStagingStore(p *DeleteSecondaryStagin
 }
 
 type DeleteSecondaryStagingStoreResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type ListImageStoresParams struct {

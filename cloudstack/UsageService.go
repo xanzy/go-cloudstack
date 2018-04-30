@@ -328,8 +328,8 @@ func (s *UsageService) DeleteTrafficMonitor(p *DeleteTrafficMonitorParams) (*Del
 }
 
 type DeleteTrafficMonitorResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type DeleteTrafficTypeParams struct {
@@ -471,8 +471,8 @@ func (s *UsageService) GenerateUsageRecords(p *GenerateUsageRecordsParams) (*Gen
 }
 
 type GenerateUsageRecordsResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type ListTrafficMonitorsParams struct {
@@ -1086,8 +1086,8 @@ func (s *UsageService) RemoveRawUsageRecords(p *RemoveRawUsageRecordsParams) (*R
 }
 
 type RemoveRawUsageRecordsResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type UpdateTrafficTypeParams struct {

@@ -242,8 +242,8 @@ func (s *ExternalDeviceService) DeleteCiscoAsa1000vResource(p *DeleteCiscoAsa100
 }
 
 type DeleteCiscoAsa1000vResourceResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type DeleteCiscoNexusVSMParams struct {
@@ -362,8 +362,8 @@ func (s *ExternalDeviceService) DeleteCiscoVnmcResource(p *DeleteCiscoVnmcResour
 }
 
 type DeleteCiscoVnmcResourceResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type DisableCiscoNexusVSMParams struct {
