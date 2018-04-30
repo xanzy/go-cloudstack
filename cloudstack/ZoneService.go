@@ -515,8 +515,8 @@ func (s *ZoneService) DeleteZone(p *DeleteZoneParams) (*DeleteZoneResponse, erro
 }
 
 type DeleteZoneResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type DisableOutOfBandManagementForZoneParams struct {
@@ -1348,8 +1348,8 @@ func (s *ZoneService) RemoveVmwareDc(p *RemoveVmwareDcParams) (*RemoveVmwareDcRe
 }
 
 type RemoveVmwareDcResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type UpdateZoneParams struct {

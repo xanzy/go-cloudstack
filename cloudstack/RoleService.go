@@ -239,8 +239,8 @@ func (s *RoleService) DeleteRole(p *DeleteRoleParams) (*DeleteRoleResponse, erro
 }
 
 type DeleteRoleResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type DeleteRolePermissionParams struct {
@@ -291,8 +291,8 @@ func (s *RoleService) DeleteRolePermission(p *DeleteRolePermissionParams) (*Dele
 }
 
 type DeleteRolePermissionResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type ListRolePermissionsParams struct {
@@ -599,8 +599,8 @@ func (s *RoleService) UpdateRole(p *UpdateRoleParams) (*UpdateRoleResponse, erro
 }
 
 type UpdateRoleResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type UpdateRolePermissionParams struct {
@@ -664,6 +664,6 @@ func (s *RoleService) UpdateRolePermission(p *UpdateRolePermissionParams) (*Upda
 }
 
 type UpdateRolePermissionResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }

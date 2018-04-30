@@ -164,8 +164,8 @@ func (s *ExtLoadBalancerService) DeleteExternalLoadBalancer(p *DeleteExternalLoa
 }
 
 type DeleteExternalLoadBalancerResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type ListExternalLoadBalancersParams struct {

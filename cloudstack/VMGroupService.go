@@ -163,8 +163,8 @@ func (s *VMGroupService) DeleteInstanceGroup(p *DeleteInstanceGroupParams) (*Del
 }
 
 type DeleteInstanceGroupResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type ListInstanceGroupsParams struct {

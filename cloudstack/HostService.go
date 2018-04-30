@@ -939,8 +939,8 @@ func (s *HostService) DeleteHost(p *DeleteHostParams) (*DeleteHostResponse, erro
 }
 
 type DeleteHostResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type DisableOutOfBandManagementForHostParams struct {
@@ -2502,6 +2502,6 @@ func (s *HostService) UpdateHostPassword(p *UpdateHostPasswordParams) (*UpdateHo
 }
 
 type UpdateHostPasswordResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }

@@ -767,8 +767,8 @@ func (s *SecurityGroupService) DeleteSecurityGroup(p *DeleteSecurityGroupParams)
 }
 
 type DeleteSecurityGroupResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type ListSecurityGroupsParams struct {

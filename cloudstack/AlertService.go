@@ -105,8 +105,8 @@ func (s *AlertService) ArchiveAlerts(p *ArchiveAlertsParams) (*ArchiveAlertsResp
 }
 
 type ArchiveAlertsResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type DeleteAlertsParams struct {
@@ -190,8 +190,8 @@ func (s *AlertService) DeleteAlerts(p *DeleteAlertsParams) (*DeleteAlertsRespons
 }
 
 type DeleteAlertsResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type GenerateAlertParams struct {

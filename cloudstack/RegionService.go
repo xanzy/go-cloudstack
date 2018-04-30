@@ -257,8 +257,8 @@ func (s *RegionService) RemoveRegion(p *RemoveRegionParams) (*RemoveRegionRespon
 }
 
 type RemoveRegionResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type UpdateRegionParams struct {

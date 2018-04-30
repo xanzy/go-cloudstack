@@ -424,8 +424,8 @@ func (s *VLANService) DeleteVlanIpRange(p *DeleteVlanIpRangeParams) (*DeleteVlan
 }
 
 type DeleteVlanIpRangeResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type ListDedicatedGuestVlanRangesParams struct {

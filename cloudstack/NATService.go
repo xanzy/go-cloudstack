@@ -402,8 +402,8 @@ func (s *NATService) EnableStaticNat(p *EnableStaticNatParams) (*EnableStaticNat
 }
 
 type EnableStaticNatResponse struct {
-	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Displaytext string          `json:"displaytext"`
+	Success     json.RawMessage `json:"success"`
 }
 
 type ListIpForwardingRulesParams struct {
