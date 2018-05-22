@@ -1251,10 +1251,31 @@ func (s *service) generateResponseType(a *API) {
 		pn("	JobID string `json:\"jobid\"`")
 	}
 	sort.Sort(a.Response)
-	s.recusiveGenerateResponseType(a.Response, a.Isasync)
+	customMarshal := s.recusiveGenerateResponseType(a.Response, a.Isasync, false)
 	pn("}")
 	pn("")
-	return
+
+	if customMarshal {
+		pn("func (r *%s) UnmarshalJSON(b []byte) error {", tn)
+		pn("	var m map[string]interface{}")
+		pn("	err := json.Unmarshal(b, &m)")
+		pn("	if err != nil {")
+		pn("		return err")
+		pn("	}")
+		pn("")
+		pn("	if success, ok := m[\"success\"].(string); ok {")
+		pn("		m[\"success\"] = success == \"true\"")
+		pn("		b, err = json.Marshal(m)")
+		pn("		if err != nil {")
+		pn("			return err")
+		pn("		}")
+		pn("	}")
+		pn("")
+		pn("	type alias %s", tn)
+		pn("	return json.Unmarshal(b, (*alias)(r))")
+		pn("}")
+		pn("")
+	}
 }
 
 func parseSingular(n string) string {
@@ -1267,7 +1288,7 @@ func parseSingular(n string) string {
 	return strings.TrimSuffix(n, "s")
 }
 
-func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (output string) {
+func (s *service) recusiveGenerateResponseType(resp APIResponses, async, customMarshal bool) bool {
 	pn := s.pn
 	found := make(map[string]bool)
 
@@ -1285,16 +1306,15 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (o
 		if r.Response != nil {
 			pn("%s []struct {", capitalize(r.Name))
 			sort.Sort(r.Response)
-			s.recusiveGenerateResponseType(r.Response, async)
+			customMarshal = s.recusiveGenerateResponseType(r.Response, async, customMarshal)
 			pn("} `json:\"%s\"`", r.Name)
 		} else {
 			if !found[r.Name] {
 				// This code is needed because the response field is different for sync and async calls :(
 				if r.Name == "success" {
-					if async {
-						pn("%s bool `json:\"%s\"`", capitalize(r.Name), r.Name)
-					} else {
-						pn("%s string `json:\"%s\"`", capitalize(r.Name), r.Name)
+					pn("%s bool `json:\"%s\"`", capitalize(r.Name), r.Name)
+					if !async {
+						customMarshal = true
 					}
 				} else {
 					pn("%s %s `json:\"%s\"`", capitalize(r.Name), mapType(r.Type), r.Name)
@@ -1303,7 +1323,8 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (o
 			}
 		}
 	}
-	return
+
+	return customMarshal
 }
 
 func getAllServices(listApis string) (*allServices, []error, error) {

@@ -243,7 +243,26 @@ func (s *ExternalDeviceService) DeleteCiscoAsa1000vResource(p *DeleteCiscoAsa100
 
 type DeleteCiscoAsa1000vResourceResponse struct {
 	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Success     bool   `json:"success"`
+}
+
+func (r *DeleteCiscoAsa1000vResourceResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias DeleteCiscoAsa1000vResourceResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type DeleteCiscoNexusVSMParams struct {
@@ -363,7 +382,26 @@ func (s *ExternalDeviceService) DeleteCiscoVnmcResource(p *DeleteCiscoVnmcResour
 
 type DeleteCiscoVnmcResourceResponse struct {
 	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Success     bool   `json:"success"`
+}
+
+func (r *DeleteCiscoVnmcResourceResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias DeleteCiscoVnmcResourceResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type DisableCiscoNexusVSMParams struct {
