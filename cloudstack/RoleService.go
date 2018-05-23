@@ -240,7 +240,26 @@ func (s *RoleService) DeleteRole(p *DeleteRoleParams) (*DeleteRoleResponse, erro
 
 type DeleteRoleResponse struct {
 	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Success     bool   `json:"success"`
+}
+
+func (r *DeleteRoleResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias DeleteRoleResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type DeleteRolePermissionParams struct {
@@ -292,7 +311,26 @@ func (s *RoleService) DeleteRolePermission(p *DeleteRolePermissionParams) (*Dele
 
 type DeleteRolePermissionResponse struct {
 	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Success     bool   `json:"success"`
+}
+
+func (r *DeleteRolePermissionResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias DeleteRolePermissionResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type ListRolePermissionsParams struct {
@@ -600,7 +638,26 @@ func (s *RoleService) UpdateRole(p *UpdateRoleParams) (*UpdateRoleResponse, erro
 
 type UpdateRoleResponse struct {
 	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Success     bool   `json:"success"`
+}
+
+func (r *UpdateRoleResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias UpdateRoleResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type UpdateRolePermissionParams struct {
@@ -665,5 +722,24 @@ func (s *RoleService) UpdateRolePermission(p *UpdateRolePermissionParams) (*Upda
 
 type UpdateRolePermissionResponse struct {
 	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Success     bool   `json:"success"`
+}
+
+func (r *UpdateRolePermissionResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias UpdateRolePermissionResponse
+	return json.Unmarshal(b, (*alias)(r))
 }

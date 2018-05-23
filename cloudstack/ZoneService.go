@@ -516,7 +516,26 @@ func (s *ZoneService) DeleteZone(p *DeleteZoneParams) (*DeleteZoneResponse, erro
 
 type DeleteZoneResponse struct {
 	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Success     bool   `json:"success"`
+}
+
+func (r *DeleteZoneResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias DeleteZoneResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type DisableOutOfBandManagementForZoneParams struct {
@@ -1349,7 +1368,26 @@ func (s *ZoneService) RemoveVmwareDc(p *RemoveVmwareDcParams) (*RemoveVmwareDcRe
 
 type RemoveVmwareDcResponse struct {
 	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Success     bool   `json:"success"`
+}
+
+func (r *RemoveVmwareDcResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias RemoveVmwareDcResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type UpdateZoneParams struct {

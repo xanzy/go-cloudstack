@@ -192,7 +192,26 @@ func (s *SSHService) DeleteSSHKeyPair(p *DeleteSSHKeyPairParams) (*DeleteSSHKeyP
 
 type DeleteSSHKeyPairResponse struct {
 	Displaytext string `json:"displaytext"`
-	Success     string `json:"success"`
+	Success     bool   `json:"success"`
+}
+
+func (r *DeleteSSHKeyPairResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias DeleteSSHKeyPairResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type ListSSHKeyPairsParams struct {
