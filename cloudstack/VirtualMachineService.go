@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
 package cloudstack
 
 import (
@@ -848,7 +847,8 @@ type CleanVMReservationsResponse struct {
 }
 
 type DeployVirtualMachineParams struct {
-	p map[string]interface{}
+	p           map[string]interface{}
+	iptonetlist []map[string]string
 }
 
 func (p *DeployVirtualMachineParams) toURLValues() url.Values {
@@ -908,12 +908,11 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 	if v, found := p.p["ipaddress"]; found {
 		u.Set("ipaddress", v.(string))
 	}
-	if v, found := p.p["iptonetworklist"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("iptonetworklist[%d].key", i), k)
-			u.Set(fmt.Sprintf("iptonetworklist[%d].value", i), vv)
-			i++
+	if p.iptonetlist != nil && len(p.iptonetlist) > 0 {
+		for i, m := range p.iptonetlist {
+			for k, v := range m {
+				u.Set(fmt.Sprintf("iptonetworklist[%d].%s", i, k), v)
+			}
 		}
 	}
 	if v, found := p.p["keyboard"]; found {
@@ -1087,11 +1086,11 @@ func (p *DeployVirtualMachineParams) SetIpaddress(v string) {
 	return
 }
 
-func (p *DeployVirtualMachineParams) SetIptonetworklist(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
+func (p *DeployVirtualMachineParams) AddIptonetworklist(v map[string]string) {
+	if p.iptonetlist == nil {
+		p.iptonetlist = make([]map[string]string, 0)
 	}
-	p.p["iptonetworklist"] = v
+	p.iptonetlist = append(p.iptonetlist, v)
 	return
 }
 

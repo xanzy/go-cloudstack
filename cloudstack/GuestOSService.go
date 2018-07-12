@@ -118,7 +118,7 @@ type AddGuestOsResponse struct {
 	JobID         string `json:"jobid"`
 	Description   string `json:"description"`
 	Id            string `json:"id"`
-	Isuserdefined string `json:"isuserdefined"`
+	Isuserdefined CSBool `json:"isuserdefined"`
 	Oscategoryid  string `json:"oscategoryid"`
 }
 
@@ -240,7 +240,7 @@ type AddGuestOsMappingResponse struct {
 	Hypervisor          string `json:"hypervisor"`
 	Hypervisorversion   string `json:"hypervisorversion"`
 	Id                  string `json:"id"`
-	Isuserdefined       string `json:"isuserdefined"`
+	Isuserdefined       CSBool `json:"isuserdefined"`
 	Osdisplayname       string `json:"osdisplayname"`
 	Osnameforhypervisor string `json:"osnameforhypervisor"`
 	Ostypeid            string `json:"ostypeid"`
@@ -402,7 +402,7 @@ type GuestOsMapping struct {
 	Hypervisor          string `json:"hypervisor"`
 	Hypervisorversion   string `json:"hypervisorversion"`
 	Id                  string `json:"id"`
-	Isuserdefined       string `json:"isuserdefined"`
+	Isuserdefined       CSBool `json:"isuserdefined"`
 	Osdisplayname       string `json:"osdisplayname"`
 	Osnameforhypervisor string `json:"osnameforhypervisor"`
 	Ostypeid            string `json:"ostypeid"`
@@ -737,7 +737,7 @@ type ListOsTypesResponse struct {
 type OsType struct {
 	Description   string `json:"description"`
 	Id            string `json:"id"`
-	Isuserdefined string `json:"isuserdefined"`
+	Isuserdefined CSBool `json:"isuserdefined"`
 	Oscategoryid  string `json:"oscategoryid"`
 }
 
@@ -960,7 +960,7 @@ type UpdateGuestOsResponse struct {
 	JobID         string `json:"jobid"`
 	Description   string `json:"description"`
 	Id            string `json:"id"`
-	Isuserdefined string `json:"isuserdefined"`
+	Isuserdefined CSBool `json:"isuserdefined"`
 	Oscategoryid  string `json:"oscategoryid"`
 }
 
@@ -1048,7 +1048,7 @@ type UpdateGuestOsMappingResponse struct {
 	Hypervisor          string `json:"hypervisor"`
 	Hypervisorversion   string `json:"hypervisorversion"`
 	Id                  string `json:"id"`
-	Isuserdefined       string `json:"isuserdefined"`
+	Isuserdefined       CSBool `json:"isuserdefined"`
 	Osdisplayname       string `json:"osdisplayname"`
 	Osnameforhypervisor string `json:"osnameforhypervisor"`
 	Ostypeid            string `json:"ostypeid"`

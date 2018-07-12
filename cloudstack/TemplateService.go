@@ -470,6 +470,14 @@ func (p *DeleteTemplateParams) SetZoneid(v string) {
 	return
 }
 
+func (p *DeleteTemplateParams) SetForced(b bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forced"] = b
+	return
+}
+
 // You should always use this function to get a new DeleteTemplateParams instance,
 // as then you are sure you have configured all required params
 func (s *TemplateService) NewDeleteTemplateParams(id string) *DeleteTemplateParams {
@@ -911,12 +919,14 @@ func (s *TemplateService) GetUploadParamsForTemplate(p *GetUploadParamsForTempla
 		return nil, err
 	}
 
-	var r GetUploadParamsForTemplateResponse
+	var r struct {
+		Response GetUploadParamsForTemplateResponse `json:"getuploadparams"`
+	}
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
 
-	return &r, nil
+	return &r.Response, nil
 }
 
 type GetUploadParamsForTemplateResponse struct {

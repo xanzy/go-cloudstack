@@ -31,6 +31,7 @@ import (
 	"net/url"
 	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -143,6 +144,22 @@ type CloudStackClient struct {
 	Zone                *ZoneService
 }
 
+type CSBool bool
+
+func (c CSBool) MarshalJSON() ([]byte, error) {
+	return json.Marshal(bool(c))
+}
+
+func (c *CSBool) UnmarshalJSON(data []byte) error {
+	value := strings.Replace(strings.ToLower(string(data)), "\"", "", -1)
+	b, err := strconv.ParseBool(value)
+	if err != nil {
+		return err
+	}
+	*c = CSBool(b)
+	return nil
+}
+
 // Creates a new client for communicating with CloudStack
 func newClient(apiurl string, apikey string, secret string, async bool, verifyssl bool) *CloudStackClient {
 	jar, _ := cookiejar.New(nil)
@@ -153,7 +170,7 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 				Proxy:           http.ProxyFromEnvironment,
 				TLSClientConfig: &tls.Config{InsecureSkipVerify: !verifyssl}, // If verifyssl is true, skipping the verify should be false and vice versa
 			},
-			Timeout: time.Duration(60 * time.Second),
+			Timeout: time.Duration(5 * time.Minute),
 		},
 		baseURL: apiurl,
 		apiKey:  apikey,
