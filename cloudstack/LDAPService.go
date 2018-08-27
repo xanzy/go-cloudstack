@@ -648,7 +648,7 @@ type LdapCreateAccountResponse struct {
 	Roletype                  string            `json:"roletype"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit"`
-	Secondarystoragetotal     int64             `json:"secondarystoragetotal"`
+	Secondarystoragetotal     float64           `json:"secondarystoragetotal"`
 	Sentbytes                 int64             `json:"sentbytes"`
 	Snapshotavailable         string            `json:"snapshotavailable"`
 	Snapshotlimit             string            `json:"snapshotlimit"`

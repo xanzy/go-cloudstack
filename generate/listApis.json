@@ -443,7 +443,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by account",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the list of users associated with account",
@@ -8479,7 +8479,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by account",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total number of network traffic bytes received",
@@ -20300,7 +20300,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by domain",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total number of virtual machines deployed by this domain",
@@ -21411,7 +21411,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by project",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total number of cpu cores owned by project",
@@ -21891,7 +21891,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by account",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total number of cpu cores the account can own",
@@ -29186,7 +29186,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by domain",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the path of the domain",
@@ -37326,7 +37326,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by account",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the network domain",
@@ -37743,7 +37743,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by account",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total volume being used by this account",
@@ -38320,7 +38320,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by domain",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total number of virtual machines available for this domain to acquire",
@@ -50766,7 +50766,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by project",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total secondary storage space (in GiB) the project can own",
@@ -51284,7 +51284,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by account",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "true if account is default, false otherwise",
@@ -55297,7 +55297,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by project",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total number of vpcs the project can own",
@@ -61374,7 +61374,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by project",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total number of snapshots available for this project",
@@ -72539,7 +72539,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by project",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the list of resource tags associated with vm",
@@ -74966,7 +74966,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by domain",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total primary storage space (in GiB) available to be used for this domain",
@@ -79200,7 +79200,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by account",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total number of projects available for administration by this account",
@@ -81843,7 +81843,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by project",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total secondary storage space (in GiB) available to be used for this project",
@@ -82660,7 +82660,7 @@
                 {
                     "description": "the total secondary storage space (in GiB) owned by account",
                     "name": "secondarystoragetotal",
-                    "type": "long"
+                    "type": "float"
                 },
                 {
                     "description": "the total number of virtual machines running for this account",

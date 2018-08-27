@@ -354,7 +354,7 @@ type CreateAccountResponse struct {
 	Roletype                  string            `json:"roletype"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit"`
-	Secondarystoragetotal     int64             `json:"secondarystoragetotal"`
+	Secondarystoragetotal     float64           `json:"secondarystoragetotal"`
 	Sentbytes                 int64             `json:"sentbytes"`
 	Snapshotavailable         string            `json:"snapshotavailable"`
 	Snapshotlimit             string            `json:"snapshotlimit"`
@@ -684,7 +684,7 @@ type DisableAccountResponse struct {
 	Roletype                  string            `json:"roletype"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit"`
-	Secondarystoragetotal     int64             `json:"secondarystoragetotal"`
+	Secondarystoragetotal     float64           `json:"secondarystoragetotal"`
 	Sentbytes                 int64             `json:"sentbytes"`
 	Snapshotavailable         string            `json:"snapshotavailable"`
 	Snapshotlimit             string            `json:"snapshotlimit"`
@@ -832,7 +832,7 @@ type EnableAccountResponse struct {
 	Roletype                  string            `json:"roletype"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit"`
-	Secondarystoragetotal     int64             `json:"secondarystoragetotal"`
+	Secondarystoragetotal     float64           `json:"secondarystoragetotal"`
 	Sentbytes                 int64             `json:"sentbytes"`
 	Snapshotavailable         string            `json:"snapshotavailable"`
 	Snapshotlimit             string            `json:"snapshotlimit"`
@@ -1225,7 +1225,7 @@ type Account struct {
 	Roletype                  string            `json:"roletype"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit"`
-	Secondarystoragetotal     int64             `json:"secondarystoragetotal"`
+	Secondarystoragetotal     float64           `json:"secondarystoragetotal"`
 	Sentbytes                 int64             `json:"sentbytes"`
 	Snapshotavailable         string            `json:"snapshotavailable"`
 	Snapshotlimit             string            `json:"snapshotlimit"`
@@ -1416,34 +1416,34 @@ type ListProjectAccountsResponse struct {
 }
 
 type ProjectAccount struct {
-	Account                   string `json:"account"`
-	Cpuavailable              string `json:"cpuavailable"`
-	Cpulimit                  string `json:"cpulimit"`
-	Cputotal                  int64  `json:"cputotal"`
-	Displaytext               string `json:"displaytext"`
-	Domain                    string `json:"domain"`
-	Domainid                  string `json:"domainid"`
-	Id                        string `json:"id"`
-	Ipavailable               string `json:"ipavailable"`
-	Iplimit                   string `json:"iplimit"`
-	Iptotal                   int64  `json:"iptotal"`
-	Memoryavailable           string `json:"memoryavailable"`
-	Memorylimit               string `json:"memorylimit"`
-	Memorytotal               int64  `json:"memorytotal"`
-	Name                      string `json:"name"`
-	Networkavailable          string `json:"networkavailable"`
-	Networklimit              string `json:"networklimit"`
-	Networktotal              int64  `json:"networktotal"`
-	Primarystorageavailable   string `json:"primarystorageavailable"`
-	Primarystoragelimit       string `json:"primarystoragelimit"`
-	Primarystoragetotal       int64  `json:"primarystoragetotal"`
-	Secondarystorageavailable string `json:"secondarystorageavailable"`
-	Secondarystoragelimit     string `json:"secondarystoragelimit"`
-	Secondarystoragetotal     int64  `json:"secondarystoragetotal"`
-	Snapshotavailable         string `json:"snapshotavailable"`
-	Snapshotlimit             string `json:"snapshotlimit"`
-	Snapshottotal             int64  `json:"snapshottotal"`
-	State                     string `json:"state"`
+	Account                   string  `json:"account"`
+	Cpuavailable              string  `json:"cpuavailable"`
+	Cpulimit                  string  `json:"cpulimit"`
+	Cputotal                  int64   `json:"cputotal"`
+	Displaytext               string  `json:"displaytext"`
+	Domain                    string  `json:"domain"`
+	Domainid                  string  `json:"domainid"`
+	Id                        string  `json:"id"`
+	Ipavailable               string  `json:"ipavailable"`
+	Iplimit                   string  `json:"iplimit"`
+	Iptotal                   int64   `json:"iptotal"`
+	Memoryavailable           string  `json:"memoryavailable"`
+	Memorylimit               string  `json:"memorylimit"`
+	Memorytotal               int64   `json:"memorytotal"`
+	Name                      string  `json:"name"`
+	Networkavailable          string  `json:"networkavailable"`
+	Networklimit              string  `json:"networklimit"`
+	Networktotal              int64   `json:"networktotal"`
+	Primarystorageavailable   string  `json:"primarystorageavailable"`
+	Primarystoragelimit       string  `json:"primarystoragelimit"`
+	Primarystoragetotal       int64   `json:"primarystoragetotal"`
+	Secondarystorageavailable string  `json:"secondarystorageavailable"`
+	Secondarystoragelimit     string  `json:"secondarystoragelimit"`
+	Secondarystoragetotal     float64 `json:"secondarystoragetotal"`
+	Snapshotavailable         string  `json:"snapshotavailable"`
+	Snapshotlimit             string  `json:"snapshotlimit"`
+	Snapshottotal             int64   `json:"snapshottotal"`
+	State                     string  `json:"state"`
 	Tags                      []struct {
 		Account      string `json:"account"`
 		Customer     string `json:"customer"`
@@ -1567,7 +1567,7 @@ type LockAccountResponse struct {
 	Roletype                  string            `json:"roletype"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit"`
-	Secondarystoragetotal     int64             `json:"secondarystoragetotal"`
+	Secondarystoragetotal     float64           `json:"secondarystoragetotal"`
 	Sentbytes                 int64             `json:"sentbytes"`
 	Snapshotavailable         string            `json:"snapshotavailable"`
 	Snapshotlimit             string            `json:"snapshotlimit"`
@@ -1739,7 +1739,7 @@ type MarkDefaultZoneForAccountResponse struct {
 	Roletype                  string            `json:"roletype"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit"`
-	Secondarystoragetotal     int64             `json:"secondarystoragetotal"`
+	Secondarystoragetotal     float64           `json:"secondarystoragetotal"`
 	Sentbytes                 int64             `json:"sentbytes"`
 	Snapshotavailable         string            `json:"snapshotavailable"`
 	Snapshotlimit             string            `json:"snapshotlimit"`
@@ -1926,7 +1926,7 @@ type UpdateAccountResponse struct {
 	Roletype                  string            `json:"roletype"`
 	Secondarystorageavailable string            `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string            `json:"secondarystoragelimit"`
-	Secondarystoragetotal     int64             `json:"secondarystoragetotal"`
+	Secondarystoragetotal     float64           `json:"secondarystoragetotal"`
 	Sentbytes                 int64             `json:"sentbytes"`
 	Snapshotavailable         string            `json:"snapshotavailable"`
 	Snapshotlimit             string            `json:"snapshotlimit"`

@@ -1403,6 +1403,8 @@ func mapType(t string) string {
 		return "int"
 	case "long":
 		return "int64"
+	case "float":
+		return "float64"
 	case "list":
 		return "[]string"
 	case "map":
