@@ -301,44 +301,50 @@ func (s *NetworkOfferingService) CreateNetworkOffering(p *CreateNetworkOfferingP
 }
 
 type CreateNetworkOfferingResponse struct {
-	Availability        string            `json:"availability"`
-	Conservemode        bool              `json:"conservemode"`
-	Created             string            `json:"created"`
-	Details             map[string]string `json:"details"`
-	Displaytext         string            `json:"displaytext"`
-	Egressdefaultpolicy bool              `json:"egressdefaultpolicy"`
-	Forvpc              bool              `json:"forvpc"`
-	Guestiptype         string            `json:"guestiptype"`
-	Id                  string            `json:"id"`
-	Isdefault           bool              `json:"isdefault"`
-	Ispersistent        bool              `json:"ispersistent"`
-	Maxconnections      int               `json:"maxconnections"`
-	Name                string            `json:"name"`
-	Networkrate         int               `json:"networkrate"`
-	Service             []struct {
-		Capability []struct {
-			Canchooseservicecapability bool   `json:"canchooseservicecapability"`
-			Name                       string `json:"name"`
-			Value                      string `json:"value"`
-		} `json:"capability"`
-		Name     string `json:"name"`
-		Provider []struct {
-			Canenableindividualservice   bool     `json:"canenableindividualservice"`
-			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
-			Id                           string   `json:"id"`
-			Name                         string   `json:"name"`
-			Physicalnetworkid            string   `json:"physicalnetworkid"`
-			Servicelist                  []string `json:"servicelist"`
-			State                        string   `json:"state"`
-		} `json:"provider"`
-	} `json:"service"`
-	Serviceofferingid        string `json:"serviceofferingid"`
-	Specifyipranges          bool   `json:"specifyipranges"`
-	Specifyvlan              bool   `json:"specifyvlan"`
-	State                    string `json:"state"`
-	Supportsstrechedl2subnet bool   `json:"supportsstrechedl2subnet"`
-	Tags                     string `json:"tags"`
-	Traffictype              string `json:"traffictype"`
+	Availability             string                                 `json:"availability"`
+	Conservemode             bool                                   `json:"conservemode"`
+	Created                  string                                 `json:"created"`
+	Details                  map[string]string                      `json:"details"`
+	Displaytext              string                                 `json:"displaytext"`
+	Egressdefaultpolicy      bool                                   `json:"egressdefaultpolicy"`
+	Forvpc                   bool                                   `json:"forvpc"`
+	Guestiptype              string                                 `json:"guestiptype"`
+	Id                       string                                 `json:"id"`
+	Isdefault                bool                                   `json:"isdefault"`
+	Ispersistent             bool                                   `json:"ispersistent"`
+	Maxconnections           int                                    `json:"maxconnections"`
+	Name                     string                                 `json:"name"`
+	Networkrate              int                                    `json:"networkrate"`
+	Service                  []CreateNetworkOfferingResponseService `json:"service"`
+	Serviceofferingid        string                                 `json:"serviceofferingid"`
+	Specifyipranges          bool                                   `json:"specifyipranges"`
+	Specifyvlan              bool                                   `json:"specifyvlan"`
+	State                    string                                 `json:"state"`
+	Supportsstrechedl2subnet bool                                   `json:"supportsstrechedl2subnet"`
+	Tags                     string                                 `json:"tags"`
+	Traffictype              string                                 `json:"traffictype"`
+}
+
+type CreateNetworkOfferingResponseService struct {
+	Capability []CreateNetworkOfferingResponseServiceCapability `json:"capability"`
+	Name       string                                           `json:"name"`
+	Provider   []CreateNetworkOfferingResponseServiceProvider   `json:"provider"`
+}
+
+type CreateNetworkOfferingResponseServiceCapability struct {
+	Canchooseservicecapability bool   `json:"canchooseservicecapability"`
+	Name                       string `json:"name"`
+	Value                      string `json:"value"`
+}
+
+type CreateNetworkOfferingResponseServiceProvider struct {
+	Canenableindividualservice   bool     `json:"canenableindividualservice"`
+	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
+	Id                           string   `json:"id"`
+	Name                         string   `json:"name"`
+	Physicalnetworkid            string   `json:"physicalnetworkid"`
+	Servicelist                  []string `json:"servicelist"`
+	State                        string   `json:"state"`
 }
 
 type DeleteNetworkOfferingParams struct {
@@ -765,44 +771,50 @@ type ListNetworkOfferingsResponse struct {
 }
 
 type NetworkOffering struct {
-	Availability        string            `json:"availability"`
-	Conservemode        bool              `json:"conservemode"`
-	Created             string            `json:"created"`
-	Details             map[string]string `json:"details"`
-	Displaytext         string            `json:"displaytext"`
-	Egressdefaultpolicy bool              `json:"egressdefaultpolicy"`
-	Forvpc              bool              `json:"forvpc"`
-	Guestiptype         string            `json:"guestiptype"`
-	Id                  string            `json:"id"`
-	Isdefault           bool              `json:"isdefault"`
-	Ispersistent        bool              `json:"ispersistent"`
-	Maxconnections      int               `json:"maxconnections"`
-	Name                string            `json:"name"`
-	Networkrate         int               `json:"networkrate"`
-	Service             []struct {
-		Capability []struct {
-			Canchooseservicecapability bool   `json:"canchooseservicecapability"`
-			Name                       string `json:"name"`
-			Value                      string `json:"value"`
-		} `json:"capability"`
-		Name     string `json:"name"`
-		Provider []struct {
-			Canenableindividualservice   bool     `json:"canenableindividualservice"`
-			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
-			Id                           string   `json:"id"`
-			Name                         string   `json:"name"`
-			Physicalnetworkid            string   `json:"physicalnetworkid"`
-			Servicelist                  []string `json:"servicelist"`
-			State                        string   `json:"state"`
-		} `json:"provider"`
-	} `json:"service"`
-	Serviceofferingid        string `json:"serviceofferingid"`
-	Specifyipranges          bool   `json:"specifyipranges"`
-	Specifyvlan              bool   `json:"specifyvlan"`
-	State                    string `json:"state"`
-	Supportsstrechedl2subnet bool   `json:"supportsstrechedl2subnet"`
-	Tags                     string `json:"tags"`
-	Traffictype              string `json:"traffictype"`
+	Availability             string                           `json:"availability"`
+	Conservemode             bool                             `json:"conservemode"`
+	Created                  string                           `json:"created"`
+	Details                  map[string]string                `json:"details"`
+	Displaytext              string                           `json:"displaytext"`
+	Egressdefaultpolicy      bool                             `json:"egressdefaultpolicy"`
+	Forvpc                   bool                             `json:"forvpc"`
+	Guestiptype              string                           `json:"guestiptype"`
+	Id                       string                           `json:"id"`
+	Isdefault                bool                             `json:"isdefault"`
+	Ispersistent             bool                             `json:"ispersistent"`
+	Maxconnections           int                              `json:"maxconnections"`
+	Name                     string                           `json:"name"`
+	Networkrate              int                              `json:"networkrate"`
+	Service                  []NetworkOfferingServiceInternal `json:"service"`
+	Serviceofferingid        string                           `json:"serviceofferingid"`
+	Specifyipranges          bool                             `json:"specifyipranges"`
+	Specifyvlan              bool                             `json:"specifyvlan"`
+	State                    string                           `json:"state"`
+	Supportsstrechedl2subnet bool                             `json:"supportsstrechedl2subnet"`
+	Tags                     string                           `json:"tags"`
+	Traffictype              string                           `json:"traffictype"`
+}
+
+type NetworkOfferingServiceInternal struct {
+	Capability []NetworkOfferingServiceInternalCapability `json:"capability"`
+	Name       string                                     `json:"name"`
+	Provider   []NetworkOfferingServiceInternalProvider   `json:"provider"`
+}
+
+type NetworkOfferingServiceInternalProvider struct {
+	Canenableindividualservice   bool     `json:"canenableindividualservice"`
+	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
+	Id                           string   `json:"id"`
+	Name                         string   `json:"name"`
+	Physicalnetworkid            string   `json:"physicalnetworkid"`
+	Servicelist                  []string `json:"servicelist"`
+	State                        string   `json:"state"`
+}
+
+type NetworkOfferingServiceInternalCapability struct {
+	Canchooseservicecapability bool   `json:"canchooseservicecapability"`
+	Name                       string `json:"name"`
+	Value                      string `json:"value"`
 }
 
 type UpdateNetworkOfferingParams struct {
@@ -932,42 +944,48 @@ func (s *NetworkOfferingService) UpdateNetworkOffering(p *UpdateNetworkOfferingP
 }
 
 type UpdateNetworkOfferingResponse struct {
-	Availability        string            `json:"availability"`
-	Conservemode        bool              `json:"conservemode"`
-	Created             string            `json:"created"`
-	Details             map[string]string `json:"details"`
-	Displaytext         string            `json:"displaytext"`
-	Egressdefaultpolicy bool              `json:"egressdefaultpolicy"`
-	Forvpc              bool              `json:"forvpc"`
-	Guestiptype         string            `json:"guestiptype"`
-	Id                  string            `json:"id"`
-	Isdefault           bool              `json:"isdefault"`
-	Ispersistent        bool              `json:"ispersistent"`
-	Maxconnections      int               `json:"maxconnections"`
-	Name                string            `json:"name"`
-	Networkrate         int               `json:"networkrate"`
-	Service             []struct {
-		Capability []struct {
-			Canchooseservicecapability bool   `json:"canchooseservicecapability"`
-			Name                       string `json:"name"`
-			Value                      string `json:"value"`
-		} `json:"capability"`
-		Name     string `json:"name"`
-		Provider []struct {
-			Canenableindividualservice   bool     `json:"canenableindividualservice"`
-			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
-			Id                           string   `json:"id"`
-			Name                         string   `json:"name"`
-			Physicalnetworkid            string   `json:"physicalnetworkid"`
-			Servicelist                  []string `json:"servicelist"`
-			State                        string   `json:"state"`
-		} `json:"provider"`
-	} `json:"service"`
-	Serviceofferingid        string `json:"serviceofferingid"`
-	Specifyipranges          bool   `json:"specifyipranges"`
-	Specifyvlan              bool   `json:"specifyvlan"`
-	State                    string `json:"state"`
-	Supportsstrechedl2subnet bool   `json:"supportsstrechedl2subnet"`
-	Tags                     string `json:"tags"`
-	Traffictype              string `json:"traffictype"`
+	Availability             string                                 `json:"availability"`
+	Conservemode             bool                                   `json:"conservemode"`
+	Created                  string                                 `json:"created"`
+	Details                  map[string]string                      `json:"details"`
+	Displaytext              string                                 `json:"displaytext"`
+	Egressdefaultpolicy      bool                                   `json:"egressdefaultpolicy"`
+	Forvpc                   bool                                   `json:"forvpc"`
+	Guestiptype              string                                 `json:"guestiptype"`
+	Id                       string                                 `json:"id"`
+	Isdefault                bool                                   `json:"isdefault"`
+	Ispersistent             bool                                   `json:"ispersistent"`
+	Maxconnections           int                                    `json:"maxconnections"`
+	Name                     string                                 `json:"name"`
+	Networkrate              int                                    `json:"networkrate"`
+	Service                  []UpdateNetworkOfferingResponseService `json:"service"`
+	Serviceofferingid        string                                 `json:"serviceofferingid"`
+	Specifyipranges          bool                                   `json:"specifyipranges"`
+	Specifyvlan              bool                                   `json:"specifyvlan"`
+	State                    string                                 `json:"state"`
+	Supportsstrechedl2subnet bool                                   `json:"supportsstrechedl2subnet"`
+	Tags                     string                                 `json:"tags"`
+	Traffictype              string                                 `json:"traffictype"`
+}
+
+type UpdateNetworkOfferingResponseService struct {
+	Capability []UpdateNetworkOfferingResponseServiceCapability `json:"capability"`
+	Name       string                                           `json:"name"`
+	Provider   []UpdateNetworkOfferingResponseServiceProvider   `json:"provider"`
+}
+
+type UpdateNetworkOfferingResponseServiceCapability struct {
+	Canchooseservicecapability bool   `json:"canchooseservicecapability"`
+	Name                       string `json:"name"`
+	Value                      string `json:"value"`
+}
+
+type UpdateNetworkOfferingResponseServiceProvider struct {
+	Canenableindividualservice   bool     `json:"canenableindividualservice"`
+	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
+	Id                           string   `json:"id"`
+	Name                         string   `json:"name"`
+	Physicalnetworkid            string   `json:"physicalnetworkid"`
+	Servicelist                  []string `json:"servicelist"`
+	State                        string   `json:"state"`
 }
