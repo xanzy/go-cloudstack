@@ -79,7 +79,7 @@ func (s *OutofbandManagementService) ChangeOutOfBandManagementPassword(p *Change
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -101,13 +101,14 @@ func (s *OutofbandManagementService) ChangeOutOfBandManagementPassword(p *Change
 }
 
 type ChangeOutOfBandManagementPasswordResponse struct {
-	JobID       string `json:"jobid"`
 	Action      string `json:"action"`
 	Address     string `json:"address"`
 	Description string `json:"description"`
 	Driver      string `json:"driver"`
 	Enabled     bool   `json:"enabled"`
 	Hostid      string `json:"hostid"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Password    string `json:"password"`
 	Port        string `json:"port"`
 	Powerstate  string `json:"powerstate"`
@@ -229,6 +230,8 @@ type OutOfBandManagementResponse struct {
 	Driver      string `json:"driver"`
 	Enabled     bool   `json:"enabled"`
 	Hostid      string `json:"hostid"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Password    string `json:"password"`
 	Port        string `json:"port"`
 	Powerstate  string `json:"powerstate"`
@@ -306,7 +309,7 @@ func (s *OutofbandManagementService) IssueOutOfBandManagementPowerAction(p *Issu
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -328,13 +331,14 @@ func (s *OutofbandManagementService) IssueOutOfBandManagementPowerAction(p *Issu
 }
 
 type IssueOutOfBandManagementPowerActionResponse struct {
-	JobID       string `json:"jobid"`
 	Action      string `json:"action"`
 	Address     string `json:"address"`
 	Description string `json:"description"`
 	Driver      string `json:"driver"`
 	Enabled     bool   `json:"enabled"`
 	Hostid      string `json:"hostid"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Password    string `json:"password"`
 	Port        string `json:"port"`
 	Powerstate  string `json:"powerstate"`

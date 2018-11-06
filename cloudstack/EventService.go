@@ -106,6 +106,8 @@ func (s *EventService) ArchiveEvents(p *ArchiveEventsParams) (*ArchiveEventsResp
 
 type ArchiveEventsResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -210,6 +212,8 @@ func (s *EventService) DeleteEvents(p *DeleteEventsParams) (*DeleteEventsRespons
 
 type DeleteEventsResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -273,7 +277,9 @@ type ListEventTypesResponse struct {
 }
 
 type EventType struct {
-	Name string `json:"name"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
 }
 
 type ListEventsParams struct {
@@ -332,6 +338,9 @@ func (p *ListEventsParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["startdate"]; found {
 		u.Set("startdate", v.(string))
+	}
+	if v, found := p.p["startid"]; found {
+		u.Set("startid", v.(string))
 	}
 	if v, found := p.p["type"]; found {
 		u.Set("type", v.(string))
@@ -451,6 +460,14 @@ func (p *ListEventsParams) SetStartdate(v string) {
 	return
 }
 
+func (p *ListEventsParams) SetStartid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["startid"] = v
+	return
+}
+
 func (p *ListEventsParams) SetType(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -527,6 +544,8 @@ type Event struct {
 	Domain      string `json:"domain"`
 	Domainid    string `json:"domainid"`
 	Id          string `json:"id"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Level       string `json:"level"`
 	Parentid    string `json:"parentid"`
 	Project     string `json:"project"`

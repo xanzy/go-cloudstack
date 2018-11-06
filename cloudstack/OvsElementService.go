@@ -83,7 +83,7 @@ func (s *OvsElementService) ConfigureOvsElement(p *ConfigureOvsElementParams) (*
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -105,12 +105,13 @@ func (s *OvsElementService) ConfigureOvsElement(p *ConfigureOvsElementParams) (*
 }
 
 type OvsElementResponse struct {
-	JobID     string `json:"jobid"`
 	Account   string `json:"account"`
 	Domain    string `json:"domain"`
 	Domainid  string `json:"domainid"`
 	Enabled   bool   `json:"enabled"`
 	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Nspid     string `json:"nspid"`
 	Project   string `json:"project"`
 	Projectid string `json:"projectid"`
@@ -264,6 +265,8 @@ type OvsElement struct {
 	Domainid  string `json:"domainid"`
 	Enabled   bool   `json:"enabled"`
 	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Nspid     string `json:"nspid"`
 	Project   string `json:"project"`
 	Projectid string `json:"projectid"`

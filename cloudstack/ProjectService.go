@@ -70,7 +70,7 @@ func (s *ProjectService) ActivateProject(p *ActivateProjectParams) (*ActivatePro
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -92,7 +92,6 @@ func (s *ProjectService) ActivateProject(p *ActivateProjectParams) (*ActivatePro
 }
 
 type ActivateProjectResponse struct {
-	JobID                     string  `json:"jobid"`
 	Account                   string  `json:"account"`
 	Cpuavailable              string  `json:"cpuavailable"`
 	Cpulimit                  string  `json:"cpulimit"`
@@ -104,6 +103,8 @@ type ActivateProjectResponse struct {
 	Ipavailable               string  `json:"ipavailable"`
 	Iplimit                   string  `json:"iplimit"`
 	Iptotal                   int64   `json:"iptotal"`
+	Jobid                     string  `json:"jobid"`
+	Jobstatus                 int     `json:"jobstatus"`
 	Memoryavailable           string  `json:"memoryavailable"`
 	Memorylimit               string  `json:"memorylimit"`
 	Memorytotal               int64   `json:"memorytotal"`
@@ -114,6 +115,7 @@ type ActivateProjectResponse struct {
 	Primarystorageavailable   string  `json:"primarystorageavailable"`
 	Primarystoragelimit       string  `json:"primarystoragelimit"`
 	Primarystoragetotal       int64   `json:"primarystoragetotal"`
+	Projectaccountname        string  `json:"projectaccountname"`
 	Secondarystorageavailable string  `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string  `json:"secondarystoragelimit"`
 	Secondarystoragetotal     float64 `json:"secondarystoragetotal"`
@@ -229,7 +231,7 @@ func (s *ProjectService) CreateProject(p *CreateProjectParams) (*CreateProjectRe
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -251,7 +253,6 @@ func (s *ProjectService) CreateProject(p *CreateProjectParams) (*CreateProjectRe
 }
 
 type CreateProjectResponse struct {
-	JobID                     string  `json:"jobid"`
 	Account                   string  `json:"account"`
 	Cpuavailable              string  `json:"cpuavailable"`
 	Cpulimit                  string  `json:"cpulimit"`
@@ -263,6 +264,8 @@ type CreateProjectResponse struct {
 	Ipavailable               string  `json:"ipavailable"`
 	Iplimit                   string  `json:"iplimit"`
 	Iptotal                   int64   `json:"iptotal"`
+	Jobid                     string  `json:"jobid"`
+	Jobstatus                 int     `json:"jobstatus"`
 	Memoryavailable           string  `json:"memoryavailable"`
 	Memorylimit               string  `json:"memorylimit"`
 	Memorytotal               int64   `json:"memorytotal"`
@@ -273,6 +276,7 @@ type CreateProjectResponse struct {
 	Primarystorageavailable   string  `json:"primarystorageavailable"`
 	Primarystoragelimit       string  `json:"primarystoragelimit"`
 	Primarystoragetotal       int64   `json:"primarystoragetotal"`
+	Projectaccountname        string  `json:"projectaccountname"`
 	Secondarystorageavailable string  `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string  `json:"secondarystoragelimit"`
 	Secondarystoragetotal     float64 `json:"secondarystoragetotal"`
@@ -354,7 +358,7 @@ func (s *ProjectService) DeleteProject(p *DeleteProjectParams) (*DeleteProjectRe
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -371,8 +375,9 @@ func (s *ProjectService) DeleteProject(p *DeleteProjectParams) (*DeleteProjectRe
 }
 
 type DeleteProjectResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -422,7 +427,7 @@ func (s *ProjectService) DeleteProjectInvitation(p *DeleteProjectInvitationParam
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -439,8 +444,9 @@ func (s *ProjectService) DeleteProjectInvitation(p *DeleteProjectInvitationParam
 }
 
 type DeleteProjectInvitationResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -649,6 +655,8 @@ type ProjectInvitation struct {
 	Domainid  string `json:"domainid"`
 	Email     string `json:"email"`
 	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Project   string `json:"project"`
 	Projectid string `json:"projectid"`
 	State     string `json:"state"`
@@ -930,6 +938,8 @@ type Project struct {
 	Ipavailable               string  `json:"ipavailable"`
 	Iplimit                   string  `json:"iplimit"`
 	Iptotal                   int64   `json:"iptotal"`
+	Jobid                     string  `json:"jobid"`
+	Jobstatus                 int     `json:"jobstatus"`
 	Memoryavailable           string  `json:"memoryavailable"`
 	Memorylimit               string  `json:"memorylimit"`
 	Memorytotal               int64   `json:"memorytotal"`
@@ -940,6 +950,7 @@ type Project struct {
 	Primarystorageavailable   string  `json:"primarystorageavailable"`
 	Primarystoragelimit       string  `json:"primarystoragelimit"`
 	Primarystoragetotal       int64   `json:"primarystoragetotal"`
+	Projectaccountname        string  `json:"projectaccountname"`
 	Secondarystorageavailable string  `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string  `json:"secondarystoragelimit"`
 	Secondarystoragetotal     float64 `json:"secondarystoragetotal"`
@@ -1021,7 +1032,7 @@ func (s *ProjectService) SuspendProject(p *SuspendProjectParams) (*SuspendProjec
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1043,7 +1054,6 @@ func (s *ProjectService) SuspendProject(p *SuspendProjectParams) (*SuspendProjec
 }
 
 type SuspendProjectResponse struct {
-	JobID                     string  `json:"jobid"`
 	Account                   string  `json:"account"`
 	Cpuavailable              string  `json:"cpuavailable"`
 	Cpulimit                  string  `json:"cpulimit"`
@@ -1055,6 +1065,8 @@ type SuspendProjectResponse struct {
 	Ipavailable               string  `json:"ipavailable"`
 	Iplimit                   string  `json:"iplimit"`
 	Iptotal                   int64   `json:"iptotal"`
+	Jobid                     string  `json:"jobid"`
+	Jobstatus                 int     `json:"jobstatus"`
 	Memoryavailable           string  `json:"memoryavailable"`
 	Memorylimit               string  `json:"memorylimit"`
 	Memorytotal               int64   `json:"memorytotal"`
@@ -1065,6 +1077,7 @@ type SuspendProjectResponse struct {
 	Primarystorageavailable   string  `json:"primarystorageavailable"`
 	Primarystoragelimit       string  `json:"primarystoragelimit"`
 	Primarystoragetotal       int64   `json:"primarystoragetotal"`
+	Projectaccountname        string  `json:"projectaccountname"`
 	Secondarystorageavailable string  `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string  `json:"secondarystoragelimit"`
 	Secondarystoragetotal     float64 `json:"secondarystoragetotal"`
@@ -1168,7 +1181,7 @@ func (s *ProjectService) UpdateProject(p *UpdateProjectParams) (*UpdateProjectRe
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1190,7 +1203,6 @@ func (s *ProjectService) UpdateProject(p *UpdateProjectParams) (*UpdateProjectRe
 }
 
 type UpdateProjectResponse struct {
-	JobID                     string  `json:"jobid"`
 	Account                   string  `json:"account"`
 	Cpuavailable              string  `json:"cpuavailable"`
 	Cpulimit                  string  `json:"cpulimit"`
@@ -1202,6 +1214,8 @@ type UpdateProjectResponse struct {
 	Ipavailable               string  `json:"ipavailable"`
 	Iplimit                   string  `json:"iplimit"`
 	Iptotal                   int64   `json:"iptotal"`
+	Jobid                     string  `json:"jobid"`
+	Jobstatus                 int     `json:"jobstatus"`
 	Memoryavailable           string  `json:"memoryavailable"`
 	Memorylimit               string  `json:"memorylimit"`
 	Memorytotal               int64   `json:"memorytotal"`
@@ -1212,6 +1226,7 @@ type UpdateProjectResponse struct {
 	Primarystorageavailable   string  `json:"primarystorageavailable"`
 	Primarystoragelimit       string  `json:"primarystoragelimit"`
 	Primarystoragetotal       int64   `json:"primarystoragetotal"`
+	Projectaccountname        string  `json:"projectaccountname"`
 	Secondarystorageavailable string  `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string  `json:"secondarystoragelimit"`
 	Secondarystoragetotal     float64 `json:"secondarystoragetotal"`
@@ -1327,7 +1342,7 @@ func (s *ProjectService) UpdateProjectInvitation(p *UpdateProjectInvitationParam
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1344,7 +1359,8 @@ func (s *ProjectService) UpdateProjectInvitation(p *UpdateProjectInvitationParam
 }
 
 type UpdateProjectInvitationResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }

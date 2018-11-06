@@ -106,6 +106,8 @@ func (s *AlertService) ArchiveAlerts(p *ArchiveAlertsParams) (*ArchiveAlertsResp
 
 type ArchiveAlertsResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -210,6 +212,8 @@ func (s *AlertService) DeleteAlerts(p *DeleteAlertsParams) (*DeleteAlertsRespons
 
 type DeleteAlertsResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -325,7 +329,7 @@ func (s *AlertService) GenerateAlert(p *GenerateAlertParams) (*GenerateAlertResp
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -342,8 +346,9 @@ func (s *AlertService) GenerateAlert(p *GenerateAlertParams) (*GenerateAlertResp
 }
 
 type GenerateAlertResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -541,6 +546,8 @@ type ListAlertsResponse struct {
 type Alert struct {
 	Description string `json:"description"`
 	Id          string `json:"id"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Name        string `json:"name"`
 	Sent        string `json:"sent"`
 	Type        int    `json:"type"`

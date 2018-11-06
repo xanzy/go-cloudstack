@@ -63,6 +63,8 @@ type GetApiLimitResponse struct {
 	ApiAllowed  int    `json:"apiAllowed"`
 	ApiIssued   int    `json:"apiIssued"`
 	ExpireAfter int64  `json:"expireAfter"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 }
 
 type ListResourceLimitsParams struct {
@@ -109,6 +111,9 @@ func (p *ListResourceLimitsParams) toURLValues() url.Values {
 	if v, found := p.p["resourcetype"]; found {
 		vv := strconv.Itoa(v.(int))
 		u.Set("resourcetype", vv)
+	}
+	if v, found := p.p["resourcetypename"]; found {
+		u.Set("resourcetypename", v.(string))
 	}
 	return u
 }
@@ -193,6 +198,14 @@ func (p *ListResourceLimitsParams) SetResourcetype(v int) {
 	return
 }
 
+func (p *ListResourceLimitsParams) SetResourcetypename(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["resourcetypename"] = v
+	return
+}
+
 // You should always use this function to get a new ListResourceLimitsParams instance,
 // as then you are sure you have configured all required params
 func (s *LimitService) NewListResourceLimitsParams() *ListResourceLimitsParams {
@@ -222,13 +235,16 @@ type ListResourceLimitsResponse struct {
 }
 
 type ResourceLimit struct {
-	Account      string `json:"account"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Max          int64  `json:"max"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourcetype string `json:"resourcetype"`
+	Account          string `json:"account"`
+	Domain           string `json:"domain"`
+	Domainid         string `json:"domainid"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
+	Max              int64  `json:"max"`
+	Project          string `json:"project"`
+	Projectid        string `json:"projectid"`
+	Resourcetype     string `json:"resourcetype"`
+	Resourcetypename string `json:"resourcetypename"`
 }
 
 type ResetApiLimitParams struct {
@@ -283,6 +299,8 @@ type ResetApiLimitResponse struct {
 	ApiAllowed  int    `json:"apiAllowed"`
 	ApiIssued   int    `json:"apiIssued"`
 	ExpireAfter int64  `json:"expireAfter"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 }
 
 type UpdateResourceCountParams struct {
@@ -367,13 +385,16 @@ func (s *LimitService) UpdateResourceCount(p *UpdateResourceCountParams) (*Updat
 }
 
 type UpdateResourceCountResponse struct {
-	Account       string `json:"account"`
-	Domain        string `json:"domain"`
-	Domainid      string `json:"domainid"`
-	Project       string `json:"project"`
-	Projectid     string `json:"projectid"`
-	Resourcecount int64  `json:"resourcecount"`
-	Resourcetype  string `json:"resourcetype"`
+	Account          string `json:"account"`
+	Domain           string `json:"domain"`
+	Domainid         string `json:"domainid"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
+	Project          string `json:"project"`
+	Projectid        string `json:"projectid"`
+	Resourcecount    int64  `json:"resourcecount"`
+	Resourcetype     string `json:"resourcetype"`
+	Resourcetypename string `json:"resourcetypename"`
 }
 
 type UpdateResourceLimitParams struct {
@@ -470,11 +491,14 @@ func (s *LimitService) UpdateResourceLimit(p *UpdateResourceLimitParams) (*Updat
 }
 
 type UpdateResourceLimitResponse struct {
-	Account      string `json:"account"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Max          int64  `json:"max"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourcetype string `json:"resourcetype"`
+	Account          string `json:"account"`
+	Domain           string `json:"domain"`
+	Domainid         string `json:"domainid"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
+	Max              int64  `json:"max"`
+	Project          string `json:"project"`
+	Projectid        string `json:"projectid"`
+	Resourcetype     string `json:"resourcetype"`
+	Resourcetypename string `json:"resourcetypename"`
 }

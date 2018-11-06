@@ -138,7 +138,7 @@ func (s *NiciraNVPService) AddNiciraNvpDevice(p *AddNiciraNvpDeviceParams) (*Add
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -160,8 +160,9 @@ func (s *NiciraNVPService) AddNiciraNvpDevice(p *AddNiciraNvpDeviceParams) (*Add
 }
 
 type AddNiciraNvpDeviceResponse struct {
-	JobID                string `json:"jobid"`
 	Hostname             string `json:"hostname"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	L2gatewayserviceuuid string `json:"l2gatewayserviceuuid"`
 	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid"`
 	Niciradevicename     string `json:"niciradevicename"`
@@ -217,7 +218,7 @@ func (s *NiciraNVPService) DeleteNiciraNvpDevice(p *DeleteNiciraNvpDeviceParams)
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -234,8 +235,9 @@ func (s *NiciraNVPService) DeleteNiciraNvpDevice(p *DeleteNiciraNvpDeviceParams)
 }
 
 type DeleteNiciraNvpDeviceResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -338,6 +340,8 @@ type ListNiciraNvpDevicesResponse struct {
 
 type NiciraNvpDevice struct {
 	Hostname             string `json:"hostname"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	L2gatewayserviceuuid string `json:"l2gatewayserviceuuid"`
 	L3gatewayserviceuuid string `json:"l3gatewayserviceuuid"`
 	Niciradevicename     string `json:"niciradevicename"`

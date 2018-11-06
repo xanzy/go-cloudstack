@@ -117,7 +117,7 @@ func (s *BigSwitchBCFService) AddBigSwitchBcfDevice(p *AddBigSwitchBcfDevicePara
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -139,10 +139,11 @@ func (s *BigSwitchBCFService) AddBigSwitchBcfDevice(p *AddBigSwitchBcfDevicePara
 }
 
 type AddBigSwitchBcfDeviceResponse struct {
-	JobID               string `json:"jobid"`
 	Bcfdeviceid         string `json:"bcfdeviceid"`
 	Bigswitchdevicename string `json:"bigswitchdevicename"`
 	Hostname            string `json:"hostname"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Nat                 bool   `json:"nat"`
 	Password            string `json:"password"`
 	Physicalnetworkid   string `json:"physicalnetworkid"`
@@ -196,7 +197,7 @@ func (s *BigSwitchBCFService) DeleteBigSwitchBcfDevice(p *DeleteBigSwitchBcfDevi
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -213,8 +214,9 @@ func (s *BigSwitchBCFService) DeleteBigSwitchBcfDevice(p *DeleteBigSwitchBcfDevi
 }
 
 type DeleteBigSwitchBcfDeviceResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -319,6 +321,8 @@ type BigSwitchBcfDevice struct {
 	Bcfdeviceid         string `json:"bcfdeviceid"`
 	Bigswitchdevicename string `json:"bigswitchdevicename"`
 	Hostname            string `json:"hostname"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Nat                 bool   `json:"nat"`
 	Password            string `json:"password"`
 	Physicalnetworkid   string `json:"physicalnetworkid"`

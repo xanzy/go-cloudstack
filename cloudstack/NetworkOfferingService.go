@@ -54,6 +54,10 @@ func (p *CreateNetworkOfferingParams) toURLValues() url.Values {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("egressdefaultpolicy", vv)
 	}
+	if v, found := p.p["forvpc"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("forvpc", vv)
+	}
 	if v, found := p.p["guestiptype"]; found {
 		u.Set("guestiptype", v.(string))
 	}
@@ -153,6 +157,14 @@ func (p *CreateNetworkOfferingParams) SetEgressdefaultpolicy(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["egressdefaultpolicy"] = v
+	return
+}
+
+func (p *CreateNetworkOfferingParams) SetForvpc(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forvpc"] = v
 	return
 }
 
@@ -312,6 +324,8 @@ type CreateNetworkOfferingResponse struct {
 	Id                  string            `json:"id"`
 	Isdefault           bool              `json:"isdefault"`
 	Ispersistent        bool              `json:"ispersistent"`
+	Jobid               string            `json:"jobid"`
+	Jobstatus           int               `json:"jobstatus"`
 	Maxconnections      int               `json:"maxconnections"`
 	Name                string            `json:"name"`
 	Networkrate         int               `json:"networkrate"`
@@ -336,6 +350,7 @@ type CreateNetworkOfferingResponse struct {
 	Specifyipranges          bool   `json:"specifyipranges"`
 	Specifyvlan              bool   `json:"specifyvlan"`
 	State                    string `json:"state"`
+	Supportspublicaccess     bool   `json:"supportspublicaccess"`
 	Supportsstrechedl2subnet bool   `json:"supportsstrechedl2subnet"`
 	Tags                     string `json:"tags"`
 	Traffictype              string `json:"traffictype"`
@@ -390,6 +405,8 @@ func (s *NetworkOfferingService) DeleteNetworkOffering(p *DeleteNetworkOfferingP
 
 type DeleteNetworkOfferingResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -776,6 +793,8 @@ type NetworkOffering struct {
 	Id                  string            `json:"id"`
 	Isdefault           bool              `json:"isdefault"`
 	Ispersistent        bool              `json:"ispersistent"`
+	Jobid               string            `json:"jobid"`
+	Jobstatus           int               `json:"jobstatus"`
 	Maxconnections      int               `json:"maxconnections"`
 	Name                string            `json:"name"`
 	Networkrate         int               `json:"networkrate"`
@@ -800,6 +819,7 @@ type NetworkOffering struct {
 	Specifyipranges          bool   `json:"specifyipranges"`
 	Specifyvlan              bool   `json:"specifyvlan"`
 	State                    string `json:"state"`
+	Supportspublicaccess     bool   `json:"supportspublicaccess"`
 	Supportsstrechedl2subnet bool   `json:"supportsstrechedl2subnet"`
 	Tags                     string `json:"tags"`
 	Traffictype              string `json:"traffictype"`
@@ -840,6 +860,9 @@ func (p *UpdateNetworkOfferingParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["state"]; found {
 		u.Set("state", v.(string))
+	}
+	if v, found := p.p["tags"]; found {
+		u.Set("tags", v.(string))
 	}
 	return u
 }
@@ -908,6 +931,14 @@ func (p *UpdateNetworkOfferingParams) SetState(v string) {
 	return
 }
 
+func (p *UpdateNetworkOfferingParams) SetTags(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["tags"] = v
+	return
+}
+
 // You should always use this function to get a new UpdateNetworkOfferingParams instance,
 // as then you are sure you have configured all required params
 func (s *NetworkOfferingService) NewUpdateNetworkOfferingParams() *UpdateNetworkOfferingParams {
@@ -943,6 +974,8 @@ type UpdateNetworkOfferingResponse struct {
 	Id                  string            `json:"id"`
 	Isdefault           bool              `json:"isdefault"`
 	Ispersistent        bool              `json:"ispersistent"`
+	Jobid               string            `json:"jobid"`
+	Jobstatus           int               `json:"jobstatus"`
 	Maxconnections      int               `json:"maxconnections"`
 	Name                string            `json:"name"`
 	Networkrate         int               `json:"networkrate"`
@@ -967,6 +1000,7 @@ type UpdateNetworkOfferingResponse struct {
 	Specifyipranges          bool   `json:"specifyipranges"`
 	Specifyvlan              bool   `json:"specifyvlan"`
 	State                    string `json:"state"`
+	Supportspublicaccess     bool   `json:"supportspublicaccess"`
 	Supportsstrechedl2subnet bool   `json:"supportsstrechedl2subnet"`
 	Tags                     string `json:"tags"`
 	Traffictype              string `json:"traffictype"`

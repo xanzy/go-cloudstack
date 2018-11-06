@@ -109,7 +109,7 @@ func (s *ResourcemetadataService) AddResourceDetail(p *AddResourceDetailParams) 
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -126,8 +126,9 @@ func (s *ResourcemetadataService) AddResourceDetail(p *AddResourceDetailParams) 
 }
 
 type AddResourceDetailResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -179,6 +180,8 @@ func (s *ResourcemetadataService) GetVolumeSnapshotDetails(p *GetVolumeSnapshotD
 }
 
 type GetVolumeSnapshotDetailsResponse struct {
+	Jobid           string `json:"jobid"`
+	Jobstatus       int    `json:"jobstatus"`
 	VolumeiScsiName string `json:"volumeiScsiName"`
 }
 
@@ -376,6 +379,8 @@ type ResourceDetail struct {
 	Customer     string `json:"customer"`
 	Domain       string `json:"domain"`
 	Domainid     string `json:"domainid"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
 	Key          string `json:"key"`
 	Project      string `json:"project"`
 	Projectid    string `json:"projectid"`
@@ -453,7 +458,7 @@ func (s *ResourcemetadataService) RemoveResourceDetail(p *RemoveResourceDetailPa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -470,7 +475,8 @@ func (s *ResourcemetadataService) RemoveResourceDetail(p *RemoveResourceDetailPa
 }
 
 type RemoveResourceDetailResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }

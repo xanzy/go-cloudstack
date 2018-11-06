@@ -109,6 +109,8 @@ func (s *ExtLoadBalancerService) AddExternalLoadBalancer(p *AddExternalLoadBalan
 type AddExternalLoadBalancerResponse struct {
 	Id               string `json:"id"`
 	Ipaddress        string `json:"ipaddress"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Numretries       string `json:"numretries"`
 	Privateinterface string `json:"privateinterface"`
 	Publicinterface  string `json:"publicinterface"`
@@ -165,6 +167,8 @@ func (s *ExtLoadBalancerService) DeleteExternalLoadBalancer(p *DeleteExternalLoa
 
 type DeleteExternalLoadBalancerResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -310,6 +314,7 @@ type ListExternalLoadBalancersResponse struct {
 }
 
 type ExternalLoadBalancer struct {
+	Annotation              string            `json:"annotation"`
 	Averageload             int64             `json:"averageload"`
 	Capabilities            string            `json:"capabilities"`
 	Clusterid               string            `json:"clusterid"`
@@ -340,33 +345,39 @@ type ExternalLoadBalancer struct {
 			Videoram          int64  `json:"videoram"`
 		} `json:"vgpu"`
 	} `json:"gpugroup"`
-	Hahost               bool                        `json:"hahost"`
-	Hasenoughcapacity    bool                        `json:"hasenoughcapacity"`
-	Hosttags             string                      `json:"hosttags"`
-	Hypervisor           string                      `json:"hypervisor"`
-	Hypervisorversion    string                      `json:"hypervisorversion"`
-	Id                   string                      `json:"id"`
-	Ipaddress            string                      `json:"ipaddress"`
-	Islocalstorageactive bool                        `json:"islocalstorageactive"`
-	Lastpinged           string                      `json:"lastpinged"`
-	Managementserverid   int64                       `json:"managementserverid"`
-	Memoryallocated      int64                       `json:"memoryallocated"`
-	Memorytotal          int64                       `json:"memorytotal"`
-	Memoryused           int64                       `json:"memoryused"`
-	Name                 string                      `json:"name"`
-	Networkkbsread       int64                       `json:"networkkbsread"`
-	Networkkbswrite      int64                       `json:"networkkbswrite"`
-	Oscategoryid         string                      `json:"oscategoryid"`
-	Oscategoryname       string                      `json:"oscategoryname"`
-	Outofbandmanagement  OutOfBandManagementResponse `json:"outofbandmanagement"`
-	Podid                string                      `json:"podid"`
-	Podname              string                      `json:"podname"`
-	Removed              string                      `json:"removed"`
-	Resourcestate        string                      `json:"resourcestate"`
-	State                string                      `json:"state"`
-	Suitableformigration bool                        `json:"suitableformigration"`
-	Type                 string                      `json:"type"`
-	Version              string                      `json:"version"`
-	Zoneid               string                      `json:"zoneid"`
-	Zonename             string                      `json:"zonename"`
+	Hahost                     bool                        `json:"hahost"`
+	Hasenoughcapacity          bool                        `json:"hasenoughcapacity"`
+	Hostha                     string                      `json:"hostha"`
+	Hosttags                   string                      `json:"hosttags"`
+	Hypervisor                 string                      `json:"hypervisor"`
+	Hypervisorversion          string                      `json:"hypervisorversion"`
+	Id                         string                      `json:"id"`
+	Ipaddress                  string                      `json:"ipaddress"`
+	Islocalstorageactive       bool                        `json:"islocalstorageactive"`
+	Jobid                      string                      `json:"jobid"`
+	Jobstatus                  int                         `json:"jobstatus"`
+	Lastannotated              string                      `json:"lastannotated"`
+	Lastpinged                 string                      `json:"lastpinged"`
+	Managementserverid         int64                       `json:"managementserverid"`
+	Memoryallocated            int64                       `json:"memoryallocated"`
+	Memorytotal                int64                       `json:"memorytotal"`
+	Memoryused                 int64                       `json:"memoryused"`
+	Memorywithoverprovisioning string                      `json:"memorywithoverprovisioning"`
+	Name                       string                      `json:"name"`
+	Networkkbsread             int64                       `json:"networkkbsread"`
+	Networkkbswrite            int64                       `json:"networkkbswrite"`
+	Oscategoryid               string                      `json:"oscategoryid"`
+	Oscategoryname             string                      `json:"oscategoryname"`
+	Outofbandmanagement        OutOfBandManagementResponse `json:"outofbandmanagement"`
+	Podid                      string                      `json:"podid"`
+	Podname                    string                      `json:"podname"`
+	Removed                    string                      `json:"removed"`
+	Resourcestate              string                      `json:"resourcestate"`
+	State                      string                      `json:"state"`
+	Suitableformigration       bool                        `json:"suitableformigration"`
+	Type                       string                      `json:"type"`
+	Username                   string                      `json:"username"`
+	Version                    string                      `json:"version"`
+	Zoneid                     string                      `json:"zoneid"`
+	Zonename                   string                      `json:"zonename"`
 }

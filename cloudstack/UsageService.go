@@ -107,6 +107,8 @@ func (s *UsageService) AddTrafficMonitor(p *AddTrafficMonitorParams) (*AddTraffi
 type AddTrafficMonitorResponse struct {
 	Id         string `json:"id"`
 	Ipaddress  string `json:"ipaddress"`
+	Jobid      string `json:"jobid"`
+	Jobstatus  int    `json:"jobstatus"`
 	Numretries string `json:"numretries"`
 	Timeout    string `json:"timeout"`
 	Zoneid     string `json:"zoneid"`
@@ -247,7 +249,7 @@ func (s *UsageService) AddTrafficType(p *AddTrafficTypeParams) (*AddTrafficTypeR
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -269,9 +271,10 @@ func (s *UsageService) AddTrafficType(p *AddTrafficTypeParams) (*AddTrafficTypeR
 }
 
 type AddTrafficTypeResponse struct {
-	JobID              string `json:"jobid"`
 	Hypervnetworklabel string `json:"hypervnetworklabel"`
 	Id                 string `json:"id"`
+	Jobid              string `json:"jobid"`
+	Jobstatus          int    `json:"jobstatus"`
 	Kvmnetworklabel    string `json:"kvmnetworklabel"`
 	Ovm3networklabel   string `json:"ovm3networklabel"`
 	Physicalnetworkid  string `json:"physicalnetworkid"`
@@ -329,6 +332,8 @@ func (s *UsageService) DeleteTrafficMonitor(p *DeleteTrafficMonitorParams) (*Del
 
 type DeleteTrafficMonitorResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -397,7 +402,7 @@ func (s *UsageService) DeleteTrafficType(p *DeleteTrafficTypeParams) (*DeleteTra
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -414,8 +419,9 @@ func (s *UsageService) DeleteTrafficType(p *DeleteTrafficTypeParams) (*DeleteTra
 }
 
 type DeleteTrafficTypeResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -491,6 +497,8 @@ func (s *UsageService) GenerateUsageRecords(p *GenerateUsageRecordsParams) (*Gen
 
 type GenerateUsageRecordsResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -603,6 +611,8 @@ type ListTrafficMonitorsResponse struct {
 type TrafficMonitor struct {
 	Id         string `json:"id"`
 	Ipaddress  string `json:"ipaddress"`
+	Jobid      string `json:"jobid"`
+	Jobstatus  int    `json:"jobstatus"`
 	Numretries string `json:"numretries"`
 	Timeout    string `json:"timeout"`
 	Zoneid     string `json:"zoneid"`
@@ -695,6 +705,8 @@ type ListTrafficTypeImplementorsResponse struct {
 }
 
 type TrafficTypeImplementor struct {
+	Jobid                  string `json:"jobid"`
+	Jobstatus              int    `json:"jobstatus"`
 	Traffictype            string `json:"traffictype"`
 	Traffictypeimplementor string `json:"traffictypeimplementor"`
 }
@@ -827,6 +839,8 @@ type TrafficType struct {
 	Canenableindividualservice   bool     `json:"canenableindividualservice"`
 	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
 	Id                           string   `json:"id"`
+	Jobid                        string   `json:"jobid"`
+	Jobstatus                    int      `json:"jobstatus"`
 	Name                         string   `json:"name"`
 	Physicalnetworkid            string   `json:"physicalnetworkid"`
 	Servicelist                  []string `json:"servicelist"`
@@ -853,6 +867,10 @@ func (p *ListUsageRecordsParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["enddate"]; found {
 		u.Set("enddate", v.(string))
+	}
+	if v, found := p.p["includetags"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("includetags", vv)
 	}
 	if v, found := p.p["keyword"]; found {
 		u.Set("keyword", v.(string))
@@ -910,6 +928,14 @@ func (p *ListUsageRecordsParams) SetEnddate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enddate"] = v
+	return
+}
+
+func (p *ListUsageRecordsParams) SetIncludetags(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["includetags"] = v
 	return
 }
 
@@ -1000,26 +1026,40 @@ type ListUsageRecordsResponse struct {
 }
 
 type UsageRecord struct {
-	Account          string `json:"account"`
-	Accountid        string `json:"accountid"`
-	Cpunumber        int64  `json:"cpunumber"`
-	Cpuspeed         int64  `json:"cpuspeed"`
-	Description      string `json:"description"`
-	Domain           string `json:"domain"`
-	Domainid         string `json:"domainid"`
-	Enddate          string `json:"enddate"`
-	Isdefault        bool   `json:"isdefault"`
-	Issourcenat      bool   `json:"issourcenat"`
-	Issystem         bool   `json:"issystem"`
-	Memory           int64  `json:"memory"`
-	Name             string `json:"name"`
-	Networkid        string `json:"networkid"`
-	Offeringid       string `json:"offeringid"`
-	Project          string `json:"project"`
-	Projectid        string `json:"projectid"`
-	Rawusage         string `json:"rawusage"`
-	Size             int64  `json:"size"`
-	Startdate        string `json:"startdate"`
+	Account     string `json:"account"`
+	Accountid   string `json:"accountid"`
+	Cpunumber   int64  `json:"cpunumber"`
+	Cpuspeed    int64  `json:"cpuspeed"`
+	Description string `json:"description"`
+	Domain      string `json:"domain"`
+	Domainid    string `json:"domainid"`
+	Enddate     string `json:"enddate"`
+	Isdefault   bool   `json:"isdefault"`
+	Issourcenat bool   `json:"issourcenat"`
+	Issystem    bool   `json:"issystem"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Memory      int64  `json:"memory"`
+	Name        string `json:"name"`
+	Networkid   string `json:"networkid"`
+	Offeringid  string `json:"offeringid"`
+	Project     string `json:"project"`
+	Projectid   string `json:"projectid"`
+	Rawusage    string `json:"rawusage"`
+	Size        int64  `json:"size"`
+	Startdate   string `json:"startdate"`
+	Tags        []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templateid       string `json:"templateid"`
 	Type             string `json:"type"`
 	Usage            string `json:"usage"`
@@ -1072,6 +1112,8 @@ type ListUsageTypesResponse struct {
 
 type UsageType struct {
 	Description string `json:"description"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Usagetypeid int    `json:"usagetypeid"`
 }
 
@@ -1125,6 +1167,8 @@ func (s *UsageService) RemoveRawUsageRecords(p *RemoveRawUsageRecordsParams) (*R
 
 type RemoveRawUsageRecordsResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1248,7 +1292,7 @@ func (s *UsageService) UpdateTrafficType(p *UpdateTrafficTypeParams) (*UpdateTra
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1270,9 +1314,10 @@ func (s *UsageService) UpdateTrafficType(p *UpdateTrafficTypeParams) (*UpdateTra
 }
 
 type UpdateTrafficTypeResponse struct {
-	JobID              string `json:"jobid"`
 	Hypervnetworklabel string `json:"hypervnetworklabel"`
 	Id                 string `json:"id"`
+	Jobid              string `json:"jobid"`
+	Jobstatus          int    `json:"jobstatus"`
 	Kvmnetworklabel    string `json:"kvmnetworklabel"`
 	Ovm3networklabel   string `json:"ovm3networklabel"`
 	Physicalnetworkid  string `json:"physicalnetworkid"`

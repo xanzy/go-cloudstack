@@ -130,7 +130,7 @@ func (s *PortableIPService) CreatePortableIpRange(p *CreatePortableIpRangeParams
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -152,10 +152,11 @@ func (s *PortableIPService) CreatePortableIpRange(p *CreatePortableIpRangeParams
 }
 
 type CreatePortableIpRangeResponse struct {
-	JobID             string `json:"jobid"`
 	Endip             string `json:"endip"`
 	Gateway           string `json:"gateway"`
 	Id                string `json:"id"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Netmask           string `json:"netmask"`
 	Portableipaddress []struct {
 		Accountid         string `json:"accountid"`
@@ -220,7 +221,7 @@ func (s *PortableIPService) DeletePortableIpRange(p *DeletePortableIpRangeParams
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -237,8 +238,9 @@ func (s *PortableIPService) DeletePortableIpRange(p *DeletePortableIpRangeParams
 }
 
 type DeletePortableIpRangeResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -377,6 +379,8 @@ type PortableIpRange struct {
 	Endip             string `json:"endip"`
 	Gateway           string `json:"gateway"`
 	Id                string `json:"id"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Netmask           string `json:"netmask"`
 	Portableipaddress []struct {
 		Accountid         string `json:"accountid"`

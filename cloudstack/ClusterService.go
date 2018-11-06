@@ -276,21 +276,25 @@ func (s *ClusterService) AddCluster(p *AddClusterParams) (*AddClusterResponse, e
 type AddClusterResponse struct {
 	Allocationstate string `json:"allocationstate"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal"`
-		Capacityused  int64  `json:"capacityused"`
-		Clusterid     string `json:"clusterid"`
-		Clustername   string `json:"clustername"`
-		Percentused   string `json:"percentused"`
-		Podid         string `json:"podid"`
-		Podname       string `json:"podname"`
-		Type          int    `json:"type"`
-		Zoneid        string `json:"zoneid"`
-		Zonename      string `json:"zonename"`
+		Capacityallocated int64  `json:"capacityallocated"`
+		Capacitytotal     int64  `json:"capacitytotal"`
+		Capacityused      int64  `json:"capacityused"`
+		Clusterid         string `json:"clusterid"`
+		Clustername       string `json:"clustername"`
+		Name              string `json:"name"`
+		Percentused       string `json:"percentused"`
+		Podid             string `json:"podid"`
+		Podname           string `json:"podname"`
+		Type              int    `json:"type"`
+		Zoneid            string `json:"zoneid"`
+		Zonename          string `json:"zonename"`
 	} `json:"capacity"`
 	Clustertype           string            `json:"clustertype"`
 	Cpuovercommitratio    string            `json:"cpuovercommitratio"`
 	Hypervisortype        string            `json:"hypervisortype"`
 	Id                    string            `json:"id"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Managedstate          string            `json:"managedstate"`
 	Memoryovercommitratio string            `json:"memoryovercommitratio"`
 	Name                  string            `json:"name"`
@@ -371,7 +375,7 @@ func (s *ClusterService) DedicateCluster(p *DedicateClusterParams) (*DedicateClu
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -393,13 +397,14 @@ func (s *ClusterService) DedicateCluster(p *DedicateClusterParams) (*DedicateClu
 }
 
 type DedicateClusterResponse struct {
-	JobID           string `json:"jobid"`
 	Accountid       string `json:"accountid"`
 	Affinitygroupid string `json:"affinitygroupid"`
 	Clusterid       string `json:"clusterid"`
 	Clustername     string `json:"clustername"`
 	Domainid        string `json:"domainid"`
 	Id              string `json:"id"`
+	Jobid           string `json:"jobid"`
+	Jobstatus       int    `json:"jobstatus"`
 }
 
 type DeleteClusterParams struct {
@@ -451,6 +456,8 @@ func (s *ClusterService) DeleteCluster(p *DeleteClusterParams) (*DeleteClusterRe
 
 type DeleteClusterResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -519,7 +526,7 @@ func (s *ClusterService) DisableOutOfBandManagementForCluster(p *DisableOutOfBan
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -541,13 +548,14 @@ func (s *ClusterService) DisableOutOfBandManagementForCluster(p *DisableOutOfBan
 }
 
 type DisableOutOfBandManagementForClusterResponse struct {
-	JobID       string `json:"jobid"`
 	Action      string `json:"action"`
 	Address     string `json:"address"`
 	Description string `json:"description"`
 	Driver      string `json:"driver"`
 	Enabled     bool   `json:"enabled"`
 	Hostid      string `json:"hostid"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Password    string `json:"password"`
 	Port        string `json:"port"`
 	Powerstate  string `json:"powerstate"`
@@ -601,7 +609,7 @@ func (s *ClusterService) EnableOutOfBandManagementForCluster(p *EnableOutOfBandM
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -623,13 +631,14 @@ func (s *ClusterService) EnableOutOfBandManagementForCluster(p *EnableOutOfBandM
 }
 
 type EnableOutOfBandManagementForClusterResponse struct {
-	JobID       string `json:"jobid"`
 	Action      string `json:"action"`
 	Address     string `json:"address"`
 	Description string `json:"description"`
 	Driver      string `json:"driver"`
 	Enabled     bool   `json:"enabled"`
 	Hostid      string `json:"hostid"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Password    string `json:"password"`
 	Port        string `json:"port"`
 	Powerstate  string `json:"powerstate"`
@@ -898,21 +907,25 @@ type ListClustersResponse struct {
 type Cluster struct {
 	Allocationstate string `json:"allocationstate"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal"`
-		Capacityused  int64  `json:"capacityused"`
-		Clusterid     string `json:"clusterid"`
-		Clustername   string `json:"clustername"`
-		Percentused   string `json:"percentused"`
-		Podid         string `json:"podid"`
-		Podname       string `json:"podname"`
-		Type          int    `json:"type"`
-		Zoneid        string `json:"zoneid"`
-		Zonename      string `json:"zonename"`
+		Capacityallocated int64  `json:"capacityallocated"`
+		Capacitytotal     int64  `json:"capacitytotal"`
+		Capacityused      int64  `json:"capacityused"`
+		Clusterid         string `json:"clusterid"`
+		Clustername       string `json:"clustername"`
+		Name              string `json:"name"`
+		Percentused       string `json:"percentused"`
+		Podid             string `json:"podid"`
+		Podname           string `json:"podname"`
+		Type              int    `json:"type"`
+		Zoneid            string `json:"zoneid"`
+		Zonename          string `json:"zonename"`
 	} `json:"capacity"`
 	Clustertype           string            `json:"clustertype"`
 	Cpuovercommitratio    string            `json:"cpuovercommitratio"`
 	Hypervisortype        string            `json:"hypervisortype"`
 	Id                    string            `json:"id"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Managedstate          string            `json:"managedstate"`
 	Memoryovercommitratio string            `json:"memoryovercommitratio"`
 	Name                  string            `json:"name"`
@@ -1050,6 +1063,8 @@ type DedicatedCluster struct {
 	Clustername     string `json:"clustername"`
 	Domainid        string `json:"domainid"`
 	Id              string `json:"id"`
+	Jobid           string `json:"jobid"`
+	Jobstatus       int    `json:"jobstatus"`
 }
 
 type ReleaseDedicatedClusterParams struct {
@@ -1098,7 +1113,7 @@ func (s *ClusterService) ReleaseDedicatedCluster(p *ReleaseDedicatedClusterParam
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1115,8 +1130,9 @@ func (s *ClusterService) ReleaseDedicatedCluster(p *ReleaseDedicatedClusterParam
 }
 
 type ReleaseDedicatedClusterResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1225,21 +1241,25 @@ func (s *ClusterService) UpdateCluster(p *UpdateClusterParams) (*UpdateClusterRe
 type UpdateClusterResponse struct {
 	Allocationstate string `json:"allocationstate"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal"`
-		Capacityused  int64  `json:"capacityused"`
-		Clusterid     string `json:"clusterid"`
-		Clustername   string `json:"clustername"`
-		Percentused   string `json:"percentused"`
-		Podid         string `json:"podid"`
-		Podname       string `json:"podname"`
-		Type          int    `json:"type"`
-		Zoneid        string `json:"zoneid"`
-		Zonename      string `json:"zonename"`
+		Capacityallocated int64  `json:"capacityallocated"`
+		Capacitytotal     int64  `json:"capacitytotal"`
+		Capacityused      int64  `json:"capacityused"`
+		Clusterid         string `json:"clusterid"`
+		Clustername       string `json:"clustername"`
+		Name              string `json:"name"`
+		Percentused       string `json:"percentused"`
+		Podid             string `json:"podid"`
+		Podname           string `json:"podname"`
+		Type              int    `json:"type"`
+		Zoneid            string `json:"zoneid"`
+		Zonename          string `json:"zonename"`
 	} `json:"capacity"`
 	Clustertype           string            `json:"clustertype"`
 	Cpuovercommitratio    string            `json:"cpuovercommitratio"`
 	Hypervisortype        string            `json:"hypervisortype"`
 	Id                    string            `json:"id"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Managedstate          string            `json:"managedstate"`
 	Memoryovercommitratio string            `json:"memoryovercommitratio"`
 	Name                  string            `json:"name"`

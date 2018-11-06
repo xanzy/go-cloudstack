@@ -144,25 +144,31 @@ func (s *PodService) CreatePod(p *CreatePodParams) (*CreatePodResponse, error) {
 type CreatePodResponse struct {
 	Allocationstate string `json:"allocationstate"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal"`
-		Capacityused  int64  `json:"capacityused"`
-		Clusterid     string `json:"clusterid"`
-		Clustername   string `json:"clustername"`
-		Percentused   string `json:"percentused"`
-		Podid         string `json:"podid"`
-		Podname       string `json:"podname"`
-		Type          int    `json:"type"`
-		Zoneid        string `json:"zoneid"`
-		Zonename      string `json:"zonename"`
+		Capacityallocated int64  `json:"capacityallocated"`
+		Capacitytotal     int64  `json:"capacitytotal"`
+		Capacityused      int64  `json:"capacityused"`
+		Clusterid         string `json:"clusterid"`
+		Clustername       string `json:"clustername"`
+		Name              string `json:"name"`
+		Percentused       string `json:"percentused"`
+		Podid             string `json:"podid"`
+		Podname           string `json:"podname"`
+		Type              int    `json:"type"`
+		Zoneid            string `json:"zoneid"`
+		Zonename          string `json:"zonename"`
 	} `json:"capacity"`
-	Endip    string `json:"endip"`
-	Gateway  string `json:"gateway"`
-	Id       string `json:"id"`
-	Name     string `json:"name"`
-	Netmask  string `json:"netmask"`
-	Startip  string `json:"startip"`
-	Zoneid   string `json:"zoneid"`
-	Zonename string `json:"zonename"`
+	Endip        []string `json:"endip"`
+	Forsystemvms []string `json:"forsystemvms"`
+	Gateway      string   `json:"gateway"`
+	Id           string   `json:"id"`
+	Jobid        string   `json:"jobid"`
+	Jobstatus    int      `json:"jobstatus"`
+	Name         string   `json:"name"`
+	Netmask      string   `json:"netmask"`
+	Startip      []string `json:"startip"`
+	Vlanid       []string `json:"vlanid"`
+	Zoneid       string   `json:"zoneid"`
+	Zonename     string   `json:"zonename"`
 }
 
 type DedicatePodParams struct {
@@ -234,7 +240,7 @@ func (s *PodService) DedicatePod(p *DedicatePodParams) (*DedicatePodResponse, er
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -256,11 +262,12 @@ func (s *PodService) DedicatePod(p *DedicatePodParams) (*DedicatePodResponse, er
 }
 
 type DedicatePodResponse struct {
-	JobID           string `json:"jobid"`
 	Accountid       string `json:"accountid"`
 	Affinitygroupid string `json:"affinitygroupid"`
 	Domainid        string `json:"domainid"`
 	Id              string `json:"id"`
+	Jobid           string `json:"jobid"`
+	Jobstatus       int    `json:"jobstatus"`
 	Podid           string `json:"podid"`
 	Podname         string `json:"podname"`
 }
@@ -314,6 +321,8 @@ func (s *PodService) DeletePod(p *DeletePodParams) (*DeletePodResponse, error) {
 
 type DeletePodResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -460,6 +469,8 @@ type DedicatedPod struct {
 	Affinitygroupid string `json:"affinitygroupid"`
 	Domainid        string `json:"domainid"`
 	Id              string `json:"id"`
+	Jobid           string `json:"jobid"`
+	Jobstatus       int    `json:"jobstatus"`
 	Podid           string `json:"podid"`
 	Podname         string `json:"podname"`
 }
@@ -681,25 +692,31 @@ type ListPodsResponse struct {
 type Pod struct {
 	Allocationstate string `json:"allocationstate"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal"`
-		Capacityused  int64  `json:"capacityused"`
-		Clusterid     string `json:"clusterid"`
-		Clustername   string `json:"clustername"`
-		Percentused   string `json:"percentused"`
-		Podid         string `json:"podid"`
-		Podname       string `json:"podname"`
-		Type          int    `json:"type"`
-		Zoneid        string `json:"zoneid"`
-		Zonename      string `json:"zonename"`
+		Capacityallocated int64  `json:"capacityallocated"`
+		Capacitytotal     int64  `json:"capacitytotal"`
+		Capacityused      int64  `json:"capacityused"`
+		Clusterid         string `json:"clusterid"`
+		Clustername       string `json:"clustername"`
+		Name              string `json:"name"`
+		Percentused       string `json:"percentused"`
+		Podid             string `json:"podid"`
+		Podname           string `json:"podname"`
+		Type              int    `json:"type"`
+		Zoneid            string `json:"zoneid"`
+		Zonename          string `json:"zonename"`
 	} `json:"capacity"`
-	Endip    string `json:"endip"`
-	Gateway  string `json:"gateway"`
-	Id       string `json:"id"`
-	Name     string `json:"name"`
-	Netmask  string `json:"netmask"`
-	Startip  string `json:"startip"`
-	Zoneid   string `json:"zoneid"`
-	Zonename string `json:"zonename"`
+	Endip        []string `json:"endip"`
+	Forsystemvms []string `json:"forsystemvms"`
+	Gateway      string   `json:"gateway"`
+	Id           string   `json:"id"`
+	Jobid        string   `json:"jobid"`
+	Jobstatus    int      `json:"jobstatus"`
+	Name         string   `json:"name"`
+	Netmask      string   `json:"netmask"`
+	Startip      []string `json:"startip"`
+	Vlanid       []string `json:"vlanid"`
+	Zoneid       string   `json:"zoneid"`
+	Zonename     string   `json:"zonename"`
 }
 
 type ReleaseDedicatedPodParams struct {
@@ -748,7 +765,7 @@ func (s *PodService) ReleaseDedicatedPod(p *ReleaseDedicatedPodParams) (*Release
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -765,8 +782,9 @@ func (s *PodService) ReleaseDedicatedPod(p *ReleaseDedicatedPodParams) (*Release
 }
 
 type ReleaseDedicatedPodResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -886,23 +904,29 @@ func (s *PodService) UpdatePod(p *UpdatePodParams) (*UpdatePodResponse, error) {
 type UpdatePodResponse struct {
 	Allocationstate string `json:"allocationstate"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal"`
-		Capacityused  int64  `json:"capacityused"`
-		Clusterid     string `json:"clusterid"`
-		Clustername   string `json:"clustername"`
-		Percentused   string `json:"percentused"`
-		Podid         string `json:"podid"`
-		Podname       string `json:"podname"`
-		Type          int    `json:"type"`
-		Zoneid        string `json:"zoneid"`
-		Zonename      string `json:"zonename"`
+		Capacityallocated int64  `json:"capacityallocated"`
+		Capacitytotal     int64  `json:"capacitytotal"`
+		Capacityused      int64  `json:"capacityused"`
+		Clusterid         string `json:"clusterid"`
+		Clustername       string `json:"clustername"`
+		Name              string `json:"name"`
+		Percentused       string `json:"percentused"`
+		Podid             string `json:"podid"`
+		Podname           string `json:"podname"`
+		Type              int    `json:"type"`
+		Zoneid            string `json:"zoneid"`
+		Zonename          string `json:"zonename"`
 	} `json:"capacity"`
-	Endip    string `json:"endip"`
-	Gateway  string `json:"gateway"`
-	Id       string `json:"id"`
-	Name     string `json:"name"`
-	Netmask  string `json:"netmask"`
-	Startip  string `json:"startip"`
-	Zoneid   string `json:"zoneid"`
-	Zonename string `json:"zonename"`
+	Endip        []string `json:"endip"`
+	Forsystemvms []string `json:"forsystemvms"`
+	Gateway      string   `json:"gateway"`
+	Id           string   `json:"id"`
+	Jobid        string   `json:"jobid"`
+	Jobstatus    int      `json:"jobstatus"`
+	Name         string   `json:"name"`
+	Netmask      string   `json:"netmask"`
+	Startip      []string `json:"startip"`
+	Vlanid       []string `json:"vlanid"`
+	Zoneid       string   `json:"zoneid"`
+	Zonename     string   `json:"zonename"`
 }

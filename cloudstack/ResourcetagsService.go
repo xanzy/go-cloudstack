@@ -111,7 +111,7 @@ func (s *ResourcetagsService) CreateTags(p *CreateTagsParams) (*CreateTagsRespon
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -128,8 +128,9 @@ func (s *ResourcetagsService) CreateTags(p *CreateTagsParams) (*CreateTagsRespon
 }
 
 type CreateTagsResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -208,7 +209,7 @@ func (s *ResourcetagsService) DeleteTags(p *DeleteTagsParams) (*DeleteTagsRespon
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -225,8 +226,9 @@ func (s *ResourcetagsService) DeleteTags(p *DeleteTagsParams) (*DeleteTagsRespon
 }
 
 type DeleteTagsResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -342,9 +344,11 @@ type ListStorageTagsResponse struct {
 }
 
 type StorageTag struct {
-	Id     string `json:"id"`
-	Name   string `json:"name"`
-	Poolid int64  `json:"poolid"`
+	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
+	Poolid    int64  `json:"poolid"`
 }
 
 type ListTagsParams struct {
@@ -539,6 +543,8 @@ type Tag struct {
 	Customer     string `json:"customer"`
 	Domain       string `json:"domain"`
 	Domainid     string `json:"domainid"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
 	Key          string `json:"key"`
 	Project      string `json:"project"`
 	Projectid    string `json:"projectid"`

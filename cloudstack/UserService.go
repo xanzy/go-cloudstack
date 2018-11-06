@@ -181,6 +181,8 @@ type CreateUserResponse struct {
 	Id                  string `json:"id"`
 	Iscallerchilddomain bool   `json:"iscallerchilddomain"`
 	Isdefault           bool   `json:"isdefault"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Lastname            string `json:"lastname"`
 	Roleid              string `json:"roleid"`
 	Rolename            string `json:"rolename"`
@@ -189,6 +191,7 @@ type CreateUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type DeleteUserParams struct {
@@ -240,6 +243,8 @@ func (s *UserService) DeleteUser(p *DeleteUserParams) (*DeleteUserResponse, erro
 
 type DeleteUserResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -308,7 +313,7 @@ func (s *UserService) DisableUser(p *DisableUserParams) (*DisableUserResponse, e
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -330,7 +335,6 @@ func (s *UserService) DisableUser(p *DisableUserParams) (*DisableUserResponse, e
 }
 
 type DisableUserResponse struct {
-	JobID               string `json:"jobid"`
 	Account             string `json:"account"`
 	Accountid           string `json:"accountid"`
 	Accounttype         int    `json:"accounttype"`
@@ -343,6 +347,8 @@ type DisableUserResponse struct {
 	Id                  string `json:"id"`
 	Iscallerchilddomain bool   `json:"iscallerchilddomain"`
 	Isdefault           bool   `json:"isdefault"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Lastname            string `json:"lastname"`
 	Roleid              string `json:"roleid"`
 	Rolename            string `json:"rolename"`
@@ -351,6 +357,7 @@ type DisableUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type EnableUserParams struct {
@@ -413,6 +420,8 @@ type EnableUserResponse struct {
 	Id                  string `json:"id"`
 	Iscallerchilddomain bool   `json:"iscallerchilddomain"`
 	Isdefault           bool   `json:"isdefault"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Lastname            string `json:"lastname"`
 	Roleid              string `json:"roleid"`
 	Rolename            string `json:"rolename"`
@@ -421,6 +430,7 @@ type EnableUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type GetUserParams struct {
@@ -483,6 +493,8 @@ type GetUserResponse struct {
 	Id                  string `json:"id"`
 	Iscallerchilddomain bool   `json:"iscallerchilddomain"`
 	Isdefault           bool   `json:"isdefault"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Lastname            string `json:"lastname"`
 	Roleid              string `json:"roleid"`
 	Rolename            string `json:"rolename"`
@@ -491,6 +503,7 @@ type GetUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type GetVirtualMachineUserDataParams struct {
@@ -541,6 +554,8 @@ func (s *UserService) GetVirtualMachineUserData(p *GetVirtualMachineUserDataPara
 }
 
 type GetVirtualMachineUserDataResponse struct {
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Userdata         string `json:"userdata"`
 	Virtualmachineid string `json:"virtualmachineid"`
 }
@@ -757,6 +772,8 @@ type User struct {
 	Id                  string `json:"id"`
 	Iscallerchilddomain bool   `json:"iscallerchilddomain"`
 	Isdefault           bool   `json:"isdefault"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Lastname            string `json:"lastname"`
 	Roleid              string `json:"roleid"`
 	Rolename            string `json:"rolename"`
@@ -765,6 +782,7 @@ type User struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type LockUserParams struct {
@@ -827,6 +845,8 @@ type LockUserResponse struct {
 	Id                  string `json:"id"`
 	Iscallerchilddomain bool   `json:"iscallerchilddomain"`
 	Isdefault           bool   `json:"isdefault"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Lastname            string `json:"lastname"`
 	Roleid              string `json:"roleid"`
 	Rolename            string `json:"rolename"`
@@ -835,6 +855,7 @@ type LockUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type RegisterUserKeysParams struct {
@@ -890,6 +911,8 @@ func (s *UserService) RegisterUserKeys(p *RegisterUserKeysParams) (*RegisterUser
 
 type RegisterUserKeysResponse struct {
 	Apikey    string `json:"apikey"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Secretkey string `json:"secretkey"`
 }
 
@@ -1041,6 +1064,8 @@ type UpdateUserResponse struct {
 	Id                  string `json:"id"`
 	Iscallerchilddomain bool   `json:"iscallerchilddomain"`
 	Isdefault           bool   `json:"isdefault"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Lastname            string `json:"lastname"`
 	Roleid              string `json:"roleid"`
 	Rolename            string `json:"rolename"`
@@ -1049,4 +1074,5 @@ type UpdateUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }

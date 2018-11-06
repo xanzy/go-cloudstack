@@ -108,6 +108,8 @@ func (s *ExtFirewallService) AddExternalFirewall(p *AddExternalFirewallParams) (
 type AddExternalFirewallResponse struct {
 	Id               string `json:"id"`
 	Ipaddress        string `json:"ipaddress"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Numretries       string `json:"numretries"`
 	Privateinterface string `json:"privateinterface"`
 	Privatezone      string `json:"privatezone"`
@@ -168,6 +170,8 @@ func (s *ExtFirewallService) DeleteExternalFirewall(p *DeleteExternalFirewallPar
 
 type DeleteExternalFirewallResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -280,6 +284,8 @@ type ListExternalFirewallsResponse struct {
 type ExternalFirewall struct {
 	Id               string `json:"id"`
 	Ipaddress        string `json:"ipaddress"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Numretries       string `json:"numretries"`
 	Privateinterface string `json:"privateinterface"`
 	Privatezone      string `json:"privatezone"`

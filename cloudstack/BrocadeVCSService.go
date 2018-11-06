@@ -105,7 +105,7 @@ func (s *BrocadeVCSService) AddBrocadeVcsDevice(p *AddBrocadeVcsDeviceParams) (*
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -127,9 +127,10 @@ func (s *BrocadeVCSService) AddBrocadeVcsDevice(p *AddBrocadeVcsDeviceParams) (*
 }
 
 type AddBrocadeVcsDeviceResponse struct {
-	JobID             string `json:"jobid"`
 	Brocadedevicename string `json:"brocadedevicename"`
 	Hostname          string `json:"hostname"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Provider          string `json:"provider"`
 	Vcsdeviceid       string `json:"vcsdeviceid"`
@@ -181,7 +182,7 @@ func (s *BrocadeVCSService) DeleteBrocadeVcsDevice(p *DeleteBrocadeVcsDevicePara
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -198,8 +199,9 @@ func (s *BrocadeVCSService) DeleteBrocadeVcsDevice(p *DeleteBrocadeVcsDevicePara
 }
 
 type DeleteBrocadeVcsDeviceResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -341,6 +343,7 @@ type BrocadeVcsDeviceNetwork struct {
 	Dns2                        string `json:"dns2"`
 	Domain                      string `json:"domain"`
 	Domainid                    string `json:"domainid"`
+	Externalid                  string `json:"externalid"`
 	Gateway                     string `json:"gateway"`
 	Id                          string `json:"id"`
 	Ip6cidr                     string `json:"ip6cidr"`
@@ -348,6 +351,8 @@ type BrocadeVcsDeviceNetwork struct {
 	Isdefault                   bool   `json:"isdefault"`
 	Ispersistent                bool   `json:"ispersistent"`
 	Issystem                    bool   `json:"issystem"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Name                        string `json:"name"`
 	Netmask                     string `json:"netmask"`
 	Networkcidr                 string `json:"networkcidr"`
@@ -360,6 +365,7 @@ type BrocadeVcsDeviceNetwork struct {
 	Physicalnetworkid           string `json:"physicalnetworkid"`
 	Project                     string `json:"project"`
 	Projectid                   string `json:"projectid"`
+	Redundantrouter             bool   `json:"redundantrouter"`
 	Related                     string `json:"related"`
 	Reservediprange             string `json:"reservediprange"`
 	Restartrequired             bool   `json:"restartrequired"`
@@ -505,6 +511,8 @@ type ListBrocadeVcsDevicesResponse struct {
 type BrocadeVcsDevice struct {
 	Brocadedevicename string `json:"brocadedevicename"`
 	Hostname          string `json:"hostname"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Provider          string `json:"provider"`
 	Vcsdeviceid       string `json:"vcsdeviceid"`

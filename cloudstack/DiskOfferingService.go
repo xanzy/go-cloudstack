@@ -275,6 +275,8 @@ type CreateDiskOfferingResponse struct {
 	Id                        string `json:"id"`
 	Iscustomized              bool   `json:"iscustomized"`
 	Iscustomizediops          bool   `json:"iscustomizediops"`
+	Jobid                     string `json:"jobid"`
+	Jobstatus                 int    `json:"jobstatus"`
 	Maxiops                   int64  `json:"maxiops"`
 	Miniops                   int64  `json:"miniops"`
 	Name                      string `json:"name"`
@@ -332,6 +334,8 @@ func (s *DiskOfferingService) DeleteDiskOffering(p *DeleteDiskOfferingParams) (*
 
 type DeleteDiskOfferingResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -585,6 +589,8 @@ type DiskOffering struct {
 	Id                        string `json:"id"`
 	Iscustomized              bool   `json:"iscustomized"`
 	Iscustomizediops          bool   `json:"iscustomizediops"`
+	Jobid                     string `json:"jobid"`
+	Jobstatus                 int    `json:"jobstatus"`
 	Maxiops                   int64  `json:"maxiops"`
 	Miniops                   int64  `json:"miniops"`
 	Name                      string `json:"name"`
@@ -702,6 +708,8 @@ type UpdateDiskOfferingResponse struct {
 	Id                        string `json:"id"`
 	Iscustomized              bool   `json:"iscustomized"`
 	Iscustomizediops          bool   `json:"iscustomizediops"`
+	Jobid                     string `json:"jobid"`
+	Jobstatus                 int    `json:"jobstatus"`
 	Maxiops                   int64  `json:"maxiops"`
 	Miniops                   int64  `json:"miniops"`
 	Name                      string `json:"name"`

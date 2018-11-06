@@ -392,6 +392,8 @@ type CreateServiceOfferingResponse struct {
 	Iscustomizediops          bool              `json:"iscustomizediops"`
 	Issystem                  bool              `json:"issystem"`
 	Isvolatile                bool              `json:"isvolatile"`
+	Jobid                     string            `json:"jobid"`
+	Jobstatus                 int               `json:"jobstatus"`
 	Limitcpuuse               bool              `json:"limitcpuuse"`
 	Maxiops                   int64             `json:"maxiops"`
 	Memory                    int               `json:"memory"`
@@ -455,6 +457,8 @@ func (s *ServiceOfferingService) DeleteServiceOffering(p *DeleteServiceOfferingP
 
 type DeleteServiceOfferingResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -746,6 +750,8 @@ type ServiceOffering struct {
 	Iscustomizediops          bool              `json:"iscustomizediops"`
 	Issystem                  bool              `json:"issystem"`
 	Isvolatile                bool              `json:"isvolatile"`
+	Jobid                     string            `json:"jobid"`
+	Jobstatus                 int               `json:"jobstatus"`
 	Limitcpuuse               bool              `json:"limitcpuuse"`
 	Maxiops                   int64             `json:"maxiops"`
 	Memory                    int               `json:"memory"`
@@ -861,6 +867,8 @@ type UpdateServiceOfferingResponse struct {
 	Iscustomizediops          bool              `json:"iscustomizediops"`
 	Issystem                  bool              `json:"issystem"`
 	Isvolatile                bool              `json:"isvolatile"`
+	Jobid                     string            `json:"jobid"`
+	Jobstatus                 int               `json:"jobstatus"`
 	Limitcpuuse               bool              `json:"limitcpuuse"`
 	Maxiops                   int64             `json:"maxiops"`
 	Memory                    int               `json:"memory"`

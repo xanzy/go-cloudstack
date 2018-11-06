@@ -152,7 +152,7 @@ func (s *NuageVSPService) AddNuageVspDevice(p *AddNuageVspDeviceParams) (*AddNua
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -174,10 +174,11 @@ func (s *NuageVSPService) AddNuageVspDevice(p *AddNuageVspDeviceParams) (*AddNua
 }
 
 type AddNuageVspDeviceResponse struct {
-	JobID             string `json:"jobid"`
 	Apiversion        string `json:"apiversion"`
 	Cmsid             string `json:"cmsid"`
 	Hostname          string `json:"hostname"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Nuagedevicename   string `json:"nuagedevicename"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Port              int    `json:"port"`
@@ -233,7 +234,7 @@ func (s *NuageVSPService) DeleteNuageVspDevice(p *DeleteNuageVspDeviceParams) (*
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -250,8 +251,9 @@ func (s *NuageVSPService) DeleteNuageVspDevice(p *DeleteNuageVspDeviceParams) (*
 }
 
 type DeleteNuageVspDeviceResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -356,6 +358,8 @@ type NuageVspDevice struct {
 	Apiversion        string `json:"apiversion"`
 	Cmsid             string `json:"cmsid"`
 	Hostname          string `json:"hostname"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Nuagedevicename   string `json:"nuagedevicename"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Port              int    `json:"port"`
@@ -491,7 +495,7 @@ func (s *NuageVSPService) UpdateNuageVspDevice(p *UpdateNuageVspDeviceParams) (*
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -513,10 +517,11 @@ func (s *NuageVSPService) UpdateNuageVspDevice(p *UpdateNuageVspDeviceParams) (*
 }
 
 type UpdateNuageVspDeviceResponse struct {
-	JobID             string `json:"jobid"`
 	Apiversion        string `json:"apiversion"`
 	Cmsid             string `json:"cmsid"`
 	Hostname          string `json:"hostname"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Nuagedevicename   string `json:"nuagedevicename"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Port              int    `json:"port"`

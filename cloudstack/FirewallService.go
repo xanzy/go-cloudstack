@@ -168,7 +168,7 @@ func (s *FirewallService) AddPaloAltoFirewall(p *AddPaloAltoFirewallParams) (*Ad
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -195,12 +195,13 @@ func (s *FirewallService) AddPaloAltoFirewall(p *AddPaloAltoFirewallParams) (*Ad
 }
 
 type AddPaloAltoFirewallResponse struct {
-	JobID             string `json:"jobid"`
 	Fwdevicecapacity  int64  `json:"fwdevicecapacity"`
 	Fwdeviceid        string `json:"fwdeviceid"`
 	Fwdevicename      string `json:"fwdevicename"`
 	Fwdevicestate     string `json:"fwdevicestate"`
 	Ipaddress         string `json:"ipaddress"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Numretries        string `json:"numretries"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Privateinterface  string `json:"privateinterface"`
@@ -308,7 +309,7 @@ func (s *FirewallService) AddSrxFirewall(p *AddSrxFirewallParams) (*AddSrxFirewa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -335,12 +336,13 @@ func (s *FirewallService) AddSrxFirewall(p *AddSrxFirewallParams) (*AddSrxFirewa
 }
 
 type AddSrxFirewallResponse struct {
-	JobID             string `json:"jobid"`
 	Fwdevicecapacity  int64  `json:"fwdevicecapacity"`
 	Fwdeviceid        string `json:"fwdeviceid"`
 	Fwdevicename      string `json:"fwdevicename"`
 	Fwdevicestate     string `json:"fwdevicestate"`
 	Ipaddress         string `json:"ipaddress"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Numretries        string `json:"numretries"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Privateinterface  string `json:"privateinterface"`
@@ -412,7 +414,7 @@ func (s *FirewallService) ConfigurePaloAltoFirewall(p *ConfigurePaloAltoFirewall
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -439,12 +441,13 @@ func (s *FirewallService) ConfigurePaloAltoFirewall(p *ConfigurePaloAltoFirewall
 }
 
 type PaloAltoFirewallResponse struct {
-	JobID             string `json:"jobid"`
 	Fwdevicecapacity  int64  `json:"fwdevicecapacity"`
 	Fwdeviceid        string `json:"fwdeviceid"`
 	Fwdevicename      string `json:"fwdevicename"`
 	Fwdevicestate     string `json:"fwdevicestate"`
 	Ipaddress         string `json:"ipaddress"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Numretries        string `json:"numretries"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Privateinterface  string `json:"privateinterface"`
@@ -516,7 +519,7 @@ func (s *FirewallService) ConfigureSrxFirewall(p *ConfigureSrxFirewallParams) (*
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -543,12 +546,13 @@ func (s *FirewallService) ConfigureSrxFirewall(p *ConfigureSrxFirewallParams) (*
 }
 
 type SrxFirewallResponse struct {
-	JobID             string `json:"jobid"`
 	Fwdevicecapacity  int64  `json:"fwdevicecapacity"`
 	Fwdeviceid        string `json:"fwdeviceid"`
 	Fwdevicename      string `json:"fwdevicename"`
 	Fwdevicestate     string `json:"fwdevicestate"`
 	Ipaddress         string `json:"ipaddress"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Numretries        string `json:"numretries"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Privateinterface  string `json:"privateinterface"`
@@ -574,6 +578,10 @@ func (p *CreateEgressFirewallRuleParams) toURLValues() url.Values {
 	if v, found := p.p["cidrlist"]; found {
 		vv := strings.Join(v.([]string), ",")
 		u.Set("cidrlist", vv)
+	}
+	if v, found := p.p["destcidrlist"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("destcidrlist", vv)
 	}
 	if v, found := p.p["endport"]; found {
 		vv := strconv.Itoa(v.(int))
@@ -612,6 +620,14 @@ func (p *CreateEgressFirewallRuleParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
+	return
+}
+
+func (p *CreateEgressFirewallRuleParams) SetDestcidrlist(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["destcidrlist"] = v
 	return
 }
 
@@ -703,7 +719,7 @@ func (s *FirewallService) CreateEgressFirewallRule(p *CreateEgressFirewallRulePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -730,20 +746,22 @@ func (s *FirewallService) CreateEgressFirewallRule(p *CreateEgressFirewallRulePa
 }
 
 type CreateEgressFirewallRuleResponse struct {
-	JobID       string `json:"jobid"`
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
+	Cidrlist     string `json:"cidrlist"`
+	Destcidrlist string `json:"destcidrlist"`
+	Endport      int    `json:"endport"`
+	Fordisplay   bool   `json:"fordisplay"`
+	Icmpcode     int    `json:"icmpcode"`
+	Icmptype     int    `json:"icmptype"`
+	Id           string `json:"id"`
+	Ipaddress    string `json:"ipaddress"`
+	Ipaddressid  string `json:"ipaddressid"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
+	Networkid    string `json:"networkid"`
+	Protocol     string `json:"protocol"`
+	Startport    int    `json:"startport"`
+	State        string `json:"state"`
+	Tags         []struct {
 		Account      string `json:"account"`
 		Customer     string `json:"customer"`
 		Domain       string `json:"domain"`
@@ -898,7 +916,7 @@ func (s *FirewallService) CreateFirewallRule(p *CreateFirewallRuleParams) (*Crea
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -925,20 +943,22 @@ func (s *FirewallService) CreateFirewallRule(p *CreateFirewallRuleParams) (*Crea
 }
 
 type CreateFirewallRuleResponse struct {
-	JobID       string `json:"jobid"`
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
+	Cidrlist     string `json:"cidrlist"`
+	Destcidrlist string `json:"destcidrlist"`
+	Endport      int    `json:"endport"`
+	Fordisplay   bool   `json:"fordisplay"`
+	Icmpcode     int    `json:"icmpcode"`
+	Icmptype     int    `json:"icmptype"`
+	Id           string `json:"id"`
+	Ipaddress    string `json:"ipaddress"`
+	Ipaddressid  string `json:"ipaddressid"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
+	Networkid    string `json:"networkid"`
+	Protocol     string `json:"protocol"`
+	Startport    int    `json:"startport"`
+	State        string `json:"state"`
+	Tags         []struct {
 		Account      string `json:"account"`
 		Customer     string `json:"customer"`
 		Domain       string `json:"domain"`
@@ -1130,7 +1150,7 @@ func (s *FirewallService) CreatePortForwardingRule(p *CreatePortForwardingRulePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1157,12 +1177,13 @@ func (s *FirewallService) CreatePortForwardingRule(p *CreatePortForwardingRulePa
 }
 
 type CreatePortForwardingRuleResponse struct {
-	JobID          string `json:"jobid"`
 	Cidrlist       string `json:"cidrlist"`
 	Fordisplay     bool   `json:"fordisplay"`
 	Id             string `json:"id"`
 	Ipaddress      string `json:"ipaddress"`
 	Ipaddressid    string `json:"ipaddressid"`
+	Jobid          string `json:"jobid"`
+	Jobstatus      int    `json:"jobstatus"`
 	Networkid      string `json:"networkid"`
 	Privateendport string `json:"privateendport"`
 	Privateport    string `json:"privateport"`
@@ -1234,7 +1255,7 @@ func (s *FirewallService) DeleteEgressFirewallRule(p *DeleteEgressFirewallRulePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1256,8 +1277,9 @@ func (s *FirewallService) DeleteEgressFirewallRule(p *DeleteEgressFirewallRulePa
 }
 
 type DeleteEgressFirewallRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1307,7 +1329,7 @@ func (s *FirewallService) DeleteFirewallRule(p *DeleteFirewallRuleParams) (*Dele
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1329,8 +1351,9 @@ func (s *FirewallService) DeleteFirewallRule(p *DeleteFirewallRuleParams) (*Dele
 }
 
 type DeleteFirewallRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1380,7 +1403,7 @@ func (s *FirewallService) DeletePaloAltoFirewall(p *DeletePaloAltoFirewallParams
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1402,8 +1425,9 @@ func (s *FirewallService) DeletePaloAltoFirewall(p *DeletePaloAltoFirewallParams
 }
 
 type DeletePaloAltoFirewallResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1453,7 +1477,7 @@ func (s *FirewallService) DeletePortForwardingRule(p *DeletePortForwardingRulePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1475,8 +1499,9 @@ func (s *FirewallService) DeletePortForwardingRule(p *DeletePortForwardingRulePa
 }
 
 type DeletePortForwardingRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1526,7 +1551,7 @@ func (s *FirewallService) DeleteSrxFirewall(p *DeleteSrxFirewallParams) (*Delete
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1548,8 +1573,9 @@ func (s *FirewallService) DeleteSrxFirewall(p *DeleteSrxFirewallParams) (*Delete
 }
 
 type DeleteSrxFirewallResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1785,19 +1811,22 @@ type ListEgressFirewallRulesResponse struct {
 }
 
 type EgressFirewallRule struct {
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
+	Cidrlist     string `json:"cidrlist"`
+	Destcidrlist string `json:"destcidrlist"`
+	Endport      int    `json:"endport"`
+	Fordisplay   bool   `json:"fordisplay"`
+	Icmpcode     int    `json:"icmpcode"`
+	Icmptype     int    `json:"icmptype"`
+	Id           string `json:"id"`
+	Ipaddress    string `json:"ipaddress"`
+	Ipaddressid  string `json:"ipaddressid"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
+	Networkid    string `json:"networkid"`
+	Protocol     string `json:"protocol"`
+	Startport    int    `json:"startport"`
+	State        string `json:"state"`
+	Tags         []struct {
 		Account      string `json:"account"`
 		Customer     string `json:"customer"`
 		Domain       string `json:"domain"`
@@ -2043,19 +2072,22 @@ type ListFirewallRulesResponse struct {
 }
 
 type FirewallRule struct {
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
+	Cidrlist     string `json:"cidrlist"`
+	Destcidrlist string `json:"destcidrlist"`
+	Endport      int    `json:"endport"`
+	Fordisplay   bool   `json:"fordisplay"`
+	Icmpcode     int    `json:"icmpcode"`
+	Icmptype     int    `json:"icmptype"`
+	Id           string `json:"id"`
+	Ipaddress    string `json:"ipaddress"`
+	Ipaddressid  string `json:"ipaddressid"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
+	Networkid    string `json:"networkid"`
+	Protocol     string `json:"protocol"`
+	Startport    int    `json:"startport"`
+	State        string `json:"state"`
+	Tags         []struct {
 		Account      string `json:"account"`
 		Customer     string `json:"customer"`
 		Domain       string `json:"domain"`
@@ -2177,6 +2209,8 @@ type PaloAltoFirewall struct {
 	Fwdevicename      string `json:"fwdevicename"`
 	Fwdevicestate     string `json:"fwdevicestate"`
 	Ipaddress         string `json:"ipaddress"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Numretries        string `json:"numretries"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Privateinterface  string `json:"privateinterface"`
@@ -2427,6 +2461,8 @@ type PortForwardingRule struct {
 	Id             string `json:"id"`
 	Ipaddress      string `json:"ipaddress"`
 	Ipaddressid    string `json:"ipaddressid"`
+	Jobid          string `json:"jobid"`
+	Jobstatus      int    `json:"jobstatus"`
 	Networkid      string `json:"networkid"`
 	Privateendport string `json:"privateendport"`
 	Privateport    string `json:"privateport"`
@@ -2560,6 +2596,8 @@ type SrxFirewall struct {
 	Fwdevicename      string `json:"fwdevicename"`
 	Fwdevicestate     string `json:"fwdevicestate"`
 	Ipaddress         string `json:"ipaddress"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Numretries        string `json:"numretries"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Privateinterface  string `json:"privateinterface"`
@@ -2642,7 +2680,7 @@ func (s *FirewallService) UpdateEgressFirewallRule(p *UpdateEgressFirewallRulePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2669,20 +2707,22 @@ func (s *FirewallService) UpdateEgressFirewallRule(p *UpdateEgressFirewallRulePa
 }
 
 type UpdateEgressFirewallRuleResponse struct {
-	JobID       string `json:"jobid"`
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
+	Cidrlist     string `json:"cidrlist"`
+	Destcidrlist string `json:"destcidrlist"`
+	Endport      int    `json:"endport"`
+	Fordisplay   bool   `json:"fordisplay"`
+	Icmpcode     int    `json:"icmpcode"`
+	Icmptype     int    `json:"icmptype"`
+	Id           string `json:"id"`
+	Ipaddress    string `json:"ipaddress"`
+	Ipaddressid  string `json:"ipaddressid"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
+	Networkid    string `json:"networkid"`
+	Protocol     string `json:"protocol"`
+	Startport    int    `json:"startport"`
+	State        string `json:"state"`
+	Tags         []struct {
 		Account      string `json:"account"`
 		Customer     string `json:"customer"`
 		Domain       string `json:"domain"`
@@ -2765,7 +2805,7 @@ func (s *FirewallService) UpdateFirewallRule(p *UpdateFirewallRuleParams) (*Upda
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2792,20 +2832,22 @@ func (s *FirewallService) UpdateFirewallRule(p *UpdateFirewallRuleParams) (*Upda
 }
 
 type UpdateFirewallRuleResponse struct {
-	JobID       string `json:"jobid"`
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
+	Cidrlist     string `json:"cidrlist"`
+	Destcidrlist string `json:"destcidrlist"`
+	Endport      int    `json:"endport"`
+	Fordisplay   bool   `json:"fordisplay"`
+	Icmpcode     int    `json:"icmpcode"`
+	Icmptype     int    `json:"icmptype"`
+	Id           string `json:"id"`
+	Ipaddress    string `json:"ipaddress"`
+	Ipaddressid  string `json:"ipaddressid"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
+	Networkid    string `json:"networkid"`
+	Protocol     string `json:"protocol"`
+	Startport    int    `json:"startport"`
+	State        string `json:"state"`
+	Tags         []struct {
 		Account      string `json:"account"`
 		Customer     string `json:"customer"`
 		Domain       string `json:"domain"`
@@ -2837,6 +2879,10 @@ func (p *UpdatePortForwardingRuleParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
+	}
+	if v, found := p.p["privateendport"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("privateendport", vv)
 	}
 	if v, found := p.p["privateport"]; found {
 		vv := strconv.Itoa(v.(int))
@@ -2872,6 +2918,14 @@ func (p *UpdatePortForwardingRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
+	return
+}
+
+func (p *UpdatePortForwardingRuleParams) SetPrivateendport(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["privateendport"] = v
 	return
 }
 
@@ -2922,7 +2976,7 @@ func (s *FirewallService) UpdatePortForwardingRule(p *UpdatePortForwardingRulePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2949,12 +3003,13 @@ func (s *FirewallService) UpdatePortForwardingRule(p *UpdatePortForwardingRulePa
 }
 
 type UpdatePortForwardingRuleResponse struct {
-	JobID          string `json:"jobid"`
 	Cidrlist       string `json:"cidrlist"`
 	Fordisplay     bool   `json:"fordisplay"`
 	Id             string `json:"id"`
 	Ipaddress      string `json:"ipaddress"`
 	Ipaddressid    string `json:"ipaddressid"`
+	Jobid          string `json:"jobid"`
+	Jobstatus      int    `json:"jobstatus"`
 	Networkid      string `json:"networkid"`
 	Privateendport string `json:"privateendport"`
 	Privateport    string `json:"privateport"`

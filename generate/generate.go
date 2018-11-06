@@ -1153,7 +1153,7 @@ func (s *service) generateNewAPICallFunc(a *API) {
 	if a.Isasync {
 		pn("	// If we have a async client, we need to wait for the async result")
 		pn("	if s.cs.async {")
-		pn("		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)")
+		pn("		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)")
 		pn("		if err != nil {")
 		pn("			if err == AsyncTimeoutErr {")
 		pn("				return &r, err")
@@ -1247,9 +1247,7 @@ func (s *service) generateResponseType(a *API) {
 	}
 
 	pn("type %s struct {", tn)
-	if a.Isasync {
-		pn("	JobID string `json:\"jobid\"`")
-	}
+
 	sort.Sort(a.Response)
 	customMarshal := s.recusiveGenerateResponseType(a.Response, a.Isasync, false)
 	pn("}")

@@ -113,6 +113,8 @@ type CreateDomainResponse struct {
 	Ipavailable               string  `json:"ipavailable"`
 	Iplimit                   string  `json:"iplimit"`
 	Iptotal                   int64   `json:"iptotal"`
+	Jobid                     string  `json:"jobid"`
+	Jobstatus                 int     `json:"jobstatus"`
 	Level                     int     `json:"level"`
 	Memoryavailable           string  `json:"memoryavailable"`
 	Memorylimit               string  `json:"memorylimit"`
@@ -210,7 +212,7 @@ func (s *DomainService) DeleteDomain(p *DeleteDomainParams) (*DeleteDomainRespon
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -227,8 +229,9 @@ func (s *DomainService) DeleteDomain(p *DeleteDomainParams) (*DeleteDomainRespon
 }
 
 type DeleteDomainResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -445,6 +448,8 @@ type DomainChildren struct {
 	Ipavailable               string  `json:"ipavailable"`
 	Iplimit                   string  `json:"iplimit"`
 	Iptotal                   int64   `json:"iptotal"`
+	Jobid                     string  `json:"jobid"`
+	Jobstatus                 int     `json:"jobstatus"`
 	Level                     int     `json:"level"`
 	Memoryavailable           string  `json:"memoryavailable"`
 	Memorylimit               string  `json:"memorylimit"`
@@ -493,6 +498,10 @@ func (p *ListDomainsParams) toURLValues() url.Values {
 	if p.p == nil {
 		return u
 	}
+	if v, found := p.p["details"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("details", vv)
+	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
@@ -519,6 +528,14 @@ func (p *ListDomainsParams) toURLValues() url.Values {
 		u.Set("pagesize", vv)
 	}
 	return u
+}
+
+func (p *ListDomainsParams) SetDetails(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["details"] = v
+	return
 }
 
 func (p *ListDomainsParams) SetId(v string) {
@@ -697,6 +714,8 @@ type Domain struct {
 	Ipavailable               string  `json:"ipavailable"`
 	Iplimit                   string  `json:"iplimit"`
 	Iptotal                   int64   `json:"iptotal"`
+	Jobid                     string  `json:"jobid"`
+	Jobstatus                 int     `json:"jobstatus"`
 	Level                     int     `json:"level"`
 	Memoryavailable           string  `json:"memoryavailable"`
 	Memorylimit               string  `json:"memorylimit"`
@@ -814,6 +833,8 @@ type UpdateDomainResponse struct {
 	Ipavailable               string  `json:"ipavailable"`
 	Iplimit                   string  `json:"iplimit"`
 	Iptotal                   int64   `json:"iptotal"`
+	Jobid                     string  `json:"jobid"`
+	Jobstatus                 int     `json:"jobstatus"`
 	Level                     int     `json:"level"`
 	Memoryavailable           string  `json:"memoryavailable"`
 	Memorylimit               string  `json:"memorylimit"`

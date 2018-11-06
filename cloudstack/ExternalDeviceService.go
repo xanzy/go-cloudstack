@@ -106,6 +106,8 @@ func (s *ExternalDeviceService) AddCiscoAsa1000vResource(p *AddCiscoAsa1000vReso
 }
 
 type AddCiscoAsa1000vResourceResponse struct {
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 }
 
 type AddCiscoVnmcResourceParams struct {
@@ -192,6 +194,8 @@ func (s *ExternalDeviceService) AddCiscoVnmcResource(p *AddCiscoVnmcResourcePara
 }
 
 type AddCiscoVnmcResourceResponse struct {
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 }
 
 type DeleteCiscoAsa1000vResourceParams struct {
@@ -243,6 +247,8 @@ func (s *ExternalDeviceService) DeleteCiscoAsa1000vResource(p *DeleteCiscoAsa100
 
 type DeleteCiscoAsa1000vResourceResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -311,7 +317,7 @@ func (s *ExternalDeviceService) DeleteCiscoNexusVSM(p *DeleteCiscoNexusVSMParams
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -328,8 +334,9 @@ func (s *ExternalDeviceService) DeleteCiscoNexusVSM(p *DeleteCiscoNexusVSMParams
 }
 
 type DeleteCiscoNexusVSMResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -382,6 +389,8 @@ func (s *ExternalDeviceService) DeleteCiscoVnmcResource(p *DeleteCiscoVnmcResour
 
 type DeleteCiscoVnmcResourceResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -450,7 +459,7 @@ func (s *ExternalDeviceService) DisableCiscoNexusVSM(p *DisableCiscoNexusVSMPara
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -472,8 +481,9 @@ func (s *ExternalDeviceService) DisableCiscoNexusVSM(p *DisableCiscoNexusVSMPara
 }
 
 type DisableCiscoNexusVSMResponse struct {
-	JobID            string `json:"jobid"`
 	Ipaddress        string `json:"ipaddress"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Vsmconfigmode    string `json:"vsmconfigmode"`
 	Vsmconfigstate   string `json:"vsmconfigstate"`
 	Vsmctrlvlanid    int    `json:"vsmctrlvlanid"`
@@ -532,7 +542,7 @@ func (s *ExternalDeviceService) EnableCiscoNexusVSM(p *EnableCiscoNexusVSMParams
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -554,8 +564,9 @@ func (s *ExternalDeviceService) EnableCiscoNexusVSM(p *EnableCiscoNexusVSMParams
 }
 
 type EnableCiscoNexusVSMResponse struct {
-	JobID            string `json:"jobid"`
 	Ipaddress        string `json:"ipaddress"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Vsmconfigmode    string `json:"vsmconfigmode"`
 	Vsmconfigstate   string `json:"vsmconfigstate"`
 	Vsmctrlvlanid    int    `json:"vsmctrlvlanid"`
@@ -677,6 +688,8 @@ type ListCiscoAsa1000vResourcesResponse struct {
 }
 
 type CiscoAsa1000vResource struct {
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 }
 
 type ListCiscoNexusVSMsParams struct {
@@ -778,6 +791,8 @@ type ListCiscoNexusVSMsResponse struct {
 
 type CiscoNexusVSM struct {
 	Ipaddress        string `json:"ipaddress"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Vsmconfigmode    string `json:"vsmconfigmode"`
 	Vsmconfigstate   string `json:"vsmconfigstate"`
 	Vsmctrlvlanid    int    `json:"vsmctrlvlanid"`
@@ -888,4 +903,6 @@ type ListCiscoVnmcResourcesResponse struct {
 }
 
 type CiscoVnmcResource struct {
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 }

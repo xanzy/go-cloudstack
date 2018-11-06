@@ -198,7 +198,7 @@ func (s *NetworkACLService) CreateNetworkACL(p *CreateNetworkACLParams) (*Create
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -220,7 +220,6 @@ func (s *NetworkACLService) CreateNetworkACL(p *CreateNetworkACLParams) (*Create
 }
 
 type CreateNetworkACLResponse struct {
-	JobID      string `json:"jobid"`
 	Aclid      string `json:"aclid"`
 	Action     string `json:"action"`
 	Cidrlist   string `json:"cidrlist"`
@@ -229,6 +228,8 @@ type CreateNetworkACLResponse struct {
 	Icmpcode   int    `json:"icmpcode"`
 	Icmptype   int    `json:"icmptype"`
 	Id         string `json:"id"`
+	Jobid      string `json:"jobid"`
+	Jobstatus  int    `json:"jobstatus"`
 	Number     int    `json:"number"`
 	Protocol   string `json:"protocol"`
 	Startport  string `json:"startport"`
@@ -329,7 +330,7 @@ func (s *NetworkACLService) CreateNetworkACLList(p *CreateNetworkACLListParams) 
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -351,10 +352,11 @@ func (s *NetworkACLService) CreateNetworkACLList(p *CreateNetworkACLListParams) 
 }
 
 type CreateNetworkACLListResponse struct {
-	JobID       string `json:"jobid"`
 	Description string `json:"description"`
 	Fordisplay  bool   `json:"fordisplay"`
 	Id          string `json:"id"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Name        string `json:"name"`
 	Vpcid       string `json:"vpcid"`
 }
@@ -405,7 +407,7 @@ func (s *NetworkACLService) DeleteNetworkACL(p *DeleteNetworkACLParams) (*Delete
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -422,8 +424,9 @@ func (s *NetworkACLService) DeleteNetworkACL(p *DeleteNetworkACLParams) (*Delete
 }
 
 type DeleteNetworkACLResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -473,7 +476,7 @@ func (s *NetworkACLService) DeleteNetworkACLList(p *DeleteNetworkACLListParams) 
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -490,8 +493,9 @@ func (s *NetworkACLService) DeleteNetworkACLList(p *DeleteNetworkACLListParams) 
 }
 
 type DeleteNetworkACLListResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -770,6 +774,8 @@ type NetworkACLList struct {
 	Description string `json:"description"`
 	Fordisplay  bool   `json:"fordisplay"`
 	Id          string `json:"id"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Name        string `json:"name"`
 	Vpcid       string `json:"vpcid"`
 }
@@ -1042,6 +1048,8 @@ type NetworkACL struct {
 	Icmpcode   int    `json:"icmpcode"`
 	Icmptype   int    `json:"icmptype"`
 	Id         string `json:"id"`
+	Jobid      string `json:"jobid"`
+	Jobstatus  int    `json:"jobstatus"`
 	Number     int    `json:"number"`
 	Protocol   string `json:"protocol"`
 	Startport  string `json:"startport"`
@@ -1129,7 +1137,7 @@ func (s *NetworkACLService) ReplaceNetworkACLList(p *ReplaceNetworkACLListParams
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1146,8 +1154,9 @@ func (s *NetworkACLService) ReplaceNetworkACLList(p *ReplaceNetworkACLListParams
 }
 
 type ReplaceNetworkACLListResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1325,7 +1334,7 @@ func (s *NetworkACLService) UpdateNetworkACLItem(p *UpdateNetworkACLItemParams) 
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1347,7 +1356,6 @@ func (s *NetworkACLService) UpdateNetworkACLItem(p *UpdateNetworkACLItemParams) 
 }
 
 type UpdateNetworkACLItemResponse struct {
-	JobID      string `json:"jobid"`
 	Aclid      string `json:"aclid"`
 	Action     string `json:"action"`
 	Cidrlist   string `json:"cidrlist"`
@@ -1356,6 +1364,8 @@ type UpdateNetworkACLItemResponse struct {
 	Icmpcode   int    `json:"icmpcode"`
 	Icmptype   int    `json:"icmptype"`
 	Id         string `json:"id"`
+	Jobid      string `json:"jobid"`
+	Jobstatus  int    `json:"jobstatus"`
 	Number     int    `json:"number"`
 	Protocol   string `json:"protocol"`
 	Startport  string `json:"startport"`
@@ -1444,7 +1454,7 @@ func (s *NetworkACLService) UpdateNetworkACLList(p *UpdateNetworkACLListParams) 
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1461,7 +1471,8 @@ func (s *NetworkACLService) UpdateNetworkACLList(p *UpdateNetworkACLListParams) 
 }
 
 type UpdateNetworkACLListResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }

@@ -45,6 +45,10 @@ func (p *CreateVlanIpRangeParams) toURLValues() url.Values {
 	if v, found := p.p["endipv6"]; found {
 		u.Set("endipv6", v.(string))
 	}
+	if v, found := p.p["forsystemvms"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("forsystemvms", vv)
+	}
 	if v, found := p.p["forvirtualnetwork"]; found {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("forvirtualnetwork", vv)
@@ -117,6 +121,14 @@ func (p *CreateVlanIpRangeParams) SetEndipv6(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endipv6"] = v
+	return
+}
+
+func (p *CreateVlanIpRangeParams) SetForsystemvms(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forsystemvms"] = v
 	return
 }
 
@@ -254,11 +266,14 @@ type CreateVlanIpRangeResponse struct {
 	Domainid          string `json:"domainid"`
 	Endip             string `json:"endip"`
 	Endipv6           string `json:"endipv6"`
+	Forsystemvms      bool   `json:"forsystemvms"`
 	Forvirtualnetwork bool   `json:"forvirtualnetwork"`
 	Gateway           string `json:"gateway"`
 	Id                string `json:"id"`
 	Ip6cidr           string `json:"ip6cidr"`
 	Ip6gateway        string `json:"ip6gateway"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Netmask           string `json:"netmask"`
 	Networkid         string `json:"networkid"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
@@ -370,6 +385,8 @@ type DedicateGuestVlanRangeResponse struct {
 	Domainid          string `json:"domainid"`
 	Guestvlanrange    string `json:"guestvlanrange"`
 	Id                string `json:"id"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Physicalnetworkid int64  `json:"physicalnetworkid"`
 	Project           string `json:"project"`
 	Projectid         string `json:"projectid"`
@@ -425,6 +442,8 @@ func (s *VLANService) DeleteVlanIpRange(p *DeleteVlanIpRangeParams) (*DeleteVlan
 
 type DeleteVlanIpRangeResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -638,6 +657,8 @@ type DedicatedGuestVlanRange struct {
 	Domainid          string `json:"domainid"`
 	Guestvlanrange    string `json:"guestvlanrange"`
 	Id                string `json:"id"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Physicalnetworkid int64  `json:"physicalnetworkid"`
 	Project           string `json:"project"`
 	Projectid         string `json:"projectid"`
@@ -870,11 +891,14 @@ type VlanIpRange struct {
 	Domainid          string `json:"domainid"`
 	Endip             string `json:"endip"`
 	Endipv6           string `json:"endipv6"`
+	Forsystemvms      bool   `json:"forsystemvms"`
 	Forvirtualnetwork bool   `json:"forvirtualnetwork"`
 	Gateway           string `json:"gateway"`
 	Id                string `json:"id"`
 	Ip6cidr           string `json:"ip6cidr"`
 	Ip6gateway        string `json:"ip6gateway"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Netmask           string `json:"netmask"`
 	Networkid         string `json:"networkid"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
@@ -934,7 +958,7 @@ func (s *VLANService) ReleaseDedicatedGuestVlanRange(p *ReleaseDedicatedGuestVla
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -951,7 +975,8 @@ func (s *VLANService) ReleaseDedicatedGuestVlanRange(p *ReleaseDedicatedGuestVla
 }
 
 type ReleaseDedicatedGuestVlanRangeResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }

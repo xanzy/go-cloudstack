@@ -33,8 +33,19 @@ func (p *AddNicToVirtualMachineParams) toURLValues() url.Values {
 	if p.p == nil {
 		return u
 	}
+	if v, found := p.p["dhcpoptions"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("dhcpoptions[%d].key", i), k)
+			u.Set(fmt.Sprintf("dhcpoptions[%d].value", i), vv)
+			i++
+		}
+	}
 	if v, found := p.p["ipaddress"]; found {
 		u.Set("ipaddress", v.(string))
+	}
+	if v, found := p.p["macaddress"]; found {
+		u.Set("macaddress", v.(string))
 	}
 	if v, found := p.p["networkid"]; found {
 		u.Set("networkid", v.(string))
@@ -45,11 +56,27 @@ func (p *AddNicToVirtualMachineParams) toURLValues() url.Values {
 	return u
 }
 
+func (p *AddNicToVirtualMachineParams) SetDhcpoptions(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dhcpoptions"] = v
+	return
+}
+
 func (p *AddNicToVirtualMachineParams) SetIpaddress(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddress"] = v
+	return
+}
+
+func (p *AddNicToVirtualMachineParams) SetMacaddress(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["macaddress"] = v
 	return
 }
 
@@ -93,7 +120,7 @@ func (s *VirtualMachineService) AddNicToVirtualMachine(p *AddNicToVirtualMachine
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -115,7 +142,6 @@ func (s *VirtualMachineService) AddNicToVirtualMachine(p *AddNicToVirtualMachine
 }
 
 type AddNicToVirtualMachineResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -158,6 +184,8 @@ type AddNicToVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -167,22 +195,23 @@ type AddNicToVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -274,6 +303,18 @@ type AddNicToVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -302,6 +343,9 @@ func (p *AssignVirtualMachineParams) toURLValues() url.Values {
 	if v, found := p.p["networkids"]; found {
 		vv := strings.Join(v.([]string), ",")
 		u.Set("networkids", vv)
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
 	}
 	if v, found := p.p["securitygroupids"]; found {
 		vv := strings.Join(v.([]string), ",")
@@ -337,6 +381,14 @@ func (p *AssignVirtualMachineParams) SetNetworkids(v []string) {
 	return
 }
 
+func (p *AssignVirtualMachineParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+	return
+}
+
 func (p *AssignVirtualMachineParams) SetSecuritygroupids(v []string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -355,11 +407,9 @@ func (p *AssignVirtualMachineParams) SetVirtualmachineid(v string) {
 
 // You should always use this function to get a new AssignVirtualMachineParams instance,
 // as then you are sure you have configured all required params
-func (s *VirtualMachineService) NewAssignVirtualMachineParams(account string, domainid string, virtualmachineid string) *AssignVirtualMachineParams {
+func (s *VirtualMachineService) NewAssignVirtualMachineParams(virtualmachineid string) *AssignVirtualMachineParams {
 	p := &AssignVirtualMachineParams{}
 	p.p = make(map[string]interface{})
-	p.p["account"] = account
-	p.p["domainid"] = domainid
 	p.p["virtualmachineid"] = virtualmachineid
 	return p
 }
@@ -422,6 +472,8 @@ type AssignVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -431,22 +483,23 @@ type AssignVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -538,6 +591,18 @@ type AssignVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -665,6 +730,8 @@ type ChangeServiceForVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -674,22 +741,23 @@ type ChangeServiceForVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -781,6 +849,18 @@ type ChangeServiceForVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -825,7 +905,7 @@ func (s *VirtualMachineService) CleanVMReservations(p *CleanVMReservationsParams
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -842,8 +922,9 @@ func (s *VirtualMachineService) CleanVMReservations(p *CleanVMReservationsParams
 }
 
 type CleanVMReservationsResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -870,6 +951,14 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 	if v, found := p.p["customid"]; found {
 		u.Set("customid", v.(string))
 	}
+	if v, found := p.p["datadiskofferinglist"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("datadiskofferinglist[%d].key", i), k)
+			u.Set(fmt.Sprintf("datadiskofferinglist[%d].value", i), vv)
+			i++
+		}
+	}
 	if v, found := p.p["deploymentplanner"]; found {
 		u.Set("deploymentplanner", v.(string))
 	}
@@ -877,6 +966,14 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 		i := 0
 		for k, vv := range v.(map[string]string) {
 			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
+			i++
+		}
+	}
+	if v, found := p.p["dhcpoptionsnetworklist"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("dhcpoptionsnetworklist[%d].key", i), k)
+			u.Set(fmt.Sprintf("dhcpoptionsnetworklist[%d].value", i), vv)
 			i++
 		}
 	}
@@ -921,6 +1018,9 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["keypair"]; found {
 		u.Set("keypair", v.(string))
+	}
+	if v, found := p.p["macaddress"]; found {
+		u.Set("macaddress", v.(string))
 	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
@@ -999,6 +1099,14 @@ func (p *DeployVirtualMachineParams) SetCustomid(v string) {
 	return
 }
 
+func (p *DeployVirtualMachineParams) SetDatadiskofferinglist(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["datadiskofferinglist"] = v
+	return
+}
+
 func (p *DeployVirtualMachineParams) SetDeploymentplanner(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -1012,6 +1120,14 @@ func (p *DeployVirtualMachineParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
+	return
+}
+
+func (p *DeployVirtualMachineParams) SetDhcpoptionsnetworklist(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dhcpoptionsnetworklist"] = v
 	return
 }
 
@@ -1108,6 +1224,14 @@ func (p *DeployVirtualMachineParams) SetKeypair(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keypair"] = v
+	return
+}
+
+func (p *DeployVirtualMachineParams) SetMacaddress(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["macaddress"] = v
 	return
 }
 
@@ -1232,7 +1356,7 @@ func (s *VirtualMachineService) DeployVirtualMachine(p *DeployVirtualMachinePara
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1254,7 +1378,6 @@ func (s *VirtualMachineService) DeployVirtualMachine(p *DeployVirtualMachinePara
 }
 
 type DeployVirtualMachineResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -1297,6 +1420,8 @@ type DeployVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -1306,22 +1431,23 @@ type DeployVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -1413,6 +1539,18 @@ type DeployVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -1467,7 +1605,7 @@ func (s *VirtualMachineService) NewDestroyVirtualMachineParams(id string) *Destr
 	return p
 }
 
-// Destroys a virtual machine.
+// Destroys a virtual machine. Once destroyed, only the administrator can recover it.
 func (s *VirtualMachineService) DestroyVirtualMachine(p *DestroyVirtualMachineParams) (*DestroyVirtualMachineResponse, error) {
 	resp, err := s.cs.newRequest("destroyVirtualMachine", p.toURLValues())
 	if err != nil {
@@ -1481,7 +1619,7 @@ func (s *VirtualMachineService) DestroyVirtualMachine(p *DestroyVirtualMachinePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1503,7 +1641,6 @@ func (s *VirtualMachineService) DestroyVirtualMachine(p *DestroyVirtualMachinePa
 }
 
 type DestroyVirtualMachineResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -1546,6 +1683,8 @@ type DestroyVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -1555,22 +1694,23 @@ type DestroyVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -1662,6 +1802,18 @@ type DestroyVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -1718,7 +1870,7 @@ func (s *VirtualMachineService) ExpungeVirtualMachine(p *ExpungeVirtualMachinePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1735,8 +1887,9 @@ func (s *VirtualMachineService) ExpungeVirtualMachine(p *ExpungeVirtualMachinePa
 }
 
 type ExpungeVirtualMachineResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1789,6 +1942,8 @@ func (s *VirtualMachineService) GetVMPassword(p *GetVMPasswordParams) (*GetVMPas
 
 type GetVMPasswordResponse struct {
 	Encryptedpassword string `json:"encryptedpassword"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 }
 
 type ListVirtualMachinesParams struct {
@@ -2309,6 +2464,8 @@ type VirtualMachine struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -2318,22 +2475,23 @@ type VirtualMachine struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -2425,6 +2583,18 @@ type VirtualMachine struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -2503,7 +2673,7 @@ func (s *VirtualMachineService) MigrateVirtualMachine(p *MigrateVirtualMachinePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2525,7 +2695,6 @@ func (s *VirtualMachineService) MigrateVirtualMachine(p *MigrateVirtualMachinePa
 }
 
 type MigrateVirtualMachineResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -2568,6 +2737,8 @@ type MigrateVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -2577,22 +2748,23 @@ type MigrateVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -2684,6 +2856,18 @@ type MigrateVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -2768,7 +2952,7 @@ func (s *VirtualMachineService) MigrateVirtualMachineWithVolume(p *MigrateVirtua
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2790,7 +2974,6 @@ func (s *VirtualMachineService) MigrateVirtualMachineWithVolume(p *MigrateVirtua
 }
 
 type MigrateVirtualMachineWithVolumeResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -2833,6 +3016,8 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -2842,22 +3027,23 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -2949,6 +3135,18 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -3005,7 +3203,7 @@ func (s *VirtualMachineService) RebootVirtualMachine(p *RebootVirtualMachinePara
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -3027,7 +3225,6 @@ func (s *VirtualMachineService) RebootVirtualMachine(p *RebootVirtualMachinePara
 }
 
 type RebootVirtualMachineResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -3070,6 +3267,8 @@ type RebootVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -3079,22 +3278,23 @@ type RebootVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -3186,6 +3386,18 @@ type RebootVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -3286,6 +3498,8 @@ type RecoverVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -3295,22 +3509,23 @@ type RecoverVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -3402,6 +3617,18 @@ type RecoverVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -3470,7 +3697,7 @@ func (s *VirtualMachineService) RemoveNicFromVirtualMachine(p *RemoveNicFromVirt
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -3492,7 +3719,6 @@ func (s *VirtualMachineService) RemoveNicFromVirtualMachine(p *RemoveNicFromVirt
 }
 
 type RemoveNicFromVirtualMachineResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -3535,6 +3761,8 @@ type RemoveNicFromVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -3544,22 +3772,23 @@ type RemoveNicFromVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -3651,6 +3880,18 @@ type RemoveNicFromVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -3707,7 +3948,7 @@ func (s *VirtualMachineService) ResetPasswordForVirtualMachine(p *ResetPasswordF
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -3729,7 +3970,6 @@ func (s *VirtualMachineService) ResetPasswordForVirtualMachine(p *ResetPasswordF
 }
 
 type ResetPasswordForVirtualMachineResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -3772,6 +4012,8 @@ type ResetPasswordForVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -3781,22 +4023,23 @@ type ResetPasswordForVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -3888,6 +4131,18 @@ type ResetPasswordForVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -3955,7 +4210,7 @@ func (s *VirtualMachineService) RestoreVirtualMachine(p *RestoreVirtualMachinePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -3977,7 +4232,6 @@ func (s *VirtualMachineService) RestoreVirtualMachine(p *RestoreVirtualMachinePa
 }
 
 type RestoreVirtualMachineResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -4020,6 +4274,8 @@ type RestoreVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -4029,22 +4285,23 @@ type RestoreVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -4136,6 +4393,18 @@ type RestoreVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -4219,7 +4488,7 @@ func (s *VirtualMachineService) ScaleVirtualMachine(p *ScaleVirtualMachineParams
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4236,8 +4505,9 @@ func (s *VirtualMachineService) ScaleVirtualMachine(p *ScaleVirtualMachineParams
 }
 
 type ScaleVirtualMachineResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -4309,7 +4579,7 @@ func (s *VirtualMachineService) StartVirtualMachine(p *StartVirtualMachineParams
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4331,7 +4601,6 @@ func (s *VirtualMachineService) StartVirtualMachine(p *StartVirtualMachineParams
 }
 
 type StartVirtualMachineResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -4374,6 +4643,8 @@ type StartVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -4383,22 +4654,23 @@ type StartVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -4490,6 +4762,18 @@ type StartVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -4558,7 +4842,7 @@ func (s *VirtualMachineService) StopVirtualMachine(p *StopVirtualMachineParams) 
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4580,7 +4864,6 @@ func (s *VirtualMachineService) StopVirtualMachine(p *StopVirtualMachineParams) 
 }
 
 type StopVirtualMachineResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -4623,6 +4906,8 @@ type StopVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -4632,22 +4917,23 @@ type StopVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -4739,6 +5025,18 @@ type StopVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -4807,7 +5105,7 @@ func (s *VirtualMachineService) UpdateDefaultNicForVirtualMachine(p *UpdateDefau
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4829,7 +5127,6 @@ func (s *VirtualMachineService) UpdateDefaultNicForVirtualMachine(p *UpdateDefau
 }
 
 type UpdateDefaultNicForVirtualMachineResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -4872,6 +5169,8 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -4881,22 +5180,23 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -4988,6 +5288,18 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -5007,6 +5319,10 @@ func (p *UpdateVirtualMachineParams) toURLValues() url.Values {
 	if p.p == nil {
 		return u
 	}
+	if v, found := p.p["cleanupdetails"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("cleanupdetails", vv)
+	}
 	if v, found := p.p["customid"]; found {
 		u.Set("customid", v.(string))
 	}
@@ -5014,6 +5330,14 @@ func (p *UpdateVirtualMachineParams) toURLValues() url.Values {
 		i := 0
 		for k, vv := range v.(map[string]string) {
 			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
+			i++
+		}
+	}
+	if v, found := p.p["dhcpoptionsnetworklist"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("dhcpoptionsnetworklist[%d].key", i), k)
+			u.Set(fmt.Sprintf("dhcpoptionsnetworklist[%d].value", i), vv)
 			i++
 		}
 	}
@@ -5061,6 +5385,14 @@ func (p *UpdateVirtualMachineParams) toURLValues() url.Values {
 	return u
 }
 
+func (p *UpdateVirtualMachineParams) SetCleanupdetails(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["cleanupdetails"] = v
+	return
+}
+
 func (p *UpdateVirtualMachineParams) SetCustomid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -5074,6 +5406,14 @@ func (p *UpdateVirtualMachineParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
+	return
+}
+
+func (p *UpdateVirtualMachineParams) SetDhcpoptionsnetworklist(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dhcpoptionsnetworklist"] = v
 	return
 }
 
@@ -5240,6 +5580,8 @@ type UpdateVirtualMachineResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -5249,22 +5591,23 @@ type UpdateVirtualMachineResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -5356,6 +5699,18 @@ type UpdateVirtualMachineResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`

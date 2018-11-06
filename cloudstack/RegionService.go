@@ -98,6 +98,8 @@ type AddRegionResponse struct {
 	Endpoint                 string `json:"endpoint"`
 	Gslbserviceenabled       bool   `json:"gslbserviceenabled"`
 	Id                       int    `json:"id"`
+	Jobid                    string `json:"jobid"`
+	Jobstatus                int    `json:"jobstatus"`
 	Name                     string `json:"name"`
 	Portableipserviceenabled bool   `json:"portableipserviceenabled"`
 }
@@ -204,6 +206,8 @@ type Region struct {
 	Endpoint                 string `json:"endpoint"`
 	Gslbserviceenabled       bool   `json:"gslbserviceenabled"`
 	Id                       int    `json:"id"`
+	Jobid                    string `json:"jobid"`
+	Jobstatus                int    `json:"jobstatus"`
 	Name                     string `json:"name"`
 	Portableipserviceenabled bool   `json:"portableipserviceenabled"`
 }
@@ -258,6 +262,8 @@ func (s *RegionService) RemoveRegion(p *RemoveRegionParams) (*RemoveRegionRespon
 
 type RemoveRegionResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -354,6 +360,8 @@ type UpdateRegionResponse struct {
 	Endpoint                 string `json:"endpoint"`
 	Gslbserviceenabled       bool   `json:"gslbserviceenabled"`
 	Id                       int    `json:"id"`
+	Jobid                    string `json:"jobid"`
+	Jobstatus                int    `json:"jobstatus"`
 	Name                     string `json:"name"`
 	Portableipserviceenabled bool   `json:"portableipserviceenabled"`
 }

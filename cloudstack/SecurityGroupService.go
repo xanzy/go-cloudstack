@@ -232,7 +232,7 @@ func (s *SecurityGroupService) AuthorizeSecurityGroupEgress(p *AuthorizeSecurity
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -259,12 +259,13 @@ func (s *SecurityGroupService) AuthorizeSecurityGroupEgress(p *AuthorizeSecurity
 }
 
 type AuthorizeSecurityGroupEgressResponse struct {
-	JobID             string `json:"jobid"`
 	Account           string `json:"account"`
 	Cidr              string `json:"cidr"`
 	Endport           int    `json:"endport"`
 	Icmpcode          int    `json:"icmpcode"`
 	Icmptype          int    `json:"icmptype"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Protocol          string `json:"protocol"`
 	Ruleid            string `json:"ruleid"`
 	Securitygroupname string `json:"securitygroupname"`
@@ -459,7 +460,7 @@ func (s *SecurityGroupService) AuthorizeSecurityGroupIngress(p *AuthorizeSecurit
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -486,12 +487,13 @@ func (s *SecurityGroupService) AuthorizeSecurityGroupIngress(p *AuthorizeSecurit
 }
 
 type AuthorizeSecurityGroupIngressResponse struct {
-	JobID             string `json:"jobid"`
 	Account           string `json:"account"`
 	Cidr              string `json:"cidr"`
 	Endport           int    `json:"endport"`
 	Icmpcode          int    `json:"icmpcode"`
 	Icmptype          int    `json:"icmptype"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Protocol          string `json:"protocol"`
 	Ruleid            string `json:"ruleid"`
 	Securitygroupname string `json:"securitygroupname"`
@@ -657,6 +659,8 @@ type CreateSecurityGroupResponse struct {
 			Value        string `json:"value"`
 		} `json:"tags"`
 	} `json:"ingressrule"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Name      string `json:"name"`
 	Project   string `json:"project"`
 	Projectid string `json:"projectid"`
@@ -768,6 +772,8 @@ func (s *SecurityGroupService) DeleteSecurityGroup(p *DeleteSecurityGroupParams)
 
 type DeleteSecurityGroupResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1106,6 +1112,8 @@ type SecurityGroup struct {
 			Value        string `json:"value"`
 		} `json:"tags"`
 	} `json:"ingressrule"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Name      string `json:"name"`
 	Project   string `json:"project"`
 	Projectid string `json:"projectid"`
@@ -1171,7 +1179,7 @@ func (s *SecurityGroupService) RevokeSecurityGroupEgress(p *RevokeSecurityGroupE
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1188,8 +1196,9 @@ func (s *SecurityGroupService) RevokeSecurityGroupEgress(p *RevokeSecurityGroupE
 }
 
 type RevokeSecurityGroupEgressResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1239,7 +1248,7 @@ func (s *SecurityGroupService) RevokeSecurityGroupIngress(p *RevokeSecurityGroup
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1256,7 +1265,8 @@ func (s *SecurityGroupService) RevokeSecurityGroupIngress(p *RevokeSecurityGroup
 }
 
 type RevokeSecurityGroupIngressResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }

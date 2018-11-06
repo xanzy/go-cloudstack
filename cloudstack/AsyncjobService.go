@@ -159,6 +159,7 @@ type AsyncJob struct {
 	Accountid       string          `json:"accountid"`
 	Cmd             string          `json:"cmd"`
 	Created         string          `json:"created"`
+	Jobid           string          `json:"jobid"`
 	Jobinstanceid   string          `json:"jobinstanceid"`
 	Jobinstancetype string          `json:"jobinstancetype"`
 	Jobprocstatus   int             `json:"jobprocstatus"`
@@ -230,6 +231,7 @@ type QueryAsyncJobResultResponse struct {
 	Accountid       string          `json:"accountid"`
 	Cmd             string          `json:"cmd"`
 	Created         string          `json:"created"`
+	Jobid           string          `json:"jobid"`
 	Jobinstanceid   string          `json:"jobinstanceid"`
 	Jobinstancetype string          `json:"jobinstancetype"`
 	Jobprocstatus   int             `json:"jobprocstatus"`

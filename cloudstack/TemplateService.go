@@ -36,6 +36,10 @@ func (p *CopyTemplateParams) toURLValues() url.Values {
 	if v, found := p.p["destzoneid"]; found {
 		u.Set("destzoneid", v.(string))
 	}
+	if v, found := p.p["destzoneids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("destzoneids", vv)
+	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
@@ -50,6 +54,14 @@ func (p *CopyTemplateParams) SetDestzoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["destzoneid"] = v
+	return
+}
+
+func (p *CopyTemplateParams) SetDestzoneids(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["destzoneids"] = v
 	return
 }
 
@@ -71,10 +83,9 @@ func (p *CopyTemplateParams) SetSourcezoneid(v string) {
 
 // You should always use this function to get a new CopyTemplateParams instance,
 // as then you are sure you have configured all required params
-func (s *TemplateService) NewCopyTemplateParams(destzoneid string, id string) *CopyTemplateParams {
+func (s *TemplateService) NewCopyTemplateParams(id string) *CopyTemplateParams {
 	p := &CopyTemplateParams{}
 	p.p = make(map[string]interface{})
-	p.p["destzoneid"] = destzoneid
 	p.p["id"] = id
 	return p
 }
@@ -93,7 +104,7 @@ func (s *TemplateService) CopyTemplate(p *CopyTemplateParams) (*CopyTemplateResp
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -115,14 +126,16 @@ func (s *TemplateService) CopyTemplate(p *CopyTemplateParams) (*CopyTemplateResp
 }
 
 type CopyTemplateResponse struct {
-	JobID                 string            `json:"jobid"`
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -136,10 +149,14 @@ type CopyTemplateResponse struct {
 	Isfeatured            bool              `json:"isfeatured"`
 	Ispublic              bool              `json:"ispublic"`
 	Isready               bool              `json:"isready"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -147,10 +164,22 @@ type CopyTemplateResponse struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled"`
 	Status                string            `json:"status"`
-	Templatetag           string            `json:"templatetag"`
-	Templatetype          string            `json:"templatetype"`
-	Zoneid                string            `json:"zoneid"`
-	Zonename              string            `json:"zonename"`
+	Tags                  []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
+	Templatetag  string `json:"templatetag"`
+	Templatetype string `json:"templatetype"`
+	Zoneid       string `json:"zoneid"`
+	Zonename     string `json:"zonename"`
 }
 
 type CreateTemplateParams struct {
@@ -376,7 +405,7 @@ func (s *TemplateService) CreateTemplate(p *CreateTemplateParams) (*CreateTempla
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -398,14 +427,16 @@ func (s *TemplateService) CreateTemplate(p *CreateTemplateParams) (*CreateTempla
 }
 
 type CreateTemplateResponse struct {
-	JobID                 string            `json:"jobid"`
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -419,10 +450,14 @@ type CreateTemplateResponse struct {
 	Isfeatured            bool              `json:"isfeatured"`
 	Ispublic              bool              `json:"ispublic"`
 	Isready               bool              `json:"isready"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -430,10 +465,22 @@ type CreateTemplateResponse struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled"`
 	Status                string            `json:"status"`
-	Templatetag           string            `json:"templatetag"`
-	Templatetype          string            `json:"templatetype"`
-	Zoneid                string            `json:"zoneid"`
-	Zonename              string            `json:"zonename"`
+	Tags                  []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
+	Templatetag  string `json:"templatetag"`
+	Templatetype string `json:"templatetype"`
+	Zoneid       string `json:"zoneid"`
+	Zonename     string `json:"zonename"`
 }
 
 type DeleteTemplateParams struct {
@@ -445,6 +492,10 @@ func (p *DeleteTemplateParams) toURLValues() url.Values {
 	if p.p == nil {
 		return u
 	}
+	if v, found := p.p["forced"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("forced", vv)
+	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
@@ -452,6 +503,14 @@ func (p *DeleteTemplateParams) toURLValues() url.Values {
 		u.Set("zoneid", v.(string))
 	}
 	return u
+}
+
+func (p *DeleteTemplateParams) SetForced(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forced"] = v
+	return
 }
 
 func (p *DeleteTemplateParams) SetId(v string) {
@@ -493,7 +552,7 @@ func (s *TemplateService) DeleteTemplate(p *DeleteTemplateParams) (*DeleteTempla
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -510,8 +569,9 @@ func (s *TemplateService) DeleteTemplate(p *DeleteTemplateParams) (*DeleteTempla
 }
 
 type DeleteTemplateResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -595,7 +655,7 @@ func (s *TemplateService) ExtractTemplate(p *ExtractTemplateParams) (*ExtractTem
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -617,12 +677,13 @@ func (s *TemplateService) ExtractTemplate(p *ExtractTemplateParams) (*ExtractTem
 }
 
 type ExtractTemplateResponse struct {
-	JobID            string `json:"jobid"`
 	Accountid        string `json:"accountid"`
 	Created          string `json:"created"`
 	ExtractId        string `json:"extractId"`
 	ExtractMode      string `json:"extractMode"`
 	Id               string `json:"id"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Name             string `json:"name"`
 	Resultstring     string `json:"resultstring"`
 	State            string `json:"state"`
@@ -922,6 +983,8 @@ func (s *TemplateService) GetUploadParamsForTemplate(p *GetUploadParamsForTempla
 type GetUploadParamsForTemplateResponse struct {
 	Expires   string `json:"expires"`
 	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Metadata  string `json:"metadata"`
 	PostURL   string `json:"postURL"`
 	Signature string `json:"signature"`
@@ -1017,6 +1080,8 @@ type TemplatePermission struct {
 	Domainid   string   `json:"domainid"`
 	Id         string   `json:"id"`
 	Ispublic   bool     `json:"ispublic"`
+	Jobid      string   `json:"jobid"`
+	Jobstatus  int      `json:"jobstatus"`
 	Projectids []string `json:"projectids"`
 }
 
@@ -1066,6 +1131,9 @@ func (p *ListTemplatesParams) toURLValues() url.Values {
 	if v, found := p.p["pagesize"]; found {
 		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["parenttemplateid"]; found {
+		u.Set("parenttemplateid", v.(string))
 	}
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
@@ -1176,6 +1244,14 @@ func (p *ListTemplatesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
+	return
+}
+
+func (p *ListTemplatesParams) SetParenttemplateid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["parenttemplateid"] = v
 	return
 }
 
@@ -1337,11 +1413,14 @@ type ListTemplatesResponse struct {
 type Template struct {
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -1355,10 +1434,14 @@ type Template struct {
 	Isfeatured            bool              `json:"isfeatured"`
 	Ispublic              bool              `json:"ispublic"`
 	Isready               bool              `json:"isready"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -1366,10 +1449,22 @@ type Template struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled"`
 	Status                string            `json:"status"`
-	Templatetag           string            `json:"templatetag"`
-	Templatetype          string            `json:"templatetype"`
-	Zoneid                string            `json:"zoneid"`
-	Zonename              string            `json:"zonename"`
+	Tags                  []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
+	Templatetag  string `json:"templatetag"`
+	Templatetype string `json:"templatetype"`
+	Zoneid       string `json:"zoneid"`
+	Zonename     string `json:"zonename"`
 }
 
 type PrepareTemplateParams struct {
@@ -1445,11 +1540,14 @@ func (s *TemplateService) PrepareTemplate(p *PrepareTemplateParams) (*PrepareTem
 type PrepareTemplateResponse struct {
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -1463,10 +1561,14 @@ type PrepareTemplateResponse struct {
 	Isfeatured            bool              `json:"isfeatured"`
 	Ispublic              bool              `json:"ispublic"`
 	Isready               bool              `json:"isready"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -1474,10 +1576,22 @@ type PrepareTemplateResponse struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled"`
 	Status                string            `json:"status"`
-	Templatetag           string            `json:"templatetag"`
-	Templatetype          string            `json:"templatetype"`
-	Zoneid                string            `json:"zoneid"`
-	Zonename              string            `json:"zonename"`
+	Tags                  []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
+	Templatetag  string `json:"templatetag"`
+	Templatetype string `json:"templatetype"`
+	Zoneid       string `json:"zoneid"`
+	Zonename     string `json:"zonename"`
 }
 
 type RegisterTemplateParams struct {
@@ -1505,6 +1619,10 @@ func (p *RegisterTemplateParams) toURLValues() url.Values {
 			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
 			i++
 		}
+	}
+	if v, found := p.p["directdownload"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("directdownload", vv)
 	}
 	if v, found := p.p["displaytext"]; found {
 		u.Set("displaytext", v.(string))
@@ -1568,6 +1686,10 @@ func (p *RegisterTemplateParams) toURLValues() url.Values {
 	if v, found := p.p["zoneid"]; found {
 		u.Set("zoneid", v.(string))
 	}
+	if v, found := p.p["zoneids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("zoneids", vv)
+	}
 	return u
 }
 
@@ -1600,6 +1722,14 @@ func (p *RegisterTemplateParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
+	return
+}
+
+func (p *RegisterTemplateParams) SetDirectdownload(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["directdownload"] = v
 	return
 }
 
@@ -1747,9 +1877,17 @@ func (p *RegisterTemplateParams) SetZoneid(v string) {
 	return
 }
 
+func (p *RegisterTemplateParams) SetZoneids(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneids"] = v
+	return
+}
+
 // You should always use this function to get a new RegisterTemplateParams instance,
 // as then you are sure you have configured all required params
-func (s *TemplateService) NewRegisterTemplateParams(displaytext string, format string, hypervisor string, name string, ostypeid string, url string, zoneid string) *RegisterTemplateParams {
+func (s *TemplateService) NewRegisterTemplateParams(displaytext string, format string, hypervisor string, name string, ostypeid string, url string) *RegisterTemplateParams {
 	p := &RegisterTemplateParams{}
 	p.p = make(map[string]interface{})
 	p.p["displaytext"] = displaytext
@@ -1758,7 +1896,6 @@ func (s *TemplateService) NewRegisterTemplateParams(displaytext string, format s
 	p.p["name"] = name
 	p.p["ostypeid"] = ostypeid
 	p.p["url"] = url
-	p.p["zoneid"] = zoneid
 	return p
 }
 
@@ -1785,11 +1922,14 @@ type RegisterTemplateResponse struct {
 type RegisterTemplate struct {
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -1803,10 +1943,14 @@ type RegisterTemplate struct {
 	Isfeatured            bool              `json:"isfeatured"`
 	Ispublic              bool              `json:"ispublic"`
 	Isready               bool              `json:"isready"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -1814,10 +1958,22 @@ type RegisterTemplate struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled"`
 	Status                string            `json:"status"`
-	Templatetag           string            `json:"templatetag"`
-	Templatetype          string            `json:"templatetype"`
-	Zoneid                string            `json:"zoneid"`
-	Zonename              string            `json:"zonename"`
+	Tags                  []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
+	Templatetag  string `json:"templatetag"`
+	Templatetype string `json:"templatetype"`
+	Zoneid       string `json:"zoneid"`
+	Zonename     string `json:"zonename"`
 }
 
 type UpdateTemplateParams struct {
@@ -1832,6 +1988,10 @@ func (p *UpdateTemplateParams) toURLValues() url.Values {
 	if v, found := p.p["bootable"]; found {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("bootable", vv)
+	}
+	if v, found := p.p["cleanupdetails"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("cleanupdetails", vv)
 	}
 	if v, found := p.p["details"]; found {
 		i := 0
@@ -1883,6 +2043,14 @@ func (p *UpdateTemplateParams) SetBootable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bootable"] = v
+	return
+}
+
+func (p *UpdateTemplateParams) SetCleanupdetails(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["cleanupdetails"] = v
 	return
 }
 
@@ -2001,11 +2169,14 @@ func (s *TemplateService) UpdateTemplate(p *UpdateTemplateParams) (*UpdateTempla
 type UpdateTemplateResponse struct {
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -2019,10 +2190,14 @@ type UpdateTemplateResponse struct {
 	Isfeatured            bool              `json:"isfeatured"`
 	Ispublic              bool              `json:"ispublic"`
 	Isready               bool              `json:"isready"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -2030,10 +2205,22 @@ type UpdateTemplateResponse struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled"`
 	Status                string            `json:"status"`
-	Templatetag           string            `json:"templatetag"`
-	Templatetype          string            `json:"templatetype"`
-	Zoneid                string            `json:"zoneid"`
-	Zonename              string            `json:"zonename"`
+	Tags                  []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
+	Templatetag  string `json:"templatetag"`
+	Templatetype string `json:"templatetype"`
+	Zoneid       string `json:"zoneid"`
+	Zonename     string `json:"zonename"`
 }
 
 type UpdateTemplatePermissionsParams struct {
@@ -2156,6 +2343,8 @@ func (s *TemplateService) UpdateTemplatePermissions(p *UpdateTemplatePermissions
 
 type UpdateTemplatePermissionsResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 

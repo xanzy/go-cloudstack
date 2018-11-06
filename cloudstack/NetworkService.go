@@ -105,7 +105,7 @@ func (s *NetworkService) AddNetworkServiceProvider(p *AddNetworkServiceProviderP
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -127,10 +127,11 @@ func (s *NetworkService) AddNetworkServiceProvider(p *AddNetworkServiceProviderP
 }
 
 type AddNetworkServiceProviderResponse struct {
-	JobID                        string   `json:"jobid"`
 	Canenableindividualservice   bool     `json:"canenableindividualservice"`
 	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
 	Id                           string   `json:"id"`
+	Jobid                        string   `json:"jobid"`
+	Jobstatus                    int      `json:"jobstatus"`
 	Name                         string   `json:"name"`
 	Physicalnetworkid            string   `json:"physicalnetworkid"`
 	Servicelist                  []string `json:"servicelist"`
@@ -219,7 +220,7 @@ func (s *NetworkService) AddOpenDaylightController(p *AddOpenDaylightControllerP
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -241,8 +242,9 @@ func (s *NetworkService) AddOpenDaylightController(p *AddOpenDaylightControllerP
 }
 
 type AddOpenDaylightControllerResponse struct {
-	JobID             string `json:"jobid"`
 	Id                string `json:"id"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Name              string `json:"name"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Url               string `json:"url"`
@@ -267,6 +269,10 @@ func (p *CreateNetworkParams) toURLValues() url.Values {
 	if v, found := p.p["acltype"]; found {
 		u.Set("acltype", v.(string))
 	}
+	if v, found := p.p["bypassvlanoverlapcheck"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("bypassvlanoverlapcheck", vv)
+	}
 	if v, found := p.p["displaynetwork"]; found {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("displaynetwork", vv)
@@ -282,6 +288,9 @@ func (p *CreateNetworkParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["endipv6"]; found {
 		u.Set("endipv6", v.(string))
+	}
+	if v, found := p.p["externalid"]; found {
+		u.Set("externalid", v.(string))
 	}
 	if v, found := p.p["gateway"]; found {
 		u.Set("gateway", v.(string))
@@ -359,6 +368,14 @@ func (p *CreateNetworkParams) SetAcltype(v string) {
 	return
 }
 
+func (p *CreateNetworkParams) SetBypassvlanoverlapcheck(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["bypassvlanoverlapcheck"] = v
+	return
+}
+
 func (p *CreateNetworkParams) SetDisplaynetwork(v bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -396,6 +413,14 @@ func (p *CreateNetworkParams) SetEndipv6(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endipv6"] = v
+	return
+}
+
+func (p *CreateNetworkParams) SetExternalid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["externalid"] = v
 	return
 }
 
@@ -572,6 +597,7 @@ type CreateNetworkResponse struct {
 	Dns2                        string `json:"dns2"`
 	Domain                      string `json:"domain"`
 	Domainid                    string `json:"domainid"`
+	Externalid                  string `json:"externalid"`
 	Gateway                     string `json:"gateway"`
 	Id                          string `json:"id"`
 	Ip6cidr                     string `json:"ip6cidr"`
@@ -579,6 +605,8 @@ type CreateNetworkResponse struct {
 	Isdefault                   bool   `json:"isdefault"`
 	Ispersistent                bool   `json:"ispersistent"`
 	Issystem                    bool   `json:"issystem"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Name                        string `json:"name"`
 	Netmask                     string `json:"netmask"`
 	Networkcidr                 string `json:"networkcidr"`
@@ -591,6 +619,7 @@ type CreateNetworkResponse struct {
 	Physicalnetworkid           string `json:"physicalnetworkid"`
 	Project                     string `json:"project"`
 	Projectid                   string `json:"projectid"`
+	Redundantrouter             bool   `json:"redundantrouter"`
 	Related                     string `json:"related"`
 	Reservediprange             string `json:"reservediprange"`
 	Restartrequired             bool   `json:"restartrequired"`
@@ -762,7 +791,7 @@ func (s *NetworkService) CreatePhysicalNetwork(p *CreatePhysicalNetworkParams) (
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -784,11 +813,12 @@ func (s *NetworkService) CreatePhysicalNetwork(p *CreatePhysicalNetworkParams) (
 }
 
 type CreatePhysicalNetworkResponse struct {
-	JobID                string `json:"jobid"`
 	Broadcastdomainrange string `json:"broadcastdomainrange"`
 	Domainid             string `json:"domainid"`
 	Id                   string `json:"id"`
 	Isolationmethods     string `json:"isolationmethods"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Name                 string `json:"name"`
 	Networkspeed         string `json:"networkspeed"`
 	State                string `json:"state"`
@@ -936,7 +966,7 @@ func (s *NetworkService) CreateServiceInstance(p *CreateServiceInstanceParams) (
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -958,12 +988,13 @@ func (s *NetworkService) CreateServiceInstance(p *CreateServiceInstanceParams) (
 }
 
 type CreateServiceInstanceResponse struct {
-	JobID       string `json:"jobid"`
 	Account     string `json:"account"`
 	Displayname string `json:"displayname"`
 	Domain      string `json:"domain"`
 	Domainid    string `json:"domainid"`
 	Id          string `json:"id"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Name        string `json:"name"`
 	Project     string `json:"project"`
 	Projectid   string `json:"projectid"`
@@ -1074,7 +1105,7 @@ func (s *NetworkService) CreateStorageNetworkIpRange(p *CreateStorageNetworkIpRa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1096,10 +1127,11 @@ func (s *NetworkService) CreateStorageNetworkIpRange(p *CreateStorageNetworkIpRa
 }
 
 type CreateStorageNetworkIpRangeResponse struct {
-	JobID     string `json:"jobid"`
 	Endip     string `json:"endip"`
 	Gateway   string `json:"gateway"`
 	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Netmask   string `json:"netmask"`
 	Networkid string `json:"networkid"`
 	Podid     string `json:"podid"`
@@ -1196,11 +1228,14 @@ type DedicatePublicIpRangeResponse struct {
 	Domainid          string `json:"domainid"`
 	Endip             string `json:"endip"`
 	Endipv6           string `json:"endipv6"`
+	Forsystemvms      bool   `json:"forsystemvms"`
 	Forvirtualnetwork bool   `json:"forvirtualnetwork"`
 	Gateway           string `json:"gateway"`
 	Id                string `json:"id"`
 	Ip6cidr           string `json:"ip6cidr"`
 	Ip6gateway        string `json:"ip6gateway"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Netmask           string `json:"netmask"`
 	Networkid         string `json:"networkid"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
@@ -1272,7 +1307,7 @@ func (s *NetworkService) DeleteNetwork(p *DeleteNetworkParams) (*DeleteNetworkRe
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1289,8 +1324,9 @@ func (s *NetworkService) DeleteNetwork(p *DeleteNetworkParams) (*DeleteNetworkRe
 }
 
 type DeleteNetworkResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1340,7 +1376,7 @@ func (s *NetworkService) DeleteNetworkServiceProvider(p *DeleteNetworkServicePro
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1357,8 +1393,9 @@ func (s *NetworkService) DeleteNetworkServiceProvider(p *DeleteNetworkServicePro
 }
 
 type DeleteNetworkServiceProviderResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1408,7 +1445,7 @@ func (s *NetworkService) DeleteOpenDaylightController(p *DeleteOpenDaylightContr
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1430,8 +1467,9 @@ func (s *NetworkService) DeleteOpenDaylightController(p *DeleteOpenDaylightContr
 }
 
 type DeleteOpenDaylightControllerResponse struct {
-	JobID             string `json:"jobid"`
 	Id                string `json:"id"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Name              string `json:"name"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Url               string `json:"url"`
@@ -1484,7 +1522,7 @@ func (s *NetworkService) DeletePhysicalNetwork(p *DeletePhysicalNetworkParams) (
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1501,8 +1539,9 @@ func (s *NetworkService) DeletePhysicalNetwork(p *DeletePhysicalNetworkParams) (
 }
 
 type DeletePhysicalNetworkResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1552,7 +1591,7 @@ func (s *NetworkService) DeleteStorageNetworkIpRange(p *DeleteStorageNetworkIpRa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1569,8 +1608,9 @@ func (s *NetworkService) DeleteStorageNetworkIpRange(p *DeleteStorageNetworkIpRa
 }
 
 type DeleteStorageNetworkIpRangeResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1712,6 +1752,7 @@ type F5LoadBalancerNetwork struct {
 	Dns2                        string `json:"dns2"`
 	Domain                      string `json:"domain"`
 	Domainid                    string `json:"domainid"`
+	Externalid                  string `json:"externalid"`
 	Gateway                     string `json:"gateway"`
 	Id                          string `json:"id"`
 	Ip6cidr                     string `json:"ip6cidr"`
@@ -1719,6 +1760,8 @@ type F5LoadBalancerNetwork struct {
 	Isdefault                   bool   `json:"isdefault"`
 	Ispersistent                bool   `json:"ispersistent"`
 	Issystem                    bool   `json:"issystem"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Name                        string `json:"name"`
 	Netmask                     string `json:"netmask"`
 	Networkcidr                 string `json:"networkcidr"`
@@ -1731,6 +1774,7 @@ type F5LoadBalancerNetwork struct {
 	Physicalnetworkid           string `json:"physicalnetworkid"`
 	Project                     string `json:"project"`
 	Projectid                   string `json:"projectid"`
+	Redundantrouter             bool   `json:"redundantrouter"`
 	Related                     string `json:"related"`
 	Reservediprange             string `json:"reservediprange"`
 	Restartrequired             bool   `json:"restartrequired"`
@@ -1914,6 +1958,7 @@ type NetscalerLoadBalancerNetwork struct {
 	Dns2                        string `json:"dns2"`
 	Domain                      string `json:"domain"`
 	Domainid                    string `json:"domainid"`
+	Externalid                  string `json:"externalid"`
 	Gateway                     string `json:"gateway"`
 	Id                          string `json:"id"`
 	Ip6cidr                     string `json:"ip6cidr"`
@@ -1921,6 +1966,8 @@ type NetscalerLoadBalancerNetwork struct {
 	Isdefault                   bool   `json:"isdefault"`
 	Ispersistent                bool   `json:"ispersistent"`
 	Issystem                    bool   `json:"issystem"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Name                        string `json:"name"`
 	Netmask                     string `json:"netmask"`
 	Networkcidr                 string `json:"networkcidr"`
@@ -1933,6 +1980,7 @@ type NetscalerLoadBalancerNetwork struct {
 	Physicalnetworkid           string `json:"physicalnetworkid"`
 	Project                     string `json:"project"`
 	Projectid                   string `json:"projectid"`
+	Redundantrouter             bool   `json:"redundantrouter"`
 	Related                     string `json:"related"`
 	Reservediprange             string `json:"reservediprange"`
 	Restartrequired             bool   `json:"restartrequired"`
@@ -2054,7 +2102,9 @@ type ListNetworkIsolationMethodsResponse struct {
 }
 
 type NetworkIsolationMethod struct {
-	Name string `json:"name"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
 }
 
 type ListNetworkServiceProvidersParams struct {
@@ -2205,6 +2255,8 @@ type NetworkServiceProvider struct {
 	Canenableindividualservice   bool     `json:"canenableindividualservice"`
 	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
 	Id                           string   `json:"id"`
+	Jobid                        string   `json:"jobid"`
+	Jobstatus                    int      `json:"jobstatus"`
 	Name                         string   `json:"name"`
 	Physicalnetworkid            string   `json:"physicalnetworkid"`
 	Servicelist                  []string `json:"servicelist"`
@@ -2617,6 +2669,7 @@ type Network struct {
 	Dns2                        string `json:"dns2"`
 	Domain                      string `json:"domain"`
 	Domainid                    string `json:"domainid"`
+	Externalid                  string `json:"externalid"`
 	Gateway                     string `json:"gateway"`
 	Id                          string `json:"id"`
 	Ip6cidr                     string `json:"ip6cidr"`
@@ -2624,6 +2677,8 @@ type Network struct {
 	Isdefault                   bool   `json:"isdefault"`
 	Ispersistent                bool   `json:"ispersistent"`
 	Issystem                    bool   `json:"issystem"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Name                        string `json:"name"`
 	Netmask                     string `json:"netmask"`
 	Networkcidr                 string `json:"networkcidr"`
@@ -2636,6 +2691,7 @@ type Network struct {
 	Physicalnetworkid           string `json:"physicalnetworkid"`
 	Project                     string `json:"project"`
 	Projectid                   string `json:"projectid"`
+	Redundantrouter             bool   `json:"redundantrouter"`
 	Related                     string `json:"related"`
 	Reservediprange             string `json:"reservediprange"`
 	Restartrequired             bool   `json:"restartrequired"`
@@ -2819,6 +2875,7 @@ type NiciraNvpDeviceNetwork struct {
 	Dns2                        string `json:"dns2"`
 	Domain                      string `json:"domain"`
 	Domainid                    string `json:"domainid"`
+	Externalid                  string `json:"externalid"`
 	Gateway                     string `json:"gateway"`
 	Id                          string `json:"id"`
 	Ip6cidr                     string `json:"ip6cidr"`
@@ -2826,6 +2883,8 @@ type NiciraNvpDeviceNetwork struct {
 	Isdefault                   bool   `json:"isdefault"`
 	Ispersistent                bool   `json:"ispersistent"`
 	Issystem                    bool   `json:"issystem"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Name                        string `json:"name"`
 	Netmask                     string `json:"netmask"`
 	Networkcidr                 string `json:"networkcidr"`
@@ -2838,6 +2897,7 @@ type NiciraNvpDeviceNetwork struct {
 	Physicalnetworkid           string `json:"physicalnetworkid"`
 	Project                     string `json:"project"`
 	Projectid                   string `json:"projectid"`
+	Redundantrouter             bool   `json:"redundantrouter"`
 	Related                     string `json:"related"`
 	Reservediprange             string `json:"reservediprange"`
 	Restartrequired             bool   `json:"restartrequired"`
@@ -2980,6 +3040,8 @@ type ListOpenDaylightControllersResponse struct {
 
 type OpenDaylightController struct {
 	Id                string `json:"id"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Name              string `json:"name"`
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Url               string `json:"url"`
@@ -3124,6 +3186,7 @@ type PaloAltoFirewallNetwork struct {
 	Dns2                        string `json:"dns2"`
 	Domain                      string `json:"domain"`
 	Domainid                    string `json:"domainid"`
+	Externalid                  string `json:"externalid"`
 	Gateway                     string `json:"gateway"`
 	Id                          string `json:"id"`
 	Ip6cidr                     string `json:"ip6cidr"`
@@ -3131,6 +3194,8 @@ type PaloAltoFirewallNetwork struct {
 	Isdefault                   bool   `json:"isdefault"`
 	Ispersistent                bool   `json:"ispersistent"`
 	Issystem                    bool   `json:"issystem"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Name                        string `json:"name"`
 	Netmask                     string `json:"netmask"`
 	Networkcidr                 string `json:"networkcidr"`
@@ -3143,6 +3208,7 @@ type PaloAltoFirewallNetwork struct {
 	Physicalnetworkid           string `json:"physicalnetworkid"`
 	Project                     string `json:"project"`
 	Projectid                   string `json:"projectid"`
+	Redundantrouter             bool   `json:"redundantrouter"`
 	Related                     string `json:"related"`
 	Reservediprange             string `json:"reservediprange"`
 	Restartrequired             bool   `json:"restartrequired"`
@@ -3384,6 +3450,8 @@ type PhysicalNetwork struct {
 	Domainid             string `json:"domainid"`
 	Id                   string `json:"id"`
 	Isolationmethods     string `json:"isolationmethods"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Name                 string `json:"name"`
 	Networkspeed         string `json:"networkspeed"`
 	State                string `json:"state"`
@@ -3530,6 +3598,7 @@ type SrxFirewallNetwork struct {
 	Dns2                        string `json:"dns2"`
 	Domain                      string `json:"domain"`
 	Domainid                    string `json:"domainid"`
+	Externalid                  string `json:"externalid"`
 	Gateway                     string `json:"gateway"`
 	Id                          string `json:"id"`
 	Ip6cidr                     string `json:"ip6cidr"`
@@ -3537,6 +3606,8 @@ type SrxFirewallNetwork struct {
 	Isdefault                   bool   `json:"isdefault"`
 	Ispersistent                bool   `json:"ispersistent"`
 	Issystem                    bool   `json:"issystem"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Name                        string `json:"name"`
 	Netmask                     string `json:"netmask"`
 	Networkcidr                 string `json:"networkcidr"`
@@ -3549,6 +3620,7 @@ type SrxFirewallNetwork struct {
 	Physicalnetworkid           string `json:"physicalnetworkid"`
 	Project                     string `json:"project"`
 	Projectid                   string `json:"projectid"`
+	Redundantrouter             bool   `json:"redundantrouter"`
 	Related                     string `json:"related"`
 	Reservediprange             string `json:"reservediprange"`
 	Restartrequired             bool   `json:"restartrequired"`
@@ -3739,6 +3811,8 @@ type StorageNetworkIpRange struct {
 	Endip     string `json:"endip"`
 	Gateway   string `json:"gateway"`
 	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Netmask   string `json:"netmask"`
 	Networkid string `json:"networkid"`
 	Podid     string `json:"podid"`
@@ -3850,8 +3924,10 @@ type SupportedNetworkService struct {
 		Name                       string `json:"name"`
 		Value                      string `json:"value"`
 	} `json:"capability"`
-	Name     string `json:"name"`
-	Provider []struct {
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
+	Provider  []struct {
 		Canenableindividualservice   bool     `json:"canenableindividualservice"`
 		Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
 		Id                           string   `json:"id"`
@@ -3911,6 +3987,8 @@ func (s *NetworkService) ReleasePublicIpRange(p *ReleasePublicIpRangeParams) (*R
 
 type ReleasePublicIpRangeResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -3949,6 +4027,10 @@ func (p *RestartNetworkParams) toURLValues() url.Values {
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
+	if v, found := p.p["makeredundant"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("makeredundant", vv)
+	}
 	return u
 }
 
@@ -3965,6 +4047,14 @@ func (p *RestartNetworkParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
+	return
+}
+
+func (p *RestartNetworkParams) SetMakeredundant(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["makeredundant"] = v
 	return
 }
 
@@ -3991,7 +4081,7 @@ func (s *NetworkService) RestartNetwork(p *RestartNetworkParams) (*RestartNetwor
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4013,7 +4103,6 @@ func (s *NetworkService) RestartNetwork(p *RestartNetworkParams) (*RestartNetwor
 }
 
 type RestartNetworkResponse struct {
-	JobID                 string `json:"jobid"`
 	Account               string `json:"account"`
 	Allocated             string `json:"allocated"`
 	Associatednetworkid   string `json:"associatednetworkid"`
@@ -4028,6 +4117,8 @@ type RestartNetworkResponse struct {
 	Issourcenat           bool   `json:"issourcenat"`
 	Isstaticnat           bool   `json:"isstaticnat"`
 	Issystem              bool   `json:"issystem"`
+	Jobid                 string `json:"jobid"`
+	Jobstatus             int    `json:"jobstatus"`
 	Networkid             string `json:"networkid"`
 	Physicalnetworkid     string `json:"physicalnetworkid"`
 	Project               string `json:"project"`
@@ -4080,6 +4171,10 @@ func (p *UpdateNetworkParams) toURLValues() url.Values {
 	if v, found := p.p["displaytext"]; found {
 		u.Set("displaytext", v.(string))
 	}
+	if v, found := p.p["forced"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("forced", vv)
+	}
 	if v, found := p.p["guestvmcidr"]; found {
 		u.Set("guestvmcidr", v.(string))
 	}
@@ -4094,6 +4189,10 @@ func (p *UpdateNetworkParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["networkofferingid"]; found {
 		u.Set("networkofferingid", v.(string))
+	}
+	if v, found := p.p["updateinsequence"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("updateinsequence", vv)
 	}
 	return u
 }
@@ -4127,6 +4226,14 @@ func (p *UpdateNetworkParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
+	return
+}
+
+func (p *UpdateNetworkParams) SetForced(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forced"] = v
 	return
 }
 
@@ -4170,6 +4277,14 @@ func (p *UpdateNetworkParams) SetNetworkofferingid(v string) {
 	return
 }
 
+func (p *UpdateNetworkParams) SetUpdateinsequence(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["updateinsequence"] = v
+	return
+}
+
 // You should always use this function to get a new UpdateNetworkParams instance,
 // as then you are sure you have configured all required params
 func (s *NetworkService) NewUpdateNetworkParams(id string) *UpdateNetworkParams {
@@ -4193,7 +4308,7 @@ func (s *NetworkService) UpdateNetwork(p *UpdateNetworkParams) (*UpdateNetworkRe
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4215,7 +4330,6 @@ func (s *NetworkService) UpdateNetwork(p *UpdateNetworkParams) (*UpdateNetworkRe
 }
 
 type UpdateNetworkResponse struct {
-	JobID                       string `json:"jobid"`
 	Account                     string `json:"account"`
 	Aclid                       string `json:"aclid"`
 	Acltype                     string `json:"acltype"`
@@ -4229,6 +4343,7 @@ type UpdateNetworkResponse struct {
 	Dns2                        string `json:"dns2"`
 	Domain                      string `json:"domain"`
 	Domainid                    string `json:"domainid"`
+	Externalid                  string `json:"externalid"`
 	Gateway                     string `json:"gateway"`
 	Id                          string `json:"id"`
 	Ip6cidr                     string `json:"ip6cidr"`
@@ -4236,6 +4351,8 @@ type UpdateNetworkResponse struct {
 	Isdefault                   bool   `json:"isdefault"`
 	Ispersistent                bool   `json:"ispersistent"`
 	Issystem                    bool   `json:"issystem"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Name                        string `json:"name"`
 	Netmask                     string `json:"netmask"`
 	Networkcidr                 string `json:"networkcidr"`
@@ -4248,6 +4365,7 @@ type UpdateNetworkResponse struct {
 	Physicalnetworkid           string `json:"physicalnetworkid"`
 	Project                     string `json:"project"`
 	Projectid                   string `json:"projectid"`
+	Redundantrouter             bool   `json:"redundantrouter"`
 	Related                     string `json:"related"`
 	Reservediprange             string `json:"reservediprange"`
 	Restartrequired             bool   `json:"restartrequired"`
@@ -4362,7 +4480,7 @@ func (s *NetworkService) UpdateNetworkServiceProvider(p *UpdateNetworkServicePro
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4384,10 +4502,11 @@ func (s *NetworkService) UpdateNetworkServiceProvider(p *UpdateNetworkServicePro
 }
 
 type UpdateNetworkServiceProviderResponse struct {
-	JobID                        string   `json:"jobid"`
 	Canenableindividualservice   bool     `json:"canenableindividualservice"`
 	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
 	Id                           string   `json:"id"`
+	Jobid                        string   `json:"jobid"`
+	Jobstatus                    int      `json:"jobstatus"`
 	Name                         string   `json:"name"`
 	Physicalnetworkid            string   `json:"physicalnetworkid"`
 	Servicelist                  []string `json:"servicelist"`
@@ -4485,7 +4604,7 @@ func (s *NetworkService) UpdatePhysicalNetwork(p *UpdatePhysicalNetworkParams) (
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4507,11 +4626,12 @@ func (s *NetworkService) UpdatePhysicalNetwork(p *UpdatePhysicalNetworkParams) (
 }
 
 type UpdatePhysicalNetworkResponse struct {
-	JobID                string `json:"jobid"`
 	Broadcastdomainrange string `json:"broadcastdomainrange"`
 	Domainid             string `json:"domainid"`
 	Id                   string `json:"id"`
 	Isolationmethods     string `json:"isolationmethods"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Name                 string `json:"name"`
 	Networkspeed         string `json:"networkspeed"`
 	State                string `json:"state"`
@@ -4611,7 +4731,7 @@ func (s *NetworkService) UpdateStorageNetworkIpRange(p *UpdateStorageNetworkIpRa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4633,10 +4753,11 @@ func (s *NetworkService) UpdateStorageNetworkIpRange(p *UpdateStorageNetworkIpRa
 }
 
 type UpdateStorageNetworkIpRangeResponse struct {
-	JobID     string `json:"jobid"`
 	Endip     string `json:"endip"`
 	Gateway   string `json:"gateway"`
 	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Netmask   string `json:"netmask"`
 	Networkid string `json:"networkid"`
 	Podid     string `json:"podid"`

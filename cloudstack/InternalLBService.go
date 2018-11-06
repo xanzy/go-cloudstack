@@ -83,7 +83,7 @@ func (s *InternalLBService) ConfigureInternalLoadBalancerElement(p *ConfigureInt
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -105,10 +105,11 @@ func (s *InternalLBService) ConfigureInternalLoadBalancerElement(p *ConfigureInt
 }
 
 type InternalLoadBalancerElementResponse struct {
-	JobID   string `json:"jobid"`
-	Enabled bool   `json:"enabled"`
-	Id      string `json:"id"`
-	Nspid   string `json:"nspid"`
+	Enabled   bool   `json:"enabled"`
+	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Nspid     string `json:"nspid"`
 }
 
 type CreateInternalLoadBalancerElementParams struct {
@@ -157,7 +158,7 @@ func (s *InternalLBService) CreateInternalLoadBalancerElement(p *CreateInternalL
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -179,10 +180,11 @@ func (s *InternalLBService) CreateInternalLoadBalancerElement(p *CreateInternalL
 }
 
 type CreateInternalLoadBalancerElementResponse struct {
-	JobID   string `json:"jobid"`
-	Enabled bool   `json:"enabled"`
-	Id      string `json:"id"`
-	Nspid   string `json:"nspid"`
+	Enabled   bool   `json:"enabled"`
+	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Nspid     string `json:"nspid"`
 }
 
 type ListInternalLoadBalancerElementsParams struct {
@@ -328,9 +330,11 @@ type ListInternalLoadBalancerElementsResponse struct {
 }
 
 type InternalLoadBalancerElement struct {
-	Enabled bool   `json:"enabled"`
-	Id      string `json:"id"`
-	Nspid   string `json:"nspid"`
+	Enabled   bool   `json:"enabled"`
+	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Nspid     string `json:"nspid"`
 }
 
 type ListInternalLoadBalancerVMsParams struct {
@@ -668,6 +672,8 @@ type InternalLoadBalancerVM struct {
 	Ip6dns1             string `json:"ip6dns1"`
 	Ip6dns2             string `json:"ip6dns2"`
 	Isredundantrouter   bool   `json:"isredundantrouter"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Linklocalip         string `json:"linklocalip"`
 	Linklocalmacaddress string `json:"linklocalmacaddress"`
 	Linklocalnetmask    string `json:"linklocalnetmask"`
@@ -675,22 +681,23 @@ type InternalLoadBalancerVM struct {
 	Name                string `json:"name"`
 	Networkdomain       string `json:"networkdomain"`
 	Nic                 []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -767,7 +774,7 @@ func (s *InternalLBService) StartInternalLoadBalancerVM(p *StartInternalLoadBala
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -789,7 +796,6 @@ func (s *InternalLBService) StartInternalLoadBalancerVM(p *StartInternalLoadBala
 }
 
 type StartInternalLoadBalancerVMResponse struct {
-	JobID               string `json:"jobid"`
 	Account             string `json:"account"`
 	Created             string `json:"created"`
 	Dns1                string `json:"dns1"`
@@ -809,6 +815,8 @@ type StartInternalLoadBalancerVMResponse struct {
 	Ip6dns1             string `json:"ip6dns1"`
 	Ip6dns2             string `json:"ip6dns2"`
 	Isredundantrouter   bool   `json:"isredundantrouter"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Linklocalip         string `json:"linklocalip"`
 	Linklocalmacaddress string `json:"linklocalmacaddress"`
 	Linklocalnetmask    string `json:"linklocalnetmask"`
@@ -816,22 +824,23 @@ type StartInternalLoadBalancerVMResponse struct {
 	Name                string `json:"name"`
 	Networkdomain       string `json:"networkdomain"`
 	Nic                 []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -920,7 +929,7 @@ func (s *InternalLBService) StopInternalLoadBalancerVM(p *StopInternalLoadBalanc
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -942,7 +951,6 @@ func (s *InternalLBService) StopInternalLoadBalancerVM(p *StopInternalLoadBalanc
 }
 
 type StopInternalLoadBalancerVMResponse struct {
-	JobID               string `json:"jobid"`
 	Account             string `json:"account"`
 	Created             string `json:"created"`
 	Dns1                string `json:"dns1"`
@@ -962,6 +970,8 @@ type StopInternalLoadBalancerVMResponse struct {
 	Ip6dns1             string `json:"ip6dns1"`
 	Ip6dns2             string `json:"ip6dns2"`
 	Isredundantrouter   bool   `json:"isredundantrouter"`
+	Jobid               string `json:"jobid"`
+	Jobstatus           int    `json:"jobstatus"`
 	Linklocalip         string `json:"linklocalip"`
 	Linklocalmacaddress string `json:"linklocalmacaddress"`
 	Linklocalnetmask    string `json:"linklocalnetmask"`
@@ -969,22 +979,23 @@ type StopInternalLoadBalancerVMResponse struct {
 	Name                string `json:"name"`
 	Networkdomain       string `json:"networkdomain"`
 	Nic                 []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`

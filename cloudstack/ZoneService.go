@@ -118,10 +118,12 @@ func (s *ZoneService) AddVmwareDc(p *AddVmwareDcParams) (*AddVmwareDcResponse, e
 }
 
 type AddVmwareDcResponse struct {
-	Id      string `json:"id"`
-	Name    string `json:"name"`
-	Vcenter string `json:"vcenter"`
-	Zoneid  int64  `json:"zoneid"`
+	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
+	Vcenter   string `json:"vcenter"`
+	Zoneid    int64  `json:"zoneid"`
 }
 
 type CreateZoneParams struct {
@@ -322,16 +324,18 @@ func (s *ZoneService) CreateZone(p *CreateZoneParams) (*CreateZoneResponse, erro
 type CreateZoneResponse struct {
 	Allocationstate string `json:"allocationstate"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal"`
-		Capacityused  int64  `json:"capacityused"`
-		Clusterid     string `json:"clusterid"`
-		Clustername   string `json:"clustername"`
-		Percentused   string `json:"percentused"`
-		Podid         string `json:"podid"`
-		Podname       string `json:"podname"`
-		Type          int    `json:"type"`
-		Zoneid        string `json:"zoneid"`
-		Zonename      string `json:"zonename"`
+		Capacityallocated int64  `json:"capacityallocated"`
+		Capacitytotal     int64  `json:"capacitytotal"`
+		Capacityused      int64  `json:"capacityused"`
+		Clusterid         string `json:"clusterid"`
+		Clustername       string `json:"clustername"`
+		Name              string `json:"name"`
+		Percentused       string `json:"percentused"`
+		Podid             string `json:"podid"`
+		Podname           string `json:"podname"`
+		Type              int    `json:"type"`
+		Zoneid            string `json:"zoneid"`
+		Zonename          string `json:"zonename"`
 	} `json:"capacity"`
 	Description           string            `json:"description"`
 	Dhcpprovider          string            `json:"dhcpprovider"`
@@ -347,6 +351,8 @@ type CreateZoneResponse struct {
 	Internaldns2          string            `json:"internaldns2"`
 	Ip6dns1               string            `json:"ip6dns1"`
 	Ip6dns2               string            `json:"ip6dns2"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Localstorageenabled   bool              `json:"localstorageenabled"`
 	Name                  string            `json:"name"`
 	Networktype           string            `json:"networktype"`
@@ -436,7 +442,7 @@ func (s *ZoneService) DedicateZone(p *DedicateZoneParams) (*DedicateZoneResponse
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -458,11 +464,12 @@ func (s *ZoneService) DedicateZone(p *DedicateZoneParams) (*DedicateZoneResponse
 }
 
 type DedicateZoneResponse struct {
-	JobID           string `json:"jobid"`
 	Accountid       string `json:"accountid"`
 	Affinitygroupid string `json:"affinitygroupid"`
 	Domainid        string `json:"domainid"`
 	Id              string `json:"id"`
+	Jobid           string `json:"jobid"`
+	Jobstatus       int    `json:"jobstatus"`
 	Zoneid          string `json:"zoneid"`
 	Zonename        string `json:"zonename"`
 }
@@ -516,6 +523,8 @@ func (s *ZoneService) DeleteZone(p *DeleteZoneParams) (*DeleteZoneResponse, erro
 
 type DeleteZoneResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -584,7 +593,7 @@ func (s *ZoneService) DisableOutOfBandManagementForZone(p *DisableOutOfBandManag
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -606,13 +615,14 @@ func (s *ZoneService) DisableOutOfBandManagementForZone(p *DisableOutOfBandManag
 }
 
 type DisableOutOfBandManagementForZoneResponse struct {
-	JobID       string `json:"jobid"`
 	Action      string `json:"action"`
 	Address     string `json:"address"`
 	Description string `json:"description"`
 	Driver      string `json:"driver"`
 	Enabled     bool   `json:"enabled"`
 	Hostid      string `json:"hostid"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Password    string `json:"password"`
 	Port        string `json:"port"`
 	Powerstate  string `json:"powerstate"`
@@ -666,7 +676,7 @@ func (s *ZoneService) EnableOutOfBandManagementForZone(p *EnableOutOfBandManagem
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -688,13 +698,14 @@ func (s *ZoneService) EnableOutOfBandManagementForZone(p *EnableOutOfBandManagem
 }
 
 type EnableOutOfBandManagementForZoneResponse struct {
-	JobID       string `json:"jobid"`
 	Action      string `json:"action"`
 	Address     string `json:"address"`
 	Description string `json:"description"`
 	Driver      string `json:"driver"`
 	Enabled     bool   `json:"enabled"`
 	Hostid      string `json:"hostid"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Password    string `json:"password"`
 	Port        string `json:"port"`
 	Powerstate  string `json:"powerstate"`
@@ -826,6 +837,8 @@ type DedicatedZone struct {
 	Affinitygroupid string `json:"affinitygroupid"`
 	Domainid        string `json:"domainid"`
 	Id              string `json:"id"`
+	Jobid           string `json:"jobid"`
+	Jobstatus       int    `json:"jobstatus"`
 	Zoneid          string `json:"zoneid"`
 	Zonename        string `json:"zonename"`
 }
@@ -955,10 +968,12 @@ type ListVmwareDcsResponse struct {
 }
 
 type VmwareDc struct {
-	Id      string `json:"id"`
-	Name    string `json:"name"`
-	Vcenter string `json:"vcenter"`
-	Zoneid  int64  `json:"zoneid"`
+	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
+	Vcenter   string `json:"vcenter"`
+	Zoneid    int64  `json:"zoneid"`
 }
 
 type ListZonesParams struct {
@@ -1206,16 +1221,18 @@ type ListZonesResponse struct {
 type Zone struct {
 	Allocationstate string `json:"allocationstate"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal"`
-		Capacityused  int64  `json:"capacityused"`
-		Clusterid     string `json:"clusterid"`
-		Clustername   string `json:"clustername"`
-		Percentused   string `json:"percentused"`
-		Podid         string `json:"podid"`
-		Podname       string `json:"podname"`
-		Type          int    `json:"type"`
-		Zoneid        string `json:"zoneid"`
-		Zonename      string `json:"zonename"`
+		Capacityallocated int64  `json:"capacityallocated"`
+		Capacitytotal     int64  `json:"capacitytotal"`
+		Capacityused      int64  `json:"capacityused"`
+		Clusterid         string `json:"clusterid"`
+		Clustername       string `json:"clustername"`
+		Name              string `json:"name"`
+		Percentused       string `json:"percentused"`
+		Podid             string `json:"podid"`
+		Podname           string `json:"podname"`
+		Type              int    `json:"type"`
+		Zoneid            string `json:"zoneid"`
+		Zonename          string `json:"zonename"`
 	} `json:"capacity"`
 	Description           string            `json:"description"`
 	Dhcpprovider          string            `json:"dhcpprovider"`
@@ -1231,6 +1248,8 @@ type Zone struct {
 	Internaldns2          string            `json:"internaldns2"`
 	Ip6dns1               string            `json:"ip6dns1"`
 	Ip6dns2               string            `json:"ip6dns2"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Localstorageenabled   bool              `json:"localstorageenabled"`
 	Name                  string            `json:"name"`
 	Networktype           string            `json:"networktype"`
@@ -1297,7 +1316,7 @@ func (s *ZoneService) ReleaseDedicatedZone(p *ReleaseDedicatedZoneParams) (*Rele
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1314,8 +1333,9 @@ func (s *ZoneService) ReleaseDedicatedZone(p *ReleaseDedicatedZoneParams) (*Rele
 }
 
 type ReleaseDedicatedZoneResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1368,6 +1388,8 @@ func (s *ZoneService) RemoveVmwareDc(p *RemoveVmwareDcParams) (*RemoveVmwareDcRe
 
 type RemoveVmwareDcResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1612,16 +1634,18 @@ func (s *ZoneService) UpdateZone(p *UpdateZoneParams) (*UpdateZoneResponse, erro
 type UpdateZoneResponse struct {
 	Allocationstate string `json:"allocationstate"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal"`
-		Capacityused  int64  `json:"capacityused"`
-		Clusterid     string `json:"clusterid"`
-		Clustername   string `json:"clustername"`
-		Percentused   string `json:"percentused"`
-		Podid         string `json:"podid"`
-		Podname       string `json:"podname"`
-		Type          int    `json:"type"`
-		Zoneid        string `json:"zoneid"`
-		Zonename      string `json:"zonename"`
+		Capacityallocated int64  `json:"capacityallocated"`
+		Capacitytotal     int64  `json:"capacitytotal"`
+		Capacityused      int64  `json:"capacityused"`
+		Clusterid         string `json:"clusterid"`
+		Clustername       string `json:"clustername"`
+		Name              string `json:"name"`
+		Percentused       string `json:"percentused"`
+		Podid             string `json:"podid"`
+		Podname           string `json:"podname"`
+		Type              int    `json:"type"`
+		Zoneid            string `json:"zoneid"`
+		Zonename          string `json:"zonename"`
 	} `json:"capacity"`
 	Description           string            `json:"description"`
 	Dhcpprovider          string            `json:"dhcpprovider"`
@@ -1637,6 +1661,8 @@ type UpdateZoneResponse struct {
 	Internaldns2          string            `json:"internaldns2"`
 	Ip6dns1               string            `json:"ip6dns1"`
 	Ip6dns2               string            `json:"ip6dns2"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Localstorageenabled   bool              `json:"localstorageenabled"`
 	Name                  string            `json:"name"`
 	Networktype           string            `json:"networktype"`

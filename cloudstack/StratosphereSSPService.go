@@ -126,10 +126,12 @@ func (s *StratosphereSSPService) AddStratosphereSsp(p *AddStratosphereSspParams)
 }
 
 type AddStratosphereSspResponse struct {
-	Hostid string `json:"hostid"`
-	Name   string `json:"name"`
-	Url    string `json:"url"`
-	Zoneid string `json:"zoneid"`
+	Hostid    string `json:"hostid"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
+	Url       string `json:"url"`
+	Zoneid    string `json:"zoneid"`
 }
 
 type DeleteStratosphereSspParams struct {
@@ -181,6 +183,8 @@ func (s *StratosphereSSPService) DeleteStratosphereSsp(p *DeleteStratosphereSspP
 
 type DeleteStratosphereSspResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 

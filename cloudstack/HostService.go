@@ -188,6 +188,7 @@ func (s *HostService) AddBaremetalHost(p *AddBaremetalHostParams) (*AddBaremetal
 }
 
 type AddBaremetalHostResponse struct {
+	Annotation              string            `json:"annotation"`
 	Averageload             int64             `json:"averageload"`
 	Capabilities            string            `json:"capabilities"`
 	Clusterid               string            `json:"clusterid"`
@@ -218,35 +219,41 @@ type AddBaremetalHostResponse struct {
 			Videoram          int64  `json:"videoram"`
 		} `json:"vgpu"`
 	} `json:"gpugroup"`
-	Hahost               bool                        `json:"hahost"`
-	Hasenoughcapacity    bool                        `json:"hasenoughcapacity"`
-	Hosttags             string                      `json:"hosttags"`
-	Hypervisor           string                      `json:"hypervisor"`
-	Hypervisorversion    string                      `json:"hypervisorversion"`
-	Id                   string                      `json:"id"`
-	Ipaddress            string                      `json:"ipaddress"`
-	Islocalstorageactive bool                        `json:"islocalstorageactive"`
-	Lastpinged           string                      `json:"lastpinged"`
-	Managementserverid   int64                       `json:"managementserverid"`
-	Memoryallocated      int64                       `json:"memoryallocated"`
-	Memorytotal          int64                       `json:"memorytotal"`
-	Memoryused           int64                       `json:"memoryused"`
-	Name                 string                      `json:"name"`
-	Networkkbsread       int64                       `json:"networkkbsread"`
-	Networkkbswrite      int64                       `json:"networkkbswrite"`
-	Oscategoryid         string                      `json:"oscategoryid"`
-	Oscategoryname       string                      `json:"oscategoryname"`
-	Outofbandmanagement  OutOfBandManagementResponse `json:"outofbandmanagement"`
-	Podid                string                      `json:"podid"`
-	Podname              string                      `json:"podname"`
-	Removed              string                      `json:"removed"`
-	Resourcestate        string                      `json:"resourcestate"`
-	State                string                      `json:"state"`
-	Suitableformigration bool                        `json:"suitableformigration"`
-	Type                 string                      `json:"type"`
-	Version              string                      `json:"version"`
-	Zoneid               string                      `json:"zoneid"`
-	Zonename             string                      `json:"zonename"`
+	Hahost                     bool                        `json:"hahost"`
+	Hasenoughcapacity          bool                        `json:"hasenoughcapacity"`
+	Hostha                     string                      `json:"hostha"`
+	Hosttags                   string                      `json:"hosttags"`
+	Hypervisor                 string                      `json:"hypervisor"`
+	Hypervisorversion          string                      `json:"hypervisorversion"`
+	Id                         string                      `json:"id"`
+	Ipaddress                  string                      `json:"ipaddress"`
+	Islocalstorageactive       bool                        `json:"islocalstorageactive"`
+	Jobid                      string                      `json:"jobid"`
+	Jobstatus                  int                         `json:"jobstatus"`
+	Lastannotated              string                      `json:"lastannotated"`
+	Lastpinged                 string                      `json:"lastpinged"`
+	Managementserverid         int64                       `json:"managementserverid"`
+	Memoryallocated            int64                       `json:"memoryallocated"`
+	Memorytotal                int64                       `json:"memorytotal"`
+	Memoryused                 int64                       `json:"memoryused"`
+	Memorywithoverprovisioning string                      `json:"memorywithoverprovisioning"`
+	Name                       string                      `json:"name"`
+	Networkkbsread             int64                       `json:"networkkbsread"`
+	Networkkbswrite            int64                       `json:"networkkbswrite"`
+	Oscategoryid               string                      `json:"oscategoryid"`
+	Oscategoryname             string                      `json:"oscategoryname"`
+	Outofbandmanagement        OutOfBandManagementResponse `json:"outofbandmanagement"`
+	Podid                      string                      `json:"podid"`
+	Podname                    string                      `json:"podname"`
+	Removed                    string                      `json:"removed"`
+	Resourcestate              string                      `json:"resourcestate"`
+	State                      string                      `json:"state"`
+	Suitableformigration       bool                        `json:"suitableformigration"`
+	Type                       string                      `json:"type"`
+	Username                   string                      `json:"username"`
+	Version                    string                      `json:"version"`
+	Zoneid                     string                      `json:"zoneid"`
+	Zonename                   string                      `json:"zonename"`
 }
 
 type AddGloboDnsHostParams struct {
@@ -331,7 +338,7 @@ func (s *HostService) AddGloboDnsHost(p *AddGloboDnsHostParams) (*AddGloboDnsHos
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -348,8 +355,9 @@ func (s *HostService) AddGloboDnsHost(p *AddGloboDnsHostParams) (*AddGloboDnsHos
 }
 
 type AddGloboDnsHostResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -506,6 +514,7 @@ func (s *HostService) AddHost(p *AddHostParams) (*AddHostResponse, error) {
 }
 
 type AddHostResponse struct {
+	Annotation              string            `json:"annotation"`
 	Averageload             int64             `json:"averageload"`
 	Capabilities            string            `json:"capabilities"`
 	Clusterid               string            `json:"clusterid"`
@@ -536,35 +545,41 @@ type AddHostResponse struct {
 			Videoram          int64  `json:"videoram"`
 		} `json:"vgpu"`
 	} `json:"gpugroup"`
-	Hahost               bool                        `json:"hahost"`
-	Hasenoughcapacity    bool                        `json:"hasenoughcapacity"`
-	Hosttags             string                      `json:"hosttags"`
-	Hypervisor           string                      `json:"hypervisor"`
-	Hypervisorversion    string                      `json:"hypervisorversion"`
-	Id                   string                      `json:"id"`
-	Ipaddress            string                      `json:"ipaddress"`
-	Islocalstorageactive bool                        `json:"islocalstorageactive"`
-	Lastpinged           string                      `json:"lastpinged"`
-	Managementserverid   int64                       `json:"managementserverid"`
-	Memoryallocated      int64                       `json:"memoryallocated"`
-	Memorytotal          int64                       `json:"memorytotal"`
-	Memoryused           int64                       `json:"memoryused"`
-	Name                 string                      `json:"name"`
-	Networkkbsread       int64                       `json:"networkkbsread"`
-	Networkkbswrite      int64                       `json:"networkkbswrite"`
-	Oscategoryid         string                      `json:"oscategoryid"`
-	Oscategoryname       string                      `json:"oscategoryname"`
-	Outofbandmanagement  OutOfBandManagementResponse `json:"outofbandmanagement"`
-	Podid                string                      `json:"podid"`
-	Podname              string                      `json:"podname"`
-	Removed              string                      `json:"removed"`
-	Resourcestate        string                      `json:"resourcestate"`
-	State                string                      `json:"state"`
-	Suitableformigration bool                        `json:"suitableformigration"`
-	Type                 string                      `json:"type"`
-	Version              string                      `json:"version"`
-	Zoneid               string                      `json:"zoneid"`
-	Zonename             string                      `json:"zonename"`
+	Hahost                     bool                        `json:"hahost"`
+	Hasenoughcapacity          bool                        `json:"hasenoughcapacity"`
+	Hostha                     string                      `json:"hostha"`
+	Hosttags                   string                      `json:"hosttags"`
+	Hypervisor                 string                      `json:"hypervisor"`
+	Hypervisorversion          string                      `json:"hypervisorversion"`
+	Id                         string                      `json:"id"`
+	Ipaddress                  string                      `json:"ipaddress"`
+	Islocalstorageactive       bool                        `json:"islocalstorageactive"`
+	Jobid                      string                      `json:"jobid"`
+	Jobstatus                  int                         `json:"jobstatus"`
+	Lastannotated              string                      `json:"lastannotated"`
+	Lastpinged                 string                      `json:"lastpinged"`
+	Managementserverid         int64                       `json:"managementserverid"`
+	Memoryallocated            int64                       `json:"memoryallocated"`
+	Memorytotal                int64                       `json:"memorytotal"`
+	Memoryused                 int64                       `json:"memoryused"`
+	Memorywithoverprovisioning string                      `json:"memorywithoverprovisioning"`
+	Name                       string                      `json:"name"`
+	Networkkbsread             int64                       `json:"networkkbsread"`
+	Networkkbswrite            int64                       `json:"networkkbswrite"`
+	Oscategoryid               string                      `json:"oscategoryid"`
+	Oscategoryname             string                      `json:"oscategoryname"`
+	Outofbandmanagement        OutOfBandManagementResponse `json:"outofbandmanagement"`
+	Podid                      string                      `json:"podid"`
+	Podname                    string                      `json:"podname"`
+	Removed                    string                      `json:"removed"`
+	Resourcestate              string                      `json:"resourcestate"`
+	State                      string                      `json:"state"`
+	Suitableformigration       bool                        `json:"suitableformigration"`
+	Type                       string                      `json:"type"`
+	Username                   string                      `json:"username"`
+	Version                    string                      `json:"version"`
+	Zoneid                     string                      `json:"zoneid"`
+	Zonename                   string                      `json:"zonename"`
 }
 
 type AddSecondaryStorageParams struct {
@@ -626,15 +641,16 @@ func (s *HostService) AddSecondaryStorage(p *AddSecondaryStorageParams) (*AddSec
 }
 
 type AddSecondaryStorageResponse struct {
-	Details      []interface{} `json:"details"`
-	Id           string        `json:"id"`
-	Name         string        `json:"name"`
-	Protocol     string        `json:"protocol"`
-	Providername string        `json:"providername"`
-	Scope        string        `json:"scope"`
-	Url          string        `json:"url"`
-	Zoneid       string        `json:"zoneid"`
-	Zonename     string        `json:"zonename"`
+	Id           string `json:"id"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
+	Name         string `json:"name"`
+	Protocol     string `json:"protocol"`
+	Providername string `json:"providername"`
+	Scope        string `json:"scope"`
+	Url          string `json:"url"`
+	Zoneid       string `json:"zoneid"`
+	Zonename     string `json:"zonename"`
 }
 
 type CancelHostMaintenanceParams struct {
@@ -683,7 +699,7 @@ func (s *HostService) CancelHostMaintenance(p *CancelHostMaintenanceParams) (*Ca
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -705,7 +721,7 @@ func (s *HostService) CancelHostMaintenance(p *CancelHostMaintenanceParams) (*Ca
 }
 
 type CancelHostMaintenanceResponse struct {
-	JobID                   string            `json:"jobid"`
+	Annotation              string            `json:"annotation"`
 	Averageload             int64             `json:"averageload"`
 	Capabilities            string            `json:"capabilities"`
 	Clusterid               string            `json:"clusterid"`
@@ -736,35 +752,41 @@ type CancelHostMaintenanceResponse struct {
 			Videoram          int64  `json:"videoram"`
 		} `json:"vgpu"`
 	} `json:"gpugroup"`
-	Hahost               bool                        `json:"hahost"`
-	Hasenoughcapacity    bool                        `json:"hasenoughcapacity"`
-	Hosttags             string                      `json:"hosttags"`
-	Hypervisor           string                      `json:"hypervisor"`
-	Hypervisorversion    string                      `json:"hypervisorversion"`
-	Id                   string                      `json:"id"`
-	Ipaddress            string                      `json:"ipaddress"`
-	Islocalstorageactive bool                        `json:"islocalstorageactive"`
-	Lastpinged           string                      `json:"lastpinged"`
-	Managementserverid   int64                       `json:"managementserverid"`
-	Memoryallocated      int64                       `json:"memoryallocated"`
-	Memorytotal          int64                       `json:"memorytotal"`
-	Memoryused           int64                       `json:"memoryused"`
-	Name                 string                      `json:"name"`
-	Networkkbsread       int64                       `json:"networkkbsread"`
-	Networkkbswrite      int64                       `json:"networkkbswrite"`
-	Oscategoryid         string                      `json:"oscategoryid"`
-	Oscategoryname       string                      `json:"oscategoryname"`
-	Outofbandmanagement  OutOfBandManagementResponse `json:"outofbandmanagement"`
-	Podid                string                      `json:"podid"`
-	Podname              string                      `json:"podname"`
-	Removed              string                      `json:"removed"`
-	Resourcestate        string                      `json:"resourcestate"`
-	State                string                      `json:"state"`
-	Suitableformigration bool                        `json:"suitableformigration"`
-	Type                 string                      `json:"type"`
-	Version              string                      `json:"version"`
-	Zoneid               string                      `json:"zoneid"`
-	Zonename             string                      `json:"zonename"`
+	Hahost                     bool                        `json:"hahost"`
+	Hasenoughcapacity          bool                        `json:"hasenoughcapacity"`
+	Hostha                     string                      `json:"hostha"`
+	Hosttags                   string                      `json:"hosttags"`
+	Hypervisor                 string                      `json:"hypervisor"`
+	Hypervisorversion          string                      `json:"hypervisorversion"`
+	Id                         string                      `json:"id"`
+	Ipaddress                  string                      `json:"ipaddress"`
+	Islocalstorageactive       bool                        `json:"islocalstorageactive"`
+	Jobid                      string                      `json:"jobid"`
+	Jobstatus                  int                         `json:"jobstatus"`
+	Lastannotated              string                      `json:"lastannotated"`
+	Lastpinged                 string                      `json:"lastpinged"`
+	Managementserverid         int64                       `json:"managementserverid"`
+	Memoryallocated            int64                       `json:"memoryallocated"`
+	Memorytotal                int64                       `json:"memorytotal"`
+	Memoryused                 int64                       `json:"memoryused"`
+	Memorywithoverprovisioning string                      `json:"memorywithoverprovisioning"`
+	Name                       string                      `json:"name"`
+	Networkkbsread             int64                       `json:"networkkbsread"`
+	Networkkbswrite            int64                       `json:"networkkbswrite"`
+	Oscategoryid               string                      `json:"oscategoryid"`
+	Oscategoryname             string                      `json:"oscategoryname"`
+	Outofbandmanagement        OutOfBandManagementResponse `json:"outofbandmanagement"`
+	Podid                      string                      `json:"podid"`
+	Podname                    string                      `json:"podname"`
+	Removed                    string                      `json:"removed"`
+	Resourcestate              string                      `json:"resourcestate"`
+	State                      string                      `json:"state"`
+	Suitableformigration       bool                        `json:"suitableformigration"`
+	Type                       string                      `json:"type"`
+	Username                   string                      `json:"username"`
+	Version                    string                      `json:"version"`
+	Zoneid                     string                      `json:"zoneid"`
+	Zonename                   string                      `json:"zonename"`
 }
 
 type DedicateHostParams struct {
@@ -836,7 +858,7 @@ func (s *HostService) DedicateHost(p *DedicateHostParams) (*DedicateHostResponse
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -858,13 +880,14 @@ func (s *HostService) DedicateHost(p *DedicateHostParams) (*DedicateHostResponse
 }
 
 type DedicateHostResponse struct {
-	JobID           string `json:"jobid"`
 	Accountid       string `json:"accountid"`
 	Affinitygroupid string `json:"affinitygroupid"`
 	Domainid        string `json:"domainid"`
 	Hostid          string `json:"hostid"`
 	Hostname        string `json:"hostname"`
 	Id              string `json:"id"`
+	Jobid           string `json:"jobid"`
+	Jobstatus       int    `json:"jobstatus"`
 }
 
 type DeleteHostParams struct {
@@ -940,6 +963,8 @@ func (s *HostService) DeleteHost(p *DeleteHostParams) (*DeleteHostResponse, erro
 
 type DeleteHostResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1008,7 +1033,7 @@ func (s *HostService) DisableOutOfBandManagementForHost(p *DisableOutOfBandManag
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1030,13 +1055,14 @@ func (s *HostService) DisableOutOfBandManagementForHost(p *DisableOutOfBandManag
 }
 
 type DisableOutOfBandManagementForHostResponse struct {
-	JobID       string `json:"jobid"`
 	Action      string `json:"action"`
 	Address     string `json:"address"`
 	Description string `json:"description"`
 	Driver      string `json:"driver"`
 	Enabled     bool   `json:"enabled"`
 	Hostid      string `json:"hostid"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Password    string `json:"password"`
 	Port        string `json:"port"`
 	Powerstate  string `json:"powerstate"`
@@ -1090,7 +1116,7 @@ func (s *HostService) EnableOutOfBandManagementForHost(p *EnableOutOfBandManagem
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1112,13 +1138,14 @@ func (s *HostService) EnableOutOfBandManagementForHost(p *EnableOutOfBandManagem
 }
 
 type EnableOutOfBandManagementForHostResponse struct {
-	JobID       string `json:"jobid"`
 	Action      string `json:"action"`
 	Address     string `json:"address"`
 	Description string `json:"description"`
 	Driver      string `json:"driver"`
 	Enabled     bool   `json:"enabled"`
 	Hostid      string `json:"hostid"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Password    string `json:"password"`
 	Port        string `json:"port"`
 	Powerstate  string `json:"powerstate"`
@@ -1209,50 +1236,53 @@ func (s *HostService) FindHostsForMigration(p *FindHostsForMigrationParams) (*Fi
 }
 
 type FindHostsForMigrationResponse struct {
-	Averageload             int64  `json:"averageload"`
-	Capabilities            string `json:"capabilities"`
-	Clusterid               string `json:"clusterid"`
-	Clustername             string `json:"clustername"`
-	Clustertype             string `json:"clustertype"`
-	Cpuallocated            string `json:"cpuallocated"`
-	Cpunumber               int    `json:"cpunumber"`
-	Cpuspeed                int64  `json:"cpuspeed"`
-	Cpuused                 string `json:"cpuused"`
-	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning"`
-	Created                 string `json:"created"`
-	Disconnected            string `json:"disconnected"`
-	Disksizeallocated       int64  `json:"disksizeallocated"`
-	Disksizetotal           int64  `json:"disksizetotal"`
-	Events                  string `json:"events"`
-	Hahost                  bool   `json:"hahost"`
-	Hasenoughcapacity       bool   `json:"hasenoughcapacity"`
-	Hosttags                string `json:"hosttags"`
-	Hypervisor              string `json:"hypervisor"`
-	Hypervisorversion       string `json:"hypervisorversion"`
-	Id                      string `json:"id"`
-	Ipaddress               string `json:"ipaddress"`
-	Islocalstorageactive    bool   `json:"islocalstorageactive"`
-	Lastpinged              string `json:"lastpinged"`
-	Managementserverid      int64  `json:"managementserverid"`
-	Memoryallocated         int64  `json:"memoryallocated"`
-	Memorytotal             int64  `json:"memorytotal"`
-	Memoryused              int64  `json:"memoryused"`
-	Name                    string `json:"name"`
-	Networkkbsread          int64  `json:"networkkbsread"`
-	Networkkbswrite         int64  `json:"networkkbswrite"`
-	Oscategoryid            string `json:"oscategoryid"`
-	Oscategoryname          string `json:"oscategoryname"`
-	Podid                   string `json:"podid"`
-	Podname                 string `json:"podname"`
-	Removed                 string `json:"removed"`
-	RequiresStorageMotion   bool   `json:"requiresStorageMotion"`
-	Resourcestate           string `json:"resourcestate"`
-	State                   string `json:"state"`
-	Suitableformigration    bool   `json:"suitableformigration"`
-	Type                    string `json:"type"`
-	Version                 string `json:"version"`
-	Zoneid                  string `json:"zoneid"`
-	Zonename                string `json:"zonename"`
+	Averageload                int64  `json:"averageload"`
+	Capabilities               string `json:"capabilities"`
+	Clusterid                  string `json:"clusterid"`
+	Clustername                string `json:"clustername"`
+	Clustertype                string `json:"clustertype"`
+	Cpuallocated               string `json:"cpuallocated"`
+	Cpunumber                  int    `json:"cpunumber"`
+	Cpuspeed                   int64  `json:"cpuspeed"`
+	Cpuused                    string `json:"cpuused"`
+	Cpuwithoverprovisioning    string `json:"cpuwithoverprovisioning"`
+	Created                    string `json:"created"`
+	Disconnected               string `json:"disconnected"`
+	Disksizeallocated          int64  `json:"disksizeallocated"`
+	Disksizetotal              int64  `json:"disksizetotal"`
+	Events                     string `json:"events"`
+	Hahost                     bool   `json:"hahost"`
+	Hasenoughcapacity          bool   `json:"hasenoughcapacity"`
+	Hosttags                   string `json:"hosttags"`
+	Hypervisor                 string `json:"hypervisor"`
+	Hypervisorversion          string `json:"hypervisorversion"`
+	Id                         string `json:"id"`
+	Ipaddress                  string `json:"ipaddress"`
+	Islocalstorageactive       bool   `json:"islocalstorageactive"`
+	Jobid                      string `json:"jobid"`
+	Jobstatus                  int    `json:"jobstatus"`
+	Lastpinged                 string `json:"lastpinged"`
+	Managementserverid         int64  `json:"managementserverid"`
+	Memoryallocated            string `json:"memoryallocated"`
+	Memorytotal                int64  `json:"memorytotal"`
+	Memoryused                 int64  `json:"memoryused"`
+	Memorywithoverprovisioning string `json:"memorywithoverprovisioning"`
+	Name                       string `json:"name"`
+	Networkkbsread             int64  `json:"networkkbsread"`
+	Networkkbswrite            int64  `json:"networkkbswrite"`
+	Oscategoryid               string `json:"oscategoryid"`
+	Oscategoryname             string `json:"oscategoryname"`
+	Podid                      string `json:"podid"`
+	Podname                    string `json:"podname"`
+	Removed                    string `json:"removed"`
+	RequiresStorageMotion      bool   `json:"requiresStorageMotion"`
+	Resourcestate              string `json:"resourcestate"`
+	State                      string `json:"state"`
+	Suitableformigration       bool   `json:"suitableformigration"`
+	Type                       string `json:"type"`
+	Version                    string `json:"version"`
+	Zoneid                     string `json:"zoneid"`
+	Zonename                   string `json:"zonename"`
 }
 
 type ListDedicatedHostsParams struct {
@@ -1381,6 +1411,8 @@ type DedicatedHost struct {
 	Hostid          string `json:"hostid"`
 	Hostname        string `json:"hostname"`
 	Id              string `json:"id"`
+	Jobid           string `json:"jobid"`
+	Jobstatus       int    `json:"jobstatus"`
 }
 
 type ListHostTagsParams struct {
@@ -1495,9 +1527,11 @@ type ListHostTagsResponse struct {
 }
 
 type HostTag struct {
-	Hostid int64  `json:"hostid"`
-	Id     string `json:"id"`
-	Name   string `json:"name"`
+	Hostid    int64  `json:"hostid"`
+	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
 }
 
 type ListHostsParams struct {
@@ -1816,6 +1850,7 @@ type ListHostsResponse struct {
 }
 
 type Host struct {
+	Annotation              string            `json:"annotation"`
 	Averageload             int64             `json:"averageload"`
 	Capabilities            string            `json:"capabilities"`
 	Clusterid               string            `json:"clusterid"`
@@ -1846,35 +1881,41 @@ type Host struct {
 			Videoram          int64  `json:"videoram"`
 		} `json:"vgpu"`
 	} `json:"gpugroup"`
-	Hahost               bool                        `json:"hahost"`
-	Hasenoughcapacity    bool                        `json:"hasenoughcapacity"`
-	Hosttags             string                      `json:"hosttags"`
-	Hypervisor           string                      `json:"hypervisor"`
-	Hypervisorversion    string                      `json:"hypervisorversion"`
-	Id                   string                      `json:"id"`
-	Ipaddress            string                      `json:"ipaddress"`
-	Islocalstorageactive bool                        `json:"islocalstorageactive"`
-	Lastpinged           string                      `json:"lastpinged"`
-	Managementserverid   int64                       `json:"managementserverid"`
-	Memoryallocated      int64                       `json:"memoryallocated"`
-	Memorytotal          int64                       `json:"memorytotal"`
-	Memoryused           int64                       `json:"memoryused"`
-	Name                 string                      `json:"name"`
-	Networkkbsread       int64                       `json:"networkkbsread"`
-	Networkkbswrite      int64                       `json:"networkkbswrite"`
-	Oscategoryid         string                      `json:"oscategoryid"`
-	Oscategoryname       string                      `json:"oscategoryname"`
-	Outofbandmanagement  OutOfBandManagementResponse `json:"outofbandmanagement"`
-	Podid                string                      `json:"podid"`
-	Podname              string                      `json:"podname"`
-	Removed              string                      `json:"removed"`
-	Resourcestate        string                      `json:"resourcestate"`
-	State                string                      `json:"state"`
-	Suitableformigration bool                        `json:"suitableformigration"`
-	Type                 string                      `json:"type"`
-	Version              string                      `json:"version"`
-	Zoneid               string                      `json:"zoneid"`
-	Zonename             string                      `json:"zonename"`
+	Hahost                     bool                        `json:"hahost"`
+	Hasenoughcapacity          bool                        `json:"hasenoughcapacity"`
+	Hostha                     string                      `json:"hostha"`
+	Hosttags                   string                      `json:"hosttags"`
+	Hypervisor                 string                      `json:"hypervisor"`
+	Hypervisorversion          string                      `json:"hypervisorversion"`
+	Id                         string                      `json:"id"`
+	Ipaddress                  string                      `json:"ipaddress"`
+	Islocalstorageactive       bool                        `json:"islocalstorageactive"`
+	Jobid                      string                      `json:"jobid"`
+	Jobstatus                  int                         `json:"jobstatus"`
+	Lastannotated              string                      `json:"lastannotated"`
+	Lastpinged                 string                      `json:"lastpinged"`
+	Managementserverid         int64                       `json:"managementserverid"`
+	Memoryallocated            int64                       `json:"memoryallocated"`
+	Memorytotal                int64                       `json:"memorytotal"`
+	Memoryused                 int64                       `json:"memoryused"`
+	Memorywithoverprovisioning string                      `json:"memorywithoverprovisioning"`
+	Name                       string                      `json:"name"`
+	Networkkbsread             int64                       `json:"networkkbsread"`
+	Networkkbswrite            int64                       `json:"networkkbswrite"`
+	Oscategoryid               string                      `json:"oscategoryid"`
+	Oscategoryname             string                      `json:"oscategoryname"`
+	Outofbandmanagement        OutOfBandManagementResponse `json:"outofbandmanagement"`
+	Podid                      string                      `json:"podid"`
+	Podname                    string                      `json:"podname"`
+	Removed                    string                      `json:"removed"`
+	Resourcestate              string                      `json:"resourcestate"`
+	State                      string                      `json:"state"`
+	Suitableformigration       bool                        `json:"suitableformigration"`
+	Type                       string                      `json:"type"`
+	Username                   string                      `json:"username"`
+	Version                    string                      `json:"version"`
+	Zoneid                     string                      `json:"zoneid"`
+	Zonename                   string                      `json:"zonename"`
 }
 
 type PrepareHostForMaintenanceParams struct {
@@ -1923,7 +1964,7 @@ func (s *HostService) PrepareHostForMaintenance(p *PrepareHostForMaintenancePara
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1945,7 +1986,7 @@ func (s *HostService) PrepareHostForMaintenance(p *PrepareHostForMaintenancePara
 }
 
 type PrepareHostForMaintenanceResponse struct {
-	JobID                   string            `json:"jobid"`
+	Annotation              string            `json:"annotation"`
 	Averageload             int64             `json:"averageload"`
 	Capabilities            string            `json:"capabilities"`
 	Clusterid               string            `json:"clusterid"`
@@ -1976,35 +2017,41 @@ type PrepareHostForMaintenanceResponse struct {
 			Videoram          int64  `json:"videoram"`
 		} `json:"vgpu"`
 	} `json:"gpugroup"`
-	Hahost               bool                        `json:"hahost"`
-	Hasenoughcapacity    bool                        `json:"hasenoughcapacity"`
-	Hosttags             string                      `json:"hosttags"`
-	Hypervisor           string                      `json:"hypervisor"`
-	Hypervisorversion    string                      `json:"hypervisorversion"`
-	Id                   string                      `json:"id"`
-	Ipaddress            string                      `json:"ipaddress"`
-	Islocalstorageactive bool                        `json:"islocalstorageactive"`
-	Lastpinged           string                      `json:"lastpinged"`
-	Managementserverid   int64                       `json:"managementserverid"`
-	Memoryallocated      int64                       `json:"memoryallocated"`
-	Memorytotal          int64                       `json:"memorytotal"`
-	Memoryused           int64                       `json:"memoryused"`
-	Name                 string                      `json:"name"`
-	Networkkbsread       int64                       `json:"networkkbsread"`
-	Networkkbswrite      int64                       `json:"networkkbswrite"`
-	Oscategoryid         string                      `json:"oscategoryid"`
-	Oscategoryname       string                      `json:"oscategoryname"`
-	Outofbandmanagement  OutOfBandManagementResponse `json:"outofbandmanagement"`
-	Podid                string                      `json:"podid"`
-	Podname              string                      `json:"podname"`
-	Removed              string                      `json:"removed"`
-	Resourcestate        string                      `json:"resourcestate"`
-	State                string                      `json:"state"`
-	Suitableformigration bool                        `json:"suitableformigration"`
-	Type                 string                      `json:"type"`
-	Version              string                      `json:"version"`
-	Zoneid               string                      `json:"zoneid"`
-	Zonename             string                      `json:"zonename"`
+	Hahost                     bool                        `json:"hahost"`
+	Hasenoughcapacity          bool                        `json:"hasenoughcapacity"`
+	Hostha                     string                      `json:"hostha"`
+	Hosttags                   string                      `json:"hosttags"`
+	Hypervisor                 string                      `json:"hypervisor"`
+	Hypervisorversion          string                      `json:"hypervisorversion"`
+	Id                         string                      `json:"id"`
+	Ipaddress                  string                      `json:"ipaddress"`
+	Islocalstorageactive       bool                        `json:"islocalstorageactive"`
+	Jobid                      string                      `json:"jobid"`
+	Jobstatus                  int                         `json:"jobstatus"`
+	Lastannotated              string                      `json:"lastannotated"`
+	Lastpinged                 string                      `json:"lastpinged"`
+	Managementserverid         int64                       `json:"managementserverid"`
+	Memoryallocated            int64                       `json:"memoryallocated"`
+	Memorytotal                int64                       `json:"memorytotal"`
+	Memoryused                 int64                       `json:"memoryused"`
+	Memorywithoverprovisioning string                      `json:"memorywithoverprovisioning"`
+	Name                       string                      `json:"name"`
+	Networkkbsread             int64                       `json:"networkkbsread"`
+	Networkkbswrite            int64                       `json:"networkkbswrite"`
+	Oscategoryid               string                      `json:"oscategoryid"`
+	Oscategoryname             string                      `json:"oscategoryname"`
+	Outofbandmanagement        OutOfBandManagementResponse `json:"outofbandmanagement"`
+	Podid                      string                      `json:"podid"`
+	Podname                    string                      `json:"podname"`
+	Removed                    string                      `json:"removed"`
+	Resourcestate              string                      `json:"resourcestate"`
+	State                      string                      `json:"state"`
+	Suitableformigration       bool                        `json:"suitableformigration"`
+	Type                       string                      `json:"type"`
+	Username                   string                      `json:"username"`
+	Version                    string                      `json:"version"`
+	Zoneid                     string                      `json:"zoneid"`
+	Zonename                   string                      `json:"zonename"`
 }
 
 type ReconnectHostParams struct {
@@ -2053,7 +2100,7 @@ func (s *HostService) ReconnectHost(p *ReconnectHostParams) (*ReconnectHostRespo
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2075,7 +2122,7 @@ func (s *HostService) ReconnectHost(p *ReconnectHostParams) (*ReconnectHostRespo
 }
 
 type ReconnectHostResponse struct {
-	JobID                   string            `json:"jobid"`
+	Annotation              string            `json:"annotation"`
 	Averageload             int64             `json:"averageload"`
 	Capabilities            string            `json:"capabilities"`
 	Clusterid               string            `json:"clusterid"`
@@ -2106,35 +2153,41 @@ type ReconnectHostResponse struct {
 			Videoram          int64  `json:"videoram"`
 		} `json:"vgpu"`
 	} `json:"gpugroup"`
-	Hahost               bool                        `json:"hahost"`
-	Hasenoughcapacity    bool                        `json:"hasenoughcapacity"`
-	Hosttags             string                      `json:"hosttags"`
-	Hypervisor           string                      `json:"hypervisor"`
-	Hypervisorversion    string                      `json:"hypervisorversion"`
-	Id                   string                      `json:"id"`
-	Ipaddress            string                      `json:"ipaddress"`
-	Islocalstorageactive bool                        `json:"islocalstorageactive"`
-	Lastpinged           string                      `json:"lastpinged"`
-	Managementserverid   int64                       `json:"managementserverid"`
-	Memoryallocated      int64                       `json:"memoryallocated"`
-	Memorytotal          int64                       `json:"memorytotal"`
-	Memoryused           int64                       `json:"memoryused"`
-	Name                 string                      `json:"name"`
-	Networkkbsread       int64                       `json:"networkkbsread"`
-	Networkkbswrite      int64                       `json:"networkkbswrite"`
-	Oscategoryid         string                      `json:"oscategoryid"`
-	Oscategoryname       string                      `json:"oscategoryname"`
-	Outofbandmanagement  OutOfBandManagementResponse `json:"outofbandmanagement"`
-	Podid                string                      `json:"podid"`
-	Podname              string                      `json:"podname"`
-	Removed              string                      `json:"removed"`
-	Resourcestate        string                      `json:"resourcestate"`
-	State                string                      `json:"state"`
-	Suitableformigration bool                        `json:"suitableformigration"`
-	Type                 string                      `json:"type"`
-	Version              string                      `json:"version"`
-	Zoneid               string                      `json:"zoneid"`
-	Zonename             string                      `json:"zonename"`
+	Hahost                     bool                        `json:"hahost"`
+	Hasenoughcapacity          bool                        `json:"hasenoughcapacity"`
+	Hostha                     string                      `json:"hostha"`
+	Hosttags                   string                      `json:"hosttags"`
+	Hypervisor                 string                      `json:"hypervisor"`
+	Hypervisorversion          string                      `json:"hypervisorversion"`
+	Id                         string                      `json:"id"`
+	Ipaddress                  string                      `json:"ipaddress"`
+	Islocalstorageactive       bool                        `json:"islocalstorageactive"`
+	Jobid                      string                      `json:"jobid"`
+	Jobstatus                  int                         `json:"jobstatus"`
+	Lastannotated              string                      `json:"lastannotated"`
+	Lastpinged                 string                      `json:"lastpinged"`
+	Managementserverid         int64                       `json:"managementserverid"`
+	Memoryallocated            int64                       `json:"memoryallocated"`
+	Memorytotal                int64                       `json:"memorytotal"`
+	Memoryused                 int64                       `json:"memoryused"`
+	Memorywithoverprovisioning string                      `json:"memorywithoverprovisioning"`
+	Name                       string                      `json:"name"`
+	Networkkbsread             int64                       `json:"networkkbsread"`
+	Networkkbswrite            int64                       `json:"networkkbswrite"`
+	Oscategoryid               string                      `json:"oscategoryid"`
+	Oscategoryname             string                      `json:"oscategoryname"`
+	Outofbandmanagement        OutOfBandManagementResponse `json:"outofbandmanagement"`
+	Podid                      string                      `json:"podid"`
+	Podname                    string                      `json:"podname"`
+	Removed                    string                      `json:"removed"`
+	Resourcestate              string                      `json:"resourcestate"`
+	State                      string                      `json:"state"`
+	Suitableformigration       bool                        `json:"suitableformigration"`
+	Type                       string                      `json:"type"`
+	Username                   string                      `json:"username"`
+	Version                    string                      `json:"version"`
+	Zoneid                     string                      `json:"zoneid"`
+	Zonename                   string                      `json:"zonename"`
 }
 
 type ReleaseDedicatedHostParams struct {
@@ -2183,7 +2236,7 @@ func (s *HostService) ReleaseDedicatedHost(p *ReleaseDedicatedHostParams) (*Rele
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2200,8 +2253,9 @@ func (s *HostService) ReleaseDedicatedHost(p *ReleaseDedicatedHostParams) (*Rele
 }
 
 type ReleaseDedicatedHostResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -2251,7 +2305,7 @@ func (s *HostService) ReleaseHostReservation(p *ReleaseHostReservationParams) (*
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2268,8 +2322,9 @@ func (s *HostService) ReleaseHostReservation(p *ReleaseHostReservationParams) (*
 }
 
 type ReleaseHostReservationResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -2284,6 +2339,9 @@ func (p *UpdateHostParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["allocationstate"]; found {
 		u.Set("allocationstate", v.(string))
+	}
+	if v, found := p.p["annotation"]; found {
+		u.Set("annotation", v.(string))
 	}
 	if v, found := p.p["hosttags"]; found {
 		vv := strings.Join(v.([]string), ",")
@@ -2306,6 +2364,14 @@ func (p *UpdateHostParams) SetAllocationstate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["allocationstate"] = v
+	return
+}
+
+func (p *UpdateHostParams) SetAnnotation(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["annotation"] = v
 	return
 }
 
@@ -2366,6 +2432,7 @@ func (s *HostService) UpdateHost(p *UpdateHostParams) (*UpdateHostResponse, erro
 }
 
 type UpdateHostResponse struct {
+	Annotation              string            `json:"annotation"`
 	Averageload             int64             `json:"averageload"`
 	Capabilities            string            `json:"capabilities"`
 	Clusterid               string            `json:"clusterid"`
@@ -2396,35 +2463,41 @@ type UpdateHostResponse struct {
 			Videoram          int64  `json:"videoram"`
 		} `json:"vgpu"`
 	} `json:"gpugroup"`
-	Hahost               bool                        `json:"hahost"`
-	Hasenoughcapacity    bool                        `json:"hasenoughcapacity"`
-	Hosttags             string                      `json:"hosttags"`
-	Hypervisor           string                      `json:"hypervisor"`
-	Hypervisorversion    string                      `json:"hypervisorversion"`
-	Id                   string                      `json:"id"`
-	Ipaddress            string                      `json:"ipaddress"`
-	Islocalstorageactive bool                        `json:"islocalstorageactive"`
-	Lastpinged           string                      `json:"lastpinged"`
-	Managementserverid   int64                       `json:"managementserverid"`
-	Memoryallocated      int64                       `json:"memoryallocated"`
-	Memorytotal          int64                       `json:"memorytotal"`
-	Memoryused           int64                       `json:"memoryused"`
-	Name                 string                      `json:"name"`
-	Networkkbsread       int64                       `json:"networkkbsread"`
-	Networkkbswrite      int64                       `json:"networkkbswrite"`
-	Oscategoryid         string                      `json:"oscategoryid"`
-	Oscategoryname       string                      `json:"oscategoryname"`
-	Outofbandmanagement  OutOfBandManagementResponse `json:"outofbandmanagement"`
-	Podid                string                      `json:"podid"`
-	Podname              string                      `json:"podname"`
-	Removed              string                      `json:"removed"`
-	Resourcestate        string                      `json:"resourcestate"`
-	State                string                      `json:"state"`
-	Suitableformigration bool                        `json:"suitableformigration"`
-	Type                 string                      `json:"type"`
-	Version              string                      `json:"version"`
-	Zoneid               string                      `json:"zoneid"`
-	Zonename             string                      `json:"zonename"`
+	Hahost                     bool                        `json:"hahost"`
+	Hasenoughcapacity          bool                        `json:"hasenoughcapacity"`
+	Hostha                     string                      `json:"hostha"`
+	Hosttags                   string                      `json:"hosttags"`
+	Hypervisor                 string                      `json:"hypervisor"`
+	Hypervisorversion          string                      `json:"hypervisorversion"`
+	Id                         string                      `json:"id"`
+	Ipaddress                  string                      `json:"ipaddress"`
+	Islocalstorageactive       bool                        `json:"islocalstorageactive"`
+	Jobid                      string                      `json:"jobid"`
+	Jobstatus                  int                         `json:"jobstatus"`
+	Lastannotated              string                      `json:"lastannotated"`
+	Lastpinged                 string                      `json:"lastpinged"`
+	Managementserverid         int64                       `json:"managementserverid"`
+	Memoryallocated            int64                       `json:"memoryallocated"`
+	Memorytotal                int64                       `json:"memorytotal"`
+	Memoryused                 int64                       `json:"memoryused"`
+	Memorywithoverprovisioning string                      `json:"memorywithoverprovisioning"`
+	Name                       string                      `json:"name"`
+	Networkkbsread             int64                       `json:"networkkbsread"`
+	Networkkbswrite            int64                       `json:"networkkbswrite"`
+	Oscategoryid               string                      `json:"oscategoryid"`
+	Oscategoryname             string                      `json:"oscategoryname"`
+	Outofbandmanagement        OutOfBandManagementResponse `json:"outofbandmanagement"`
+	Podid                      string                      `json:"podid"`
+	Podname                    string                      `json:"podname"`
+	Removed                    string                      `json:"removed"`
+	Resourcestate              string                      `json:"resourcestate"`
+	State                      string                      `json:"state"`
+	Suitableformigration       bool                        `json:"suitableformigration"`
+	Type                       string                      `json:"type"`
+	Username                   string                      `json:"username"`
+	Version                    string                      `json:"version"`
+	Zoneid                     string                      `json:"zoneid"`
+	Zonename                   string                      `json:"zonename"`
 }
 
 type UpdateHostPasswordParams struct {
@@ -2522,6 +2595,8 @@ func (s *HostService) UpdateHostPassword(p *UpdateHostPasswordParams) (*UpdateHo
 
 type UpdateHostPasswordResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 

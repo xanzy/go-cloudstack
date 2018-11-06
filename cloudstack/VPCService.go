@@ -163,7 +163,7 @@ func (s *VPCService) CreatePrivateGateway(p *CreatePrivateGatewayParams) (*Creat
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -185,7 +185,6 @@ func (s *VPCService) CreatePrivateGateway(p *CreatePrivateGatewayParams) (*Creat
 }
 
 type CreatePrivateGatewayResponse struct {
-	JobID              string `json:"jobid"`
 	Account            string `json:"account"`
 	Aclid              string `json:"aclid"`
 	Domain             string `json:"domain"`
@@ -193,6 +192,8 @@ type CreatePrivateGatewayResponse struct {
 	Gateway            string `json:"gateway"`
 	Id                 string `json:"id"`
 	Ipaddress          string `json:"ipaddress"`
+	Jobid              string `json:"jobid"`
+	Jobstatus          int    `json:"jobstatus"`
 	Netmask            string `json:"netmask"`
 	Physicalnetworkid  string `json:"physicalnetworkid"`
 	Project            string `json:"project"`
@@ -263,7 +264,7 @@ func (s *VPCService) CreateStaticRoute(p *CreateStaticRouteParams) (*CreateStati
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -285,13 +286,14 @@ func (s *VPCService) CreateStaticRoute(p *CreateStaticRouteParams) (*CreateStati
 }
 
 type CreateStaticRouteResponse struct {
-	JobID     string `json:"jobid"`
 	Account   string `json:"account"`
 	Cidr      string `json:"cidr"`
 	Domain    string `json:"domain"`
 	Domainid  string `json:"domainid"`
 	Gatewayid string `json:"gatewayid"`
 	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Project   string `json:"project"`
 	Projectid string `json:"projectid"`
 	State     string `json:"state"`
@@ -472,7 +474,7 @@ func (s *VPCService) CreateVPC(p *CreateVPCParams) (*CreateVPCResponse, error) {
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -494,7 +496,6 @@ func (s *VPCService) CreateVPC(p *CreateVPCParams) (*CreateVPCResponse, error) {
 }
 
 type CreateVPCResponse struct {
-	JobID                string `json:"jobid"`
 	Account              string `json:"account"`
 	Cidr                 string `json:"cidr"`
 	Created              string `json:"created"`
@@ -504,6 +505,8 @@ type CreateVPCResponse struct {
 	Domainid             string `json:"domainid"`
 	Fordisplay           bool   `json:"fordisplay"`
 	Id                   string `json:"id"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Name                 string `json:"name"`
 	Network              []struct {
 		Account                     string `json:"account"`
@@ -519,6 +522,7 @@ type CreateVPCResponse struct {
 		Dns2                        string `json:"dns2"`
 		Domain                      string `json:"domain"`
 		Domainid                    string `json:"domainid"`
+		Externalid                  string `json:"externalid"`
 		Gateway                     string `json:"gateway"`
 		Id                          string `json:"id"`
 		Ip6cidr                     string `json:"ip6cidr"`
@@ -538,6 +542,7 @@ type CreateVPCResponse struct {
 		Physicalnetworkid           string `json:"physicalnetworkid"`
 		Project                     string `json:"project"`
 		Projectid                   string `json:"projectid"`
+		Redundantrouter             bool   `json:"redundantrouter"`
 		Related                     string `json:"related"`
 		Reservediprange             string `json:"reservediprange"`
 		Restartrequired             bool   `json:"restartrequired"`
@@ -737,7 +742,7 @@ func (s *VPCService) CreateVPCOffering(p *CreateVPCOfferingParams) (*CreateVPCOf
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -759,12 +764,13 @@ func (s *VPCService) CreateVPCOffering(p *CreateVPCOfferingParams) (*CreateVPCOf
 }
 
 type CreateVPCOfferingResponse struct {
-	JobID                string `json:"jobid"`
 	Created              string `json:"created"`
 	Displaytext          string `json:"displaytext"`
 	Distributedvpcrouter bool   `json:"distributedvpcrouter"`
 	Id                   string `json:"id"`
 	Isdefault            bool   `json:"isdefault"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Name                 string `json:"name"`
 	Service              []struct {
 		Capability []struct {
@@ -833,7 +839,7 @@ func (s *VPCService) DeletePrivateGateway(p *DeletePrivateGatewayParams) (*Delet
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -850,8 +856,9 @@ func (s *VPCService) DeletePrivateGateway(p *DeletePrivateGatewayParams) (*Delet
 }
 
 type DeletePrivateGatewayResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -901,7 +908,7 @@ func (s *VPCService) DeleteStaticRoute(p *DeleteStaticRouteParams) (*DeleteStati
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -918,8 +925,9 @@ func (s *VPCService) DeleteStaticRoute(p *DeleteStaticRouteParams) (*DeleteStati
 }
 
 type DeleteStaticRouteResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -969,7 +977,7 @@ func (s *VPCService) DeleteVPC(p *DeleteVPCParams) (*DeleteVPCResponse, error) {
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -986,8 +994,9 @@ func (s *VPCService) DeleteVPC(p *DeleteVPCParams) (*DeleteVPCResponse, error) {
 }
 
 type DeleteVPCResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1037,7 +1046,7 @@ func (s *VPCService) DeleteVPCOffering(p *DeleteVPCOfferingParams) (*DeleteVPCOf
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1054,8 +1063,9 @@ func (s *VPCService) DeleteVPCOffering(p *DeleteVPCOfferingParams) (*DeleteVPCOf
 }
 
 type DeleteVPCOfferingResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1287,6 +1297,8 @@ type PrivateGateway struct {
 	Gateway            string `json:"gateway"`
 	Id                 string `json:"id"`
 	Ipaddress          string `json:"ipaddress"`
+	Jobid              string `json:"jobid"`
+	Jobstatus          int    `json:"jobstatus"`
 	Netmask            string `json:"netmask"`
 	Physicalnetworkid  string `json:"physicalnetworkid"`
 	Project            string `json:"project"`
@@ -1520,6 +1532,8 @@ type StaticRoute struct {
 	Domainid  string `json:"domainid"`
 	Gatewayid string `json:"gatewayid"`
 	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
 	Project   string `json:"project"`
 	Projectid string `json:"projectid"`
 	State     string `json:"state"`
@@ -1770,6 +1784,8 @@ type VPCOffering struct {
 	Distributedvpcrouter bool   `json:"distributedvpcrouter"`
 	Id                   string `json:"id"`
 	Isdefault            bool   `json:"isdefault"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Name                 string `json:"name"`
 	Service              []struct {
 		Capability []struct {
@@ -2146,6 +2162,8 @@ type VPC struct {
 	Domainid             string `json:"domainid"`
 	Fordisplay           bool   `json:"fordisplay"`
 	Id                   string `json:"id"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Name                 string `json:"name"`
 	Network              []struct {
 		Account                     string `json:"account"`
@@ -2161,6 +2179,7 @@ type VPC struct {
 		Dns2                        string `json:"dns2"`
 		Domain                      string `json:"domain"`
 		Domainid                    string `json:"domainid"`
+		Externalid                  string `json:"externalid"`
 		Gateway                     string `json:"gateway"`
 		Id                          string `json:"id"`
 		Ip6cidr                     string `json:"ip6cidr"`
@@ -2180,6 +2199,7 @@ type VPC struct {
 		Physicalnetworkid           string `json:"physicalnetworkid"`
 		Project                     string `json:"project"`
 		Projectid                   string `json:"projectid"`
+		Redundantrouter             bool   `json:"redundantrouter"`
 		Related                     string `json:"related"`
 		Reservediprange             string `json:"reservediprange"`
 		Restartrequired             bool   `json:"restartrequired"`
@@ -2335,7 +2355,7 @@ func (s *VPCService) RestartVPC(p *RestartVPCParams) (*RestartVPCResponse, error
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2357,7 +2377,6 @@ func (s *VPCService) RestartVPC(p *RestartVPCParams) (*RestartVPCResponse, error
 }
 
 type RestartVPCResponse struct {
-	JobID                string `json:"jobid"`
 	Account              string `json:"account"`
 	Cidr                 string `json:"cidr"`
 	Created              string `json:"created"`
@@ -2367,6 +2386,8 @@ type RestartVPCResponse struct {
 	Domainid             string `json:"domainid"`
 	Fordisplay           bool   `json:"fordisplay"`
 	Id                   string `json:"id"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Name                 string `json:"name"`
 	Network              []struct {
 		Account                     string `json:"account"`
@@ -2382,6 +2403,7 @@ type RestartVPCResponse struct {
 		Dns2                        string `json:"dns2"`
 		Domain                      string `json:"domain"`
 		Domainid                    string `json:"domainid"`
+		Externalid                  string `json:"externalid"`
 		Gateway                     string `json:"gateway"`
 		Id                          string `json:"id"`
 		Ip6cidr                     string `json:"ip6cidr"`
@@ -2401,6 +2423,7 @@ type RestartVPCResponse struct {
 		Physicalnetworkid           string `json:"physicalnetworkid"`
 		Project                     string `json:"project"`
 		Projectid                   string `json:"projectid"`
+		Redundantrouter             bool   `json:"redundantrouter"`
 		Related                     string `json:"related"`
 		Reservediprange             string `json:"reservediprange"`
 		Restartrequired             bool   `json:"restartrequired"`
@@ -2577,7 +2600,7 @@ func (s *VPCService) UpdateVPC(p *UpdateVPCParams) (*UpdateVPCResponse, error) {
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2599,7 +2622,6 @@ func (s *VPCService) UpdateVPC(p *UpdateVPCParams) (*UpdateVPCResponse, error) {
 }
 
 type UpdateVPCResponse struct {
-	JobID                string `json:"jobid"`
 	Account              string `json:"account"`
 	Cidr                 string `json:"cidr"`
 	Created              string `json:"created"`
@@ -2609,6 +2631,8 @@ type UpdateVPCResponse struct {
 	Domainid             string `json:"domainid"`
 	Fordisplay           bool   `json:"fordisplay"`
 	Id                   string `json:"id"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Name                 string `json:"name"`
 	Network              []struct {
 		Account                     string `json:"account"`
@@ -2624,6 +2648,7 @@ type UpdateVPCResponse struct {
 		Dns2                        string `json:"dns2"`
 		Domain                      string `json:"domain"`
 		Domainid                    string `json:"domainid"`
+		Externalid                  string `json:"externalid"`
 		Gateway                     string `json:"gateway"`
 		Id                          string `json:"id"`
 		Ip6cidr                     string `json:"ip6cidr"`
@@ -2643,6 +2668,7 @@ type UpdateVPCResponse struct {
 		Physicalnetworkid           string `json:"physicalnetworkid"`
 		Project                     string `json:"project"`
 		Projectid                   string `json:"projectid"`
+		Redundantrouter             bool   `json:"redundantrouter"`
 		Related                     string `json:"related"`
 		Reservediprange             string `json:"reservediprange"`
 		Restartrequired             bool   `json:"restartrequired"`
@@ -2807,7 +2833,7 @@ func (s *VPCService) UpdateVPCOffering(p *UpdateVPCOfferingParams) (*UpdateVPCOf
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2829,12 +2855,13 @@ func (s *VPCService) UpdateVPCOffering(p *UpdateVPCOfferingParams) (*UpdateVPCOf
 }
 
 type UpdateVPCOfferingResponse struct {
-	JobID                string `json:"jobid"`
 	Created              string `json:"created"`
 	Displaytext          string `json:"displaytext"`
 	Distributedvpcrouter bool   `json:"distributedvpcrouter"`
 	Id                   string `json:"id"`
 	Isdefault            bool   `json:"isdefault"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Name                 string `json:"name"`
 	Service              []struct {
 		Capability []struct {

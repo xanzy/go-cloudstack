@@ -126,7 +126,7 @@ func (s *AffinityGroupService) CreateAffinityGroup(p *CreateAffinityGroupParams)
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -148,12 +148,13 @@ func (s *AffinityGroupService) CreateAffinityGroup(p *CreateAffinityGroupParams)
 }
 
 type CreateAffinityGroupResponse struct {
-	JobID             string   `json:"jobid"`
 	Account           string   `json:"account"`
 	Description       string   `json:"description"`
 	Domain            string   `json:"domain"`
 	Domainid          string   `json:"domainid"`
 	Id                string   `json:"id"`
+	Jobid             string   `json:"jobid"`
+	Jobstatus         int      `json:"jobstatus"`
 	Name              string   `json:"name"`
 	Project           string   `json:"project"`
 	Projectid         string   `json:"projectid"`
@@ -250,7 +251,7 @@ func (s *AffinityGroupService) DeleteAffinityGroup(p *DeleteAffinityGroupParams)
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -267,8 +268,9 @@ func (s *AffinityGroupService) DeleteAffinityGroup(p *DeleteAffinityGroupParams)
 }
 
 type DeleteAffinityGroupResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -348,7 +350,9 @@ type ListAffinityGroupTypesResponse struct {
 }
 
 type AffinityGroupType struct {
-	Type string `json:"type"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Type      string `json:"type"`
 }
 
 type ListAffinityGroupsParams struct {
@@ -624,6 +628,8 @@ type AffinityGroup struct {
 	Domain            string   `json:"domain"`
 	Domainid          string   `json:"domainid"`
 	Id                string   `json:"id"`
+	Jobid             string   `json:"jobid"`
+	Jobstatus         int      `json:"jobstatus"`
 	Name              string   `json:"name"`
 	Project           string   `json:"project"`
 	Projectid         string   `json:"projectid"`
@@ -701,7 +707,7 @@ func (s *AffinityGroupService) UpdateVMAffinityGroup(p *UpdateVMAffinityGroupPar
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -723,7 +729,6 @@ func (s *AffinityGroupService) UpdateVMAffinityGroup(p *UpdateVMAffinityGroupPar
 }
 
 type UpdateVMAffinityGroupResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -766,6 +771,8 @@ type UpdateVMAffinityGroupResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -775,22 +782,23 @@ type UpdateVMAffinityGroupResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -882,6 +890,18 @@ type UpdateVMAffinityGroupResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`

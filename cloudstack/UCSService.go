@@ -119,10 +119,12 @@ func (s *UCSService) AddUcsManager(p *AddUcsManagerParams) (*AddUcsManagerRespon
 }
 
 type AddUcsManagerResponse struct {
-	Id     string `json:"id"`
-	Name   string `json:"name"`
-	Url    string `json:"url"`
-	Zoneid string `json:"zoneid"`
+	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
+	Url       string `json:"url"`
+	Zoneid    string `json:"zoneid"`
 }
 
 type AssociateUcsProfileToBladeParams struct {
@@ -195,7 +197,7 @@ func (s *UCSService) AssociateUcsProfileToBlade(p *AssociateUcsProfileToBladePar
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -217,10 +219,11 @@ func (s *UCSService) AssociateUcsProfileToBlade(p *AssociateUcsProfileToBladePar
 }
 
 type AssociateUcsProfileToBladeResponse struct {
-	JobID        string `json:"jobid"`
 	Bladedn      string `json:"bladedn"`
 	Hostid       string `json:"hostid"`
 	Id           string `json:"id"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
 	Profiledn    string `json:"profiledn"`
 	Ucsmanagerid string `json:"ucsmanagerid"`
 }
@@ -274,6 +277,8 @@ func (s *UCSService) DeleteUcsManager(p *DeleteUcsManagerParams) (*DeleteUcsMana
 
 type DeleteUcsManagerResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -387,6 +392,8 @@ type UcsBlade struct {
 	Bladedn      string `json:"bladedn"`
 	Hostid       string `json:"hostid"`
 	Id           string `json:"id"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
 	Profiledn    string `json:"profiledn"`
 	Ucsmanagerid string `json:"ucsmanagerid"`
 }
@@ -572,10 +579,12 @@ type ListUcsManagersResponse struct {
 }
 
 type UcsManager struct {
-	Id     string `json:"id"`
-	Name   string `json:"name"`
-	Url    string `json:"url"`
-	Zoneid string `json:"zoneid"`
+	Id        string `json:"id"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
+	Url       string `json:"url"`
+	Zoneid    string `json:"zoneid"`
 }
 
 type ListUcsProfilesParams struct {
@@ -666,5 +675,7 @@ type ListUcsProfilesResponse struct {
 }
 
 type UcsProfile struct {
-	Ucsdn string `json:"ucsdn"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Ucsdn     string `json:"ucsdn"`
 }

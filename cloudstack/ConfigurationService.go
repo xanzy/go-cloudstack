@@ -72,6 +72,8 @@ type Capability struct {
 	Customdiskofferingmaxsize int64  `json:"customdiskofferingmaxsize"`
 	Customdiskofferingminsize int64  `json:"customdiskofferingminsize"`
 	Dynamicrolesenabled       bool   `json:"dynamicrolesenabled"`
+	Jobid                     string `json:"jobid"`
+	Jobstatus                 int    `json:"jobstatus"`
 	Kvmsnapshotenabled        bool   `json:"kvmsnapshotenabled"`
 	Projectinviterequired     bool   `json:"projectinviterequired"`
 	Regionsecondaryenabled    bool   `json:"regionsecondaryenabled"`
@@ -97,6 +99,12 @@ func (p *ListConfigurationsParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["clusterid"]; found {
 		u.Set("clusterid", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["imagestoreuuid"]; found {
+		u.Set("imagestoreuuid", v.(string))
 	}
 	if v, found := p.p["keyword"]; found {
 		u.Set("keyword", v.(string))
@@ -142,6 +150,22 @@ func (p *ListConfigurationsParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
+	return
+}
+
+func (p *ListConfigurationsParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+	return
+}
+
+func (p *ListConfigurationsParams) SetImagestoreuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["imagestoreuuid"] = v
 	return
 }
 
@@ -225,6 +249,8 @@ type Configuration struct {
 	Category    string `json:"category"`
 	Description string `json:"description"`
 	Id          int64  `json:"id"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Name        string `json:"name"`
 	Scope       string `json:"scope"`
 	Value       string `json:"value"`
@@ -306,7 +332,9 @@ type ListDeploymentPlannersResponse struct {
 }
 
 type DeploymentPlanner struct {
-	Name string `json:"name"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
 }
 
 type UpdateConfigurationParams struct {
@@ -323,6 +351,12 @@ func (p *UpdateConfigurationParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["clusterid"]; found {
 		u.Set("clusterid", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["imagestoreuuid"]; found {
+		u.Set("imagestoreuuid", v.(string))
 	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
@@ -352,6 +386,22 @@ func (p *UpdateConfigurationParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
+	return
+}
+
+func (p *UpdateConfigurationParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+	return
+}
+
+func (p *UpdateConfigurationParams) SetImagestoreuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["imagestoreuuid"] = v
 	return
 }
 
@@ -415,6 +465,8 @@ type UpdateConfigurationResponse struct {
 	Category    string `json:"category"`
 	Description string `json:"description"`
 	Id          int64  `json:"id"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Name        string `json:"name"`
 	Scope       string `json:"scope"`
 	Value       string `json:"value"`

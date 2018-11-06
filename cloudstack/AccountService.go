@@ -92,7 +92,7 @@ func (s *AccountService) AddAccountToProject(p *AddAccountToProjectParams) (*Add
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -109,8 +109,9 @@ func (s *AccountService) AddAccountToProject(p *AddAccountToProjectParams) (*Add
 }
 
 type AddAccountToProjectResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -334,6 +335,8 @@ type CreateAccountResponse struct {
 	Iptotal                   int64             `json:"iptotal"`
 	Iscleanuprequired         bool              `json:"iscleanuprequired"`
 	Isdefault                 bool              `json:"isdefault"`
+	Jobid                     string            `json:"jobid"`
+	Jobstatus                 int               `json:"jobstatus"`
 	Memoryavailable           string            `json:"memoryavailable"`
 	Memorylimit               string            `json:"memorylimit"`
 	Memorytotal               int64             `json:"memorytotal"`
@@ -384,6 +387,7 @@ type CreateAccountResponse struct {
 		State               string `json:"state"`
 		Timezone            string `json:"timezone"`
 		Username            string `json:"username"`
+		Usersource          string `json:"usersource"`
 	} `json:"user"`
 	Vmavailable     string `json:"vmavailable"`
 	Vmlimit         string `json:"vmlimit"`
@@ -444,7 +448,7 @@ func (s *AccountService) DeleteAccount(p *DeleteAccountParams) (*DeleteAccountRe
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -461,8 +465,9 @@ func (s *AccountService) DeleteAccount(p *DeleteAccountParams) (*DeleteAccountRe
 }
 
 type DeleteAccountResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -524,7 +529,7 @@ func (s *AccountService) DeleteAccountFromProject(p *DeleteAccountFromProjectPar
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -541,8 +546,9 @@ func (s *AccountService) DeleteAccountFromProject(p *DeleteAccountFromProjectPar
 }
 
 type DeleteAccountFromProjectResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -626,7 +632,7 @@ func (s *AccountService) DisableAccount(p *DisableAccountParams) (*DisableAccoun
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -648,7 +654,6 @@ func (s *AccountService) DisableAccount(p *DisableAccountParams) (*DisableAccoun
 }
 
 type DisableAccountResponse struct {
-	JobID                     string            `json:"jobid"`
 	Accountdetails            map[string]string `json:"accountdetails"`
 	Accounttype               int               `json:"accounttype"`
 	Cpuavailable              string            `json:"cpuavailable"`
@@ -664,6 +669,8 @@ type DisableAccountResponse struct {
 	Iptotal                   int64             `json:"iptotal"`
 	Iscleanuprequired         bool              `json:"iscleanuprequired"`
 	Isdefault                 bool              `json:"isdefault"`
+	Jobid                     string            `json:"jobid"`
+	Jobstatus                 int               `json:"jobstatus"`
 	Memoryavailable           string            `json:"memoryavailable"`
 	Memorylimit               string            `json:"memorylimit"`
 	Memorytotal               int64             `json:"memorytotal"`
@@ -714,6 +721,7 @@ type DisableAccountResponse struct {
 		State               string `json:"state"`
 		Timezone            string `json:"timezone"`
 		Username            string `json:"username"`
+		Usersource          string `json:"usersource"`
 	} `json:"user"`
 	Vmavailable     string `json:"vmavailable"`
 	Vmlimit         string `json:"vmlimit"`
@@ -812,6 +820,8 @@ type EnableAccountResponse struct {
 	Iptotal                   int64             `json:"iptotal"`
 	Iscleanuprequired         bool              `json:"iscleanuprequired"`
 	Isdefault                 bool              `json:"isdefault"`
+	Jobid                     string            `json:"jobid"`
+	Jobstatus                 int               `json:"jobstatus"`
 	Memoryavailable           string            `json:"memoryavailable"`
 	Memorylimit               string            `json:"memorylimit"`
 	Memorytotal               int64             `json:"memorytotal"`
@@ -862,6 +872,7 @@ type EnableAccountResponse struct {
 		State               string `json:"state"`
 		Timezone            string `json:"timezone"`
 		Username            string `json:"username"`
+		Usersource          string `json:"usersource"`
 	} `json:"user"`
 	Vmavailable     string `json:"vmavailable"`
 	Vmlimit         string `json:"vmlimit"`
@@ -936,7 +947,9 @@ func (s *AccountService) GetSolidFireAccountId(p *GetSolidFireAccountIdParams) (
 }
 
 type GetSolidFireAccountIdResponse struct {
-	SolidFireAccountId int64 `json:"solidFireAccountId"`
+	Jobid              string `json:"jobid"`
+	Jobstatus          int    `json:"jobstatus"`
+	SolidFireAccountId int64  `json:"solidFireAccountId"`
 }
 
 type ListAccountsParams struct {
@@ -1205,6 +1218,8 @@ type Account struct {
 	Iptotal                   int64             `json:"iptotal"`
 	Iscleanuprequired         bool              `json:"iscleanuprequired"`
 	Isdefault                 bool              `json:"isdefault"`
+	Jobid                     string            `json:"jobid"`
+	Jobstatus                 int               `json:"jobstatus"`
 	Memoryavailable           string            `json:"memoryavailable"`
 	Memorylimit               string            `json:"memorylimit"`
 	Memorytotal               int64             `json:"memorytotal"`
@@ -1255,6 +1270,7 @@ type Account struct {
 		State               string `json:"state"`
 		Timezone            string `json:"timezone"`
 		Username            string `json:"username"`
+		Usersource          string `json:"usersource"`
 	} `json:"user"`
 	Vmavailable     string `json:"vmavailable"`
 	Vmlimit         string `json:"vmlimit"`
@@ -1427,6 +1443,8 @@ type ProjectAccount struct {
 	Ipavailable               string  `json:"ipavailable"`
 	Iplimit                   string  `json:"iplimit"`
 	Iptotal                   int64   `json:"iptotal"`
+	Jobid                     string  `json:"jobid"`
+	Jobstatus                 int     `json:"jobstatus"`
 	Memoryavailable           string  `json:"memoryavailable"`
 	Memorylimit               string  `json:"memorylimit"`
 	Memorytotal               int64   `json:"memorytotal"`
@@ -1437,6 +1455,7 @@ type ProjectAccount struct {
 	Primarystorageavailable   string  `json:"primarystorageavailable"`
 	Primarystoragelimit       string  `json:"primarystoragelimit"`
 	Primarystoragetotal       int64   `json:"primarystoragetotal"`
+	Projectaccountname        string  `json:"projectaccountname"`
 	Secondarystorageavailable string  `json:"secondarystorageavailable"`
 	Secondarystoragelimit     string  `json:"secondarystoragelimit"`
 	Secondarystoragetotal     float64 `json:"secondarystoragetotal"`
@@ -1547,6 +1566,8 @@ type LockAccountResponse struct {
 	Iptotal                   int64             `json:"iptotal"`
 	Iscleanuprequired         bool              `json:"iscleanuprequired"`
 	Isdefault                 bool              `json:"isdefault"`
+	Jobid                     string            `json:"jobid"`
+	Jobstatus                 int               `json:"jobstatus"`
 	Memoryavailable           string            `json:"memoryavailable"`
 	Memorylimit               string            `json:"memorylimit"`
 	Memorytotal               int64             `json:"memorytotal"`
@@ -1597,6 +1618,7 @@ type LockAccountResponse struct {
 		State               string `json:"state"`
 		Timezone            string `json:"timezone"`
 		Username            string `json:"username"`
+		Usersource          string `json:"usersource"`
 	} `json:"user"`
 	Vmavailable     string `json:"vmavailable"`
 	Vmlimit         string `json:"vmlimit"`
@@ -1681,7 +1703,7 @@ func (s *AccountService) MarkDefaultZoneForAccount(p *MarkDefaultZoneForAccountP
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1703,7 +1725,6 @@ func (s *AccountService) MarkDefaultZoneForAccount(p *MarkDefaultZoneForAccountP
 }
 
 type MarkDefaultZoneForAccountResponse struct {
-	JobID                     string            `json:"jobid"`
 	Accountdetails            map[string]string `json:"accountdetails"`
 	Accounttype               int               `json:"accounttype"`
 	Cpuavailable              string            `json:"cpuavailable"`
@@ -1719,6 +1740,8 @@ type MarkDefaultZoneForAccountResponse struct {
 	Iptotal                   int64             `json:"iptotal"`
 	Iscleanuprequired         bool              `json:"iscleanuprequired"`
 	Isdefault                 bool              `json:"isdefault"`
+	Jobid                     string            `json:"jobid"`
+	Jobstatus                 int               `json:"jobstatus"`
 	Memoryavailable           string            `json:"memoryavailable"`
 	Memorylimit               string            `json:"memorylimit"`
 	Memorytotal               int64             `json:"memorytotal"`
@@ -1769,6 +1792,7 @@ type MarkDefaultZoneForAccountResponse struct {
 		State               string `json:"state"`
 		Timezone            string `json:"timezone"`
 		Username            string `json:"username"`
+		Usersource          string `json:"usersource"`
 	} `json:"user"`
 	Vmavailable     string `json:"vmavailable"`
 	Vmlimit         string `json:"vmlimit"`
@@ -1906,6 +1930,8 @@ type UpdateAccountResponse struct {
 	Iptotal                   int64             `json:"iptotal"`
 	Iscleanuprequired         bool              `json:"iscleanuprequired"`
 	Isdefault                 bool              `json:"isdefault"`
+	Jobid                     string            `json:"jobid"`
+	Jobstatus                 int               `json:"jobstatus"`
 	Memoryavailable           string            `json:"memoryavailable"`
 	Memorylimit               string            `json:"memorylimit"`
 	Memorytotal               int64             `json:"memorytotal"`
@@ -1956,6 +1982,7 @@ type UpdateAccountResponse struct {
 		State               string `json:"state"`
 		Timezone            string `json:"timezone"`
 		Username            string `json:"username"`
+		Usersource          string `json:"usersource"`
 	} `json:"user"`
 	Vmavailable     string `json:"vmavailable"`
 	Vmlimit         string `json:"vmlimit"`

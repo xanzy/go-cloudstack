@@ -36,8 +36,15 @@ func (p *CreateSnapshotParams) toURLValues() url.Values {
 	if v, found := p.p["account"]; found {
 		u.Set("account", v.(string))
 	}
+	if v, found := p.p["asyncbackup"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("asyncbackup", vv)
+	}
 	if v, found := p.p["domainid"]; found {
 		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["locationtype"]; found {
+		u.Set("locationtype", v.(string))
 	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
@@ -63,11 +70,27 @@ func (p *CreateSnapshotParams) SetAccount(v string) {
 	return
 }
 
+func (p *CreateSnapshotParams) SetAsyncbackup(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["asyncbackup"] = v
+	return
+}
+
 func (p *CreateSnapshotParams) SetDomainid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
+	return
+}
+
+func (p *CreateSnapshotParams) SetLocationtype(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["locationtype"] = v
 	return
 }
 
@@ -126,7 +149,7 @@ func (s *SnapshotService) CreateSnapshot(p *CreateSnapshotParams) (*CreateSnapsh
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -148,21 +171,25 @@ func (s *SnapshotService) CreateSnapshot(p *CreateSnapshotParams) (*CreateSnapsh
 }
 
 type CreateSnapshotResponse struct {
-	JobID        string `json:"jobid"`
-	Account      string `json:"account"`
-	Created      string `json:"created"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Id           string `json:"id"`
-	Intervaltype string `json:"intervaltype"`
-	Name         string `json:"name"`
-	Physicalsize int64  `json:"physicalsize"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Revertable   bool   `json:"revertable"`
-	Snapshottype string `json:"snapshottype"`
-	State        string `json:"state"`
-	Tags         []struct {
+	Account       string `json:"account"`
+	Created       string `json:"created"`
+	Domain        string `json:"domain"`
+	Domainid      string `json:"domainid"`
+	Id            string `json:"id"`
+	Intervaltype  string `json:"intervaltype"`
+	Jobid         string `json:"jobid"`
+	Jobstatus     int    `json:"jobstatus"`
+	Locationtype  string `json:"locationtype"`
+	Name          string `json:"name"`
+	Osdisplayname string `json:"osdisplayname"`
+	Ostypeid      string `json:"ostypeid"`
+	Physicalsize  int64  `json:"physicalsize"`
+	Project       string `json:"project"`
+	Projectid     string `json:"projectid"`
+	Revertable    bool   `json:"revertable"`
+	Snapshottype  string `json:"snapshottype"`
+	State         string `json:"state"`
+	Tags          []struct {
 		Account      string `json:"account"`
 		Customer     string `json:"customer"`
 		Domain       string `json:"domain"`
@@ -174,10 +201,11 @@ type CreateSnapshotResponse struct {
 		Resourcetype string `json:"resourcetype"`
 		Value        string `json:"value"`
 	} `json:"tags"`
-	Volumeid   string `json:"volumeid"`
-	Volumename string `json:"volumename"`
-	Volumetype string `json:"volumetype"`
-	Zoneid     string `json:"zoneid"`
+	Virtualsize int64  `json:"virtualsize"`
+	Volumeid    string `json:"volumeid"`
+	Volumename  string `json:"volumename"`
+	Volumetype  string `json:"volumetype"`
+	Zoneid      string `json:"zoneid"`
 }
 
 type CreateSnapshotPolicyParams struct {
@@ -292,6 +320,8 @@ type CreateSnapshotPolicyResponse struct {
 	Fordisplay   bool   `json:"fordisplay"`
 	Id           string `json:"id"`
 	Intervaltype int    `json:"intervaltype"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
 	Maxsnaps     int    `json:"maxsnaps"`
 	Schedule     string `json:"schedule"`
 	Timezone     string `json:"timezone"`
@@ -390,7 +420,7 @@ func (s *SnapshotService) CreateVMSnapshot(p *CreateVMSnapshotParams) (*CreateVM
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -412,7 +442,6 @@ func (s *SnapshotService) CreateVMSnapshot(p *CreateVMSnapshotParams) (*CreateVM
 }
 
 type CreateVMSnapshotResponse struct {
-	JobID            string `json:"jobid"`
 	Account          string `json:"account"`
 	Created          string `json:"created"`
 	Current          bool   `json:"current"`
@@ -421,6 +450,8 @@ type CreateVMSnapshotResponse struct {
 	Domain           string `json:"domain"`
 	Domainid         string `json:"domainid"`
 	Id               string `json:"id"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Name             string `json:"name"`
 	Parent           string `json:"parent"`
 	ParentName       string `json:"parentName"`
@@ -478,7 +509,7 @@ func (s *SnapshotService) DeleteSnapshot(p *DeleteSnapshotParams) (*DeleteSnapsh
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -495,8 +526,9 @@ func (s *SnapshotService) DeleteSnapshot(p *DeleteSnapshotParams) (*DeleteSnapsh
 }
 
 type DeleteSnapshotResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -560,6 +592,8 @@ func (s *SnapshotService) DeleteSnapshotPolicies(p *DeleteSnapshotPoliciesParams
 
 type DeleteSnapshotPoliciesResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -628,7 +662,7 @@ func (s *SnapshotService) DeleteVMSnapshot(p *DeleteVMSnapshotParams) (*DeleteVM
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -645,8 +679,9 @@ func (s *SnapshotService) DeleteVMSnapshot(p *DeleteVMSnapshotParams) (*DeleteVM
 }
 
 type DeleteVMSnapshotResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -796,6 +831,8 @@ type SnapshotPolicy struct {
 	Fordisplay   bool   `json:"fordisplay"`
 	Id           string `json:"id"`
 	Intervaltype int    `json:"intervaltype"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
 	Maxsnaps     int    `json:"maxsnaps"`
 	Schedule     string `json:"schedule"`
 	Timezone     string `json:"timezone"`
@@ -1112,20 +1149,25 @@ type ListSnapshotsResponse struct {
 }
 
 type Snapshot struct {
-	Account      string `json:"account"`
-	Created      string `json:"created"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Id           string `json:"id"`
-	Intervaltype string `json:"intervaltype"`
-	Name         string `json:"name"`
-	Physicalsize int64  `json:"physicalsize"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Revertable   bool   `json:"revertable"`
-	Snapshottype string `json:"snapshottype"`
-	State        string `json:"state"`
-	Tags         []struct {
+	Account       string `json:"account"`
+	Created       string `json:"created"`
+	Domain        string `json:"domain"`
+	Domainid      string `json:"domainid"`
+	Id            string `json:"id"`
+	Intervaltype  string `json:"intervaltype"`
+	Jobid         string `json:"jobid"`
+	Jobstatus     int    `json:"jobstatus"`
+	Locationtype  string `json:"locationtype"`
+	Name          string `json:"name"`
+	Osdisplayname string `json:"osdisplayname"`
+	Ostypeid      string `json:"ostypeid"`
+	Physicalsize  int64  `json:"physicalsize"`
+	Project       string `json:"project"`
+	Projectid     string `json:"projectid"`
+	Revertable    bool   `json:"revertable"`
+	Snapshottype  string `json:"snapshottype"`
+	State         string `json:"state"`
+	Tags          []struct {
 		Account      string `json:"account"`
 		Customer     string `json:"customer"`
 		Domain       string `json:"domain"`
@@ -1137,10 +1179,11 @@ type Snapshot struct {
 		Resourcetype string `json:"resourcetype"`
 		Value        string `json:"value"`
 	} `json:"tags"`
-	Volumeid   string `json:"volumeid"`
-	Volumename string `json:"volumename"`
-	Volumetype string `json:"volumetype"`
-	Zoneid     string `json:"zoneid"`
+	Virtualsize int64  `json:"virtualsize"`
+	Volumeid    string `json:"volumeid"`
+	Volumename  string `json:"volumename"`
+	Volumetype  string `json:"volumetype"`
+	Zoneid      string `json:"zoneid"`
 }
 
 type ListVMSnapshotParams struct {
@@ -1392,6 +1435,8 @@ type VMSnapshot struct {
 	Domain           string `json:"domain"`
 	Domainid         string `json:"domainid"`
 	Id               string `json:"id"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Name             string `json:"name"`
 	Parent           string `json:"parent"`
 	ParentName       string `json:"parentName"`
@@ -1449,7 +1494,7 @@ func (s *SnapshotService) RevertSnapshot(p *RevertSnapshotParams) (*RevertSnapsh
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1471,21 +1516,25 @@ func (s *SnapshotService) RevertSnapshot(p *RevertSnapshotParams) (*RevertSnapsh
 }
 
 type RevertSnapshotResponse struct {
-	JobID        string `json:"jobid"`
-	Account      string `json:"account"`
-	Created      string `json:"created"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Id           string `json:"id"`
-	Intervaltype string `json:"intervaltype"`
-	Name         string `json:"name"`
-	Physicalsize int64  `json:"physicalsize"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Revertable   bool   `json:"revertable"`
-	Snapshottype string `json:"snapshottype"`
-	State        string `json:"state"`
-	Tags         []struct {
+	Account       string `json:"account"`
+	Created       string `json:"created"`
+	Domain        string `json:"domain"`
+	Domainid      string `json:"domainid"`
+	Id            string `json:"id"`
+	Intervaltype  string `json:"intervaltype"`
+	Jobid         string `json:"jobid"`
+	Jobstatus     int    `json:"jobstatus"`
+	Locationtype  string `json:"locationtype"`
+	Name          string `json:"name"`
+	Osdisplayname string `json:"osdisplayname"`
+	Ostypeid      string `json:"ostypeid"`
+	Physicalsize  int64  `json:"physicalsize"`
+	Project       string `json:"project"`
+	Projectid     string `json:"projectid"`
+	Revertable    bool   `json:"revertable"`
+	Snapshottype  string `json:"snapshottype"`
+	State         string `json:"state"`
+	Tags          []struct {
 		Account      string `json:"account"`
 		Customer     string `json:"customer"`
 		Domain       string `json:"domain"`
@@ -1497,10 +1546,11 @@ type RevertSnapshotResponse struct {
 		Resourcetype string `json:"resourcetype"`
 		Value        string `json:"value"`
 	} `json:"tags"`
-	Volumeid   string `json:"volumeid"`
-	Volumename string `json:"volumename"`
-	Volumetype string `json:"volumetype"`
-	Zoneid     string `json:"zoneid"`
+	Virtualsize int64  `json:"virtualsize"`
+	Volumeid    string `json:"volumeid"`
+	Volumename  string `json:"volumename"`
+	Volumetype  string `json:"volumetype"`
+	Zoneid      string `json:"zoneid"`
 }
 
 type RevertToVMSnapshotParams struct {
@@ -1549,7 +1599,7 @@ func (s *SnapshotService) RevertToVMSnapshot(p *RevertToVMSnapshotParams) (*Reve
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1571,7 +1621,6 @@ func (s *SnapshotService) RevertToVMSnapshot(p *RevertToVMSnapshotParams) (*Reve
 }
 
 type RevertToVMSnapshotResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -1614,6 +1663,8 @@ type RevertToVMSnapshotResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -1623,22 +1674,23 @@ type RevertToVMSnapshotResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -1730,6 +1782,18 @@ type RevertToVMSnapshotResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -1808,7 +1872,7 @@ func (s *SnapshotService) UpdateSnapshotPolicy(p *UpdateSnapshotPolicyParams) (*
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1830,10 +1894,11 @@ func (s *SnapshotService) UpdateSnapshotPolicy(p *UpdateSnapshotPolicyParams) (*
 }
 
 type UpdateSnapshotPolicyResponse struct {
-	JobID        string `json:"jobid"`
 	Fordisplay   bool   `json:"fordisplay"`
 	Id           string `json:"id"`
 	Intervaltype int    `json:"intervaltype"`
+	Jobid        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
 	Maxsnaps     int    `json:"maxsnaps"`
 	Schedule     string `json:"schedule"`
 	Timezone     string `json:"timezone"`

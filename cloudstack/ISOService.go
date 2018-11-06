@@ -82,7 +82,7 @@ func (s *ISOService) AttachIso(p *AttachIsoParams) (*AttachIsoResponse, error) {
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -104,7 +104,6 @@ func (s *ISOService) AttachIso(p *AttachIsoParams) (*AttachIsoResponse, error) {
 }
 
 type AttachIsoResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -147,6 +146,8 @@ type AttachIsoResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -156,22 +157,23 @@ type AttachIsoResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -263,6 +265,18 @@ type AttachIsoResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -285,6 +299,10 @@ func (p *CopyIsoParams) toURLValues() url.Values {
 	if v, found := p.p["destzoneid"]; found {
 		u.Set("destzoneid", v.(string))
 	}
+	if v, found := p.p["destzoneids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("destzoneids", vv)
+	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
@@ -299,6 +317,14 @@ func (p *CopyIsoParams) SetDestzoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["destzoneid"] = v
+	return
+}
+
+func (p *CopyIsoParams) SetDestzoneids(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["destzoneids"] = v
 	return
 }
 
@@ -320,15 +346,14 @@ func (p *CopyIsoParams) SetSourcezoneid(v string) {
 
 // You should always use this function to get a new CopyIsoParams instance,
 // as then you are sure you have configured all required params
-func (s *ISOService) NewCopyIsoParams(destzoneid string, id string) *CopyIsoParams {
+func (s *ISOService) NewCopyIsoParams(id string) *CopyIsoParams {
 	p := &CopyIsoParams{}
 	p.p = make(map[string]interface{})
-	p.p["destzoneid"] = destzoneid
 	p.p["id"] = id
 	return p
 }
 
-// Copies an iso from one zone to another.
+// Copies an ISO from one zone to another.
 func (s *ISOService) CopyIso(p *CopyIsoParams) (*CopyIsoResponse, error) {
 	resp, err := s.cs.newRequest("copyIso", p.toURLValues())
 	if err != nil {
@@ -342,7 +367,7 @@ func (s *ISOService) CopyIso(p *CopyIsoParams) (*CopyIsoResponse, error) {
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -364,14 +389,16 @@ func (s *ISOService) CopyIso(p *CopyIsoParams) (*CopyIsoResponse, error) {
 }
 
 type CopyIsoResponse struct {
-	JobID                 string            `json:"jobid"`
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -385,10 +412,14 @@ type CopyIsoResponse struct {
 	Isfeatured            bool              `json:"isfeatured"`
 	Ispublic              bool              `json:"ispublic"`
 	Isready               bool              `json:"isready"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -396,10 +427,22 @@ type CopyIsoResponse struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled"`
 	Status                string            `json:"status"`
-	Templatetag           string            `json:"templatetag"`
-	Templatetype          string            `json:"templatetype"`
-	Zoneid                string            `json:"zoneid"`
-	Zonename              string            `json:"zonename"`
+	Tags                  []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
+	Templatetag  string `json:"templatetag"`
+	Templatetype string `json:"templatetype"`
+	Zoneid       string `json:"zoneid"`
+	Zonename     string `json:"zonename"`
 }
 
 type DeleteIsoParams struct {
@@ -459,7 +502,7 @@ func (s *ISOService) DeleteIso(p *DeleteIsoParams) (*DeleteIsoResponse, error) {
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -476,8 +519,9 @@ func (s *ISOService) DeleteIso(p *DeleteIsoParams) (*DeleteIsoResponse, error) {
 }
 
 type DeleteIsoResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -527,7 +571,7 @@ func (s *ISOService) DetachIso(p *DetachIsoParams) (*DetachIsoResponse, error) {
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -549,7 +593,6 @@ func (s *ISOService) DetachIso(p *DetachIsoParams) (*DetachIsoResponse, error) {
 }
 
 type DetachIsoResponse struct {
-	JobID         string `json:"jobid"`
 	Account       string `json:"account"`
 	Affinitygroup []struct {
 		Account           string   `json:"account"`
@@ -592,6 +635,8 @@ type DetachIsoResponse struct {
 	Isodisplaytext        string            `json:"isodisplaytext"`
 	Isoid                 string            `json:"isoid"`
 	Isoname               string            `json:"isoname"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Keypair               string            `json:"keypair"`
 	Memory                int               `json:"memory"`
 	Memoryintfreekbs      int64             `json:"memoryintfreekbs"`
@@ -601,22 +646,23 @@ type DetachIsoResponse struct {
 	Networkkbsread        int64             `json:"networkkbsread"`
 	Networkkbswrite       int64             `json:"networkkbswrite"`
 	Nic                   []struct {
-		Broadcasturi         string `json:"broadcasturi"`
-		Deviceid             string `json:"deviceid"`
-		Gateway              string `json:"gateway"`
-		Id                   string `json:"id"`
-		Ip6address           string `json:"ip6address"`
-		Ip6cidr              string `json:"ip6cidr"`
-		Ip6gateway           string `json:"ip6gateway"`
-		Ipaddress            string `json:"ipaddress"`
-		Isdefault            bool   `json:"isdefault"`
-		Isolationuri         string `json:"isolationuri"`
-		Macaddress           string `json:"macaddress"`
-		Netmask              string `json:"netmask"`
-		Networkid            string `json:"networkid"`
-		Networkname          string `json:"networkname"`
-		Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-		Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
+		Broadcasturi         string   `json:"broadcasturi"`
+		Deviceid             string   `json:"deviceid"`
+		Extradhcpoption      []string `json:"extradhcpoption"`
+		Gateway              string   `json:"gateway"`
+		Id                   string   `json:"id"`
+		Ip6address           string   `json:"ip6address"`
+		Ip6cidr              string   `json:"ip6cidr"`
+		Ip6gateway           string   `json:"ip6gateway"`
+		Ipaddress            string   `json:"ipaddress"`
+		Isdefault            bool     `json:"isdefault"`
+		Isolationuri         string   `json:"isolationuri"`
+		Macaddress           string   `json:"macaddress"`
+		Netmask              string   `json:"netmask"`
+		Networkid            string   `json:"networkid"`
+		Networkname          string   `json:"networkname"`
+		Nsxlogicalswitch     string   `json:"nsxlogicalswitch"`
+		Nsxlogicalswitchport string   `json:"nsxlogicalswitchport"`
 		Secondaryip          []struct {
 			Id        string `json:"id"`
 			Ipaddress string `json:"ipaddress"`
@@ -708,6 +754,18 @@ type DetachIsoResponse struct {
 	Serviceofferingname string `json:"serviceofferingname"`
 	Servicestate        string `json:"servicestate"`
 	State               string `json:"state"`
+	Tags                []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
 	Templatedisplaytext string `json:"templatedisplaytext"`
 	Templateid          string `json:"templateid"`
 	Templatename        string `json:"templatename"`
@@ -798,7 +856,7 @@ func (s *ISOService) ExtractIso(p *ExtractIsoParams) (*ExtractIsoResponse, error
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -820,12 +878,13 @@ func (s *ISOService) ExtractIso(p *ExtractIsoParams) (*ExtractIsoResponse, error
 }
 
 type ExtractIsoResponse struct {
-	JobID            string `json:"jobid"`
 	Accountid        string `json:"accountid"`
 	Created          string `json:"created"`
 	ExtractId        string `json:"extractId"`
 	ExtractMode      string `json:"extractMode"`
 	Id               string `json:"id"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Name             string `json:"name"`
 	Resultstring     string `json:"resultstring"`
 	State            string `json:"state"`
@@ -902,7 +961,7 @@ func (s *ISOService) GetIsoPermissionByID(id string, opts ...OptionFunc) (*IsoPe
 	return nil, l.Count, fmt.Errorf("There is more then one result for IsoPermission UUID: %s!", id)
 }
 
-// List ISO visibility and all accounts that have permissions to view this ISO.
+// List iso visibility and all accounts that have permissions to view this iso.
 func (s *ISOService) ListIsoPermissions(p *ListIsoPermissionsParams) (*ListIsoPermissionsResponse, error) {
 	resp, err := s.cs.newRequest("listIsoPermissions", p.toURLValues())
 	if err != nil {
@@ -927,6 +986,8 @@ type IsoPermission struct {
 	Domainid   string   `json:"domainid"`
 	Id         string   `json:"id"`
 	Ispublic   bool     `json:"ispublic"`
+	Jobid      string   `json:"jobid"`
+	Jobstatus  int      `json:"jobstatus"`
 	Projectids []string `json:"projectids"`
 }
 
@@ -1269,11 +1330,14 @@ type ListIsosResponse struct {
 type Iso struct {
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -1287,10 +1351,14 @@ type Iso struct {
 	Isfeatured            bool              `json:"isfeatured"`
 	Ispublic              bool              `json:"ispublic"`
 	Isready               bool              `json:"isready"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -1298,10 +1366,22 @@ type Iso struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled"`
 	Status                string            `json:"status"`
-	Templatetag           string            `json:"templatetag"`
-	Templatetype          string            `json:"templatetype"`
-	Zoneid                string            `json:"zoneid"`
-	Zonename              string            `json:"zonename"`
+	Tags                  []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
+	Templatetag  string `json:"templatetag"`
+	Templatetype string `json:"templatetype"`
+	Zoneid       string `json:"zoneid"`
+	Zonename     string `json:"zonename"`
 }
 
 type RegisterIsoParams struct {
@@ -1322,6 +1402,10 @@ func (p *RegisterIsoParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["checksum"]; found {
 		u.Set("checksum", v.(string))
+	}
+	if v, found := p.p["directdownload"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("directdownload", vv)
 	}
 	if v, found := p.p["displaytext"]; found {
 		u.Set("displaytext", v.(string))
@@ -1387,6 +1471,14 @@ func (p *RegisterIsoParams) SetChecksum(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["checksum"] = v
+	return
+}
+
+func (p *RegisterIsoParams) SetDirectdownload(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["directdownload"] = v
 	return
 }
 
@@ -1516,11 +1608,14 @@ func (s *ISOService) RegisterIso(p *RegisterIsoParams) (*RegisterIsoResponse, er
 type RegisterIsoResponse struct {
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -1534,10 +1629,14 @@ type RegisterIsoResponse struct {
 	Isfeatured            bool              `json:"isfeatured"`
 	Ispublic              bool              `json:"ispublic"`
 	Isready               bool              `json:"isready"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -1545,10 +1644,22 @@ type RegisterIsoResponse struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled"`
 	Status                string            `json:"status"`
-	Templatetag           string            `json:"templatetag"`
-	Templatetype          string            `json:"templatetype"`
-	Zoneid                string            `json:"zoneid"`
-	Zonename              string            `json:"zonename"`
+	Tags                  []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
+	Templatetag  string `json:"templatetag"`
+	Templatetype string `json:"templatetype"`
+	Zoneid       string `json:"zoneid"`
+	Zonename     string `json:"zonename"`
 }
 
 type UpdateIsoParams struct {
@@ -1563,6 +1674,10 @@ func (p *UpdateIsoParams) toURLValues() url.Values {
 	if v, found := p.p["bootable"]; found {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("bootable", vv)
+	}
+	if v, found := p.p["cleanupdetails"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("cleanupdetails", vv)
 	}
 	if v, found := p.p["details"]; found {
 		i := 0
@@ -1614,6 +1729,14 @@ func (p *UpdateIsoParams) SetBootable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bootable"] = v
+	return
+}
+
+func (p *UpdateIsoParams) SetCleanupdetails(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["cleanupdetails"] = v
 	return
 }
 
@@ -1732,11 +1855,14 @@ func (s *ISOService) UpdateIso(p *UpdateIsoParams) (*UpdateIsoResponse, error) {
 type UpdateIsoResponse struct {
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -1750,10 +1876,14 @@ type UpdateIsoResponse struct {
 	Isfeatured            bool              `json:"isfeatured"`
 	Ispublic              bool              `json:"ispublic"`
 	Isready               bool              `json:"isready"`
+	Jobid                 string            `json:"jobid"`
+	Jobstatus             int               `json:"jobstatus"`
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -1761,10 +1891,22 @@ type UpdateIsoResponse struct {
 	Sourcetemplateid      string            `json:"sourcetemplateid"`
 	Sshkeyenabled         bool              `json:"sshkeyenabled"`
 	Status                string            `json:"status"`
-	Templatetag           string            `json:"templatetag"`
-	Templatetype          string            `json:"templatetype"`
-	Zoneid                string            `json:"zoneid"`
-	Zonename              string            `json:"zonename"`
+	Tags                  []struct {
+		Account      string `json:"account"`
+		Customer     string `json:"customer"`
+		Domain       string `json:"domain"`
+		Domainid     string `json:"domainid"`
+		Key          string `json:"key"`
+		Project      string `json:"project"`
+		Projectid    string `json:"projectid"`
+		Resourceid   string `json:"resourceid"`
+		Resourcetype string `json:"resourcetype"`
+		Value        string `json:"value"`
+	} `json:"tags"`
+	Templatetag  string `json:"templatetag"`
+	Templatetype string `json:"templatetype"`
+	Zoneid       string `json:"zoneid"`
+	Zonename     string `json:"zonename"`
 }
 
 type UpdateIsoPermissionsParams struct {
@@ -1887,6 +2029,8 @@ func (s *ISOService) UpdateIsoPermissions(p *UpdateIsoPermissionsParams) (*Updat
 
 type UpdateIsoPermissionsResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 

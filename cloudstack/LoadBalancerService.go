@@ -118,7 +118,7 @@ func (s *LoadBalancerService) AddF5LoadBalancer(p *AddF5LoadBalancerParams) (*Ad
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -140,8 +140,9 @@ func (s *LoadBalancerService) AddF5LoadBalancer(p *AddF5LoadBalancerParams) (*Ad
 }
 
 type AddF5LoadBalancerResponse struct {
-	JobID             string `json:"jobid"`
 	Ipaddress         string `json:"ipaddress"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Lbdevicecapacity  int64  `json:"lbdevicecapacity"`
 	Lbdevicededicated bool   `json:"lbdevicededicated"`
 	Lbdeviceid        string `json:"lbdeviceid"`
@@ -293,7 +294,7 @@ func (s *LoadBalancerService) AddNetscalerLoadBalancer(p *AddNetscalerLoadBalanc
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -315,12 +316,13 @@ func (s *LoadBalancerService) AddNetscalerLoadBalancer(p *AddNetscalerLoadBalanc
 }
 
 type AddNetscalerLoadBalancerResponse struct {
-	JobID                   string   `json:"jobid"`
 	Gslbprovider            bool     `json:"gslbprovider"`
 	Gslbproviderprivateip   string   `json:"gslbproviderprivateip"`
 	Gslbproviderpublicip    string   `json:"gslbproviderpublicip"`
 	Ipaddress               string   `json:"ipaddress"`
 	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider"`
+	Jobid                   string   `json:"jobid"`
+	Jobstatus               int      `json:"jobstatus"`
 	Lbdevicecapacity        int64    `json:"lbdevicecapacity"`
 	Lbdevicededicated       bool     `json:"lbdevicededicated"`
 	Lbdeviceid              string   `json:"lbdeviceid"`
@@ -391,7 +393,7 @@ func (s *LoadBalancerService) AssignCertToLoadBalancer(p *AssignCertToLoadBalanc
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -408,8 +410,9 @@ func (s *LoadBalancerService) AssignCertToLoadBalancer(p *AssignCertToLoadBalanc
 }
 
 type AssignCertToLoadBalancerResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -488,7 +491,7 @@ func (s *LoadBalancerService) AssignToGlobalLoadBalancerRule(p *AssignToGlobalLo
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -505,8 +508,9 @@ func (s *LoadBalancerService) AssignToGlobalLoadBalancerRule(p *AssignToGlobalLo
 }
 
 type AssignToGlobalLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -584,7 +588,7 @@ func (s *LoadBalancerService) AssignToLoadBalancerRule(p *AssignToLoadBalancerRu
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -601,8 +605,9 @@ func (s *LoadBalancerService) AssignToLoadBalancerRule(p *AssignToLoadBalancerRu
 }
 
 type AssignToLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -664,7 +669,7 @@ func (s *LoadBalancerService) ConfigureF5LoadBalancer(p *ConfigureF5LoadBalancer
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -686,8 +691,9 @@ func (s *LoadBalancerService) ConfigureF5LoadBalancer(p *ConfigureF5LoadBalancer
 }
 
 type F5LoadBalancerResponse struct {
-	JobID             string `json:"jobid"`
 	Ipaddress         string `json:"ipaddress"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Lbdevicecapacity  int64  `json:"lbdevicecapacity"`
 	Lbdevicededicated bool   `json:"lbdevicededicated"`
 	Lbdeviceid        string `json:"lbdeviceid"`
@@ -793,7 +799,7 @@ func (s *LoadBalancerService) ConfigureNetscalerLoadBalancer(p *ConfigureNetscal
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -815,12 +821,13 @@ func (s *LoadBalancerService) ConfigureNetscalerLoadBalancer(p *ConfigureNetscal
 }
 
 type NetscalerLoadBalancerResponse struct {
-	JobID                   string   `json:"jobid"`
 	Gslbprovider            bool     `json:"gslbprovider"`
 	Gslbproviderprivateip   string   `json:"gslbproviderprivateip"`
 	Gslbproviderpublicip    string   `json:"gslbproviderpublicip"`
 	Ipaddress               string   `json:"ipaddress"`
 	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider"`
+	Jobid                   string   `json:"jobid"`
+	Jobstatus               int      `json:"jobstatus"`
 	Lbdevicecapacity        int64    `json:"lbdevicecapacity"`
 	Lbdevicededicated       bool     `json:"lbdevicededicated"`
 	Lbdeviceid              string   `json:"lbdeviceid"`
@@ -971,7 +978,7 @@ func (s *LoadBalancerService) CreateGlobalLoadBalancerRule(p *CreateGlobalLoadBa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -993,7 +1000,6 @@ func (s *LoadBalancerService) CreateGlobalLoadBalancerRule(p *CreateGlobalLoadBa
 }
 
 type CreateGlobalLoadBalancerRuleResponse struct {
-	JobID                       string `json:"jobid"`
 	Account                     string `json:"account"`
 	Description                 string `json:"description"`
 	Domain                      string `json:"domain"`
@@ -1003,6 +1009,8 @@ type CreateGlobalLoadBalancerRuleResponse struct {
 	Gslbservicetype             string `json:"gslbservicetype"`
 	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname"`
 	Id                          string `json:"id"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Loadbalancerrule            []struct {
 		Account     string `json:"account"`
 		Algorithm   string `json:"algorithm"`
@@ -1034,7 +1042,8 @@ type CreateGlobalLoadBalancerRuleResponse struct {
 			Resourcetype string `json:"resourcetype"`
 			Value        string `json:"value"`
 		} `json:"tags"`
-		Zoneid string `json:"zoneid"`
+		Zoneid   string `json:"zoneid"`
+		Zonename string `json:"zonename"`
 	} `json:"loadbalancerrule"`
 	Name      string `json:"name"`
 	Project   string `json:"project"`
@@ -1170,7 +1179,7 @@ func (s *LoadBalancerService) CreateLBHealthCheckPolicy(p *CreateLBHealthCheckPo
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1192,7 +1201,6 @@ func (s *LoadBalancerService) CreateLBHealthCheckPolicy(p *CreateLBHealthCheckPo
 }
 
 type CreateLBHealthCheckPolicyResponse struct {
-	JobID             string `json:"jobid"`
 	Account           string `json:"account"`
 	Domain            string `json:"domain"`
 	Domainid          string `json:"domainid"`
@@ -1207,8 +1215,10 @@ type CreateLBHealthCheckPolicyResponse struct {
 		State                   string `json:"state"`
 		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold"`
 	} `json:"healthcheckpolicy"`
-	Lbruleid string `json:"lbruleid"`
-	Zoneid   string `json:"zoneid"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Lbruleid  string `json:"lbruleid"`
+	Zoneid    string `json:"zoneid"`
 }
 
 type CreateLBStickinessPolicyParams struct {
@@ -1320,7 +1330,7 @@ func (s *LoadBalancerService) CreateLBStickinessPolicy(p *CreateLBStickinessPoli
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1342,11 +1352,12 @@ func (s *LoadBalancerService) CreateLBStickinessPolicy(p *CreateLBStickinessPoli
 }
 
 type CreateLBStickinessPolicyResponse struct {
-	JobID            string `json:"jobid"`
 	Account          string `json:"account"`
 	Description      string `json:"description"`
 	Domain           string `json:"domain"`
 	Domainid         string `json:"domainid"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Lbruleid         string `json:"lbruleid"`
 	Name             string `json:"name"`
 	State            string `json:"state"`
@@ -1516,7 +1527,7 @@ func (s *LoadBalancerService) CreateLoadBalancer(p *CreateLoadBalancerParams) (*
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1538,7 +1549,6 @@ func (s *LoadBalancerService) CreateLoadBalancer(p *CreateLoadBalancerParams) (*
 }
 
 type CreateLoadBalancerResponse struct {
-	JobID                string `json:"jobid"`
 	Account              string `json:"account"`
 	Algorithm            string `json:"algorithm"`
 	Description          string `json:"description"`
@@ -1546,6 +1556,8 @@ type CreateLoadBalancerResponse struct {
 	Domainid             string `json:"domainid"`
 	Fordisplay           bool   `json:"fordisplay"`
 	Id                   string `json:"id"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Loadbalancerinstance []struct {
 		Id        string `json:"id"`
 		Ipaddress string `json:"ipaddress"`
@@ -1774,7 +1786,7 @@ func (s *LoadBalancerService) CreateLoadBalancerRule(p *CreateLoadBalancerRulePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1796,7 +1808,6 @@ func (s *LoadBalancerService) CreateLoadBalancerRule(p *CreateLoadBalancerRulePa
 }
 
 type CreateLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Account     string `json:"account"`
 	Algorithm   string `json:"algorithm"`
 	Cidrlist    string `json:"cidrlist"`
@@ -1805,6 +1816,8 @@ type CreateLoadBalancerRuleResponse struct {
 	Domainid    string `json:"domainid"`
 	Fordisplay  bool   `json:"fordisplay"`
 	Id          string `json:"id"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Name        string `json:"name"`
 	Networkid   string `json:"networkid"`
 	Privateport string `json:"privateport"`
@@ -1827,7 +1840,8 @@ type CreateLoadBalancerRuleResponse struct {
 		Resourcetype string `json:"resourcetype"`
 		Value        string `json:"value"`
 	} `json:"tags"`
-	Zoneid string `json:"zoneid"`
+	Zoneid   string `json:"zoneid"`
+	Zonename string `json:"zonename"`
 }
 
 type DeleteF5LoadBalancerParams struct {
@@ -1876,7 +1890,7 @@ func (s *LoadBalancerService) DeleteF5LoadBalancer(p *DeleteF5LoadBalancerParams
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1893,8 +1907,9 @@ func (s *LoadBalancerService) DeleteF5LoadBalancer(p *DeleteF5LoadBalancerParams
 }
 
 type DeleteF5LoadBalancerResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -1944,7 +1959,7 @@ func (s *LoadBalancerService) DeleteGlobalLoadBalancerRule(p *DeleteGlobalLoadBa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -1961,8 +1976,9 @@ func (s *LoadBalancerService) DeleteGlobalLoadBalancerRule(p *DeleteGlobalLoadBa
 }
 
 type DeleteGlobalLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -2012,7 +2028,7 @@ func (s *LoadBalancerService) DeleteLBHealthCheckPolicy(p *DeleteLBHealthCheckPo
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2029,8 +2045,9 @@ func (s *LoadBalancerService) DeleteLBHealthCheckPolicy(p *DeleteLBHealthCheckPo
 }
 
 type DeleteLBHealthCheckPolicyResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -2080,7 +2097,7 @@ func (s *LoadBalancerService) DeleteLBStickinessPolicy(p *DeleteLBStickinessPoli
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2097,8 +2114,9 @@ func (s *LoadBalancerService) DeleteLBStickinessPolicy(p *DeleteLBStickinessPoli
 }
 
 type DeleteLBStickinessPolicyResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -2148,7 +2166,7 @@ func (s *LoadBalancerService) DeleteLoadBalancer(p *DeleteLoadBalancerParams) (*
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2165,8 +2183,9 @@ func (s *LoadBalancerService) DeleteLoadBalancer(p *DeleteLoadBalancerParams) (*
 }
 
 type DeleteLoadBalancerResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -2216,7 +2235,7 @@ func (s *LoadBalancerService) DeleteLoadBalancerRule(p *DeleteLoadBalancerRulePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2233,8 +2252,9 @@ func (s *LoadBalancerService) DeleteLoadBalancerRule(p *DeleteLoadBalancerRulePa
 }
 
 type DeleteLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -2284,7 +2304,7 @@ func (s *LoadBalancerService) DeleteNetscalerLoadBalancer(p *DeleteNetscalerLoad
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -2301,8 +2321,9 @@ func (s *LoadBalancerService) DeleteNetscalerLoadBalancer(p *DeleteNetscalerLoad
 }
 
 type DeleteNetscalerLoadBalancerResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -2355,6 +2376,8 @@ func (s *LoadBalancerService) DeleteSslCert(p *DeleteSslCertParams) (*DeleteSslC
 
 type DeleteSslCertResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -2476,6 +2499,8 @@ type ListF5LoadBalancersResponse struct {
 
 type F5LoadBalancer struct {
 	Ipaddress         string `json:"ipaddress"`
+	Jobid             string `json:"jobid"`
+	Jobstatus         int    `json:"jobstatus"`
 	Lbdevicecapacity  int64  `json:"lbdevicecapacity"`
 	Lbdevicededicated bool   `json:"lbdevicededicated"`
 	Lbdeviceid        string `json:"lbdeviceid"`
@@ -2751,6 +2776,8 @@ type GlobalLoadBalancerRule struct {
 	Gslbservicetype             string `json:"gslbservicetype"`
 	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname"`
 	Id                          string `json:"id"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Loadbalancerrule            []struct {
 		Account     string `json:"account"`
 		Algorithm   string `json:"algorithm"`
@@ -2782,7 +2809,8 @@ type GlobalLoadBalancerRule struct {
 			Resourcetype string `json:"resourcetype"`
 			Value        string `json:"value"`
 		} `json:"tags"`
-		Zoneid string `json:"zoneid"`
+		Zoneid   string `json:"zoneid"`
+		Zonename string `json:"zonename"`
 	} `json:"loadbalancerrule"`
 	Name      string `json:"name"`
 	Project   string `json:"project"`
@@ -2947,8 +2975,10 @@ type LBHealthCheckPolicy struct {
 		State                   string `json:"state"`
 		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold"`
 	} `json:"healthcheckpolicy"`
-	Lbruleid string `json:"lbruleid"`
-	Zoneid   string `json:"zoneid"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Lbruleid  string `json:"lbruleid"`
+	Zoneid    string `json:"zoneid"`
 }
 
 type ListLBStickinessPoliciesParams struct {
@@ -3098,6 +3128,8 @@ type LBStickinessPolicy struct {
 	Description      string `json:"description"`
 	Domain           string `json:"domain"`
 	Domainid         string `json:"domainid"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Lbruleid         string `json:"lbruleid"`
 	Name             string `json:"name"`
 	State            string `json:"state"`
@@ -3259,6 +3291,8 @@ type ListLoadBalancerRuleInstancesResponse struct {
 }
 
 type LoadBalancerRuleInstance struct {
+	Jobid                    string          `json:"jobid"`
+	Jobstatus                int             `json:"jobstatus"`
 	Lbvmipaddresses          []string        `json:"lbvmipaddresses"`
 	Loadbalancerruleinstance *VirtualMachine `json:"loadbalancerruleinstance"`
 }
@@ -3581,6 +3615,8 @@ type LoadBalancerRule struct {
 	Domainid    string `json:"domainid"`
 	Fordisplay  bool   `json:"fordisplay"`
 	Id          string `json:"id"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Name        string `json:"name"`
 	Networkid   string `json:"networkid"`
 	Privateport string `json:"privateport"`
@@ -3603,7 +3639,8 @@ type LoadBalancerRule struct {
 		Resourcetype string `json:"resourcetype"`
 		Value        string `json:"value"`
 	} `json:"tags"`
-	Zoneid string `json:"zoneid"`
+	Zoneid   string `json:"zoneid"`
+	Zonename string `json:"zonename"`
 }
 
 type ListLoadBalancersParams struct {
@@ -3923,6 +3960,8 @@ type LoadBalancer struct {
 	Domainid             string `json:"domainid"`
 	Fordisplay           bool   `json:"fordisplay"`
 	Id                   string `json:"id"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Loadbalancerinstance []struct {
 		Id        string `json:"id"`
 		Ipaddress string `json:"ipaddress"`
@@ -4057,6 +4096,8 @@ type NetscalerLoadBalancer struct {
 	Gslbproviderpublicip    string   `json:"gslbproviderpublicip"`
 	Ipaddress               string   `json:"ipaddress"`
 	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider"`
+	Jobid                   string   `json:"jobid"`
+	Jobstatus               int      `json:"jobstatus"`
 	Lbdevicecapacity        int64    `json:"lbdevicecapacity"`
 	Lbdevicededicated       bool     `json:"lbdevicededicated"`
 	Lbdeviceid              string   `json:"lbdeviceid"`
@@ -4161,7 +4202,10 @@ type SslCert struct {
 	Domainid             string   `json:"domainid"`
 	Fingerprint          string   `json:"fingerprint"`
 	Id                   string   `json:"id"`
+	Jobid                string   `json:"jobid"`
+	Jobstatus            int      `json:"jobstatus"`
 	Loadbalancerrulelist []string `json:"loadbalancerrulelist"`
+	Name                 string   `json:"name"`
 	Project              string   `json:"project"`
 	Projectid            string   `json:"projectid"`
 }
@@ -4212,7 +4256,7 @@ func (s *LoadBalancerService) RemoveCertFromLoadBalancer(p *RemoveCertFromLoadBa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4229,8 +4273,9 @@ func (s *LoadBalancerService) RemoveCertFromLoadBalancer(p *RemoveCertFromLoadBa
 }
 
 type RemoveCertFromLoadBalancerResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -4293,7 +4338,7 @@ func (s *LoadBalancerService) RemoveFromGlobalLoadBalancerRule(p *RemoveFromGlob
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4310,8 +4355,9 @@ func (s *LoadBalancerService) RemoveFromGlobalLoadBalancerRule(p *RemoveFromGlob
 }
 
 type RemoveFromGlobalLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -4389,7 +4435,7 @@ func (s *LoadBalancerService) RemoveFromLoadBalancerRule(p *RemoveFromLoadBalanc
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4406,8 +4452,9 @@ func (s *LoadBalancerService) RemoveFromLoadBalancerRule(p *RemoveFromLoadBalanc
 }
 
 type RemoveFromLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -4490,7 +4537,7 @@ func (s *LoadBalancerService) UpdateGlobalLoadBalancerRule(p *UpdateGlobalLoadBa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4512,7 +4559,6 @@ func (s *LoadBalancerService) UpdateGlobalLoadBalancerRule(p *UpdateGlobalLoadBa
 }
 
 type UpdateGlobalLoadBalancerRuleResponse struct {
-	JobID                       string `json:"jobid"`
 	Account                     string `json:"account"`
 	Description                 string `json:"description"`
 	Domain                      string `json:"domain"`
@@ -4522,6 +4568,8 @@ type UpdateGlobalLoadBalancerRuleResponse struct {
 	Gslbservicetype             string `json:"gslbservicetype"`
 	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname"`
 	Id                          string `json:"id"`
+	Jobid                       string `json:"jobid"`
+	Jobstatus                   int    `json:"jobstatus"`
 	Loadbalancerrule            []struct {
 		Account     string `json:"account"`
 		Algorithm   string `json:"algorithm"`
@@ -4553,7 +4601,8 @@ type UpdateGlobalLoadBalancerRuleResponse struct {
 			Resourcetype string `json:"resourcetype"`
 			Value        string `json:"value"`
 		} `json:"tags"`
-		Zoneid string `json:"zoneid"`
+		Zoneid   string `json:"zoneid"`
+		Zonename string `json:"zonename"`
 	} `json:"loadbalancerrule"`
 	Name      string `json:"name"`
 	Project   string `json:"project"`
@@ -4630,7 +4679,7 @@ func (s *LoadBalancerService) UpdateLBHealthCheckPolicy(p *UpdateLBHealthCheckPo
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4652,7 +4701,6 @@ func (s *LoadBalancerService) UpdateLBHealthCheckPolicy(p *UpdateLBHealthCheckPo
 }
 
 type UpdateLBHealthCheckPolicyResponse struct {
-	JobID             string `json:"jobid"`
 	Account           string `json:"account"`
 	Domain            string `json:"domain"`
 	Domainid          string `json:"domainid"`
@@ -4667,8 +4715,10 @@ type UpdateLBHealthCheckPolicyResponse struct {
 		State                   string `json:"state"`
 		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold"`
 	} `json:"healthcheckpolicy"`
-	Lbruleid string `json:"lbruleid"`
-	Zoneid   string `json:"zoneid"`
+	Jobid     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Lbruleid  string `json:"lbruleid"`
+	Zoneid    string `json:"zoneid"`
 }
 
 type UpdateLBStickinessPolicyParams struct {
@@ -4740,7 +4790,7 @@ func (s *LoadBalancerService) UpdateLBStickinessPolicy(p *UpdateLBStickinessPoli
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4762,11 +4812,12 @@ func (s *LoadBalancerService) UpdateLBStickinessPolicy(p *UpdateLBStickinessPoli
 }
 
 type UpdateLBStickinessPolicyResponse struct {
-	JobID            string `json:"jobid"`
 	Account          string `json:"account"`
 	Description      string `json:"description"`
 	Domain           string `json:"domain"`
 	Domainid         string `json:"domainid"`
+	Jobid            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
 	Lbruleid         string `json:"lbruleid"`
 	Name             string `json:"name"`
 	State            string `json:"state"`
@@ -4851,7 +4902,7 @@ func (s *LoadBalancerService) UpdateLoadBalancer(p *UpdateLoadBalancerParams) (*
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -4873,7 +4924,6 @@ func (s *LoadBalancerService) UpdateLoadBalancer(p *UpdateLoadBalancerParams) (*
 }
 
 type UpdateLoadBalancerResponse struct {
-	JobID                string `json:"jobid"`
 	Account              string `json:"account"`
 	Algorithm            string `json:"algorithm"`
 	Description          string `json:"description"`
@@ -4881,6 +4931,8 @@ type UpdateLoadBalancerResponse struct {
 	Domainid             string `json:"domainid"`
 	Fordisplay           bool   `json:"fordisplay"`
 	Id                   string `json:"id"`
+	Jobid                string `json:"jobid"`
+	Jobstatus            int    `json:"jobstatus"`
 	Loadbalancerinstance []struct {
 		Id        string `json:"id"`
 		Ipaddress string `json:"ipaddress"`
@@ -4940,6 +4992,9 @@ func (p *UpdateLoadBalancerRuleParams) toURLValues() url.Values {
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
 	}
+	if v, found := p.p["protocol"]; found {
+		u.Set("protocol", v.(string))
+	}
 	return u
 }
 
@@ -4991,6 +5046,14 @@ func (p *UpdateLoadBalancerRuleParams) SetName(v string) {
 	return
 }
 
+func (p *UpdateLoadBalancerRuleParams) SetProtocol(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["protocol"] = v
+	return
+}
+
 // You should always use this function to get a new UpdateLoadBalancerRuleParams instance,
 // as then you are sure you have configured all required params
 func (s *LoadBalancerService) NewUpdateLoadBalancerRuleParams(id string) *UpdateLoadBalancerRuleParams {
@@ -5014,7 +5077,7 @@ func (s *LoadBalancerService) UpdateLoadBalancerRule(p *UpdateLoadBalancerRulePa
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -5036,7 +5099,6 @@ func (s *LoadBalancerService) UpdateLoadBalancerRule(p *UpdateLoadBalancerRulePa
 }
 
 type UpdateLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Account     string `json:"account"`
 	Algorithm   string `json:"algorithm"`
 	Cidrlist    string `json:"cidrlist"`
@@ -5045,6 +5107,8 @@ type UpdateLoadBalancerRuleResponse struct {
 	Domainid    string `json:"domainid"`
 	Fordisplay  bool   `json:"fordisplay"`
 	Id          string `json:"id"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Name        string `json:"name"`
 	Networkid   string `json:"networkid"`
 	Privateport string `json:"privateport"`
@@ -5067,7 +5131,8 @@ type UpdateLoadBalancerRuleResponse struct {
 		Resourcetype string `json:"resourcetype"`
 		Value        string `json:"value"`
 	} `json:"tags"`
-	Zoneid string `json:"zoneid"`
+	Zoneid   string `json:"zoneid"`
+	Zonename string `json:"zonename"`
 }
 
 type UploadSslCertParams struct {
@@ -5090,6 +5155,9 @@ func (p *UploadSslCertParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["domainid"]; found {
 		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
 	}
 	if v, found := p.p["password"]; found {
 		u.Set("password", v.(string))
@@ -5135,6 +5203,14 @@ func (p *UploadSslCertParams) SetDomainid(v string) {
 	return
 }
 
+func (p *UploadSslCertParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+	return
+}
+
 func (p *UploadSslCertParams) SetPassword(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -5161,10 +5237,11 @@ func (p *UploadSslCertParams) SetProjectid(v string) {
 
 // You should always use this function to get a new UploadSslCertParams instance,
 // as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewUploadSslCertParams(certificate string, privatekey string) *UploadSslCertParams {
+func (s *LoadBalancerService) NewUploadSslCertParams(certificate string, name string, privatekey string) *UploadSslCertParams {
 	p := &UploadSslCertParams{}
 	p.p = make(map[string]interface{})
 	p.p["certificate"] = certificate
+	p.p["name"] = name
 	p.p["privatekey"] = privatekey
 	return p
 }
@@ -5192,7 +5269,10 @@ type UploadSslCertResponse struct {
 	Domainid             string   `json:"domainid"`
 	Fingerprint          string   `json:"fingerprint"`
 	Id                   string   `json:"id"`
+	Jobid                string   `json:"jobid"`
+	Jobstatus            int      `json:"jobstatus"`
 	Loadbalancerrulelist []string `json:"loadbalancerrulelist"`
+	Name                 string   `json:"name"`
 	Project              string   `json:"project"`
 	Projectid            string   `json:"projectid"`
 }

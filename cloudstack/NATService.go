@@ -131,7 +131,7 @@ func (s *NATService) CreateIpForwardingRule(p *CreateIpForwardingRuleParams) (*C
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -153,12 +153,13 @@ func (s *NATService) CreateIpForwardingRule(p *CreateIpForwardingRuleParams) (*C
 }
 
 type CreateIpForwardingRuleResponse struct {
-	JobID          string `json:"jobid"`
 	Cidrlist       string `json:"cidrlist"`
 	Fordisplay     bool   `json:"fordisplay"`
 	Id             string `json:"id"`
 	Ipaddress      string `json:"ipaddress"`
 	Ipaddressid    string `json:"ipaddressid"`
+	Jobid          string `json:"jobid"`
+	Jobstatus      int    `json:"jobstatus"`
 	Networkid      string `json:"networkid"`
 	Privateendport string `json:"privateendport"`
 	Privateport    string `json:"privateport"`
@@ -230,7 +231,7 @@ func (s *NATService) DeleteIpForwardingRule(p *DeleteIpForwardingRuleParams) (*D
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -247,8 +248,9 @@ func (s *NATService) DeleteIpForwardingRule(p *DeleteIpForwardingRuleParams) (*D
 }
 
 type DeleteIpForwardingRuleResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -298,7 +300,7 @@ func (s *NATService) DisableStaticNat(p *DisableStaticNatParams) (*DisableStatic
 
 	// If we have a async client, we need to wait for the async result
 	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		b, err := s.cs.GetAsyncJobResult(r.Jobid, s.cs.timeout)
 		if err != nil {
 			if err == AsyncTimeoutErr {
 				return &r, err
@@ -315,8 +317,9 @@ func (s *NATService) DisableStaticNat(p *DisableStaticNatParams) (*DisableStatic
 }
 
 type DisableStaticNatResponse struct {
-	JobID       string `json:"jobid"`
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -403,6 +406,8 @@ func (s *NATService) EnableStaticNat(p *EnableStaticNatParams) (*EnableStaticNat
 
 type EnableStaticNatResponse struct {
 	Displaytext string `json:"displaytext"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
 }
 
@@ -629,6 +634,8 @@ type IpForwardingRule struct {
 	Id             string `json:"id"`
 	Ipaddress      string `json:"ipaddress"`
 	Ipaddressid    string `json:"ipaddressid"`
+	Jobid          string `json:"jobid"`
+	Jobstatus      int    `json:"jobstatus"`
 	Networkid      string `json:"networkid"`
 	Privateendport string `json:"privateendport"`
 	Privateport    string `json:"privateport"`

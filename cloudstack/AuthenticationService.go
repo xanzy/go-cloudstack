@@ -105,17 +105,20 @@ func (s *AuthenticationService) Login(p *LoginParams) (*LoginResponse, error) {
 }
 
 type LoginResponse struct {
-	Account    string `json:"account"`
-	Domainid   string `json:"domainid"`
-	Firstname  string `json:"firstname"`
-	Lastname   string `json:"lastname"`
-	Registered string `json:"registered"`
-	Sessionkey string `json:"sessionkey"`
-	Timeout    int    `json:"timeout"`
-	Timezone   string `json:"timezone"`
-	Type       string `json:"type"`
-	Userid     string `json:"userid"`
-	Username   string `json:"username"`
+	Account        string `json:"account"`
+	Domainid       string `json:"domainid"`
+	Firstname      string `json:"firstname"`
+	Jobid          string `json:"jobid"`
+	Jobstatus      int    `json:"jobstatus"`
+	Lastname       string `json:"lastname"`
+	Registered     string `json:"registered"`
+	Sessionkey     string `json:"sessionkey"`
+	Timeout        int    `json:"timeout"`
+	Timezone       string `json:"timezone"`
+	Timezoneoffset string `json:"timezoneoffset"`
+	Type           string `json:"type"`
+	Userid         string `json:"userid"`
+	Username       string `json:"username"`
 }
 
 type LogoutParams struct {
@@ -155,4 +158,6 @@ func (s *AuthenticationService) Logout(p *LogoutParams) (*LogoutResponse, error)
 
 type LogoutResponse struct {
 	Description string `json:"description"`
+	Jobid       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
 }
