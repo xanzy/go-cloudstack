@@ -259,28 +259,30 @@ func (s *SecurityGroupService) AuthorizeSecurityGroupEgress(p *AuthorizeSecurity
 }
 
 type AuthorizeSecurityGroupEgressResponse struct {
-	JobID             string `json:"jobid"`
-	Account           string `json:"account"`
-	Cidr              string `json:"cidr"`
-	Endport           int    `json:"endport"`
-	Icmpcode          int    `json:"icmpcode"`
-	Icmptype          int    `json:"icmptype"`
-	Protocol          string `json:"protocol"`
-	Ruleid            string `json:"ruleid"`
-	Securitygroupname string `json:"securitygroupname"`
-	Startport         int    `json:"startport"`
-	Tags              []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
+	JobID             string                                     `json:"jobid"`
+	Account           string                                     `json:"account"`
+	Cidr              string                                     `json:"cidr"`
+	Endport           int                                        `json:"endport"`
+	Icmpcode          int                                        `json:"icmpcode"`
+	Icmptype          int                                        `json:"icmptype"`
+	Protocol          string                                     `json:"protocol"`
+	Ruleid            string                                     `json:"ruleid"`
+	Securitygroupname string                                     `json:"securitygroupname"`
+	Startport         int                                        `json:"startport"`
+	Tags              []AuthorizeSecurityGroupEgressResponseTags `json:"tags"`
+}
+
+type AuthorizeSecurityGroupEgressResponseTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type AuthorizeSecurityGroupIngressParams struct {
@@ -486,28 +488,30 @@ func (s *SecurityGroupService) AuthorizeSecurityGroupIngress(p *AuthorizeSecurit
 }
 
 type AuthorizeSecurityGroupIngressResponse struct {
-	JobID             string `json:"jobid"`
-	Account           string `json:"account"`
-	Cidr              string `json:"cidr"`
-	Endport           int    `json:"endport"`
-	Icmpcode          int    `json:"icmpcode"`
-	Icmptype          int    `json:"icmptype"`
-	Protocol          string `json:"protocol"`
-	Ruleid            string `json:"ruleid"`
-	Securitygroupname string `json:"securitygroupname"`
-	Startport         int    `json:"startport"`
-	Tags              []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
+	JobID             string                                      `json:"jobid"`
+	Account           string                                      `json:"account"`
+	Cidr              string                                      `json:"cidr"`
+	Endport           int                                         `json:"endport"`
+	Icmpcode          int                                         `json:"icmpcode"`
+	Icmptype          int                                         `json:"icmptype"`
+	Protocol          string                                      `json:"protocol"`
+	Ruleid            string                                      `json:"ruleid"`
+	Securitygroupname string                                      `json:"securitygroupname"`
+	Startport         int                                         `json:"startport"`
+	Tags              []AuthorizeSecurityGroupIngressResponseTags `json:"tags"`
+}
+
+type AuthorizeSecurityGroupIngressResponseTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type CreateSecurityGroupParams struct {
@@ -606,74 +610,84 @@ func (s *SecurityGroupService) CreateSecurityGroup(p *CreateSecurityGroupParams)
 }
 
 type CreateSecurityGroupResponse struct {
-	Account     string `json:"account"`
-	Description string `json:"description"`
-	Domain      string `json:"domain"`
-	Domainid    string `json:"domainid"`
-	Egressrule  []struct {
-		Account           string `json:"account"`
-		Cidr              string `json:"cidr"`
-		Endport           int    `json:"endport"`
-		Icmpcode          int    `json:"icmpcode"`
-		Icmptype          int    `json:"icmptype"`
-		Protocol          string `json:"protocol"`
-		Ruleid            string `json:"ruleid"`
-		Securitygroupname string `json:"securitygroupname"`
-		Startport         int    `json:"startport"`
-		Tags              []struct {
-			Account      string `json:"account"`
-			Customer     string `json:"customer"`
-			Domain       string `json:"domain"`
-			Domainid     string `json:"domainid"`
-			Key          string `json:"key"`
-			Project      string `json:"project"`
-			Projectid    string `json:"projectid"`
-			Resourceid   string `json:"resourceid"`
-			Resourcetype string `json:"resourcetype"`
-			Value        string `json:"value"`
-		} `json:"tags"`
-	} `json:"egressrule"`
-	Id          string `json:"id"`
-	Ingressrule []struct {
-		Account           string `json:"account"`
-		Cidr              string `json:"cidr"`
-		Endport           int    `json:"endport"`
-		Icmpcode          int    `json:"icmpcode"`
-		Icmptype          int    `json:"icmptype"`
-		Protocol          string `json:"protocol"`
-		Ruleid            string `json:"ruleid"`
-		Securitygroupname string `json:"securitygroupname"`
-		Startport         int    `json:"startport"`
-		Tags              []struct {
-			Account      string `json:"account"`
-			Customer     string `json:"customer"`
-			Domain       string `json:"domain"`
-			Domainid     string `json:"domainid"`
-			Key          string `json:"key"`
-			Project      string `json:"project"`
-			Projectid    string `json:"projectid"`
-			Resourceid   string `json:"resourceid"`
-			Resourcetype string `json:"resourcetype"`
-			Value        string `json:"value"`
-		} `json:"tags"`
-	} `json:"ingressrule"`
-	Name      string `json:"name"`
-	Project   string `json:"project"`
-	Projectid string `json:"projectid"`
-	Tags      []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
-	Virtualmachinecount int           `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{} `json:"virtualmachineids"`
+	Account             string                                   `json:"account"`
+	Description         string                                   `json:"description"`
+	Domain              string                                   `json:"domain"`
+	Domainid            string                                   `json:"domainid"`
+	Egressrule          []CreateSecurityGroupResponseEgressrule  `json:"egressrule"`
+	Id                  string                                   `json:"id"`
+	Ingressrule         []CreateSecurityGroupResponseIngressrule `json:"ingressrule"`
+	Name                string                                   `json:"name"`
+	Project             string                                   `json:"project"`
+	Projectid           string                                   `json:"projectid"`
+	Tags                []CreateSecurityGroupResponseTags        `json:"tags"`
+	Virtualmachinecount int                                      `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                            `json:"virtualmachineids"`
+}
+
+type CreateSecurityGroupResponseTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
+}
+
+type CreateSecurityGroupResponseIngressrule struct {
+	Account           string                                       `json:"account"`
+	Cidr              string                                       `json:"cidr"`
+	Endport           int                                          `json:"endport"`
+	Icmpcode          int                                          `json:"icmpcode"`
+	Icmptype          int                                          `json:"icmptype"`
+	Protocol          string                                       `json:"protocol"`
+	Ruleid            string                                       `json:"ruleid"`
+	Securitygroupname string                                       `json:"securitygroupname"`
+	Startport         int                                          `json:"startport"`
+	Tags              []CreateSecurityGroupResponseIngressruleTags `json:"tags"`
+}
+
+type CreateSecurityGroupResponseIngressruleTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
+}
+
+type CreateSecurityGroupResponseEgressrule struct {
+	Account           string                                      `json:"account"`
+	Cidr              string                                      `json:"cidr"`
+	Endport           int                                         `json:"endport"`
+	Icmpcode          int                                         `json:"icmpcode"`
+	Icmptype          int                                         `json:"icmptype"`
+	Protocol          string                                      `json:"protocol"`
+	Ruleid            string                                      `json:"ruleid"`
+	Securitygroupname string                                      `json:"securitygroupname"`
+	Startport         int                                         `json:"startport"`
+	Tags              []CreateSecurityGroupResponseEgressruleTags `json:"tags"`
+}
+
+type CreateSecurityGroupResponseEgressruleTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type DeleteSecurityGroupParams struct {
@@ -1055,74 +1069,84 @@ type ListSecurityGroupsResponse struct {
 }
 
 type SecurityGroup struct {
-	Account     string `json:"account"`
-	Description string `json:"description"`
-	Domain      string `json:"domain"`
-	Domainid    string `json:"domainid"`
-	Egressrule  []struct {
-		Account           string `json:"account"`
-		Cidr              string `json:"cidr"`
-		Endport           int    `json:"endport"`
-		Icmpcode          int    `json:"icmpcode"`
-		Icmptype          int    `json:"icmptype"`
-		Protocol          string `json:"protocol"`
-		Ruleid            string `json:"ruleid"`
-		Securitygroupname string `json:"securitygroupname"`
-		Startport         int    `json:"startport"`
-		Tags              []struct {
-			Account      string `json:"account"`
-			Customer     string `json:"customer"`
-			Domain       string `json:"domain"`
-			Domainid     string `json:"domainid"`
-			Key          string `json:"key"`
-			Project      string `json:"project"`
-			Projectid    string `json:"projectid"`
-			Resourceid   string `json:"resourceid"`
-			Resourcetype string `json:"resourcetype"`
-			Value        string `json:"value"`
-		} `json:"tags"`
-	} `json:"egressrule"`
-	Id          string `json:"id"`
-	Ingressrule []struct {
-		Account           string `json:"account"`
-		Cidr              string `json:"cidr"`
-		Endport           int    `json:"endport"`
-		Icmpcode          int    `json:"icmpcode"`
-		Icmptype          int    `json:"icmptype"`
-		Protocol          string `json:"protocol"`
-		Ruleid            string `json:"ruleid"`
-		Securitygroupname string `json:"securitygroupname"`
-		Startport         int    `json:"startport"`
-		Tags              []struct {
-			Account      string `json:"account"`
-			Customer     string `json:"customer"`
-			Domain       string `json:"domain"`
-			Domainid     string `json:"domainid"`
-			Key          string `json:"key"`
-			Project      string `json:"project"`
-			Projectid    string `json:"projectid"`
-			Resourceid   string `json:"resourceid"`
-			Resourcetype string `json:"resourcetype"`
-			Value        string `json:"value"`
-		} `json:"tags"`
-	} `json:"ingressrule"`
-	Name      string `json:"name"`
-	Project   string `json:"project"`
-	Projectid string `json:"projectid"`
-	Tags      []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
-	Virtualmachinecount int           `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{} `json:"virtualmachineids"`
+	Account             string                     `json:"account"`
+	Description         string                     `json:"description"`
+	Domain              string                     `json:"domain"`
+	Domainid            string                     `json:"domainid"`
+	Egressrule          []SecurityGroupEgressrule  `json:"egressrule"`
+	Id                  string                     `json:"id"`
+	Ingressrule         []SecurityGroupIngressrule `json:"ingressrule"`
+	Name                string                     `json:"name"`
+	Project             string                     `json:"project"`
+	Projectid           string                     `json:"projectid"`
+	Tags                []SecurityGroupTags        `json:"tags"`
+	Virtualmachinecount int                        `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}              `json:"virtualmachineids"`
+}
+
+type SecurityGroupTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
+}
+
+type SecurityGroupIngressrule struct {
+	Account           string                         `json:"account"`
+	Cidr              string                         `json:"cidr"`
+	Endport           int                            `json:"endport"`
+	Icmpcode          int                            `json:"icmpcode"`
+	Icmptype          int                            `json:"icmptype"`
+	Protocol          string                         `json:"protocol"`
+	Ruleid            string                         `json:"ruleid"`
+	Securitygroupname string                         `json:"securitygroupname"`
+	Startport         int                            `json:"startport"`
+	Tags              []SecurityGroupIngressruleTags `json:"tags"`
+}
+
+type SecurityGroupIngressruleTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
+}
+
+type SecurityGroupEgressrule struct {
+	Account           string                        `json:"account"`
+	Cidr              string                        `json:"cidr"`
+	Endport           int                           `json:"endport"`
+	Icmpcode          int                           `json:"icmpcode"`
+	Icmptype          int                           `json:"icmptype"`
+	Protocol          string                        `json:"protocol"`
+	Ruleid            string                        `json:"ruleid"`
+	Securitygroupname string                        `json:"securitygroupname"`
+	Startport         int                           `json:"startport"`
+	Tags              []SecurityGroupEgressruleTags `json:"tags"`
+}
+
+type SecurityGroupEgressruleTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type RevokeSecurityGroupEgressParams struct {

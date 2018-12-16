@@ -730,31 +730,33 @@ func (s *FirewallService) CreateEgressFirewallRule(p *CreateEgressFirewallRulePa
 }
 
 type CreateEgressFirewallRuleResponse struct {
-	JobID       string `json:"jobid"`
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
+	JobID       string                                 `json:"jobid"`
+	Cidrlist    string                                 `json:"cidrlist"`
+	Endport     int                                    `json:"endport"`
+	Fordisplay  bool                                   `json:"fordisplay"`
+	Icmpcode    int                                    `json:"icmpcode"`
+	Icmptype    int                                    `json:"icmptype"`
+	Id          string                                 `json:"id"`
+	Ipaddress   string                                 `json:"ipaddress"`
+	Ipaddressid string                                 `json:"ipaddressid"`
+	Networkid   string                                 `json:"networkid"`
+	Protocol    string                                 `json:"protocol"`
+	Startport   int                                    `json:"startport"`
+	State       string                                 `json:"state"`
+	Tags        []CreateEgressFirewallRuleResponseTags `json:"tags"`
+}
+
+type CreateEgressFirewallRuleResponseTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type CreateFirewallRuleParams struct {
@@ -925,31 +927,33 @@ func (s *FirewallService) CreateFirewallRule(p *CreateFirewallRuleParams) (*Crea
 }
 
 type CreateFirewallRuleResponse struct {
-	JobID       string `json:"jobid"`
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
+	JobID       string                           `json:"jobid"`
+	Cidrlist    string                           `json:"cidrlist"`
+	Endport     int                              `json:"endport"`
+	Fordisplay  bool                             `json:"fordisplay"`
+	Icmpcode    int                              `json:"icmpcode"`
+	Icmptype    int                              `json:"icmptype"`
+	Id          string                           `json:"id"`
+	Ipaddress   string                           `json:"ipaddress"`
+	Ipaddressid string                           `json:"ipaddressid"`
+	Networkid   string                           `json:"networkid"`
+	Protocol    string                           `json:"protocol"`
+	Startport   int                              `json:"startport"`
+	State       string                           `json:"state"`
+	Tags        []CreateFirewallRuleResponseTags `json:"tags"`
+}
+
+type CreateFirewallRuleResponseTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type CreatePortForwardingRuleParams struct {
@@ -1157,35 +1161,37 @@ func (s *FirewallService) CreatePortForwardingRule(p *CreatePortForwardingRulePa
 }
 
 type CreatePortForwardingRuleResponse struct {
-	JobID          string `json:"jobid"`
-	Cidrlist       string `json:"cidrlist"`
-	Fordisplay     bool   `json:"fordisplay"`
-	Id             string `json:"id"`
-	Ipaddress      string `json:"ipaddress"`
-	Ipaddressid    string `json:"ipaddressid"`
-	Networkid      string `json:"networkid"`
-	Privateendport string `json:"privateendport"`
-	Privateport    string `json:"privateport"`
-	Protocol       string `json:"protocol"`
-	Publicendport  string `json:"publicendport"`
-	Publicport     string `json:"publicport"`
-	State          string `json:"state"`
-	Tags           []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
-	Virtualmachinedisplayname string `json:"virtualmachinedisplayname"`
-	Virtualmachineid          string `json:"virtualmachineid"`
-	Virtualmachinename        string `json:"virtualmachinename"`
-	Vmguestip                 string `json:"vmguestip"`
+	JobID                     string                                 `json:"jobid"`
+	Cidrlist                  string                                 `json:"cidrlist"`
+	Fordisplay                bool                                   `json:"fordisplay"`
+	Id                        string                                 `json:"id"`
+	Ipaddress                 string                                 `json:"ipaddress"`
+	Ipaddressid               string                                 `json:"ipaddressid"`
+	Networkid                 string                                 `json:"networkid"`
+	Privateendport            string                                 `json:"privateendport"`
+	Privateport               string                                 `json:"privateport"`
+	Protocol                  string                                 `json:"protocol"`
+	Publicendport             string                                 `json:"publicendport"`
+	Publicport                string                                 `json:"publicport"`
+	State                     string                                 `json:"state"`
+	Tags                      []CreatePortForwardingRuleResponseTags `json:"tags"`
+	Virtualmachinedisplayname string                                 `json:"virtualmachinedisplayname"`
+	Virtualmachineid          string                                 `json:"virtualmachineid"`
+	Virtualmachinename        string                                 `json:"virtualmachinename"`
+	Vmguestip                 string                                 `json:"vmguestip"`
+}
+
+type CreatePortForwardingRuleResponseTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type DeleteEgressFirewallRuleParams struct {
@@ -1785,30 +1791,32 @@ type ListEgressFirewallRulesResponse struct {
 }
 
 type EgressFirewallRule struct {
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
+	Cidrlist    string                   `json:"cidrlist"`
+	Endport     int                      `json:"endport"`
+	Fordisplay  bool                     `json:"fordisplay"`
+	Icmpcode    int                      `json:"icmpcode"`
+	Icmptype    int                      `json:"icmptype"`
+	Id          string                   `json:"id"`
+	Ipaddress   string                   `json:"ipaddress"`
+	Ipaddressid string                   `json:"ipaddressid"`
+	Networkid   string                   `json:"networkid"`
+	Protocol    string                   `json:"protocol"`
+	Startport   int                      `json:"startport"`
+	State       string                   `json:"state"`
+	Tags        []EgressFirewallRuleTags `json:"tags"`
+}
+
+type EgressFirewallRuleTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type ListFirewallRulesParams struct {
@@ -2043,30 +2051,32 @@ type ListFirewallRulesResponse struct {
 }
 
 type FirewallRule struct {
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
+	Cidrlist    string             `json:"cidrlist"`
+	Endport     int                `json:"endport"`
+	Fordisplay  bool               `json:"fordisplay"`
+	Icmpcode    int                `json:"icmpcode"`
+	Icmptype    int                `json:"icmptype"`
+	Id          string             `json:"id"`
+	Ipaddress   string             `json:"ipaddress"`
+	Ipaddressid string             `json:"ipaddressid"`
+	Networkid   string             `json:"networkid"`
+	Protocol    string             `json:"protocol"`
+	Startport   int                `json:"startport"`
+	State       string             `json:"state"`
+	Tags        []FirewallRuleTags `json:"tags"`
+}
+
+type FirewallRuleTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type ListPaloAltoFirewallsParams struct {
@@ -2422,34 +2432,36 @@ type ListPortForwardingRulesResponse struct {
 }
 
 type PortForwardingRule struct {
-	Cidrlist       string `json:"cidrlist"`
-	Fordisplay     bool   `json:"fordisplay"`
-	Id             string `json:"id"`
-	Ipaddress      string `json:"ipaddress"`
-	Ipaddressid    string `json:"ipaddressid"`
-	Networkid      string `json:"networkid"`
-	Privateendport string `json:"privateendport"`
-	Privateport    string `json:"privateport"`
-	Protocol       string `json:"protocol"`
-	Publicendport  string `json:"publicendport"`
-	Publicport     string `json:"publicport"`
-	State          string `json:"state"`
-	Tags           []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
-	Virtualmachinedisplayname string `json:"virtualmachinedisplayname"`
-	Virtualmachineid          string `json:"virtualmachineid"`
-	Virtualmachinename        string `json:"virtualmachinename"`
-	Vmguestip                 string `json:"vmguestip"`
+	Cidrlist                  string                   `json:"cidrlist"`
+	Fordisplay                bool                     `json:"fordisplay"`
+	Id                        string                   `json:"id"`
+	Ipaddress                 string                   `json:"ipaddress"`
+	Ipaddressid               string                   `json:"ipaddressid"`
+	Networkid                 string                   `json:"networkid"`
+	Privateendport            string                   `json:"privateendport"`
+	Privateport               string                   `json:"privateport"`
+	Protocol                  string                   `json:"protocol"`
+	Publicendport             string                   `json:"publicendport"`
+	Publicport                string                   `json:"publicport"`
+	State                     string                   `json:"state"`
+	Tags                      []PortForwardingRuleTags `json:"tags"`
+	Virtualmachinedisplayname string                   `json:"virtualmachinedisplayname"`
+	Virtualmachineid          string                   `json:"virtualmachineid"`
+	Virtualmachinename        string                   `json:"virtualmachinename"`
+	Vmguestip                 string                   `json:"vmguestip"`
+}
+
+type PortForwardingRuleTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type ListSrxFirewallsParams struct {
@@ -2669,31 +2681,33 @@ func (s *FirewallService) UpdateEgressFirewallRule(p *UpdateEgressFirewallRulePa
 }
 
 type UpdateEgressFirewallRuleResponse struct {
-	JobID       string `json:"jobid"`
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
+	JobID       string                                 `json:"jobid"`
+	Cidrlist    string                                 `json:"cidrlist"`
+	Endport     int                                    `json:"endport"`
+	Fordisplay  bool                                   `json:"fordisplay"`
+	Icmpcode    int                                    `json:"icmpcode"`
+	Icmptype    int                                    `json:"icmptype"`
+	Id          string                                 `json:"id"`
+	Ipaddress   string                                 `json:"ipaddress"`
+	Ipaddressid string                                 `json:"ipaddressid"`
+	Networkid   string                                 `json:"networkid"`
+	Protocol    string                                 `json:"protocol"`
+	Startport   int                                    `json:"startport"`
+	State       string                                 `json:"state"`
+	Tags        []UpdateEgressFirewallRuleResponseTags `json:"tags"`
+}
+
+type UpdateEgressFirewallRuleResponseTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type UpdateFirewallRuleParams struct {
@@ -2792,31 +2806,33 @@ func (s *FirewallService) UpdateFirewallRule(p *UpdateFirewallRuleParams) (*Upda
 }
 
 type UpdateFirewallRuleResponse struct {
-	JobID       string `json:"jobid"`
-	Cidrlist    string `json:"cidrlist"`
-	Endport     int    `json:"endport"`
-	Fordisplay  bool   `json:"fordisplay"`
-	Icmpcode    int    `json:"icmpcode"`
-	Icmptype    int    `json:"icmptype"`
-	Id          string `json:"id"`
-	Ipaddress   string `json:"ipaddress"`
-	Ipaddressid string `json:"ipaddressid"`
-	Networkid   string `json:"networkid"`
-	Protocol    string `json:"protocol"`
-	Startport   int    `json:"startport"`
-	State       string `json:"state"`
-	Tags        []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
+	JobID       string                           `json:"jobid"`
+	Cidrlist    string                           `json:"cidrlist"`
+	Endport     int                              `json:"endport"`
+	Fordisplay  bool                             `json:"fordisplay"`
+	Icmpcode    int                              `json:"icmpcode"`
+	Icmptype    int                              `json:"icmptype"`
+	Id          string                           `json:"id"`
+	Ipaddress   string                           `json:"ipaddress"`
+	Ipaddressid string                           `json:"ipaddressid"`
+	Networkid   string                           `json:"networkid"`
+	Protocol    string                           `json:"protocol"`
+	Startport   int                              `json:"startport"`
+	State       string                           `json:"state"`
+	Tags        []UpdateFirewallRuleResponseTags `json:"tags"`
+}
+
+type UpdateFirewallRuleResponseTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
 
 type UpdatePortForwardingRuleParams struct {
@@ -2949,33 +2965,35 @@ func (s *FirewallService) UpdatePortForwardingRule(p *UpdatePortForwardingRulePa
 }
 
 type UpdatePortForwardingRuleResponse struct {
-	JobID          string `json:"jobid"`
-	Cidrlist       string `json:"cidrlist"`
-	Fordisplay     bool   `json:"fordisplay"`
-	Id             string `json:"id"`
-	Ipaddress      string `json:"ipaddress"`
-	Ipaddressid    string `json:"ipaddressid"`
-	Networkid      string `json:"networkid"`
-	Privateendport string `json:"privateendport"`
-	Privateport    string `json:"privateport"`
-	Protocol       string `json:"protocol"`
-	Publicendport  string `json:"publicendport"`
-	Publicport     string `json:"publicport"`
-	State          string `json:"state"`
-	Tags           []struct {
-		Account      string `json:"account"`
-		Customer     string `json:"customer"`
-		Domain       string `json:"domain"`
-		Domainid     string `json:"domainid"`
-		Key          string `json:"key"`
-		Project      string `json:"project"`
-		Projectid    string `json:"projectid"`
-		Resourceid   string `json:"resourceid"`
-		Resourcetype string `json:"resourcetype"`
-		Value        string `json:"value"`
-	} `json:"tags"`
-	Virtualmachinedisplayname string `json:"virtualmachinedisplayname"`
-	Virtualmachineid          string `json:"virtualmachineid"`
-	Virtualmachinename        string `json:"virtualmachinename"`
-	Vmguestip                 string `json:"vmguestip"`
+	JobID                     string                                 `json:"jobid"`
+	Cidrlist                  string                                 `json:"cidrlist"`
+	Fordisplay                bool                                   `json:"fordisplay"`
+	Id                        string                                 `json:"id"`
+	Ipaddress                 string                                 `json:"ipaddress"`
+	Ipaddressid               string                                 `json:"ipaddressid"`
+	Networkid                 string                                 `json:"networkid"`
+	Privateendport            string                                 `json:"privateendport"`
+	Privateport               string                                 `json:"privateport"`
+	Protocol                  string                                 `json:"protocol"`
+	Publicendport             string                                 `json:"publicendport"`
+	Publicport                string                                 `json:"publicport"`
+	State                     string                                 `json:"state"`
+	Tags                      []UpdatePortForwardingRuleResponseTags `json:"tags"`
+	Virtualmachinedisplayname string                                 `json:"virtualmachinedisplayname"`
+	Virtualmachineid          string                                 `json:"virtualmachineid"`
+	Virtualmachinename        string                                 `json:"virtualmachinename"`
+	Vmguestip                 string                                 `json:"vmguestip"`
+}
+
+type UpdatePortForwardingRuleResponseTags struct {
+	Account      string `json:"account"`
+	Customer     string `json:"customer"`
+	Domain       string `json:"domain"`
+	Domainid     string `json:"domainid"`
+	Key          string `json:"key"`
+	Project      string `json:"project"`
+	Projectid    string `json:"projectid"`
+	Resourceid   string `json:"resourceid"`
+	Resourcetype string `json:"resourcetype"`
+	Value        string `json:"value"`
 }
