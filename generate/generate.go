@@ -32,9 +32,11 @@ import (
 	"unicode"
 )
 
-type apiInfo map[string][]string
-
 const pkg = "cloudstack"
+
+var typeNames = make(map[string]bool)
+
+type apiInfo map[string][]string
 
 type allServices struct {
 	services services
@@ -1246,14 +1248,8 @@ func (s *service) generateResponseType(a *API) {
 		tn = parseSingular(ln)
 	}
 
-	pn("type %s struct {", tn)
-	if a.Isasync {
-		pn("	JobID string `json:\"jobid\"`")
-	}
 	sort.Sort(a.Response)
-	customMarshal := s.recusiveGenerateResponseType(a.Response, a.Isasync, false)
-	pn("}")
-	pn("")
+	customMarshal := s.recusiveGenerateResponseType(tn, a.Response, a.Isasync)
 
 	if customMarshal {
 		pn("func (r *%s) UnmarshalJSON(b []byte) error {", tn)
@@ -1288,9 +1284,15 @@ func parseSingular(n string) string {
 	return strings.TrimSuffix(n, "s")
 }
 
-func (s *service) recusiveGenerateResponseType(resp APIResponses, async, customMarshal bool) bool {
+func (s *service) recusiveGenerateResponseType(tn string, resp APIResponses, async bool) bool {
 	pn := s.pn
+	customMarshal := false
 	found := make(map[string]bool)
+
+	pn("type %s struct {", tn)
+	if async {
+		pn("	JobID string `json:\"jobid\"`")
+	}
 
 	for _, r := range resp {
 		if r.Name == "" {
@@ -1298,16 +1300,16 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async, customM
 		}
 		if r.Name == "secondaryip" {
 			pn("%s []struct {", capitalize(r.Name))
-			pn("Id string `json:\"id\"`")
-			pn("Ipaddress string `json:\"ipaddress\"`")
+			pn("	Id string `json:\"id\"`")
+			pn("	Ipaddress string `json:\"ipaddress\"`")
 			pn("} `json:\"%s\"`", r.Name)
 			continue
 		}
 		if r.Response != nil {
-			pn("%s []struct {", capitalize(r.Name))
 			sort.Sort(r.Response)
-			customMarshal = s.recusiveGenerateResponseType(r.Response, async, customMarshal)
-			pn("} `json:\"%s\"`", r.Name)
+			typeName := getUniqueTypeName(tn, r.Name)
+			pn("%s []%s `json:\"%s\"`", capitalize(r.Name), typeName, r.Name)
+			defer s.recusiveGenerateResponseType(typeName, r.Response, false)
 		} else {
 			if !found[r.Name] {
 				// This code is needed because the response field is different for sync and async calls :(
@@ -1324,7 +1326,19 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async, customM
 		}
 	}
 
+	pn("}")
+	pn("")
+
 	return customMarshal
+}
+
+func getUniqueTypeName(prefix, name string) string {
+	tn := prefix + capitalize(name)
+	if !typeNames[tn] {
+		typeNames[tn] = true
+		return tn
+	}
+	return getUniqueTypeName(prefix, name+"Internal")
 }
 
 func getAllServices(listApis string) (*allServices, []error, error) {
@@ -1338,6 +1352,7 @@ func getAllServices(listApis string) (*allServices, []error, error) {
 	as := &allServices{}
 	errors := []error{}
 	for sn, apis := range layout {
+		typeNames[sn] = true
 		s := &service{name: sn}
 		for _, api := range apis {
 			a, found := ai[api]
@@ -1355,8 +1370,8 @@ func getAllServices(listApis string) (*allServices, []error, error) {
 
 	// Add an extra field to enable adding a custom service
 	as.services = append(as.services, &service{name: "CustomService"})
-
 	sort.Sort(as.services)
+
 	return as, errors, nil
 }
 
