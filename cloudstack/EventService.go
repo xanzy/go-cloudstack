@@ -333,6 +333,9 @@ func (p *ListEventsParams) toURLValues() url.Values {
 	if v, found := p.p["startdate"]; found {
 		u.Set("startdate", v.(string))
 	}
+	if v, found := p.p["startid"]; found {
+		u.Set("startid", v.(string))
+	}
 	if v, found := p.p["type"]; found {
 		u.Set("type", v.(string))
 	}
@@ -448,6 +451,14 @@ func (p *ListEventsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
+	return
+}
+
+func (p *ListEventsParams) SetStartid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["startid"] = v
 	return
 }
 

@@ -854,6 +854,10 @@ func (p *ListUsageRecordsParams) toURLValues() url.Values {
 	if v, found := p.p["enddate"]; found {
 		u.Set("enddate", v.(string))
 	}
+	if v, found := p.p["includetags"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("includetags", vv)
+	}
 	if v, found := p.p["keyword"]; found {
 		u.Set("keyword", v.(string))
 	}
@@ -910,6 +914,14 @@ func (p *ListUsageRecordsParams) SetEnddate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enddate"] = v
+	return
+}
+
+func (p *ListUsageRecordsParams) SetIncludetags(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["includetags"] = v
 	return
 }
 

@@ -493,6 +493,10 @@ func (p *ListDomainsParams) toURLValues() url.Values {
 	if p.p == nil {
 		return u
 	}
+	if v, found := p.p["details"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("details", vv)
+	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
@@ -519,6 +523,14 @@ func (p *ListDomainsParams) toURLValues() url.Values {
 		u.Set("pagesize", vv)
 	}
 	return u
+}
+
+func (p *ListDomainsParams) SetDetails(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["details"] = v
+	return
 }
 
 func (p *ListDomainsParams) SetId(v string) {

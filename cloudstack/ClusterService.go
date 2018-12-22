@@ -292,16 +292,18 @@ type AddClusterResponse struct {
 }
 
 type AddClusterResponseCapacity struct {
-	Capacitytotal int64  `json:"capacitytotal"`
-	Capacityused  int64  `json:"capacityused"`
-	Clusterid     string `json:"clusterid"`
-	Clustername   string `json:"clustername"`
-	Percentused   string `json:"percentused"`
-	Podid         string `json:"podid"`
-	Podname       string `json:"podname"`
-	Type          int    `json:"type"`
-	Zoneid        string `json:"zoneid"`
-	Zonename      string `json:"zonename"`
+	Capacityallocated int64  `json:"capacityallocated"`
+	Capacitytotal     int64  `json:"capacitytotal"`
+	Capacityused      int64  `json:"capacityused"`
+	Clusterid         string `json:"clusterid"`
+	Clustername       string `json:"clustername"`
+	Name              string `json:"name"`
+	Percentused       string `json:"percentused"`
+	Podid             string `json:"podid"`
+	Podname           string `json:"podname"`
+	Type              int    `json:"type"`
+	Zoneid            string `json:"zoneid"`
+	Zonename          string `json:"zonename"`
 }
 
 type DedicateClusterParams struct {
@@ -916,16 +918,18 @@ type Cluster struct {
 }
 
 type ClusterCapacity struct {
-	Capacitytotal int64  `json:"capacitytotal"`
-	Capacityused  int64  `json:"capacityused"`
-	Clusterid     string `json:"clusterid"`
-	Clustername   string `json:"clustername"`
-	Percentused   string `json:"percentused"`
-	Podid         string `json:"podid"`
-	Podname       string `json:"podname"`
-	Type          int    `json:"type"`
-	Zoneid        string `json:"zoneid"`
-	Zonename      string `json:"zonename"`
+	Capacityallocated int64  `json:"capacityallocated"`
+	Capacitytotal     int64  `json:"capacitytotal"`
+	Capacityused      int64  `json:"capacityused"`
+	Clusterid         string `json:"clusterid"`
+	Clustername       string `json:"clustername"`
+	Name              string `json:"name"`
+	Percentused       string `json:"percentused"`
+	Podid             string `json:"podid"`
+	Podname           string `json:"podname"`
+	Type              int    `json:"type"`
+	Zoneid            string `json:"zoneid"`
+	Zonename          string `json:"zonename"`
 }
 
 type ListDedicatedClustersParams struct {
@@ -1245,14 +1249,16 @@ type UpdateClusterResponse struct {
 }
 
 type UpdateClusterResponseCapacity struct {
-	Capacitytotal int64  `json:"capacitytotal"`
-	Capacityused  int64  `json:"capacityused"`
-	Clusterid     string `json:"clusterid"`
-	Clustername   string `json:"clustername"`
-	Percentused   string `json:"percentused"`
-	Podid         string `json:"podid"`
-	Podname       string `json:"podname"`
-	Type          int    `json:"type"`
-	Zoneid        string `json:"zoneid"`
-	Zonename      string `json:"zonename"`
+	Capacityallocated int64  `json:"capacityallocated"`
+	Capacitytotal     int64  `json:"capacitytotal"`
+	Capacityused      int64  `json:"capacityused"`
+	Clusterid         string `json:"clusterid"`
+	Clustername       string `json:"clustername"`
+	Name              string `json:"name"`
+	Percentused       string `json:"percentused"`
+	Podid             string `json:"podid"`
+	Podname           string `json:"podname"`
+	Type              int    `json:"type"`
+	Zoneid            string `json:"zoneid"`
+	Zonename          string `json:"zonename"`
 }

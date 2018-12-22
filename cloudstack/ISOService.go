@@ -144,7 +144,7 @@ type AttachIsoResponse struct {
 	Name                  string                           `json:"name"`
 	Networkkbsread        int64                            `json:"networkkbsread"`
 	Networkkbswrite       int64                            `json:"networkkbswrite"`
-	Nic                   []AttachIsoResponseNic           `json:"nic"`
+	Nic                   []Nic                            `json:"nic"`
 	Ostypeid              int64                            `json:"ostypeid"`
 	Password              string                           `json:"password"`
 	Passwordenabled       bool                             `json:"passwordenabled"`
@@ -170,110 +170,32 @@ type AttachIsoResponse struct {
 }
 
 type AttachIsoResponseSecuritygroup struct {
-	Account             string                                      `json:"account"`
-	Description         string                                      `json:"description"`
-	Domain              string                                      `json:"domain"`
-	Domainid            string                                      `json:"domainid"`
-	Egressrule          []AttachIsoResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                      `json:"id"`
-	Ingressrule         []AttachIsoResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                      `json:"name"`
-	Project             string                                      `json:"project"`
-	Projectid           string                                      `json:"projectid"`
-	Tags                []AttachIsoResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                         `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                               `json:"virtualmachineids"`
+	Account             string                               `json:"account"`
+	Description         string                               `json:"description"`
+	Domain              string                               `json:"domain"`
+	Domainid            string                               `json:"domainid"`
+	Egressrule          []AttachIsoResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                               `json:"id"`
+	Ingressrule         []AttachIsoResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                               `json:"name"`
+	Project             string                               `json:"project"`
+	Projectid           string                               `json:"projectid"`
+	Tags                []Tags                               `json:"tags"`
+	Virtualmachinecount int                                  `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                        `json:"virtualmachineids"`
 }
 
-type AttachIsoResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type AttachIsoResponseSecuritygroupIngressrule struct {
-	Account           string                                          `json:"account"`
-	Cidr              string                                          `json:"cidr"`
-	Endport           int                                             `json:"endport"`
-	Icmpcode          int                                             `json:"icmpcode"`
-	Icmptype          int                                             `json:"icmptype"`
-	Protocol          string                                          `json:"protocol"`
-	Ruleid            string                                          `json:"ruleid"`
-	Securitygroupname string                                          `json:"securitygroupname"`
-	Startport         int                                             `json:"startport"`
-	Tags              []AttachIsoResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type AttachIsoResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type AttachIsoResponseSecuritygroupEgressrule struct {
-	Account           string                                         `json:"account"`
-	Cidr              string                                         `json:"cidr"`
-	Endport           int                                            `json:"endport"`
-	Icmpcode          int                                            `json:"icmpcode"`
-	Icmptype          int                                            `json:"icmptype"`
-	Protocol          string                                         `json:"protocol"`
-	Ruleid            string                                         `json:"ruleid"`
-	Securitygroupname string                                         `json:"securitygroupname"`
-	Startport         int                                            `json:"startport"`
-	Tags              []AttachIsoResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type AttachIsoResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type AttachIsoResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type AttachIsoResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type AttachIsoResponseAffinitygroup struct {
@@ -301,6 +223,10 @@ func (p *CopyIsoParams) toURLValues() url.Values {
 	if v, found := p.p["destzoneid"]; found {
 		u.Set("destzoneid", v.(string))
 	}
+	if v, found := p.p["destzoneids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("destzoneids", vv)
+	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
@@ -315,6 +241,14 @@ func (p *CopyIsoParams) SetDestzoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["destzoneid"] = v
+	return
+}
+
+func (p *CopyIsoParams) SetDestzoneids(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["destzoneids"] = v
 	return
 }
 
@@ -336,10 +270,9 @@ func (p *CopyIsoParams) SetSourcezoneid(v string) {
 
 // You should always use this function to get a new CopyIsoParams instance,
 // as then you are sure you have configured all required params
-func (s *ISOService) NewCopyIsoParams(destzoneid string, id string) *CopyIsoParams {
+func (s *ISOService) NewCopyIsoParams(id string) *CopyIsoParams {
 	p := &CopyIsoParams{}
 	p.p = make(map[string]interface{})
-	p.p["destzoneid"] = destzoneid
 	p.p["id"] = id
 	return p
 }
@@ -383,11 +316,14 @@ type CopyIsoResponse struct {
 	JobID                 string            `json:"jobid"`
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -404,7 +340,9 @@ type CopyIsoResponse struct {
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -605,7 +543,7 @@ type DetachIsoResponse struct {
 	Name                  string                           `json:"name"`
 	Networkkbsread        int64                            `json:"networkkbsread"`
 	Networkkbswrite       int64                            `json:"networkkbswrite"`
-	Nic                   []DetachIsoResponseNic           `json:"nic"`
+	Nic                   []Nic                            `json:"nic"`
 	Ostypeid              int64                            `json:"ostypeid"`
 	Password              string                           `json:"password"`
 	Passwordenabled       bool                             `json:"passwordenabled"`
@@ -631,110 +569,32 @@ type DetachIsoResponse struct {
 }
 
 type DetachIsoResponseSecuritygroup struct {
-	Account             string                                      `json:"account"`
-	Description         string                                      `json:"description"`
-	Domain              string                                      `json:"domain"`
-	Domainid            string                                      `json:"domainid"`
-	Egressrule          []DetachIsoResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                      `json:"id"`
-	Ingressrule         []DetachIsoResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                      `json:"name"`
-	Project             string                                      `json:"project"`
-	Projectid           string                                      `json:"projectid"`
-	Tags                []DetachIsoResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                         `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                               `json:"virtualmachineids"`
+	Account             string                               `json:"account"`
+	Description         string                               `json:"description"`
+	Domain              string                               `json:"domain"`
+	Domainid            string                               `json:"domainid"`
+	Egressrule          []DetachIsoResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                               `json:"id"`
+	Ingressrule         []DetachIsoResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                               `json:"name"`
+	Project             string                               `json:"project"`
+	Projectid           string                               `json:"projectid"`
+	Tags                []Tags                               `json:"tags"`
+	Virtualmachinecount int                                  `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                        `json:"virtualmachineids"`
 }
 
-type DetachIsoResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type DetachIsoResponseSecuritygroupIngressrule struct {
-	Account           string                                          `json:"account"`
-	Cidr              string                                          `json:"cidr"`
-	Endport           int                                             `json:"endport"`
-	Icmpcode          int                                             `json:"icmpcode"`
-	Icmptype          int                                             `json:"icmptype"`
-	Protocol          string                                          `json:"protocol"`
-	Ruleid            string                                          `json:"ruleid"`
-	Securitygroupname string                                          `json:"securitygroupname"`
-	Startport         int                                             `json:"startport"`
-	Tags              []DetachIsoResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type DetachIsoResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type DetachIsoResponseSecuritygroupEgressrule struct {
-	Account           string                                         `json:"account"`
-	Cidr              string                                         `json:"cidr"`
-	Endport           int                                            `json:"endport"`
-	Icmpcode          int                                            `json:"icmpcode"`
-	Icmptype          int                                            `json:"icmptype"`
-	Protocol          string                                         `json:"protocol"`
-	Ruleid            string                                         `json:"ruleid"`
-	Securitygroupname string                                         `json:"securitygroupname"`
-	Startport         int                                            `json:"startport"`
-	Tags              []DetachIsoResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type DetachIsoResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type DetachIsoResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type DetachIsoResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type DetachIsoResponseAffinitygroup struct {
@@ -934,7 +794,7 @@ func (s *ISOService) GetIsoPermissionByID(id string, opts ...OptionFunc) (*IsoPe
 	return nil, l.Count, fmt.Errorf("There is more then one result for IsoPermission UUID: %s!", id)
 }
 
-// List ISO visibility and all accounts that have permissions to view this ISO.
+// List iso visibility and all accounts that have permissions to view this iso.
 func (s *ISOService) ListIsoPermissions(p *ListIsoPermissionsParams) (*ListIsoPermissionsResponse, error) {
 	resp, err := s.cs.newRequest("listIsoPermissions", p.toURLValues())
 	if err != nil {
@@ -1301,11 +1161,14 @@ type ListIsosResponse struct {
 type Iso struct {
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -1322,7 +1185,9 @@ type Iso struct {
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -1354,6 +1219,10 @@ func (p *RegisterIsoParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["checksum"]; found {
 		u.Set("checksum", v.(string))
+	}
+	if v, found := p.p["directdownload"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("directdownload", vv)
 	}
 	if v, found := p.p["displaytext"]; found {
 		u.Set("displaytext", v.(string))
@@ -1419,6 +1288,14 @@ func (p *RegisterIsoParams) SetChecksum(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["checksum"] = v
+	return
+}
+
+func (p *RegisterIsoParams) SetDirectdownload(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["directdownload"] = v
 	return
 }
 
@@ -1548,11 +1425,14 @@ func (s *ISOService) RegisterIso(p *RegisterIsoParams) (*RegisterIsoResponse, er
 type RegisterIsoResponse struct {
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -1569,7 +1449,9 @@ type RegisterIsoResponse struct {
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`
@@ -1595,6 +1477,10 @@ func (p *UpdateIsoParams) toURLValues() url.Values {
 	if v, found := p.p["bootable"]; found {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("bootable", vv)
+	}
+	if v, found := p.p["cleanupdetails"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("cleanupdetails", vv)
 	}
 	if v, found := p.p["details"]; found {
 		i := 0
@@ -1646,6 +1532,14 @@ func (p *UpdateIsoParams) SetBootable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bootable"] = v
+	return
+}
+
+func (p *UpdateIsoParams) SetCleanupdetails(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["cleanupdetails"] = v
 	return
 }
 
@@ -1764,11 +1658,14 @@ func (s *ISOService) UpdateIso(p *UpdateIsoParams) (*UpdateIsoResponse, error) {
 type UpdateIsoResponse struct {
 	Account               string            `json:"account"`
 	Accountid             string            `json:"accountid"`
+	Bits                  int               `json:"bits"`
 	Bootable              bool              `json:"bootable"`
 	Checksum              string            `json:"checksum"`
+	Childtemplates        []interface{}     `json:"childtemplates"`
 	Created               string            `json:"created"`
 	CrossZones            bool              `json:"crossZones"`
 	Details               map[string]string `json:"details"`
+	Directdownload        bool              `json:"directdownload"`
 	Displaytext           string            `json:"displaytext"`
 	Domain                string            `json:"domain"`
 	Domainid              string            `json:"domainid"`
@@ -1785,7 +1682,9 @@ type UpdateIsoResponse struct {
 	Name                  string            `json:"name"`
 	Ostypeid              string            `json:"ostypeid"`
 	Ostypename            string            `json:"ostypename"`
+	Parenttemplateid      string            `json:"parenttemplateid"`
 	Passwordenabled       bool              `json:"passwordenabled"`
+	Physicalsize          int64             `json:"physicalsize"`
 	Project               string            `json:"project"`
 	Projectid             string            `json:"projectid"`
 	Removed               string            `json:"removed"`

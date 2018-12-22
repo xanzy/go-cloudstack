@@ -189,6 +189,7 @@ type CreateUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type DeleteUserParams struct {
@@ -351,6 +352,7 @@ type DisableUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type EnableUserParams struct {
@@ -421,6 +423,7 @@ type EnableUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type GetUserParams struct {
@@ -491,6 +494,7 @@ type GetUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type GetVirtualMachineUserDataParams struct {
@@ -765,6 +769,7 @@ type User struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type LockUserParams struct {
@@ -835,6 +840,7 @@ type LockUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type RegisterUserKeysParams struct {
@@ -1049,4 +1055,5 @@ type UpdateUserResponse struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }

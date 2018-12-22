@@ -120,6 +120,8 @@ type AttachVolumeResponse struct {
 	Account                    string `json:"account"`
 	Attached                   string `json:"attached"`
 	Chaininfo                  string `json:"chaininfo"`
+	Clusterid                  string `json:"clusterid"`
+	Clustername                string `json:"clustername"`
 	Created                    string `json:"created"`
 	Destroyed                  bool   `json:"destroyed"`
 	Deviceid                   int64  `json:"deviceid"`
@@ -143,6 +145,9 @@ type AttachVolumeResponse struct {
 	Miniops                    int64  `json:"miniops"`
 	Name                       string `json:"name"`
 	Path                       string `json:"path"`
+	Physicalsize               int64  `json:"physicalsize"`
+	Podid                      string `json:"podid"`
+	Podname                    string `json:"podname"`
 	Project                    string `json:"project"`
 	Projectid                  string `json:"projectid"`
 	Provisioningtype           string `json:"provisioningtype"`
@@ -161,7 +166,9 @@ type AttachVolumeResponse struct {
 	Templateid                 string `json:"templateid"`
 	Templatename               string `json:"templatename"`
 	Type                       string `json:"type"`
+	Utilization                string `json:"utilization"`
 	Virtualmachineid           string `json:"virtualmachineid"`
+	Virtualsize                int64  `json:"virtualsize"`
 	Vmdisplayname              string `json:"vmdisplayname"`
 	Vmname                     string `json:"vmname"`
 	Vmstate                    string `json:"vmstate"`
@@ -376,6 +383,8 @@ type CreateVolumeResponse struct {
 	Account                    string `json:"account"`
 	Attached                   string `json:"attached"`
 	Chaininfo                  string `json:"chaininfo"`
+	Clusterid                  string `json:"clusterid"`
+	Clustername                string `json:"clustername"`
 	Created                    string `json:"created"`
 	Destroyed                  bool   `json:"destroyed"`
 	Deviceid                   int64  `json:"deviceid"`
@@ -399,6 +408,9 @@ type CreateVolumeResponse struct {
 	Miniops                    int64  `json:"miniops"`
 	Name                       string `json:"name"`
 	Path                       string `json:"path"`
+	Physicalsize               int64  `json:"physicalsize"`
+	Podid                      string `json:"podid"`
+	Podname                    string `json:"podname"`
 	Project                    string `json:"project"`
 	Projectid                  string `json:"projectid"`
 	Provisioningtype           string `json:"provisioningtype"`
@@ -417,7 +429,9 @@ type CreateVolumeResponse struct {
 	Templateid                 string `json:"templateid"`
 	Templatename               string `json:"templatename"`
 	Type                       string `json:"type"`
+	Utilization                string `json:"utilization"`
 	Virtualmachineid           string `json:"virtualmachineid"`
+	Virtualsize                int64  `json:"virtualsize"`
 	Vmdisplayname              string `json:"vmdisplayname"`
 	Vmname                     string `json:"vmname"`
 	Vmstate                    string `json:"vmstate"`
@@ -590,6 +604,8 @@ type DetachVolumeResponse struct {
 	Account                    string `json:"account"`
 	Attached                   string `json:"attached"`
 	Chaininfo                  string `json:"chaininfo"`
+	Clusterid                  string `json:"clusterid"`
+	Clustername                string `json:"clustername"`
 	Created                    string `json:"created"`
 	Destroyed                  bool   `json:"destroyed"`
 	Deviceid                   int64  `json:"deviceid"`
@@ -613,6 +629,9 @@ type DetachVolumeResponse struct {
 	Miniops                    int64  `json:"miniops"`
 	Name                       string `json:"name"`
 	Path                       string `json:"path"`
+	Physicalsize               int64  `json:"physicalsize"`
+	Podid                      string `json:"podid"`
+	Podname                    string `json:"podname"`
 	Project                    string `json:"project"`
 	Projectid                  string `json:"projectid"`
 	Provisioningtype           string `json:"provisioningtype"`
@@ -631,7 +650,9 @@ type DetachVolumeResponse struct {
 	Templateid                 string `json:"templateid"`
 	Templatename               string `json:"templatename"`
 	Type                       string `json:"type"`
+	Utilization                string `json:"utilization"`
 	Virtualmachineid           string `json:"virtualmachineid"`
+	Virtualsize                int64  `json:"virtualsize"`
 	Vmdisplayname              string `json:"vmdisplayname"`
 	Vmname                     string `json:"vmname"`
 	Vmstate                    string `json:"vmstate"`
@@ -808,69 +829,6 @@ func (s *VolumeService) GetPathForVolume(p *GetPathForVolumeParams) (*GetPathFor
 
 type GetPathForVolumeResponse struct {
 	Path string `json:"path"`
-}
-
-type GetSolidFireVolumeAccessGroupIdParams struct {
-	p map[string]interface{}
-}
-
-func (p *GetSolidFireVolumeAccessGroupIdParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["clusterid"]; found {
-		u.Set("clusterid", v.(string))
-	}
-	if v, found := p.p["storageid"]; found {
-		u.Set("storageid", v.(string))
-	}
-	return u
-}
-
-func (p *GetSolidFireVolumeAccessGroupIdParams) SetClusterid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clusterid"] = v
-	return
-}
-
-func (p *GetSolidFireVolumeAccessGroupIdParams) SetStorageid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["storageid"] = v
-	return
-}
-
-// You should always use this function to get a new GetSolidFireVolumeAccessGroupIdParams instance,
-// as then you are sure you have configured all required params
-func (s *VolumeService) NewGetSolidFireVolumeAccessGroupIdParams(clusterid string, storageid string) *GetSolidFireVolumeAccessGroupIdParams {
-	p := &GetSolidFireVolumeAccessGroupIdParams{}
-	p.p = make(map[string]interface{})
-	p.p["clusterid"] = clusterid
-	p.p["storageid"] = storageid
-	return p
-}
-
-// Get the SF Volume Access Group ID
-func (s *VolumeService) GetSolidFireVolumeAccessGroupId(p *GetSolidFireVolumeAccessGroupIdParams) (*GetSolidFireVolumeAccessGroupIdResponse, error) {
-	resp, err := s.cs.newRequest("getSolidFireVolumeAccessGroupId", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r GetSolidFireVolumeAccessGroupIdResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type GetSolidFireVolumeAccessGroupIdResponse struct {
-	SolidFireVolumeAccessGroupId int64 `json:"solidFireVolumeAccessGroupId"`
 }
 
 type GetSolidFireVolumeSizeParams struct {
@@ -1132,6 +1090,9 @@ func (p *ListVolumesParams) toURLValues() url.Values {
 	if v, found := p.p["account"]; found {
 		u.Set("account", v.(string))
 	}
+	if v, found := p.p["clusterid"]; found {
+		u.Set("clusterid", v.(string))
+	}
 	if v, found := p.p["diskofferingid"]; found {
 		u.Set("diskofferingid", v.(string))
 	}
@@ -1208,6 +1169,14 @@ func (p *ListVolumesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
+	return
+}
+
+func (p *ListVolumesParams) SetClusterid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clusterid"] = v
 	return
 }
 
@@ -1478,6 +1447,8 @@ type Volume struct {
 	Account                    string `json:"account"`
 	Attached                   string `json:"attached"`
 	Chaininfo                  string `json:"chaininfo"`
+	Clusterid                  string `json:"clusterid"`
+	Clustername                string `json:"clustername"`
 	Created                    string `json:"created"`
 	Destroyed                  bool   `json:"destroyed"`
 	Deviceid                   int64  `json:"deviceid"`
@@ -1501,6 +1472,9 @@ type Volume struct {
 	Miniops                    int64  `json:"miniops"`
 	Name                       string `json:"name"`
 	Path                       string `json:"path"`
+	Physicalsize               int64  `json:"physicalsize"`
+	Podid                      string `json:"podid"`
+	Podname                    string `json:"podname"`
 	Project                    string `json:"project"`
 	Projectid                  string `json:"projectid"`
 	Provisioningtype           string `json:"provisioningtype"`
@@ -1519,7 +1493,9 @@ type Volume struct {
 	Templateid                 string `json:"templateid"`
 	Templatename               string `json:"templatename"`
 	Type                       string `json:"type"`
+	Utilization                string `json:"utilization"`
 	Virtualmachineid           string `json:"virtualmachineid"`
+	Virtualsize                int64  `json:"virtualsize"`
 	Vmdisplayname              string `json:"vmdisplayname"`
 	Vmname                     string `json:"vmname"`
 	Vmstate                    string `json:"vmstate"`
@@ -1623,6 +1599,8 @@ type MigrateVolumeResponse struct {
 	Account                    string `json:"account"`
 	Attached                   string `json:"attached"`
 	Chaininfo                  string `json:"chaininfo"`
+	Clusterid                  string `json:"clusterid"`
+	Clustername                string `json:"clustername"`
 	Created                    string `json:"created"`
 	Destroyed                  bool   `json:"destroyed"`
 	Deviceid                   int64  `json:"deviceid"`
@@ -1646,6 +1624,9 @@ type MigrateVolumeResponse struct {
 	Miniops                    int64  `json:"miniops"`
 	Name                       string `json:"name"`
 	Path                       string `json:"path"`
+	Physicalsize               int64  `json:"physicalsize"`
+	Podid                      string `json:"podid"`
+	Podname                    string `json:"podname"`
 	Project                    string `json:"project"`
 	Projectid                  string `json:"projectid"`
 	Provisioningtype           string `json:"provisioningtype"`
@@ -1664,7 +1645,9 @@ type MigrateVolumeResponse struct {
 	Templateid                 string `json:"templateid"`
 	Templatename               string `json:"templatename"`
 	Type                       string `json:"type"`
+	Utilization                string `json:"utilization"`
 	Virtualmachineid           string `json:"virtualmachineid"`
+	Virtualsize                int64  `json:"virtualsize"`
 	Vmdisplayname              string `json:"vmdisplayname"`
 	Vmname                     string `json:"vmname"`
 	Vmstate                    string `json:"vmstate"`
@@ -1803,6 +1786,8 @@ type ResizeVolumeResponse struct {
 	Account                    string `json:"account"`
 	Attached                   string `json:"attached"`
 	Chaininfo                  string `json:"chaininfo"`
+	Clusterid                  string `json:"clusterid"`
+	Clustername                string `json:"clustername"`
 	Created                    string `json:"created"`
 	Destroyed                  bool   `json:"destroyed"`
 	Deviceid                   int64  `json:"deviceid"`
@@ -1826,6 +1811,9 @@ type ResizeVolumeResponse struct {
 	Miniops                    int64  `json:"miniops"`
 	Name                       string `json:"name"`
 	Path                       string `json:"path"`
+	Physicalsize               int64  `json:"physicalsize"`
+	Podid                      string `json:"podid"`
+	Podname                    string `json:"podname"`
 	Project                    string `json:"project"`
 	Projectid                  string `json:"projectid"`
 	Provisioningtype           string `json:"provisioningtype"`
@@ -1844,7 +1832,9 @@ type ResizeVolumeResponse struct {
 	Templateid                 string `json:"templateid"`
 	Templatename               string `json:"templatename"`
 	Type                       string `json:"type"`
+	Utilization                string `json:"utilization"`
 	Virtualmachineid           string `json:"virtualmachineid"`
+	Virtualsize                int64  `json:"virtualsize"`
 	Vmdisplayname              string `json:"vmdisplayname"`
 	Vmname                     string `json:"vmname"`
 	Vmstate                    string `json:"vmstate"`
@@ -1990,6 +1980,8 @@ type UpdateVolumeResponse struct {
 	Account                    string `json:"account"`
 	Attached                   string `json:"attached"`
 	Chaininfo                  string `json:"chaininfo"`
+	Clusterid                  string `json:"clusterid"`
+	Clustername                string `json:"clustername"`
 	Created                    string `json:"created"`
 	Destroyed                  bool   `json:"destroyed"`
 	Deviceid                   int64  `json:"deviceid"`
@@ -2013,6 +2005,9 @@ type UpdateVolumeResponse struct {
 	Miniops                    int64  `json:"miniops"`
 	Name                       string `json:"name"`
 	Path                       string `json:"path"`
+	Physicalsize               int64  `json:"physicalsize"`
+	Podid                      string `json:"podid"`
+	Podname                    string `json:"podname"`
 	Project                    string `json:"project"`
 	Projectid                  string `json:"projectid"`
 	Provisioningtype           string `json:"provisioningtype"`
@@ -2031,7 +2026,9 @@ type UpdateVolumeResponse struct {
 	Templateid                 string `json:"templateid"`
 	Templatename               string `json:"templatename"`
 	Type                       string `json:"type"`
+	Utilization                string `json:"utilization"`
 	Virtualmachineid           string `json:"virtualmachineid"`
+	Virtualsize                int64  `json:"virtualsize"`
 	Vmdisplayname              string `json:"vmdisplayname"`
 	Vmname                     string `json:"vmname"`
 	Vmstate                    string `json:"vmstate"`
@@ -2213,6 +2210,8 @@ type UploadVolumeResponse struct {
 	Account                    string `json:"account"`
 	Attached                   string `json:"attached"`
 	Chaininfo                  string `json:"chaininfo"`
+	Clusterid                  string `json:"clusterid"`
+	Clustername                string `json:"clustername"`
 	Created                    string `json:"created"`
 	Destroyed                  bool   `json:"destroyed"`
 	Deviceid                   int64  `json:"deviceid"`
@@ -2236,6 +2235,9 @@ type UploadVolumeResponse struct {
 	Miniops                    int64  `json:"miniops"`
 	Name                       string `json:"name"`
 	Path                       string `json:"path"`
+	Physicalsize               int64  `json:"physicalsize"`
+	Podid                      string `json:"podid"`
+	Podname                    string `json:"podname"`
 	Project                    string `json:"project"`
 	Projectid                  string `json:"projectid"`
 	Provisioningtype           string `json:"provisioningtype"`
@@ -2254,7 +2256,9 @@ type UploadVolumeResponse struct {
 	Templateid                 string `json:"templateid"`
 	Templatename               string `json:"templatename"`
 	Type                       string `json:"type"`
+	Utilization                string `json:"utilization"`
 	Virtualmachineid           string `json:"virtualmachineid"`
+	Virtualsize                int64  `json:"virtualsize"`
 	Vmdisplayname              string `json:"vmdisplayname"`
 	Vmname                     string `json:"vmname"`
 	Vmstate                    string `json:"vmstate"`
