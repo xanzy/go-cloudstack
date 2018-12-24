@@ -34,7 +34,9 @@ import (
 
 const pkg = "cloudstack"
 
-var typeNames = make(map[string]bool)
+// We prefill this one value to make sure it is not
+// created twice, as this is also a top level type.
+var typeNames = map[string]bool{"Nic": true}
 
 type apiInfo map[string][]string
 
@@ -1267,6 +1269,14 @@ func (s *service) generateResponseType(a *API) {
 		pn("		}")
 		pn("	}")
 		pn("")
+		// pn("	if ostypeid, ok := m[\"ostypeid\"].(int); ok {")
+		// pn("		m[\"ostypeid\"] = strconv.Itoa(ostypeid)")
+		// pn("		b, err = json.Marshal(m)")
+		// pn("		if err != nil {")
+		// pn("			return err")
+		// pn("		}")
+		// pn("	}")
+		// pn("")
 		pn("	type alias %s", tn)
 		pn("	return json.Unmarshal(b, (*alias)(r))")
 		pn("}")
@@ -1290,7 +1300,7 @@ func (s *service) recusiveGenerateResponseType(tn string, resp APIResponses, asy
 	found := make(map[string]bool)
 
 	pn("type %s struct {", tn)
-	if async {
+	if async && !strings.Contains(tn, "SystemVm") {
 		pn("	JobID string `json:\"jobid\"`")
 	}
 
@@ -1307,18 +1317,24 @@ func (s *service) recusiveGenerateResponseType(tn string, resp APIResponses, asy
 		}
 		if r.Response != nil {
 			sort.Sort(r.Response)
-			typeName := getUniqueTypeName(tn, r.Name)
+			typeName, create := getUniqueTypeName(tn, r.Name)
 			pn("%s []%s `json:\"%s\"`", capitalize(r.Name), typeName, r.Name)
-			defer s.recusiveGenerateResponseType(typeName, r.Response, false)
+			if create {
+				defer s.recusiveGenerateResponseType(typeName, r.Response, false)
+			}
 		} else {
 			if !found[r.Name] {
 				// This code is needed because the response field is different for sync and async calls :(
-				if r.Name == "success" {
+				switch r.Name {
+				case "success":
 					pn("%s bool `json:\"%s\"`", capitalize(r.Name), r.Name)
 					if !async {
 						customMarshal = true
 					}
-				} else {
+				// case "ostypeid":
+				// 	pn("%s string `json:\"%s\"`", capitalize(r.Name), r.Name)
+				// 	customMarshal = true
+				default:
 					pn("%s %s `json:\"%s\"`", capitalize(r.Name), mapType(r.Type), r.Name)
 				}
 				found[r.Name] = true
@@ -1332,12 +1348,31 @@ func (s *service) recusiveGenerateResponseType(tn string, resp APIResponses, asy
 	return customMarshal
 }
 
-func getUniqueTypeName(prefix, name string) string {
+func getUniqueTypeName(prefix, name string) (string, bool) {
+	// We have special cases for [in|e]gressrules, nics and tags as the exact
+	// sames types are used used in multiple different locations.
+	switch {
+	case strings.HasSuffix(name, "gressrule"):
+		name = "rule"
+	case strings.HasSuffix(name, "nic"):
+		prefix = ""
+		name = "nic"
+	case strings.HasSuffix(name, "tags"):
+		prefix = ""
+		name = "tags"
+	}
+
 	tn := prefix + capitalize(name)
 	if !typeNames[tn] {
 		typeNames[tn] = true
-		return tn
+		return tn, true
 	}
+
+	// Return here as this means the type already exists.
+	if name == "rule" || name == "nic" || name == "tags" {
+		return tn, false
+	}
+
 	return getUniqueTypeName(prefix, name+"Internal")
 }
 
@@ -1439,6 +1474,9 @@ func mapType(t string) string {
 }
 
 func capitalize(s string) string {
+	if s == "jobid" {
+		return "JobID"
+	}
 	r := []rune(s)
 	r[0] = unicode.ToUpper(r[0])
 	return string(r)

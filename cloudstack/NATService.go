@@ -153,37 +153,24 @@ func (s *NATService) CreateIpForwardingRule(p *CreateIpForwardingRuleParams) (*C
 }
 
 type CreateIpForwardingRuleResponse struct {
-	JobID                     string                               `json:"jobid"`
-	Cidrlist                  string                               `json:"cidrlist"`
-	Fordisplay                bool                                 `json:"fordisplay"`
-	Id                        string                               `json:"id"`
-	Ipaddress                 string                               `json:"ipaddress"`
-	Ipaddressid               string                               `json:"ipaddressid"`
-	Networkid                 string                               `json:"networkid"`
-	Privateendport            string                               `json:"privateendport"`
-	Privateport               string                               `json:"privateport"`
-	Protocol                  string                               `json:"protocol"`
-	Publicendport             string                               `json:"publicendport"`
-	Publicport                string                               `json:"publicport"`
-	State                     string                               `json:"state"`
-	Tags                      []CreateIpForwardingRuleResponseTags `json:"tags"`
-	Virtualmachinedisplayname string                               `json:"virtualmachinedisplayname"`
-	Virtualmachineid          string                               `json:"virtualmachineid"`
-	Virtualmachinename        string                               `json:"virtualmachinename"`
-	Vmguestip                 string                               `json:"vmguestip"`
-}
-
-type CreateIpForwardingRuleResponseTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
+	JobID                     string `json:"jobid"`
+	Cidrlist                  string `json:"cidrlist"`
+	Fordisplay                bool   `json:"fordisplay"`
+	Id                        string `json:"id"`
+	Ipaddress                 string `json:"ipaddress"`
+	Ipaddressid               string `json:"ipaddressid"`
+	Networkid                 string `json:"networkid"`
+	Privateendport            string `json:"privateendport"`
+	Privateport               string `json:"privateport"`
+	Protocol                  string `json:"protocol"`
+	Publicendport             string `json:"publicendport"`
+	Publicport                string `json:"publicport"`
+	State                     string `json:"state"`
+	Tags                      []Tags `json:"tags"`
+	Virtualmachinedisplayname string `json:"virtualmachinedisplayname"`
+	Virtualmachineid          string `json:"virtualmachineid"`
+	Virtualmachinename        string `json:"virtualmachinename"`
+	Vmguestip                 string `json:"vmguestip"`
 }
 
 type DeleteIpForwardingRuleParams struct {
@@ -626,34 +613,21 @@ type ListIpForwardingRulesResponse struct {
 }
 
 type IpForwardingRule struct {
-	Cidrlist                  string                 `json:"cidrlist"`
-	Fordisplay                bool                   `json:"fordisplay"`
-	Id                        string                 `json:"id"`
-	Ipaddress                 string                 `json:"ipaddress"`
-	Ipaddressid               string                 `json:"ipaddressid"`
-	Networkid                 string                 `json:"networkid"`
-	Privateendport            string                 `json:"privateendport"`
-	Privateport               string                 `json:"privateport"`
-	Protocol                  string                 `json:"protocol"`
-	Publicendport             string                 `json:"publicendport"`
-	Publicport                string                 `json:"publicport"`
-	State                     string                 `json:"state"`
-	Tags                      []IpForwardingRuleTags `json:"tags"`
-	Virtualmachinedisplayname string                 `json:"virtualmachinedisplayname"`
-	Virtualmachineid          string                 `json:"virtualmachineid"`
-	Virtualmachinename        string                 `json:"virtualmachinename"`
-	Vmguestip                 string                 `json:"vmguestip"`
-}
-
-type IpForwardingRuleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
+	Cidrlist                  string `json:"cidrlist"`
+	Fordisplay                bool   `json:"fordisplay"`
+	Id                        string `json:"id"`
+	Ipaddress                 string `json:"ipaddress"`
+	Ipaddressid               string `json:"ipaddressid"`
+	Networkid                 string `json:"networkid"`
+	Privateendport            string `json:"privateendport"`
+	Privateport               string `json:"privateport"`
+	Protocol                  string `json:"protocol"`
+	Publicendport             string `json:"publicendport"`
+	Publicport                string `json:"publicport"`
+	State                     string `json:"state"`
+	Tags                      []Tags `json:"tags"`
+	Virtualmachinedisplayname string `json:"virtualmachinedisplayname"`
+	Virtualmachineid          string `json:"virtualmachineid"`
+	Virtualmachinename        string `json:"virtualmachinename"`
+	Vmguestip                 string `json:"vmguestip"`
 }

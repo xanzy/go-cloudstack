@@ -88,9 +88,6 @@ type CloudStackClient struct {
 	DiskOffering        *DiskOfferingService
 	Domain              *DomainService
 	Event               *EventService
-	ExtFirewall         *ExtFirewallService
-	ExtLoadBalancer     *ExtLoadBalancerService
-	ExternalDevice      *ExternalDeviceService
 	Firewall            *FirewallService
 	GuestOS             *GuestOSService
 	Host                *HostService
@@ -181,9 +178,6 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.DiskOffering = NewDiskOfferingService(cs)
 	cs.Domain = NewDomainService(cs)
 	cs.Event = NewEventService(cs)
-	cs.ExtFirewall = NewExtFirewallService(cs)
-	cs.ExtLoadBalancer = NewExtLoadBalancerService(cs)
-	cs.ExternalDevice = NewExternalDeviceService(cs)
 	cs.Firewall = NewFirewallService(cs)
 	cs.GuestOS = NewGuestOSService(cs)
 	cs.Host = NewHostService(cs)
@@ -613,30 +607,6 @@ type EventService struct {
 
 func NewEventService(cs *CloudStackClient) *EventService {
 	return &EventService{cs: cs}
-}
-
-type ExtFirewallService struct {
-	cs *CloudStackClient
-}
-
-func NewExtFirewallService(cs *CloudStackClient) *ExtFirewallService {
-	return &ExtFirewallService{cs: cs}
-}
-
-type ExtLoadBalancerService struct {
-	cs *CloudStackClient
-}
-
-func NewExtLoadBalancerService(cs *CloudStackClient) *ExtLoadBalancerService {
-	return &ExtLoadBalancerService{cs: cs}
-}
-
-type ExternalDeviceService struct {
-	cs *CloudStackClient
-}
-
-func NewExternalDeviceService(cs *CloudStackClient) *ExternalDeviceService {
-	return &ExternalDeviceService{cs: cs}
 }
 
 type FirewallService struct {

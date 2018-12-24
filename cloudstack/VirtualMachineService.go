@@ -33,8 +33,19 @@ func (p *AddNicToVirtualMachineParams) toURLValues() url.Values {
 	if p.p == nil {
 		return u
 	}
+	if v, found := p.p["dhcpoptions"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("dhcpoptions[%d].key", i), k)
+			u.Set(fmt.Sprintf("dhcpoptions[%d].value", i), vv)
+			i++
+		}
+	}
 	if v, found := p.p["ipaddress"]; found {
 		u.Set("ipaddress", v.(string))
+	}
+	if v, found := p.p["macaddress"]; found {
+		u.Set("macaddress", v.(string))
 	}
 	if v, found := p.p["networkid"]; found {
 		u.Set("networkid", v.(string))
@@ -45,11 +56,27 @@ func (p *AddNicToVirtualMachineParams) toURLValues() url.Values {
 	return u
 }
 
+func (p *AddNicToVirtualMachineParams) SetDhcpoptions(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dhcpoptions"] = v
+	return
+}
+
 func (p *AddNicToVirtualMachineParams) SetIpaddress(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddress"] = v
+	return
+}
+
+func (p *AddNicToVirtualMachineParams) SetMacaddress(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["macaddress"] = v
 	return
 }
 
@@ -155,7 +182,7 @@ type AddNicToVirtualMachineResponse struct {
 	Name                  string                                        `json:"name"`
 	Networkkbsread        int64                                         `json:"networkkbsread"`
 	Networkkbswrite       int64                                         `json:"networkkbswrite"`
-	Nic                   []AddNicToVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                         `json:"nic"`
 	Ostypeid              int64                                         `json:"ostypeid"`
 	Password              string                                        `json:"password"`
 	Passwordenabled       bool                                          `json:"passwordenabled"`
@@ -181,110 +208,32 @@ type AddNicToVirtualMachineResponse struct {
 }
 
 type AddNicToVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                   `json:"account"`
-	Description         string                                                   `json:"description"`
-	Domain              string                                                   `json:"domain"`
-	Domainid            string                                                   `json:"domainid"`
-	Egressrule          []AddNicToVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                   `json:"id"`
-	Ingressrule         []AddNicToVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                   `json:"name"`
-	Project             string                                                   `json:"project"`
-	Projectid           string                                                   `json:"projectid"`
-	Tags                []AddNicToVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                      `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                            `json:"virtualmachineids"`
+	Account             string                                            `json:"account"`
+	Description         string                                            `json:"description"`
+	Domain              string                                            `json:"domain"`
+	Domainid            string                                            `json:"domainid"`
+	Egressrule          []AddNicToVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                            `json:"id"`
+	Ingressrule         []AddNicToVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                            `json:"name"`
+	Project             string                                            `json:"project"`
+	Projectid           string                                            `json:"projectid"`
+	Tags                []Tags                                            `json:"tags"`
+	Virtualmachinecount int                                               `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                     `json:"virtualmachineids"`
 }
 
-type AddNicToVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type AddNicToVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                       `json:"account"`
-	Cidr              string                                                       `json:"cidr"`
-	Endport           int                                                          `json:"endport"`
-	Icmpcode          int                                                          `json:"icmpcode"`
-	Icmptype          int                                                          `json:"icmptype"`
-	Protocol          string                                                       `json:"protocol"`
-	Ruleid            string                                                       `json:"ruleid"`
-	Securitygroupname string                                                       `json:"securitygroupname"`
-	Startport         int                                                          `json:"startport"`
-	Tags              []AddNicToVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type AddNicToVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type AddNicToVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                      `json:"account"`
-	Cidr              string                                                      `json:"cidr"`
-	Endport           int                                                         `json:"endport"`
-	Icmpcode          int                                                         `json:"icmpcode"`
-	Icmptype          int                                                         `json:"icmptype"`
-	Protocol          string                                                      `json:"protocol"`
-	Ruleid            string                                                      `json:"ruleid"`
-	Securitygroupname string                                                      `json:"securitygroupname"`
-	Startport         int                                                         `json:"startport"`
-	Tags              []AddNicToVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type AddNicToVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type AddNicToVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type AddNicToVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type AddNicToVirtualMachineResponseAffinitygroup struct {
@@ -318,6 +267,9 @@ func (p *AssignVirtualMachineParams) toURLValues() url.Values {
 	if v, found := p.p["networkids"]; found {
 		vv := strings.Join(v.([]string), ",")
 		u.Set("networkids", vv)
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
 	}
 	if v, found := p.p["securitygroupids"]; found {
 		vv := strings.Join(v.([]string), ",")
@@ -353,6 +305,14 @@ func (p *AssignVirtualMachineParams) SetNetworkids(v []string) {
 	return
 }
 
+func (p *AssignVirtualMachineParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+	return
+}
+
 func (p *AssignVirtualMachineParams) SetSecuritygroupids(v []string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -371,11 +331,9 @@ func (p *AssignVirtualMachineParams) SetVirtualmachineid(v string) {
 
 // You should always use this function to get a new AssignVirtualMachineParams instance,
 // as then you are sure you have configured all required params
-func (s *VirtualMachineService) NewAssignVirtualMachineParams(account string, domainid string, virtualmachineid string) *AssignVirtualMachineParams {
+func (s *VirtualMachineService) NewAssignVirtualMachineParams(virtualmachineid string) *AssignVirtualMachineParams {
 	p := &AssignVirtualMachineParams{}
 	p.p = make(map[string]interface{})
-	p.p["account"] = account
-	p.p["domainid"] = domainid
 	p.p["virtualmachineid"] = virtualmachineid
 	return p
 }
@@ -435,7 +393,7 @@ type AssignVirtualMachineResponse struct {
 	Name                  string                                      `json:"name"`
 	Networkkbsread        int64                                       `json:"networkkbsread"`
 	Networkkbswrite       int64                                       `json:"networkkbswrite"`
-	Nic                   []AssignVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                       `json:"nic"`
 	Ostypeid              int64                                       `json:"ostypeid"`
 	Password              string                                      `json:"password"`
 	Passwordenabled       bool                                        `json:"passwordenabled"`
@@ -461,110 +419,32 @@ type AssignVirtualMachineResponse struct {
 }
 
 type AssignVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                 `json:"account"`
-	Description         string                                                 `json:"description"`
-	Domain              string                                                 `json:"domain"`
-	Domainid            string                                                 `json:"domainid"`
-	Egressrule          []AssignVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                 `json:"id"`
-	Ingressrule         []AssignVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                 `json:"name"`
-	Project             string                                                 `json:"project"`
-	Projectid           string                                                 `json:"projectid"`
-	Tags                []AssignVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                    `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                          `json:"virtualmachineids"`
+	Account             string                                          `json:"account"`
+	Description         string                                          `json:"description"`
+	Domain              string                                          `json:"domain"`
+	Domainid            string                                          `json:"domainid"`
+	Egressrule          []AssignVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                          `json:"id"`
+	Ingressrule         []AssignVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                          `json:"name"`
+	Project             string                                          `json:"project"`
+	Projectid           string                                          `json:"projectid"`
+	Tags                []Tags                                          `json:"tags"`
+	Virtualmachinecount int                                             `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                   `json:"virtualmachineids"`
 }
 
-type AssignVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type AssignVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                     `json:"account"`
-	Cidr              string                                                     `json:"cidr"`
-	Endport           int                                                        `json:"endport"`
-	Icmpcode          int                                                        `json:"icmpcode"`
-	Icmptype          int                                                        `json:"icmptype"`
-	Protocol          string                                                     `json:"protocol"`
-	Ruleid            string                                                     `json:"ruleid"`
-	Securitygroupname string                                                     `json:"securitygroupname"`
-	Startport         int                                                        `json:"startport"`
-	Tags              []AssignVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type AssignVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type AssignVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                    `json:"account"`
-	Cidr              string                                                    `json:"cidr"`
-	Endport           int                                                       `json:"endport"`
-	Icmpcode          int                                                       `json:"icmpcode"`
-	Icmptype          int                                                       `json:"icmptype"`
-	Protocol          string                                                    `json:"protocol"`
-	Ruleid            string                                                    `json:"ruleid"`
-	Securitygroupname string                                                    `json:"securitygroupname"`
-	Startport         int                                                       `json:"startport"`
-	Tags              []AssignVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type AssignVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type AssignVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type AssignVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type AssignVirtualMachineResponseAffinitygroup struct {
@@ -694,7 +574,7 @@ type ChangeServiceForVirtualMachineResponse struct {
 	Name                  string                                                `json:"name"`
 	Networkkbsread        int64                                                 `json:"networkkbsread"`
 	Networkkbswrite       int64                                                 `json:"networkkbswrite"`
-	Nic                   []ChangeServiceForVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                                 `json:"nic"`
 	Ostypeid              int64                                                 `json:"ostypeid"`
 	Password              string                                                `json:"password"`
 	Passwordenabled       bool                                                  `json:"passwordenabled"`
@@ -720,110 +600,32 @@ type ChangeServiceForVirtualMachineResponse struct {
 }
 
 type ChangeServiceForVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                           `json:"account"`
-	Description         string                                                           `json:"description"`
-	Domain              string                                                           `json:"domain"`
-	Domainid            string                                                           `json:"domainid"`
-	Egressrule          []ChangeServiceForVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                           `json:"id"`
-	Ingressrule         []ChangeServiceForVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                           `json:"name"`
-	Project             string                                                           `json:"project"`
-	Projectid           string                                                           `json:"projectid"`
-	Tags                []ChangeServiceForVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                              `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                                    `json:"virtualmachineids"`
+	Account             string                                                    `json:"account"`
+	Description         string                                                    `json:"description"`
+	Domain              string                                                    `json:"domain"`
+	Domainid            string                                                    `json:"domainid"`
+	Egressrule          []ChangeServiceForVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                                    `json:"id"`
+	Ingressrule         []ChangeServiceForVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                                    `json:"name"`
+	Project             string                                                    `json:"project"`
+	Projectid           string                                                    `json:"projectid"`
+	Tags                []Tags                                                    `json:"tags"`
+	Virtualmachinecount int                                                       `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                             `json:"virtualmachineids"`
 }
 
-type ChangeServiceForVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type ChangeServiceForVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                               `json:"account"`
-	Cidr              string                                                               `json:"cidr"`
-	Endport           int                                                                  `json:"endport"`
-	Icmpcode          int                                                                  `json:"icmpcode"`
-	Icmptype          int                                                                  `json:"icmptype"`
-	Protocol          string                                                               `json:"protocol"`
-	Ruleid            string                                                               `json:"ruleid"`
-	Securitygroupname string                                                               `json:"securitygroupname"`
-	Startport         int                                                                  `json:"startport"`
-	Tags              []ChangeServiceForVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type ChangeServiceForVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type ChangeServiceForVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                              `json:"account"`
-	Cidr              string                                                              `json:"cidr"`
-	Endport           int                                                                 `json:"endport"`
-	Icmpcode          int                                                                 `json:"icmpcode"`
-	Icmptype          int                                                                 `json:"icmptype"`
-	Protocol          string                                                              `json:"protocol"`
-	Ruleid            string                                                              `json:"ruleid"`
-	Securitygroupname string                                                              `json:"securitygroupname"`
-	Startport         int                                                                 `json:"startport"`
-	Tags              []ChangeServiceForVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type ChangeServiceForVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type ChangeServiceForVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type ChangeServiceForVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type ChangeServiceForVirtualMachineResponseAffinitygroup struct {
@@ -918,6 +720,14 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 	if v, found := p.p["customid"]; found {
 		u.Set("customid", v.(string))
 	}
+	if v, found := p.p["datadiskofferinglist"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("datadiskofferinglist[%d].key", i), k)
+			u.Set(fmt.Sprintf("datadiskofferinglist[%d].value", i), vv)
+			i++
+		}
+	}
 	if v, found := p.p["deploymentplanner"]; found {
 		u.Set("deploymentplanner", v.(string))
 	}
@@ -925,6 +735,14 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 		i := 0
 		for k, vv := range v.(map[string]string) {
 			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
+			i++
+		}
+	}
+	if v, found := p.p["dhcpoptionsnetworklist"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("dhcpoptionsnetworklist[%d].key", i), k)
+			u.Set(fmt.Sprintf("dhcpoptionsnetworklist[%d].value", i), vv)
 			i++
 		}
 	}
@@ -969,6 +787,9 @@ func (p *DeployVirtualMachineParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["keypair"]; found {
 		u.Set("keypair", v.(string))
+	}
+	if v, found := p.p["macaddress"]; found {
+		u.Set("macaddress", v.(string))
 	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
@@ -1047,6 +868,14 @@ func (p *DeployVirtualMachineParams) SetCustomid(v string) {
 	return
 }
 
+func (p *DeployVirtualMachineParams) SetDatadiskofferinglist(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["datadiskofferinglist"] = v
+	return
+}
+
 func (p *DeployVirtualMachineParams) SetDeploymentplanner(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -1060,6 +889,14 @@ func (p *DeployVirtualMachineParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
+	return
+}
+
+func (p *DeployVirtualMachineParams) SetDhcpoptionsnetworklist(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dhcpoptionsnetworklist"] = v
 	return
 }
 
@@ -1156,6 +993,14 @@ func (p *DeployVirtualMachineParams) SetKeypair(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keypair"] = v
+	return
+}
+
+func (p *DeployVirtualMachineParams) SetMacaddress(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["macaddress"] = v
 	return
 }
 
@@ -1342,7 +1187,7 @@ type DeployVirtualMachineResponse struct {
 	Name                  string                                      `json:"name"`
 	Networkkbsread        int64                                       `json:"networkkbsread"`
 	Networkkbswrite       int64                                       `json:"networkkbswrite"`
-	Nic                   []DeployVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                       `json:"nic"`
 	Ostypeid              int64                                       `json:"ostypeid"`
 	Password              string                                      `json:"password"`
 	Passwordenabled       bool                                        `json:"passwordenabled"`
@@ -1368,110 +1213,32 @@ type DeployVirtualMachineResponse struct {
 }
 
 type DeployVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                 `json:"account"`
-	Description         string                                                 `json:"description"`
-	Domain              string                                                 `json:"domain"`
-	Domainid            string                                                 `json:"domainid"`
-	Egressrule          []DeployVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                 `json:"id"`
-	Ingressrule         []DeployVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                 `json:"name"`
-	Project             string                                                 `json:"project"`
-	Projectid           string                                                 `json:"projectid"`
-	Tags                []DeployVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                    `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                          `json:"virtualmachineids"`
+	Account             string                                          `json:"account"`
+	Description         string                                          `json:"description"`
+	Domain              string                                          `json:"domain"`
+	Domainid            string                                          `json:"domainid"`
+	Egressrule          []DeployVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                          `json:"id"`
+	Ingressrule         []DeployVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                          `json:"name"`
+	Project             string                                          `json:"project"`
+	Projectid           string                                          `json:"projectid"`
+	Tags                []Tags                                          `json:"tags"`
+	Virtualmachinecount int                                             `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                   `json:"virtualmachineids"`
 }
 
-type DeployVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type DeployVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                     `json:"account"`
-	Cidr              string                                                     `json:"cidr"`
-	Endport           int                                                        `json:"endport"`
-	Icmpcode          int                                                        `json:"icmpcode"`
-	Icmptype          int                                                        `json:"icmptype"`
-	Protocol          string                                                     `json:"protocol"`
-	Ruleid            string                                                     `json:"ruleid"`
-	Securitygroupname string                                                     `json:"securitygroupname"`
-	Startport         int                                                        `json:"startport"`
-	Tags              []DeployVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type DeployVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type DeployVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                    `json:"account"`
-	Cidr              string                                                    `json:"cidr"`
-	Endport           int                                                       `json:"endport"`
-	Icmpcode          int                                                       `json:"icmpcode"`
-	Icmptype          int                                                       `json:"icmptype"`
-	Protocol          string                                                    `json:"protocol"`
-	Ruleid            string                                                    `json:"ruleid"`
-	Securitygroupname string                                                    `json:"securitygroupname"`
-	Startport         int                                                       `json:"startport"`
-	Tags              []DeployVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type DeployVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type DeployVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type DeployVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type DeployVirtualMachineResponseAffinitygroup struct {
@@ -1607,7 +1374,7 @@ type DestroyVirtualMachineResponse struct {
 	Name                  string                                       `json:"name"`
 	Networkkbsread        int64                                        `json:"networkkbsread"`
 	Networkkbswrite       int64                                        `json:"networkkbswrite"`
-	Nic                   []DestroyVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                        `json:"nic"`
 	Ostypeid              int64                                        `json:"ostypeid"`
 	Password              string                                       `json:"password"`
 	Passwordenabled       bool                                         `json:"passwordenabled"`
@@ -1633,110 +1400,32 @@ type DestroyVirtualMachineResponse struct {
 }
 
 type DestroyVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                  `json:"account"`
-	Description         string                                                  `json:"description"`
-	Domain              string                                                  `json:"domain"`
-	Domainid            string                                                  `json:"domainid"`
-	Egressrule          []DestroyVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                  `json:"id"`
-	Ingressrule         []DestroyVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                  `json:"name"`
-	Project             string                                                  `json:"project"`
-	Projectid           string                                                  `json:"projectid"`
-	Tags                []DestroyVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                     `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                           `json:"virtualmachineids"`
+	Account             string                                           `json:"account"`
+	Description         string                                           `json:"description"`
+	Domain              string                                           `json:"domain"`
+	Domainid            string                                           `json:"domainid"`
+	Egressrule          []DestroyVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                           `json:"id"`
+	Ingressrule         []DestroyVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                           `json:"name"`
+	Project             string                                           `json:"project"`
+	Projectid           string                                           `json:"projectid"`
+	Tags                []Tags                                           `json:"tags"`
+	Virtualmachinecount int                                              `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                    `json:"virtualmachineids"`
 }
 
-type DestroyVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type DestroyVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                      `json:"account"`
-	Cidr              string                                                      `json:"cidr"`
-	Endport           int                                                         `json:"endport"`
-	Icmpcode          int                                                         `json:"icmpcode"`
-	Icmptype          int                                                         `json:"icmptype"`
-	Protocol          string                                                      `json:"protocol"`
-	Ruleid            string                                                      `json:"ruleid"`
-	Securitygroupname string                                                      `json:"securitygroupname"`
-	Startport         int                                                         `json:"startport"`
-	Tags              []DestroyVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type DestroyVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type DestroyVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                     `json:"account"`
-	Cidr              string                                                     `json:"cidr"`
-	Endport           int                                                        `json:"endport"`
-	Icmpcode          int                                                        `json:"icmpcode"`
-	Icmptype          int                                                        `json:"icmptype"`
-	Protocol          string                                                     `json:"protocol"`
-	Ruleid            string                                                     `json:"ruleid"`
-	Securitygroupname string                                                     `json:"securitygroupname"`
-	Startport         int                                                        `json:"startport"`
-	Tags              []DestroyVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type DestroyVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type DestroyVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type DestroyVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type DestroyVirtualMachineResponseAffinitygroup struct {
@@ -1907,9 +1596,6 @@ func (p *ListVirtualMachinesParams) toURLValues() url.Values {
 	if v, found := p.p["hostid"]; found {
 		u.Set("hostid", v.(string))
 	}
-	if v, found := p.p["hostid"]; found {
-		u.Set("hostid", v.(string))
-	}
 	if v, found := p.p["hypervisor"]; found {
 		u.Set("hypervisor", v.(string))
 	}
@@ -1954,9 +1640,6 @@ func (p *ListVirtualMachinesParams) toURLValues() url.Values {
 	if v, found := p.p["podid"]; found {
 		u.Set("podid", v.(string))
 	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
 	}
@@ -1965,9 +1648,6 @@ func (p *ListVirtualMachinesParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["state"]; found {
 		u.Set("state", v.(string))
-	}
-	if v, found := p.p["storageid"]; found {
-		u.Set("storageid", v.(string))
 	}
 	if v, found := p.p["storageid"]; found {
 		u.Set("storageid", v.(string))
@@ -2386,7 +2066,7 @@ type VirtualMachine struct {
 	Name                  string                        `json:"name"`
 	Networkkbsread        int64                         `json:"networkkbsread"`
 	Networkkbswrite       int64                         `json:"networkkbswrite"`
-	Nic                   []VirtualMachineNic           `json:"nic"`
+	Nic                   []Nic                         `json:"nic"`
 	Ostypeid              int64                         `json:"ostypeid"`
 	Password              string                        `json:"password"`
 	Passwordenabled       bool                          `json:"passwordenabled"`
@@ -2412,110 +2092,32 @@ type VirtualMachine struct {
 }
 
 type VirtualMachineSecuritygroup struct {
-	Account             string                                   `json:"account"`
-	Description         string                                   `json:"description"`
-	Domain              string                                   `json:"domain"`
-	Domainid            string                                   `json:"domainid"`
-	Egressrule          []VirtualMachineSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                   `json:"id"`
-	Ingressrule         []VirtualMachineSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                   `json:"name"`
-	Project             string                                   `json:"project"`
-	Projectid           string                                   `json:"projectid"`
-	Tags                []VirtualMachineSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                      `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                            `json:"virtualmachineids"`
+	Account             string                            `json:"account"`
+	Description         string                            `json:"description"`
+	Domain              string                            `json:"domain"`
+	Domainid            string                            `json:"domainid"`
+	Egressrule          []VirtualMachineSecuritygroupRule `json:"egressrule"`
+	Id                  string                            `json:"id"`
+	Ingressrule         []VirtualMachineSecuritygroupRule `json:"ingressrule"`
+	Name                string                            `json:"name"`
+	Project             string                            `json:"project"`
+	Projectid           string                            `json:"projectid"`
+	Tags                []Tags                            `json:"tags"`
+	Virtualmachinecount int                               `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                     `json:"virtualmachineids"`
 }
 
-type VirtualMachineSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type VirtualMachineSecuritygroupIngressrule struct {
-	Account           string                                       `json:"account"`
-	Cidr              string                                       `json:"cidr"`
-	Endport           int                                          `json:"endport"`
-	Icmpcode          int                                          `json:"icmpcode"`
-	Icmptype          int                                          `json:"icmptype"`
-	Protocol          string                                       `json:"protocol"`
-	Ruleid            string                                       `json:"ruleid"`
-	Securitygroupname string                                       `json:"securitygroupname"`
-	Startport         int                                          `json:"startport"`
-	Tags              []VirtualMachineSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type VirtualMachineSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type VirtualMachineSecuritygroupEgressrule struct {
-	Account           string                                      `json:"account"`
-	Cidr              string                                      `json:"cidr"`
-	Endport           int                                         `json:"endport"`
-	Icmpcode          int                                         `json:"icmpcode"`
-	Icmptype          int                                         `json:"icmptype"`
-	Protocol          string                                      `json:"protocol"`
-	Ruleid            string                                      `json:"ruleid"`
-	Securitygroupname string                                      `json:"securitygroupname"`
-	Startport         int                                         `json:"startport"`
-	Tags              []VirtualMachineSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type VirtualMachineSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type VirtualMachineNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type VirtualMachineSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type VirtualMachineAffinitygroup struct {
@@ -2661,7 +2263,7 @@ type MigrateVirtualMachineResponse struct {
 	Name                  string                                       `json:"name"`
 	Networkkbsread        int64                                        `json:"networkkbsread"`
 	Networkkbswrite       int64                                        `json:"networkkbswrite"`
-	Nic                   []MigrateVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                        `json:"nic"`
 	Ostypeid              int64                                        `json:"ostypeid"`
 	Password              string                                       `json:"password"`
 	Passwordenabled       bool                                         `json:"passwordenabled"`
@@ -2687,110 +2289,32 @@ type MigrateVirtualMachineResponse struct {
 }
 
 type MigrateVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                  `json:"account"`
-	Description         string                                                  `json:"description"`
-	Domain              string                                                  `json:"domain"`
-	Domainid            string                                                  `json:"domainid"`
-	Egressrule          []MigrateVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                  `json:"id"`
-	Ingressrule         []MigrateVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                  `json:"name"`
-	Project             string                                                  `json:"project"`
-	Projectid           string                                                  `json:"projectid"`
-	Tags                []MigrateVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                     `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                           `json:"virtualmachineids"`
+	Account             string                                           `json:"account"`
+	Description         string                                           `json:"description"`
+	Domain              string                                           `json:"domain"`
+	Domainid            string                                           `json:"domainid"`
+	Egressrule          []MigrateVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                           `json:"id"`
+	Ingressrule         []MigrateVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                           `json:"name"`
+	Project             string                                           `json:"project"`
+	Projectid           string                                           `json:"projectid"`
+	Tags                []Tags                                           `json:"tags"`
+	Virtualmachinecount int                                              `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                    `json:"virtualmachineids"`
 }
 
-type MigrateVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type MigrateVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                      `json:"account"`
-	Cidr              string                                                      `json:"cidr"`
-	Endport           int                                                         `json:"endport"`
-	Icmpcode          int                                                         `json:"icmpcode"`
-	Icmptype          int                                                         `json:"icmptype"`
-	Protocol          string                                                      `json:"protocol"`
-	Ruleid            string                                                      `json:"ruleid"`
-	Securitygroupname string                                                      `json:"securitygroupname"`
-	Startport         int                                                         `json:"startport"`
-	Tags              []MigrateVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type MigrateVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type MigrateVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                     `json:"account"`
-	Cidr              string                                                     `json:"cidr"`
-	Endport           int                                                        `json:"endport"`
-	Icmpcode          int                                                        `json:"icmpcode"`
-	Icmptype          int                                                        `json:"icmptype"`
-	Protocol          string                                                     `json:"protocol"`
-	Ruleid            string                                                     `json:"ruleid"`
-	Securitygroupname string                                                     `json:"securitygroupname"`
-	Startport         int                                                        `json:"startport"`
-	Tags              []MigrateVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type MigrateVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type MigrateVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type MigrateVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type MigrateVirtualMachineResponseAffinitygroup struct {
@@ -2942,7 +2466,7 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 	Name                  string                                                 `json:"name"`
 	Networkkbsread        int64                                                  `json:"networkkbsread"`
 	Networkkbswrite       int64                                                  `json:"networkkbswrite"`
-	Nic                   []MigrateVirtualMachineWithVolumeResponseNic           `json:"nic"`
+	Nic                   []Nic                                                  `json:"nic"`
 	Ostypeid              int64                                                  `json:"ostypeid"`
 	Password              string                                                 `json:"password"`
 	Passwordenabled       bool                                                   `json:"passwordenabled"`
@@ -2968,110 +2492,32 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 }
 
 type MigrateVirtualMachineWithVolumeResponseSecuritygroup struct {
-	Account             string                                                            `json:"account"`
-	Description         string                                                            `json:"description"`
-	Domain              string                                                            `json:"domain"`
-	Domainid            string                                                            `json:"domainid"`
-	Egressrule          []MigrateVirtualMachineWithVolumeResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                            `json:"id"`
-	Ingressrule         []MigrateVirtualMachineWithVolumeResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                            `json:"name"`
-	Project             string                                                            `json:"project"`
-	Projectid           string                                                            `json:"projectid"`
-	Tags                []MigrateVirtualMachineWithVolumeResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                               `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                                     `json:"virtualmachineids"`
+	Account             string                                                     `json:"account"`
+	Description         string                                                     `json:"description"`
+	Domain              string                                                     `json:"domain"`
+	Domainid            string                                                     `json:"domainid"`
+	Egressrule          []MigrateVirtualMachineWithVolumeResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                                     `json:"id"`
+	Ingressrule         []MigrateVirtualMachineWithVolumeResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                                     `json:"name"`
+	Project             string                                                     `json:"project"`
+	Projectid           string                                                     `json:"projectid"`
+	Tags                []Tags                                                     `json:"tags"`
+	Virtualmachinecount int                                                        `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                              `json:"virtualmachineids"`
 }
 
-type MigrateVirtualMachineWithVolumeResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type MigrateVirtualMachineWithVolumeResponseSecuritygroupIngressrule struct {
-	Account           string                                                                `json:"account"`
-	Cidr              string                                                                `json:"cidr"`
-	Endport           int                                                                   `json:"endport"`
-	Icmpcode          int                                                                   `json:"icmpcode"`
-	Icmptype          int                                                                   `json:"icmptype"`
-	Protocol          string                                                                `json:"protocol"`
-	Ruleid            string                                                                `json:"ruleid"`
-	Securitygroupname string                                                                `json:"securitygroupname"`
-	Startport         int                                                                   `json:"startport"`
-	Tags              []MigrateVirtualMachineWithVolumeResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type MigrateVirtualMachineWithVolumeResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type MigrateVirtualMachineWithVolumeResponseSecuritygroupEgressrule struct {
-	Account           string                                                               `json:"account"`
-	Cidr              string                                                               `json:"cidr"`
-	Endport           int                                                                  `json:"endport"`
-	Icmpcode          int                                                                  `json:"icmpcode"`
-	Icmptype          int                                                                  `json:"icmptype"`
-	Protocol          string                                                               `json:"protocol"`
-	Ruleid            string                                                               `json:"ruleid"`
-	Securitygroupname string                                                               `json:"securitygroupname"`
-	Startport         int                                                                  `json:"startport"`
-	Tags              []MigrateVirtualMachineWithVolumeResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type MigrateVirtualMachineWithVolumeResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type MigrateVirtualMachineWithVolumeResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type MigrateVirtualMachineWithVolumeResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type MigrateVirtualMachineWithVolumeResponseAffinitygroup struct {
@@ -3195,7 +2641,7 @@ type RebootVirtualMachineResponse struct {
 	Name                  string                                      `json:"name"`
 	Networkkbsread        int64                                       `json:"networkkbsread"`
 	Networkkbswrite       int64                                       `json:"networkkbswrite"`
-	Nic                   []RebootVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                       `json:"nic"`
 	Ostypeid              int64                                       `json:"ostypeid"`
 	Password              string                                      `json:"password"`
 	Passwordenabled       bool                                        `json:"passwordenabled"`
@@ -3221,110 +2667,32 @@ type RebootVirtualMachineResponse struct {
 }
 
 type RebootVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                 `json:"account"`
-	Description         string                                                 `json:"description"`
-	Domain              string                                                 `json:"domain"`
-	Domainid            string                                                 `json:"domainid"`
-	Egressrule          []RebootVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                 `json:"id"`
-	Ingressrule         []RebootVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                 `json:"name"`
-	Project             string                                                 `json:"project"`
-	Projectid           string                                                 `json:"projectid"`
-	Tags                []RebootVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                    `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                          `json:"virtualmachineids"`
+	Account             string                                          `json:"account"`
+	Description         string                                          `json:"description"`
+	Domain              string                                          `json:"domain"`
+	Domainid            string                                          `json:"domainid"`
+	Egressrule          []RebootVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                          `json:"id"`
+	Ingressrule         []RebootVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                          `json:"name"`
+	Project             string                                          `json:"project"`
+	Projectid           string                                          `json:"projectid"`
+	Tags                []Tags                                          `json:"tags"`
+	Virtualmachinecount int                                             `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                   `json:"virtualmachineids"`
 }
 
-type RebootVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RebootVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                     `json:"account"`
-	Cidr              string                                                     `json:"cidr"`
-	Endport           int                                                        `json:"endport"`
-	Icmpcode          int                                                        `json:"icmpcode"`
-	Icmptype          int                                                        `json:"icmptype"`
-	Protocol          string                                                     `json:"protocol"`
-	Ruleid            string                                                     `json:"ruleid"`
-	Securitygroupname string                                                     `json:"securitygroupname"`
-	Startport         int                                                        `json:"startport"`
-	Tags              []RebootVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type RebootVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RebootVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                    `json:"account"`
-	Cidr              string                                                    `json:"cidr"`
-	Endport           int                                                       `json:"endport"`
-	Icmpcode          int                                                       `json:"icmpcode"`
-	Icmptype          int                                                       `json:"icmptype"`
-	Protocol          string                                                    `json:"protocol"`
-	Ruleid            string                                                    `json:"ruleid"`
-	Securitygroupname string                                                    `json:"securitygroupname"`
-	Startport         int                                                       `json:"startport"`
-	Tags              []RebootVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type RebootVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RebootVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type RebootVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type RebootVirtualMachineResponseAffinitygroup struct {
@@ -3427,7 +2795,7 @@ type RecoverVirtualMachineResponse struct {
 	Name                  string                                       `json:"name"`
 	Networkkbsread        int64                                        `json:"networkkbsread"`
 	Networkkbswrite       int64                                        `json:"networkkbswrite"`
-	Nic                   []RecoverVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                        `json:"nic"`
 	Ostypeid              int64                                        `json:"ostypeid"`
 	Password              string                                       `json:"password"`
 	Passwordenabled       bool                                         `json:"passwordenabled"`
@@ -3453,110 +2821,32 @@ type RecoverVirtualMachineResponse struct {
 }
 
 type RecoverVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                  `json:"account"`
-	Description         string                                                  `json:"description"`
-	Domain              string                                                  `json:"domain"`
-	Domainid            string                                                  `json:"domainid"`
-	Egressrule          []RecoverVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                  `json:"id"`
-	Ingressrule         []RecoverVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                  `json:"name"`
-	Project             string                                                  `json:"project"`
-	Projectid           string                                                  `json:"projectid"`
-	Tags                []RecoverVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                     `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                           `json:"virtualmachineids"`
+	Account             string                                           `json:"account"`
+	Description         string                                           `json:"description"`
+	Domain              string                                           `json:"domain"`
+	Domainid            string                                           `json:"domainid"`
+	Egressrule          []RecoverVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                           `json:"id"`
+	Ingressrule         []RecoverVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                           `json:"name"`
+	Project             string                                           `json:"project"`
+	Projectid           string                                           `json:"projectid"`
+	Tags                []Tags                                           `json:"tags"`
+	Virtualmachinecount int                                              `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                    `json:"virtualmachineids"`
 }
 
-type RecoverVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RecoverVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                      `json:"account"`
-	Cidr              string                                                      `json:"cidr"`
-	Endport           int                                                         `json:"endport"`
-	Icmpcode          int                                                         `json:"icmpcode"`
-	Icmptype          int                                                         `json:"icmptype"`
-	Protocol          string                                                      `json:"protocol"`
-	Ruleid            string                                                      `json:"ruleid"`
-	Securitygroupname string                                                      `json:"securitygroupname"`
-	Startport         int                                                         `json:"startport"`
-	Tags              []RecoverVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type RecoverVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RecoverVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                     `json:"account"`
-	Cidr              string                                                     `json:"cidr"`
-	Endport           int                                                        `json:"endport"`
-	Icmpcode          int                                                        `json:"icmpcode"`
-	Icmptype          int                                                        `json:"icmptype"`
-	Protocol          string                                                     `json:"protocol"`
-	Ruleid            string                                                     `json:"ruleid"`
-	Securitygroupname string                                                     `json:"securitygroupname"`
-	Startport         int                                                        `json:"startport"`
-	Tags              []RecoverVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type RecoverVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RecoverVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type RecoverVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type RecoverVirtualMachineResponseAffinitygroup struct {
@@ -3692,7 +2982,7 @@ type RemoveNicFromVirtualMachineResponse struct {
 	Name                  string                                             `json:"name"`
 	Networkkbsread        int64                                              `json:"networkkbsread"`
 	Networkkbswrite       int64                                              `json:"networkkbswrite"`
-	Nic                   []RemoveNicFromVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                              `json:"nic"`
 	Ostypeid              int64                                              `json:"ostypeid"`
 	Password              string                                             `json:"password"`
 	Passwordenabled       bool                                               `json:"passwordenabled"`
@@ -3718,110 +3008,32 @@ type RemoveNicFromVirtualMachineResponse struct {
 }
 
 type RemoveNicFromVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                        `json:"account"`
-	Description         string                                                        `json:"description"`
-	Domain              string                                                        `json:"domain"`
-	Domainid            string                                                        `json:"domainid"`
-	Egressrule          []RemoveNicFromVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                        `json:"id"`
-	Ingressrule         []RemoveNicFromVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                        `json:"name"`
-	Project             string                                                        `json:"project"`
-	Projectid           string                                                        `json:"projectid"`
-	Tags                []RemoveNicFromVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                           `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                                 `json:"virtualmachineids"`
+	Account             string                                                 `json:"account"`
+	Description         string                                                 `json:"description"`
+	Domain              string                                                 `json:"domain"`
+	Domainid            string                                                 `json:"domainid"`
+	Egressrule          []RemoveNicFromVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                                 `json:"id"`
+	Ingressrule         []RemoveNicFromVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                                 `json:"name"`
+	Project             string                                                 `json:"project"`
+	Projectid           string                                                 `json:"projectid"`
+	Tags                []Tags                                                 `json:"tags"`
+	Virtualmachinecount int                                                    `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                          `json:"virtualmachineids"`
 }
 
-type RemoveNicFromVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RemoveNicFromVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                            `json:"account"`
-	Cidr              string                                                            `json:"cidr"`
-	Endport           int                                                               `json:"endport"`
-	Icmpcode          int                                                               `json:"icmpcode"`
-	Icmptype          int                                                               `json:"icmptype"`
-	Protocol          string                                                            `json:"protocol"`
-	Ruleid            string                                                            `json:"ruleid"`
-	Securitygroupname string                                                            `json:"securitygroupname"`
-	Startport         int                                                               `json:"startport"`
-	Tags              []RemoveNicFromVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type RemoveNicFromVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RemoveNicFromVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                           `json:"account"`
-	Cidr              string                                                           `json:"cidr"`
-	Endport           int                                                              `json:"endport"`
-	Icmpcode          int                                                              `json:"icmpcode"`
-	Icmptype          int                                                              `json:"icmptype"`
-	Protocol          string                                                           `json:"protocol"`
-	Ruleid            string                                                           `json:"ruleid"`
-	Securitygroupname string                                                           `json:"securitygroupname"`
-	Startport         int                                                              `json:"startport"`
-	Tags              []RemoveNicFromVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type RemoveNicFromVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RemoveNicFromVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type RemoveNicFromVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type RemoveNicFromVirtualMachineResponseAffinitygroup struct {
@@ -3945,7 +3157,7 @@ type ResetPasswordForVirtualMachineResponse struct {
 	Name                  string                                                `json:"name"`
 	Networkkbsread        int64                                                 `json:"networkkbsread"`
 	Networkkbswrite       int64                                                 `json:"networkkbswrite"`
-	Nic                   []ResetPasswordForVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                                 `json:"nic"`
 	Ostypeid              int64                                                 `json:"ostypeid"`
 	Password              string                                                `json:"password"`
 	Passwordenabled       bool                                                  `json:"passwordenabled"`
@@ -3971,110 +3183,32 @@ type ResetPasswordForVirtualMachineResponse struct {
 }
 
 type ResetPasswordForVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                           `json:"account"`
-	Description         string                                                           `json:"description"`
-	Domain              string                                                           `json:"domain"`
-	Domainid            string                                                           `json:"domainid"`
-	Egressrule          []ResetPasswordForVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                           `json:"id"`
-	Ingressrule         []ResetPasswordForVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                           `json:"name"`
-	Project             string                                                           `json:"project"`
-	Projectid           string                                                           `json:"projectid"`
-	Tags                []ResetPasswordForVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                              `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                                    `json:"virtualmachineids"`
+	Account             string                                                    `json:"account"`
+	Description         string                                                    `json:"description"`
+	Domain              string                                                    `json:"domain"`
+	Domainid            string                                                    `json:"domainid"`
+	Egressrule          []ResetPasswordForVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                                    `json:"id"`
+	Ingressrule         []ResetPasswordForVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                                    `json:"name"`
+	Project             string                                                    `json:"project"`
+	Projectid           string                                                    `json:"projectid"`
+	Tags                []Tags                                                    `json:"tags"`
+	Virtualmachinecount int                                                       `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                             `json:"virtualmachineids"`
 }
 
-type ResetPasswordForVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type ResetPasswordForVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                               `json:"account"`
-	Cidr              string                                                               `json:"cidr"`
-	Endport           int                                                                  `json:"endport"`
-	Icmpcode          int                                                                  `json:"icmpcode"`
-	Icmptype          int                                                                  `json:"icmptype"`
-	Protocol          string                                                               `json:"protocol"`
-	Ruleid            string                                                               `json:"ruleid"`
-	Securitygroupname string                                                               `json:"securitygroupname"`
-	Startport         int                                                                  `json:"startport"`
-	Tags              []ResetPasswordForVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type ResetPasswordForVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type ResetPasswordForVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                              `json:"account"`
-	Cidr              string                                                              `json:"cidr"`
-	Endport           int                                                                 `json:"endport"`
-	Icmpcode          int                                                                 `json:"icmpcode"`
-	Icmptype          int                                                                 `json:"icmptype"`
-	Protocol          string                                                              `json:"protocol"`
-	Ruleid            string                                                              `json:"ruleid"`
-	Securitygroupname string                                                              `json:"securitygroupname"`
-	Startport         int                                                                 `json:"startport"`
-	Tags              []ResetPasswordForVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type ResetPasswordForVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type ResetPasswordForVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type ResetPasswordForVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type ResetPasswordForVirtualMachineResponseAffinitygroup struct {
@@ -4209,7 +3343,7 @@ type RestoreVirtualMachineResponse struct {
 	Name                  string                                       `json:"name"`
 	Networkkbsread        int64                                        `json:"networkkbsread"`
 	Networkkbswrite       int64                                        `json:"networkkbswrite"`
-	Nic                   []RestoreVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                        `json:"nic"`
 	Ostypeid              int64                                        `json:"ostypeid"`
 	Password              string                                       `json:"password"`
 	Passwordenabled       bool                                         `json:"passwordenabled"`
@@ -4235,110 +3369,32 @@ type RestoreVirtualMachineResponse struct {
 }
 
 type RestoreVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                  `json:"account"`
-	Description         string                                                  `json:"description"`
-	Domain              string                                                  `json:"domain"`
-	Domainid            string                                                  `json:"domainid"`
-	Egressrule          []RestoreVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                  `json:"id"`
-	Ingressrule         []RestoreVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                  `json:"name"`
-	Project             string                                                  `json:"project"`
-	Projectid           string                                                  `json:"projectid"`
-	Tags                []RestoreVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                     `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                           `json:"virtualmachineids"`
+	Account             string                                           `json:"account"`
+	Description         string                                           `json:"description"`
+	Domain              string                                           `json:"domain"`
+	Domainid            string                                           `json:"domainid"`
+	Egressrule          []RestoreVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                           `json:"id"`
+	Ingressrule         []RestoreVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                           `json:"name"`
+	Project             string                                           `json:"project"`
+	Projectid           string                                           `json:"projectid"`
+	Tags                []Tags                                           `json:"tags"`
+	Virtualmachinecount int                                              `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                    `json:"virtualmachineids"`
 }
 
-type RestoreVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RestoreVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                      `json:"account"`
-	Cidr              string                                                      `json:"cidr"`
-	Endport           int                                                         `json:"endport"`
-	Icmpcode          int                                                         `json:"icmpcode"`
-	Icmptype          int                                                         `json:"icmptype"`
-	Protocol          string                                                      `json:"protocol"`
-	Ruleid            string                                                      `json:"ruleid"`
-	Securitygroupname string                                                      `json:"securitygroupname"`
-	Startport         int                                                         `json:"startport"`
-	Tags              []RestoreVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type RestoreVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RestoreVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                     `json:"account"`
-	Cidr              string                                                     `json:"cidr"`
-	Endport           int                                                        `json:"endport"`
-	Icmpcode          int                                                        `json:"icmpcode"`
-	Icmptype          int                                                        `json:"icmptype"`
-	Protocol          string                                                     `json:"protocol"`
-	Ruleid            string                                                     `json:"ruleid"`
-	Securitygroupname string                                                     `json:"securitygroupname"`
-	Startport         int                                                        `json:"startport"`
-	Tags              []RestoreVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type RestoreVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type RestoreVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type RestoreVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type RestoreVirtualMachineResponseAffinitygroup struct {
@@ -4579,7 +3635,7 @@ type StartVirtualMachineResponse struct {
 	Name                  string                                     `json:"name"`
 	Networkkbsread        int64                                      `json:"networkkbsread"`
 	Networkkbswrite       int64                                      `json:"networkkbswrite"`
-	Nic                   []StartVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                      `json:"nic"`
 	Ostypeid              int64                                      `json:"ostypeid"`
 	Password              string                                     `json:"password"`
 	Passwordenabled       bool                                       `json:"passwordenabled"`
@@ -4605,110 +3661,32 @@ type StartVirtualMachineResponse struct {
 }
 
 type StartVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                `json:"account"`
-	Description         string                                                `json:"description"`
-	Domain              string                                                `json:"domain"`
-	Domainid            string                                                `json:"domainid"`
-	Egressrule          []StartVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                `json:"id"`
-	Ingressrule         []StartVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                `json:"name"`
-	Project             string                                                `json:"project"`
-	Projectid           string                                                `json:"projectid"`
-	Tags                []StartVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                   `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                         `json:"virtualmachineids"`
+	Account             string                                         `json:"account"`
+	Description         string                                         `json:"description"`
+	Domain              string                                         `json:"domain"`
+	Domainid            string                                         `json:"domainid"`
+	Egressrule          []StartVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                         `json:"id"`
+	Ingressrule         []StartVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                         `json:"name"`
+	Project             string                                         `json:"project"`
+	Projectid           string                                         `json:"projectid"`
+	Tags                []Tags                                         `json:"tags"`
+	Virtualmachinecount int                                            `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                  `json:"virtualmachineids"`
 }
 
-type StartVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type StartVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                    `json:"account"`
-	Cidr              string                                                    `json:"cidr"`
-	Endport           int                                                       `json:"endport"`
-	Icmpcode          int                                                       `json:"icmpcode"`
-	Icmptype          int                                                       `json:"icmptype"`
-	Protocol          string                                                    `json:"protocol"`
-	Ruleid            string                                                    `json:"ruleid"`
-	Securitygroupname string                                                    `json:"securitygroupname"`
-	Startport         int                                                       `json:"startport"`
-	Tags              []StartVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type StartVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type StartVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                   `json:"account"`
-	Cidr              string                                                   `json:"cidr"`
-	Endport           int                                                      `json:"endport"`
-	Icmpcode          int                                                      `json:"icmpcode"`
-	Icmptype          int                                                      `json:"icmptype"`
-	Protocol          string                                                   `json:"protocol"`
-	Ruleid            string                                                   `json:"ruleid"`
-	Securitygroupname string                                                   `json:"securitygroupname"`
-	Startport         int                                                      `json:"startport"`
-	Tags              []StartVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type StartVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type StartVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type StartVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type StartVirtualMachineResponseAffinitygroup struct {
@@ -4844,7 +3822,7 @@ type StopVirtualMachineResponse struct {
 	Name                  string                                    `json:"name"`
 	Networkkbsread        int64                                     `json:"networkkbsread"`
 	Networkkbswrite       int64                                     `json:"networkkbswrite"`
-	Nic                   []StopVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                     `json:"nic"`
 	Ostypeid              int64                                     `json:"ostypeid"`
 	Password              string                                    `json:"password"`
 	Passwordenabled       bool                                      `json:"passwordenabled"`
@@ -4870,110 +3848,32 @@ type StopVirtualMachineResponse struct {
 }
 
 type StopVirtualMachineResponseSecuritygroup struct {
-	Account             string                                               `json:"account"`
-	Description         string                                               `json:"description"`
-	Domain              string                                               `json:"domain"`
-	Domainid            string                                               `json:"domainid"`
-	Egressrule          []StopVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                               `json:"id"`
-	Ingressrule         []StopVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                               `json:"name"`
-	Project             string                                               `json:"project"`
-	Projectid           string                                               `json:"projectid"`
-	Tags                []StopVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                  `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                        `json:"virtualmachineids"`
+	Account             string                                        `json:"account"`
+	Description         string                                        `json:"description"`
+	Domain              string                                        `json:"domain"`
+	Domainid            string                                        `json:"domainid"`
+	Egressrule          []StopVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                        `json:"id"`
+	Ingressrule         []StopVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                        `json:"name"`
+	Project             string                                        `json:"project"`
+	Projectid           string                                        `json:"projectid"`
+	Tags                []Tags                                        `json:"tags"`
+	Virtualmachinecount int                                           `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                 `json:"virtualmachineids"`
 }
 
-type StopVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type StopVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                   `json:"account"`
-	Cidr              string                                                   `json:"cidr"`
-	Endport           int                                                      `json:"endport"`
-	Icmpcode          int                                                      `json:"icmpcode"`
-	Icmptype          int                                                      `json:"icmptype"`
-	Protocol          string                                                   `json:"protocol"`
-	Ruleid            string                                                   `json:"ruleid"`
-	Securitygroupname string                                                   `json:"securitygroupname"`
-	Startport         int                                                      `json:"startport"`
-	Tags              []StopVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type StopVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type StopVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                  `json:"account"`
-	Cidr              string                                                  `json:"cidr"`
-	Endport           int                                                     `json:"endport"`
-	Icmpcode          int                                                     `json:"icmpcode"`
-	Icmptype          int                                                     `json:"icmptype"`
-	Protocol          string                                                  `json:"protocol"`
-	Ruleid            string                                                  `json:"ruleid"`
-	Securitygroupname string                                                  `json:"securitygroupname"`
-	Startport         int                                                     `json:"startport"`
-	Tags              []StopVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type StopVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type StopVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type StopVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type StopVirtualMachineResponseAffinitygroup struct {
@@ -5109,7 +4009,7 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 	Name                  string                                                   `json:"name"`
 	Networkkbsread        int64                                                    `json:"networkkbsread"`
 	Networkkbswrite       int64                                                    `json:"networkkbswrite"`
-	Nic                   []UpdateDefaultNicForVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                                    `json:"nic"`
 	Ostypeid              int64                                                    `json:"ostypeid"`
 	Password              string                                                   `json:"password"`
 	Passwordenabled       bool                                                     `json:"passwordenabled"`
@@ -5135,110 +4035,32 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 }
 
 type UpdateDefaultNicForVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                              `json:"account"`
-	Description         string                                                              `json:"description"`
-	Domain              string                                                              `json:"domain"`
-	Domainid            string                                                              `json:"domainid"`
-	Egressrule          []UpdateDefaultNicForVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                              `json:"id"`
-	Ingressrule         []UpdateDefaultNicForVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                              `json:"name"`
-	Project             string                                                              `json:"project"`
-	Projectid           string                                                              `json:"projectid"`
-	Tags                []UpdateDefaultNicForVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                                 `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                                       `json:"virtualmachineids"`
+	Account             string                                                       `json:"account"`
+	Description         string                                                       `json:"description"`
+	Domain              string                                                       `json:"domain"`
+	Domainid            string                                                       `json:"domainid"`
+	Egressrule          []UpdateDefaultNicForVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                                       `json:"id"`
+	Ingressrule         []UpdateDefaultNicForVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                                       `json:"name"`
+	Project             string                                                       `json:"project"`
+	Projectid           string                                                       `json:"projectid"`
+	Tags                []Tags                                                       `json:"tags"`
+	Virtualmachinecount int                                                          `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                                `json:"virtualmachineids"`
 }
 
-type UpdateDefaultNicForVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type UpdateDefaultNicForVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                                  `json:"account"`
-	Cidr              string                                                                  `json:"cidr"`
-	Endport           int                                                                     `json:"endport"`
-	Icmpcode          int                                                                     `json:"icmpcode"`
-	Icmptype          int                                                                     `json:"icmptype"`
-	Protocol          string                                                                  `json:"protocol"`
-	Ruleid            string                                                                  `json:"ruleid"`
-	Securitygroupname string                                                                  `json:"securitygroupname"`
-	Startport         int                                                                     `json:"startport"`
-	Tags              []UpdateDefaultNicForVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type UpdateDefaultNicForVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type UpdateDefaultNicForVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                                 `json:"account"`
-	Cidr              string                                                                 `json:"cidr"`
-	Endport           int                                                                    `json:"endport"`
-	Icmpcode          int                                                                    `json:"icmpcode"`
-	Icmptype          int                                                                    `json:"icmptype"`
-	Protocol          string                                                                 `json:"protocol"`
-	Ruleid            string                                                                 `json:"ruleid"`
-	Securitygroupname string                                                                 `json:"securitygroupname"`
-	Startport         int                                                                    `json:"startport"`
-	Tags              []UpdateDefaultNicForVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type UpdateDefaultNicForVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type UpdateDefaultNicForVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type UpdateDefaultNicForVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type UpdateDefaultNicForVirtualMachineResponseAffinitygroup struct {
@@ -5263,6 +4085,10 @@ func (p *UpdateVirtualMachineParams) toURLValues() url.Values {
 	if p.p == nil {
 		return u
 	}
+	if v, found := p.p["cleanupdetails"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("cleanupdetails", vv)
+	}
 	if v, found := p.p["customid"]; found {
 		u.Set("customid", v.(string))
 	}
@@ -5270,6 +4096,14 @@ func (p *UpdateVirtualMachineParams) toURLValues() url.Values {
 		i := 0
 		for k, vv := range v.(map[string]string) {
 			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
+			i++
+		}
+	}
+	if v, found := p.p["dhcpoptionsnetworklist"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("dhcpoptionsnetworklist[%d].key", i), k)
+			u.Set(fmt.Sprintf("dhcpoptionsnetworklist[%d].value", i), vv)
 			i++
 		}
 	}
@@ -5317,6 +4151,14 @@ func (p *UpdateVirtualMachineParams) toURLValues() url.Values {
 	return u
 }
 
+func (p *UpdateVirtualMachineParams) SetCleanupdetails(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["cleanupdetails"] = v
+	return
+}
+
 func (p *UpdateVirtualMachineParams) SetCustomid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -5330,6 +4172,14 @@ func (p *UpdateVirtualMachineParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
+	return
+}
+
+func (p *UpdateVirtualMachineParams) SetDhcpoptionsnetworklist(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dhcpoptionsnetworklist"] = v
 	return
 }
 
@@ -5493,7 +4343,7 @@ type UpdateVirtualMachineResponse struct {
 	Name                  string                                      `json:"name"`
 	Networkkbsread        int64                                       `json:"networkkbsread"`
 	Networkkbswrite       int64                                       `json:"networkkbswrite"`
-	Nic                   []UpdateVirtualMachineResponseNic           `json:"nic"`
+	Nic                   []Nic                                       `json:"nic"`
 	Ostypeid              int64                                       `json:"ostypeid"`
 	Password              string                                      `json:"password"`
 	Passwordenabled       bool                                        `json:"passwordenabled"`
@@ -5519,110 +4369,32 @@ type UpdateVirtualMachineResponse struct {
 }
 
 type UpdateVirtualMachineResponseSecuritygroup struct {
-	Account             string                                                 `json:"account"`
-	Description         string                                                 `json:"description"`
-	Domain              string                                                 `json:"domain"`
-	Domainid            string                                                 `json:"domainid"`
-	Egressrule          []UpdateVirtualMachineResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                 `json:"id"`
-	Ingressrule         []UpdateVirtualMachineResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                 `json:"name"`
-	Project             string                                                 `json:"project"`
-	Projectid           string                                                 `json:"projectid"`
-	Tags                []UpdateVirtualMachineResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                    `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                          `json:"virtualmachineids"`
+	Account             string                                          `json:"account"`
+	Description         string                                          `json:"description"`
+	Domain              string                                          `json:"domain"`
+	Domainid            string                                          `json:"domainid"`
+	Egressrule          []UpdateVirtualMachineResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                          `json:"id"`
+	Ingressrule         []UpdateVirtualMachineResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                          `json:"name"`
+	Project             string                                          `json:"project"`
+	Projectid           string                                          `json:"projectid"`
+	Tags                []Tags                                          `json:"tags"`
+	Virtualmachinecount int                                             `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                   `json:"virtualmachineids"`
 }
 
-type UpdateVirtualMachineResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type UpdateVirtualMachineResponseSecuritygroupIngressrule struct {
-	Account           string                                                     `json:"account"`
-	Cidr              string                                                     `json:"cidr"`
-	Endport           int                                                        `json:"endport"`
-	Icmpcode          int                                                        `json:"icmpcode"`
-	Icmptype          int                                                        `json:"icmptype"`
-	Protocol          string                                                     `json:"protocol"`
-	Ruleid            string                                                     `json:"ruleid"`
-	Securitygroupname string                                                     `json:"securitygroupname"`
-	Startport         int                                                        `json:"startport"`
-	Tags              []UpdateVirtualMachineResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type UpdateVirtualMachineResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type UpdateVirtualMachineResponseSecuritygroupEgressrule struct {
-	Account           string                                                    `json:"account"`
-	Cidr              string                                                    `json:"cidr"`
-	Endport           int                                                       `json:"endport"`
-	Icmpcode          int                                                       `json:"icmpcode"`
-	Icmptype          int                                                       `json:"icmptype"`
-	Protocol          string                                                    `json:"protocol"`
-	Ruleid            string                                                    `json:"ruleid"`
-	Securitygroupname string                                                    `json:"securitygroupname"`
-	Startport         int                                                       `json:"startport"`
-	Tags              []UpdateVirtualMachineResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type UpdateVirtualMachineResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type UpdateVirtualMachineResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type UpdateVirtualMachineResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type UpdateVirtualMachineResponseAffinitygroup struct {

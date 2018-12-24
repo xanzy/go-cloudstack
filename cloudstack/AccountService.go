@@ -398,6 +398,7 @@ type CreateAccountResponseUser struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type DeleteAccountParams struct {
@@ -730,6 +731,7 @@ type DisableAccountResponseUser struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type EnableAccountParams struct {
@@ -880,6 +882,7 @@ type EnableAccountResponseUser struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type GetSolidFireAccountIdParams struct {
@@ -1275,6 +1278,7 @@ type AccountUser struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type ListProjectAccountsParams struct {
@@ -1424,52 +1428,53 @@ type ListProjectAccountsResponse struct {
 }
 
 type ProjectAccount struct {
-	Account                   string               `json:"account"`
-	Cpuavailable              string               `json:"cpuavailable"`
-	Cpulimit                  string               `json:"cpulimit"`
-	Cputotal                  int64                `json:"cputotal"`
-	Displaytext               string               `json:"displaytext"`
-	Domain                    string               `json:"domain"`
-	Domainid                  string               `json:"domainid"`
-	Id                        string               `json:"id"`
-	Ipavailable               string               `json:"ipavailable"`
-	Iplimit                   string               `json:"iplimit"`
-	Iptotal                   int64                `json:"iptotal"`
-	Memoryavailable           string               `json:"memoryavailable"`
-	Memorylimit               string               `json:"memorylimit"`
-	Memorytotal               int64                `json:"memorytotal"`
-	Name                      string               `json:"name"`
-	Networkavailable          string               `json:"networkavailable"`
-	Networklimit              string               `json:"networklimit"`
-	Networktotal              int64                `json:"networktotal"`
-	Primarystorageavailable   string               `json:"primarystorageavailable"`
-	Primarystoragelimit       string               `json:"primarystoragelimit"`
-	Primarystoragetotal       int64                `json:"primarystoragetotal"`
-	Secondarystorageavailable string               `json:"secondarystorageavailable"`
-	Secondarystoragelimit     string               `json:"secondarystoragelimit"`
-	Secondarystoragetotal     float64              `json:"secondarystoragetotal"`
-	Snapshotavailable         string               `json:"snapshotavailable"`
-	Snapshotlimit             string               `json:"snapshotlimit"`
-	Snapshottotal             int64                `json:"snapshottotal"`
-	State                     string               `json:"state"`
-	Tags                      []ProjectAccountTags `json:"tags"`
-	Templateavailable         string               `json:"templateavailable"`
-	Templatelimit             string               `json:"templatelimit"`
-	Templatetotal             int64                `json:"templatetotal"`
-	Vmavailable               string               `json:"vmavailable"`
-	Vmlimit                   string               `json:"vmlimit"`
-	Vmrunning                 int                  `json:"vmrunning"`
-	Vmstopped                 int                  `json:"vmstopped"`
-	Vmtotal                   int64                `json:"vmtotal"`
-	Volumeavailable           string               `json:"volumeavailable"`
-	Volumelimit               string               `json:"volumelimit"`
-	Volumetotal               int64                `json:"volumetotal"`
-	Vpcavailable              string               `json:"vpcavailable"`
-	Vpclimit                  string               `json:"vpclimit"`
-	Vpctotal                  int64                `json:"vpctotal"`
+	Account                   string  `json:"account"`
+	Cpuavailable              string  `json:"cpuavailable"`
+	Cpulimit                  string  `json:"cpulimit"`
+	Cputotal                  int64   `json:"cputotal"`
+	Displaytext               string  `json:"displaytext"`
+	Domain                    string  `json:"domain"`
+	Domainid                  string  `json:"domainid"`
+	Id                        string  `json:"id"`
+	Ipavailable               string  `json:"ipavailable"`
+	Iplimit                   string  `json:"iplimit"`
+	Iptotal                   int64   `json:"iptotal"`
+	Memoryavailable           string  `json:"memoryavailable"`
+	Memorylimit               string  `json:"memorylimit"`
+	Memorytotal               int64   `json:"memorytotal"`
+	Name                      string  `json:"name"`
+	Networkavailable          string  `json:"networkavailable"`
+	Networklimit              string  `json:"networklimit"`
+	Networktotal              int64   `json:"networktotal"`
+	Primarystorageavailable   string  `json:"primarystorageavailable"`
+	Primarystoragelimit       string  `json:"primarystoragelimit"`
+	Primarystoragetotal       int64   `json:"primarystoragetotal"`
+	Projectaccountname        string  `json:"projectaccountname"`
+	Secondarystorageavailable string  `json:"secondarystorageavailable"`
+	Secondarystoragelimit     string  `json:"secondarystoragelimit"`
+	Secondarystoragetotal     float64 `json:"secondarystoragetotal"`
+	Snapshotavailable         string  `json:"snapshotavailable"`
+	Snapshotlimit             string  `json:"snapshotlimit"`
+	Snapshottotal             int64   `json:"snapshottotal"`
+	State                     string  `json:"state"`
+	Tags                      []Tags  `json:"tags"`
+	Templateavailable         string  `json:"templateavailable"`
+	Templatelimit             string  `json:"templatelimit"`
+	Templatetotal             int64   `json:"templatetotal"`
+	Vmavailable               string  `json:"vmavailable"`
+	Vmlimit                   string  `json:"vmlimit"`
+	Vmrunning                 int     `json:"vmrunning"`
+	Vmstopped                 int     `json:"vmstopped"`
+	Vmtotal                   int64   `json:"vmtotal"`
+	Volumeavailable           string  `json:"volumeavailable"`
+	Volumelimit               string  `json:"volumelimit"`
+	Volumetotal               int64   `json:"volumetotal"`
+	Vpcavailable              string  `json:"vpcavailable"`
+	Vpclimit                  string  `json:"vpclimit"`
+	Vpctotal                  int64   `json:"vpctotal"`
 }
 
-type ProjectAccountTags struct {
+type Tags struct {
 	Account      string `json:"account"`
 	Customer     string `json:"customer"`
 	Domain       string `json:"domain"`
@@ -1621,6 +1626,7 @@ type LockAccountResponseUser struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type MarkDefaultZoneForAccountParams struct {
@@ -1795,6 +1801,7 @@ type MarkDefaultZoneForAccountResponseUser struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }
 
 type UpdateAccountParams struct {
@@ -1984,4 +1991,5 @@ type UpdateAccountResponseUser struct {
 	State               string `json:"state"`
 	Timezone            string `json:"timezone"`
 	Username            string `json:"username"`
+	Usersource          string `json:"usersource"`
 }

@@ -341,6 +341,7 @@ type BrocadeVcsDeviceNetwork struct {
 	Dns2                        string                           `json:"dns2"`
 	Domain                      string                           `json:"domain"`
 	Domainid                    string                           `json:"domainid"`
+	Externalid                  string                           `json:"externalid"`
 	Gateway                     string                           `json:"gateway"`
 	Id                          string                           `json:"id"`
 	Ip6cidr                     string                           `json:"ip6cidr"`
@@ -360,6 +361,7 @@ type BrocadeVcsDeviceNetwork struct {
 	Physicalnetworkid           string                           `json:"physicalnetworkid"`
 	Project                     string                           `json:"project"`
 	Projectid                   string                           `json:"projectid"`
+	Redundantrouter             bool                             `json:"redundantrouter"`
 	Related                     string                           `json:"related"`
 	Reservediprange             string                           `json:"reservediprange"`
 	Restartrequired             bool                             `json:"restartrequired"`
@@ -368,7 +370,7 @@ type BrocadeVcsDeviceNetwork struct {
 	State                       string                           `json:"state"`
 	Strechedl2subnet            bool                             `json:"strechedl2subnet"`
 	Subdomainaccess             bool                             `json:"subdomainaccess"`
-	Tags                        []BrocadeVcsDeviceNetworkTags    `json:"tags"`
+	Tags                        []Tags                           `json:"tags"`
 	Traffictype                 string                           `json:"traffictype"`
 	Type                        string                           `json:"type"`
 	Vlan                        string                           `json:"vlan"`
@@ -376,19 +378,6 @@ type BrocadeVcsDeviceNetwork struct {
 	Zoneid                      string                           `json:"zoneid"`
 	Zonename                    string                           `json:"zonename"`
 	Zonesnetworkspans           []interface{}                    `json:"zonesnetworkspans"`
-}
-
-type BrocadeVcsDeviceNetworkTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
 }
 
 type BrocadeVcsDeviceNetworkService struct {

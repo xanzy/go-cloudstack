@@ -285,31 +285,18 @@ func (s *VPCService) CreateStaticRoute(p *CreateStaticRouteParams) (*CreateStati
 }
 
 type CreateStaticRouteResponse struct {
-	JobID     string                          `json:"jobid"`
-	Account   string                          `json:"account"`
-	Cidr      string                          `json:"cidr"`
-	Domain    string                          `json:"domain"`
-	Domainid  string                          `json:"domainid"`
-	Gatewayid string                          `json:"gatewayid"`
-	Id        string                          `json:"id"`
-	Project   string                          `json:"project"`
-	Projectid string                          `json:"projectid"`
-	State     string                          `json:"state"`
-	Tags      []CreateStaticRouteResponseTags `json:"tags"`
-	Vpcid     string                          `json:"vpcid"`
-}
-
-type CreateStaticRouteResponseTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
+	JobID     string `json:"jobid"`
+	Account   string `json:"account"`
+	Cidr      string `json:"cidr"`
+	Domain    string `json:"domain"`
+	Domainid  string `json:"domainid"`
+	Gatewayid string `json:"gatewayid"`
+	Id        string `json:"id"`
+	Project   string `json:"project"`
+	Projectid string `json:"projectid"`
+	State     string `json:"state"`
+	Tags      []Tags `json:"tags"`
+	Vpcid     string `json:"vpcid"`
 }
 
 type CreateVPCParams struct {
@@ -516,23 +503,10 @@ type CreateVPCResponse struct {
 	Restartrequired      bool                       `json:"restartrequired"`
 	Service              []CreateVPCResponseService `json:"service"`
 	State                string                     `json:"state"`
-	Tags                 []CreateVPCResponseTags    `json:"tags"`
+	Tags                 []Tags                     `json:"tags"`
 	Vpcofferingid        string                     `json:"vpcofferingid"`
 	Zoneid               string                     `json:"zoneid"`
 	Zonename             string                     `json:"zonename"`
-}
-
-type CreateVPCResponseTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
 }
 
 type CreateVPCResponseService struct {
@@ -571,6 +545,7 @@ type CreateVPCResponseNetwork struct {
 	Dns2                        string                            `json:"dns2"`
 	Domain                      string                            `json:"domain"`
 	Domainid                    string                            `json:"domainid"`
+	Externalid                  string                            `json:"externalid"`
 	Gateway                     string                            `json:"gateway"`
 	Id                          string                            `json:"id"`
 	Ip6cidr                     string                            `json:"ip6cidr"`
@@ -590,6 +565,7 @@ type CreateVPCResponseNetwork struct {
 	Physicalnetworkid           string                            `json:"physicalnetworkid"`
 	Project                     string                            `json:"project"`
 	Projectid                   string                            `json:"projectid"`
+	Redundantrouter             bool                              `json:"redundantrouter"`
 	Related                     string                            `json:"related"`
 	Reservediprange             string                            `json:"reservediprange"`
 	Restartrequired             bool                              `json:"restartrequired"`
@@ -598,7 +574,7 @@ type CreateVPCResponseNetwork struct {
 	State                       string                            `json:"state"`
 	Strechedl2subnet            bool                              `json:"strechedl2subnet"`
 	Subdomainaccess             bool                              `json:"subdomainaccess"`
-	Tags                        []CreateVPCResponseNetworkTags    `json:"tags"`
+	Tags                        []Tags                            `json:"tags"`
 	Traffictype                 string                            `json:"traffictype"`
 	Type                        string                            `json:"type"`
 	Vlan                        string                            `json:"vlan"`
@@ -606,19 +582,6 @@ type CreateVPCResponseNetwork struct {
 	Zoneid                      string                            `json:"zoneid"`
 	Zonename                    string                            `json:"zonename"`
 	Zonesnetworkspans           []interface{}                     `json:"zonesnetworkspans"`
-}
-
-type CreateVPCResponseNetworkTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
 }
 
 type CreateVPCResponseNetworkService struct {
@@ -1540,30 +1503,17 @@ type ListStaticRoutesResponse struct {
 }
 
 type StaticRoute struct {
-	Account   string            `json:"account"`
-	Cidr      string            `json:"cidr"`
-	Domain    string            `json:"domain"`
-	Domainid  string            `json:"domainid"`
-	Gatewayid string            `json:"gatewayid"`
-	Id        string            `json:"id"`
-	Project   string            `json:"project"`
-	Projectid string            `json:"projectid"`
-	State     string            `json:"state"`
-	Tags      []StaticRouteTags `json:"tags"`
-	Vpcid     string            `json:"vpcid"`
-}
-
-type StaticRouteTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
+	Account   string `json:"account"`
+	Cidr      string `json:"cidr"`
+	Domain    string `json:"domain"`
+	Domainid  string `json:"domainid"`
+	Gatewayid string `json:"gatewayid"`
+	Id        string `json:"id"`
+	Project   string `json:"project"`
+	Projectid string `json:"projectid"`
+	State     string `json:"state"`
+	Tags      []Tags `json:"tags"`
+	Vpcid     string `json:"vpcid"`
 }
 
 type ListVPCOfferingsParams struct {
@@ -2190,23 +2140,10 @@ type VPC struct {
 	Restartrequired      bool                 `json:"restartrequired"`
 	Service              []VPCServiceInternal `json:"service"`
 	State                string               `json:"state"`
-	Tags                 []VPCTags            `json:"tags"`
+	Tags                 []Tags               `json:"tags"`
 	Vpcofferingid        string               `json:"vpcofferingid"`
 	Zoneid               string               `json:"zoneid"`
 	Zonename             string               `json:"zonename"`
-}
-
-type VPCTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
 }
 
 type VPCServiceInternal struct {
@@ -2245,6 +2182,7 @@ type VPCNetwork struct {
 	Dns2                        string              `json:"dns2"`
 	Domain                      string              `json:"domain"`
 	Domainid                    string              `json:"domainid"`
+	Externalid                  string              `json:"externalid"`
 	Gateway                     string              `json:"gateway"`
 	Id                          string              `json:"id"`
 	Ip6cidr                     string              `json:"ip6cidr"`
@@ -2264,6 +2202,7 @@ type VPCNetwork struct {
 	Physicalnetworkid           string              `json:"physicalnetworkid"`
 	Project                     string              `json:"project"`
 	Projectid                   string              `json:"projectid"`
+	Redundantrouter             bool                `json:"redundantrouter"`
 	Related                     string              `json:"related"`
 	Reservediprange             string              `json:"reservediprange"`
 	Restartrequired             bool                `json:"restartrequired"`
@@ -2272,7 +2211,7 @@ type VPCNetwork struct {
 	State                       string              `json:"state"`
 	Strechedl2subnet            bool                `json:"strechedl2subnet"`
 	Subdomainaccess             bool                `json:"subdomainaccess"`
-	Tags                        []VPCNetworkTags    `json:"tags"`
+	Tags                        []Tags              `json:"tags"`
 	Traffictype                 string              `json:"traffictype"`
 	Type                        string              `json:"type"`
 	Vlan                        string              `json:"vlan"`
@@ -2280,19 +2219,6 @@ type VPCNetwork struct {
 	Zoneid                      string              `json:"zoneid"`
 	Zonename                    string              `json:"zonename"`
 	Zonesnetworkspans           []interface{}       `json:"zonesnetworkspans"`
-}
-
-type VPCNetworkTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
 }
 
 type VPCNetworkService struct {
@@ -2429,23 +2355,10 @@ type RestartVPCResponse struct {
 	Restartrequired      bool                        `json:"restartrequired"`
 	Service              []RestartVPCResponseService `json:"service"`
 	State                string                      `json:"state"`
-	Tags                 []RestartVPCResponseTags    `json:"tags"`
+	Tags                 []Tags                      `json:"tags"`
 	Vpcofferingid        string                      `json:"vpcofferingid"`
 	Zoneid               string                      `json:"zoneid"`
 	Zonename             string                      `json:"zonename"`
-}
-
-type RestartVPCResponseTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
 }
 
 type RestartVPCResponseService struct {
@@ -2484,6 +2397,7 @@ type RestartVPCResponseNetwork struct {
 	Dns2                        string                             `json:"dns2"`
 	Domain                      string                             `json:"domain"`
 	Domainid                    string                             `json:"domainid"`
+	Externalid                  string                             `json:"externalid"`
 	Gateway                     string                             `json:"gateway"`
 	Id                          string                             `json:"id"`
 	Ip6cidr                     string                             `json:"ip6cidr"`
@@ -2503,6 +2417,7 @@ type RestartVPCResponseNetwork struct {
 	Physicalnetworkid           string                             `json:"physicalnetworkid"`
 	Project                     string                             `json:"project"`
 	Projectid                   string                             `json:"projectid"`
+	Redundantrouter             bool                               `json:"redundantrouter"`
 	Related                     string                             `json:"related"`
 	Reservediprange             string                             `json:"reservediprange"`
 	Restartrequired             bool                               `json:"restartrequired"`
@@ -2511,7 +2426,7 @@ type RestartVPCResponseNetwork struct {
 	State                       string                             `json:"state"`
 	Strechedl2subnet            bool                               `json:"strechedl2subnet"`
 	Subdomainaccess             bool                               `json:"subdomainaccess"`
-	Tags                        []RestartVPCResponseNetworkTags    `json:"tags"`
+	Tags                        []Tags                             `json:"tags"`
 	Traffictype                 string                             `json:"traffictype"`
 	Type                        string                             `json:"type"`
 	Vlan                        string                             `json:"vlan"`
@@ -2519,19 +2434,6 @@ type RestartVPCResponseNetwork struct {
 	Zoneid                      string                             `json:"zoneid"`
 	Zonename                    string                             `json:"zonename"`
 	Zonesnetworkspans           []interface{}                      `json:"zonesnetworkspans"`
-}
-
-type RestartVPCResponseNetworkTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
 }
 
 type RestartVPCResponseNetworkService struct {
@@ -2689,23 +2591,10 @@ type UpdateVPCResponse struct {
 	Restartrequired      bool                       `json:"restartrequired"`
 	Service              []UpdateVPCResponseService `json:"service"`
 	State                string                     `json:"state"`
-	Tags                 []UpdateVPCResponseTags    `json:"tags"`
+	Tags                 []Tags                     `json:"tags"`
 	Vpcofferingid        string                     `json:"vpcofferingid"`
 	Zoneid               string                     `json:"zoneid"`
 	Zonename             string                     `json:"zonename"`
-}
-
-type UpdateVPCResponseTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
 }
 
 type UpdateVPCResponseService struct {
@@ -2744,6 +2633,7 @@ type UpdateVPCResponseNetwork struct {
 	Dns2                        string                            `json:"dns2"`
 	Domain                      string                            `json:"domain"`
 	Domainid                    string                            `json:"domainid"`
+	Externalid                  string                            `json:"externalid"`
 	Gateway                     string                            `json:"gateway"`
 	Id                          string                            `json:"id"`
 	Ip6cidr                     string                            `json:"ip6cidr"`
@@ -2763,6 +2653,7 @@ type UpdateVPCResponseNetwork struct {
 	Physicalnetworkid           string                            `json:"physicalnetworkid"`
 	Project                     string                            `json:"project"`
 	Projectid                   string                            `json:"projectid"`
+	Redundantrouter             bool                              `json:"redundantrouter"`
 	Related                     string                            `json:"related"`
 	Reservediprange             string                            `json:"reservediprange"`
 	Restartrequired             bool                              `json:"restartrequired"`
@@ -2771,7 +2662,7 @@ type UpdateVPCResponseNetwork struct {
 	State                       string                            `json:"state"`
 	Strechedl2subnet            bool                              `json:"strechedl2subnet"`
 	Subdomainaccess             bool                              `json:"subdomainaccess"`
-	Tags                        []UpdateVPCResponseNetworkTags    `json:"tags"`
+	Tags                        []Tags                            `json:"tags"`
 	Traffictype                 string                            `json:"traffictype"`
 	Type                        string                            `json:"type"`
 	Vlan                        string                            `json:"vlan"`
@@ -2779,19 +2670,6 @@ type UpdateVPCResponseNetwork struct {
 	Zoneid                      string                            `json:"zoneid"`
 	Zonename                    string                            `json:"zonename"`
 	Zonesnetworkspans           []interface{}                     `json:"zonesnetworkspans"`
-}
-
-type UpdateVPCResponseNetworkTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
 }
 
 type UpdateVPCResponseNetworkService struct {

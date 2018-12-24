@@ -763,7 +763,7 @@ type UpdateVMAffinityGroupResponse struct {
 	Name                  string                                       `json:"name"`
 	Networkkbsread        int64                                        `json:"networkkbsread"`
 	Networkkbswrite       int64                                        `json:"networkkbswrite"`
-	Nic                   []UpdateVMAffinityGroupResponseNic           `json:"nic"`
+	Nic                   []Nic                                        `json:"nic"`
 	Ostypeid              int64                                        `json:"ostypeid"`
 	Password              string                                       `json:"password"`
 	Passwordenabled       bool                                         `json:"passwordenabled"`
@@ -789,110 +789,32 @@ type UpdateVMAffinityGroupResponse struct {
 }
 
 type UpdateVMAffinityGroupResponseSecuritygroup struct {
-	Account             string                                                  `json:"account"`
-	Description         string                                                  `json:"description"`
-	Domain              string                                                  `json:"domain"`
-	Domainid            string                                                  `json:"domainid"`
-	Egressrule          []UpdateVMAffinityGroupResponseSecuritygroupEgressrule  `json:"egressrule"`
-	Id                  string                                                  `json:"id"`
-	Ingressrule         []UpdateVMAffinityGroupResponseSecuritygroupIngressrule `json:"ingressrule"`
-	Name                string                                                  `json:"name"`
-	Project             string                                                  `json:"project"`
-	Projectid           string                                                  `json:"projectid"`
-	Tags                []UpdateVMAffinityGroupResponseSecuritygroupTags        `json:"tags"`
-	Virtualmachinecount int                                                     `json:"virtualmachinecount"`
-	Virtualmachineids   []interface{}                                           `json:"virtualmachineids"`
+	Account             string                                           `json:"account"`
+	Description         string                                           `json:"description"`
+	Domain              string                                           `json:"domain"`
+	Domainid            string                                           `json:"domainid"`
+	Egressrule          []UpdateVMAffinityGroupResponseSecuritygroupRule `json:"egressrule"`
+	Id                  string                                           `json:"id"`
+	Ingressrule         []UpdateVMAffinityGroupResponseSecuritygroupRule `json:"ingressrule"`
+	Name                string                                           `json:"name"`
+	Project             string                                           `json:"project"`
+	Projectid           string                                           `json:"projectid"`
+	Tags                []Tags                                           `json:"tags"`
+	Virtualmachinecount int                                              `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                                    `json:"virtualmachineids"`
 }
 
-type UpdateVMAffinityGroupResponseSecuritygroupTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type UpdateVMAffinityGroupResponseSecuritygroupIngressrule struct {
-	Account           string                                                      `json:"account"`
-	Cidr              string                                                      `json:"cidr"`
-	Endport           int                                                         `json:"endport"`
-	Icmpcode          int                                                         `json:"icmpcode"`
-	Icmptype          int                                                         `json:"icmptype"`
-	Protocol          string                                                      `json:"protocol"`
-	Ruleid            string                                                      `json:"ruleid"`
-	Securitygroupname string                                                      `json:"securitygroupname"`
-	Startport         int                                                         `json:"startport"`
-	Tags              []UpdateVMAffinityGroupResponseSecuritygroupIngressruleTags `json:"tags"`
-}
-
-type UpdateVMAffinityGroupResponseSecuritygroupIngressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type UpdateVMAffinityGroupResponseSecuritygroupEgressrule struct {
-	Account           string                                                     `json:"account"`
-	Cidr              string                                                     `json:"cidr"`
-	Endport           int                                                        `json:"endport"`
-	Icmpcode          int                                                        `json:"icmpcode"`
-	Icmptype          int                                                        `json:"icmptype"`
-	Protocol          string                                                     `json:"protocol"`
-	Ruleid            string                                                     `json:"ruleid"`
-	Securitygroupname string                                                     `json:"securitygroupname"`
-	Startport         int                                                        `json:"startport"`
-	Tags              []UpdateVMAffinityGroupResponseSecuritygroupEgressruleTags `json:"tags"`
-}
-
-type UpdateVMAffinityGroupResponseSecuritygroupEgressruleTags struct {
-	Account      string `json:"account"`
-	Customer     string `json:"customer"`
-	Domain       string `json:"domain"`
-	Domainid     string `json:"domainid"`
-	Key          string `json:"key"`
-	Project      string `json:"project"`
-	Projectid    string `json:"projectid"`
-	Resourceid   string `json:"resourceid"`
-	Resourcetype string `json:"resourcetype"`
-	Value        string `json:"value"`
-}
-
-type UpdateVMAffinityGroupResponseNic struct {
-	Broadcasturi         string `json:"broadcasturi"`
-	Deviceid             string `json:"deviceid"`
-	Gateway              string `json:"gateway"`
-	Id                   string `json:"id"`
-	Ip6address           string `json:"ip6address"`
-	Ip6cidr              string `json:"ip6cidr"`
-	Ip6gateway           string `json:"ip6gateway"`
-	Ipaddress            string `json:"ipaddress"`
-	Isdefault            bool   `json:"isdefault"`
-	Isolationuri         string `json:"isolationuri"`
-	Macaddress           string `json:"macaddress"`
-	Netmask              string `json:"netmask"`
-	Networkid            string `json:"networkid"`
-	Networkname          string `json:"networkname"`
-	Nsxlogicalswitch     string `json:"nsxlogicalswitch"`
-	Nsxlogicalswitchport string `json:"nsxlogicalswitchport"`
-	Secondaryip          []struct {
-		Id        string `json:"id"`
-		Ipaddress string `json:"ipaddress"`
-	} `json:"secondaryip"`
-	Traffictype      string `json:"traffictype"`
-	Type             string `json:"type"`
-	Virtualmachineid string `json:"virtualmachineid"`
+type UpdateVMAffinityGroupResponseSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
 }
 
 type UpdateVMAffinityGroupResponseAffinitygroup struct {
