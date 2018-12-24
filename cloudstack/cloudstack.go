@@ -26,6 +26,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
@@ -147,8 +148,17 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 		client: &http.Client{
 			Jar: jar,
 			Transport: &http.Transport{
-				Proxy:           http.ProxyFromEnvironment,
-				TLSClientConfig: &tls.Config{InsecureSkipVerify: !verifyssl}, // If verifyssl is true, skipping the verify should be false and vice versa
+				Proxy: http.ProxyFromEnvironment,
+				DialContext: (&net.Dialer{
+					Timeout:   30 * time.Second,
+					KeepAlive: 30 * time.Second,
+					DualStack: true,
+				}).DialContext,
+				MaxIdleConns:          100,
+				IdleConnTimeout:       90 * time.Second,
+				TLSClientConfig:       &tls.Config{InsecureSkipVerify: !verifyssl}, // If verifyssl is true, skipping the verify should be false and vice versa
+				TLSHandshakeTimeout:   10 * time.Second,
+				ExpectContinueTimeout: 1 * time.Second,
 			},
 			Timeout: time.Duration(60 * time.Second),
 		},
