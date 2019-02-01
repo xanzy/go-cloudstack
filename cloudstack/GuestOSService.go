@@ -256,7 +256,7 @@ type AddGuestOsMappingResponse struct {
 	Hypervisor          string `json:"hypervisor"`
 	Hypervisorversion   string `json:"hypervisorversion"`
 	Id                  string `json:"id"`
-	Isuserdefined       string `json:"isuserdefined"`
+	Isuserdefined       bool   `json:"isuserdefined"`
 	Osdisplayname       string `json:"osdisplayname"`
 	Osnameforhypervisor string `json:"osnameforhypervisor"`
 	Ostypeid            string `json:"ostypeid"`
@@ -418,7 +418,7 @@ type GuestOsMapping struct {
 	Hypervisor          string `json:"hypervisor"`
 	Hypervisorversion   string `json:"hypervisorversion"`
 	Id                  string `json:"id"`
-	Isuserdefined       string `json:"isuserdefined"`
+	Isuserdefined       bool   `json:"isuserdefined"`
 	Osdisplayname       string `json:"osdisplayname"`
 	Osnameforhypervisor string `json:"osnameforhypervisor"`
 	Ostypeid            string `json:"ostypeid"`
@@ -1080,7 +1080,7 @@ type UpdateGuestOsMappingResponse struct {
 	Hypervisor          string `json:"hypervisor"`
 	Hypervisorversion   string `json:"hypervisorversion"`
 	Id                  string `json:"id"`
-	Isuserdefined       string `json:"isuserdefined"`
+	Isuserdefined       bool   `json:"isuserdefined"`
 	Osdisplayname       string `json:"osdisplayname"`
 	Osnameforhypervisor string `json:"osnameforhypervisor"`
 	Ostypeid            string `json:"ostypeid"`
