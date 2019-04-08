@@ -419,6 +419,34 @@ func getRawValue(b json.RawMessage) (json.RawMessage, error) {
 	return nil, fmt.Errorf("Unable to extract the raw value from:\n\n%s\n\n", string(b))
 }
 
+// DomainIDSetter is an interface that every type that can set a domain ID must implement
+type DomainIDSetter interface {
+	SetDomainid(string)
+}
+
+// WithDomain takes either a domain name or ID and sets the `domainid` parameter
+func WithDomain(domain string) OptionFunc {
+	return func(cs *CloudStackClient, p interface{}) error {
+		ps, ok := p.(DomainIDSetter)
+
+		if !ok || domain == "" {
+			return nil
+		}
+
+		if !IsID(domain) {
+			id, _, err := cs.Domain.GetDomainID(domain)
+			if err != nil {
+				return err
+			}
+			domain = id
+		}
+
+		ps.SetDomainid(domain)
+
+		return nil
+	}
+}
+
 // ProjectIDSetter is an interface that every type that can set a project ID must implement
 type ProjectIDSetter interface {
 	SetProjectid(string)

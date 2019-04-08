@@ -1072,6 +1072,9 @@ func (p *UpdateProjectParams) toURLValues() url.Values {
 	if v, found := p.p["account"]; found {
 		u.Set("account", v.(string))
 	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
 	if v, found := p.p["displaytext"]; found {
 		u.Set("displaytext", v.(string))
 	}
