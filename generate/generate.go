@@ -1306,14 +1306,14 @@ func (s *service) generateResponseType(a *API) {
 		pn("		}")
 		pn("	}")
 		pn("")
-		// pn("	if ostypeid, ok := m[\"ostypeid\"].(int); ok {")
-		// pn("		m[\"ostypeid\"] = strconv.Itoa(ostypeid)")
-		// pn("		b, err = json.Marshal(m)")
-		// pn("		if err != nil {")
-		// pn("			return err")
-		// pn("		}")
-		// pn("	}")
-		// pn("")
+		pn("	if ostypeid, ok := m[\"ostypeid\"].(int); ok {")
+		pn("		m[\"ostypeid\"] = strconv.Itoa(ostypeid)")
+		pn("		b, err = json.Marshal(m)")
+		pn("		if err != nil {")
+		pn("			return err")
+		pn("		}")
+		pn("	}")
+		pn("")
 		pn("	type alias %s", tn)
 		pn("	return json.Unmarshal(b, (*alias)(r))")
 		pn("}")
@@ -1337,9 +1337,6 @@ func (s *service) recusiveGenerateResponseType(tn string, resp APIResponses, asy
 	found := make(map[string]bool)
 
 	pn("type %s struct {", tn)
-	if async && !strings.Contains(tn, "SystemVm") {
-		pn("	JobID string `json:\"jobid\"`")
-	}
 
 	for _, r := range resp {
 		if r.Name == "" {
@@ -1368,9 +1365,9 @@ func (s *service) recusiveGenerateResponseType(tn string, resp APIResponses, asy
 					if !async {
 						customMarshal = true
 					}
-				// case "ostypeid":
-				// 	pn("%s string `json:\"%s\"`", capitalize(r.Name), r.Name)
-				// 	customMarshal = true
+				case "ostypeid":
+					pn("%s string `json:\"%s\"`", capitalize(r.Name), r.Name)
+					customMarshal = true
 				default:
 					pn("%s %s `json:\"%s\"`", capitalize(r.Name), mapType(r.Type), r.Name)
 				}
