@@ -212,8 +212,8 @@ func (r *CreateSnapshotResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -628,8 +628,8 @@ func (r *DeleteSnapshotPoliciesResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -1214,8 +1214,8 @@ func (r *Snapshot) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -1597,8 +1597,8 @@ func (r *RevertSnapshotResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -1801,8 +1801,8 @@ func (r *RevertToVMSnapshotResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err

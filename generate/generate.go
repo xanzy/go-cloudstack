@@ -1306,8 +1306,8 @@ func (s *service) generateResponseType(a *API) {
 		pn("		}")
 		pn("	}")
 		pn("")
-		pn("	if ostypeid, ok := m[\"ostypeid\"].(int); ok {")
-		pn("		m[\"ostypeid\"] = strconv.Itoa(ostypeid)")
+		pn("	if ostypeid, ok := m[\"ostypeid\"].(float64); ok {")
+		pn("		m[\"ostypeid\"] = strconv.Itoa(int(ostypeid))")
 		pn("		b, err = json.Marshal(m)")
 		pn("		if err != nil {")
 		pn("			return err")
@@ -1358,14 +1358,15 @@ func (s *service) recusiveGenerateResponseType(tn string, resp APIResponses, asy
 			}
 		} else {
 			if !found[r.Name] {
-				// This code is needed because the response field is different for sync and async calls :(
 				switch r.Name {
 				case "success":
+					// This case is because the response field is different for sync and async calls :(
 					pn("%s bool `json:\"%s\"`", capitalize(r.Name), r.Name)
 					if !async {
 						customMarshal = true
 					}
 				case "ostypeid":
+					// This case is needed for backwards compatibility.
 					pn("%s string `json:\"%s\"`", capitalize(r.Name), r.Name)
 					customMarshal = true
 				default:

@@ -266,8 +266,8 @@ func (r *AddNicToVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -507,8 +507,8 @@ func (r *AssignVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -718,8 +718,8 @@ func (r *ChangeServiceForVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -1372,8 +1372,8 @@ func (r *DeployVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -1600,8 +1600,8 @@ func (r *DestroyVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -2325,8 +2325,8 @@ func (r *VirtualMachine) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -2551,8 +2551,8 @@ func (r *MigrateVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -2783,8 +2783,8 @@ func (r *MigrateVirtualMachineWithVolumeResponse) UnmarshalJSON(b []byte) error 
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -2987,8 +2987,8 @@ func (r *RebootVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -3171,8 +3171,8 @@ func (r *RecoverVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -3387,8 +3387,8 @@ func (r *RemoveNicFromVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -3591,8 +3591,8 @@ func (r *ResetPasswordForVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -3806,8 +3806,8 @@ func (r *RestoreVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -4128,8 +4128,8 @@ func (r *StartVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -4344,8 +4344,8 @@ func (r *StopVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -4560,8 +4560,8 @@ func (r *UpdateDefaultNicForVirtualMachineResponse) UnmarshalJSON(b []byte) erro
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -4935,8 +4935,8 @@ func (r *UpdateVirtualMachineResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
