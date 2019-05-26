@@ -343,8 +343,8 @@ func (r *DeletePodResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err

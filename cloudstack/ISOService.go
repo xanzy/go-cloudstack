@@ -228,8 +228,8 @@ func (r *AttachIsoResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -403,8 +403,8 @@ func (r *CopyIsoResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -687,8 +687,8 @@ func (r *DetachIsoResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -1312,8 +1312,8 @@ func (r *Iso) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -1619,8 +1619,8 @@ func (r *RegisterIsoResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -1895,8 +1895,8 @@ func (r *UpdateIsoResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -2047,8 +2047,8 @@ func (r *UpdateIsoPermissionsResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err

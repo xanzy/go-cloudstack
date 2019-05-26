@@ -187,8 +187,8 @@ func (r *CopyTemplateResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -517,8 +517,8 @@ func (r *CreateTemplateResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -1518,8 +1518,8 @@ func (r *Template) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -1662,8 +1662,8 @@ func (r *PrepareTemplateResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -2061,8 +2061,8 @@ func (r *RegisterTemplate) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -2337,8 +2337,8 @@ func (r *UpdateTemplateResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
@@ -2489,8 +2489,8 @@ func (r *UpdateTemplatePermissionsResponse) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if ostypeid, ok := m["ostypeid"].(int); ok {
-		m["ostypeid"] = strconv.Itoa(ostypeid)
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
 		b, err = json.Marshal(m)
 		if err != nil {
 			return err
