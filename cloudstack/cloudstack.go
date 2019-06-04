@@ -316,6 +316,12 @@ func (cs *CloudStackClient) GetAsyncJobResult(jobid string, timeout int64) (json
 	}
 }
 
+// HTTPClient allows the http client used on requests against CS API to be
+// overriden.
+func (cs *CloudStackClient) HTTPClient(client *http.Client) {
+	cs.client = client
+}
+
 // Execute the request against a CS API. Will return the raw JSON data returned by the API and nil if
 // no error occured. If the API returns an error the result will be nil and the HTTP error code and CS
 // error details. If a processing (code) error occurs the result will be nil and the generated error
