@@ -830,7 +830,7 @@ func (s *service) generateToURLValuesFunc(a *API) {
 	pn("	}")
 	for _, ap := range a.Params {
 		pn("	if v, found := p.p[\"%s\"]; found {", ap.Name)
-		s.generateConvertCode(ap.Name, mapType(ap.Type))
+		s.generateConvertCode(ap.Name, a.Name, mapType(ap.Type))
 		pn("	}")
 	}
 	pn("	return u")
@@ -839,7 +839,7 @@ func (s *service) generateToURLValuesFunc(a *API) {
 	return
 }
 
-func (s *service) generateConvertCode(name, typ string) {
+func (s *service) generateConvertCode(name, cmdName, typ string) {
 	pn := s.pn
 
 	switch typ {
@@ -862,7 +862,12 @@ func (s *service) generateConvertCode(name, typ string) {
 		pn("for k, vv := range v.(map[string]string) {")
 		switch name {
 		case "details":
-			pn("	u.Set(fmt.Sprintf(\"%s[%%d].%%s\", i, k), vv)", name)
+			if detailsRequiresKeyValue(cmdName) {
+				pn("	u.Set(fmt.Sprintf(\"%s[%%d].key\", i), k)", name)
+				pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), vv)", name)
+			} else {
+				pn("	u.Set(fmt.Sprintf(\"%s[%%d].%%s\", i, k), vv)", name)
+			}
 		case "serviceproviderlist":
 			pn("	u.Set(fmt.Sprintf(\"%s[%%d].service\", i), k)", name)
 			pn("	u.Set(fmt.Sprintf(\"%s[%%d].provider\", i), vv)", name)
@@ -877,6 +882,24 @@ func (s *service) generateConvertCode(name, typ string) {
 		pn("}")
 	}
 	return
+}
+
+func detailsRequiresKeyValue(cmd string) bool {
+	var requiredCmds = []string{
+		"addGuestOs",
+		"updateGuestOs",
+		"addImageStore",
+		"createSecondaryStagingStore",
+		"updateCloudToUseObjectStore",
+		"addResourceDetail",
+		"updateZone",
+	}
+	for _, req := range requiredCmds {
+		if req == cmd {
+			return true
+		}
+	}
+	return false
 }
 
 func (s *service) parseParamName(name string) string {
