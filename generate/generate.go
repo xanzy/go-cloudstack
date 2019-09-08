@@ -34,6 +34,18 @@ import (
 
 const pkg = "cloudstack"
 
+// detailsRequireKeyValue is a prefilled map with a list of details
+// that need to be encoded using an explicit key and a value entry.
+var detailsRequireKeyValue = map[string]bool{
+	"addGuestOs":                  true,
+	"addImageStore":               true,
+	"addResourceDetail":           true,
+	"createSecondaryStagingStore": true,
+	"updateCloudToUseObjectStore": true,
+	"updateGuestOs":               true,
+	"updateZone":                  true,
+}
+
 // We prefill this one value to make sure it is not
 // created twice, as this is also a top level type.
 var typeNames = map[string]bool{"Nic": true}
@@ -830,7 +842,7 @@ func (s *service) generateToURLValuesFunc(a *API) {
 	pn("	}")
 	for _, ap := range a.Params {
 		pn("	if v, found := p.p[\"%s\"]; found {", ap.Name)
-		s.generateConvertCode(ap.Name, a.Name, mapType(ap.Type))
+		s.generateConvertCode(a.Name, ap.Name, mapType(ap.Type))
 		pn("	}")
 	}
 	pn("	return u")
@@ -839,7 +851,7 @@ func (s *service) generateToURLValuesFunc(a *API) {
 	return
 }
 
-func (s *service) generateConvertCode(name, cmdName, typ string) {
+func (s *service) generateConvertCode(cmd, name, typ string) {
 	pn := s.pn
 
 	switch typ {
@@ -862,7 +874,7 @@ func (s *service) generateConvertCode(name, cmdName, typ string) {
 		pn("for k, vv := range v.(map[string]string) {")
 		switch name {
 		case "details":
-			if detailsRequiresKeyValue(cmdName) {
+			if detailsRequireKeyValue[cmd] {
 				pn("	u.Set(fmt.Sprintf(\"%s[%%d].key\", i), k)", name)
 				pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), vv)", name)
 			} else {
@@ -882,24 +894,6 @@ func (s *service) generateConvertCode(name, cmdName, typ string) {
 		pn("}")
 	}
 	return
-}
-
-func detailsRequiresKeyValue(cmd string) bool {
-	var requiredCmds = []string{
-		"addGuestOs",
-		"updateGuestOs",
-		"addImageStore",
-		"createSecondaryStagingStore",
-		"updateCloudToUseObjectStore",
-		"addResourceDetail",
-		"updateZone",
-	}
-	for _, req := range requiredCmds {
-		if req == cmd {
-			return true
-		}
-	}
-	return false
 }
 
 func (s *service) parseParamName(name string) string {
