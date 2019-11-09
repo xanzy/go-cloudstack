@@ -1220,7 +1220,17 @@ func (s *service) generateNewAPICallFunc(a *API) {
 	pn("	}")
 	pn("")
 	switch n {
-	case "CreateAccount", "CreateUser", "RegisterUserKeys", "CreateNetwork", "CreateNetworkOffering", "CreateSecurityGroup", "CreateServiceOffering", "CreateSSHKeyPair", "RegisterSSHKeyPair":
+	case
+		"CreateAccount",
+		"CreateNetwork",
+		"CreateNetworkOffering",
+		"CreateSSHKeyPair",
+		"CreateSecurityGroup",
+		"CreateServiceOffering",
+		"CreateUser",
+		"GetVirtualMachineUserData",
+		"RegisterSSHKeyPair",
+		"RegisterUserKeys":
 		pn("	if resp, err = getRawValue(resp); err != nil {")
 		pn("		return nil, err")
 		pn("	}")
