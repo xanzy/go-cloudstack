@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -44,11 +45,10 @@ func (p *CreateTagsParams) toURLValues() url.Values {
 		u.Set("resourcetype", v.(string))
 	}
 	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
+		tags := v.(map[string]string)
+		for i, key := range getSortedKeysFromMap(tags) {
+			u.Set(fmt.Sprintf("tags[%d].key", i), key)
+			u.Set(fmt.Sprintf("tags[%d].value", i), tags[key])
 		}
 	}
 	return u
@@ -151,11 +151,10 @@ func (p *DeleteTagsParams) toURLValues() url.Values {
 		u.Set("resourcetype", v.(string))
 	}
 	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
+		tags := v.(map[string]string)
+		for i, key := range getSortedKeysFromMap(tags) {
+			u.Set(fmt.Sprintf("tags[%d].key", i), key)
+			u.Set(fmt.Sprintf("tags[%d].value", i), tags[key])
 		}
 	}
 	return u
@@ -551,4 +550,13 @@ type Tag struct {
 	Resourceid   string `json:"resourceid"`
 	Resourcetype string `json:"resourcetype"`
 	Value        string `json:"value"`
+}
+
+func getSortedKeysFromMap(m map[string]string) []string {
+	var keys []string
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
 }
