@@ -332,11 +332,10 @@ func (p *CreateAutoScaleVmProfileParams) toURLValues() url.Values {
 		u.Set("autoscaleuserid", v.(string))
 	}
 	if v, found := p.p["counterparam"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("counterparam[%d].key", i), k)
-			u.Set(fmt.Sprintf("counterparam[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("counterparam[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["destroyvmgraceperiod"]; found {
@@ -2658,11 +2657,10 @@ func (p *UpdateAutoScaleVmProfileParams) toURLValues() url.Values {
 		u.Set("autoscaleuserid", v.(string))
 	}
 	if v, found := p.p["counterparam"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("counterparam[%d].key", i), k)
-			u.Set(fmt.Sprintf("counterparam[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("counterparam[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["customid"]; found {

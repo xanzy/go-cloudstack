@@ -362,11 +362,10 @@ func (p *ListPublicIpAddressesParams) toURLValues() url.Values {
 		u.Set("state", v.(string))
 	}
 	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["vlanid"]; found {

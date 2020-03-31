@@ -45,10 +45,9 @@ func (p *CreateStoragePoolParams) toURLValues() url.Values {
 		u.Set("clusterid", v.(string))
 	}
 	if v, found := p.p["details"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
-			i++
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
+			u.Set(fmt.Sprintf("details[%d].%s", i, k), m[k])
 		}
 	}
 	if v, found := p.p["hypervisor"]; found {

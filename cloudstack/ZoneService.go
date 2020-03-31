@@ -781,11 +781,10 @@ func (p *ListZonesParams) toURLValues() url.Values {
 		u.Set("showcapacities", vv)
 	}
 	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
 		}
 	}
 	return u
@@ -1107,11 +1106,10 @@ func (p *UpdateZoneParams) toURLValues() url.Values {
 		u.Set("allocationstate", v.(string))
 	}
 	if v, found := p.p["details"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("details[%d].key", i), k)
-			u.Set(fmt.Sprintf("details[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("details[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["dhcpprovider"]; found {

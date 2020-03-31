@@ -148,11 +148,10 @@ func (p *CreateServiceOfferingParams) toURLValues() url.Values {
 		u.Set("provisioningtype", v.(string))
 	}
 	if v, found := p.p["serviceofferingdetails"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("serviceofferingdetails[%d].key", i), k)
-			u.Set(fmt.Sprintf("serviceofferingdetails[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("serviceofferingdetails[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["storagetype"]; found {

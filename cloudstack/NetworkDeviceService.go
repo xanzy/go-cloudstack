@@ -33,11 +33,10 @@ func (p *AddNetworkDeviceParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["networkdeviceparameterlist"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("networkdeviceparameterlist[%d].key", i), k)
-			u.Set(fmt.Sprintf("networkdeviceparameterlist[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("networkdeviceparameterlist[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["networkdevicetype"]; found {
@@ -185,11 +184,10 @@ func (p *ListNetworkDeviceParams) toURLValues() url.Values {
 		u.Set("keyword", v.(string))
 	}
 	if v, found := p.p["networkdeviceparameterlist"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("networkdeviceparameterlist[%d].key", i), k)
-			u.Set(fmt.Sprintf("networkdeviceparameterlist[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("networkdeviceparameterlist[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["networkdevicetype"]; found {

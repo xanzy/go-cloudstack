@@ -25,6 +25,14 @@ import (
 	"strings"
 )
 
+func getSortedKeysFromMap(m map[string]string) (keys []string) {
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return
+}
+
 type CreateTagsParams struct {
 	p map[string]interface{}
 }
@@ -45,10 +53,10 @@ func (p *CreateTagsParams) toURLValues() url.Values {
 		u.Set("resourcetype", v.(string))
 	}
 	if v, found := p.p["tags"]; found {
-		tags := v.(map[string]string)
-		for i, key := range getSortedKeysFromMap(tags) {
-			u.Set(fmt.Sprintf("tags[%d].key", i), key)
-			u.Set(fmt.Sprintf("tags[%d].value", i), tags[key])
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
+			u.Set(fmt.Sprintf("tags[%d].key", i), k)
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
 		}
 	}
 	return u
@@ -151,10 +159,10 @@ func (p *DeleteTagsParams) toURLValues() url.Values {
 		u.Set("resourcetype", v.(string))
 	}
 	if v, found := p.p["tags"]; found {
-		tags := v.(map[string]string)
-		for i, key := range getSortedKeysFromMap(tags) {
-			u.Set(fmt.Sprintf("tags[%d].key", i), key)
-			u.Set(fmt.Sprintf("tags[%d].value", i), tags[key])
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
+			u.Set(fmt.Sprintf("tags[%d].key", i), k)
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
 		}
 	}
 	return u
@@ -550,13 +558,4 @@ type Tag struct {
 	Resourceid   string `json:"resourceid"`
 	Resourcetype string `json:"resourcetype"`
 	Value        string `json:"value"`
-}
-
-func getSortedKeysFromMap(m map[string]string) []string {
-	var keys []string
-	for k := range m {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	return keys
 }

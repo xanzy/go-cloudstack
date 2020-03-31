@@ -625,22 +625,20 @@ func (p *CreateVPCOfferingParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["servicecapabilitylist"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("servicecapabilitylist[%d].key", i), k)
-			u.Set(fmt.Sprintf("servicecapabilitylist[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("servicecapabilitylist[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["serviceofferingid"]; found {
 		u.Set("serviceofferingid", v.(string))
 	}
 	if v, found := p.p["serviceproviderlist"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("serviceproviderlist[%d].service", i), k)
-			u.Set(fmt.Sprintf("serviceproviderlist[%d].provider", i), vv)
-			i++
+			u.Set(fmt.Sprintf("serviceproviderlist[%d].provider", i), m[k])
 		}
 	}
 	if v, found := p.p["supportedservices"]; found {
@@ -1342,11 +1340,10 @@ func (p *ListStaticRoutesParams) toURLValues() url.Values {
 		u.Set("projectid", v.(string))
 	}
 	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["vpcid"]; found {
@@ -1855,11 +1852,10 @@ func (p *ListVPCsParams) toURLValues() url.Values {
 		u.Set("supportedservices", vv)
 	}
 	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["vpcofferingid"]; found {
