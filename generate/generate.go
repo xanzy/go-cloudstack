@@ -503,6 +503,15 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("	return nil, fmt.Errorf(\"Unable to extract the raw value from:\\n\\n%%s\\n\\n\", string(b))")
 	pn("}")
 	pn("")
+	pn("// getSortedKeysFromMap returns the keys from m in increasing order.")
+	pn("func getSortedKeysFromMap(m map[string]string) (keys []string) {")
+	pn("	for k := range m {")
+	pn("		keys = append(keys, k)")
+	pn("	}")
+	pn("	sort.Strings(keys)")
+	pn("	return")
+	pn("}")
+	pn("")
 	pn("// WithAsyncTimeout takes a custom timeout to be used by the CloudStackClient")
 	pn("func WithAsyncTimeout(timeout int64) ClientOption {")
 	pn("	return func(cs *CloudStackClient) {")
@@ -830,15 +839,6 @@ func (s *service) GenerateCode() ([]byte, error) {
 		pn("	}")
 		pn("")
 		pn("	return json.Unmarshal(resp, result)")
-		pn("}")
-	}
-	if s.name == "ResourcetagsService" {
-		pn("func getSortedKeysFromMap(m map[string]string) (keys []string) {")
-		pn("	for k := range m {")
-		pn("		keys = append(keys, k)")
-		pn("	}")
-		pn("	sort.Strings(keys)")
-		pn("	return")
 		pn("}")
 	}
 

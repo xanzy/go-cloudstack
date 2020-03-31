@@ -20,18 +20,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"sort"
 	"strconv"
 	"strings"
 )
-
-func getSortedKeysFromMap(m map[string]string) (keys []string) {
-	for k := range m {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	return
-}
 
 type CreateTagsParams struct {
 	p map[string]interface{}
