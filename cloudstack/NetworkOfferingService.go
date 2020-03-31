@@ -41,10 +41,9 @@ func (p *CreateNetworkOfferingParams) toURLValues() url.Values {
 		u.Set("conservemode", vv)
 	}
 	if v, found := p.p["details"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
-			i++
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
+			u.Set(fmt.Sprintf("details[%d].%s", i, k), m[k])
 		}
 	}
 	if v, found := p.p["displaytext"]; found {
@@ -81,22 +80,20 @@ func (p *CreateNetworkOfferingParams) toURLValues() url.Values {
 		u.Set("networkrate", vv)
 	}
 	if v, found := p.p["servicecapabilitylist"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("servicecapabilitylist[%d].key", i), k)
-			u.Set(fmt.Sprintf("servicecapabilitylist[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("servicecapabilitylist[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["serviceofferingid"]; found {
 		u.Set("serviceofferingid", v.(string))
 	}
 	if v, found := p.p["serviceproviderlist"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("serviceproviderlist[%d].service", i), k)
-			u.Set(fmt.Sprintf("serviceproviderlist[%d].provider", i), vv)
-			i++
+			u.Set(fmt.Sprintf("serviceproviderlist[%d].provider", i), m[k])
 		}
 	}
 	if v, found := p.p["specifyipranges"]; found {

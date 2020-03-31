@@ -296,11 +296,10 @@ func (p *AssignToGlobalLoadBalancerRuleParams) toURLValues() url.Values {
 		return u
 	}
 	if v, found := p.p["gslblbruleweightsmap"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("gslblbruleweightsmap[%d].key", i), k)
-			u.Set(fmt.Sprintf("gslblbruleweightsmap[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("gslblbruleweightsmap[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["id"]; found {
@@ -401,11 +400,10 @@ func (p *AssignToLoadBalancerRuleParams) toURLValues() url.Values {
 		u.Set("virtualmachineids", vv)
 	}
 	if v, found := p.p["vmidipmap"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("vmidipmap[%d].key", i), k)
-			u.Set(fmt.Sprintf("vmidipmap[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("vmidipmap[%d].value", i), m[k])
 		}
 	}
 	return u
@@ -1016,11 +1014,10 @@ func (p *CreateLBStickinessPolicyParams) toURLValues() url.Values {
 		u.Set("name", v.(string))
 	}
 	if v, found := p.p["param"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("param[%d].key", i), k)
-			u.Set(fmt.Sprintf("param[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("param[%d].value", i), m[k])
 		}
 	}
 	return u
@@ -2137,11 +2134,10 @@ func (p *ListGlobalLoadBalancerRulesParams) toURLValues() url.Values {
 		u.Set("regionid", vv)
 	}
 	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
 		}
 	}
 	return u
@@ -2926,11 +2922,10 @@ func (p *ListLoadBalancerRulesParams) toURLValues() url.Values {
 		u.Set("publicipid", v.(string))
 	}
 	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["virtualmachineid"]; found {
@@ -3267,11 +3262,10 @@ func (p *ListLoadBalancersParams) toURLValues() url.Values {
 		u.Set("sourceipaddressnetworkid", v.(string))
 	}
 	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
 		}
 	}
 	return u
@@ -3935,11 +3929,10 @@ func (p *RemoveFromLoadBalancerRuleParams) toURLValues() url.Values {
 		u.Set("virtualmachineids", vv)
 	}
 	if v, found := p.p["vmidipmap"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("vmidipmap[%d].key", i), k)
-			u.Set(fmt.Sprintf("vmidipmap[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("vmidipmap[%d].value", i), m[k])
 		}
 	}
 	return u

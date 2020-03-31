@@ -213,10 +213,9 @@ func (p *CreateTemplateParams) toURLValues() url.Values {
 		u.Set("bits", vv)
 	}
 	if v, found := p.p["details"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
-			i++
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
+			u.Set(fmt.Sprintf("details[%d].%s", i, k), m[k])
 		}
 	}
 	if v, found := p.p["displaytext"]; found {
@@ -761,10 +760,9 @@ func (p *GetUploadParamsForTemplateParams) toURLValues() url.Values {
 		u.Set("checksum", v.(string))
 	}
 	if v, found := p.p["details"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
-			i++
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
+			u.Set(fmt.Sprintf("details[%d].%s", i, k), m[k])
 		}
 	}
 	if v, found := p.p["displaytext"]; found {
@@ -1189,11 +1187,10 @@ func (p *ListTemplatesParams) toURLValues() url.Values {
 		u.Set("showremoved", vv)
 	}
 	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["templatefilter"]; found {
@@ -1694,10 +1691,9 @@ func (p *RegisterTemplateParams) toURLValues() url.Values {
 		u.Set("checksum", v.(string))
 	}
 	if v, found := p.p["details"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
-			i++
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
+			u.Set(fmt.Sprintf("details[%d].%s", i, k), m[k])
 		}
 	}
 	if v, found := p.p["directdownload"]; found {
@@ -2091,10 +2087,9 @@ func (p *UpdateTemplateParams) toURLValues() url.Values {
 		u.Set("cleanupdetails", vv)
 	}
 	if v, found := p.p["details"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("details[%d].%s", i, k), vv)
-			i++
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
+			u.Set(fmt.Sprintf("details[%d].%s", i, k), m[k])
 		}
 	}
 	if v, found := p.p["displaytext"]; found {

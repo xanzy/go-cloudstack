@@ -503,6 +503,15 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("	return nil, fmt.Errorf(\"Unable to extract the raw value from:\\n\\n%%s\\n\\n\", string(b))")
 	pn("}")
 	pn("")
+	pn("// getSortedKeysFromMap returns the keys from m in increasing order.")
+	pn("func getSortedKeysFromMap(m map[string]string) (keys []string) {")
+	pn("	for k := range m {")
+	pn("		keys = append(keys, k)")
+	pn("	}")
+	pn("	sort.Strings(keys)")
+	pn("	return")
+	pn("}")
+	pn("")
 	pn("// WithAsyncTimeout takes a custom timeout to be used by the CloudStackClient")
 	pn("func WithAsyncTimeout(timeout int64) ClientOption {")
 	pn("	return func(cs *CloudStackClient) {")
@@ -898,27 +907,26 @@ func (s *service) generateConvertCode(cmd, name, typ string) {
 		pn("vv := strings.Join(v.([]string), \",\")")
 		pn("u.Set(\"%s\", vv)", name)
 	case "map[string]string":
-		pn("i := 0")
-		pn("for k, vv := range v.(map[string]string) {")
+		pn("m := v.(map[string]string)")
+		pn("for i, k := range getSortedKeysFromMap(m) {")
 		switch name {
 		case "details":
 			if detailsRequireKeyValue[cmd] {
 				pn("	u.Set(fmt.Sprintf(\"%s[%%d].key\", i), k)", name)
-				pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), vv)", name)
+				pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), m[k])", name)
 			} else {
-				pn("	u.Set(fmt.Sprintf(\"%s[%%d].%%s\", i, k), vv)", name)
+				pn("	u.Set(fmt.Sprintf(\"%s[%%d].%%s\", i, k), m[k])", name)
 			}
 		case "serviceproviderlist":
 			pn("	u.Set(fmt.Sprintf(\"%s[%%d].service\", i), k)", name)
-			pn("	u.Set(fmt.Sprintf(\"%s[%%d].provider\", i), vv)", name)
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].provider\", i), m[k])", name)
 		case "usersecuritygrouplist":
 			pn("	u.Set(fmt.Sprintf(\"%s[%%d].account\", i), k)", name)
-			pn("	u.Set(fmt.Sprintf(\"%s[%%d].group\", i), vv)", name)
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].group\", i), m[k])", name)
 		default:
 			pn("	u.Set(fmt.Sprintf(\"%s[%%d].key\", i), k)", name)
-			pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), vv)", name)
+			pn("	u.Set(fmt.Sprintf(\"%s[%%d].value\", i), m[k])", name)
 		}
-		pn("	i++")
 		pn("}")
 	}
 	return

@@ -104,11 +104,10 @@ func (p *AuthorizeSecurityGroupEgressParams) toURLValues() url.Values {
 		u.Set("startport", vv)
 	}
 	if v, found := p.p["usersecuritygrouplist"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].account", i), k)
-			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].group", i), vv)
-			i++
+			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].group", i), m[k])
 		}
 	}
 	return u
@@ -321,11 +320,10 @@ func (p *AuthorizeSecurityGroupIngressParams) toURLValues() url.Values {
 		u.Set("startport", vv)
 	}
 	if v, found := p.p["usersecuritygrouplist"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].account", i), k)
-			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].group", i), vv)
-			i++
+			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].group", i), m[k])
 		}
 	}
 	return u
@@ -784,11 +782,10 @@ func (p *ListSecurityGroupsParams) toURLValues() url.Values {
 		u.Set("securitygroupname", v.(string))
 	}
 	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["virtualmachineid"]; found {

@@ -193,11 +193,10 @@ func (p *ImportLdapUsersParams) toURLValues() url.Values {
 		u.Set("account", v.(string))
 	}
 	if v, found := p.p["accountdetails"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("accountdetails[%d].key", i), k)
-			u.Set(fmt.Sprintf("accountdetails[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("accountdetails[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["accounttype"]; found {
@@ -517,11 +516,10 @@ func (p *LdapCreateAccountParams) toURLValues() url.Values {
 		u.Set("account", v.(string))
 	}
 	if v, found := p.p["accountdetails"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
 			u.Set(fmt.Sprintf("accountdetails[%d].key", i), k)
-			u.Set(fmt.Sprintf("accountdetails[%d].value", i), vv)
-			i++
+			u.Set(fmt.Sprintf("accountdetails[%d].value", i), m[k])
 		}
 	}
 	if v, found := p.p["accountid"]; found {
