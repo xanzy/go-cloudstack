@@ -2188,9 +2188,29 @@ func (s *VirtualMachineService) ListVirtualMachines(p *ListVirtualMachinesParams
 	return &r, nil
 }
 
+// List the virtual machines metrics owned by the account.
+func (s *VirtualMachineService) ListVirtualMachinesMetrics(p *ListVirtualMachinesParams) (*ListVirtualMachinesMetricsResponse, error) {
+	resp, err := s.cs.newRequest("listVirtualMachinesMetrics", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListVirtualMachinesMetricsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
 type ListVirtualMachinesResponse struct {
 	Count           int               `json:"count"`
 	VirtualMachines []*VirtualMachine `json:"virtualmachine"`
+}
+
+type ListVirtualMachinesMetricsResponse struct {
+	Count           	   int               		`json:"count"`
+	VirtualMachinesMetrics []*VirtualMachineMetrics	 	`json:"virtualmachine"`
 }
 
 type VirtualMachine struct {
@@ -2257,6 +2277,61 @@ type VirtualMachine struct {
 	Userid                string                        `json:"userid"`
 	Username              string                        `json:"username"`
 	Vgpu                  string                        `json:"vgpu"`
+	Zoneid                string                        `json:"zoneid"`
+	Zonename              string                        `json:"zonename"`
+}
+
+type VirtualMachineMetrics struct {
+	Account               string                        `json:"account"`
+	Affinitygroup         []VirtualMachineAffinitygroup `json:"affinitygroup"`
+	Cpunumber             int                           `json:"cpunumber"`
+	Cpuspeed              int                           `json:"cpuspeed"`
+	Cputotal              string                        `json:"cputotal"`
+	Cpuused               string                        `json:"cpuused"`
+	Created               string                        `json:"created"`
+	Details               map[string]string             `json:"details"`
+	Diskiopstotal         int64                         `json:"diskiopstotal"`
+	Diskioread            int64                         `json:"diskioread"`
+	Diskiowrite           int64                         `json:"diskiowrite"`
+	Diskkbsread           int64                         `json:"diskkbsread"`
+	Diskkbswrite          int64                         `json:"diskkbswrite"`
+	Displayname           string                        `json:"displayname"`
+	Displayvm             bool                          `json:"displayvm"`
+	Domain                string                        `json:"domain"`
+	Domainid              string                        `json:"domainid"`
+	Guestosid             string                        `json:"guestosid"`
+	Haenable              bool                          `json:"haenable"`
+	Hostid                string                        `json:"hostid"`
+	Hostname              string                        `json:"hostname"`
+	Hypervisor            string                        `json:"hypervisor"`
+	Id                    string                        `json:"id"`
+	Instancename          string                        `json:"instancename"`
+	Ipaddress             string                        `json:"ipaddress"`
+	Isdynamicallyscalable bool                          `json:"isdynamicallyscalable"`
+	Keypair               string                        `json:"keypair"`
+	Memory                int                           `json:"memory"`
+	Memoryintfreekbs      int64                         `json:"memoryintfreekbs"`
+	Memorykbs             int64                         `json:"memorykbs"`
+	Memorytargetkbs       int64                         `json:"memorytargetkbs"`
+	Memorytotal           string                        `json:"memorytotal"`
+	Name                  string                        `json:"name"`
+	Networkkbsread        int64                         `json:"networkkbsread"`
+	Networkkbswrite       int64                         `json:"networkkbswrite"`
+	Nic                   []Nic                         `json:"nic"`
+	Ostypeid              string                        `json:"ostypeid"`
+	Passwordenabled       bool                          `json:"passwordenabled"`
+	Rootdeviceid          int64                         `json:"rootdeviceid"`
+	Rootdevicetype        string                        `json:"rootdevicetype"`
+	Securitygroup         []VirtualMachineSecuritygroup `json:"securitygroup"`
+	Serviceofferingid     string                        `json:"serviceofferingid"`
+	Serviceofferingname   string                        `json:"serviceofferingname"`
+	State                 string                        `json:"state"`
+	Tags                  []Tags                        `json:"tags"`
+	Templatedisplaytext   string                        `json:"templatedisplaytext"`
+	Templateid            string                        `json:"templateid"`
+	Templatename          string                        `json:"templatename"`
+	Userid                string                        `json:"userid"`
+	Username              string                        `json:"username"`
 	Zoneid                string                        `json:"zoneid"`
 	Zonename              string                        `json:"zonename"`
 }
