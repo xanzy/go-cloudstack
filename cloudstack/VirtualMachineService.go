@@ -2330,6 +2330,625 @@ func (r *VirtualMachine) UnmarshalJSON(b []byte) error {
 	return json.Unmarshal(b, (*alias)(r))
 }
 
+type ListVirtualMachinesMetricsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListVirtualMachinesMetricsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["affinitygroupid"]; found {
+		u.Set("affinitygroupid", v.(string))
+	}
+	if v, found := p.p["details"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("details", vv)
+	}
+	if v, found := p.p["displayvm"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("displayvm", vv)
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["forvirtualnetwork"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("forvirtualnetwork", vv)
+	}
+	if v, found := p.p["groupid"]; found {
+		u.Set("groupid", v.(string))
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	if v, found := p.p["hypervisor"]; found {
+		u.Set("hypervisor", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["ids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("ids", vv)
+	}
+	if v, found := p.p["isoid"]; found {
+		u.Set("isoid", v.(string))
+	}
+	if v, found := p.p["isrecursive"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("isrecursive", vv)
+	}
+	if v, found := p.p["keypair"]; found {
+		u.Set("keypair", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["listall"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("listall", vv)
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["networkid"]; found {
+		u.Set("networkid", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["serviceofferingid"]; found {
+		u.Set("serviceofferingid", v.(string))
+	}
+	if v, found := p.p["state"]; found {
+		u.Set("state", v.(string))
+	}
+	if v, found := p.p["storageid"]; found {
+		u.Set("storageid", v.(string))
+	}
+	if v, found := p.p["storageid"]; found {
+		u.Set("storageid", v.(string))
+	}
+	if v, found := p.p["tags"]; found {
+		m := v.(map[string]string)
+		for i, k := range getSortedKeysFromMap(m) {
+			u.Set(fmt.Sprintf("tags[%d].key", i), k)
+			u.Set(fmt.Sprintf("tags[%d].value", i), m[k])
+		}
+	}
+	if v, found := p.p["templateid"]; found {
+		u.Set("templateid", v.(string))
+	}
+	if v, found := p.p["userid"]; found {
+		u.Set("userid", v.(string))
+	}
+	if v, found := p.p["vpcid"]; found {
+		u.Set("vpcid", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetAffinitygroupid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["affinitygroupid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetDetails(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["details"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetDisplayvm(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["displayvm"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetForvirtualnetwork(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forvirtualnetwork"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetGroupid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["groupid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetHypervisor(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hypervisor"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetIds(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ids"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetIsoid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isoid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetIsrecursive(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isrecursive"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetKeypair(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keypair"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetListall(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["listall"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetNetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetServiceofferingid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["serviceofferingid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetState(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["state"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetStorageid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["storageid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetTags(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["tags"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetTemplateid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["templateid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetUserid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["userid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetVpcid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["vpcid"] = v
+	return
+}
+
+func (p *ListVirtualMachinesMetricsParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+	return
+}
+
+// You should always use this function to get a new ListVirtualMachinesMetricsParams instance,
+// as then you are sure you have configured all required params
+func (s *VirtualMachineService) NewListVirtualMachinesMetricsParams() *ListVirtualMachinesMetricsParams {
+	p := &ListVirtualMachinesMetricsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VirtualMachineService) GetVirtualMachinesMetricID(name string, opts ...OptionFunc) (string, int, error) {
+	p := &ListVirtualMachinesMetricsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["name"] = name
+
+	for _, fn := range append(s.cs.options, opts...) {
+		if err := fn(s.cs, p); err != nil {
+			return "", -1, err
+		}
+	}
+
+	l, err := s.ListVirtualMachinesMetrics(p)
+	if err != nil {
+		return "", -1, err
+	}
+
+	if l.Count == 0 {
+		return "", l.Count, fmt.Errorf("No match found for %s: %+v", name, l)
+	}
+
+	if l.Count == 1 {
+		return l.VirtualMachinesMetrics[0].Id, l.Count, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.VirtualMachinesMetrics {
+			if v.Name == name {
+				return v.Id, l.Count, nil
+			}
+		}
+	}
+	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VirtualMachineService) GetVirtualMachinesMetricByName(name string, opts ...OptionFunc) (*VirtualMachinesMetric, int, error) {
+	id, count, err := s.GetVirtualMachinesMetricID(name, opts...)
+	if err != nil {
+		return nil, count, err
+	}
+
+	r, count, err := s.GetVirtualMachinesMetricByID(id, opts...)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VirtualMachineService) GetVirtualMachinesMetricByID(id string, opts ...OptionFunc) (*VirtualMachinesMetric, int, error) {
+	p := &ListVirtualMachinesMetricsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range append(s.cs.options, opts...) {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListVirtualMachinesMetrics(p)
+	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.VirtualMachinesMetrics[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for VirtualMachinesMetric UUID: %s!", id)
+}
+
+// Lists VM metrics
+func (s *VirtualMachineService) ListVirtualMachinesMetrics(p *ListVirtualMachinesMetricsParams) (*ListVirtualMachinesMetricsResponse, error) {
+	resp, err := s.cs.newRequest("listVirtualMachinesMetrics", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListVirtualMachinesMetricsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListVirtualMachinesMetricsResponse struct {
+	Count                  int                      `json:"count"`
+	VirtualMachinesMetrics []*VirtualMachinesMetric `json:"virtualmachinesmetric"`
+}
+
+type VirtualMachinesMetric struct {
+	Account               string                               `json:"account"`
+	Affinitygroup         []VirtualMachinesMetricAffinitygroup `json:"affinitygroup"`
+	Cpunumber             int                                  `json:"cpunumber"`
+	Cpuspeed              int                                  `json:"cpuspeed"`
+	Cputotal              string                               `json:"cputotal"`
+	Cpuused               string                               `json:"cpuused"`
+	Created               string                               `json:"created"`
+	Details               map[string]string                    `json:"details"`
+	Diskiopstotal         int64                                `json:"diskiopstotal"`
+	Diskioread            int64                                `json:"diskioread"`
+	Diskiowrite           int64                                `json:"diskiowrite"`
+	Diskkbsread           int64                                `json:"diskkbsread"`
+	Diskkbswrite          int64                                `json:"diskkbswrite"`
+	Diskofferingid        string                               `json:"diskofferingid"`
+	Diskofferingname      string                               `json:"diskofferingname"`
+	Diskread              string                               `json:"diskread"`
+	Diskwrite             string                               `json:"diskwrite"`
+	Displayname           string                               `json:"displayname"`
+	Displayvm             bool                                 `json:"displayvm"`
+	Domain                string                               `json:"domain"`
+	Domainid              string                               `json:"domainid"`
+	Forvirtualnetwork     bool                                 `json:"forvirtualnetwork"`
+	Group                 string                               `json:"group"`
+	Groupid               string                               `json:"groupid"`
+	Guestosid             string                               `json:"guestosid"`
+	Haenable              bool                                 `json:"haenable"`
+	Hostid                string                               `json:"hostid"`
+	Hostname              string                               `json:"hostname"`
+	Hypervisor            string                               `json:"hypervisor"`
+	Id                    string                               `json:"id"`
+	Instancename          string                               `json:"instancename"`
+	Ipaddress             string                               `json:"ipaddress"`
+	Isdynamicallyscalable bool                                 `json:"isdynamicallyscalable"`
+	Isodisplaytext        string                               `json:"isodisplaytext"`
+	Isoid                 string                               `json:"isoid"`
+	Isoname               string                               `json:"isoname"`
+	JobID                 string                               `json:"jobid"`
+	Jobstatus             int                                  `json:"jobstatus"`
+	Keypair               string                               `json:"keypair"`
+	Memory                int                                  `json:"memory"`
+	Memoryintfreekbs      int64                                `json:"memoryintfreekbs"`
+	Memorykbs             int64                                `json:"memorykbs"`
+	Memorytargetkbs       int64                                `json:"memorytargetkbs"`
+	Memorytotal           string                               `json:"memorytotal"`
+	Name                  string                               `json:"name"`
+	Networkkbsread        int64                                `json:"networkkbsread"`
+	Networkkbswrite       int64                                `json:"networkkbswrite"`
+	Networkread           string                               `json:"networkread"`
+	Networkwrite          string                               `json:"networkwrite"`
+	Nic                   []Nic                                `json:"nic"`
+	Ostypeid              string                               `json:"ostypeid"`
+	Password              string                               `json:"password"`
+	Passwordenabled       bool                                 `json:"passwordenabled"`
+	Project               string                               `json:"project"`
+	Projectid             string                               `json:"projectid"`
+	Publicip              string                               `json:"publicip"`
+	Publicipid            string                               `json:"publicipid"`
+	Rootdeviceid          int64                                `json:"rootdeviceid"`
+	Rootdevicetype        string                               `json:"rootdevicetype"`
+	Securitygroup         []VirtualMachinesMetricSecuritygroup `json:"securitygroup"`
+	Serviceofferingid     string                               `json:"serviceofferingid"`
+	Serviceofferingname   string                               `json:"serviceofferingname"`
+	Servicestate          string                               `json:"servicestate"`
+	State                 string                               `json:"state"`
+	Tags                  []Tags                               `json:"tags"`
+	Templatedisplaytext   string                               `json:"templatedisplaytext"`
+	Templateid            string                               `json:"templateid"`
+	Templatename          string                               `json:"templatename"`
+	Userid                string                               `json:"userid"`
+	Username              string                               `json:"username"`
+	Vgpu                  string                               `json:"vgpu"`
+	Zoneid                string                               `json:"zoneid"`
+	Zonename              string                               `json:"zonename"`
+}
+
+type VirtualMachinesMetricSecuritygroup struct {
+	Account             string                                   `json:"account"`
+	Description         string                                   `json:"description"`
+	Domain              string                                   `json:"domain"`
+	Domainid            string                                   `json:"domainid"`
+	Egressrule          []VirtualMachinesMetricSecuritygroupRule `json:"egressrule"`
+	Id                  string                                   `json:"id"`
+	Ingressrule         []VirtualMachinesMetricSecuritygroupRule `json:"ingressrule"`
+	Name                string                                   `json:"name"`
+	Project             string                                   `json:"project"`
+	Projectid           string                                   `json:"projectid"`
+	Tags                []Tags                                   `json:"tags"`
+	Virtualmachinecount int                                      `json:"virtualmachinecount"`
+	Virtualmachineids   []interface{}                            `json:"virtualmachineids"`
+}
+
+type VirtualMachinesMetricSecuritygroupRule struct {
+	Account           string `json:"account"`
+	Cidr              string `json:"cidr"`
+	Endport           int    `json:"endport"`
+	Icmpcode          int    `json:"icmpcode"`
+	Icmptype          int    `json:"icmptype"`
+	Protocol          string `json:"protocol"`
+	Ruleid            string `json:"ruleid"`
+	Securitygroupname string `json:"securitygroupname"`
+	Startport         int    `json:"startport"`
+	Tags              []Tags `json:"tags"`
+}
+
+type VirtualMachinesMetricAffinitygroup struct {
+	Account           string   `json:"account"`
+	Description       string   `json:"description"`
+	Domain            string   `json:"domain"`
+	Domainid          string   `json:"domainid"`
+	Id                string   `json:"id"`
+	Name              string   `json:"name"`
+	Project           string   `json:"project"`
+	Projectid         string   `json:"projectid"`
+	Type              string   `json:"type"`
+	VirtualmachineIds []string `json:"virtualmachineIds"`
+}
+
+func (r *VirtualMachinesMetric) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias VirtualMachinesMetric
+	return json.Unmarshal(b, (*alias)(r))
+}
+
 type MigrateVirtualMachineParams struct {
 	p map[string]interface{}
 }
