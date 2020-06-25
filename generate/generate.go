@@ -107,15 +107,17 @@ func (s services) Swap(i, j int) {
 // APIParams represents a list of API params
 type APIParams []*APIParam
 
-// Add functions for the Sort interface
+// Len implements the Sort interface
 func (s APIParams) Len() int {
 	return len(s)
 }
 
+// Less implements the Sort interface
 func (s APIParams) Less(i, j int) bool {
 	return s[i].Name < s[j].Name
 }
 
+// Swap implements the Sort interface
 func (s APIParams) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
@@ -148,15 +150,17 @@ type APIResponse struct {
 // APIResponses represents a list of API responses
 type APIResponses []*APIResponse
 
-// Add functions for the Sort interface
+// Len implements the Sort interface
 func (s APIResponses) Len() int {
 	return len(s)
 }
 
+// Less implements the Sort interface
 func (s APIResponses) Less(i, j int) bool {
 	return s[i].Name < s[j].Name
 }
 
+// Swap implements the Sort interface
 func (s APIResponses) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
@@ -192,7 +196,7 @@ func main() {
 	if len(errors) > 0 {
 		log.Printf("%d API(s) failed to generate:", len(errors))
 		for _, ce := range errors {
-			log.Printf(ce.Error())
+			log.Print(ce.Error())
 		}
 		os.Exit(1)
 	}
@@ -866,7 +870,6 @@ func (s *service) generateParamType(a *API) {
 	pn("type %s struct {", capitalize(a.Name+"Params"))
 	pn("	p map[string]interface{}")
 	pn("}\n")
-	return
 }
 
 func (s *service) generateToURLValuesFunc(a *API) {
@@ -885,7 +888,6 @@ func (s *service) generateToURLValuesFunc(a *API) {
 	pn("	return u")
 	pn("}")
 	pn("")
-	return
 }
 
 func (s *service) generateConvertCode(cmd, name, typ string) {
@@ -929,7 +931,6 @@ func (s *service) generateConvertCode(cmd, name, typ string) {
 		}
 		pn("}")
 	}
-	return
 }
 
 func (s *service) parseParamName(name string) string {
@@ -956,7 +957,6 @@ func (s *service) generateParamSettersFunc(a *API) {
 			found[ap.Name] = true
 		}
 	}
-	return
 }
 
 func (s *service) generateNewParamTypeFunc(a *API) {
@@ -986,7 +986,6 @@ func (s *service) generateNewParamTypeFunc(a *API) {
 	pn("	return p")
 	pn("}")
 	pn("")
-	return
 }
 
 func (s *service) generateHelperFuncs(a *API) {
@@ -1186,7 +1185,6 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("")
 		}
 	}
-	return
 }
 
 func hasNameOrKeywordParamField(params APIParams) (v string, found bool) {

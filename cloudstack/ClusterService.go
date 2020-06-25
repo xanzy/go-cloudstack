@@ -949,6 +949,317 @@ type ClusterCapacity struct {
 	Zonename          string `json:"zonename"`
 }
 
+type ListClustersMetricsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListClustersMetricsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["allocationstate"]; found {
+		u.Set("allocationstate", v.(string))
+	}
+	if v, found := p.p["clustertype"]; found {
+		u.Set("clustertype", v.(string))
+	}
+	if v, found := p.p["hypervisor"]; found {
+		u.Set("hypervisor", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["managedstate"]; found {
+		u.Set("managedstate", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	if v, found := p.p["showcapacities"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("showcapacities", vv)
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *ListClustersMetricsParams) SetAllocationstate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["allocationstate"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetClustertype(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clustertype"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetHypervisor(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hypervisor"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetManagedstate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["managedstate"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetShowcapacities(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["showcapacities"] = v
+	return
+}
+
+func (p *ListClustersMetricsParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+	return
+}
+
+// You should always use this function to get a new ListClustersMetricsParams instance,
+// as then you are sure you have configured all required params
+func (s *ClusterService) NewListClustersMetricsParams() *ListClustersMetricsParams {
+	p := &ListClustersMetricsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ClusterService) GetClustersMetricID(name string, opts ...OptionFunc) (string, int, error) {
+	p := &ListClustersMetricsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["name"] = name
+
+	for _, fn := range append(s.cs.options, opts...) {
+		if err := fn(s.cs, p); err != nil {
+			return "", -1, err
+		}
+	}
+
+	l, err := s.ListClustersMetrics(p)
+	if err != nil {
+		return "", -1, err
+	}
+
+	if l.Count == 0 {
+		return "", l.Count, fmt.Errorf("No match found for %s: %+v", name, l)
+	}
+
+	if l.Count == 1 {
+		return l.ClustersMetrics[0].Id, l.Count, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.ClustersMetrics {
+			if v.Name == name {
+				return v.Id, l.Count, nil
+			}
+		}
+	}
+	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ClusterService) GetClustersMetricByName(name string, opts ...OptionFunc) (*ClustersMetric, int, error) {
+	id, count, err := s.GetClustersMetricID(name, opts...)
+	if err != nil {
+		return nil, count, err
+	}
+
+	r, count, err := s.GetClustersMetricByID(id, opts...)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ClusterService) GetClustersMetricByID(id string, opts ...OptionFunc) (*ClustersMetric, int, error) {
+	p := &ListClustersMetricsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range append(s.cs.options, opts...) {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListClustersMetrics(p)
+	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.ClustersMetrics[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for ClustersMetric UUID: %s!", id)
+}
+
+// Lists clusters metrics
+func (s *ClusterService) ListClustersMetrics(p *ListClustersMetricsParams) (*ListClustersMetricsResponse, error) {
+	resp, err := s.cs.newRequest("listClustersMetrics", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListClustersMetricsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListClustersMetricsResponse struct {
+	Count           int               `json:"count"`
+	ClustersMetrics []*ClustersMetric `json:"clustersmetric"`
+}
+
+type ClustersMetric struct {
+	Allocationstate                 string                   `json:"allocationstate"`
+	Capacity                        []ClustersMetricCapacity `json:"capacity"`
+	Clustertype                     string                   `json:"clustertype"`
+	Cpuallocated                    string                   `json:"cpuallocated"`
+	Cpuallocateddisablethreshold    bool                     `json:"cpuallocateddisablethreshold"`
+	Cpuallocatedthreshold           bool                     `json:"cpuallocatedthreshold"`
+	Cpudisablethreshold             bool                     `json:"cpudisablethreshold"`
+	Cpumaxdeviation                 string                   `json:"cpumaxdeviation"`
+	Cpuovercommitratio              string                   `json:"cpuovercommitratio"`
+	Cputhreshold                    bool                     `json:"cputhreshold"`
+	Cputotal                        string                   `json:"cputotal"`
+	Cpuused                         string                   `json:"cpuused"`
+	Hosts                           string                   `json:"hosts"`
+	Hypervisortype                  string                   `json:"hypervisortype"`
+	Id                              string                   `json:"id"`
+	JobID                           string                   `json:"jobid"`
+	Jobstatus                       int                      `json:"jobstatus"`
+	Managedstate                    string                   `json:"managedstate"`
+	Memoryallocated                 string                   `json:"memoryallocated"`
+	Memoryallocateddisablethreshold bool                     `json:"memoryallocateddisablethreshold"`
+	Memoryallocatedthreshold        bool                     `json:"memoryallocatedthreshold"`
+	Memorydisablethreshold          bool                     `json:"memorydisablethreshold"`
+	Memorymaxdeviation              string                   `json:"memorymaxdeviation"`
+	Memoryovercommitratio           string                   `json:"memoryovercommitratio"`
+	Memorythreshold                 bool                     `json:"memorythreshold"`
+	Memorytotal                     string                   `json:"memorytotal"`
+	Memoryused                      string                   `json:"memoryused"`
+	Name                            string                   `json:"name"`
+	Ovm3vip                         string                   `json:"ovm3vip"`
+	Podid                           string                   `json:"podid"`
+	Podname                         string                   `json:"podname"`
+	Resourcedetails                 map[string]string        `json:"resourcedetails"`
+	State                           string                   `json:"state"`
+	Zoneid                          string                   `json:"zoneid"`
+	Zonename                        string                   `json:"zonename"`
+}
+
+type ClustersMetricCapacity struct {
+	Capacityallocated int64  `json:"capacityallocated"`
+	Capacitytotal     int64  `json:"capacitytotal"`
+	Capacityused      int64  `json:"capacityused"`
+	Clusterid         string `json:"clusterid"`
+	Clustername       string `json:"clustername"`
+	Name              string `json:"name"`
+	Percentused       string `json:"percentused"`
+	Podid             string `json:"podid"`
+	Podname           string `json:"podname"`
+	Type              int    `json:"type"`
+	Zoneid            string `json:"zoneid"`
+	Zonename          string `json:"zonename"`
+}
+
 type ListDedicatedClustersParams struct {
 	p map[string]interface{}
 }
