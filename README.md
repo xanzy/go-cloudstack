@@ -63,7 +63,7 @@ _Please try to see if [GoDocs](http://godoc.org/github.com/xanzy/go-cloudstack) 
 
 ## Author
 
-Sander van Harmelen (<sander@xanzy.io>)
+Sander van Harmelen (<sander@vanharmelen.nl>)
 
 ## License
 
