@@ -58,8 +58,7 @@ func (s *ConfigurationService) ListCapabilities(p *ListCapabilitiesParams) (*Lis
 }
 
 type ListCapabilitiesResponse struct {
-	Count        int           `json:"count"`
-	Capabilities []*Capability `json:"capability"`
+	Capabilities *Capability `json:"capability"`
 }
 
 type Capability struct {
