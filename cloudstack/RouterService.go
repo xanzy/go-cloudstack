@@ -47,7 +47,6 @@ func (p *ChangeServiceForRouterParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ChangeServiceForRouterParams) SetServiceofferingid(v string) {
@@ -55,7 +54,6 @@ func (p *ChangeServiceForRouterParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 // You should always use this function to get a new ChangeServiceForRouterParams instance,
@@ -158,7 +156,6 @@ func (p *ConfigureVirtualRouterElementParams) SetEnabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enabled"] = v
-	return
 }
 
 func (p *ConfigureVirtualRouterElementParams) SetId(v string) {
@@ -166,7 +163,6 @@ func (p *ConfigureVirtualRouterElementParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new ConfigureVirtualRouterElementParams instance,
@@ -250,7 +246,6 @@ func (p *CreateVirtualRouterElementParams) SetNspid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nspid"] = v
-	return
 }
 
 func (p *CreateVirtualRouterElementParams) SetProvidertype(v string) {
@@ -258,7 +253,6 @@ func (p *CreateVirtualRouterElementParams) SetProvidertype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["providertype"] = v
-	return
 }
 
 // You should always use this function to get a new CreateVirtualRouterElementParams instance,
@@ -338,7 +332,6 @@ func (p *DestroyRouterParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DestroyRouterParams instance,
@@ -515,7 +508,6 @@ func (p *ListRoutersParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetClusterid(v string) {
@@ -523,7 +515,6 @@ func (p *ListRoutersParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetDomainid(v string) {
@@ -531,7 +522,6 @@ func (p *ListRoutersParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetForvpc(v bool) {
@@ -539,7 +529,6 @@ func (p *ListRoutersParams) SetForvpc(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forvpc"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetHostid(v string) {
@@ -547,7 +536,6 @@ func (p *ListRoutersParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetId(v string) {
@@ -555,7 +543,6 @@ func (p *ListRoutersParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetIsrecursive(v bool) {
@@ -563,7 +550,6 @@ func (p *ListRoutersParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetKeyword(v string) {
@@ -571,7 +557,6 @@ func (p *ListRoutersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetListall(v bool) {
@@ -579,7 +564,6 @@ func (p *ListRoutersParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetName(v string) {
@@ -587,7 +571,6 @@ func (p *ListRoutersParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetNetworkid(v string) {
@@ -595,7 +578,6 @@ func (p *ListRoutersParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetPage(v int) {
@@ -603,7 +585,6 @@ func (p *ListRoutersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetPagesize(v int) {
@@ -611,7 +592,6 @@ func (p *ListRoutersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetPodid(v string) {
@@ -619,7 +599,6 @@ func (p *ListRoutersParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetProjectid(v string) {
@@ -627,7 +606,6 @@ func (p *ListRoutersParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetState(v string) {
@@ -635,7 +613,6 @@ func (p *ListRoutersParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetVersion(v string) {
@@ -643,7 +620,6 @@ func (p *ListRoutersParams) SetVersion(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["version"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetVpcid(v string) {
@@ -651,7 +627,6 @@ func (p *ListRoutersParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 func (p *ListRoutersParams) SetZoneid(v string) {
@@ -659,7 +634,6 @@ func (p *ListRoutersParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListRoutersParams instance,
@@ -862,7 +836,6 @@ func (p *ListVirtualRouterElementsParams) SetEnabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enabled"] = v
-	return
 }
 
 func (p *ListVirtualRouterElementsParams) SetId(v string) {
@@ -870,7 +843,6 @@ func (p *ListVirtualRouterElementsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListVirtualRouterElementsParams) SetKeyword(v string) {
@@ -878,7 +850,6 @@ func (p *ListVirtualRouterElementsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListVirtualRouterElementsParams) SetNspid(v string) {
@@ -886,7 +857,6 @@ func (p *ListVirtualRouterElementsParams) SetNspid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nspid"] = v
-	return
 }
 
 func (p *ListVirtualRouterElementsParams) SetPage(v int) {
@@ -894,7 +864,6 @@ func (p *ListVirtualRouterElementsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListVirtualRouterElementsParams) SetPagesize(v int) {
@@ -902,7 +871,6 @@ func (p *ListVirtualRouterElementsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListVirtualRouterElementsParams instance,
@@ -999,7 +967,6 @@ func (p *RebootRouterParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RebootRouterParams instance,
@@ -1117,7 +1084,6 @@ func (p *StartRouterParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new StartRouterParams instance,
@@ -1239,7 +1205,6 @@ func (p *StopRouterParams) SetForced(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forced"] = v
-	return
 }
 
 func (p *StopRouterParams) SetId(v string) {
@@ -1247,7 +1212,6 @@ func (p *StopRouterParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new StopRouterParams instance,

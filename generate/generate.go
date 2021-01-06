@@ -513,7 +513,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("		keys = append(keys, k)")
 	pn("	}")
 	pn("	sort.Strings(keys)")
-	pn("	return")
+	pn("	return keys")
 	pn("}")
 	pn("")
 	pn("// WithAsyncTimeout takes a custom timeout to be used by the CloudStackClient")
@@ -833,7 +833,6 @@ func (s *service) GenerateCode() ([]byte, error) {
 		pn("		p.p = make(map[string]interface{})")
 		pn("	}")
 		pn("	p.p[param] = v")
-		pn("	return")
 		pn("}")
 		pn("")
 		pn("func (s *CustomService) CustomRequest(api string, p *CustomServiceParams, result interface{}) error {")
@@ -951,7 +950,6 @@ func (s *service) generateParamSettersFunc(a *API) {
 			pn("		p.p = make(map[string]interface{})")
 			pn("	}")
 			pn("	p.p[\"%s\"] = v", ap.Name)
-			pn("	return")
 			pn("}")
 			pn("")
 			found[ap.Name] = true
@@ -1357,20 +1355,26 @@ func (s *service) generateResponseType(a *API) {
 	// for those once.
 	if strings.HasPrefix(a.Name, "list") || a.Name == "registerTemplate" {
 		pn("type %s struct {", tn)
-		pn("	Count int `json:\"count\"`")
 
 		// This nasty check is for some specific response that do not behave consistent
 		switch a.Name {
 		case "listAsyncJobs":
+			pn("	Count int `json:\"count\"`")
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "asyncjobs")
+		case "listCapabilities":
+			pn("    %s *%s `json:\"%s\"`", ln, parseSingular(ln), "capability")
 		case "listEgressFirewallRules":
+			pn("	Count int `json:\"count\"`")
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "firewallrule")
 		case "listLoadBalancerRuleInstances":
+			pn("	Count int `json:\"count\"`")
 			pn("	LBRuleVMIDIPs []*%s `json:\"%s\"`", parseSingular(ln), "lbrulevmidip")
 			pn("	LoadBalancerRuleInstances []*VirtualMachine `json:\"%s\"`", strings.ToLower(parseSingular(ln)))
 		case "registerTemplate":
+			pn("	Count int `json:\"count\"`")
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "template")
 		default:
+			pn("	Count int `json:\"count\"`")
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), strings.ToLower(parseSingular(ln)))
 		}
 		pn("}")

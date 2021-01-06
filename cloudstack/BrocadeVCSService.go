@@ -52,7 +52,6 @@ func (p *AddBrocadeVcsDeviceParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
-	return
 }
 
 func (p *AddBrocadeVcsDeviceParams) SetPassword(v string) {
@@ -60,7 +59,6 @@ func (p *AddBrocadeVcsDeviceParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *AddBrocadeVcsDeviceParams) SetPhysicalnetworkid(v string) {
@@ -68,7 +66,6 @@ func (p *AddBrocadeVcsDeviceParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *AddBrocadeVcsDeviceParams) SetUsername(v string) {
@@ -76,7 +73,6 @@ func (p *AddBrocadeVcsDeviceParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new AddBrocadeVcsDeviceParams instance,
@@ -156,7 +152,6 @@ func (p *DeleteBrocadeVcsDeviceParams) SetVcsdeviceid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vcsdeviceid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteBrocadeVcsDeviceParams instance,
@@ -236,7 +231,6 @@ func (p *ListBrocadeVcsDeviceNetworksParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListBrocadeVcsDeviceNetworksParams) SetPage(v int) {
@@ -244,7 +238,6 @@ func (p *ListBrocadeVcsDeviceNetworksParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListBrocadeVcsDeviceNetworksParams) SetPagesize(v int) {
@@ -252,7 +245,6 @@ func (p *ListBrocadeVcsDeviceNetworksParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListBrocadeVcsDeviceNetworksParams) SetVcsdeviceid(v string) {
@@ -260,7 +252,6 @@ func (p *ListBrocadeVcsDeviceNetworksParams) SetVcsdeviceid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vcsdeviceid"] = v
-	return
 }
 
 // You should always use this function to get a new ListBrocadeVcsDeviceNetworksParams instance,
@@ -440,7 +431,6 @@ func (p *ListBrocadeVcsDevicesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListBrocadeVcsDevicesParams) SetPage(v int) {
@@ -448,7 +438,6 @@ func (p *ListBrocadeVcsDevicesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListBrocadeVcsDevicesParams) SetPagesize(v int) {
@@ -456,7 +445,6 @@ func (p *ListBrocadeVcsDevicesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListBrocadeVcsDevicesParams) SetPhysicalnetworkid(v string) {
@@ -464,7 +452,6 @@ func (p *ListBrocadeVcsDevicesParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *ListBrocadeVcsDevicesParams) SetVcsdeviceid(v string) {
@@ -472,7 +459,6 @@ func (p *ListBrocadeVcsDevicesParams) SetVcsdeviceid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vcsdeviceid"] = v
-	return
 }
 
 // You should always use this function to get a new ListBrocadeVcsDevicesParams instance,

@@ -59,7 +59,6 @@ func (p *CreateAffinityGroupParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateAffinityGroupParams) SetDescription(v string) {
@@ -67,7 +66,6 @@ func (p *CreateAffinityGroupParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateAffinityGroupParams) SetDomainid(v string) {
@@ -75,7 +73,6 @@ func (p *CreateAffinityGroupParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateAffinityGroupParams) SetName(v string) {
@@ -83,7 +80,6 @@ func (p *CreateAffinityGroupParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateAffinityGroupParams) SetProjectid(v string) {
@@ -91,7 +87,6 @@ func (p *CreateAffinityGroupParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *CreateAffinityGroupParams) SetType(v string) {
@@ -99,7 +94,6 @@ func (p *CreateAffinityGroupParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new CreateAffinityGroupParams instance,
@@ -194,7 +188,6 @@ func (p *DeleteAffinityGroupParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *DeleteAffinityGroupParams) SetDomainid(v string) {
@@ -202,7 +195,6 @@ func (p *DeleteAffinityGroupParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *DeleteAffinityGroupParams) SetId(v string) {
@@ -210,7 +202,6 @@ func (p *DeleteAffinityGroupParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *DeleteAffinityGroupParams) SetName(v string) {
@@ -218,7 +209,6 @@ func (p *DeleteAffinityGroupParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *DeleteAffinityGroupParams) SetProjectid(v string) {
@@ -226,7 +216,6 @@ func (p *DeleteAffinityGroupParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteAffinityGroupParams instance,
@@ -302,7 +291,6 @@ func (p *ListAffinityGroupTypesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListAffinityGroupTypesParams) SetPage(v int) {
@@ -310,7 +298,6 @@ func (p *ListAffinityGroupTypesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListAffinityGroupTypesParams) SetPagesize(v int) {
@@ -318,7 +305,6 @@ func (p *ListAffinityGroupTypesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListAffinityGroupTypesParams instance,
@@ -412,7 +398,6 @@ func (p *ListAffinityGroupsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetDomainid(v string) {
@@ -420,7 +405,6 @@ func (p *ListAffinityGroupsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetId(v string) {
@@ -428,7 +412,6 @@ func (p *ListAffinityGroupsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetIsrecursive(v bool) {
@@ -436,7 +419,6 @@ func (p *ListAffinityGroupsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetKeyword(v string) {
@@ -444,7 +426,6 @@ func (p *ListAffinityGroupsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetListall(v bool) {
@@ -452,7 +433,6 @@ func (p *ListAffinityGroupsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetName(v string) {
@@ -460,7 +440,6 @@ func (p *ListAffinityGroupsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetPage(v int) {
@@ -468,7 +447,6 @@ func (p *ListAffinityGroupsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetPagesize(v int) {
@@ -476,7 +454,6 @@ func (p *ListAffinityGroupsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetProjectid(v string) {
@@ -484,7 +461,6 @@ func (p *ListAffinityGroupsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetType(v string) {
@@ -492,7 +468,6 @@ func (p *ListAffinityGroupsParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetVirtualmachineid(v string) {
@@ -500,7 +475,6 @@ func (p *ListAffinityGroupsParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new ListAffinityGroupsParams instance,
@@ -665,7 +639,6 @@ func (p *UpdateVMAffinityGroupParams) SetAffinitygroupids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["affinitygroupids"] = v
-	return
 }
 
 func (p *UpdateVMAffinityGroupParams) SetAffinitygroupnames(v []string) {
@@ -673,7 +646,6 @@ func (p *UpdateVMAffinityGroupParams) SetAffinitygroupnames(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["affinitygroupnames"] = v
-	return
 }
 
 func (p *UpdateVMAffinityGroupParams) SetId(v string) {
@@ -681,7 +653,6 @@ func (p *UpdateVMAffinityGroupParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateVMAffinityGroupParams instance,

@@ -45,7 +45,6 @@ func (p *ChangeOutOfBandManagementPasswordParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *ChangeOutOfBandManagementPasswordParams) SetPassword(v string) {
@@ -53,7 +52,6 @@ func (p *ChangeOutOfBandManagementPasswordParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 // You should always use this function to get a new ChangeOutOfBandManagementPasswordParams instance,
@@ -151,7 +149,6 @@ func (p *ConfigureOutOfBandManagementParams) SetAddress(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["address"] = v
-	return
 }
 
 func (p *ConfigureOutOfBandManagementParams) SetDriver(v string) {
@@ -159,7 +156,6 @@ func (p *ConfigureOutOfBandManagementParams) SetDriver(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["driver"] = v
-	return
 }
 
 func (p *ConfigureOutOfBandManagementParams) SetHostid(v string) {
@@ -167,7 +163,6 @@ func (p *ConfigureOutOfBandManagementParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *ConfigureOutOfBandManagementParams) SetPassword(v string) {
@@ -175,7 +170,6 @@ func (p *ConfigureOutOfBandManagementParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *ConfigureOutOfBandManagementParams) SetPort(v string) {
@@ -183,7 +177,6 @@ func (p *ConfigureOutOfBandManagementParams) SetPort(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["port"] = v
-	return
 }
 
 func (p *ConfigureOutOfBandManagementParams) SetUsername(v string) {
@@ -191,7 +184,6 @@ func (p *ConfigureOutOfBandManagementParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new ConfigureOutOfBandManagementParams instance,
@@ -266,7 +258,6 @@ func (p *IssueOutOfBandManagementPowerActionParams) SetAction(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["action"] = v
-	return
 }
 
 func (p *IssueOutOfBandManagementPowerActionParams) SetHostid(v string) {
@@ -274,7 +265,6 @@ func (p *IssueOutOfBandManagementPowerActionParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *IssueOutOfBandManagementPowerActionParams) SetTimeout(v int64) {
@@ -282,7 +272,6 @@ func (p *IssueOutOfBandManagementPowerActionParams) SetTimeout(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["timeout"] = v
-	return
 }
 
 // You should always use this function to get a new IssueOutOfBandManagementPowerActionParams instance,

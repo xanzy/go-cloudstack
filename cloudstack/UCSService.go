@@ -56,7 +56,6 @@ func (p *AddUcsManagerParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *AddUcsManagerParams) SetPassword(v string) {
@@ -64,7 +63,6 @@ func (p *AddUcsManagerParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *AddUcsManagerParams) SetUrl(v string) {
@@ -72,7 +70,6 @@ func (p *AddUcsManagerParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *AddUcsManagerParams) SetUsername(v string) {
@@ -80,7 +77,6 @@ func (p *AddUcsManagerParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 func (p *AddUcsManagerParams) SetZoneid(v string) {
@@ -88,7 +84,6 @@ func (p *AddUcsManagerParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new AddUcsManagerParams instance,
@@ -153,7 +148,6 @@ func (p *AssociateUcsProfileToBladeParams) SetBladeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bladeid"] = v
-	return
 }
 
 func (p *AssociateUcsProfileToBladeParams) SetProfiledn(v string) {
@@ -161,7 +155,6 @@ func (p *AssociateUcsProfileToBladeParams) SetProfiledn(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["profiledn"] = v
-	return
 }
 
 func (p *AssociateUcsProfileToBladeParams) SetUcsmanagerid(v string) {
@@ -169,7 +162,6 @@ func (p *AssociateUcsProfileToBladeParams) SetUcsmanagerid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ucsmanagerid"] = v
-	return
 }
 
 // You should always use this function to get a new AssociateUcsProfileToBladeParams instance,
@@ -248,7 +240,6 @@ func (p *DeleteUcsManagerParams) SetUcsmanagerid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ucsmanagerid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteUcsManagerParams instance,
@@ -340,7 +331,6 @@ func (p *ListUcsBladesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListUcsBladesParams) SetPage(v int) {
@@ -348,7 +338,6 @@ func (p *ListUcsBladesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListUcsBladesParams) SetPagesize(v int) {
@@ -356,7 +345,6 @@ func (p *ListUcsBladesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListUcsBladesParams) SetUcsmanagerid(v string) {
@@ -364,7 +352,6 @@ func (p *ListUcsBladesParams) SetUcsmanagerid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ucsmanagerid"] = v
-	return
 }
 
 // You should always use this function to get a new ListUcsBladesParams instance,
@@ -440,7 +427,6 @@ func (p *ListUcsManagersParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListUcsManagersParams) SetKeyword(v string) {
@@ -448,7 +434,6 @@ func (p *ListUcsManagersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListUcsManagersParams) SetPage(v int) {
@@ -456,7 +441,6 @@ func (p *ListUcsManagersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListUcsManagersParams) SetPagesize(v int) {
@@ -464,7 +448,6 @@ func (p *ListUcsManagersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListUcsManagersParams) SetZoneid(v string) {
@@ -472,7 +455,6 @@ func (p *ListUcsManagersParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListUcsManagersParams instance,
@@ -626,7 +608,6 @@ func (p *ListUcsProfilesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListUcsProfilesParams) SetPage(v int) {
@@ -634,7 +615,6 @@ func (p *ListUcsProfilesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListUcsProfilesParams) SetPagesize(v int) {
@@ -642,7 +622,6 @@ func (p *ListUcsProfilesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListUcsProfilesParams) SetUcsmanagerid(v string) {
@@ -650,7 +629,6 @@ func (p *ListUcsProfilesParams) SetUcsmanagerid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ucsmanagerid"] = v
-	return
 }
 
 // You should always use this function to get a new ListUcsProfilesParams instance,

@@ -50,7 +50,6 @@ func (p *AddLdapConfigurationParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *AddLdapConfigurationParams) SetHostname(v string) {
@@ -58,7 +57,6 @@ func (p *AddLdapConfigurationParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
-	return
 }
 
 func (p *AddLdapConfigurationParams) SetPort(v int) {
@@ -66,7 +64,6 @@ func (p *AddLdapConfigurationParams) SetPort(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["port"] = v
-	return
 }
 
 // You should always use this function to get a new AddLdapConfigurationParams instance,
@@ -129,7 +126,6 @@ func (p *DeleteLdapConfigurationParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *DeleteLdapConfigurationParams) SetHostname(v string) {
@@ -137,7 +133,6 @@ func (p *DeleteLdapConfigurationParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
-	return
 }
 
 func (p *DeleteLdapConfigurationParams) SetPort(v int) {
@@ -145,7 +140,6 @@ func (p *DeleteLdapConfigurationParams) SetPort(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["port"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteLdapConfigurationParams instance,
@@ -234,7 +228,6 @@ func (p *ImportLdapUsersParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetAccountdetails(v map[string]string) {
@@ -242,7 +235,6 @@ func (p *ImportLdapUsersParams) SetAccountdetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountdetails"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetAccounttype(v int) {
@@ -250,7 +242,6 @@ func (p *ImportLdapUsersParams) SetAccounttype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accounttype"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetDomainid(v string) {
@@ -258,7 +249,6 @@ func (p *ImportLdapUsersParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetGroup(v string) {
@@ -266,7 +256,6 @@ func (p *ImportLdapUsersParams) SetGroup(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["group"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetKeyword(v string) {
@@ -274,7 +263,6 @@ func (p *ImportLdapUsersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetPage(v int) {
@@ -282,7 +270,6 @@ func (p *ImportLdapUsersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetPagesize(v int) {
@@ -290,7 +277,6 @@ func (p *ImportLdapUsersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetRoleid(v string) {
@@ -298,7 +284,6 @@ func (p *ImportLdapUsersParams) SetRoleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["roleid"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetTimezone(v string) {
@@ -306,7 +291,6 @@ func (p *ImportLdapUsersParams) SetTimezone(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["timezone"] = v
-	return
 }
 
 // You should always use this function to get a new ImportLdapUsersParams instance,
@@ -393,7 +377,6 @@ func (p *LdapConfigParams) SetBinddn(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["binddn"] = v
-	return
 }
 
 func (p *LdapConfigParams) SetBindpass(v string) {
@@ -401,7 +384,6 @@ func (p *LdapConfigParams) SetBindpass(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bindpass"] = v
-	return
 }
 
 func (p *LdapConfigParams) SetHostname(v string) {
@@ -409,7 +391,6 @@ func (p *LdapConfigParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
-	return
 }
 
 func (p *LdapConfigParams) SetListall(v bool) {
@@ -417,7 +398,6 @@ func (p *LdapConfigParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *LdapConfigParams) SetPort(v int) {
@@ -425,7 +405,6 @@ func (p *LdapConfigParams) SetPort(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["port"] = v
-	return
 }
 
 func (p *LdapConfigParams) SetQueryfilter(v string) {
@@ -433,7 +412,6 @@ func (p *LdapConfigParams) SetQueryfilter(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["queryfilter"] = v
-	return
 }
 
 func (p *LdapConfigParams) SetSearchbase(v string) {
@@ -441,7 +419,6 @@ func (p *LdapConfigParams) SetSearchbase(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["searchbase"] = v
-	return
 }
 
 func (p *LdapConfigParams) SetSsl(v bool) {
@@ -449,7 +426,6 @@ func (p *LdapConfigParams) SetSsl(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ssl"] = v
-	return
 }
 
 func (p *LdapConfigParams) SetTruststore(v string) {
@@ -457,7 +433,6 @@ func (p *LdapConfigParams) SetTruststore(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["truststore"] = v
-	return
 }
 
 func (p *LdapConfigParams) SetTruststorepass(v string) {
@@ -465,7 +440,6 @@ func (p *LdapConfigParams) SetTruststorepass(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["truststorepass"] = v
-	return
 }
 
 // You should always use this function to get a new LdapConfigParams instance,
@@ -555,7 +529,6 @@ func (p *LdapCreateAccountParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetAccountdetails(v map[string]string) {
@@ -563,7 +536,6 @@ func (p *LdapCreateAccountParams) SetAccountdetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountdetails"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetAccountid(v string) {
@@ -571,7 +543,6 @@ func (p *LdapCreateAccountParams) SetAccountid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountid"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetAccounttype(v int) {
@@ -579,7 +550,6 @@ func (p *LdapCreateAccountParams) SetAccounttype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accounttype"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetDomainid(v string) {
@@ -587,7 +557,6 @@ func (p *LdapCreateAccountParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetNetworkdomain(v string) {
@@ -595,7 +564,6 @@ func (p *LdapCreateAccountParams) SetNetworkdomain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdomain"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetRoleid(v string) {
@@ -603,7 +571,6 @@ func (p *LdapCreateAccountParams) SetRoleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["roleid"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetTimezone(v string) {
@@ -611,7 +578,6 @@ func (p *LdapCreateAccountParams) SetTimezone(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["timezone"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetUserid(v string) {
@@ -619,7 +585,6 @@ func (p *LdapCreateAccountParams) SetUserid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["userid"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetUsername(v string) {
@@ -627,7 +592,6 @@ func (p *LdapCreateAccountParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new LdapCreateAccountParams instance,
@@ -822,7 +786,6 @@ func (p *LinkDomainToLdapParams) SetAccounttype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accounttype"] = v
-	return
 }
 
 func (p *LinkDomainToLdapParams) SetAdmin(v string) {
@@ -830,7 +793,6 @@ func (p *LinkDomainToLdapParams) SetAdmin(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["admin"] = v
-	return
 }
 
 func (p *LinkDomainToLdapParams) SetDomainid(v string) {
@@ -838,7 +800,6 @@ func (p *LinkDomainToLdapParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *LinkDomainToLdapParams) SetLdapdomain(v string) {
@@ -846,7 +807,6 @@ func (p *LinkDomainToLdapParams) SetLdapdomain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ldapdomain"] = v
-	return
 }
 
 func (p *LinkDomainToLdapParams) SetName(v string) {
@@ -854,7 +814,6 @@ func (p *LinkDomainToLdapParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *LinkDomainToLdapParams) SetType(v string) {
@@ -862,7 +821,6 @@ func (p *LinkDomainToLdapParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new LinkDomainToLdapParams instance,
@@ -940,7 +898,6 @@ func (p *ListLdapConfigurationsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListLdapConfigurationsParams) SetHostname(v string) {
@@ -948,7 +905,6 @@ func (p *ListLdapConfigurationsParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
-	return
 }
 
 func (p *ListLdapConfigurationsParams) SetKeyword(v string) {
@@ -956,7 +912,6 @@ func (p *ListLdapConfigurationsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListLdapConfigurationsParams) SetPage(v int) {
@@ -964,7 +919,6 @@ func (p *ListLdapConfigurationsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListLdapConfigurationsParams) SetPagesize(v int) {
@@ -972,7 +926,6 @@ func (p *ListLdapConfigurationsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListLdapConfigurationsParams) SetPort(v int) {
@@ -980,7 +933,6 @@ func (p *ListLdapConfigurationsParams) SetPort(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["port"] = v
-	return
 }
 
 // You should always use this function to get a new ListLdapConfigurationsParams instance,
@@ -1050,7 +1002,6 @@ func (p *ListLdapUsersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListLdapUsersParams) SetListtype(v string) {
@@ -1058,7 +1009,6 @@ func (p *ListLdapUsersParams) SetListtype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listtype"] = v
-	return
 }
 
 func (p *ListLdapUsersParams) SetPage(v int) {
@@ -1066,7 +1016,6 @@ func (p *ListLdapUsersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListLdapUsersParams) SetPagesize(v int) {
@@ -1074,7 +1023,6 @@ func (p *ListLdapUsersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListLdapUsersParams instance,
@@ -1147,7 +1095,6 @@ func (p *SearchLdapParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *SearchLdapParams) SetPage(v int) {
@@ -1155,7 +1102,6 @@ func (p *SearchLdapParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *SearchLdapParams) SetPagesize(v int) {
@@ -1163,7 +1109,6 @@ func (p *SearchLdapParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *SearchLdapParams) SetQuery(v string) {
@@ -1171,7 +1116,6 @@ func (p *SearchLdapParams) SetQuery(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["query"] = v
-	return
 }
 
 // You should always use this function to get a new SearchLdapParams instance,

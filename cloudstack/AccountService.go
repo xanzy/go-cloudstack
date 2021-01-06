@@ -50,7 +50,6 @@ func (p *AddAccountToProjectParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *AddAccountToProjectParams) SetEmail(v string) {
@@ -58,7 +57,6 @@ func (p *AddAccountToProjectParams) SetEmail(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["email"] = v
-	return
 }
 
 func (p *AddAccountToProjectParams) SetProjectid(v string) {
@@ -66,7 +64,6 @@ func (p *AddAccountToProjectParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new AddAccountToProjectParams instance,
@@ -179,7 +176,6 @@ func (p *CreateAccountParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetAccountdetails(v map[string]string) {
@@ -187,7 +183,6 @@ func (p *CreateAccountParams) SetAccountdetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountdetails"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetAccountid(v string) {
@@ -195,7 +190,6 @@ func (p *CreateAccountParams) SetAccountid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountid"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetAccounttype(v int) {
@@ -203,7 +197,6 @@ func (p *CreateAccountParams) SetAccounttype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accounttype"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetDomainid(v string) {
@@ -211,7 +204,6 @@ func (p *CreateAccountParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetEmail(v string) {
@@ -219,7 +211,6 @@ func (p *CreateAccountParams) SetEmail(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["email"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetFirstname(v string) {
@@ -227,7 +218,6 @@ func (p *CreateAccountParams) SetFirstname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["firstname"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetLastname(v string) {
@@ -235,7 +225,6 @@ func (p *CreateAccountParams) SetLastname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lastname"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetNetworkdomain(v string) {
@@ -243,7 +232,6 @@ func (p *CreateAccountParams) SetNetworkdomain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdomain"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetPassword(v string) {
@@ -251,7 +239,6 @@ func (p *CreateAccountParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetRoleid(v string) {
@@ -259,7 +246,6 @@ func (p *CreateAccountParams) SetRoleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["roleid"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetTimezone(v string) {
@@ -267,7 +253,6 @@ func (p *CreateAccountParams) SetTimezone(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["timezone"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetUserid(v string) {
@@ -275,7 +260,6 @@ func (p *CreateAccountParams) SetUserid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["userid"] = v
-	return
 }
 
 func (p *CreateAccountParams) SetUsername(v string) {
@@ -283,7 +267,6 @@ func (p *CreateAccountParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new CreateAccountParams instance,
@@ -423,7 +406,6 @@ func (p *DeleteAccountParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteAccountParams instance,
@@ -495,7 +477,6 @@ func (p *DeleteAccountFromProjectParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *DeleteAccountFromProjectParams) SetProjectid(v string) {
@@ -503,7 +484,6 @@ func (p *DeleteAccountFromProjectParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteAccountFromProjectParams instance,
@@ -583,7 +563,6 @@ func (p *DisableAccountParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *DisableAccountParams) SetDomainid(v string) {
@@ -591,7 +570,6 @@ func (p *DisableAccountParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *DisableAccountParams) SetId(v string) {
@@ -599,7 +577,6 @@ func (p *DisableAccountParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *DisableAccountParams) SetLock(v bool) {
@@ -607,7 +584,6 @@ func (p *DisableAccountParams) SetLock(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lock"] = v
-	return
 }
 
 // You should always use this function to get a new DisableAccountParams instance,
@@ -765,7 +741,6 @@ func (p *EnableAccountParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *EnableAccountParams) SetDomainid(v string) {
@@ -773,7 +748,6 @@ func (p *EnableAccountParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *EnableAccountParams) SetId(v string) {
@@ -781,7 +755,6 @@ func (p *EnableAccountParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new EnableAccountParams instance,
@@ -915,7 +888,6 @@ func (p *GetSolidFireAccountIdParams) SetAccountid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountid"] = v
-	return
 }
 
 func (p *GetSolidFireAccountIdParams) SetStorageid(v string) {
@@ -923,7 +895,6 @@ func (p *GetSolidFireAccountIdParams) SetStorageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["storageid"] = v
-	return
 }
 
 // You should always use this function to get a new GetSolidFireAccountIdParams instance,
@@ -1013,7 +984,6 @@ func (p *ListAccountsParams) SetAccounttype(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accounttype"] = v
-	return
 }
 
 func (p *ListAccountsParams) SetDomainid(v string) {
@@ -1021,7 +991,6 @@ func (p *ListAccountsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListAccountsParams) SetId(v string) {
@@ -1029,7 +998,6 @@ func (p *ListAccountsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListAccountsParams) SetIscleanuprequired(v bool) {
@@ -1037,7 +1005,6 @@ func (p *ListAccountsParams) SetIscleanuprequired(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["iscleanuprequired"] = v
-	return
 }
 
 func (p *ListAccountsParams) SetIsrecursive(v bool) {
@@ -1045,7 +1012,6 @@ func (p *ListAccountsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListAccountsParams) SetKeyword(v string) {
@@ -1053,7 +1019,6 @@ func (p *ListAccountsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListAccountsParams) SetListall(v bool) {
@@ -1061,7 +1026,6 @@ func (p *ListAccountsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListAccountsParams) SetName(v string) {
@@ -1069,7 +1033,6 @@ func (p *ListAccountsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListAccountsParams) SetPage(v int) {
@@ -1077,7 +1040,6 @@ func (p *ListAccountsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListAccountsParams) SetPagesize(v int) {
@@ -1085,7 +1047,6 @@ func (p *ListAccountsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListAccountsParams) SetState(v string) {
@@ -1093,7 +1054,6 @@ func (p *ListAccountsParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 // You should always use this function to get a new ListAccountsParams instance,
@@ -1329,7 +1289,6 @@ func (p *ListProjectAccountsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListProjectAccountsParams) SetKeyword(v string) {
@@ -1337,7 +1296,6 @@ func (p *ListProjectAccountsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListProjectAccountsParams) SetPage(v int) {
@@ -1345,7 +1303,6 @@ func (p *ListProjectAccountsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListProjectAccountsParams) SetPagesize(v int) {
@@ -1353,7 +1310,6 @@ func (p *ListProjectAccountsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListProjectAccountsParams) SetProjectid(v string) {
@@ -1361,7 +1317,6 @@ func (p *ListProjectAccountsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListProjectAccountsParams) SetRole(v string) {
@@ -1369,7 +1324,6 @@ func (p *ListProjectAccountsParams) SetRole(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["role"] = v
-	return
 }
 
 // You should always use this function to get a new ListProjectAccountsParams instance,
@@ -1523,7 +1477,6 @@ func (p *LockAccountParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *LockAccountParams) SetDomainid(v string) {
@@ -1531,7 +1484,6 @@ func (p *LockAccountParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 // You should always use this function to get a new LockAccountParams instance,
@@ -1670,7 +1622,6 @@ func (p *MarkDefaultZoneForAccountParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *MarkDefaultZoneForAccountParams) SetDomainid(v string) {
@@ -1678,7 +1629,6 @@ func (p *MarkDefaultZoneForAccountParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *MarkDefaultZoneForAccountParams) SetZoneid(v string) {
@@ -1686,7 +1636,6 @@ func (p *MarkDefaultZoneForAccountParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new MarkDefaultZoneForAccountParams instance,
@@ -1862,7 +1811,6 @@ func (p *UpdateAccountParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *UpdateAccountParams) SetAccountdetails(v map[string]string) {
@@ -1870,7 +1818,6 @@ func (p *UpdateAccountParams) SetAccountdetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountdetails"] = v
-	return
 }
 
 func (p *UpdateAccountParams) SetDomainid(v string) {
@@ -1878,7 +1825,6 @@ func (p *UpdateAccountParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *UpdateAccountParams) SetId(v string) {
@@ -1886,7 +1832,6 @@ func (p *UpdateAccountParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateAccountParams) SetNetworkdomain(v string) {
@@ -1894,7 +1839,6 @@ func (p *UpdateAccountParams) SetNetworkdomain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdomain"] = v
-	return
 }
 
 func (p *UpdateAccountParams) SetNewname(v string) {
@@ -1902,7 +1846,6 @@ func (p *UpdateAccountParams) SetNewname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["newname"] = v
-	return
 }
 
 func (p *UpdateAccountParams) SetRoleid(v string) {
@@ -1910,7 +1853,6 @@ func (p *UpdateAccountParams) SetRoleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["roleid"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateAccountParams instance,

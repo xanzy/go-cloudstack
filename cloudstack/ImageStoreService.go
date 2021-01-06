@@ -60,7 +60,6 @@ func (p *AddImageStoreParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *AddImageStoreParams) SetName(v string) {
@@ -68,7 +67,6 @@ func (p *AddImageStoreParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *AddImageStoreParams) SetProvider(v string) {
@@ -76,7 +74,6 @@ func (p *AddImageStoreParams) SetProvider(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["provider"] = v
-	return
 }
 
 func (p *AddImageStoreParams) SetUrl(v string) {
@@ -84,7 +81,6 @@ func (p *AddImageStoreParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *AddImageStoreParams) SetZoneid(v string) {
@@ -92,7 +88,6 @@ func (p *AddImageStoreParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new AddImageStoreParams instance,
@@ -188,7 +183,6 @@ func (p *AddImageStoreS3Params) SetAccesskey(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accesskey"] = v
-	return
 }
 
 func (p *AddImageStoreS3Params) SetBucket(v string) {
@@ -196,7 +190,6 @@ func (p *AddImageStoreS3Params) SetBucket(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bucket"] = v
-	return
 }
 
 func (p *AddImageStoreS3Params) SetConnectiontimeout(v int) {
@@ -204,7 +197,6 @@ func (p *AddImageStoreS3Params) SetConnectiontimeout(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["connectiontimeout"] = v
-	return
 }
 
 func (p *AddImageStoreS3Params) SetConnectionttl(v int) {
@@ -212,7 +204,6 @@ func (p *AddImageStoreS3Params) SetConnectionttl(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["connectionttl"] = v
-	return
 }
 
 func (p *AddImageStoreS3Params) SetEndpoint(v string) {
@@ -220,7 +211,6 @@ func (p *AddImageStoreS3Params) SetEndpoint(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endpoint"] = v
-	return
 }
 
 func (p *AddImageStoreS3Params) SetMaxerrorretry(v int) {
@@ -228,7 +218,6 @@ func (p *AddImageStoreS3Params) SetMaxerrorretry(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["maxerrorretry"] = v
-	return
 }
 
 func (p *AddImageStoreS3Params) SetS3signer(v string) {
@@ -236,7 +225,6 @@ func (p *AddImageStoreS3Params) SetS3signer(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["s3signer"] = v
-	return
 }
 
 func (p *AddImageStoreS3Params) SetSecretkey(v string) {
@@ -244,7 +232,6 @@ func (p *AddImageStoreS3Params) SetSecretkey(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["secretkey"] = v
-	return
 }
 
 func (p *AddImageStoreS3Params) SetSockettimeout(v int) {
@@ -252,7 +239,6 @@ func (p *AddImageStoreS3Params) SetSockettimeout(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sockettimeout"] = v
-	return
 }
 
 func (p *AddImageStoreS3Params) SetUsehttps(v bool) {
@@ -260,7 +246,6 @@ func (p *AddImageStoreS3Params) SetUsehttps(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["usehttps"] = v
-	return
 }
 
 func (p *AddImageStoreS3Params) SetUsetcpkeepalive(v bool) {
@@ -268,7 +253,6 @@ func (p *AddImageStoreS3Params) SetUsetcpkeepalive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["usetcpkeepalive"] = v
-	return
 }
 
 // You should always use this function to get a new AddImageStoreS3Params instance,
@@ -347,7 +331,6 @@ func (p *CreateSecondaryStagingStoreParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *CreateSecondaryStagingStoreParams) SetProvider(v string) {
@@ -355,7 +338,6 @@ func (p *CreateSecondaryStagingStoreParams) SetProvider(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["provider"] = v
-	return
 }
 
 func (p *CreateSecondaryStagingStoreParams) SetScope(v string) {
@@ -363,7 +345,6 @@ func (p *CreateSecondaryStagingStoreParams) SetScope(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["scope"] = v
-	return
 }
 
 func (p *CreateSecondaryStagingStoreParams) SetUrl(v string) {
@@ -371,7 +352,6 @@ func (p *CreateSecondaryStagingStoreParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *CreateSecondaryStagingStoreParams) SetZoneid(v string) {
@@ -379,7 +359,6 @@ func (p *CreateSecondaryStagingStoreParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateSecondaryStagingStoreParams instance,
@@ -439,7 +418,6 @@ func (p *DeleteImageStoreParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteImageStoreParams instance,
@@ -520,7 +498,6 @@ func (p *DeleteSecondaryStagingStoreParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteSecondaryStagingStoreParams instance,
@@ -624,7 +601,6 @@ func (p *ListImageStoresParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListImageStoresParams) SetKeyword(v string) {
@@ -632,7 +608,6 @@ func (p *ListImageStoresParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListImageStoresParams) SetName(v string) {
@@ -640,7 +615,6 @@ func (p *ListImageStoresParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListImageStoresParams) SetPage(v int) {
@@ -648,7 +622,6 @@ func (p *ListImageStoresParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListImageStoresParams) SetPagesize(v int) {
@@ -656,7 +629,6 @@ func (p *ListImageStoresParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListImageStoresParams) SetProtocol(v string) {
@@ -664,7 +636,6 @@ func (p *ListImageStoresParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *ListImageStoresParams) SetProvider(v string) {
@@ -672,7 +643,6 @@ func (p *ListImageStoresParams) SetProvider(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["provider"] = v
-	return
 }
 
 func (p *ListImageStoresParams) SetZoneid(v string) {
@@ -680,7 +650,6 @@ func (p *ListImageStoresParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListImageStoresParams instance,
@@ -850,7 +819,6 @@ func (p *ListSecondaryStagingStoresParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListSecondaryStagingStoresParams) SetKeyword(v string) {
@@ -858,7 +826,6 @@ func (p *ListSecondaryStagingStoresParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListSecondaryStagingStoresParams) SetName(v string) {
@@ -866,7 +833,6 @@ func (p *ListSecondaryStagingStoresParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListSecondaryStagingStoresParams) SetPage(v int) {
@@ -874,7 +840,6 @@ func (p *ListSecondaryStagingStoresParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListSecondaryStagingStoresParams) SetPagesize(v int) {
@@ -882,7 +847,6 @@ func (p *ListSecondaryStagingStoresParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListSecondaryStagingStoresParams) SetProtocol(v string) {
@@ -890,7 +854,6 @@ func (p *ListSecondaryStagingStoresParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *ListSecondaryStagingStoresParams) SetProvider(v string) {
@@ -898,7 +861,6 @@ func (p *ListSecondaryStagingStoresParams) SetProvider(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["provider"] = v
-	return
 }
 
 func (p *ListSecondaryStagingStoresParams) SetZoneid(v string) {
@@ -906,7 +868,6 @@ func (p *ListSecondaryStagingStoresParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListSecondaryStagingStoresParams instance,
@@ -1066,7 +1027,6 @@ func (p *UpdateCloudToUseObjectStoreParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *UpdateCloudToUseObjectStoreParams) SetName(v string) {
@@ -1074,7 +1034,6 @@ func (p *UpdateCloudToUseObjectStoreParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateCloudToUseObjectStoreParams) SetProvider(v string) {
@@ -1082,7 +1041,6 @@ func (p *UpdateCloudToUseObjectStoreParams) SetProvider(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["provider"] = v
-	return
 }
 
 func (p *UpdateCloudToUseObjectStoreParams) SetUrl(v string) {
@@ -1090,7 +1048,6 @@ func (p *UpdateCloudToUseObjectStoreParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateCloudToUseObjectStoreParams instance,

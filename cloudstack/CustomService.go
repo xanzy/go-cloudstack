@@ -64,7 +64,6 @@ func (p *CustomServiceParams) SetParam(param string, v interface{}) {
 		p.p = make(map[string]interface{})
 	}
 	p.p[param] = v
-	return
 }
 
 func (s *CustomService) CustomRequest(api string, p *CustomServiceParams, result interface{}) error {

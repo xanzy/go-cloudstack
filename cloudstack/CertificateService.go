@@ -55,7 +55,6 @@ func (p *UploadCustomCertificateParams) SetCertificate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["certificate"] = v
-	return
 }
 
 func (p *UploadCustomCertificateParams) SetDomainsuffix(v string) {
@@ -63,7 +62,6 @@ func (p *UploadCustomCertificateParams) SetDomainsuffix(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainsuffix"] = v
-	return
 }
 
 func (p *UploadCustomCertificateParams) SetId(v int) {
@@ -71,7 +69,6 @@ func (p *UploadCustomCertificateParams) SetId(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UploadCustomCertificateParams) SetName(v string) {
@@ -79,7 +76,6 @@ func (p *UploadCustomCertificateParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UploadCustomCertificateParams) SetPrivatekey(v string) {
@@ -87,7 +83,6 @@ func (p *UploadCustomCertificateParams) SetPrivatekey(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["privatekey"] = v
-	return
 }
 
 // You should always use this function to get a new UploadCustomCertificateParams instance,

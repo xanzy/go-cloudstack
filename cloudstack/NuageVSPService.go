@@ -66,7 +66,6 @@ func (p *AddNuageVspDeviceParams) SetApiversion(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["apiversion"] = v
-	return
 }
 
 func (p *AddNuageVspDeviceParams) SetHostname(v string) {
@@ -74,7 +73,6 @@ func (p *AddNuageVspDeviceParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
-	return
 }
 
 func (p *AddNuageVspDeviceParams) SetPassword(v string) {
@@ -82,7 +80,6 @@ func (p *AddNuageVspDeviceParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *AddNuageVspDeviceParams) SetPhysicalnetworkid(v string) {
@@ -90,7 +87,6 @@ func (p *AddNuageVspDeviceParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *AddNuageVspDeviceParams) SetPort(v int) {
@@ -98,7 +94,6 @@ func (p *AddNuageVspDeviceParams) SetPort(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["port"] = v
-	return
 }
 
 func (p *AddNuageVspDeviceParams) SetRetrycount(v int) {
@@ -106,7 +101,6 @@ func (p *AddNuageVspDeviceParams) SetRetrycount(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["retrycount"] = v
-	return
 }
 
 func (p *AddNuageVspDeviceParams) SetRetryinterval(v int64) {
@@ -114,7 +108,6 @@ func (p *AddNuageVspDeviceParams) SetRetryinterval(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["retryinterval"] = v
-	return
 }
 
 func (p *AddNuageVspDeviceParams) SetUsername(v string) {
@@ -122,7 +115,6 @@ func (p *AddNuageVspDeviceParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new AddNuageVspDeviceParams instance,
@@ -208,7 +200,6 @@ func (p *DeleteNuageVspDeviceParams) SetVspdeviceid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vspdeviceid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteNuageVspDeviceParams instance,
@@ -291,7 +282,6 @@ func (p *ListNuageVspDevicesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListNuageVspDevicesParams) SetPage(v int) {
@@ -299,7 +289,6 @@ func (p *ListNuageVspDevicesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListNuageVspDevicesParams) SetPagesize(v int) {
@@ -307,7 +296,6 @@ func (p *ListNuageVspDevicesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListNuageVspDevicesParams) SetPhysicalnetworkid(v string) {
@@ -315,7 +303,6 @@ func (p *ListNuageVspDevicesParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *ListNuageVspDevicesParams) SetVspdeviceid(v string) {
@@ -323,7 +310,6 @@ func (p *ListNuageVspDevicesParams) SetVspdeviceid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vspdeviceid"] = v
-	return
 }
 
 // You should always use this function to get a new ListNuageVspDevicesParams instance,
@@ -413,7 +399,6 @@ func (p *UpdateNuageVspDeviceParams) SetApiversion(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["apiversion"] = v
-	return
 }
 
 func (p *UpdateNuageVspDeviceParams) SetHostname(v string) {
@@ -421,7 +406,6 @@ func (p *UpdateNuageVspDeviceParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
-	return
 }
 
 func (p *UpdateNuageVspDeviceParams) SetPassword(v string) {
@@ -429,7 +413,6 @@ func (p *UpdateNuageVspDeviceParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *UpdateNuageVspDeviceParams) SetPhysicalnetworkid(v string) {
@@ -437,7 +420,6 @@ func (p *UpdateNuageVspDeviceParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *UpdateNuageVspDeviceParams) SetPort(v int) {
@@ -445,7 +427,6 @@ func (p *UpdateNuageVspDeviceParams) SetPort(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["port"] = v
-	return
 }
 
 func (p *UpdateNuageVspDeviceParams) SetRetrycount(v int) {
@@ -453,7 +434,6 @@ func (p *UpdateNuageVspDeviceParams) SetRetrycount(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["retrycount"] = v
-	return
 }
 
 func (p *UpdateNuageVspDeviceParams) SetRetryinterval(v int64) {
@@ -461,7 +441,6 @@ func (p *UpdateNuageVspDeviceParams) SetRetryinterval(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["retryinterval"] = v
-	return
 }
 
 func (p *UpdateNuageVspDeviceParams) SetUsername(v string) {
@@ -469,7 +448,6 @@ func (p *UpdateNuageVspDeviceParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateNuageVspDeviceParams instance,

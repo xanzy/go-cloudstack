@@ -41,7 +41,6 @@ func (p *ListApisParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 // You should always use this function to get a new ListApisParams instance,

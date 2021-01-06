@@ -41,7 +41,6 @@ func (p *GetCloudIdentifierParams) SetUserid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["userid"] = v
-	return
 }
 
 // You should always use this function to get a new GetCloudIdentifierParams instance,

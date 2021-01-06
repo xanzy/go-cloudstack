@@ -67,7 +67,6 @@ func (p *CreateSnapshotParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateSnapshotParams) SetAsyncbackup(v bool) {
@@ -75,7 +74,6 @@ func (p *CreateSnapshotParams) SetAsyncbackup(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["asyncbackup"] = v
-	return
 }
 
 func (p *CreateSnapshotParams) SetDomainid(v string) {
@@ -83,7 +81,6 @@ func (p *CreateSnapshotParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateSnapshotParams) SetLocationtype(v string) {
@@ -91,7 +88,6 @@ func (p *CreateSnapshotParams) SetLocationtype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["locationtype"] = v
-	return
 }
 
 func (p *CreateSnapshotParams) SetName(v string) {
@@ -99,7 +95,6 @@ func (p *CreateSnapshotParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateSnapshotParams) SetPolicyid(v string) {
@@ -107,7 +102,6 @@ func (p *CreateSnapshotParams) SetPolicyid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["policyid"] = v
-	return
 }
 
 func (p *CreateSnapshotParams) SetQuiescevm(v bool) {
@@ -115,7 +109,6 @@ func (p *CreateSnapshotParams) SetQuiescevm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["quiescevm"] = v
-	return
 }
 
 func (p *CreateSnapshotParams) SetVolumeid(v string) {
@@ -123,7 +116,6 @@ func (p *CreateSnapshotParams) SetVolumeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["volumeid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateSnapshotParams instance,
@@ -261,7 +253,6 @@ func (p *CreateSnapshotPolicyParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateSnapshotPolicyParams) SetIntervaltype(v string) {
@@ -269,7 +260,6 @@ func (p *CreateSnapshotPolicyParams) SetIntervaltype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["intervaltype"] = v
-	return
 }
 
 func (p *CreateSnapshotPolicyParams) SetMaxsnaps(v int) {
@@ -277,7 +267,6 @@ func (p *CreateSnapshotPolicyParams) SetMaxsnaps(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["maxsnaps"] = v
-	return
 }
 
 func (p *CreateSnapshotPolicyParams) SetSchedule(v string) {
@@ -285,7 +274,6 @@ func (p *CreateSnapshotPolicyParams) SetSchedule(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["schedule"] = v
-	return
 }
 
 func (p *CreateSnapshotPolicyParams) SetTimezone(v string) {
@@ -293,7 +281,6 @@ func (p *CreateSnapshotPolicyParams) SetTimezone(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["timezone"] = v
-	return
 }
 
 func (p *CreateSnapshotPolicyParams) SetVolumeid(v string) {
@@ -301,7 +288,6 @@ func (p *CreateSnapshotPolicyParams) SetVolumeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["volumeid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateSnapshotPolicyParams instance,
@@ -378,7 +364,6 @@ func (p *CreateVMSnapshotParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateVMSnapshotParams) SetName(v string) {
@@ -386,7 +371,6 @@ func (p *CreateVMSnapshotParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateVMSnapshotParams) SetQuiescevm(v bool) {
@@ -394,7 +378,6 @@ func (p *CreateVMSnapshotParams) SetQuiescevm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["quiescevm"] = v
-	return
 }
 
 func (p *CreateVMSnapshotParams) SetSnapshotmemory(v bool) {
@@ -402,7 +385,6 @@ func (p *CreateVMSnapshotParams) SetSnapshotmemory(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["snapshotmemory"] = v
-	return
 }
 
 func (p *CreateVMSnapshotParams) SetVirtualmachineid(v string) {
@@ -410,7 +392,6 @@ func (p *CreateVMSnapshotParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateVMSnapshotParams instance,
@@ -499,7 +480,6 @@ func (p *DeleteSnapshotParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteSnapshotParams instance,
@@ -572,7 +552,6 @@ func (p *DeleteSnapshotPoliciesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *DeleteSnapshotPoliciesParams) SetIds(v []string) {
@@ -580,7 +559,6 @@ func (p *DeleteSnapshotPoliciesParams) SetIds(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ids"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteSnapshotPoliciesParams instance,
@@ -660,7 +638,6 @@ func (p *DeleteVMSnapshotParams) SetVmsnapshotid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmsnapshotid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteVMSnapshotParams instance,
@@ -747,7 +724,6 @@ func (p *ListSnapshotPoliciesParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListSnapshotPoliciesParams) SetId(v string) {
@@ -755,7 +731,6 @@ func (p *ListSnapshotPoliciesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListSnapshotPoliciesParams) SetKeyword(v string) {
@@ -763,7 +738,6 @@ func (p *ListSnapshotPoliciesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListSnapshotPoliciesParams) SetPage(v int) {
@@ -771,7 +745,6 @@ func (p *ListSnapshotPoliciesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListSnapshotPoliciesParams) SetPagesize(v int) {
@@ -779,7 +752,6 @@ func (p *ListSnapshotPoliciesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListSnapshotPoliciesParams) SetVolumeid(v string) {
@@ -787,7 +759,6 @@ func (p *ListSnapshotPoliciesParams) SetVolumeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["volumeid"] = v
-	return
 }
 
 // You should always use this function to get a new ListSnapshotPoliciesParams instance,
@@ -937,7 +908,6 @@ func (p *ListSnapshotsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetDomainid(v string) {
@@ -945,7 +915,6 @@ func (p *ListSnapshotsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetId(v string) {
@@ -953,7 +922,6 @@ func (p *ListSnapshotsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetIds(v []string) {
@@ -961,7 +929,6 @@ func (p *ListSnapshotsParams) SetIds(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ids"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetIntervaltype(v string) {
@@ -969,7 +936,6 @@ func (p *ListSnapshotsParams) SetIntervaltype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["intervaltype"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetIsrecursive(v bool) {
@@ -977,7 +943,6 @@ func (p *ListSnapshotsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetKeyword(v string) {
@@ -985,7 +950,6 @@ func (p *ListSnapshotsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetListall(v bool) {
@@ -993,7 +957,6 @@ func (p *ListSnapshotsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetName(v string) {
@@ -1001,7 +964,6 @@ func (p *ListSnapshotsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetPage(v int) {
@@ -1009,7 +971,6 @@ func (p *ListSnapshotsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetPagesize(v int) {
@@ -1017,7 +978,6 @@ func (p *ListSnapshotsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetProjectid(v string) {
@@ -1025,7 +985,6 @@ func (p *ListSnapshotsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetSnapshottype(v string) {
@@ -1033,7 +992,6 @@ func (p *ListSnapshotsParams) SetSnapshottype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["snapshottype"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetTags(v map[string]string) {
@@ -1041,7 +999,6 @@ func (p *ListSnapshotsParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetVolumeid(v string) {
@@ -1049,7 +1006,6 @@ func (p *ListSnapshotsParams) SetVolumeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["volumeid"] = v
-	return
 }
 
 func (p *ListSnapshotsParams) SetZoneid(v string) {
@@ -1057,7 +1013,6 @@ func (p *ListSnapshotsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListSnapshotsParams instance,
@@ -1293,7 +1248,6 @@ func (p *ListVMSnapshotParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetDomainid(v string) {
@@ -1301,7 +1255,6 @@ func (p *ListVMSnapshotParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetIsrecursive(v bool) {
@@ -1309,7 +1262,6 @@ func (p *ListVMSnapshotParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetKeyword(v string) {
@@ -1317,7 +1269,6 @@ func (p *ListVMSnapshotParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetListall(v bool) {
@@ -1325,7 +1276,6 @@ func (p *ListVMSnapshotParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetName(v string) {
@@ -1333,7 +1283,6 @@ func (p *ListVMSnapshotParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetPage(v int) {
@@ -1341,7 +1290,6 @@ func (p *ListVMSnapshotParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetPagesize(v int) {
@@ -1349,7 +1297,6 @@ func (p *ListVMSnapshotParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetProjectid(v string) {
@@ -1357,7 +1304,6 @@ func (p *ListVMSnapshotParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetState(v string) {
@@ -1365,7 +1311,6 @@ func (p *ListVMSnapshotParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetTags(v map[string]string) {
@@ -1373,7 +1318,6 @@ func (p *ListVMSnapshotParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetVirtualmachineid(v string) {
@@ -1381,7 +1325,6 @@ func (p *ListVMSnapshotParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetVmsnapshotid(v string) {
@@ -1389,7 +1332,6 @@ func (p *ListVMSnapshotParams) SetVmsnapshotid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmsnapshotid"] = v
-	return
 }
 
 func (p *ListVMSnapshotParams) SetVmsnapshotids(v []string) {
@@ -1397,7 +1339,6 @@ func (p *ListVMSnapshotParams) SetVmsnapshotids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmsnapshotids"] = v
-	return
 }
 
 // You should always use this function to get a new ListVMSnapshotParams instance,
@@ -1506,7 +1447,6 @@ func (p *RevertSnapshotParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RevertSnapshotParams instance,
@@ -1627,7 +1567,6 @@ func (p *RevertToVMSnapshotParams) SetVmsnapshotid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmsnapshotid"] = v
-	return
 }
 
 // You should always use this function to get a new RevertToVMSnapshotParams instance,
@@ -1838,7 +1777,6 @@ func (p *UpdateSnapshotPolicyParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateSnapshotPolicyParams) SetFordisplay(v bool) {
@@ -1846,7 +1784,6 @@ func (p *UpdateSnapshotPolicyParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateSnapshotPolicyParams) SetId(v string) {
@@ -1854,7 +1791,6 @@ func (p *UpdateSnapshotPolicyParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateSnapshotPolicyParams instance,

@@ -122,7 +122,6 @@ func (p *CreateNetworkOfferingParams) SetAvailability(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["availability"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetConservemode(v bool) {
@@ -130,7 +129,6 @@ func (p *CreateNetworkOfferingParams) SetConservemode(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["conservemode"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetDetails(v map[string]string) {
@@ -138,7 +136,6 @@ func (p *CreateNetworkOfferingParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetDisplaytext(v string) {
@@ -146,7 +143,6 @@ func (p *CreateNetworkOfferingParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetEgressdefaultpolicy(v bool) {
@@ -154,7 +150,6 @@ func (p *CreateNetworkOfferingParams) SetEgressdefaultpolicy(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["egressdefaultpolicy"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetForvpc(v bool) {
@@ -162,7 +157,6 @@ func (p *CreateNetworkOfferingParams) SetForvpc(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forvpc"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetGuestiptype(v string) {
@@ -170,7 +164,6 @@ func (p *CreateNetworkOfferingParams) SetGuestiptype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["guestiptype"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetIspersistent(v bool) {
@@ -178,7 +171,6 @@ func (p *CreateNetworkOfferingParams) SetIspersistent(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ispersistent"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetKeepaliveenabled(v bool) {
@@ -186,7 +178,6 @@ func (p *CreateNetworkOfferingParams) SetKeepaliveenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keepaliveenabled"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetMaxconnections(v int) {
@@ -194,7 +185,6 @@ func (p *CreateNetworkOfferingParams) SetMaxconnections(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["maxconnections"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetName(v string) {
@@ -202,7 +192,6 @@ func (p *CreateNetworkOfferingParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetNetworkrate(v int) {
@@ -210,7 +199,6 @@ func (p *CreateNetworkOfferingParams) SetNetworkrate(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkrate"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetServicecapabilitylist(v map[string]string) {
@@ -218,7 +206,6 @@ func (p *CreateNetworkOfferingParams) SetServicecapabilitylist(v map[string]stri
 		p.p = make(map[string]interface{})
 	}
 	p.p["servicecapabilitylist"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetServiceofferingid(v string) {
@@ -226,7 +213,6 @@ func (p *CreateNetworkOfferingParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetServiceproviderlist(v map[string]string) {
@@ -234,7 +220,6 @@ func (p *CreateNetworkOfferingParams) SetServiceproviderlist(v map[string]string
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceproviderlist"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetSpecifyipranges(v bool) {
@@ -242,7 +227,6 @@ func (p *CreateNetworkOfferingParams) SetSpecifyipranges(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["specifyipranges"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetSpecifyvlan(v bool) {
@@ -250,7 +234,6 @@ func (p *CreateNetworkOfferingParams) SetSpecifyvlan(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["specifyvlan"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetSupportedservices(v []string) {
@@ -258,7 +241,6 @@ func (p *CreateNetworkOfferingParams) SetSupportedservices(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["supportedservices"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetTags(v string) {
@@ -266,7 +248,6 @@ func (p *CreateNetworkOfferingParams) SetTags(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *CreateNetworkOfferingParams) SetTraffictype(v string) {
@@ -274,7 +255,6 @@ func (p *CreateNetworkOfferingParams) SetTraffictype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["traffictype"] = v
-	return
 }
 
 // You should always use this function to get a new CreateNetworkOfferingParams instance,
@@ -379,7 +359,6 @@ func (p *DeleteNetworkOfferingParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteNetworkOfferingParams instance,
@@ -526,7 +505,6 @@ func (p *ListNetworkOfferingsParams) SetAvailability(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["availability"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetDisplaytext(v string) {
@@ -534,7 +512,6 @@ func (p *ListNetworkOfferingsParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetForvpc(v bool) {
@@ -542,7 +519,6 @@ func (p *ListNetworkOfferingsParams) SetForvpc(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forvpc"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetGuestiptype(v string) {
@@ -550,7 +526,6 @@ func (p *ListNetworkOfferingsParams) SetGuestiptype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["guestiptype"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetId(v string) {
@@ -558,7 +533,6 @@ func (p *ListNetworkOfferingsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetIsdefault(v bool) {
@@ -566,7 +540,6 @@ func (p *ListNetworkOfferingsParams) SetIsdefault(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isdefault"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetIstagged(v bool) {
@@ -574,7 +547,6 @@ func (p *ListNetworkOfferingsParams) SetIstagged(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["istagged"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetKeyword(v string) {
@@ -582,7 +554,6 @@ func (p *ListNetworkOfferingsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetName(v string) {
@@ -590,7 +561,6 @@ func (p *ListNetworkOfferingsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetNetworkid(v string) {
@@ -598,7 +568,6 @@ func (p *ListNetworkOfferingsParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetPage(v int) {
@@ -606,7 +575,6 @@ func (p *ListNetworkOfferingsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetPagesize(v int) {
@@ -614,7 +582,6 @@ func (p *ListNetworkOfferingsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetSourcenatsupported(v bool) {
@@ -622,7 +589,6 @@ func (p *ListNetworkOfferingsParams) SetSourcenatsupported(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourcenatsupported"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetSpecifyipranges(v bool) {
@@ -630,7 +596,6 @@ func (p *ListNetworkOfferingsParams) SetSpecifyipranges(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["specifyipranges"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetSpecifyvlan(v bool) {
@@ -638,7 +603,6 @@ func (p *ListNetworkOfferingsParams) SetSpecifyvlan(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["specifyvlan"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetState(v string) {
@@ -646,7 +610,6 @@ func (p *ListNetworkOfferingsParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetSupportedservices(v []string) {
@@ -654,7 +617,6 @@ func (p *ListNetworkOfferingsParams) SetSupportedservices(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["supportedservices"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetTags(v string) {
@@ -662,7 +624,6 @@ func (p *ListNetworkOfferingsParams) SetTags(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetTraffictype(v string) {
@@ -670,7 +631,6 @@ func (p *ListNetworkOfferingsParams) SetTraffictype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["traffictype"] = v
-	return
 }
 
 func (p *ListNetworkOfferingsParams) SetZoneid(v string) {
@@ -678,7 +638,6 @@ func (p *ListNetworkOfferingsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListNetworkOfferingsParams instance,
@@ -889,7 +848,6 @@ func (p *UpdateNetworkOfferingParams) SetAvailability(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["availability"] = v
-	return
 }
 
 func (p *UpdateNetworkOfferingParams) SetDisplaytext(v string) {
@@ -897,7 +855,6 @@ func (p *UpdateNetworkOfferingParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *UpdateNetworkOfferingParams) SetId(v string) {
@@ -905,7 +862,6 @@ func (p *UpdateNetworkOfferingParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateNetworkOfferingParams) SetKeepaliveenabled(v bool) {
@@ -913,7 +869,6 @@ func (p *UpdateNetworkOfferingParams) SetKeepaliveenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keepaliveenabled"] = v
-	return
 }
 
 func (p *UpdateNetworkOfferingParams) SetMaxconnections(v int) {
@@ -921,7 +876,6 @@ func (p *UpdateNetworkOfferingParams) SetMaxconnections(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["maxconnections"] = v
-	return
 }
 
 func (p *UpdateNetworkOfferingParams) SetName(v string) {
@@ -929,7 +883,6 @@ func (p *UpdateNetworkOfferingParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateNetworkOfferingParams) SetSortkey(v int) {
@@ -937,7 +890,6 @@ func (p *UpdateNetworkOfferingParams) SetSortkey(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sortkey"] = v
-	return
 }
 
 func (p *UpdateNetworkOfferingParams) SetState(v string) {
@@ -945,7 +897,6 @@ func (p *UpdateNetworkOfferingParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *UpdateNetworkOfferingParams) SetTags(v string) {
@@ -953,7 +904,6 @@ func (p *UpdateNetworkOfferingParams) SetTags(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateNetworkOfferingParams instance,

@@ -53,7 +53,6 @@ func (p *CreateInstanceGroupParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateInstanceGroupParams) SetDomainid(v string) {
@@ -61,7 +60,6 @@ func (p *CreateInstanceGroupParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateInstanceGroupParams) SetName(v string) {
@@ -69,7 +67,6 @@ func (p *CreateInstanceGroupParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateInstanceGroupParams) SetProjectid(v string) {
@@ -77,7 +74,6 @@ func (p *CreateInstanceGroupParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateInstanceGroupParams instance,
@@ -137,7 +133,6 @@ func (p *DeleteInstanceGroupParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteInstanceGroupParams instance,
@@ -249,7 +244,6 @@ func (p *ListInstanceGroupsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListInstanceGroupsParams) SetDomainid(v string) {
@@ -257,7 +251,6 @@ func (p *ListInstanceGroupsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListInstanceGroupsParams) SetId(v string) {
@@ -265,7 +258,6 @@ func (p *ListInstanceGroupsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListInstanceGroupsParams) SetIsrecursive(v bool) {
@@ -273,7 +265,6 @@ func (p *ListInstanceGroupsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListInstanceGroupsParams) SetKeyword(v string) {
@@ -281,7 +272,6 @@ func (p *ListInstanceGroupsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListInstanceGroupsParams) SetListall(v bool) {
@@ -289,7 +279,6 @@ func (p *ListInstanceGroupsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListInstanceGroupsParams) SetName(v string) {
@@ -297,7 +286,6 @@ func (p *ListInstanceGroupsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListInstanceGroupsParams) SetPage(v int) {
@@ -305,7 +293,6 @@ func (p *ListInstanceGroupsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListInstanceGroupsParams) SetPagesize(v int) {
@@ -313,7 +300,6 @@ func (p *ListInstanceGroupsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListInstanceGroupsParams) SetProjectid(v string) {
@@ -321,7 +307,6 @@ func (p *ListInstanceGroupsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new ListInstanceGroupsParams instance,
@@ -471,7 +456,6 @@ func (p *UpdateInstanceGroupParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateInstanceGroupParams) SetName(v string) {
@@ -479,7 +463,6 @@ func (p *UpdateInstanceGroupParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateInstanceGroupParams instance,

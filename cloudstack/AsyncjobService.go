@@ -68,7 +68,6 @@ func (p *ListAsyncJobsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetDomainid(v string) {
@@ -76,7 +75,6 @@ func (p *ListAsyncJobsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetIsrecursive(v bool) {
@@ -84,7 +82,6 @@ func (p *ListAsyncJobsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetKeyword(v string) {
@@ -92,7 +89,6 @@ func (p *ListAsyncJobsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetListall(v bool) {
@@ -100,7 +96,6 @@ func (p *ListAsyncJobsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetPage(v int) {
@@ -108,7 +103,6 @@ func (p *ListAsyncJobsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetPagesize(v int) {
@@ -116,7 +110,6 @@ func (p *ListAsyncJobsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetStartdate(v string) {
@@ -124,7 +117,6 @@ func (p *ListAsyncJobsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
-	return
 }
 
 // You should always use this function to get a new ListAsyncJobsParams instance,
@@ -191,7 +183,6 @@ func (p *QueryAsyncJobResultParams) SetJobID(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["jobid"] = v
-	return
 }
 
 // You should always use this function to get a new QueryAsyncJobResultParams instance,

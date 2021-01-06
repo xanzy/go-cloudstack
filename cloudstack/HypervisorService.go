@@ -58,7 +58,6 @@ func (p *ListHypervisorCapabilitiesParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *ListHypervisorCapabilitiesParams) SetId(v string) {
@@ -66,7 +65,6 @@ func (p *ListHypervisorCapabilitiesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListHypervisorCapabilitiesParams) SetKeyword(v string) {
@@ -74,7 +72,6 @@ func (p *ListHypervisorCapabilitiesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListHypervisorCapabilitiesParams) SetPage(v int) {
@@ -82,7 +79,6 @@ func (p *ListHypervisorCapabilitiesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListHypervisorCapabilitiesParams) SetPagesize(v int) {
@@ -90,7 +86,6 @@ func (p *ListHypervisorCapabilitiesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListHypervisorCapabilitiesParams instance,
@@ -187,7 +182,6 @@ func (p *ListHypervisorsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListHypervisorsParams instance,
@@ -252,7 +246,6 @@ func (p *UpdateHypervisorCapabilitiesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateHypervisorCapabilitiesParams) SetMaxguestslimit(v int64) {
@@ -260,7 +253,6 @@ func (p *UpdateHypervisorCapabilitiesParams) SetMaxguestslimit(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["maxguestslimit"] = v
-	return
 }
 
 func (p *UpdateHypervisorCapabilitiesParams) SetSecuritygroupenabled(v bool) {
@@ -268,7 +260,6 @@ func (p *UpdateHypervisorCapabilitiesParams) SetSecuritygroupenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["securitygroupenabled"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateHypervisorCapabilitiesParams instance,

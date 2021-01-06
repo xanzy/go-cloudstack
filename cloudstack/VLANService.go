@@ -97,7 +97,6 @@ func (p *CreateVlanIpRangeParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetDomainid(v string) {
@@ -105,7 +104,6 @@ func (p *CreateVlanIpRangeParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetEndip(v string) {
@@ -113,7 +111,6 @@ func (p *CreateVlanIpRangeParams) SetEndip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endip"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetEndipv6(v string) {
@@ -121,7 +118,6 @@ func (p *CreateVlanIpRangeParams) SetEndipv6(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endipv6"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetForsystemvms(v bool) {
@@ -129,7 +125,6 @@ func (p *CreateVlanIpRangeParams) SetForsystemvms(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forsystemvms"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetForvirtualnetwork(v bool) {
@@ -137,7 +132,6 @@ func (p *CreateVlanIpRangeParams) SetForvirtualnetwork(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forvirtualnetwork"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetGateway(v string) {
@@ -145,7 +139,6 @@ func (p *CreateVlanIpRangeParams) SetGateway(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gateway"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetIp6cidr(v string) {
@@ -153,7 +146,6 @@ func (p *CreateVlanIpRangeParams) SetIp6cidr(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ip6cidr"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetIp6gateway(v string) {
@@ -161,7 +153,6 @@ func (p *CreateVlanIpRangeParams) SetIp6gateway(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ip6gateway"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetNetmask(v string) {
@@ -169,7 +160,6 @@ func (p *CreateVlanIpRangeParams) SetNetmask(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["netmask"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetNetworkid(v string) {
@@ -177,7 +167,6 @@ func (p *CreateVlanIpRangeParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetPhysicalnetworkid(v string) {
@@ -185,7 +174,6 @@ func (p *CreateVlanIpRangeParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetPodid(v string) {
@@ -193,7 +181,6 @@ func (p *CreateVlanIpRangeParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetProjectid(v string) {
@@ -201,7 +188,6 @@ func (p *CreateVlanIpRangeParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetStartip(v string) {
@@ -209,7 +195,6 @@ func (p *CreateVlanIpRangeParams) SetStartip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startip"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetStartipv6(v string) {
@@ -217,7 +202,6 @@ func (p *CreateVlanIpRangeParams) SetStartipv6(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startipv6"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetVlan(v string) {
@@ -225,7 +209,6 @@ func (p *CreateVlanIpRangeParams) SetVlan(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlan"] = v
-	return
 }
 
 func (p *CreateVlanIpRangeParams) SetZoneid(v string) {
@@ -233,7 +216,6 @@ func (p *CreateVlanIpRangeParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateVlanIpRangeParams instance,
@@ -319,7 +301,6 @@ func (p *DedicateGuestVlanRangeParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *DedicateGuestVlanRangeParams) SetDomainid(v string) {
@@ -327,7 +308,6 @@ func (p *DedicateGuestVlanRangeParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *DedicateGuestVlanRangeParams) SetPhysicalnetworkid(v string) {
@@ -335,7 +315,6 @@ func (p *DedicateGuestVlanRangeParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *DedicateGuestVlanRangeParams) SetProjectid(v string) {
@@ -343,7 +322,6 @@ func (p *DedicateGuestVlanRangeParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *DedicateGuestVlanRangeParams) SetVlanrange(v string) {
@@ -351,7 +329,6 @@ func (p *DedicateGuestVlanRangeParams) SetVlanrange(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlanrange"] = v
-	return
 }
 
 // You should always use this function to get a new DedicateGuestVlanRangeParams instance,
@@ -413,7 +390,6 @@ func (p *DeleteVlanIpRangeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteVlanIpRangeParams instance,
@@ -523,7 +499,6 @@ func (p *ListDedicatedGuestVlanRangesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListDedicatedGuestVlanRangesParams) SetDomainid(v string) {
@@ -531,7 +506,6 @@ func (p *ListDedicatedGuestVlanRangesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListDedicatedGuestVlanRangesParams) SetGuestvlanrange(v string) {
@@ -539,7 +513,6 @@ func (p *ListDedicatedGuestVlanRangesParams) SetGuestvlanrange(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["guestvlanrange"] = v
-	return
 }
 
 func (p *ListDedicatedGuestVlanRangesParams) SetId(v string) {
@@ -547,7 +520,6 @@ func (p *ListDedicatedGuestVlanRangesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListDedicatedGuestVlanRangesParams) SetKeyword(v string) {
@@ -555,7 +527,6 @@ func (p *ListDedicatedGuestVlanRangesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListDedicatedGuestVlanRangesParams) SetPage(v int) {
@@ -563,7 +534,6 @@ func (p *ListDedicatedGuestVlanRangesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListDedicatedGuestVlanRangesParams) SetPagesize(v int) {
@@ -571,7 +541,6 @@ func (p *ListDedicatedGuestVlanRangesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListDedicatedGuestVlanRangesParams) SetPhysicalnetworkid(v string) {
@@ -579,7 +548,6 @@ func (p *ListDedicatedGuestVlanRangesParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *ListDedicatedGuestVlanRangesParams) SetProjectid(v string) {
@@ -587,7 +555,6 @@ func (p *ListDedicatedGuestVlanRangesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListDedicatedGuestVlanRangesParams) SetZoneid(v string) {
@@ -595,7 +562,6 @@ func (p *ListDedicatedGuestVlanRangesParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListDedicatedGuestVlanRangesParams instance,
@@ -732,7 +698,6 @@ func (p *ListVlanIpRangesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetDomainid(v string) {
@@ -740,7 +705,6 @@ func (p *ListVlanIpRangesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetForvirtualnetwork(v bool) {
@@ -748,7 +712,6 @@ func (p *ListVlanIpRangesParams) SetForvirtualnetwork(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forvirtualnetwork"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetId(v string) {
@@ -756,7 +719,6 @@ func (p *ListVlanIpRangesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetKeyword(v string) {
@@ -764,7 +726,6 @@ func (p *ListVlanIpRangesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetNetworkid(v string) {
@@ -772,7 +733,6 @@ func (p *ListVlanIpRangesParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetPage(v int) {
@@ -780,7 +740,6 @@ func (p *ListVlanIpRangesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetPagesize(v int) {
@@ -788,7 +747,6 @@ func (p *ListVlanIpRangesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetPhysicalnetworkid(v string) {
@@ -796,7 +754,6 @@ func (p *ListVlanIpRangesParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetPodid(v string) {
@@ -804,7 +761,6 @@ func (p *ListVlanIpRangesParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetProjectid(v string) {
@@ -812,7 +768,6 @@ func (p *ListVlanIpRangesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetVlan(v string) {
@@ -820,7 +775,6 @@ func (p *ListVlanIpRangesParams) SetVlan(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlan"] = v
-	return
 }
 
 func (p *ListVlanIpRangesParams) SetZoneid(v string) {
@@ -828,7 +782,6 @@ func (p *ListVlanIpRangesParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListVlanIpRangesParams instance,
@@ -940,7 +893,6 @@ func (p *ReleaseDedicatedGuestVlanRangeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new ReleaseDedicatedGuestVlanRangeParams instance,
