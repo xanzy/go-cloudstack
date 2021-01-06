@@ -53,7 +53,6 @@ func (p *ChangeServiceForSystemVmParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *ChangeServiceForSystemVmParams) SetId(v string) {
@@ -61,7 +60,6 @@ func (p *ChangeServiceForSystemVmParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ChangeServiceForSystemVmParams) SetServiceofferingid(v string) {
@@ -69,7 +67,6 @@ func (p *ChangeServiceForSystemVmParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 // You should always use this function to get a new ChangeServiceForSystemVmParams instance,
@@ -150,7 +147,6 @@ func (p *DestroySystemVmParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DestroySystemVmParams instance,
@@ -282,7 +278,6 @@ func (p *ListSystemVmsParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *ListSystemVmsParams) SetId(v string) {
@@ -290,7 +285,6 @@ func (p *ListSystemVmsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListSystemVmsParams) SetKeyword(v string) {
@@ -298,7 +292,6 @@ func (p *ListSystemVmsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListSystemVmsParams) SetName(v string) {
@@ -306,7 +299,6 @@ func (p *ListSystemVmsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListSystemVmsParams) SetPage(v int) {
@@ -314,7 +306,6 @@ func (p *ListSystemVmsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListSystemVmsParams) SetPagesize(v int) {
@@ -322,7 +313,6 @@ func (p *ListSystemVmsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListSystemVmsParams) SetPodid(v string) {
@@ -330,7 +320,6 @@ func (p *ListSystemVmsParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *ListSystemVmsParams) SetState(v string) {
@@ -338,7 +327,6 @@ func (p *ListSystemVmsParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListSystemVmsParams) SetStorageid(v string) {
@@ -346,7 +334,6 @@ func (p *ListSystemVmsParams) SetStorageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["storageid"] = v
-	return
 }
 
 func (p *ListSystemVmsParams) SetSystemvmtype(v string) {
@@ -354,7 +341,6 @@ func (p *ListSystemVmsParams) SetSystemvmtype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["systemvmtype"] = v
-	return
 }
 
 func (p *ListSystemVmsParams) SetZoneid(v string) {
@@ -362,7 +348,6 @@ func (p *ListSystemVmsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListSystemVmsParams instance,
@@ -532,7 +517,6 @@ func (p *MigrateSystemVmParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *MigrateSystemVmParams) SetVirtualmachineid(v string) {
@@ -540,7 +524,6 @@ func (p *MigrateSystemVmParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new MigrateSystemVmParams instance,
@@ -641,7 +624,6 @@ func (p *RebootSystemVmParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RebootSystemVmParams instance,
@@ -750,7 +732,6 @@ func (p *ScaleSystemVmParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *ScaleSystemVmParams) SetId(v string) {
@@ -758,7 +739,6 @@ func (p *ScaleSystemVmParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ScaleSystemVmParams) SetServiceofferingid(v string) {
@@ -766,7 +746,6 @@ func (p *ScaleSystemVmParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 // You should always use this function to get a new ScaleSystemVmParams instance,
@@ -867,7 +846,6 @@ func (p *StartSystemVmParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new StartSystemVmParams instance,
@@ -971,7 +949,6 @@ func (p *StopSystemVmParams) SetForced(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forced"] = v
-	return
 }
 
 func (p *StopSystemVmParams) SetId(v string) {
@@ -979,7 +956,6 @@ func (p *StopSystemVmParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new StopSystemVmParams instance,

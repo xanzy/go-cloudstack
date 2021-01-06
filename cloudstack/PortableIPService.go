@@ -60,7 +60,6 @@ func (p *CreatePortableIpRangeParams) SetEndip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endip"] = v
-	return
 }
 
 func (p *CreatePortableIpRangeParams) SetGateway(v string) {
@@ -68,7 +67,6 @@ func (p *CreatePortableIpRangeParams) SetGateway(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gateway"] = v
-	return
 }
 
 func (p *CreatePortableIpRangeParams) SetNetmask(v string) {
@@ -76,7 +74,6 @@ func (p *CreatePortableIpRangeParams) SetNetmask(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["netmask"] = v
-	return
 }
 
 func (p *CreatePortableIpRangeParams) SetRegionid(v int) {
@@ -84,7 +81,6 @@ func (p *CreatePortableIpRangeParams) SetRegionid(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["regionid"] = v
-	return
 }
 
 func (p *CreatePortableIpRangeParams) SetStartip(v string) {
@@ -92,7 +88,6 @@ func (p *CreatePortableIpRangeParams) SetStartip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startip"] = v
-	return
 }
 
 func (p *CreatePortableIpRangeParams) SetVlan(v string) {
@@ -100,7 +95,6 @@ func (p *CreatePortableIpRangeParams) SetVlan(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlan"] = v
-	return
 }
 
 // You should always use this function to get a new CreatePortableIpRangeParams instance,
@@ -197,7 +191,6 @@ func (p *DeletePortableIpRangeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeletePortableIpRangeParams instance,
@@ -281,7 +274,6 @@ func (p *ListPortableIpRangesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListPortableIpRangesParams) SetKeyword(v string) {
@@ -289,7 +281,6 @@ func (p *ListPortableIpRangesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListPortableIpRangesParams) SetPage(v int) {
@@ -297,7 +288,6 @@ func (p *ListPortableIpRangesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListPortableIpRangesParams) SetPagesize(v int) {
@@ -305,7 +295,6 @@ func (p *ListPortableIpRangesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListPortableIpRangesParams) SetRegionid(v int) {
@@ -313,7 +302,6 @@ func (p *ListPortableIpRangesParams) SetRegionid(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["regionid"] = v
-	return
 }
 
 // You should always use this function to get a new ListPortableIpRangesParams instance,

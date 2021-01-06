@@ -135,7 +135,6 @@ func (p *CreateDiskOfferingParams) SetBytesreadrate(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bytesreadrate"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetBytesreadratemax(v int64) {
@@ -143,7 +142,6 @@ func (p *CreateDiskOfferingParams) SetBytesreadratemax(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bytesreadratemax"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetBytesreadratemaxlength(v int64) {
@@ -151,7 +149,6 @@ func (p *CreateDiskOfferingParams) SetBytesreadratemaxlength(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bytesreadratemaxlength"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetByteswriterate(v int64) {
@@ -159,7 +156,6 @@ func (p *CreateDiskOfferingParams) SetByteswriterate(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["byteswriterate"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetByteswriteratemax(v int64) {
@@ -167,7 +163,6 @@ func (p *CreateDiskOfferingParams) SetByteswriteratemax(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["byteswriteratemax"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetByteswriteratemaxlength(v int64) {
@@ -175,7 +170,6 @@ func (p *CreateDiskOfferingParams) SetByteswriteratemaxlength(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["byteswriteratemaxlength"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetCustomized(v bool) {
@@ -183,7 +177,6 @@ func (p *CreateDiskOfferingParams) SetCustomized(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customized"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetCustomizediops(v bool) {
@@ -191,7 +184,6 @@ func (p *CreateDiskOfferingParams) SetCustomizediops(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customizediops"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetDisksize(v int64) {
@@ -199,7 +191,6 @@ func (p *CreateDiskOfferingParams) SetDisksize(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["disksize"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetDisplayoffering(v bool) {
@@ -207,7 +198,6 @@ func (p *CreateDiskOfferingParams) SetDisplayoffering(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displayoffering"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetDisplaytext(v string) {
@@ -215,7 +205,6 @@ func (p *CreateDiskOfferingParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetDomainid(v string) {
@@ -223,7 +212,6 @@ func (p *CreateDiskOfferingParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetHypervisorsnapshotreserve(v int) {
@@ -231,7 +219,6 @@ func (p *CreateDiskOfferingParams) SetHypervisorsnapshotreserve(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisorsnapshotreserve"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetIopsreadrate(v int64) {
@@ -239,7 +226,6 @@ func (p *CreateDiskOfferingParams) SetIopsreadrate(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["iopsreadrate"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetIopsreadratemax(v int64) {
@@ -247,7 +233,6 @@ func (p *CreateDiskOfferingParams) SetIopsreadratemax(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["iopsreadratemax"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetIopsreadratemaxlength(v int64) {
@@ -255,7 +240,6 @@ func (p *CreateDiskOfferingParams) SetIopsreadratemaxlength(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["iopsreadratemaxlength"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetIopswriterate(v int64) {
@@ -263,7 +247,6 @@ func (p *CreateDiskOfferingParams) SetIopswriterate(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["iopswriterate"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetIopswriteratemax(v int64) {
@@ -271,7 +254,6 @@ func (p *CreateDiskOfferingParams) SetIopswriteratemax(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["iopswriteratemax"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetIopswriteratemaxlength(v int64) {
@@ -279,7 +261,6 @@ func (p *CreateDiskOfferingParams) SetIopswriteratemaxlength(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["iopswriteratemaxlength"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetMaxiops(v int64) {
@@ -287,7 +268,6 @@ func (p *CreateDiskOfferingParams) SetMaxiops(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["maxiops"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetMiniops(v int64) {
@@ -295,7 +275,6 @@ func (p *CreateDiskOfferingParams) SetMiniops(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["miniops"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetName(v string) {
@@ -303,7 +282,6 @@ func (p *CreateDiskOfferingParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetProvisioningtype(v string) {
@@ -311,7 +289,6 @@ func (p *CreateDiskOfferingParams) SetProvisioningtype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["provisioningtype"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetStoragetype(v string) {
@@ -319,7 +296,6 @@ func (p *CreateDiskOfferingParams) SetStoragetype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["storagetype"] = v
-	return
 }
 
 func (p *CreateDiskOfferingParams) SetTags(v string) {
@@ -327,7 +303,6 @@ func (p *CreateDiskOfferingParams) SetTags(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 // You should always use this function to get a new CreateDiskOfferingParams instance,
@@ -409,7 +384,6 @@ func (p *DeleteDiskOfferingParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteDiskOfferingParams instance,
@@ -515,7 +489,6 @@ func (p *ListDiskOfferingsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListDiskOfferingsParams) SetId(v string) {
@@ -523,7 +496,6 @@ func (p *ListDiskOfferingsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListDiskOfferingsParams) SetIsrecursive(v bool) {
@@ -531,7 +503,6 @@ func (p *ListDiskOfferingsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListDiskOfferingsParams) SetKeyword(v string) {
@@ -539,7 +510,6 @@ func (p *ListDiskOfferingsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListDiskOfferingsParams) SetListall(v bool) {
@@ -547,7 +517,6 @@ func (p *ListDiskOfferingsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListDiskOfferingsParams) SetName(v string) {
@@ -555,7 +524,6 @@ func (p *ListDiskOfferingsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListDiskOfferingsParams) SetPage(v int) {
@@ -563,7 +531,6 @@ func (p *ListDiskOfferingsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListDiskOfferingsParams) SetPagesize(v int) {
@@ -571,7 +538,6 @@ func (p *ListDiskOfferingsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListDiskOfferingsParams instance,
@@ -753,7 +719,6 @@ func (p *UpdateDiskOfferingParams) SetDisplayoffering(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displayoffering"] = v
-	return
 }
 
 func (p *UpdateDiskOfferingParams) SetDisplaytext(v string) {
@@ -761,7 +726,6 @@ func (p *UpdateDiskOfferingParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *UpdateDiskOfferingParams) SetId(v string) {
@@ -769,7 +733,6 @@ func (p *UpdateDiskOfferingParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateDiskOfferingParams) SetName(v string) {
@@ -777,7 +740,6 @@ func (p *UpdateDiskOfferingParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateDiskOfferingParams) SetSortkey(v int) {
@@ -785,7 +747,6 @@ func (p *UpdateDiskOfferingParams) SetSortkey(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sortkey"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateDiskOfferingParams instance,

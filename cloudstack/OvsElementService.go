@@ -48,7 +48,6 @@ func (p *ConfigureOvsElementParams) SetEnabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enabled"] = v
-	return
 }
 
 func (p *ConfigureOvsElementParams) SetId(v string) {
@@ -56,7 +55,6 @@ func (p *ConfigureOvsElementParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new ConfigureOvsElementParams instance,
@@ -155,7 +153,6 @@ func (p *ListOvsElementsParams) SetEnabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enabled"] = v
-	return
 }
 
 func (p *ListOvsElementsParams) SetId(v string) {
@@ -163,7 +160,6 @@ func (p *ListOvsElementsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListOvsElementsParams) SetKeyword(v string) {
@@ -171,7 +167,6 @@ func (p *ListOvsElementsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListOvsElementsParams) SetNspid(v string) {
@@ -179,7 +174,6 @@ func (p *ListOvsElementsParams) SetNspid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nspid"] = v
-	return
 }
 
 func (p *ListOvsElementsParams) SetPage(v int) {
@@ -187,7 +181,6 @@ func (p *ListOvsElementsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListOvsElementsParams) SetPagesize(v int) {
@@ -195,7 +188,6 @@ func (p *ListOvsElementsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListOvsElementsParams instance,

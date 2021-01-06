@@ -51,7 +51,7 @@ Another nice feature is the fact that for every API command you can create the n
 
 Last but not least there are a whole lot of helper function that will try to automatically find an UUID for you for a certain item (disk, template, virtualmachine, network...). This makes it much easier and faster to work with the API commands and in most cases you can just use then if you know the name instead of the UUID.
 
-## ToDO
+## ToDo
 
 I fully understand I need to document this all a little more/better and there should also be some tests added.
 

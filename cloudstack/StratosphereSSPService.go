@@ -57,7 +57,6 @@ func (p *AddStratosphereSspParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *AddStratosphereSspParams) SetPassword(v string) {
@@ -65,7 +64,6 @@ func (p *AddStratosphereSspParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *AddStratosphereSspParams) SetTenantuuid(v string) {
@@ -73,7 +71,6 @@ func (p *AddStratosphereSspParams) SetTenantuuid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tenantuuid"] = v
-	return
 }
 
 func (p *AddStratosphereSspParams) SetUrl(v string) {
@@ -81,7 +78,6 @@ func (p *AddStratosphereSspParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *AddStratosphereSspParams) SetUsername(v string) {
@@ -89,7 +85,6 @@ func (p *AddStratosphereSspParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 func (p *AddStratosphereSspParams) SetZoneid(v string) {
@@ -97,7 +92,6 @@ func (p *AddStratosphereSspParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new AddStratosphereSspParams instance,
@@ -155,7 +149,6 @@ func (p *DeleteStratosphereSspParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteStratosphereSspParams instance,

@@ -54,7 +54,6 @@ func (p *ArchiveEventsParams) SetEnddate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enddate"] = v
-	return
 }
 
 func (p *ArchiveEventsParams) SetIds(v []string) {
@@ -62,7 +61,6 @@ func (p *ArchiveEventsParams) SetIds(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ids"] = v
-	return
 }
 
 func (p *ArchiveEventsParams) SetStartdate(v string) {
@@ -70,7 +68,6 @@ func (p *ArchiveEventsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
-	return
 }
 
 func (p *ArchiveEventsParams) SetType(v string) {
@@ -78,7 +75,6 @@ func (p *ArchiveEventsParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new ArchiveEventsParams instance,
@@ -168,7 +164,6 @@ func (p *DeleteEventsParams) SetEnddate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enddate"] = v
-	return
 }
 
 func (p *DeleteEventsParams) SetIds(v []string) {
@@ -176,7 +171,6 @@ func (p *DeleteEventsParams) SetIds(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ids"] = v
-	return
 }
 
 func (p *DeleteEventsParams) SetStartdate(v string) {
@@ -184,7 +178,6 @@ func (p *DeleteEventsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
-	return
 }
 
 func (p *DeleteEventsParams) SetType(v string) {
@@ -192,7 +185,6 @@ func (p *DeleteEventsParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteEventsParams instance,
@@ -369,7 +361,6 @@ func (p *ListEventsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListEventsParams) SetDomainid(v string) {
@@ -377,7 +368,6 @@ func (p *ListEventsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListEventsParams) SetDuration(v int) {
@@ -385,7 +375,6 @@ func (p *ListEventsParams) SetDuration(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["duration"] = v
-	return
 }
 
 func (p *ListEventsParams) SetEnddate(v string) {
@@ -393,7 +382,6 @@ func (p *ListEventsParams) SetEnddate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enddate"] = v
-	return
 }
 
 func (p *ListEventsParams) SetEntrytime(v int) {
@@ -401,7 +389,6 @@ func (p *ListEventsParams) SetEntrytime(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["entrytime"] = v
-	return
 }
 
 func (p *ListEventsParams) SetId(v string) {
@@ -409,7 +396,6 @@ func (p *ListEventsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListEventsParams) SetIsrecursive(v bool) {
@@ -417,7 +403,6 @@ func (p *ListEventsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListEventsParams) SetKeyword(v string) {
@@ -425,7 +410,6 @@ func (p *ListEventsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListEventsParams) SetLevel(v string) {
@@ -433,7 +417,6 @@ func (p *ListEventsParams) SetLevel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["level"] = v
-	return
 }
 
 func (p *ListEventsParams) SetListall(v bool) {
@@ -441,7 +424,6 @@ func (p *ListEventsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListEventsParams) SetPage(v int) {
@@ -449,7 +431,6 @@ func (p *ListEventsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListEventsParams) SetPagesize(v int) {
@@ -457,7 +438,6 @@ func (p *ListEventsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListEventsParams) SetProjectid(v string) {
@@ -465,7 +445,6 @@ func (p *ListEventsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListEventsParams) SetStartdate(v string) {
@@ -473,7 +452,6 @@ func (p *ListEventsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
-	return
 }
 
 func (p *ListEventsParams) SetStartid(v string) {
@@ -481,7 +459,6 @@ func (p *ListEventsParams) SetStartid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startid"] = v
-	return
 }
 
 func (p *ListEventsParams) SetType(v string) {
@@ -489,7 +466,6 @@ func (p *ListEventsParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new ListEventsParams instance,

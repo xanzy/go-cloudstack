@@ -50,7 +50,6 @@ func (p *CreateRoleParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateRoleParams) SetName(v string) {
@@ -58,7 +57,6 @@ func (p *CreateRoleParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateRoleParams) SetType(v string) {
@@ -66,7 +64,6 @@ func (p *CreateRoleParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new CreateRoleParams instance,
@@ -132,7 +129,6 @@ func (p *CreateRolePermissionParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateRolePermissionParams) SetPermission(v string) {
@@ -140,7 +136,6 @@ func (p *CreateRolePermissionParams) SetPermission(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["permission"] = v
-	return
 }
 
 func (p *CreateRolePermissionParams) SetRoleid(v string) {
@@ -148,7 +143,6 @@ func (p *CreateRolePermissionParams) SetRoleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["roleid"] = v
-	return
 }
 
 func (p *CreateRolePermissionParams) SetRule(v string) {
@@ -156,7 +150,6 @@ func (p *CreateRolePermissionParams) SetRule(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["rule"] = v
-	return
 }
 
 // You should always use this function to get a new CreateRolePermissionParams instance,
@@ -216,7 +209,6 @@ func (p *DeleteRoleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteRoleParams instance,
@@ -297,7 +289,6 @@ func (p *DeleteRolePermissionParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteRolePermissionParams instance,
@@ -378,7 +369,6 @@ func (p *ListRolePermissionsParams) SetRoleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["roleid"] = v
-	return
 }
 
 // You should always use this function to get a new ListRolePermissionsParams instance,
@@ -446,7 +436,6 @@ func (p *ListRolesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListRolesParams) SetName(v string) {
@@ -454,7 +443,6 @@ func (p *ListRolesParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListRolesParams) SetType(v string) {
@@ -462,7 +450,6 @@ func (p *ListRolesParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new ListRolesParams instance,
@@ -614,7 +601,6 @@ func (p *UpdateRoleParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *UpdateRoleParams) SetId(v string) {
@@ -622,7 +608,6 @@ func (p *UpdateRoleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateRoleParams) SetName(v string) {
@@ -630,7 +615,6 @@ func (p *UpdateRoleParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateRoleParams) SetType(v string) {
@@ -638,7 +622,6 @@ func (p *UpdateRoleParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateRoleParams instance,
@@ -704,7 +687,6 @@ func (p *UpdateRolePermissionParams) SetPermission(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["permission"] = v
-	return
 }
 
 func (p *UpdateRolePermissionParams) SetRoleid(v string) {
@@ -712,7 +694,6 @@ func (p *UpdateRolePermissionParams) SetRoleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["roleid"] = v
-	return
 }
 
 func (p *UpdateRolePermissionParams) SetRuleid(v string) {
@@ -720,7 +701,6 @@ func (p *UpdateRolePermissionParams) SetRuleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ruleid"] = v
-	return
 }
 
 func (p *UpdateRolePermissionParams) SetRuleorder(v []string) {
@@ -728,7 +708,6 @@ func (p *UpdateRolePermissionParams) SetRuleorder(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ruleorder"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateRolePermissionParams instance,

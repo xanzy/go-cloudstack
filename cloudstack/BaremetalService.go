@@ -54,7 +54,6 @@ func (p *AddBaremetalDhcpParams) SetDhcpservertype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["dhcpservertype"] = v
-	return
 }
 
 func (p *AddBaremetalDhcpParams) SetPassword(v string) {
@@ -62,7 +61,6 @@ func (p *AddBaremetalDhcpParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *AddBaremetalDhcpParams) SetPhysicalnetworkid(v string) {
@@ -70,7 +68,6 @@ func (p *AddBaremetalDhcpParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *AddBaremetalDhcpParams) SetUrl(v string) {
@@ -78,7 +75,6 @@ func (p *AddBaremetalDhcpParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *AddBaremetalDhcpParams) SetUsername(v string) {
@@ -86,7 +82,6 @@ func (p *AddBaremetalDhcpParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new AddBaremetalDhcpParams instance,
@@ -185,7 +180,6 @@ func (p *AddBaremetalPxeKickStartServerParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *AddBaremetalPxeKickStartServerParams) SetPhysicalnetworkid(v string) {
@@ -193,7 +187,6 @@ func (p *AddBaremetalPxeKickStartServerParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *AddBaremetalPxeKickStartServerParams) SetPodid(v string) {
@@ -201,7 +194,6 @@ func (p *AddBaremetalPxeKickStartServerParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *AddBaremetalPxeKickStartServerParams) SetPxeservertype(v string) {
@@ -209,7 +201,6 @@ func (p *AddBaremetalPxeKickStartServerParams) SetPxeservertype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pxeservertype"] = v
-	return
 }
 
 func (p *AddBaremetalPxeKickStartServerParams) SetTftpdir(v string) {
@@ -217,7 +208,6 @@ func (p *AddBaremetalPxeKickStartServerParams) SetTftpdir(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tftpdir"] = v
-	return
 }
 
 func (p *AddBaremetalPxeKickStartServerParams) SetUrl(v string) {
@@ -225,7 +215,6 @@ func (p *AddBaremetalPxeKickStartServerParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *AddBaremetalPxeKickStartServerParams) SetUsername(v string) {
@@ -233,7 +222,6 @@ func (p *AddBaremetalPxeKickStartServerParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new AddBaremetalPxeKickStartServerParams instance,
@@ -345,7 +333,6 @@ func (p *AddBaremetalPxePingServerParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *AddBaremetalPxePingServerParams) SetPhysicalnetworkid(v string) {
@@ -353,7 +340,6 @@ func (p *AddBaremetalPxePingServerParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *AddBaremetalPxePingServerParams) SetPingcifspassword(v string) {
@@ -361,7 +347,6 @@ func (p *AddBaremetalPxePingServerParams) SetPingcifspassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pingcifspassword"] = v
-	return
 }
 
 func (p *AddBaremetalPxePingServerParams) SetPingcifsusername(v string) {
@@ -369,7 +354,6 @@ func (p *AddBaremetalPxePingServerParams) SetPingcifsusername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pingcifsusername"] = v
-	return
 }
 
 func (p *AddBaremetalPxePingServerParams) SetPingdir(v string) {
@@ -377,7 +361,6 @@ func (p *AddBaremetalPxePingServerParams) SetPingdir(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pingdir"] = v
-	return
 }
 
 func (p *AddBaremetalPxePingServerParams) SetPingstorageserverip(v string) {
@@ -385,7 +368,6 @@ func (p *AddBaremetalPxePingServerParams) SetPingstorageserverip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pingstorageserverip"] = v
-	return
 }
 
 func (p *AddBaremetalPxePingServerParams) SetPodid(v string) {
@@ -393,7 +375,6 @@ func (p *AddBaremetalPxePingServerParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *AddBaremetalPxePingServerParams) SetPxeservertype(v string) {
@@ -401,7 +382,6 @@ func (p *AddBaremetalPxePingServerParams) SetPxeservertype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pxeservertype"] = v
-	return
 }
 
 func (p *AddBaremetalPxePingServerParams) SetTftpdir(v string) {
@@ -409,7 +389,6 @@ func (p *AddBaremetalPxePingServerParams) SetTftpdir(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tftpdir"] = v
-	return
 }
 
 func (p *AddBaremetalPxePingServerParams) SetUrl(v string) {
@@ -417,7 +396,6 @@ func (p *AddBaremetalPxePingServerParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *AddBaremetalPxePingServerParams) SetUsername(v string) {
@@ -425,7 +403,6 @@ func (p *AddBaremetalPxePingServerParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new AddBaremetalPxePingServerParams instance,
@@ -511,7 +488,6 @@ func (p *AddBaremetalRctParams) SetBaremetalrcturl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["baremetalrcturl"] = v
-	return
 }
 
 // You should always use this function to get a new AddBaremetalRctParams instance,
@@ -585,7 +561,6 @@ func (p *DeleteBaremetalRctParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteBaremetalRctParams instance,
@@ -672,7 +647,6 @@ func (p *ListBaremetalDhcpParams) SetDhcpservertype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["dhcpservertype"] = v
-	return
 }
 
 func (p *ListBaremetalDhcpParams) SetId(v int64) {
@@ -680,7 +654,6 @@ func (p *ListBaremetalDhcpParams) SetId(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListBaremetalDhcpParams) SetKeyword(v string) {
@@ -688,7 +661,6 @@ func (p *ListBaremetalDhcpParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListBaremetalDhcpParams) SetPage(v int) {
@@ -696,7 +668,6 @@ func (p *ListBaremetalDhcpParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListBaremetalDhcpParams) SetPagesize(v int) {
@@ -704,7 +675,6 @@ func (p *ListBaremetalDhcpParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListBaremetalDhcpParams) SetPhysicalnetworkid(v string) {
@@ -712,7 +682,6 @@ func (p *ListBaremetalDhcpParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 // You should always use this function to get a new ListBaremetalDhcpParams instance,
@@ -789,7 +758,6 @@ func (p *ListBaremetalPxeServersParams) SetId(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListBaremetalPxeServersParams) SetKeyword(v string) {
@@ -797,7 +765,6 @@ func (p *ListBaremetalPxeServersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListBaremetalPxeServersParams) SetPage(v int) {
@@ -805,7 +772,6 @@ func (p *ListBaremetalPxeServersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListBaremetalPxeServersParams) SetPagesize(v int) {
@@ -813,7 +779,6 @@ func (p *ListBaremetalPxeServersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListBaremetalPxeServersParams) SetPhysicalnetworkid(v string) {
@@ -821,7 +786,6 @@ func (p *ListBaremetalPxeServersParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 // You should always use this function to get a new ListBaremetalPxeServersParams instance,
@@ -890,7 +854,6 @@ func (p *ListBaremetalRctParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListBaremetalRctParams) SetPage(v int) {
@@ -898,7 +861,6 @@ func (p *ListBaremetalRctParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListBaremetalRctParams) SetPagesize(v int) {
@@ -906,7 +868,6 @@ func (p *ListBaremetalRctParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListBaremetalRctParams instance,
@@ -964,7 +925,6 @@ func (p *NotifyBaremetalProvisionDoneParams) SetMac(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["mac"] = v
-	return
 }
 
 // You should always use this function to get a new NotifyBaremetalProvisionDoneParams instance,

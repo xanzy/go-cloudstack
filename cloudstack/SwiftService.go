@@ -52,7 +52,6 @@ func (p *AddSwiftParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *AddSwiftParams) SetKey(v string) {
@@ -60,7 +59,6 @@ func (p *AddSwiftParams) SetKey(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["key"] = v
-	return
 }
 
 func (p *AddSwiftParams) SetUrl(v string) {
@@ -68,7 +66,6 @@ func (p *AddSwiftParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *AddSwiftParams) SetUsername(v string) {
@@ -76,7 +73,6 @@ func (p *AddSwiftParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new AddSwiftParams instance,
@@ -148,7 +144,6 @@ func (p *ListSwiftsParams) SetId(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListSwiftsParams) SetKeyword(v string) {
@@ -156,7 +151,6 @@ func (p *ListSwiftsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListSwiftsParams) SetPage(v int) {
@@ -164,7 +158,6 @@ func (p *ListSwiftsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListSwiftsParams) SetPagesize(v int) {
@@ -172,7 +165,6 @@ func (p *ListSwiftsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListSwiftsParams instance,

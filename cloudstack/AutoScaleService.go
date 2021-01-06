@@ -56,7 +56,6 @@ func (p *CreateAutoScalePolicyParams) SetAction(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["action"] = v
-	return
 }
 
 func (p *CreateAutoScalePolicyParams) SetConditionids(v []string) {
@@ -64,7 +63,6 @@ func (p *CreateAutoScalePolicyParams) SetConditionids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["conditionids"] = v
-	return
 }
 
 func (p *CreateAutoScalePolicyParams) SetDuration(v int) {
@@ -72,7 +70,6 @@ func (p *CreateAutoScalePolicyParams) SetDuration(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["duration"] = v
-	return
 }
 
 func (p *CreateAutoScalePolicyParams) SetQuiettime(v int) {
@@ -80,7 +77,6 @@ func (p *CreateAutoScalePolicyParams) SetQuiettime(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["quiettime"] = v
-	return
 }
 
 // You should always use this function to get a new CreateAutoScalePolicyParams instance,
@@ -191,7 +187,6 @@ func (p *CreateAutoScaleVmGroupParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmGroupParams) SetInterval(v int) {
@@ -199,7 +194,6 @@ func (p *CreateAutoScaleVmGroupParams) SetInterval(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["interval"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmGroupParams) SetLbruleid(v string) {
@@ -207,7 +201,6 @@ func (p *CreateAutoScaleVmGroupParams) SetLbruleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lbruleid"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmGroupParams) SetMaxmembers(v int) {
@@ -215,7 +208,6 @@ func (p *CreateAutoScaleVmGroupParams) SetMaxmembers(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["maxmembers"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmGroupParams) SetMinmembers(v int) {
@@ -223,7 +215,6 @@ func (p *CreateAutoScaleVmGroupParams) SetMinmembers(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["minmembers"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmGroupParams) SetScaledownpolicyids(v []string) {
@@ -231,7 +222,6 @@ func (p *CreateAutoScaleVmGroupParams) SetScaledownpolicyids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["scaledownpolicyids"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmGroupParams) SetScaleuppolicyids(v []string) {
@@ -239,7 +229,6 @@ func (p *CreateAutoScaleVmGroupParams) SetScaleuppolicyids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["scaleuppolicyids"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmGroupParams) SetVmprofileid(v string) {
@@ -247,7 +236,6 @@ func (p *CreateAutoScaleVmGroupParams) SetVmprofileid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmprofileid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateAutoScaleVmGroupParams instance,
@@ -366,7 +354,6 @@ func (p *CreateAutoScaleVmProfileParams) SetAutoscaleuserid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["autoscaleuserid"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmProfileParams) SetCounterparam(v map[string]string) {
@@ -374,7 +361,6 @@ func (p *CreateAutoScaleVmProfileParams) SetCounterparam(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["counterparam"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmProfileParams) SetDestroyvmgraceperiod(v int) {
@@ -382,7 +368,6 @@ func (p *CreateAutoScaleVmProfileParams) SetDestroyvmgraceperiod(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["destroyvmgraceperiod"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmProfileParams) SetFordisplay(v bool) {
@@ -390,7 +375,6 @@ func (p *CreateAutoScaleVmProfileParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmProfileParams) SetOtherdeployparams(v string) {
@@ -398,7 +382,6 @@ func (p *CreateAutoScaleVmProfileParams) SetOtherdeployparams(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["otherdeployparams"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmProfileParams) SetServiceofferingid(v string) {
@@ -406,7 +389,6 @@ func (p *CreateAutoScaleVmProfileParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmProfileParams) SetTemplateid(v string) {
@@ -414,7 +396,6 @@ func (p *CreateAutoScaleVmProfileParams) SetTemplateid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templateid"] = v
-	return
 }
 
 func (p *CreateAutoScaleVmProfileParams) SetZoneid(v string) {
@@ -422,7 +403,6 @@ func (p *CreateAutoScaleVmProfileParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateAutoScaleVmProfileParams instance,
@@ -522,7 +502,6 @@ func (p *CreateConditionParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateConditionParams) SetCounterid(v string) {
@@ -530,7 +509,6 @@ func (p *CreateConditionParams) SetCounterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["counterid"] = v
-	return
 }
 
 func (p *CreateConditionParams) SetDomainid(v string) {
@@ -538,7 +516,6 @@ func (p *CreateConditionParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateConditionParams) SetRelationaloperator(v string) {
@@ -546,7 +523,6 @@ func (p *CreateConditionParams) SetRelationaloperator(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["relationaloperator"] = v
-	return
 }
 
 func (p *CreateConditionParams) SetThreshold(v int64) {
@@ -554,7 +530,6 @@ func (p *CreateConditionParams) SetThreshold(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["threshold"] = v
-	return
 }
 
 // You should always use this function to get a new CreateConditionParams instance,
@@ -644,7 +619,6 @@ func (p *CreateCounterParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateCounterParams) SetSource(v string) {
@@ -652,7 +626,6 @@ func (p *CreateCounterParams) SetSource(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["source"] = v
-	return
 }
 
 func (p *CreateCounterParams) SetValue(v string) {
@@ -660,7 +633,6 @@ func (p *CreateCounterParams) SetValue(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["value"] = v
-	return
 }
 
 // You should always use this function to get a new CreateCounterParams instance,
@@ -739,7 +711,6 @@ func (p *DeleteAutoScalePolicyParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteAutoScalePolicyParams instance,
@@ -808,7 +779,6 @@ func (p *DeleteAutoScaleVmGroupParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteAutoScaleVmGroupParams instance,
@@ -877,7 +847,6 @@ func (p *DeleteAutoScaleVmProfileParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteAutoScaleVmProfileParams instance,
@@ -946,7 +915,6 @@ func (p *DeleteConditionParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteConditionParams instance,
@@ -1015,7 +983,6 @@ func (p *DeleteCounterParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteCounterParams instance,
@@ -1084,7 +1051,6 @@ func (p *DisableAutoScaleVmGroupParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DisableAutoScaleVmGroupParams instance,
@@ -1171,7 +1137,6 @@ func (p *EnableAutoScaleVmGroupParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new EnableAutoScaleVmGroupParams instance,
@@ -1292,7 +1257,6 @@ func (p *ListAutoScalePoliciesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListAutoScalePoliciesParams) SetAction(v string) {
@@ -1300,7 +1264,6 @@ func (p *ListAutoScalePoliciesParams) SetAction(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["action"] = v
-	return
 }
 
 func (p *ListAutoScalePoliciesParams) SetConditionid(v string) {
@@ -1308,7 +1271,6 @@ func (p *ListAutoScalePoliciesParams) SetConditionid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["conditionid"] = v
-	return
 }
 
 func (p *ListAutoScalePoliciesParams) SetDomainid(v string) {
@@ -1316,7 +1278,6 @@ func (p *ListAutoScalePoliciesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListAutoScalePoliciesParams) SetId(v string) {
@@ -1324,7 +1285,6 @@ func (p *ListAutoScalePoliciesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListAutoScalePoliciesParams) SetIsrecursive(v bool) {
@@ -1332,7 +1292,6 @@ func (p *ListAutoScalePoliciesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListAutoScalePoliciesParams) SetKeyword(v string) {
@@ -1340,7 +1299,6 @@ func (p *ListAutoScalePoliciesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListAutoScalePoliciesParams) SetListall(v bool) {
@@ -1348,7 +1306,6 @@ func (p *ListAutoScalePoliciesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListAutoScalePoliciesParams) SetPage(v int) {
@@ -1356,7 +1313,6 @@ func (p *ListAutoScalePoliciesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListAutoScalePoliciesParams) SetPagesize(v int) {
@@ -1364,7 +1320,6 @@ func (p *ListAutoScalePoliciesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListAutoScalePoliciesParams) SetVmgroupid(v string) {
@@ -1372,7 +1327,6 @@ func (p *ListAutoScalePoliciesParams) SetVmgroupid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmgroupid"] = v
-	return
 }
 
 // You should always use this function to get a new ListAutoScalePoliciesParams instance,
@@ -1515,7 +1469,6 @@ func (p *ListAutoScaleVmGroupsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetDomainid(v string) {
@@ -1523,7 +1476,6 @@ func (p *ListAutoScaleVmGroupsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetFordisplay(v bool) {
@@ -1531,7 +1483,6 @@ func (p *ListAutoScaleVmGroupsParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetId(v string) {
@@ -1539,7 +1490,6 @@ func (p *ListAutoScaleVmGroupsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetIsrecursive(v bool) {
@@ -1547,7 +1497,6 @@ func (p *ListAutoScaleVmGroupsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetKeyword(v string) {
@@ -1555,7 +1504,6 @@ func (p *ListAutoScaleVmGroupsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetLbruleid(v string) {
@@ -1563,7 +1511,6 @@ func (p *ListAutoScaleVmGroupsParams) SetLbruleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lbruleid"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetListall(v bool) {
@@ -1571,7 +1518,6 @@ func (p *ListAutoScaleVmGroupsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetPage(v int) {
@@ -1579,7 +1525,6 @@ func (p *ListAutoScaleVmGroupsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetPagesize(v int) {
@@ -1587,7 +1532,6 @@ func (p *ListAutoScaleVmGroupsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetPolicyid(v string) {
@@ -1595,7 +1539,6 @@ func (p *ListAutoScaleVmGroupsParams) SetPolicyid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["policyid"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetProjectid(v string) {
@@ -1603,7 +1546,6 @@ func (p *ListAutoScaleVmGroupsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetVmprofileid(v string) {
@@ -1611,7 +1553,6 @@ func (p *ListAutoScaleVmGroupsParams) SetVmprofileid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmprofileid"] = v
-	return
 }
 
 func (p *ListAutoScaleVmGroupsParams) SetZoneid(v string) {
@@ -1619,7 +1560,6 @@ func (p *ListAutoScaleVmGroupsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListAutoScaleVmGroupsParams instance,
@@ -1767,7 +1707,6 @@ func (p *ListAutoScaleVmProfilesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetDomainid(v string) {
@@ -1775,7 +1714,6 @@ func (p *ListAutoScaleVmProfilesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetFordisplay(v bool) {
@@ -1783,7 +1721,6 @@ func (p *ListAutoScaleVmProfilesParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetId(v string) {
@@ -1791,7 +1728,6 @@ func (p *ListAutoScaleVmProfilesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetIsrecursive(v bool) {
@@ -1799,7 +1735,6 @@ func (p *ListAutoScaleVmProfilesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetKeyword(v string) {
@@ -1807,7 +1742,6 @@ func (p *ListAutoScaleVmProfilesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetListall(v bool) {
@@ -1815,7 +1749,6 @@ func (p *ListAutoScaleVmProfilesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetOtherdeployparams(v string) {
@@ -1823,7 +1756,6 @@ func (p *ListAutoScaleVmProfilesParams) SetOtherdeployparams(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["otherdeployparams"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetPage(v int) {
@@ -1831,7 +1763,6 @@ func (p *ListAutoScaleVmProfilesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetPagesize(v int) {
@@ -1839,7 +1770,6 @@ func (p *ListAutoScaleVmProfilesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetProjectid(v string) {
@@ -1847,7 +1777,6 @@ func (p *ListAutoScaleVmProfilesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetServiceofferingid(v string) {
@@ -1855,7 +1784,6 @@ func (p *ListAutoScaleVmProfilesParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetTemplateid(v string) {
@@ -1863,7 +1791,6 @@ func (p *ListAutoScaleVmProfilesParams) SetTemplateid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templateid"] = v
-	return
 }
 
 func (p *ListAutoScaleVmProfilesParams) SetZoneid(v string) {
@@ -1871,7 +1798,6 @@ func (p *ListAutoScaleVmProfilesParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListAutoScaleVmProfilesParams instance,
@@ -2004,7 +1930,6 @@ func (p *ListConditionsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListConditionsParams) SetCounterid(v string) {
@@ -2012,7 +1937,6 @@ func (p *ListConditionsParams) SetCounterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["counterid"] = v
-	return
 }
 
 func (p *ListConditionsParams) SetDomainid(v string) {
@@ -2020,7 +1944,6 @@ func (p *ListConditionsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListConditionsParams) SetId(v string) {
@@ -2028,7 +1951,6 @@ func (p *ListConditionsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListConditionsParams) SetIsrecursive(v bool) {
@@ -2036,7 +1958,6 @@ func (p *ListConditionsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListConditionsParams) SetKeyword(v string) {
@@ -2044,7 +1965,6 @@ func (p *ListConditionsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListConditionsParams) SetListall(v bool) {
@@ -2052,7 +1972,6 @@ func (p *ListConditionsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListConditionsParams) SetPage(v int) {
@@ -2060,7 +1979,6 @@ func (p *ListConditionsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListConditionsParams) SetPagesize(v int) {
@@ -2068,7 +1986,6 @@ func (p *ListConditionsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListConditionsParams) SetPolicyid(v string) {
@@ -2076,7 +1993,6 @@ func (p *ListConditionsParams) SetPolicyid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["policyid"] = v
-	return
 }
 
 // You should always use this function to get a new ListConditionsParams instance,
@@ -2192,7 +2108,6 @@ func (p *ListCountersParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListCountersParams) SetKeyword(v string) {
@@ -2200,7 +2115,6 @@ func (p *ListCountersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListCountersParams) SetName(v string) {
@@ -2208,7 +2122,6 @@ func (p *ListCountersParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListCountersParams) SetPage(v int) {
@@ -2216,7 +2129,6 @@ func (p *ListCountersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListCountersParams) SetPagesize(v int) {
@@ -2224,7 +2136,6 @@ func (p *ListCountersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListCountersParams) SetSource(v string) {
@@ -2232,7 +2143,6 @@ func (p *ListCountersParams) SetSource(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["source"] = v
-	return
 }
 
 // You should always use this function to get a new ListCountersParams instance,
@@ -2388,7 +2298,6 @@ func (p *UpdateAutoScalePolicyParams) SetConditionids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["conditionids"] = v
-	return
 }
 
 func (p *UpdateAutoScalePolicyParams) SetDuration(v int) {
@@ -2396,7 +2305,6 @@ func (p *UpdateAutoScalePolicyParams) SetDuration(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["duration"] = v
-	return
 }
 
 func (p *UpdateAutoScalePolicyParams) SetId(v string) {
@@ -2404,7 +2312,6 @@ func (p *UpdateAutoScalePolicyParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateAutoScalePolicyParams) SetQuiettime(v int) {
@@ -2412,7 +2319,6 @@ func (p *UpdateAutoScalePolicyParams) SetQuiettime(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["quiettime"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateAutoScalePolicyParams instance,
@@ -2521,7 +2427,6 @@ func (p *UpdateAutoScaleVmGroupParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmGroupParams) SetFordisplay(v bool) {
@@ -2529,7 +2434,6 @@ func (p *UpdateAutoScaleVmGroupParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmGroupParams) SetId(v string) {
@@ -2537,7 +2441,6 @@ func (p *UpdateAutoScaleVmGroupParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmGroupParams) SetInterval(v int) {
@@ -2545,7 +2448,6 @@ func (p *UpdateAutoScaleVmGroupParams) SetInterval(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["interval"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmGroupParams) SetMaxmembers(v int) {
@@ -2553,7 +2455,6 @@ func (p *UpdateAutoScaleVmGroupParams) SetMaxmembers(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["maxmembers"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmGroupParams) SetMinmembers(v int) {
@@ -2561,7 +2462,6 @@ func (p *UpdateAutoScaleVmGroupParams) SetMinmembers(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["minmembers"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmGroupParams) SetScaledownpolicyids(v []string) {
@@ -2569,7 +2469,6 @@ func (p *UpdateAutoScaleVmGroupParams) SetScaledownpolicyids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["scaledownpolicyids"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmGroupParams) SetScaleuppolicyids(v []string) {
@@ -2577,7 +2476,6 @@ func (p *UpdateAutoScaleVmGroupParams) SetScaleuppolicyids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["scaleuppolicyids"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateAutoScaleVmGroupParams instance,
@@ -2688,7 +2586,6 @@ func (p *UpdateAutoScaleVmProfileParams) SetAutoscaleuserid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["autoscaleuserid"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmProfileParams) SetCounterparam(v map[string]string) {
@@ -2696,7 +2593,6 @@ func (p *UpdateAutoScaleVmProfileParams) SetCounterparam(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["counterparam"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmProfileParams) SetCustomid(v string) {
@@ -2704,7 +2600,6 @@ func (p *UpdateAutoScaleVmProfileParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmProfileParams) SetDestroyvmgraceperiod(v int) {
@@ -2712,7 +2607,6 @@ func (p *UpdateAutoScaleVmProfileParams) SetDestroyvmgraceperiod(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["destroyvmgraceperiod"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmProfileParams) SetFordisplay(v bool) {
@@ -2720,7 +2614,6 @@ func (p *UpdateAutoScaleVmProfileParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmProfileParams) SetId(v string) {
@@ -2728,7 +2621,6 @@ func (p *UpdateAutoScaleVmProfileParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateAutoScaleVmProfileParams) SetTemplateid(v string) {
@@ -2736,7 +2628,6 @@ func (p *UpdateAutoScaleVmProfileParams) SetTemplateid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templateid"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateAutoScaleVmProfileParams instance,

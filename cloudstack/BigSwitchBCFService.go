@@ -55,7 +55,6 @@ func (p *AddBigSwitchBcfDeviceParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
-	return
 }
 
 func (p *AddBigSwitchBcfDeviceParams) SetNat(v bool) {
@@ -63,7 +62,6 @@ func (p *AddBigSwitchBcfDeviceParams) SetNat(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nat"] = v
-	return
 }
 
 func (p *AddBigSwitchBcfDeviceParams) SetPassword(v string) {
@@ -71,7 +69,6 @@ func (p *AddBigSwitchBcfDeviceParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *AddBigSwitchBcfDeviceParams) SetPhysicalnetworkid(v string) {
@@ -79,7 +76,6 @@ func (p *AddBigSwitchBcfDeviceParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *AddBigSwitchBcfDeviceParams) SetUsername(v string) {
@@ -87,7 +83,6 @@ func (p *AddBigSwitchBcfDeviceParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new AddBigSwitchBcfDeviceParams instance,
@@ -171,7 +166,6 @@ func (p *DeleteBigSwitchBcfDeviceParams) SetBcfdeviceid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bcfdeviceid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteBigSwitchBcfDeviceParams instance,
@@ -254,7 +248,6 @@ func (p *ListBigSwitchBcfDevicesParams) SetBcfdeviceid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bcfdeviceid"] = v
-	return
 }
 
 func (p *ListBigSwitchBcfDevicesParams) SetKeyword(v string) {
@@ -262,7 +255,6 @@ func (p *ListBigSwitchBcfDevicesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListBigSwitchBcfDevicesParams) SetPage(v int) {
@@ -270,7 +262,6 @@ func (p *ListBigSwitchBcfDevicesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListBigSwitchBcfDevicesParams) SetPagesize(v int) {
@@ -278,7 +269,6 @@ func (p *ListBigSwitchBcfDevicesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListBigSwitchBcfDevicesParams) SetPhysicalnetworkid(v string) {
@@ -286,7 +276,6 @@ func (p *ListBigSwitchBcfDevicesParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 // You should always use this function to get a new ListBigSwitchBcfDevicesParams instance,

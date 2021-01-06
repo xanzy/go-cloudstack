@@ -54,7 +54,6 @@ func (p *CopyTemplateParams) SetDestzoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["destzoneid"] = v
-	return
 }
 
 func (p *CopyTemplateParams) SetDestzoneids(v []string) {
@@ -62,7 +61,6 @@ func (p *CopyTemplateParams) SetDestzoneids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["destzoneids"] = v
-	return
 }
 
 func (p *CopyTemplateParams) SetId(v string) {
@@ -70,7 +68,6 @@ func (p *CopyTemplateParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *CopyTemplateParams) SetSourcezoneid(v string) {
@@ -78,7 +75,6 @@ func (p *CopyTemplateParams) SetSourcezoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourcezoneid"] = v
-	return
 }
 
 // You should always use this function to get a new CopyTemplateParams instance,
@@ -277,7 +273,6 @@ func (p *CreateTemplateParams) SetBits(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bits"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetDetails(v map[string]string) {
@@ -285,7 +280,6 @@ func (p *CreateTemplateParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetDisplaytext(v string) {
@@ -293,7 +287,6 @@ func (p *CreateTemplateParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetIsdynamicallyscalable(v bool) {
@@ -301,7 +294,6 @@ func (p *CreateTemplateParams) SetIsdynamicallyscalable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isdynamicallyscalable"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetIsfeatured(v bool) {
@@ -309,7 +301,6 @@ func (p *CreateTemplateParams) SetIsfeatured(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isfeatured"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetIspublic(v bool) {
@@ -317,7 +308,6 @@ func (p *CreateTemplateParams) SetIspublic(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ispublic"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetName(v string) {
@@ -325,7 +315,6 @@ func (p *CreateTemplateParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetOstypeid(v string) {
@@ -333,7 +322,6 @@ func (p *CreateTemplateParams) SetOstypeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ostypeid"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetPasswordenabled(v bool) {
@@ -341,7 +329,6 @@ func (p *CreateTemplateParams) SetPasswordenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["passwordenabled"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetProjectid(v string) {
@@ -349,7 +336,6 @@ func (p *CreateTemplateParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetRequireshvm(v bool) {
@@ -357,7 +343,6 @@ func (p *CreateTemplateParams) SetRequireshvm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["requireshvm"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetSnapshotid(v string) {
@@ -365,7 +350,6 @@ func (p *CreateTemplateParams) SetSnapshotid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["snapshotid"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetSshkeyenabled(v bool) {
@@ -373,7 +357,6 @@ func (p *CreateTemplateParams) SetSshkeyenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sshkeyenabled"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetTemplatetag(v string) {
@@ -381,7 +364,6 @@ func (p *CreateTemplateParams) SetTemplatetag(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templatetag"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetUrl(v string) {
@@ -389,7 +371,6 @@ func (p *CreateTemplateParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetVirtualmachineid(v string) {
@@ -397,7 +378,6 @@ func (p *CreateTemplateParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 func (p *CreateTemplateParams) SetVolumeid(v string) {
@@ -405,7 +385,6 @@ func (p *CreateTemplateParams) SetVolumeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["volumeid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateTemplateParams instance,
@@ -555,7 +534,6 @@ func (p *DeleteTemplateParams) SetForced(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forced"] = v
-	return
 }
 
 func (p *DeleteTemplateParams) SetId(v string) {
@@ -563,7 +541,6 @@ func (p *DeleteTemplateParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *DeleteTemplateParams) SetZoneid(v string) {
@@ -571,7 +548,6 @@ func (p *DeleteTemplateParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteTemplateParams instance,
@@ -649,7 +625,6 @@ func (p *ExtractTemplateParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ExtractTemplateParams) SetMode(v string) {
@@ -657,7 +632,6 @@ func (p *ExtractTemplateParams) SetMode(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["mode"] = v
-	return
 }
 
 func (p *ExtractTemplateParams) SetUrl(v string) {
@@ -665,7 +639,6 @@ func (p *ExtractTemplateParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *ExtractTemplateParams) SetZoneid(v string) {
@@ -673,7 +646,6 @@ func (p *ExtractTemplateParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ExtractTemplateParams instance,
@@ -832,7 +804,6 @@ func (p *GetUploadParamsForTemplateParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetBits(v int) {
@@ -840,7 +811,6 @@ func (p *GetUploadParamsForTemplateParams) SetBits(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bits"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetChecksum(v string) {
@@ -848,7 +818,6 @@ func (p *GetUploadParamsForTemplateParams) SetChecksum(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["checksum"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetDetails(v map[string]string) {
@@ -856,7 +825,6 @@ func (p *GetUploadParamsForTemplateParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetDisplaytext(v string) {
@@ -864,7 +832,6 @@ func (p *GetUploadParamsForTemplateParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetDomainid(v string) {
@@ -872,7 +839,6 @@ func (p *GetUploadParamsForTemplateParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetFormat(v string) {
@@ -880,7 +846,6 @@ func (p *GetUploadParamsForTemplateParams) SetFormat(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["format"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetHypervisor(v string) {
@@ -888,7 +853,6 @@ func (p *GetUploadParamsForTemplateParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetIsdynamicallyscalable(v bool) {
@@ -896,7 +860,6 @@ func (p *GetUploadParamsForTemplateParams) SetIsdynamicallyscalable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isdynamicallyscalable"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetIsextractable(v bool) {
@@ -904,7 +867,6 @@ func (p *GetUploadParamsForTemplateParams) SetIsextractable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isextractable"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetIsfeatured(v bool) {
@@ -912,7 +874,6 @@ func (p *GetUploadParamsForTemplateParams) SetIsfeatured(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isfeatured"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetIspublic(v bool) {
@@ -920,7 +881,6 @@ func (p *GetUploadParamsForTemplateParams) SetIspublic(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ispublic"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetIsrouting(v bool) {
@@ -928,7 +888,6 @@ func (p *GetUploadParamsForTemplateParams) SetIsrouting(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrouting"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetName(v string) {
@@ -936,7 +895,6 @@ func (p *GetUploadParamsForTemplateParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetOstypeid(v string) {
@@ -944,7 +902,6 @@ func (p *GetUploadParamsForTemplateParams) SetOstypeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ostypeid"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetPasswordenabled(v bool) {
@@ -952,7 +909,6 @@ func (p *GetUploadParamsForTemplateParams) SetPasswordenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["passwordenabled"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetProjectid(v string) {
@@ -960,7 +916,6 @@ func (p *GetUploadParamsForTemplateParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetRequireshvm(v bool) {
@@ -968,7 +923,6 @@ func (p *GetUploadParamsForTemplateParams) SetRequireshvm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["requireshvm"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetSshkeyenabled(v bool) {
@@ -976,7 +930,6 @@ func (p *GetUploadParamsForTemplateParams) SetSshkeyenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sshkeyenabled"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetTemplatetag(v string) {
@@ -984,7 +937,6 @@ func (p *GetUploadParamsForTemplateParams) SetTemplatetag(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templatetag"] = v
-	return
 }
 
 func (p *GetUploadParamsForTemplateParams) SetZoneid(v string) {
@@ -992,7 +944,6 @@ func (p *GetUploadParamsForTemplateParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new GetUploadParamsForTemplateParams instance,
@@ -1054,7 +1005,6 @@ func (p *ListTemplatePermissionsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new ListTemplatePermissionsParams instance,
@@ -1207,7 +1157,6 @@ func (p *ListTemplatesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetDomainid(v string) {
@@ -1215,7 +1164,6 @@ func (p *ListTemplatesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetHypervisor(v string) {
@@ -1223,7 +1171,6 @@ func (p *ListTemplatesParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetId(v string) {
@@ -1231,7 +1178,6 @@ func (p *ListTemplatesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetIds(v []string) {
@@ -1239,7 +1185,6 @@ func (p *ListTemplatesParams) SetIds(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ids"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetIsrecursive(v bool) {
@@ -1247,7 +1192,6 @@ func (p *ListTemplatesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetKeyword(v string) {
@@ -1255,7 +1199,6 @@ func (p *ListTemplatesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetListall(v bool) {
@@ -1263,7 +1206,6 @@ func (p *ListTemplatesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetName(v string) {
@@ -1271,7 +1213,6 @@ func (p *ListTemplatesParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetPage(v int) {
@@ -1279,7 +1220,6 @@ func (p *ListTemplatesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetPagesize(v int) {
@@ -1287,7 +1227,6 @@ func (p *ListTemplatesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetParenttemplateid(v string) {
@@ -1295,7 +1234,6 @@ func (p *ListTemplatesParams) SetParenttemplateid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["parenttemplateid"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetProjectid(v string) {
@@ -1303,7 +1241,6 @@ func (p *ListTemplatesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetShowremoved(v bool) {
@@ -1311,7 +1248,6 @@ func (p *ListTemplatesParams) SetShowremoved(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["showremoved"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetTags(v map[string]string) {
@@ -1319,7 +1255,6 @@ func (p *ListTemplatesParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetTemplatefilter(v string) {
@@ -1327,7 +1262,6 @@ func (p *ListTemplatesParams) SetTemplatefilter(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templatefilter"] = v
-	return
 }
 
 func (p *ListTemplatesParams) SetZoneid(v string) {
@@ -1335,7 +1269,6 @@ func (p *ListTemplatesParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListTemplatesParams instance,
@@ -1553,7 +1486,6 @@ func (p *PrepareTemplateParams) SetStorageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["storageid"] = v
-	return
 }
 
 func (p *PrepareTemplateParams) SetTemplateid(v string) {
@@ -1561,7 +1493,6 @@ func (p *PrepareTemplateParams) SetTemplateid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templateid"] = v
-	return
 }
 
 func (p *PrepareTemplateParams) SetZoneid(v string) {
@@ -1569,7 +1500,6 @@ func (p *PrepareTemplateParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new PrepareTemplateParams instance,
@@ -1774,7 +1704,6 @@ func (p *RegisterTemplateParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetBits(v int) {
@@ -1782,7 +1711,6 @@ func (p *RegisterTemplateParams) SetBits(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bits"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetChecksum(v string) {
@@ -1790,7 +1718,6 @@ func (p *RegisterTemplateParams) SetChecksum(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["checksum"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetDetails(v map[string]string) {
@@ -1798,7 +1725,6 @@ func (p *RegisterTemplateParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetDirectdownload(v bool) {
@@ -1806,7 +1732,6 @@ func (p *RegisterTemplateParams) SetDirectdownload(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["directdownload"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetDisplaytext(v string) {
@@ -1814,7 +1739,6 @@ func (p *RegisterTemplateParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetDomainid(v string) {
@@ -1822,7 +1746,6 @@ func (p *RegisterTemplateParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetFormat(v string) {
@@ -1830,7 +1753,6 @@ func (p *RegisterTemplateParams) SetFormat(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["format"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetHypervisor(v string) {
@@ -1838,7 +1760,6 @@ func (p *RegisterTemplateParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetIsdynamicallyscalable(v bool) {
@@ -1846,7 +1767,6 @@ func (p *RegisterTemplateParams) SetIsdynamicallyscalable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isdynamicallyscalable"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetIsextractable(v bool) {
@@ -1854,7 +1774,6 @@ func (p *RegisterTemplateParams) SetIsextractable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isextractable"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetIsfeatured(v bool) {
@@ -1862,7 +1781,6 @@ func (p *RegisterTemplateParams) SetIsfeatured(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isfeatured"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetIspublic(v bool) {
@@ -1870,7 +1788,6 @@ func (p *RegisterTemplateParams) SetIspublic(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ispublic"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetIsrouting(v bool) {
@@ -1878,7 +1795,6 @@ func (p *RegisterTemplateParams) SetIsrouting(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrouting"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetName(v string) {
@@ -1886,7 +1802,6 @@ func (p *RegisterTemplateParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetOstypeid(v string) {
@@ -1894,7 +1809,6 @@ func (p *RegisterTemplateParams) SetOstypeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ostypeid"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetPasswordenabled(v bool) {
@@ -1902,7 +1816,6 @@ func (p *RegisterTemplateParams) SetPasswordenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["passwordenabled"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetProjectid(v string) {
@@ -1910,7 +1823,6 @@ func (p *RegisterTemplateParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetRequireshvm(v bool) {
@@ -1918,7 +1830,6 @@ func (p *RegisterTemplateParams) SetRequireshvm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["requireshvm"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetSshkeyenabled(v bool) {
@@ -1926,7 +1837,6 @@ func (p *RegisterTemplateParams) SetSshkeyenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sshkeyenabled"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetTemplatetag(v string) {
@@ -1934,7 +1844,6 @@ func (p *RegisterTemplateParams) SetTemplatetag(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templatetag"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetUrl(v string) {
@@ -1942,7 +1851,6 @@ func (p *RegisterTemplateParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetZoneid(v string) {
@@ -1950,7 +1858,6 @@ func (p *RegisterTemplateParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 func (p *RegisterTemplateParams) SetZoneids(v []string) {
@@ -1958,7 +1865,6 @@ func (p *RegisterTemplateParams) SetZoneids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneids"] = v
-	return
 }
 
 // You should always use this function to get a new RegisterTemplateParams instance,
@@ -2139,7 +2045,6 @@ func (p *UpdateTemplateParams) SetBootable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bootable"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetCleanupdetails(v bool) {
@@ -2147,7 +2052,6 @@ func (p *UpdateTemplateParams) SetCleanupdetails(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cleanupdetails"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetDetails(v map[string]string) {
@@ -2155,7 +2059,6 @@ func (p *UpdateTemplateParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetDisplaytext(v string) {
@@ -2163,7 +2066,6 @@ func (p *UpdateTemplateParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetFormat(v string) {
@@ -2171,7 +2073,6 @@ func (p *UpdateTemplateParams) SetFormat(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["format"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetId(v string) {
@@ -2179,7 +2080,6 @@ func (p *UpdateTemplateParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetIsdynamicallyscalable(v bool) {
@@ -2187,7 +2087,6 @@ func (p *UpdateTemplateParams) SetIsdynamicallyscalable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isdynamicallyscalable"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetIsrouting(v bool) {
@@ -2195,7 +2094,6 @@ func (p *UpdateTemplateParams) SetIsrouting(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrouting"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetName(v string) {
@@ -2203,7 +2101,6 @@ func (p *UpdateTemplateParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetOstypeid(v string) {
@@ -2211,7 +2108,6 @@ func (p *UpdateTemplateParams) SetOstypeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ostypeid"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetPasswordenabled(v bool) {
@@ -2219,7 +2115,6 @@ func (p *UpdateTemplateParams) SetPasswordenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["passwordenabled"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetRequireshvm(v bool) {
@@ -2227,7 +2122,6 @@ func (p *UpdateTemplateParams) SetRequireshvm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["requireshvm"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetSortkey(v int) {
@@ -2235,7 +2129,6 @@ func (p *UpdateTemplateParams) SetSortkey(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sortkey"] = v
-	return
 }
 
 func (p *UpdateTemplateParams) SetSshkeyenabled(v bool) {
@@ -2243,7 +2136,6 @@ func (p *UpdateTemplateParams) SetSshkeyenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sshkeyenabled"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateTemplateParams instance,
@@ -2387,7 +2279,6 @@ func (p *UpdateTemplatePermissionsParams) SetAccounts(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accounts"] = v
-	return
 }
 
 func (p *UpdateTemplatePermissionsParams) SetId(v string) {
@@ -2395,7 +2286,6 @@ func (p *UpdateTemplatePermissionsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateTemplatePermissionsParams) SetIsextractable(v bool) {
@@ -2403,7 +2293,6 @@ func (p *UpdateTemplatePermissionsParams) SetIsextractable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isextractable"] = v
-	return
 }
 
 func (p *UpdateTemplatePermissionsParams) SetIsfeatured(v bool) {
@@ -2411,7 +2300,6 @@ func (p *UpdateTemplatePermissionsParams) SetIsfeatured(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isfeatured"] = v
-	return
 }
 
 func (p *UpdateTemplatePermissionsParams) SetIspublic(v bool) {
@@ -2419,7 +2307,6 @@ func (p *UpdateTemplatePermissionsParams) SetIspublic(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ispublic"] = v
-	return
 }
 
 func (p *UpdateTemplatePermissionsParams) SetOp(v string) {
@@ -2427,7 +2314,6 @@ func (p *UpdateTemplatePermissionsParams) SetOp(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["op"] = v
-	return
 }
 
 func (p *UpdateTemplatePermissionsParams) SetProjectids(v []string) {
@@ -2435,7 +2321,6 @@ func (p *UpdateTemplatePermissionsParams) SetProjectids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectids"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateTemplatePermissionsParams instance,
@@ -2531,7 +2416,6 @@ func (p *UpgradeRouterTemplateParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *UpgradeRouterTemplateParams) SetClusterid(v string) {
@@ -2539,7 +2423,6 @@ func (p *UpgradeRouterTemplateParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
-	return
 }
 
 func (p *UpgradeRouterTemplateParams) SetDomainid(v string) {
@@ -2547,7 +2430,6 @@ func (p *UpgradeRouterTemplateParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *UpgradeRouterTemplateParams) SetId(v string) {
@@ -2555,7 +2437,6 @@ func (p *UpgradeRouterTemplateParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpgradeRouterTemplateParams) SetPodid(v string) {
@@ -2563,7 +2444,6 @@ func (p *UpgradeRouterTemplateParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *UpgradeRouterTemplateParams) SetZoneid(v string) {
@@ -2571,7 +2451,6 @@ func (p *UpgradeRouterTemplateParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new UpgradeRouterTemplateParams instance,

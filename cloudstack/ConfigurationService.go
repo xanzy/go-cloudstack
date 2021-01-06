@@ -133,7 +133,6 @@ func (p *ListConfigurationsParams) SetAccountid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountid"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetCategory(v string) {
@@ -141,7 +140,6 @@ func (p *ListConfigurationsParams) SetCategory(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["category"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetClusterid(v string) {
@@ -149,7 +147,6 @@ func (p *ListConfigurationsParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetDomainid(v string) {
@@ -157,7 +154,6 @@ func (p *ListConfigurationsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetImagestoreuuid(v string) {
@@ -165,7 +161,6 @@ func (p *ListConfigurationsParams) SetImagestoreuuid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["imagestoreuuid"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetKeyword(v string) {
@@ -173,7 +168,6 @@ func (p *ListConfigurationsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetName(v string) {
@@ -181,7 +175,6 @@ func (p *ListConfigurationsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetPage(v int) {
@@ -189,7 +182,6 @@ func (p *ListConfigurationsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetPagesize(v int) {
@@ -197,7 +189,6 @@ func (p *ListConfigurationsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetStorageid(v string) {
@@ -205,7 +196,6 @@ func (p *ListConfigurationsParams) SetStorageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["storageid"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetZoneid(v string) {
@@ -213,7 +203,6 @@ func (p *ListConfigurationsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListConfigurationsParams instance,
@@ -283,7 +272,6 @@ func (p *ListDeploymentPlannersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListDeploymentPlannersParams) SetPage(v int) {
@@ -291,7 +279,6 @@ func (p *ListDeploymentPlannersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListDeploymentPlannersParams) SetPagesize(v int) {
@@ -299,7 +286,6 @@ func (p *ListDeploymentPlannersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListDeploymentPlannersParams instance,
@@ -377,7 +363,6 @@ func (p *UpdateConfigurationParams) SetAccountid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountid"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetClusterid(v string) {
@@ -385,7 +370,6 @@ func (p *UpdateConfigurationParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetDomainid(v string) {
@@ -393,7 +377,6 @@ func (p *UpdateConfigurationParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetImagestoreuuid(v string) {
@@ -401,7 +384,6 @@ func (p *UpdateConfigurationParams) SetImagestoreuuid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["imagestoreuuid"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetName(v string) {
@@ -409,7 +391,6 @@ func (p *UpdateConfigurationParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetStorageid(v string) {
@@ -417,7 +398,6 @@ func (p *UpdateConfigurationParams) SetStorageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["storageid"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetValue(v string) {
@@ -425,7 +405,6 @@ func (p *UpdateConfigurationParams) SetValue(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["value"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetZoneid(v string) {
@@ -433,7 +412,6 @@ func (p *UpdateConfigurationParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateConfigurationParams instance,

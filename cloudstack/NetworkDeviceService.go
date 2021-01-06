@@ -50,7 +50,6 @@ func (p *AddNetworkDeviceParams) SetNetworkdeviceparameterlist(v map[string]stri
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdeviceparameterlist"] = v
-	return
 }
 
 func (p *AddNetworkDeviceParams) SetNetworkdevicetype(v string) {
@@ -58,7 +57,6 @@ func (p *AddNetworkDeviceParams) SetNetworkdevicetype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdevicetype"] = v
-	return
 }
 
 // You should always use this function to get a new AddNetworkDeviceParams instance,
@@ -110,7 +108,6 @@ func (p *DeleteNetworkDeviceParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteNetworkDeviceParams instance,
@@ -209,7 +206,6 @@ func (p *ListNetworkDeviceParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListNetworkDeviceParams) SetNetworkdeviceparameterlist(v map[string]string) {
@@ -217,7 +213,6 @@ func (p *ListNetworkDeviceParams) SetNetworkdeviceparameterlist(v map[string]str
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdeviceparameterlist"] = v
-	return
 }
 
 func (p *ListNetworkDeviceParams) SetNetworkdevicetype(v string) {
@@ -225,7 +220,6 @@ func (p *ListNetworkDeviceParams) SetNetworkdevicetype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdevicetype"] = v
-	return
 }
 
 func (p *ListNetworkDeviceParams) SetPage(v int) {
@@ -233,7 +227,6 @@ func (p *ListNetworkDeviceParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListNetworkDeviceParams) SetPagesize(v int) {
@@ -241,7 +234,6 @@ func (p *ListNetworkDeviceParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListNetworkDeviceParams instance,

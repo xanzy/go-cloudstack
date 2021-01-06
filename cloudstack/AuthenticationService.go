@@ -52,7 +52,6 @@ func (p *LoginParams) SetDomain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domain"] = v
-	return
 }
 
 func (p *LoginParams) SetDomainId(v int64) {
@@ -60,7 +59,6 @@ func (p *LoginParams) SetDomainId(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainId"] = v
-	return
 }
 
 func (p *LoginParams) SetPassword(v string) {
@@ -68,7 +66,6 @@ func (p *LoginParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *LoginParams) SetUsername(v string) {
@@ -76,7 +73,6 @@ func (p *LoginParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new LoginParams instance,

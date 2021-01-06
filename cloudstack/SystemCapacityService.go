@@ -70,7 +70,6 @@ func (p *ListCapacityParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
-	return
 }
 
 func (p *ListCapacityParams) SetFetchlatest(v bool) {
@@ -78,7 +77,6 @@ func (p *ListCapacityParams) SetFetchlatest(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fetchlatest"] = v
-	return
 }
 
 func (p *ListCapacityParams) SetKeyword(v string) {
@@ -86,7 +84,6 @@ func (p *ListCapacityParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListCapacityParams) SetPage(v int) {
@@ -94,7 +91,6 @@ func (p *ListCapacityParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListCapacityParams) SetPagesize(v int) {
@@ -102,7 +98,6 @@ func (p *ListCapacityParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListCapacityParams) SetPodid(v string) {
@@ -110,7 +105,6 @@ func (p *ListCapacityParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *ListCapacityParams) SetSortby(v string) {
@@ -118,7 +112,6 @@ func (p *ListCapacityParams) SetSortby(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sortby"] = v
-	return
 }
 
 func (p *ListCapacityParams) SetType(v int) {
@@ -126,7 +119,6 @@ func (p *ListCapacityParams) SetType(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 func (p *ListCapacityParams) SetZoneid(v string) {
@@ -134,7 +126,6 @@ func (p *ListCapacityParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListCapacityParams instance,

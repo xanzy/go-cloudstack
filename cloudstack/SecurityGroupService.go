@@ -118,7 +118,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupEgressParams) SetCidrlist(v []string) {
@@ -126,7 +125,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupEgressParams) SetDomainid(v string) {
@@ -134,7 +132,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupEgressParams) SetEndport(v int) {
@@ -142,7 +139,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetEndport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endport"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupEgressParams) SetIcmpcode(v int) {
@@ -150,7 +146,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetIcmpcode(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmpcode"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupEgressParams) SetIcmptype(v int) {
@@ -158,7 +153,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetIcmptype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmptype"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupEgressParams) SetProjectid(v string) {
@@ -166,7 +160,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupEgressParams) SetProtocol(v string) {
@@ -174,7 +167,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupEgressParams) SetSecuritygroupid(v string) {
@@ -182,7 +174,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetSecuritygroupid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["securitygroupid"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupEgressParams) SetSecuritygroupname(v string) {
@@ -190,7 +181,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetSecuritygroupname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["securitygroupname"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupEgressParams) SetStartport(v int) {
@@ -198,7 +188,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetStartport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startport"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupEgressParams) SetUsersecuritygrouplist(v map[string]string) {
@@ -206,7 +195,6 @@ func (p *AuthorizeSecurityGroupEgressParams) SetUsersecuritygrouplist(v map[stri
 		p.p = make(map[string]interface{})
 	}
 	p.p["usersecuritygrouplist"] = v
-	return
 }
 
 // You should always use this function to get a new AuthorizeSecurityGroupEgressParams instance,
@@ -334,7 +322,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupIngressParams) SetCidrlist(v []string) {
@@ -342,7 +329,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupIngressParams) SetDomainid(v string) {
@@ -350,7 +336,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupIngressParams) SetEndport(v int) {
@@ -358,7 +343,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetEndport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endport"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupIngressParams) SetIcmpcode(v int) {
@@ -366,7 +350,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetIcmpcode(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmpcode"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupIngressParams) SetIcmptype(v int) {
@@ -374,7 +357,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetIcmptype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmptype"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupIngressParams) SetProjectid(v string) {
@@ -382,7 +364,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupIngressParams) SetProtocol(v string) {
@@ -390,7 +371,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupIngressParams) SetSecuritygroupid(v string) {
@@ -398,7 +378,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetSecuritygroupid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["securitygroupid"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupIngressParams) SetSecuritygroupname(v string) {
@@ -406,7 +385,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetSecuritygroupname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["securitygroupname"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupIngressParams) SetStartport(v int) {
@@ -414,7 +392,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetStartport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startport"] = v
-	return
 }
 
 func (p *AuthorizeSecurityGroupIngressParams) SetUsersecuritygrouplist(v map[string]string) {
@@ -422,7 +399,6 @@ func (p *AuthorizeSecurityGroupIngressParams) SetUsersecuritygrouplist(v map[str
 		p.p = make(map[string]interface{})
 	}
 	p.p["usersecuritygrouplist"] = v
-	return
 }
 
 // You should always use this function to get a new AuthorizeSecurityGroupIngressParams instance,
@@ -520,7 +496,6 @@ func (p *CreateSecurityGroupParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateSecurityGroupParams) SetDescription(v string) {
@@ -528,7 +503,6 @@ func (p *CreateSecurityGroupParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateSecurityGroupParams) SetDomainid(v string) {
@@ -536,7 +510,6 @@ func (p *CreateSecurityGroupParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateSecurityGroupParams) SetName(v string) {
@@ -544,7 +517,6 @@ func (p *CreateSecurityGroupParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateSecurityGroupParams) SetProjectid(v string) {
@@ -552,7 +524,6 @@ func (p *CreateSecurityGroupParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateSecurityGroupParams instance,
@@ -646,7 +617,6 @@ func (p *DeleteSecurityGroupParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *DeleteSecurityGroupParams) SetDomainid(v string) {
@@ -654,7 +624,6 @@ func (p *DeleteSecurityGroupParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *DeleteSecurityGroupParams) SetId(v string) {
@@ -662,7 +631,6 @@ func (p *DeleteSecurityGroupParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *DeleteSecurityGroupParams) SetName(v string) {
@@ -670,7 +638,6 @@ func (p *DeleteSecurityGroupParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *DeleteSecurityGroupParams) SetProjectid(v string) {
@@ -678,7 +645,6 @@ func (p *DeleteSecurityGroupParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteSecurityGroupParams instance,
@@ -799,7 +765,6 @@ func (p *ListSecurityGroupsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListSecurityGroupsParams) SetDomainid(v string) {
@@ -807,7 +772,6 @@ func (p *ListSecurityGroupsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListSecurityGroupsParams) SetId(v string) {
@@ -815,7 +779,6 @@ func (p *ListSecurityGroupsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListSecurityGroupsParams) SetIsrecursive(v bool) {
@@ -823,7 +786,6 @@ func (p *ListSecurityGroupsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListSecurityGroupsParams) SetKeyword(v string) {
@@ -831,7 +793,6 @@ func (p *ListSecurityGroupsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListSecurityGroupsParams) SetListall(v bool) {
@@ -839,7 +800,6 @@ func (p *ListSecurityGroupsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListSecurityGroupsParams) SetPage(v int) {
@@ -847,7 +807,6 @@ func (p *ListSecurityGroupsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListSecurityGroupsParams) SetPagesize(v int) {
@@ -855,7 +814,6 @@ func (p *ListSecurityGroupsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListSecurityGroupsParams) SetProjectid(v string) {
@@ -863,7 +821,6 @@ func (p *ListSecurityGroupsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListSecurityGroupsParams) SetSecuritygroupname(v string) {
@@ -871,7 +828,6 @@ func (p *ListSecurityGroupsParams) SetSecuritygroupname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["securitygroupname"] = v
-	return
 }
 
 func (p *ListSecurityGroupsParams) SetTags(v map[string]string) {
@@ -879,7 +835,6 @@ func (p *ListSecurityGroupsParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListSecurityGroupsParams) SetVirtualmachineid(v string) {
@@ -887,7 +842,6 @@ func (p *ListSecurityGroupsParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new ListSecurityGroupsParams instance,
@@ -1052,7 +1006,6 @@ func (p *RevokeSecurityGroupEgressParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RevokeSecurityGroupEgressParams instance,
@@ -1121,7 +1074,6 @@ func (p *RevokeSecurityGroupIngressParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RevokeSecurityGroupIngressParams instance,

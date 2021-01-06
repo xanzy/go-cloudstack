@@ -52,7 +52,6 @@ func (p *AddTrafficMonitorParams) SetExcludezones(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["excludezones"] = v
-	return
 }
 
 func (p *AddTrafficMonitorParams) SetIncludezones(v string) {
@@ -60,7 +59,6 @@ func (p *AddTrafficMonitorParams) SetIncludezones(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["includezones"] = v
-	return
 }
 
 func (p *AddTrafficMonitorParams) SetUrl(v string) {
@@ -68,7 +66,6 @@ func (p *AddTrafficMonitorParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *AddTrafficMonitorParams) SetZoneid(v string) {
@@ -76,7 +73,6 @@ func (p *AddTrafficMonitorParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new AddTrafficMonitorParams instance,
@@ -158,7 +154,6 @@ func (p *AddTrafficTypeParams) SetHypervnetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervnetworklabel"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetIsolationmethod(v string) {
@@ -166,7 +161,6 @@ func (p *AddTrafficTypeParams) SetIsolationmethod(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isolationmethod"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetKvmnetworklabel(v string) {
@@ -174,7 +168,6 @@ func (p *AddTrafficTypeParams) SetKvmnetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["kvmnetworklabel"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetOvm3networklabel(v string) {
@@ -182,7 +175,6 @@ func (p *AddTrafficTypeParams) SetOvm3networklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ovm3networklabel"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetPhysicalnetworkid(v string) {
@@ -190,7 +182,6 @@ func (p *AddTrafficTypeParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetTraffictype(v string) {
@@ -198,7 +189,6 @@ func (p *AddTrafficTypeParams) SetTraffictype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["traffictype"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetVlan(v string) {
@@ -206,7 +196,6 @@ func (p *AddTrafficTypeParams) SetVlan(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlan"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetVmwarenetworklabel(v string) {
@@ -214,7 +203,6 @@ func (p *AddTrafficTypeParams) SetVmwarenetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmwarenetworklabel"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetXennetworklabel(v string) {
@@ -222,7 +210,6 @@ func (p *AddTrafficTypeParams) SetXennetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["xennetworklabel"] = v
-	return
 }
 
 // You should always use this function to get a new AddTrafficTypeParams instance,
@@ -303,7 +290,6 @@ func (p *DeleteTrafficMonitorParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteTrafficMonitorParams instance,
@@ -384,7 +370,6 @@ func (p *DeleteTrafficTypeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteTrafficTypeParams instance,
@@ -459,7 +444,6 @@ func (p *GenerateUsageRecordsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *GenerateUsageRecordsParams) SetEnddate(v string) {
@@ -467,7 +451,6 @@ func (p *GenerateUsageRecordsParams) SetEnddate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enddate"] = v
-	return
 }
 
 func (p *GenerateUsageRecordsParams) SetStartdate(v string) {
@@ -475,7 +458,6 @@ func (p *GenerateUsageRecordsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
-	return
 }
 
 // You should always use this function to get a new GenerateUsageRecordsParams instance,
@@ -568,7 +550,6 @@ func (p *ListTrafficMonitorsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListTrafficMonitorsParams) SetPage(v int) {
@@ -576,7 +557,6 @@ func (p *ListTrafficMonitorsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListTrafficMonitorsParams) SetPagesize(v int) {
@@ -584,7 +564,6 @@ func (p *ListTrafficMonitorsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListTrafficMonitorsParams) SetZoneid(v string) {
@@ -592,7 +571,6 @@ func (p *ListTrafficMonitorsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListTrafficMonitorsParams instance,
@@ -665,7 +643,6 @@ func (p *ListTrafficTypeImplementorsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListTrafficTypeImplementorsParams) SetPage(v int) {
@@ -673,7 +650,6 @@ func (p *ListTrafficTypeImplementorsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListTrafficTypeImplementorsParams) SetPagesize(v int) {
@@ -681,7 +657,6 @@ func (p *ListTrafficTypeImplementorsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListTrafficTypeImplementorsParams) SetTraffictype(v string) {
@@ -689,7 +664,6 @@ func (p *ListTrafficTypeImplementorsParams) SetTraffictype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["traffictype"] = v
-	return
 }
 
 // You should always use this function to get a new ListTrafficTypeImplementorsParams instance,
@@ -758,7 +732,6 @@ func (p *ListTrafficTypesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListTrafficTypesParams) SetPage(v int) {
@@ -766,7 +739,6 @@ func (p *ListTrafficTypesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListTrafficTypesParams) SetPagesize(v int) {
@@ -774,7 +746,6 @@ func (p *ListTrafficTypesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListTrafficTypesParams) SetPhysicalnetworkid(v string) {
@@ -782,7 +753,6 @@ func (p *ListTrafficTypesParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 // You should always use this function to get a new ListTrafficTypesParams instance,
@@ -920,7 +890,6 @@ func (p *ListUsageRecordsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetAccountid(v string) {
@@ -928,7 +897,6 @@ func (p *ListUsageRecordsParams) SetAccountid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountid"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetDomainid(v string) {
@@ -936,7 +904,6 @@ func (p *ListUsageRecordsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetEnddate(v string) {
@@ -944,7 +911,6 @@ func (p *ListUsageRecordsParams) SetEnddate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enddate"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetIncludetags(v bool) {
@@ -952,7 +918,6 @@ func (p *ListUsageRecordsParams) SetIncludetags(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["includetags"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetKeyword(v string) {
@@ -960,7 +925,6 @@ func (p *ListUsageRecordsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetPage(v int) {
@@ -968,7 +932,6 @@ func (p *ListUsageRecordsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetPagesize(v int) {
@@ -976,7 +939,6 @@ func (p *ListUsageRecordsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetProjectid(v string) {
@@ -984,7 +946,6 @@ func (p *ListUsageRecordsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetStartdate(v string) {
@@ -992,7 +953,6 @@ func (p *ListUsageRecordsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetType(v int64) {
@@ -1000,7 +960,6 @@ func (p *ListUsageRecordsParams) SetType(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetUsageid(v string) {
@@ -1008,7 +967,6 @@ func (p *ListUsageRecordsParams) SetUsageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["usageid"] = v
-	return
 }
 
 // You should always use this function to get a new ListUsageRecordsParams instance,
@@ -1143,7 +1101,6 @@ func (p *RemoveRawUsageRecordsParams) SetInterval(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["interval"] = v
-	return
 }
 
 // You should always use this function to get a new RemoveRawUsageRecordsParams instance,
@@ -1239,7 +1196,6 @@ func (p *UpdateTrafficTypeParams) SetHypervnetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervnetworklabel"] = v
-	return
 }
 
 func (p *UpdateTrafficTypeParams) SetId(v string) {
@@ -1247,7 +1203,6 @@ func (p *UpdateTrafficTypeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateTrafficTypeParams) SetKvmnetworklabel(v string) {
@@ -1255,7 +1210,6 @@ func (p *UpdateTrafficTypeParams) SetKvmnetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["kvmnetworklabel"] = v
-	return
 }
 
 func (p *UpdateTrafficTypeParams) SetOvm3networklabel(v string) {
@@ -1263,7 +1217,6 @@ func (p *UpdateTrafficTypeParams) SetOvm3networklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ovm3networklabel"] = v
-	return
 }
 
 func (p *UpdateTrafficTypeParams) SetVmwarenetworklabel(v string) {
@@ -1271,7 +1224,6 @@ func (p *UpdateTrafficTypeParams) SetVmwarenetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmwarenetworklabel"] = v
-	return
 }
 
 func (p *UpdateTrafficTypeParams) SetXennetworklabel(v string) {
@@ -1279,7 +1231,6 @@ func (p *UpdateTrafficTypeParams) SetXennetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["xennetworklabel"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateTrafficTypeParams instance,

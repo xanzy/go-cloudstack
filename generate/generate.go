@@ -107,15 +107,17 @@ func (s services) Swap(i, j int) {
 // APIParams represents a list of API params
 type APIParams []*APIParam
 
-// Add functions for the Sort interface
+// Len implements the Sort interface
 func (s APIParams) Len() int {
 	return len(s)
 }
 
+// Less implements the Sort interface
 func (s APIParams) Less(i, j int) bool {
 	return s[i].Name < s[j].Name
 }
 
+// Swap implements the Sort interface
 func (s APIParams) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
@@ -148,15 +150,17 @@ type APIResponse struct {
 // APIResponses represents a list of API responses
 type APIResponses []*APIResponse
 
-// Add functions for the Sort interface
+// Len implements the Sort interface
 func (s APIResponses) Len() int {
 	return len(s)
 }
 
+// Less implements the Sort interface
 func (s APIResponses) Less(i, j int) bool {
 	return s[i].Name < s[j].Name
 }
 
+// Swap implements the Sort interface
 func (s APIResponses) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
@@ -192,7 +196,7 @@ func main() {
 	if len(errors) > 0 {
 		log.Printf("%d API(s) failed to generate:", len(errors))
 		for _, ce := range errors {
-			log.Printf(ce.Error())
+			log.Print(ce.Error())
 		}
 		os.Exit(1)
 	}
@@ -509,7 +513,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("		keys = append(keys, k)")
 	pn("	}")
 	pn("	sort.Strings(keys)")
-	pn("	return")
+	pn("	return keys")
 	pn("}")
 	pn("")
 	pn("// WithAsyncTimeout takes a custom timeout to be used by the CloudStackClient")
@@ -829,7 +833,6 @@ func (s *service) GenerateCode() ([]byte, error) {
 		pn("		p.p = make(map[string]interface{})")
 		pn("	}")
 		pn("	p.p[param] = v")
-		pn("	return")
 		pn("}")
 		pn("")
 		pn("func (s *CustomService) CustomRequest(api string, p *CustomServiceParams, result interface{}) error {")
@@ -866,7 +869,6 @@ func (s *service) generateParamType(a *API) {
 	pn("type %s struct {", capitalize(a.Name+"Params"))
 	pn("	p map[string]interface{}")
 	pn("}\n")
-	return
 }
 
 func (s *service) generateToURLValuesFunc(a *API) {
@@ -885,7 +887,6 @@ func (s *service) generateToURLValuesFunc(a *API) {
 	pn("	return u")
 	pn("}")
 	pn("")
-	return
 }
 
 func (s *service) generateConvertCode(cmd, name, typ string) {
@@ -929,7 +930,6 @@ func (s *service) generateConvertCode(cmd, name, typ string) {
 		}
 		pn("}")
 	}
-	return
 }
 
 func (s *service) parseParamName(name string) string {
@@ -950,13 +950,11 @@ func (s *service) generateParamSettersFunc(a *API) {
 			pn("		p.p = make(map[string]interface{})")
 			pn("	}")
 			pn("	p.p[\"%s\"] = v", ap.Name)
-			pn("	return")
 			pn("}")
 			pn("")
 			found[ap.Name] = true
 		}
 	}
-	return
 }
 
 func (s *service) generateNewParamTypeFunc(a *API) {
@@ -986,7 +984,6 @@ func (s *service) generateNewParamTypeFunc(a *API) {
 	pn("	return p")
 	pn("}")
 	pn("")
-	return
 }
 
 func (s *service) generateHelperFuncs(a *API) {
@@ -1186,7 +1183,6 @@ func (s *service) generateHelperFuncs(a *API) {
 			pn("")
 		}
 	}
-	return
 }
 
 func hasNameOrKeywordParamField(params APIParams) (v string, found bool) {
@@ -1357,30 +1353,30 @@ func (s *service) generateResponseType(a *API) {
 	// If this is a 'list' response, we need an separate list struct. There seem to be other
 	// types of responses that also need a separate list struct, so checking on exact matches
 	// for those once.
-	if strings.HasPrefix(a.Name, "list") && a.Name != "listCapabilities" || a.Name == "registerTemplate" {
+	if strings.HasPrefix(a.Name, "list") || a.Name == "registerTemplate" {
 		pn("type %s struct {", tn)
-		pn("	Count int `json:\"count\"`")
 
 		// This nasty check is for some specific response that do not behave consistent
 		switch a.Name {
 		case "listAsyncJobs":
+			pn("	Count int `json:\"count\"`")
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "asyncjobs")
+		case "listCapabilities":
+			pn("    %s *%s `json:\"%s\"`", ln, parseSingular(ln), "capability")
 		case "listEgressFirewallRules":
+			pn("	Count int `json:\"count\"`")
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "firewallrule")
 		case "listLoadBalancerRuleInstances":
+			pn("	Count int `json:\"count\"`")
 			pn("	LBRuleVMIDIPs []*%s `json:\"%s\"`", parseSingular(ln), "lbrulevmidip")
 			pn("	LoadBalancerRuleInstances []*VirtualMachine `json:\"%s\"`", strings.ToLower(parseSingular(ln)))
 		case "registerTemplate":
+			pn("	Count int `json:\"count\"`")
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "template")
 		default:
+			pn("	Count int `json:\"count\"`")
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), strings.ToLower(parseSingular(ln)))
 		}
-		pn("}")
-		pn("")
-		tn = parseSingular(ln)
-	} else if a.Name == "listCapabilities" {
-		pn("type %s struct {", tn)
-		pn("    %s *%s `json:\"%s\"`", ln, parseSingular(ln), "capability")
 		pn("}")
 		pn("")
 		tn = parseSingular(ln)
