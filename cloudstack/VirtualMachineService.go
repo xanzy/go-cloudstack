@@ -2375,7 +2375,6 @@ func (p *ListVirtualMachinesMetricsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetAffinitygroupid(v string) {
@@ -2383,7 +2382,6 @@ func (p *ListVirtualMachinesMetricsParams) SetAffinitygroupid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["affinitygroupid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetDetails(v []string) {
@@ -2391,7 +2389,6 @@ func (p *ListVirtualMachinesMetricsParams) SetDetails(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetDisplayvm(v bool) {
@@ -2399,7 +2396,6 @@ func (p *ListVirtualMachinesMetricsParams) SetDisplayvm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displayvm"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetDomainid(v string) {
@@ -2407,7 +2403,6 @@ func (p *ListVirtualMachinesMetricsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetForvirtualnetwork(v bool) {
@@ -2415,7 +2410,6 @@ func (p *ListVirtualMachinesMetricsParams) SetForvirtualnetwork(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forvirtualnetwork"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetGroupid(v string) {
@@ -2423,7 +2417,6 @@ func (p *ListVirtualMachinesMetricsParams) SetGroupid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["groupid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetHostid(v string) {
@@ -2431,7 +2424,6 @@ func (p *ListVirtualMachinesMetricsParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetHypervisor(v string) {
@@ -2439,7 +2431,6 @@ func (p *ListVirtualMachinesMetricsParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetId(v string) {
@@ -2447,7 +2438,6 @@ func (p *ListVirtualMachinesMetricsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetIds(v []string) {
@@ -2455,7 +2445,6 @@ func (p *ListVirtualMachinesMetricsParams) SetIds(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ids"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetIsoid(v string) {
@@ -2463,7 +2452,6 @@ func (p *ListVirtualMachinesMetricsParams) SetIsoid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isoid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetIsrecursive(v bool) {
@@ -2471,7 +2459,6 @@ func (p *ListVirtualMachinesMetricsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetKeypair(v string) {
@@ -2479,7 +2466,6 @@ func (p *ListVirtualMachinesMetricsParams) SetKeypair(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keypair"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetKeyword(v string) {
@@ -2487,7 +2473,6 @@ func (p *ListVirtualMachinesMetricsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetListall(v bool) {
@@ -2495,7 +2480,6 @@ func (p *ListVirtualMachinesMetricsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetName(v string) {
@@ -2503,7 +2487,6 @@ func (p *ListVirtualMachinesMetricsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetNetworkid(v string) {
@@ -2511,7 +2494,6 @@ func (p *ListVirtualMachinesMetricsParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetPage(v int) {
@@ -2519,7 +2501,6 @@ func (p *ListVirtualMachinesMetricsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetPagesize(v int) {
@@ -2527,7 +2508,6 @@ func (p *ListVirtualMachinesMetricsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetPodid(v string) {
@@ -2535,7 +2515,6 @@ func (p *ListVirtualMachinesMetricsParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetProjectid(v string) {
@@ -2543,7 +2522,6 @@ func (p *ListVirtualMachinesMetricsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetServiceofferingid(v string) {
@@ -2551,7 +2529,6 @@ func (p *ListVirtualMachinesMetricsParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetState(v string) {
@@ -2559,7 +2536,6 @@ func (p *ListVirtualMachinesMetricsParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetStorageid(v string) {
@@ -2567,7 +2543,6 @@ func (p *ListVirtualMachinesMetricsParams) SetStorageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["storageid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetTags(v map[string]string) {
@@ -2575,7 +2550,6 @@ func (p *ListVirtualMachinesMetricsParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetTemplateid(v string) {
@@ -2583,7 +2557,6 @@ func (p *ListVirtualMachinesMetricsParams) SetTemplateid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templateid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetUserid(v string) {
@@ -2591,7 +2564,6 @@ func (p *ListVirtualMachinesMetricsParams) SetUserid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["userid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetVpcid(v string) {
@@ -2599,7 +2571,6 @@ func (p *ListVirtualMachinesMetricsParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesMetricsParams) SetZoneid(v string) {
@@ -2607,7 +2578,6 @@ func (p *ListVirtualMachinesMetricsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListVirtualMachinesMetricsParams instance,
@@ -2718,7 +2688,7 @@ func (s *VirtualMachineService) ListVirtualMachinesMetrics(p *ListVirtualMachine
 
 type ListVirtualMachinesMetricsResponse struct {
 	Count                  int                      `json:"count"`
-	VirtualMachinesMetrics []*VirtualMachinesMetric `json:"virtualmachinesmetric"`
+	VirtualMachinesMetrics []*VirtualMachinesMetric `json:"virtualmachine"`
 }
 
 type VirtualMachinesMetric struct {

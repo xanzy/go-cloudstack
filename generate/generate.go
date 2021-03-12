@@ -1370,6 +1370,9 @@ func (s *service) generateResponseType(a *API) {
 			pn("	Count int `json:\"count\"`")
 			pn("	LBRuleVMIDIPs []*%s `json:\"%s\"`", parseSingular(ln), "lbrulevmidip")
 			pn("	LoadBalancerRuleInstances []*VirtualMachine `json:\"%s\"`", strings.ToLower(parseSingular(ln)))
+		case "listVirtualMachinesMetrics":
+			pn("	Count int `json:\"count\"`")
+			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "virtualmachine")
 		case "registerTemplate":
 			pn("	Count int `json:\"count\"`")
 			pn("	%s []*%s `json:\"%s\"`", ln, parseSingular(ln), "template")
