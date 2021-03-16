@@ -968,7 +968,6 @@ func (p *ListClustersMetricsParams) SetAllocationstate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["allocationstate"] = v
-	return
 }
 
 func (p *ListClustersMetricsParams) SetClustertype(v string) {
@@ -976,7 +975,6 @@ func (p *ListClustersMetricsParams) SetClustertype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clustertype"] = v
-	return
 }
 
 func (p *ListClustersMetricsParams) SetHypervisor(v string) {
@@ -984,7 +982,6 @@ func (p *ListClustersMetricsParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *ListClustersMetricsParams) SetId(v string) {
@@ -992,7 +989,6 @@ func (p *ListClustersMetricsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListClustersMetricsParams) SetKeyword(v string) {
@@ -1000,7 +996,6 @@ func (p *ListClustersMetricsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListClustersMetricsParams) SetManagedstate(v string) {
@@ -1008,7 +1003,6 @@ func (p *ListClustersMetricsParams) SetManagedstate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["managedstate"] = v
-	return
 }
 
 func (p *ListClustersMetricsParams) SetName(v string) {
@@ -1016,7 +1010,6 @@ func (p *ListClustersMetricsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListClustersMetricsParams) SetPage(v int) {
@@ -1024,7 +1017,6 @@ func (p *ListClustersMetricsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListClustersMetricsParams) SetPagesize(v int) {
@@ -1032,7 +1024,6 @@ func (p *ListClustersMetricsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListClustersMetricsParams) SetPodid(v string) {
@@ -1040,7 +1031,6 @@ func (p *ListClustersMetricsParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *ListClustersMetricsParams) SetShowcapacities(v bool) {
@@ -1048,7 +1038,6 @@ func (p *ListClustersMetricsParams) SetShowcapacities(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["showcapacities"] = v
-	return
 }
 
 func (p *ListClustersMetricsParams) SetZoneid(v string) {
@@ -1056,7 +1045,6 @@ func (p *ListClustersMetricsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListClustersMetricsParams instance,

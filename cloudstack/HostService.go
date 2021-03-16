@@ -1948,7 +1948,6 @@ func (p *ListHostsMetricsParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetDetails(v []string) {
@@ -1956,7 +1955,6 @@ func (p *ListHostsMetricsParams) SetDetails(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetHahost(v bool) {
@@ -1964,7 +1962,6 @@ func (p *ListHostsMetricsParams) SetHahost(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hahost"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetHypervisor(v string) {
@@ -1972,7 +1969,6 @@ func (p *ListHostsMetricsParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetId(v string) {
@@ -1980,7 +1976,6 @@ func (p *ListHostsMetricsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetKeyword(v string) {
@@ -1988,7 +1983,6 @@ func (p *ListHostsMetricsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetName(v string) {
@@ -1996,7 +1990,6 @@ func (p *ListHostsMetricsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetOutofbandmanagementenabled(v bool) {
@@ -2004,7 +1997,6 @@ func (p *ListHostsMetricsParams) SetOutofbandmanagementenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["outofbandmanagementenabled"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetOutofbandmanagementpowerstate(v string) {
@@ -2012,7 +2004,6 @@ func (p *ListHostsMetricsParams) SetOutofbandmanagementpowerstate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["outofbandmanagementpowerstate"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetPage(v int) {
@@ -2020,7 +2011,6 @@ func (p *ListHostsMetricsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetPagesize(v int) {
@@ -2028,7 +2018,6 @@ func (p *ListHostsMetricsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetPodid(v string) {
@@ -2036,7 +2025,6 @@ func (p *ListHostsMetricsParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetResourcestate(v string) {
@@ -2044,7 +2032,6 @@ func (p *ListHostsMetricsParams) SetResourcestate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["resourcestate"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetState(v string) {
@@ -2052,7 +2039,6 @@ func (p *ListHostsMetricsParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetType(v string) {
@@ -2060,7 +2046,6 @@ func (p *ListHostsMetricsParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetVirtualmachineid(v string) {
@@ -2068,7 +2053,6 @@ func (p *ListHostsMetricsParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 func (p *ListHostsMetricsParams) SetZoneid(v string) {
@@ -2076,7 +2060,6 @@ func (p *ListHostsMetricsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListHostsMetricsParams instance,
