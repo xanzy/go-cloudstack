@@ -1,17 +1,20 @@
 //
-// Copyright 2018, Sander van Harmelen
+// Licensed to the Apache Software Foundation (ASF) under one
+// or more contributor license agreements.  See the NOTICE file
+// distributed with this work for additional information
+// regarding copyright ownership.  The ASF licenses this file
+// to you under the Apache License, Version 2.0 (the
+// "License"); you may not use this file except in compliance
+// with the License.  You may obtain a copy of the License at
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+//   http://www.apache.org/licenses/LICENSE-2.0
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
 //
 
 package main
@@ -230,19 +233,22 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 		p(format+"\n", args...)
 	}
 	pn("//")
-	pn("// Copyright 2018, Sander van Harmelen")
+	pn("// Licensed to the Apache Software Foundation (ASF) under one")
+	pn("// or more contributor license agreements.  See the NOTICE file")
+	pn("// distributed with this work for additional information")
+	pn("// regarding copyright ownership.  The ASF licenses this file")
+	pn("// to you under the Apache License, Version 2.0 (the")
+	pn("// \"License\"); you may not use this file except in compliance")
+	pn("// with the License.  You may obtain a copy of the License at")
 	pn("//")
-	pn("// Licensed under the Apache License, Version 2.0 (the \"License\");")
-	pn("// you may not use this file except in compliance with the License.")
-	pn("// You may obtain a copy of the License at")
+	pn("//   http://www.apache.org/licenses/LICENSE-2.0")
 	pn("//")
-	pn("//     http://www.apache.org/licenses/LICENSE-2.0")
-	pn("//")
-	pn("// Unless required by applicable law or agreed to in writing, software")
-	pn("// distributed under the License is distributed on an \"AS IS\" BASIS,")
-	pn("// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.")
-	pn("// See the License for the specific language governing permissions and")
-	pn("// limitations under the License.")
+	pn("// Unless required by applicable law or agreed to in writing,")
+	pn("// software distributed under the License is distributed on an")
+	pn("// \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY")
+	pn("// KIND, either express or implied.  See the License for the")
+	pn("// specific language governing permissions and limitations")
+	pn("// under the License.")
 	pn("//")
 	pn("")
 	pn("package %s", pkg)
@@ -689,19 +695,22 @@ func (s *service) GenerateCode() ([]byte, error) {
 	pn := s.pn
 
 	pn("//")
-	pn("// Copyright 2018, Sander van Harmelen")
+	pn("// Licensed to the Apache Software Foundation (ASF) under one")
+	pn("// or more contributor license agreements.  See the NOTICE file")
+	pn("// distributed with this work for additional information")
+	pn("// regarding copyright ownership.  The ASF licenses this file")
+	pn("// to you under the Apache License, Version 2.0 (the")
+	pn("// \"License\"); you may not use this file except in compliance")
+	pn("// with the License.  You may obtain a copy of the License at")
 	pn("//")
-	pn("// Licensed under the Apache License, Version 2.0 (the \"License\");")
-	pn("// you may not use this file except in compliance with the License.")
-	pn("// You may obtain a copy of the License at")
+	pn("//   http://www.apache.org/licenses/LICENSE-2.0")
 	pn("//")
-	pn("//     http://www.apache.org/licenses/LICENSE-2.0")
-	pn("//")
-	pn("// Unless required by applicable law or agreed to in writing, software")
-	pn("// distributed under the License is distributed on an \"AS IS\" BASIS,")
-	pn("// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.")
-	pn("// See the License for the specific language governing permissions and")
-	pn("// limitations under the License.")
+	pn("// Unless required by applicable law or agreed to in writing,")
+	pn("// software distributed under the License is distributed on an")
+	pn("// \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY")
+	pn("// KIND, either express or implied.  See the License for the")
+	pn("// specific language governing permissions and limitations")
+	pn("// under the License.")
 	pn("//")
 	pn("")
 	pn("package %s", pkg)
