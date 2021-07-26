@@ -1,3 +1,5 @@
+This repository is archived as it's development has been moved to the Apache Foundation. Please find the new home for this package here: https://github.com/apache/cloudstack-go
+
 go-cloudstack
 =============
 A CloudStack API client enabling Go programs to interact with CloudStack in a simple and uniform way
